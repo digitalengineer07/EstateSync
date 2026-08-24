@@ -1,1676 +1,482 @@
-# EstateSync Accounting System — Product Requirements Document
+# EstateSync — Fund Management & Accounting System PRD
 
-**Version:** 1.0  
-**Project:** EstateSync  
-**Current Scope:** Accounting & Finance Module  
-**Backend:** Node.js + Express.js  
-**Database:** PostgreSQL  
-**Cache / Idempotency / Rate Limiting:** Redis  
-**Frontend:** Next.js / React  
+**Version:** 1.1
+**Current Phase:** Fund Management, Expense Management & Accounting
+**Frontend:** Next.js / React
+**Backend:** Node.js + Express.js
+**Database:** PostgreSQL
+**Cache:** Redis
 **API:** REST `/api/v1/...`
 
 ---
 
-# 1. Product Overview
+## 1. Product Overview
 
-EstateSync is a role-based property business management platform. In the current development phase, this project focuses exclusively on the **Accounting & Finance system**.
+EstateSync is a role-based fund management and accounting platform for managing organizational funds, employee/team wallets, expense requests, approvals, allocations, and financial transactions.
 
-The Accounting system will provide a centralized and auditable platform for managing:
+This phase focuses on the **Accounting and Fund Management system** — a layer that sits alongside (and eventually connects to) the CRM/booking/collections modules defined in earlier phases.
 
-- Office expenses
-- Vendors
-- Chart of accounts
-- Double-entry accounting
-- Journal entries
-- Cash and bank accounts
-- Accounting periods
-- Expense approvals
-- Bank/cash reconciliation
-- Financial reports
+The system provides:
+
+- Central fund management
+- Fund allocation
+- User wallets
+- Fund requests
+- Manager approval workflow
+- Admin funding of managers
+- Expense recording and tracking
+- Overall financial transaction visibility
+- Available / allocated / spent fund tracking
+- Accounting oversight
 - Audit history
 - Role-based access control
 
-The system must treat financial data as **transactional and immutable**. Posted financial records must not be edited or deleted. Corrections must be performed through controlled reversal or adjustment transactions.
+**Core principle:** every movement of organizational funds must be traceable.
 
-The accounting module must serve as the financial source of truth for EstateSync.
+## 2. User Roles
 
----
-
-# 2. Product Goals
-
-## 2.1 Primary Goals
-
-1. Maintain accurate financial records.
-2. Implement proper double-entry accounting.
-3. Track all office expenses and settlements.
-4. Maintain a structured chart of accounts.
-5. Provide cash and bank account visibility.
-6. Support expense approval workflows.
-7. Prevent unauthorized financial operations.
-8. Maintain a complete audit trail.
-9. Generate ledger-derived financial reports.
-10. Prevent duplicate financial transactions.
-11. Protect posted accounting records from modification.
-12. Support accounting-period locking.
-13. Provide a foundation for future payment, booking, notification, and reporting modules.
-
----
-
-# 3. Current Phase Scope
-
-## 3.1 In Scope
-
-### Accounting
-
-- Chart of Accounts
-- Journal Entries
-- Journal Lines
-- General Ledger
-- Trial Balance
-- Profit & Loss
-- Balance Sheet
-- Cash Flow reporting
-
-### Expenses
-
-- Expense creation
-- Expense categories
-- Expense items
-- Expense evidence/attachments metadata
-- Expense submission
-- Expense approval
-- Expense rejection
-- Expense settlement
-- Expense reconciliation
-- Expense reversal
-
-### Vendors
-
-- Vendor creation
-- Vendor listing
-- Vendor details
-- Vendor updates
-- Vendor financial information
-- Vendor bills/payables foundation
-
-### Cash & Bank
-
-- Cash accounts
-- Bank accounts
-- Account balances
-- Financial transactions
-- Reconciliation
-
-### Accounting Periods
-
-- Period creation
-- Period status
-- Period locking
-- Controlled period reopening
-
-### Governance
-
-- Authentication
-- Permission-based RBAC
-- Audit logging
-- Maker-checker controls
-- Idempotency
-- Rate limiting
-- Input validation
-
----
-
-# 4. Explicitly Out of Scope
-
-The following are part of the larger EstateSync platform but are **not implemented in the current Accounting phase**:
-
-- Lead management
-- CRM
-- Site visits
-- Property inventory
-- Property pricing
-- Booking creation
-- Customer management
-- Customer payment collection
-- Payment gateway integration
-- SMS
-- Email notifications
-- WhatsApp
-- Electron packaging
-- Offline functionality
-- Offline approvals
-- OCR
-- KYC processing
-- Customer portal
-
-The accounting architecture should, however, remain compatible with future modules.
-
----
-
-# 5. User Roles
-
-The system will use permission-based RBAC.
-
-Roles must **not** be hard-coded inside controllers or business logic.
-
-The system will initially support:
-
-| Role | Accounting Access |
+| Role | Description |
 |---|---|
-| ADMIN | Full accounting control |
-| MANAGER | Financial oversight and approvals |
-| ACCOUNTING | Expenses, vendors, ledger, reconciliation |
-| VIEWER / MIS | Read-only reports and dashboards |
-| SYSTEM / WORKER | Automated background operations |
+| ADMIN | Highest level of financial visibility and control; funds managers |
+| MANAGER | Controls funds allocated to their team; approves/rejects requests |
+| SALES | Requests and spends funds against own wallet |
+| MARKETING | Requests and spends funds against own wallet |
+| ACCOUNTING | Read/oversight access to all financial data — no allocation authority |
+| OTHER | Users/departments outside Sales/Marketing who still need wallet access |
 
-The frontend may hide UI elements based on permissions, but **the backend remains the final authority**.
+## 3. Role Responsibilities
 
----
+### 3.1 Admin
+Can: view all transactions, users, wallets, total organizational/allocated/available funds, total expenses, fund requests, manager balances, department/user expenses, complete transaction history, financial reports, audit logs; allocate funds to managers; perform authorized administrative corrections.
 
-# 6. Permission Model
+**Admin fund allocation** — the primary Admin responsibility is funding managers:
 
-Permissions use atomic resource-action codes.
-
-Examples:
-
-```text
-expense.create
-expense.view
-expense.submit
-expense.approve
-expense.reject
-expense.settle
-expense.reverse
-
-vendor.create
-vendor.view
-vendor.update
-
-account.create
-account.view
-account.update
-
-journal.create
-journal.view
-journal.post
-journal.reverse
-
-period.create
-period.view
-period.lock
-period.unlock
-
-cash_bank.view
-cash_bank.create
-cash_bank.update
-
-reconciliation.create
-reconciliation.view
-reconciliation.complete
-
-report.view
-ledger.view
-audit.view
+```
+Organization Funds
+        │
+        ▼
+      ADMIN
+        │
+        │ Allocate Funds
+        ▼
+    MANAGER WALLET
 ```
 
-A role receives permissions through role-permission mappings.
+Example: Admin has ₹10,00,000 available. Allocating ₹2,00,000 to a manager leaves Admin with ₹8,00,000 available and creates a permanent transaction record.
 
-The backend must never use logic such as:
+### 3.2 Manager
+Can: view own wallet, available/allocated funds, team fund requests; approve/reject requests; allocate available funds to team members; view team expenses; request additional funds from Admin; view own transaction history.
 
-```js
-if (user.role === "ADMIN")
+**A manager cannot allocate more money than the manager currently has available.**
+
+```
+ADMIN
+   │ Allocate
+   ▼
+MANAGER WALLET
+   │
+   ├──────────────┐
+   ▼              ▼
+SALES WALLET   MARKETING WALLET
+   │              │
+   ▼              ▼
+EXPENSES        EXPENSES
 ```
 
-Instead:
+**Insufficient manager funds:** if a manager cannot cover a team request, the manager raises a fund request to Admin. Only after Admin approves and the manager's balance increases can the manager approve the original team request.
 
-```text
-JWT
- ↓
-verifyJWT
- ↓
-checkPermission("expense.approve")
- ↓
-rateLimiter
- ↓
-controller
+```
+Sales requests ₹50,000
+Manager Wallet = ₹20,000  → Insufficient Funds
+        ↓
+Manager raises fund request to Admin
+        ↓
+Admin approves allocation
+        ↓
+Manager Wallet increases
+        ↓
+Manager approves Sales request
 ```
 
----
+The system must prevent negative wallet balances at every step.
 
-# 7. System Architecture
+### 3.3 Sales
+Can: view own wallet/available/allocated funds; request funds; view own requests and status; record expenses; view own expenses and transactions. **Cannot** directly allocate organizational funds.
 
-```text
-┌──────────────────────────┐
-│      Next.js Frontend    │
-│       React / Web        │
-└────────────┬─────────────┘
-             │
-          HTTP/JSON
-             │
-             ▼
-┌──────────────────────────┐
-│    Node.js / Express     │
-│       REST API           │
-│                          │
-│ Auth / RBAC              │
-│ Controllers              │
-│ Business Logic           │
-│ Validation               │
-│ Accounting Transactions  │
-│ Audit                    │
-└────────────┬─────────────┘
-             │
-       ┌─────┴──────┐
-       │            │
-       ▼            ▼
-┌────────────┐  ┌────────────┐
-│ PostgreSQL │  │   Redis    │
-│            │  │            │
-│ All data   │  │ Sessions   │
-│ Ledger     │  │ Rate limit │
-│ Expenses   │  │ Idempotency│
-│ Audit      │  │            │
-└────────────┘  └────────────┘
+### 3.4 Marketing
+Same capabilities as Sales. **Cannot** approve its own fund request.
+
+### 3.5 Other
+Same basic capabilities as Sales/Marketing (wallet view, fund requests, expense recording/viewing) unless additional permissions are assigned.
+
+### 3.6 Accounting
+Financial oversight rather than operational fund allocation. Can view: total organizational/available/allocated/distributed funds, total expenses, manager and employee wallets, user-wise/manager-wise/department-wise allocation and expenses, complete transaction history, fund requests (approved/pending/rejected), financial reports.
+
+**Accounting has read/oversight access and should not automatically receive Admin-level fund-allocation authority.**
+
+## 4. Wallet System
+
+The wallet is the central concept of the fund-management system. Every fund-controlled user has a wallet.
+
+```
+                    ORGANIZATION
+                    ₹10,00,000
+                         │
+                         ▼
+                      ADMIN
+                         │
+          ┌──────────────┴──────────────┐
+          ▼                             ▼
+      MANAGER A                     MANAGER B
+      ₹2,00,000                     ₹1,50,000
+          │
+     ┌────┴─────┐
+     ▼          ▼
+   SALES      MARKETING
+   ₹50,000     ₹30,000
 ```
 
-PostgreSQL is the single source of truth for financial data.
+### 4.1 Wallet Fields
+`wallet_id`, `user_id`, `total_allocated`, `total_spent`, `available_balance`, `created_at`, `updated_at`.
 
-Redis is not the source of financial truth.
+Conceptually: `available_balance = total_allocated - total_spent`. The actual implementation must maintain full transactional records rather than relying on a calculated number alone.
 
----
+### 4.2 Wallet Transaction Types
+`FUND_ALLOCATION`, `FUND_TRANSFER`, `FUND_REQUEST`, `FUND_REQUEST_APPROVED`, `FUND_REQUEST_REJECTED`, `EXPENSE`, `EXPENSE_REVERSAL`, `FUND_RETURN`, `ADJUSTMENT`.
 
-# 8. Backend Project Structure
+Example chain:
 
-```text
-backend/
-│
-├── src/
-│   ├── config/
-│   │   └── db.js
-│   │
-│   ├── controller/
-│   │   ├── expenseController.js
-│   │   ├── vendorController.js
-│   │   ├── accountController.js
-│   │   ├── journalController.js
-│   │   ├── accountingPeriodController.js
-│   │   ├── cashBankController.js
-│   │   ├── reconciliationController.js
-│   │   └── reportController.js
-│   │
-│   ├── middleware/
-│   │   ├── authMiddleware.js
-│   │   ├── permissionMiddleware.js
-│   │   ├── rateLimitMiddleware.js
-│   │   └── errorMiddleware.js
-│   │
-│   ├── models/
-│   │   ├── Expense.js
-│   │   ├── ExpenseItem.js
-│   │   ├── ExpenseApproval.js
-│   │   ├── Vendor.js
-│   │   ├── ChartOfAccount.js
-│   │   ├── JournalEntry.js
-│   │   ├── JournalLine.js
-│   │   ├── AccountingPeriod.js
-│   │   ├── CashBankAccount.js
-│   │   └── Reconciliation.js
-│   │
-│   ├── routes/
-│   │   ├── expenseRoutes.js
-│   │   ├── vendorRoutes.js
-│   │   ├── accountRoutes.js
-│   │   ├── journalRoutes.js
-│   │   ├── accountingPeriodRoutes.js
-│   │   ├── cashBankRoutes.js
-│   │   ├── reconciliationRoutes.js
-│   │   └── reportRoutes.js
-│   │
-│   ├── utils/
-│   │   ├── generateNumber.js
-│   │   └── response.js
-│   │
-│   └── app.js
-│
-├── package.json
-├── package-lock.json
-└── .env
+```
+ADMIN_ALLOCATED ₹2,00,000 → MANAGER WALLET
+MANAGER_ALLOCATED ₹50,000 → SALES WALLET
+SALES_EXPENSE ₹10,000 → SALES WALLET
+
+Result:
+Sales Allocated: ₹50,000
+Sales Spent:     ₹10,000
+Sales Available: ₹40,000
 ```
 
-Controllers are organized by **business resource**, not by role. Role access is enforced through permission middleware.
+### 4.3 Wallet Invariants (mandatory)
 
----
+| Rule | Description |
+|---|---|
+| No negative balance | `available_balance >= 0` — any transaction that would violate this must fail |
+| Every allocation is recorded | Money cannot appear in a wallet without a source transaction |
+| Every expense is recorded | Money cannot disappear from a wallet without a transaction |
+| Wallet transactions are immutable | Completed transactions cannot be edited or deleted; corrections use reversal/adjustment transactions |
+| Atomic wallet updates | Fund allocation must update source and destination wallets in the same database transaction |
 
-# 9. Authentication
+## 5. Fund Request System
 
-## 9.1 Login
+Users request funds from the person responsible for their allocation.
 
-Endpoint:
-
-```http
-POST /api/v1/auth/login
+**Normal flow:**
+```
+SALES / MARKETING / OTHER → Fund Request → MANAGER → Approve/Reject → USER WALLET
 ```
 
-Request:
+**States:**
+```
+PENDING → APPROVED
+PENDING → REJECTED
+```
 
+**Manager insufficient-funds case:**
+```
+PENDING → INSUFFICIENT_MANAGER_FUNDS → ADMIN_FUND_REQUEST → ADMIN_APPROVED
+       → MANAGER_FUNDED → APPROVED
+```
+
+### 5.1 Fund Request Fields
+`request_id`, `requester_id`, `manager_id`, `amount`, `reason`, `status`, `created_at`, `approved_at`, `rejected_at`, `approved_by`, `rejected_by`, `comments`. Admin-directed requests additionally carry `requested_from = ADMIN`.
+
+`parent_request_id` links a manager's escalated request to Admin back to the original employee request, preserving the full chain (e.g. Sales Request #100 → Manager Request #101 → Admin).
+
+### 5.2 Fund Request Rules
+
+| Role | Can | Cannot |
+|---|---|---|
+| Sales / Marketing / Other | Create request, view own request, cancel eligible request | Approve own request, allocate funds, modify approved request |
+| Manager | View team requests, approve/reject, request additional funds from Admin | Allocate more than available balance |
+| Admin | View all requests, approve manager funding requests, allocate funds, view all fund movements | — |
+
+## 6. Fund Allocation
+
+### 6.1 Admin → Manager
+`POST /api/v1/funds/allocate`
 ```json
-{
-  "username": "accountant",
-  "password": "password"
-}
+{ "recipientId": "manager-123", "amount": 200000, "reason": "Monthly operational budget" }
+```
+Both the Admin wallet decrease and Manager wallet increase occur inside one PostgreSQL transaction.
+
+### 6.2 Manager → User
+`POST /api/v1/funds/allocate`
+```json
+{ "recipientId": "sales-123", "amount": 50000, "reason": "Sales travel budget" }
 ```
 
-Response must contain:
+### 6.3 Allocation Validation Sequence
+1. Authenticate user
+2. Check permission
+3. Verify recipient
+4. Verify recipient relationship (reporting line)
+5. Verify amount > 0
+6. Check source wallet balance
+7. Lock source wallet
+8. Lock destination wallet
+9. Create transaction record
+10. Update balances
+11. Create audit record
+12. Commit
 
-- Short-lived JWT access token
-- Refresh token
-- User information
-- Resolved permission list
+If any step fails: **full rollback**. No partial allocation is ever persisted.
 
-Access tokens should be approximately 10–15 minutes.
+## 7. Expense Management
 
-Refresh tokens must be server-tracked and individually revocable.
+Every user with fund access can record expenses against their wallet.
 
----
+**Expense fields:** `expense_id`, `user_id`, `wallet_id`, `category`, `amount`, `description`, `date`, `vendor`, `reference`, `attachment`, `status`, `created_at`.
 
-# 10. Expense Management
-
-## 10.1 Purpose
-
-The expense module manages office expenditure from creation through settlement and reconciliation.
-
-Example categories:
-
-- Wi-Fi
-- Food
-- Fuel
-- Electricity
-- Rent
-- Travel
-- Maintenance
-- Stationery
-- Salary
-- Vendor services
-- Other approved categories
-
----
-
-# 11. Expense Lifecycle
-
-```text
-DRAFT
-  │
-  ▼
-SUBMITTED
-  │
-  ▼
-PENDING_APPROVAL
-  │
-  ▼
-APPROVED
-  │
-  ▼
-PAID / SETTLED
-  │
-  ▼
-RECONCILED
+**Flow:**
+```
+USER WALLET → Expense → EXPENSE CREATED → EXPENSE RECORDED → WALLET BALANCE UPDATED
 ```
 
-Alternative states:
+### 7.1 Expense Visibility
 
-```text
-SUBMITTED → REJECTED
+| Role | Visibility |
+|---|---|
+| Sales / Marketing / Other | Own expenses, own wallet, own transactions |
+| Manager | Own + team expenses, team wallets, team transactions |
+| Accounting | All expenses, all wallets, all transactions |
+| Admin | Everything |
 
-APPROVED / SETTLED → REVERSED
+## 8. Dashboards
+
+### 8.1 Admin / Accounting — Financial Overview
+Total Organizational Funds, Total Allocated, Total Available, Total Expenses, Pending Fund Requests — plus breakdowns by user, manager, department, expense category, date, and transaction type.
+
+### 8.2 Wallet Dashboard (all fund-holding users)
+Allocated / Spent / Available for the logged-in user. Admin/Accounting additionally see a table of all users' Allocated/Spent/Available.
+
+### 8.3 Manager Dashboard
+My Wallet (Allocated/Spent/Available), Fund Requests (Pending/Approved/Rejected), Team (Sales/Marketing/Other), Team Wallets, Team Expenses, Request Funds From Admin.
+
+### 8.4 Sales / Marketing / Other Dashboard
+Simplified: My Wallet, Request Funds, My Requests, My Expenses, My Transactions.
+
+## 9. Transaction Ledger
+
+The system maintains a central, authoritative transaction ledger. Each transaction record contains: `transaction_id`, `transaction_type`, `source_wallet_id`, `destination_wallet_id`, `amount`, `reference_type`, `reference_id`, `description`, `created_by`, `created_at`, `status`.
+
+Example chain:
+```
+TXN-001  FUND_ALLOCATION   Admin Wallet → Manager A Wallet     ₹2,00,000
+TXN-002  FUND_ALLOCATION   Manager A Wallet → Sales A Wallet   ₹50,000
+TXN-003  EXPENSE           Sales A Wallet                      ₹8,000
 ```
 
-The backend must validate every state transition.
+## 10. Wallet ↔ Accounting Relationship
 
-The frontend must never be trusted to enforce the workflow.
+The **wallet/fund system is the operational view** (who currently has funds available). The **accounting ledger is the financial source of truth** (where every rupee came from and went), maintained via proper double-entry records:
 
----
-
-# 12. Expense Requirements
-
-## FR-EXP-001 — Create Expense
-
-Authorized users must be able to create an expense.
-
-Required information may include:
-
-- Expense category
-- Expense date
-- Amount
-- Vendor
-- Description
-- Payment method
-- Cash/bank account
-- Cost center
-- Reference number
-- Evidence/receipt
-- Notes
-
-Initial status:
-
-```text
-DRAFT
+```
+Fund Allocation → Wallet Transaction → Accounting Transaction → General Ledger → Financial Reports
 ```
 
----
+- **Fund transfer:** Debit Destination Fund/Wallet Account, Credit Source Fund/Wallet Account.
+- **Expense:** Debit Expense Account, Credit Wallet/Cash/Bank Account.
 
-## FR-EXP-002 — Submit Expense
+## 11. Most Important Business Rule — Fund Categories
 
-An expense can be submitted only when all required information and evidence are available.
+The system must distinguish clearly, throughout the database, APIs, dashboards, and reports, between:
 
-```http
-POST /api/v1/expenses/:id/submit
+| Category | Meaning |
+|---|---|
+| Organizational Funds | Money controlled by the organization/Admin |
+| Allocated Funds | Money assigned to a manager/user but not necessarily spent |
+| Spent Funds | Money actually consumed through expenses |
+| Available Wallet Funds | Money currently available to a specific wallet |
+
+```
+ORGANIZATION LEVEL
+Total Funds
+    ├── Unallocated Funds
+    └── Allocated Funds
+            ├── Manager A (Available / Spent)
+            ├── Manager B
+            └── Other Users
 ```
 
-Status:
+Two distinct "available" figures must be shown separately, never conflated:
+- **Organizational Available** = Organization Funds − Funds Allocated
+- **Wallet Available** = Wallet Allocated − Wallet Spent
 
-```text
-DRAFT → SUBMITTED
+## 12. Permission Structure
+
+**Example permission codes:** `fund.view`, `fund.allocate`, `fund.request`, `fund.approve`, `fund.reject`, `wallet.view`, `wallet.view_all`, `expense.create`, `expense.view`, `expense.view_all`, `expense.approve`, `expense.reverse`, `transaction.view`, `transaction.view_all`, `accounting.view`, `report.view`, `audit.view`.
+
+| Permission | Admin | Manager | Sales | Marketing | Accounting | Other |
+|---|---|---|---|---|---|---|
+| Own wallet | Y | Y | Y | Y | Y | Y |
+| All wallets | Y | Team | — | — | Y | — |
+| Request funds | Y* | Y | Y | Y | — | Y |
+| Allocate funds | Y | Y | — | — | — | — |
+| Approve requests | Y | Y | — | — | — | — |
+| Own expenses | Y | Y | Y | Y | Y | Y |
+| All expenses | Y | Team | — | — | Y | — |
+| All transactions | Y | Team | — | — | Y | — |
+| Financial reports | Y | Y | Limited | Limited | Y | Limited |
+| Audit logs | Y | Limited | — | — | Y/Limited | — |
+
+*depends on the specific administrative operation.
+
+## 13. API Structure
+
 ```
-
----
-
-## FR-EXP-003 — Approval
-
-Expenses requiring approval move to:
-
-```text
-PENDING_APPROVAL
-```
-
-An authorized approver can approve or reject the expense.
-
-Approval must capture:
-
-- Approver
-- Timestamp
-- Decision
-- Comment/reason
-
----
-
-## FR-EXP-004 — Settlement
-
-After approval, the expense can be settled.
-
-```http
-POST /api/v1/expenses/:id/settle
-```
-
-Settlement records:
-
-- Settlement date
-- Payment method
-- Cash/bank account
-- Reference
-- Amount
-- User performing settlement
-
----
-
-## FR-EXP-005 — Accounting Posting
-
-An approved and settled expense creates an accounting entry.
-
-Example:
-
-```text
-Office Wi-Fi = ₹1,799
-
-Debit:
-Internet Expense       ₹1,799
-
-Credit:
-Bank                   ₹1,799
-```
-
-The accounting posting must occur inside the appropriate database transaction.
-
----
-
-## FR-EXP-006 — Reversal
-
-A finalized expense must never be deleted.
-
-Corrections must create a reversal transaction.
-
-Reversal must reference the original transaction.
-
----
-
-# 13. Vendor Management
-
-## Requirements
-
-Users with appropriate permissions can:
-
-- Create vendors
-- View vendors
-- Search vendors
-- Update vendor information
-- View vendor transactions
-- View outstanding vendor balances
-
-Sensitive vendor financial/tax information must have appropriate access control and approval requirements.
-
-Endpoints:
-
-```http
-POST   /api/v1/vendors
-GET    /api/v1/vendors
-GET    /api/v1/vendors/:id
-PATCH  /api/v1/vendors/:id
-```
-
----
-
-# 14. Chart of Accounts
-
-The system must maintain a hierarchical chart of accounts.
-
-Primary groups:
-
-```text
-Assets
-Liabilities
-Income
-Expenses
-Equity
-```
-
-Example:
-
-```text
-1000 Assets
- ├── 1100 Cash
- ├── 1200 Bank
- └── 1300 Customer Receivables
-
-2000 Liabilities
- └── 2100 Vendor Payables
-
-4000 Income
- └── 4100 Property Sales Income
-
-5000 Expenses
- ├── 5100 Internet Expense
- ├── 5200 Fuel Expense
- ├── 5300 Travel Expense
- └── 5400 Food Expense
-
-3000 Equity
- └── 3100 Capital
-```
-
-Accounts must have:
-
-- Internal ID
-- Public UUID/ULID
-- Account code
-- Account name
-- Account type
-- Parent account
-- Status
-- Created timestamp
-- Updated timestamp
-
----
-
-# 15. Journal Entry System
-
-Journal entries are the core accounting mechanism.
-
-A journal contains:
-
-```text
-Journal Entry
- ├── Header
- └── Journal Lines
-       ├── Debit
-       └── Credit
-```
-
-Example:
-
-```text
-JE-000001
-
-Debit:
-Internet Expense       1,799
-
-Credit:
-Bank                   1,799
-```
-
----
-
-# 16. Journal Invariants
-
-The following rules are mandatory.
-
-### Rule 1 — Balanced Entry
-
-```text
-Total Debit = Total Credit
-```
-
-An unbalanced journal cannot become `POSTED`.
-
-### Rule 2 — No Negative Amounts
-
-Journal line amounts must be positive unless a dedicated accounting mechanism supports otherwise.
-
-### Rule 3 — Posted Journal Is Immutable
-
-Once posted:
-
-```text
-POSTED
-```
-
-the journal cannot be edited or deleted.
-
-### Rule 4 — Corrections Use Reversal
-
-```text
-Original Journal
-       ↓
-Reversal Journal
-```
-
-### Rule 5 — Accounting Period
-
-A journal cannot normally be posted into a locked accounting period.
-
----
-
-# 17. Journal API
-
-```http
-GET  /api/v1/journals
-GET  /api/v1/journals/:id
-POST /api/v1/journals
-POST /api/v1/journals/:id/reverse
-```
-
-Direct journal posting should be restricted to users with the appropriate accounting permission.
-
-Business events such as expense settlement should preferably create journals through controlled backend accounting logic rather than allowing arbitrary frontend-created ledger entries.
-
----
-
-# 18. Accounting Periods
-
-The system must support accounting periods.
-
-Example:
-
-```text
-January 2026
-February 2026
-March 2026
-```
-
-Possible states:
-
-```text
-OPEN
-LOCKED
-```
-
-A locked period rejects normal financial posting.
-
-Privileged corrections require an explicit controlled process and audit reason.
-
-Endpoints:
-
-```http
-GET  /api/v1/accounting-periods
-GET  /api/v1/accounting-periods/:id
-POST /api/v1/accounting-periods
-POST /api/v1/accounting-periods/:id/lock
-POST /api/v1/accounting-periods/:id/unlock
-```
-
----
-
-# 19. Cash & Bank Management
-
-The system must maintain:
-
-- Cash accounts
-- Bank accounts
-- Account number/reference metadata
-- Opening balances
-- Current balance
-- Transactions
-- Reconciliation state
-
-Examples:
-
-```text
-Cash
-Petty Cash
-HDFC Bank
-SBI Bank
-ICICI Bank
-```
-
-Endpoints:
-
-```http
-POST /api/v1/cash-bank
-GET  /api/v1/cash-bank
-GET  /api/v1/cash-bank/:id
-GET  /api/v1/cash-bank/:id/transactions
-```
-
----
-
-# 20. Reconciliation
-
-The reconciliation module matches recorded financial transactions against cash/bank evidence.
-
-Requirements:
-
-- Create reconciliation session
-- Select account
-- Define reconciliation period
-- Record statement balance
-- Compare system balance
-- Identify unmatched transactions
-- Mark transactions as reconciled
-- Complete reconciliation
-- Preserve reconciliation history
-
-Endpoints:
-
-```http
-GET  /api/v1/reconciliations
-GET  /api/v1/reconciliations/:id
-POST /api/v1/reconciliations
-POST /api/v1/reconciliations/:id/complete
-```
-
----
-
-# 21. Financial Reports
-
-Reports must preferably be derived from posted accounting records.
-
-## Required reports
-
-### Trial Balance
-
-```http
-GET /api/v1/reports/trial-balance
-```
-
-Must show:
-
-- Account
-- Debit
-- Credit
-- Closing balance
-
----
-
-### Profit & Loss
-
-```http
-GET /api/v1/reports/profit-loss
-```
-
-Must calculate:
-
-```text
-Revenue
-- Expenses
-----------------
-Net Profit / Loss
-```
-
----
-
-### Balance Sheet
-
-```http
-GET /api/v1/reports/balance-sheet
-```
-
-Must organize:
-
-```text
-Assets
-Liabilities
-Equity
-```
-
----
-
-### Cash Flow
-
-```http
-GET /api/v1/reports/cash-flow
-```
-
-Must provide cash inflows and outflows for the selected period.
-
----
-
-### Expense Report
-
-```http
-GET /api/v1/reports/expenses
-```
-
-Filters should support:
-
-- Date range
-- Category
-- Vendor
-- Branch/cost center
-- Payment method
-- Status
-
----
-
-# 22. Audit Logging
-
-Every sensitive mutation must generate an audit record.
-
-Audit data should include:
-
-```text
-actor
-action
-resource
-resource_id
-before_value
-after_value
-timestamp
-IP address
-request/source
-reason
-```
-
-Examples:
-
-```text
-EXPENSE_CREATED
-EXPENSE_APPROVED
-EXPENSE_REJECTED
-EXPENSE_SETTLED
-EXPENSE_REVERSED
-
-JOURNAL_POSTED
-JOURNAL_REVERSED
-
-ACCOUNT_CREATED
-ACCOUNT_UPDATED
-
-PERIOD_LOCKED
-PERIOD_UNLOCKED
-
-VENDOR_CREATED
-VENDOR_UPDATED
-```
-
-Audit records must not be silently deleted.
-
----
-
-# 23. Database Requirements
-
-PostgreSQL is the primary source of truth.
-
-Money must use:
-
-```sql
-DECIMAL(15,2)
-```
-
-Never use:
-
-```text
-FLOAT
-DOUBLE
-```
-
-for monetary values.
-
-IDs should use a consistent strategy with internal database identifiers and public UUID/ULID references.
-
-Timestamps should be stored in UTC.
-
----
-
-# 24. Core Database Tables
-
-The initial accounting implementation should include:
-
-```text
-users
-roles
-permissions
-role_permissions
-user_roles
-
-vendors
-
-expense_categories
-expenses
-expense_items
-expense_approvals
-expense_attachments
-
-chart_of_accounts
-
-journal_entries
-journal_lines
-
-accounting_periods
-
-cash_bank_accounts
-
-reconciliations
-
-audit_logs
-```
-
-Additional tables can be introduced as future modules are integrated.
-
----
-
-# 25. API Standards
-
-Base URL:
-
-```text
-/api/v1
-```
-
-Example:
-
-```text
+/api/v1/auth
+/api/v1/users
+/api/v1/wallets
+/api/v1/wallets/:id
+/api/v1/funds
+/api/v1/funds/allocate
+/api/v1/funds/transfer
+/api/v1/fund-requests
+/api/v1/fund-requests/:id
+/api/v1/fund-requests/:id/approve
+/api/v1/fund-requests/:id/reject
 /api/v1/expenses
+/api/v1/expenses/:id
 /api/v1/vendors
 /api/v1/accounts
 /api/v1/journals
 /api/v1/accounting-periods
-/api/v1/cash-bank
 /api/v1/reconciliations
+/api/v1/transactions
 /api/v1/reports
+/api/v1/audit
 ```
 
-Responses should follow a consistent structure.
+## 14. Critical Fund Transaction Logic
 
-Success:
-
-```json
-{
-  "success": true,
-  "message": "Expense created successfully",
-  "data": {}
-}
 ```
-
-Error:
-
-```json
-{
-  "success": false,
-  "message": "Expense cannot be approved in its current state"
-}
-```
-
----
-
-# 26. Validation
-
-All validation must occur on the backend.
-
-The backend must validate:
-
-- Required fields
-- Amounts
-- Dates
-- Account existence
-- Account status
-- Vendor existence
-- Expense status
-- Approval permissions
-- Accounting period status
-- Journal balance
-- Duplicate references
-- Idempotency keys
-- State transitions
-
-Frontend validation is only for user experience and must never be treated as security.
-
----
-
-# 27. Idempotency
-
-Critical POST endpoints must support idempotency.
-
-Especially:
-
-```text
-expense settlement
-journal posting
-financial transactions
-reversal
-```
-
-An idempotency key must prevent a retry from creating a duplicate financial transaction.
-
-Redis will store active idempotency keys.
-
----
-
-# 28. Rate Limiting
-
-Redis-backed `rate-limiter-flexible` will be used.
-
-Policy:
-
-```text
-Authentication
-    ↓
-Strict
-
-Critical financial POST endpoints
-    ↓
-Moderate / strict
-
-Normal authenticated APIs
-    ↓
-Moderate
-
-Read-only reports
-    ↓
-Low
-```
-
----
-
-# 29. Transaction Management
-
-Financial operations must use PostgreSQL database transactions.
-
-Example expense settlement:
-
-```text
-BEGIN
-
-Validate expense
-Validate permission
-Validate accounting period
-Validate cash/bank account
-
-Update expense
-Create journal entry
-Create journal lines
-Validate debit = credit
-Create audit record
-
+BEGIN TRANSACTION
+  Lock source wallet
+  Lock destination wallet
+  Check source balance
+  IF balance < amount: ROLLBACK
+  Create wallet transaction
+  Decrease source balance
+  Increase destination balance
+  Create audit log
+  Create accounting entry
 COMMIT
 ```
 
-If any operation fails:
+This prevents two simultaneous requests from spending the same available balance.
 
-```text
-ROLLBACK
+## 15. Example End-to-End Flow
+
+```
+Total Funds = ₹10,00,000
+
+Admin allocates:
+  Manager A = ₹2,00,000
+  Manager B = ₹1,50,000
+Admin Available = ₹6,50,000
+
+Manager A approves:
+  Sales A     = ₹50,000
+  Marketing A = ₹30,000
+Manager A Available = ₹1,20,000
+
+Sales A spends ₹10,000:
+  Allocated = ₹50,000
+  Spent     = ₹10,000
+  Available = ₹40,000
+
+Accounting view:
+  Total Funds       ₹10,00,000
+  Total Allocated   ₹3,30,000
+  Total Spent       ₹10,000
+  Total Available   ₹6,60,000
 ```
 
-No partially completed financial transaction may remain.
+## 16. Non-Functional Requirements
 
----
+| Category | Requirement |
+|---|---|
+| Data integrity | No wallet balance ever goes negative; every fund movement is traceable to a transaction |
+| Auditability | Every allocation, request decision, expense, and reversal captures actor, before/after values, and timestamp |
+| Concurrency | Source and destination wallets locked and updated within a single atomic transaction |
+| Immutability | Posted wallet/accounting transactions are never edited or deleted; corrections use reversal/adjustment entries |
+| Accounting integrity | Every accounting entry maintains debit = credit |
+| Idempotency | Critical financial operations (allocation, transfer, expense posting) support idempotency to prevent duplicate processing on retry |
+| Access control | Role-based, permission-code driven, enforced server-side regardless of frontend display |
 
-# 30. Accounting Transaction Example
+## 17. Definition of Done (MVP)
 
-For an office Wi-Fi expense of ₹1,799:
+- [ ] Six user types implemented
+- [ ] Authentication implemented
+- [ ] Permission-based RBAC implemented
+- [ ] Every fund-controlled user has a wallet
+- [ ] Admin can allocate funds to managers
+- [ ] Managers can view their wallet
+- [ ] Managers can approve team fund requests
+- [ ] Managers cannot approve requests exceeding their available funds
+- [ ] Managers can request additional funds from Admin
+- [ ] Sales / Marketing / Other users can request funds
+- [ ] Users can record and view their own expenses
+- [ ] Managers can view team expenses
+- [ ] Accounting can view all financial transactions, total funds, allocated funds, expenses, and every user's wallet
+- [ ] Admin can view all transactions and wallets
+- [ ] Fund transfers are atomic
+- [ ] Wallet balances can never become negative
+- [ ] Every fund movement creates a transaction
+- [ ] Every sensitive action creates an audit record
+- [ ] Critical financial operations support idempotency
+- [ ] Accounting entries maintain debit = credit
+- [ ] Posted financial transactions are immutable
+- [ ] Corrections use reversal transactions
 
-```text
-User creates expense
-        ↓
-Expense = DRAFT
-        ↓
-Submit
-        ↓
-Approval
-        ↓
-APPROVED
-        ↓
-Settlement from Bank
-        ↓
-Create Journal
-        ↓
-Dr Internet Expense     ₹1,799
-Cr Bank                 ₹1,799
-        ↓
-POSTED
-        ↓
-Ledger updated
-        ↓
-P&L reflects expense
-        ↓
-Audit record created
+## 18. Core System Flow (Summary)
+
+```
+                    ┌──────────────┐
+                    │    ADMIN     │
+                    └──────┬───────┘
+                           │ Allocate Funds
+                           ▼
+                    ┌──────────────┐
+                    │ MANAGER WALLET│
+                    └──────┬───────┘
+                ┌──────────┼──────────┐
+                ▼          ▼          ▼
+             SALES     MARKETING    OTHER
+             WALLET      WALLET     WALLET
+                └──────────┼──────────┘
+                           ▼
+                         EXPENSE
+                           ▼
+                  WALLET TRANSACTION
+                           ▼
+                    ACCOUNTING LEDGER
+              ┌────────────┼────────────┐
+              ▼            ▼            ▼
+          EXPENSES      REPORTS      AUDIT LOG
 ```
 
----
+The wallet/fund system is the operational core; the accounting ledger is the financial source of truth. This separation matters: a wallet tells you who currently has funds available, while the transaction/accounting ledger tells you where every rupee came from and where it went.
 
-# 31. Security Requirements
+## 19. Open Items for This Phase
 
-## Authentication
+- Exact definition and display separation of "Total Available" (organizational vs. wallet-level) to be finalized in implementation and UI copy.
+- Whether Accounting requires any conditional allocation authority in specific approved scenarios (currently: view/oversight only).
+- Expense approval thresholds and categories, to be aligned with the broader EstateSync expense/accounting design from the CRM phase.
+- Reconciliation process between wallet transactions and bank/cash evidence.
 
-- bcrypt password hashing
-- Cost factor 12+
-- Short-lived JWT access token
-- Revocable refresh token
-- Secure token handling
+## 20. Related Documents
 
-## Authorization
-
-Every protected endpoint must check permissions.
-
-## Secrets
-
-Secrets must exist only in:
-
-```text
-.env
-```
-
-or a server-side secret manager.
-
-Never expose:
-
-- Database credentials
-- JWT secrets
-- Redis credentials
-- Provider API keys
-
-to the frontend.
-
-## Transport
-
-Production API must use HTTPS.
-
----
-
-# 32. Non-Functional Requirements
-
-## Reliability
-
-Financial transactions must be atomic.
-
-## Consistency
-
-Every posted journal must be balanced.
-
-## Security
-
-Unauthorized users must receive:
-
-```text
-401 Unauthorized
-```
-
-or:
-
-```text
-403 Forbidden
-```
-
-depending on authentication/authorization state.
-
-## Auditability
-
-Every sensitive financial mutation must be traceable to an authenticated actor.
-
-## Performance
-
-Normal accounting API requests should respond quickly under expected office workload.
-
-Heavy reports should be optimized independently from transactional writes.
-
-## Scalability
-
-The backend should remain a modular monolith initially.
-
-Future modules must be able to integrate without rewriting the accounting core.
-
----
-
-# 33. Frontend Requirements
-
-The frontend will be implemented as a single Next.js application.
-
-The frontend should render accounting features based on resolved permissions.
-
-Example:
-
-```text
-Accounting User
- ├── Expenses
- ├── Vendors
- ├── Chart of Accounts
- ├── Journal
- ├── Cash & Bank
- ├── Reconciliation
- └── Reports
-
-Manager
- ├── Expense Approvals
- ├── Financial Reports
- └── Oversight
-
-Viewer
- └── Reports
-```
-
-The frontend must never be responsible for actual authorization.
-
----
-
-# 34. Dashboard Requirements
-
-The accounting dashboard should eventually show:
-
-```text
-Total Expenses
-Current Month Expenses
-Pending Approvals
-Cash Balance
-Bank Balance
-Outstanding Payables
-Income
-Net Profit / Loss
-Recent Transactions
-```
-
-Dashboard figures should be derived from trusted accounting/transaction data.
-
----
-
-# 35. Error Handling
-
-Express must use centralized error handling.
-
-Errors should be categorized into:
-
-```text
-Validation Error
-Authentication Error
-Authorization Error
-Not Found
-Conflict
-Business Rule Violation
-Database Error
-Internal Server Error
-```
-
-Example:
-
-```json
-{
-  "success": false,
-  "message": "Accounting period is locked",
-  "code": "ACCOUNTING_PERIOD_LOCKED"
-}
-```
-
-Business-rule errors should use stable error codes where useful.
-
----
-
-# 36. Logging
-
-The backend should log:
-
-- Request ID
-- User ID
-- API endpoint
-- HTTP method
-- Response status
-- Error information
-- Business correlation ID
-
-Sensitive information such as passwords, tokens and confidential financial credentials must never be logged.
-
----
-
-# 37. Future Integration Points
-
-The accounting system must be designed to integrate later with:
-
-```text
-CRM
- ↓
-Property
- ↓
-Booking
- ↓
-Customer Payments
- ↓
-Accounting
- ↓
-Reports
-```
-
-Future customer payment example:
-
-```text
-Customer Payment
-      ↓
-Payment Allocation
-      ↓
-Journal Entry
-
-Dr Bank
-Cr Customer Receivable
-```
-
-The accounting module should therefore expose controlled services/API contracts that future payment modules can use.
-
----
-
-# 38. Deferred Features
-
-The following features are intentionally deferred:
-
-### Notifications
-
-```text
-Twilio SMS
-SMTP Email
-Transactional Outbox
-```
-
-### Documents
-
-```text
-Object/File Storage
-SHA-256
-Virus Scanning
-OCR
-Document Versioning
-```
-
-### Desktop
-
-```text
-Electron
-electron-builder
-Windows .exe
-```
-
-### Offline
-
-```text
-Electron safeStorage
-SQLite/local queue
-Offline approval synchronization
-```
-
-### On-Premise
-
-```text
-PostgreSQL
-Redis/Memurai
-Node API
-PM2 / Windows service
-LAN deployment
-WireGuard
-```
-
-These must not be implemented in the current accounting phase.
-
----
-
-# 39. Development Phases
-
-## Phase 1 — Foundation
-
-- Project setup
-- PostgreSQL connection
-- Redis connection
-- Environment configuration
-- Error middleware
-- Logging
-- API versioning
-- Base response format
-
-## Phase 2 — Authentication & RBAC
-
-- Users
-- Roles
-- Permissions
-- Role-permission mapping
-- JWT authentication
-- Refresh tokens
-- Permission middleware
-- Rate limiting
-
-## Phase 3 — Accounting Masters
-
-- Expense categories
-- Vendors
-- Chart of Accounts
-- Cash/bank accounts
-- Accounting periods
-
-## Phase 4 — Expenses
-
-- Expense creation
-- Expense items
-- Submission
-- Approval
-- Rejection
-- Settlement
-- Reversal
-- Evidence metadata
-
-## Phase 5 — Accounting Engine
-
-- Journal entries
-- Journal lines
-- Debit/credit validation
-- Posting
-- Reversal
-- General ledger
-- Period locking
-
-## Phase 6 — Reconciliation
-
-- Reconciliation sessions
-- Transaction matching
-- Reconciliation completion
-- Reconciliation history
-
-## Phase 7 — Reports
-
-- Trial Balance
-- P&L
-- Balance Sheet
-- Cash Flow
-- Expense reports
-- Ledger reports
-
-## Phase 8 — Hardening
-
-- Idempotency tests
-- Permission tests
-- Transaction rollback tests
-- Accounting balance tests
-- Period lock tests
-- Reversal tests
-- Audit completeness tests
-- Security testing
-- Load testing
-
----
-
-# 40. Acceptance Criteria
-
-## Expense
-
-- [ ] Authorized user can create an expense.
-- [ ] Expense starts in `DRAFT`.
-- [ ] Expense can be submitted.
-- [ ] Required approval rules are enforced.
-- [ ] Unauthorized users cannot approve expenses.
-- [ ] Approved expenses can be settled.
-- [ ] Settlement creates the appropriate accounting entry.
-- [ ] Settled expenses cannot be deleted.
-- [ ] Reversal preserves the original transaction.
-- [ ] Expense actions are audited.
-
-## Accounting
-
-- [ ] Chart of Accounts can be maintained.
-- [ ] Journal entries can be created through authorized flows.
-- [ ] Debit total must equal credit total.
-- [ ] Unbalanced journals cannot be posted.
-- [ ] Posted journals cannot be edited.
-- [ ] Posted journals cannot be deleted.
-- [ ] Reversals preserve original history.
-- [ ] Locked periods reject normal posting.
-
-## Security
-
-- [ ] Every protected endpoint requires authentication.
-- [ ] Every protected mutation checks permissions.
-- [ ] Role names are not hard-coded into business logic.
-- [ ] Passwords are bcrypt hashed.
-- [ ] Rate limiting is Redis-backed.
-- [ ] Critical POST requests support idempotency.
-
-## Reporting
-
-- [ ] Trial Balance is derived from ledger data.
-- [ ] P&L is derived from accounting data.
-- [ ] Balance Sheet is derived from accounting data.
-- [ ] Expense reports support date filtering.
-- [ ] Reports do not modify financial data.
-
----
-
-# 41. Critical Business Invariants
-
-These rules are non-negotiable.
-
-### Financial Integrity
-
-```text
-Debit = Credit
-```
-
-for every posted journal.
-
-### Immutability
-
-```text
-POSTED
-```
-
-financial records cannot be edited or deleted.
-
-### Reversal
-
-```text
-Correction → Reversal
-```
-
-not direct modification.
-
-### Authorization
-
-```text
-No permission → No operation
-```
-
-### Period Lock
-
-```text
-LOCKED PERIOD → No normal financial posting
-```
-
-### Idempotency
-
-```text
-Same idempotency key → Same financial operation
-```
-
-### Atomicity
-
-```text
-Financial operation succeeds completely
-OR
-financial operation rolls back completely
-```
-
----
-
-# 42. Definition of Done
-
-The Accounting MVP is considered complete when:
-
-1. Authentication and RBAC are operational.
-2. Accounting users can manage expenses.
-3. Expense approval workflow is operational.
-4. Vendors can be managed.
-5. Chart of Accounts is operational.
-6. Journal entries can be posted through controlled accounting flows.
-7. Debit/credit validation is enforced.
-8. Accounting periods can be locked.
-9. Posted financial records are immutable.
-10. Reversal functionality works.
-11. Cash/bank accounts can be tracked.
-12. Reconciliation is functional.
-13. Trial Balance is available.
-14. P&L is available.
-15. Balance Sheet is available.
-16. Expense reports are available.
-17. Audit logs capture sensitive mutations.
-18. Permission checks are enforced server-side.
-19. Idempotency is implemented for critical financial writes.
-20. Automated tests cover financial invariants and transaction rollback.
-
----
-
-# 43. Core Product Principle
-
-EstateSync Accounting must **not** be implemented as a collection of CRUD screens.
-
-The system must behave as a financial transaction system:
-
-```text
-User Action
-    ↓
-Permission Check
-    ↓
-Validation
-    ↓
-Business Rule
-    ↓
-Database Transaction
-    ↓
-Accounting Entry
-    ↓
-Audit
-    ↓
-Commit
-```
-
-The frontend is only the input and rendering layer.
-
-**PostgreSQL is the financial source of truth.**
-
-**The backend is the authority for permissions, validation, accounting rules, transaction integrity and auditability.**
+- `architecture.md` — system architecture for the fund management module
+- `techStack.md` — technology stack and tooling decisions

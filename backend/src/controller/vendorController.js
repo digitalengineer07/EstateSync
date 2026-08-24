@@ -1,0 +1,3 @@
+/**
+ * Purpose: Vendor management
+ */

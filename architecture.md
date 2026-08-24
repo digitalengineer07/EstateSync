@@ -1,8 +1,10 @@
-# EstateSync — System Architecture
+# EstateSync — Fund Management & Accounting Architecture
 
-## 1. Current Phase Scope
+## 1. Scope
 
-This phase covers a single web frontend connected to a single backend API — no Electron packaging, no offline sync yet. Those are later phases, described at the end of this document.
+This document covers the architecture for the **Fund Management, Wallet, and Accounting** module — a single Next.js frontend connected to a single Node/Express backend API, backed by PostgreSQL and Redis. No Electron packaging or offline sync in this phase.
+
+## 2. High-Level Architecture
 
 ```
 ┌───────────────────────┐         ┌───────────────────────┐
@@ -16,98 +18,210 @@ This phase covers a single web frontend connected to a single backend API — no
                                   │                                    │
                            ┌─────────────┐                  ┌─────────────┐
                            │ PostgreSQL   │                  │ Redis        │
-                           │ (all data)   │                  │ (sessions,   │
-                           │              │                  │ rate limits, │
-                           │              │                  │ idempotency) │
+                           │ (wallets,    │                  │ (sessions,   │
+                           │ transactions,│                  │ rate limits, │
+                           │ ledger)      │                  │ idempotency, │
+                           │              │                  │ wallet locks)│
                            └─────────────┘                  └─────────────┘
 ```
 
-## 2. Component Responsibilities
+## 3. Component Responsibilities
 
 | Component | Responsibility |
 |---|---|
-| Next.js Frontend | Login UI, role-aware dashboard rendering, calls API over HTTP, stores JWT, never enforces security itself |
-| Node/Express API | All business logic, RBAC enforcement, transaction handling, validation, accounting posting, notification triggering |
-| PostgreSQL | Single source of truth — users/roles/permissions, CRM, property inventory, bookings, payments, accounting ledger, audit logs |
-| Redis | Session/refresh-token store, rate-limit counters, idempotency keys for payment/critical endpoints |
+| Next.js Frontend | Role-aware dashboards (Admin, Manager, Sales, Marketing, Accounting, Other), wallet views, fund request forms, expense entry, never enforces security itself |
+| Node/Express API | Auth, RBAC, wallet transaction logic, fund allocation/request workflows, expense posting, accounting/ledger posting, audit logging |
+| PostgreSQL | Source of truth: `users`, `roles`, `permissions`, `wallets`, `wallet_transactions`, `fund_requests`, `fund_allocations`, `expenses`, `chart_of_accounts`, `journal_entries`, `journal_lines`, `audit_logs` |
+| Redis | Session/refresh-token store, rate-limit counters, idempotency keys, and short-lived locks around wallet transactions to serialize concurrent requests before the DB-level lock is acquired |
 
-**Golden rule:** the frontend is a rendering and input layer only. Every permission check, validation rule, and financial invariant is enforced server-side, regardless of what the UI shows or hides.
+**Golden rule (unchanged from prior phases):** the frontend renders and collects input only. Every wallet balance check, permission check, and financial invariant is enforced server-side.
 
-## 3. Authentication & Role-Based Access
-
-Single identical frontend build for all roles (Admin, Manager, Sales, Marketing, Accounting, Operations, Viewer). Role differentiation happens at runtime via the JWT, not via separate builds.
+## 4. Core Domain Model
 
 ```
-1. POST /auth/login { username, password }
-2. Server verifies bcrypt password hash
-3. Server returns:
-     - access token (JWT, short-lived, ~10-15 min)
-     - refresh token (stored server-side in Postgres/Redis, revocable)
-     - user profile + resolved permission list
-4. Frontend stores tokens, redirects to role-appropriate dashboard
-5. Frontend reads permissions from the JWT/profile to conditionally render:
-     Sales        -> leads, visits, bookings
-     Accounting   -> payments, expenses, ledger
-     Manager      -> approvals, reports, oversight
-     Operations   -> documents, inventory support
-6. Access token expires -> frontend silently calls /auth/refresh
-7. Logout -> frontend clears tokens, server invalidates refresh token
+Organization (implicit — Admin's own wallet/ledger root)
+   │
+   ▼
+Admin Wallet
+   │  allocate
+   ▼
+Manager Wallet(s)
+   │  allocate / approve
+   ├──► Sales Wallet
+   ├──► Marketing Wallet
+   └──► Other Wallet
+        │
+        ▼
+     Expense (debits the wallet)
+        │
+        ▼
+  Wallet Transaction (ledger entry)
+        │
+        ▼
+  Accounting Journal Entry (double-entry)
 ```
 
-Every protected API route runs through this middleware chain:
+Two parallel views are maintained and must never be conflated:
+- **Operational view (Wallet):** who currently has funds available right now.
+- **Financial view (Accounting Ledger):** where every rupee came from and went, as immutable double-entry journal entries.
+
+## 5. Wallet Transaction Architecture
+
+### 5.1 Wallet as an Append-Only Ledger, Not a Mutable Counter
+
+Each wallet row (`total_allocated`, `total_spent`, `available_balance`) is a **cached projection**. The authoritative record is the `wallet_transactions` table — every balance change must correspond to exactly one transaction row. Balances are never edited directly; they are recalculated/adjusted only as a side effect of inserting a new transaction inside a database transaction.
+
+### 5.2 Fund Allocation / Transfer Sequence
 
 ```
-verifyJWT -> checkPermission('resource.action') -> rateLimiter -> controller
+BEGIN DB TRANSACTION
+  1. Authenticate user (JWT)
+  2. Check permission (fund.allocate)
+  3. Verify recipient exists and reporting relationship is valid
+  4. Verify amount > 0
+  5. SELECT source_wallet FOR UPDATE
+  6. SELECT destination_wallet FOR UPDATE
+  7. IF source.available_balance < amount → ROLLBACK, return 409
+  8. INSERT wallet_transaction (FUND_ALLOCATION / FUND_TRANSFER)
+  9. UPDATE source wallet (decrement)
+  10. UPDATE destination wallet (increment)
+  11. INSERT audit_log entry
+  12. INSERT corresponding journal_entry + journal_lines (double-entry)
+COMMIT
 ```
 
-Permission checks use atomic permission codes (e.g. `booking.create`, `payment.create`, `expense.approve`) mapped through roles — never hard-coded role-name checks like `if (role === 'admin')`.
+Locking both wallets **in a consistent order** (e.g. always lock the lower `wallet_id` first) is required to avoid deadlocks when two transfers between the same pair of wallets happen concurrently in opposite directions.
 
-## 4. Core Transaction Integrity Rules
+### 5.3 Idempotency
 
-These are non-negotiable regardless of phase, since they protect against double-booking and broken financial records:
+Every allocation/transfer/expense-posting request carries a client-generated `idempotency_key`. The API checks Redis (and/or a DB `idempotency_keys` table) before processing — a retried request with the same key returns the original result rather than creating a duplicate transaction.
 
-- **Booking / inventory**: `SELECT unit FOR UPDATE` row lock at booking time, plus a unique partial index enforcing one active (non-cancelled) booking per unit.
-- **Payments**: payment insert, allocation, journal entry, and outbox event are committed in a single atomic database transaction — all succeed or all roll back together. Idempotency keys (Redis) prevent duplicate submissions on retry.
-- **Accounting**: every journal entry must have debit = credit before it can become `POSTED`. Corrections happen through reversal entries only — never edits or deletes of posted records.
-- **Notifications**: SMS/email are never called inside the core database transaction. A `notification_outbox` row is written in the same transaction as the business event; a background worker sends the actual SMS/email asynchronously, so a provider outage can never block or roll back a payment.
+### 5.4 Fund Request → Approval → Allocation Pipeline
 
-## 5. Security Controls
+```
+User submits fund_request (PENDING)
+        │
+        ▼
+Manager reviews
+        │
+   ┌────┴─────┐
+   ▼          ▼
+REJECTED   Manager has sufficient balance?
+              │              │
+             YES            NO
+              │              │
+              ▼              ▼
+        Approve →      fund_request created
+        run allocation   with parent_request_id,
+        sequence (5.2)   requested_from = ADMIN
+        APPROVED               │
+                                ▼
+                          Admin reviews
+                                │
+                          ┌─────┴─────┐
+                          ▼           ▼
+                      REJECTED     APPROVED
+                                       │
+                                       ▼
+                            Admin → Manager allocation
+                            (sequence 5.2) runs first,
+                            then Manager's original
+                            approval decision is applied
+```
 
-| Layer | Control |
+The `parent_request_id` chain is preserved end-to-end so the full escalation path (Sales → Manager → Admin) remains queryable for audit and reporting.
+
+## 6. Accounting Integration
+
+Every wallet-affecting event also produces a balanced double-entry journal entry:
+
+| Event | Debit | Credit |
+|---|---|---|
+| Fund allocation/transfer | Destination Fund/Wallet Account | Source Fund/Wallet Account |
+| Expense | Expense Account (by category) | Wallet/Cash/Bank Account |
+| Expense reversal | Wallet/Cash/Bank Account | Expense Account |
+
+A journal entry cannot be marked `POSTED` while `SUM(debit) != SUM(credit)` — enforced at the application layer before insert and treated as a hard invariant, not merely a validation warning.
+
+## 7. Concurrency & Locking Strategy
+
+| Risk | Mitigation |
 |---|---|
-| Passwords | bcrypt, cost factor 12+ |
-| Auth tokens | Short-lived JWT access token + revocable, server-tracked refresh token |
-| RBAC | Permission codes checked on every endpoint, not role-name string checks |
-| Rate limiting | Redis-backed (`rate-limiter-flexible`); strict on login/reset endpoints, moderate elsewhere |
-| Concurrency | Postgres row-level locks (`FOR UPDATE`) + unique constraints |
-| Idempotency | Redis-stored idempotency keys on payment and other critical POST endpoints |
-| Audit | Every sensitive mutation logged in the same transaction as the action, capturing actor, before/after values, timestamp |
-| Input validation | Enforced server-side on every endpoint regardless of frontend validation |
-| Secrets | Environment variables / secret manager on the server only — never shipped to any client |
-| Documents | Virus scan before processing, SHA-256 checksum stored, versioned metadata |
-| Webhooks (Twilio, future payment gateways) | Signature verification, timestamp check, replay-window protection |
+| Two simultaneous allocations draining the same wallet below zero | `SELECT ... FOR UPDATE` on the wallet row inside the DB transaction; balance check happens after the lock is acquired, not before |
+| Deadlock from two transfers between the same wallet pair in opposite directions | Lock wallets in a fixed, consistent order (e.g. ascending `wallet_id`) |
+| Duplicate submission on network retry | Idempotency key required on all mutating fund/expense endpoints |
+| Race between a fund-request approval and a wallet balance changing in between | Re-check the approver's current available balance at the moment of approval, inside the same transaction as the allocation — never trust a balance read earlier in the request lifecycle |
 
-## 6. Build Order (this phase)
+## 8. Authentication & Authorization
 
-1. **Postgres schema** — Identity & RBAC tables first: `users`, `roles`, `permissions`, `role_permissions`, `user_roles`; seed the Admin role.
-2. **Auth endpoints** — login, refresh, logout; JWT verification middleware; permission-check middleware.
-3. **Frontend login + role-aware shell** — dashboard that renders differently based on the logged-in user's permissions.
-4. **First functional module** — Leads/CRM (no financial risk, simplest full-stack proof point).
-5. Expand outward following the phase order: Property/Inventory -> Booking -> Payments/Collections -> Office Expenses -> Accounting -> Notifications -> Reports.
+Unchanged from the base EstateSync design: JWT (short-lived access token) + server-tracked, revocable refresh tokens; bcrypt password hashing; permission-code based RBAC enforced via middleware on every route:
 
-## 7. Deferred to Later Phases
+```
+verifyJWT → checkPermission('fund.allocate' | 'expense.create' | ...) → rateLimiter → controller
+```
+
+One frontend build serves all six user categories (Admin, Manager, Sales, Marketing, Accounting, Other); the UI renders per-user permissions returned at login, but the API independently re-validates every action.
+
+## 9. Audit Logging
+
+Every state-changing action in this module — allocation, transfer, fund request decision, expense creation, expense reversal, journal adjustment — writes an `audit_logs` row **inside the same database transaction** as the business action itself, capturing actor, action, before/after values (wallet balances, request status), and timestamp. This guarantees the audit trail can never be out of sync with what actually happened, even under failure/rollback conditions.
+
+## 10. API Surface (module-relevant)
+
+```
+/api/v1/wallets
+/api/v1/wallets/:id
+/api/v1/funds
+/api/v1/funds/allocate
+/api/v1/funds/transfer
+/api/v1/fund-requests
+/api/v1/fund-requests/:id
+/api/v1/fund-requests/:id/approve
+/api/v1/fund-requests/:id/reject
+/api/v1/expenses
+/api/v1/expenses/:id
+/api/v1/transactions
+/api/v1/accounts
+/api/v1/journals
+/api/v1/accounting-periods
+/api/v1/reconciliations
+/api/v1/reports
+/api/v1/audit
+```
+
+## 11. Security Controls (module-specific additions)
+
+| Control | Detail |
+|---|---|
+| Wallet balance protection | Row-level lock + application-level `available_balance >= 0` check before commit |
+| Immutable financial history | No update/delete on `wallet_transactions` or posted `journal_entries`; corrections via `EXPENSE_REVERSAL`/`ADJUSTMENT` transaction types only |
+| Least privilege | Sales/Marketing/Other can never call allocate/approve endpoints, even with a valid token, because their role carries no `fund.allocate`/`fund.approve` permission |
+| Accounting boundary | Accounting role has `*.view_all` permissions but no `fund.allocate` permission — enforced at the middleware layer, not by omission from the UI |
+| Rate limiting | Applied to fund-request and allocation endpoints to prevent rapid-fire abuse attempts against wallet balances |
+
+## 12. Build Order for This Module
+
+1. `users`, `roles`, `permissions`, `role_permissions`, `user_roles` — extend existing RBAC tables with the six roles (Admin, Manager, Sales, Marketing, Accounting, Other) and new permission codes (`fund.*`, `wallet.*`, `expense.*`).
+2. `wallets` + `wallet_transactions` tables, with the wallet-creation trigger (every fund-controlled user gets a wallet on creation).
+3. Fund allocation endpoint (Admin → Manager) with the full locking/transaction sequence (§5.2).
+4. Fund request endpoints + approval/rejection flow, including the insufficient-funds escalation path (§5.4).
+5. Manager → User allocation (reuses the same allocation sequence with a different permission check and relationship validation).
+6. Expense creation + wallet debit.
+7. Accounting integration: `chart_of_accounts`, `journal_entries`, `journal_lines`, wired to fire on every wallet transaction.
+8. Dashboards: wallet view, Admin/Accounting financial overview, Manager team view.
+9. Reporting endpoints (breakdowns by user/manager/department/category/date/type).
+10. Audit log review UI (Admin/Accounting).
+
+## 13. Deferred to Later Phases
 
 | Feature | Planned phase |
 |---|---|
-| Electron desktop packaging (single `.exe`, same build for every role) | After the web frontend + API are fully functional |
-| Local encrypted session caching (Electron `safeStorage`) with offline grace period | Same phase as Electron packaging |
-| Offline approval queue (Manager decisions on existing approval requests only, synced on reconnect with staleness/version checks) | After Electron shell is working |
-| On-premise deployment topology (single office server running Postgres + Redis + API; identical Electron client on every PC over LAN) | After Electron packaging |
-| OCR pipeline for KYC/expense documents | Once document upload endpoints exist |
-| Twilio SMS + email notification integration | Once the payment flow is working end-to-end |
+| Electron desktop packaging | After this module is functional as a web app |
+| Offline approval decisions (Manager reviewing fund requests while disconnected) | Same phase as Electron packaging, following the same staleness/version-check pattern used for CRM approvals |
+| Bank/cash reconciliation automation | After core wallet + accounting flows are stable |
+| Connection of this fund/wallet ledger to the CRM-side booking/collections ledger (Section 11 of the base EstateSync spec) into one unified chart of accounts | Post-MVP integration phase |
 
-## 8. Explicit Non-Goals (for this phase)
+## 14. Related Documents
 
-- No offline support of any kind yet — every action requires a live connection to the API.
-- No desktop packaging yet — the frontend runs as a standard web app in a browser.
-- Booking and payment creation will never be made offline-capable even in later phases, since they depend on live Postgres row-locking and real-time balance/idempotency checks that cannot be safely replicated on a disconnected client.
+- `prd.md` — product requirements for the Fund Management & Accounting phase
+- `techStack.md` — technology stack and tooling decisions

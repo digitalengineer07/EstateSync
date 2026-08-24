@@ -1,0 +1,3 @@
+/**
+ * Role Model (ADMIN, MANAGER, SALES, MARKETING, ACCOUNTING, OTHER)
+ */

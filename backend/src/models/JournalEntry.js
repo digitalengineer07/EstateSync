@@ -1,0 +1,3 @@
+/**
+ * JournalEntry Model
+ */

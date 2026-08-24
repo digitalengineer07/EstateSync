@@ -1,67 +1,126 @@
-# EstateSync — Tech Stack
+# EstateSync — Tech Stack (Fund Management & Accounting Phase)
 
 ## 1. Current Phase
 
-Single Next.js frontend + single Node/Express backend API, connected over HTTP. No Electron packaging or offline sync in this phase.
+Single Next.js frontend + single Node/Express backend API, connected over HTTP, backed by PostgreSQL and Redis. No Electron packaging or offline sync in this phase.
 
 ## 2. Frontend
 
 | Concern | Choice | Notes |
 |---|---|---|
-| Framework | Next.js (React) | Single build, role-aware rendering based on permissions returned from the backend |
-| Auth token storage | JWT access token in memory; refresh token handled via secure storage | UI never enforces security — permission checks here are for showing/hiding views only |
+| Framework | Next.js (React) | Single build serving all six roles (Admin, Manager, Sales, Marketing, Accounting, Other); UI renders per-user permissions from the login response |
+| Auth token storage | JWT access token in memory; refresh token via secure storage | UI checks are convenience only — every action is re-validated server-side |
 | API communication | HTTP/JSON via `fetch`/`axios` | All requests include `Authorization: Bearer <token>` |
+| Dashboards | Role-specific views: Admin/Accounting financial overview, Manager team view, simplified Sales/Marketing/Other wallet view | Built from shared components, data scoped by API response, not client-side filtering |
 
 ## 3. Backend
 
 | Concern | Choice | Notes |
 |---|---|---|
 | Runtime | Node.js | |
-| API framework | Express (or Next.js API routes) | Versioned REST API, `/api/v1/...` |
-| Auth | JWT (access token, short-lived) + refresh tokens | Refresh tokens stored server-side (Postgres/Redis) so they are individually revocable |
+| API framework | Express.js | Versioned REST API, `/api/v1/...` |
+| Auth | JWT (short-lived access token) + refresh tokens | Refresh tokens stored server-side (Postgres/Redis), individually revocable |
 | Password hashing | bcrypt | Cost factor 12+ |
-| Middleware chain | `verifyJWT -> checkPermission('resource.action') -> rateLimiter -> controller` | Applied to every protected route |
-| RBAC | Atomic permission codes (e.g. `booking.create`, `payment.create`, `expense.approve`) mapped through roles | Never hard-coded role-name checks |
+| Middleware chain | `verifyJWT -> checkPermission('resource.action') -> rateLimiter -> controller` | Applied to every protected route, including all fund/wallet/expense endpoints |
+| RBAC | Atomic permission codes (`fund.allocate`, `fund.approve`, `fund.request`, `wallet.view`, `wallet.view_all`, `expense.create`, `expense.approve`, `expense.reverse`, `transaction.view_all`, `accounting.view`, `audit.view`) mapped through roles | Never hard-coded role-name checks |
+
+### Recommended Backend Structure
+
+```
+backend/
+├── src/
+│   ├── config/
+│   ├── controller/
+│   │   ├── authController.js
+│   │   ├── walletController.js
+│   │   ├── fundController.js
+│   │   ├── fundRequestController.js
+│   │   ├── expenseController.js
+│   │   ├── vendorController.js
+│   │   ├── accountController.js
+│   │   ├── journalController.js
+│   │   ├── transactionController.js
+│   │   ├── accountingPeriodController.js
+│   │   ├── reconciliationController.js
+│   │   └── reportController.js
+│   ├── middleware/
+│   │   ├── authMiddleware.js
+│   │   ├── permissionMiddleware.js
+│   │   ├── rateLimitMiddleware.js
+│   │   └── errorMiddleware.js
+│   ├── models/
+│   │   ├── User.js
+│   │   ├── Role.js
+│   │   ├── Permission.js
+│   │   ├── Wallet.js
+│   │   ├── WalletTransaction.js
+│   │   ├── FundRequest.js
+│   │   ├── FundAllocation.js
+│   │   ├── Expense.js
+│   │   ├── ExpenseCategory.js
+│   │   ├── Vendor.js
+│   │   ├── ChartOfAccount.js
+│   │   ├── JournalEntry.js
+│   │   ├── JournalLine.js
+│   │   ├── AccountingPeriod.js
+│   │   ├── Reconciliation.js
+│   │   └── AuditLog.js
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── walletRoutes.js
+│   │   ├── fundRoutes.js
+│   │   ├── fundRequestRoutes.js
+│   │   ├── expenseRoutes.js
+│   │   ├── vendorRoutes.js
+│   │   ├── accountRoutes.js
+│   │   ├── journalRoutes.js
+│   │   ├── transactionRoutes.js
+│   │   ├── accountingPeriodRoutes.js
+│   │   ├── reconciliationRoutes.js
+│   │   └── reportRoutes.js
+│   ├── utils/
+│   └── app.js
+├── package.json
+└── .env
+```
 
 ## 4. Database
 
 | Concern | Choice | Notes |
 |---|---|---|
-| Primary database | PostgreSQL | Single source of truth for all business data |
+| Primary database | PostgreSQL | Source of truth for wallets, transactions, fund requests, expenses, and the accounting ledger |
 | Money fields | `DECIMAL(15,2)` | Never `FLOAT`/`DOUBLE` for monetary values |
-| Timestamps | UTC (`DATETIME(6)`/`TIMESTAMP`), converted to local timezone at the UI/reporting layer | |
-| IDs | `BIGINT UNSIGNED` auto-increment primary key + public UUID/ULID for external references | |
-| Concurrency control | Row-level locks (`SELECT ... FOR UPDATE`) + unique partial indexes | Used at booking/hold time to prevent double-booking |
-| Financial record handling | Immutable once posted; corrections via reversal entries, never edits/deletes | |
+| Timestamps | UTC, converted to local timezone at the UI/reporting layer | |
+| Concurrency control | Row-level locks (`SELECT ... FOR UPDATE`) on wallet rows during allocation/transfer, locked in a consistent order to prevent deadlocks | Applied to both source and destination wallets in every fund movement |
+| Financial record handling | Immutable once posted; corrections via `EXPENSE_REVERSAL`/`ADJUSTMENT` transaction types, never edits/deletes | |
+| Core tables | `users`, `roles`, `permissions`, `role_permissions`, `user_roles`, `wallets`, `wallet_transactions`, `fund_requests`, `fund_allocations`, `expenses`, `expense_categories`, `vendors`, `chart_of_accounts`, `journal_entries`, `journal_lines`, `accounting_periods`, `reconciliations`, `audit_logs` | |
 
 ## 5. Cache & Queue
 
 | Concern | Choice | Notes |
 |---|---|---|
-| In-memory store | Redis | Used for: session/refresh-token storage (revocable), rate-limit counters, idempotency keys on critical POST endpoints (e.g. payments) |
+| In-memory store | Redis | Session/refresh-token storage, rate-limit counters, idempotency keys on fund allocation/transfer/expense endpoints, short-lived locks to serialize concurrent wallet-affecting requests ahead of the DB-level lock |
 
 ## 6. Rate Limiting
 
 | Concern | Choice | Notes |
 |---|---|---|
-| Library | `rate-limiter-flexible` | Backed by Redis, not in-memory, so limits hold across restarts and (later) across processes |
-| Policy | Tiered | Strict on `/auth/login`, `/auth/reset-password`; moderate on general API; minimal on read-only authenticated report endpoints |
+| Library | `rate-limiter-flexible` | Backed by Redis |
+| Policy | Tiered | Strict on `/auth/login`, `/auth/reset-password`; moderate-to-strict on fund allocation/transfer and fund-request endpoints to prevent rapid-fire balance manipulation attempts; standard on general read endpoints |
 
-## 7. Notifications (planned, later phase)
-
-| Concern | Choice | Notes |
-|---|---|---|
-| SMS/Email provider | Twilio (SMS) + SMTP (email) | Triggered only via an async outbox worker, never inside the core database transaction, so provider downtime cannot block or roll back a payment |
-| Delivery pattern | Transactional outbox (`notification_outbox` + `notification_deliveries`) | Retry with exponential backoff; permanent failures move to a dead-letter state for review |
-| Webhook handling | Signature + timestamp + replay-window verification | Applies to any inbound Twilio or future payment gateway webhook |
-
-## 8. Documents & OCR (planned, later phase)
+## 7. Idempotency
 
 | Concern | Choice | Notes |
 |---|---|---|
-| File storage | Metadata in PostgreSQL, actual files in local file/object storage | SHA-256 checksum stored per file; versioned for mutable documents like agreements |
-| Malware scanning | Virus scan on upload, before OCR/processing | |
-| OCR | Local Tesseract (fully offline) or an external vision API for structured extraction | Choice depends on whether occasional outbound calls for document processing are acceptable |
+| Mechanism | Client-generated `idempotency_key` per mutating request, checked against Redis/DB before processing | Applied to fund allocation, fund transfer, and expense-posting endpoints — a retried request with the same key returns the original result rather than duplicating the transaction |
+
+## 8. Accounting Layer
+
+| Concern | Choice | Notes |
+|---|---|---|
+| Ledger model | Double-entry (`chart_of_accounts`, `journal_entries`, `journal_lines`) | Every wallet-affecting event produces a balanced journal entry; enforced debit = credit before a `POSTED` status is allowed |
+| Reconciliation | `reconciliations` table, tied to bank/cash evidence | Later-phase workflow, schema reserved now |
+| Period control | `accounting_periods` with lock state | Backdated postings into a locked period disallowed by default |
 
 ## 9. Security Summary
 
@@ -72,18 +131,18 @@ Single Next.js frontend + single Node/Express backend API, connected over HTTP. 
 | Auth | JWT (short-lived) + revocable server-tracked refresh tokens |
 | Authorization | Permission-code based RBAC, enforced server-side on every endpoint |
 | Rate limiting | Redis-backed, tiered by endpoint sensitivity |
-| Concurrency safety | Postgres row locks + unique constraints |
-| Idempotency | Redis-stored idempotency keys on critical write endpoints |
-| Audit trail | Every sensitive mutation logged in the same transaction as the action |
+| Concurrency safety | Postgres row locks (consistent lock ordering) + application-level balance checks |
+| Idempotency | Redis/DB-stored idempotency keys on all fund/expense mutation endpoints |
+| Audit trail | Every wallet/fund/expense mutation logged in the same transaction as the action |
 | Secrets management | Environment variables / secret manager on the server only |
 
 ## 10. Deferred Stack Additions (later phases)
 
 | Addition | Purpose |
 |---|---|
-| Electron + electron-builder | Package the single frontend build into one identical desktop `.exe` for every role |
+| Electron + electron-builder | Package the frontend into a single identical desktop `.exe` for every role |
 | Electron `safeStorage` API | OS-level encrypted local session caching for offline grace-period login |
-| SQLite (embedded) or local JSON store | Local queue for offline-capable actions only (e.g. Manager approval decisions), synced on reconnect |
-| Memurai (Redis-compatible for Windows) | Native Windows Redis equivalent, if/when deploying Redis on a Windows office server |
-| Process manager (`pm2` or `node-windows`) | Keep the Node API running as an auto-restarting Windows service on the on-premise server |
-| WireGuard VPN | Secure remote access into the office LAN, if ever required, instead of exposing the API directly to the internet |
+| Local queue (SQLite/JSON) for offline approval decisions | Manager fund-request approvals queued offline, synced with staleness/version checks on reconnect |
+| Memurai (Redis-compatible for Windows) | Native Windows Redis equivalent, if deploying on a Windows on-premise server |
+| Process manager (`pm2` or `node-windows`) | Keep the Node API running as an auto-restarting service on an on-premise server |
+| Payment gateway / bank statement import integration | Automated reconciliation, future phase |

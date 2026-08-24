@@ -1,0 +1,3 @@
+/**
+ * JournalLine Model
+ */

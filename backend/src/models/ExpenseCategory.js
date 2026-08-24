@@ -1,0 +1,3 @@
+/**
+ * ExpenseCategory Model
+ */

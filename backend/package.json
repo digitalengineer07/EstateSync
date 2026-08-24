@@ -1,15 +1,9 @@
 {
-  "name": "backend",
+  "name": "estatesync-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "EstateSync Backend",
+  "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "express": "^5.2.1"
+    "start": "node src/app.js"
   }
 }

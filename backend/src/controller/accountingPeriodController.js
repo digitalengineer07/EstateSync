@@ -1,0 +1,3 @@
+/**
+ * Purpose: Accounting period locking
+ */

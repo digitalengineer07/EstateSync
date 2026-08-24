@@ -1,0 +1,3 @@
+/**
+ * Expense Model
+ */
