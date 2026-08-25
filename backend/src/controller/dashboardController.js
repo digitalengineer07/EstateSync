@@ -122,3 +122,57 @@ exports.getAdminStats = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error fetching admin stats' });
   }
 };
+
+exports.getAccountingStats = async (req, res) => {
+  try {
+    const allWallets = await prisma.wallet.aggregate({
+      _sum: {
+        totalAllocated: true,
+        availableBalance: true,
+        totalSpent: true
+      },
+      _count: {
+        id: true
+      }
+    });
+
+    const allExpenses = await prisma.expense.aggregate({
+      _sum: {
+        amount: true
+      },
+      _count: {
+        id: true
+      }
+    });
+
+    const pendingRequests = await prisma.fundRequest.aggregate({
+      where: { status: 'PENDING' },
+      _sum: { amount: true },
+      _count: { id: true }
+    });
+
+    const totalAllocated = Number(allWallets._sum.totalAllocated || 0);
+    const totalSpent = Number(allWallets._sum.totalSpent || 0);
+    const availableBalance = Number(allWallets._sum.availableBalance || 0);
+    const utilizationRate = totalAllocated > 0 ? ((totalSpent / totalAllocated) * 100).toFixed(1) : '0.0';
+
+    res.json({
+      success: true,
+      stats: {
+        totalOrganizationalFunds: availableBalance,
+        totalAllocated,
+        totalSpent,
+        totalRecordedExpenses: Number(allExpenses._sum.amount || 0),
+        expenseCount: allExpenses._count.id || 0,
+        totalWallets: allWallets._count.id || 0,
+        pendingRequestsAmount: Number(pendingRequests._sum.amount || 0),
+        pendingRequestsCount: pendingRequests._count.id || 0,
+        budgetUtilization: `${utilizationRate}%`
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching accounting stats:', error);
+    res.status(500).json({ success: false, message: 'Server error fetching accounting stats' });
+  }
+};
+

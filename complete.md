@@ -39,8 +39,8 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 | Feature | Status | Notes |
 |---------|--------|-------|
 | Admin can view all transactions and wallets | ✅ **Implemented** | `TransactionLedger` and `DashboardStats` provide real-time org-wide visibility. |
-| Accounting can view all financial transactions, total funds, allocated funds, expenses, and every user's wallet | ❌ **Pending** | The `accounting/page.js` dashboard has not been built/wired up yet. |
-| Live Dashboard Statistics | ✅ **Implemented** | `dashboardController.js` serves live aggregates for Admin, Manager, and Wallet views. |
+| Accounting can view all financial transactions, total funds, allocated funds, expenses, and every user's wallet | ✅ **Implemented** | Built in `accounting/page.js` with `UserWalletLedger`, `ExpenseList`, `TransactionLedger`, and `DashboardStats`. |
+| Live Dashboard Statistics | ✅ **Implemented** | `dashboardController.js` serves live aggregates for Admin, Manager, Accounting, and Wallet views. |
 
 ## 6. Ledger & Accounting Integrity
 | Feature | Status | Notes |

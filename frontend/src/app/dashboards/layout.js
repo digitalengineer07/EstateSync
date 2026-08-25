@@ -42,6 +42,14 @@ export default function DashboardsLayout({ children }) {
                   Manager Hub
                 </button>
               )}
+              {["ADMIN", "ACCOUNTING"].includes(user.role) && (
+                <button
+                  onClick={() => router.push("/dashboards/accounting")}
+                  className="px-3 py-1.5 rounded-md hover:bg-indigo-600 font-medium transition"
+                >
+                  Accounting Hub
+                </button>
+              )}
               <button
                 onClick={() => router.push("/dashboards/wallet")}
                 className="px-3 py-1.5 rounded-md hover:bg-indigo-600 font-medium transition"
