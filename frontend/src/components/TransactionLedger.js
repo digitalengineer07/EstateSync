@@ -51,7 +51,7 @@ export default function TransactionLedger() {
                 <th scope="col" className="px-6 py-3">Description</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 text-gray-900">
               {transactions.map((txn) => (
                 <tr key={txn.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-6 py-4">{new Date(txn.createdAt).toLocaleString()}</td>

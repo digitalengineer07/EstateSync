@@ -91,7 +91,7 @@ export default function FundRequestList({ type = "outgoing" }) {
                 {type === 'incoming' && <th scope="col" className="px-6 py-3 text-right">Actions</th>}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 text-gray-900">
               {requests.map((req) => (
                 <tr key={req.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-6 py-4">{new Date(req.createdAt).toLocaleDateString()}</td>
