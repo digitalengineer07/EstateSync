@@ -44,10 +44,18 @@ app.use(apiLimiter);
 // Import Routes
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const expenseRoutes = require('./routes/expenseRoutes');
+const fundRequestRoutes = require('./routes/fundRequestRoutes');
+const transactionRoutes = require('./routes/transactionRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 
 // Mount Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/expenses', expenseRoutes);
+app.use('/api/v1/fund-requests', fundRequestRoutes);
+app.use('/api/v1/transactions', transactionRoutes);
+app.use('/api/v1/dashboard', dashboardRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {

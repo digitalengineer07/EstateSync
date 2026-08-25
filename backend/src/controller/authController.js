@@ -15,7 +15,7 @@ const generateTokens = (user) => {
     permissions: user.role.permissions.map(rp => rp.permission.code)
   };
 
-  const accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '15m' });
+  const accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });
   const refreshToken = jwt.sign({ userId: user.id }, JWT_REFRESH_SECRET, { expiresIn: '7d' });
 
   return { accessToken, refreshToken };

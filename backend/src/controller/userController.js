@@ -18,6 +18,27 @@ exports.getRoles = async (req, res) => {
   }
 };
 
+exports.getManagers = async (req, res) => {
+  try {
+    const managers = await prisma.user.findMany({
+      where: {
+        role: {
+          name: 'MANAGER'
+        }
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true
+      }
+    });
+    res.json({ success: true, managers });
+  } catch (error) {
+    console.error('Error fetching managers:', error);
+    res.status(500).json({ success: false, message: 'Server error fetching managers' });
+  }
+};
+
 exports.registerUser = async (req, res) => {
   try {
     const { email, password, name, roleId } = req.body;

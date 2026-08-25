@@ -8,6 +8,9 @@ const { checkPermission } = require('../middleware/permissionMiddleware');
 // Protected: Only users with 'user.manage' permission can fetch the list of roles to assign.
 router.get('/roles', verifyJWT, checkPermission('user.manage'), userController.getRoles);
 
+// GET /api/v1/users/managers
+router.get('/managers', verifyJWT, userController.getManagers);
+
 // POST /api/v1/users/register
 // Protected: Only users with 'user.manage' permission can register new users.
 router.post('/register', verifyJWT, checkPermission('user.manage'), userController.registerUser);
