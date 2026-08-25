@@ -29,13 +29,49 @@ exports.getManagers = async (req, res) => {
       select: {
         id: true,
         name: true,
-        email: true
+        email: true,
+        role: {
+          select: { name: true }
+        },
+        wallet: {
+          select: {
+            availableBalance: true,
+            totalAllocated: true,
+            totalSpent: true
+          }
+        }
       }
     });
     res.json({ success: true, managers });
   } catch (error) {
     console.error('Error fetching managers:', error);
     res.status(500).json({ success: false, message: 'Server error fetching managers' });
+  }
+};
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: {
+          select: { name: true }
+        },
+        wallet: {
+          select: {
+            availableBalance: true,
+            totalAllocated: true
+          }
+        }
+      },
+      orderBy: { name: 'asc' }
+    });
+    res.json({ success: true, users });
+  } catch (error) {
+    console.error('Error fetching all users:', error);
+    res.status(500).json({ success: false, message: 'Server error fetching users' });
   }
 };
 

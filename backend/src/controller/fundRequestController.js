@@ -196,3 +196,85 @@ exports.rejectRequest = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error during rejection' });
   }
 };
+
+// Direct fund allocation by Admin to any user/manager
+exports.directAllocateFunds = async (req, res) => {
+  try {
+    const { targetUserId, amount, description } = req.body;
+    const adminId = req.user.userId;
+
+    if (!targetUserId || !amount) {
+      return res.status(400).json({ success: false, message: 'Target user and amount are required' });
+    }
+
+    const allocAmount = parseFloat(amount);
+    if (isNaN(allocAmount) || allocAmount <= 0) {
+      return res.status(400).json({ success: false, message: 'Amount must be a positive number' });
+    }
+
+    const targetUser = await prisma.user.findUnique({
+      where: { id: targetUserId },
+      include: { wallet: true, role: true }
+    });
+
+    if (!targetUser) {
+      return res.status(404).json({ success: false, message: 'Target user not found' });
+    }
+
+    let targetWallet = targetUser.wallet;
+    if (!targetWallet) {
+      // Create wallet if missing
+      targetWallet = await prisma.wallet.create({
+        data: {
+          userId: targetUser.id,
+          totalAllocated: 0,
+          totalSpent: 0,
+          availableBalance: 0
+        }
+      });
+    }
+
+    // Get admin wallet (optional source)
+    const adminWallet = await prisma.wallet.findUnique({
+      where: { userId: adminId }
+    });
+
+    const result = await prisma.$transaction(async (tx) => {
+      // 1. Update target wallet balance
+      const updatedWallet = await tx.wallet.update({
+        where: { id: targetWallet.id },
+        data: {
+          totalAllocated: { increment: allocAmount },
+          availableBalance: { increment: allocAmount }
+        }
+      });
+
+      // 2. Create immutable transaction entry
+      const transaction = await tx.walletTransaction.create({
+        data: {
+          type: 'FUND_ALLOCATION',
+          sourceWalletId: adminWallet?.id || null,
+          destWalletId: targetWallet.id,
+          amount: allocAmount,
+          referenceType: 'DIRECT_ALLOCATION',
+          referenceId: null,
+          description: description || `Direct fund allocation to ${targetUser.name} (${targetUser.role.name})`,
+          createdBy: adminId,
+          status: 'COMPLETED'
+        }
+      });
+
+      return { wallet: updatedWallet, transaction };
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `Successfully allocated ₹${allocAmount.toLocaleString()} to ${targetUser.name}`,
+      data: result
+    });
+  } catch (error) {
+    console.error('Direct Allocation Error:', error);
+    res.status(500).json({ success: false, message: 'Server error during fund allocation' });
+  }
+};
+

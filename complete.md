@@ -21,7 +21,7 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 ## 3. Fund Allocation & Requests
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Admin can allocate funds to managers | ❌ **Pending** | Backend logic theoretically supports it via Admin funding requests, but a dedicated "Direct Allocation Form" for Admin is missing. |
+| Admin can allocate funds to managers | ✅ **Implemented** | `DirectFundAllocationForm` and `POST /api/v1/fund-requests/allocate` allow Admin to push funds directly into manager/user wallets. |
 | Sales / Marketing / Other users can request funds | ✅ **Implemented** | `FundRequestForm` allows users to select their manager and request funds. |
 | Managers can approve team fund requests | ✅ **Implemented** | `FundRequestList` on Manager dashboard supports one-click atomic approvals. |
 | Managers cannot approve requests exceeding available funds | ✅ **Implemented** | Prisma `$transaction` explicitly blocks approval if manager's balance is too low. |

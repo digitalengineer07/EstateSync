@@ -2,6 +2,7 @@ import UserRegistrationForm from "@/components/UserRegistrationForm";
 import FundRequestList from "@/components/FundRequestList";
 import TransactionLedger from "@/components/TransactionLedger";
 import DashboardStats from "@/components/DashboardStats";
+import DirectFundAllocationForm from "@/components/DirectFundAllocationForm";
 
 export default function AdminDashboard() {
   return (
@@ -15,7 +16,10 @@ export default function AdminDashboard() {
         <DashboardStats type="admin" />
       </div>
       
-      <UserRegistrationForm />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <DirectFundAllocationForm />
+        <UserRegistrationForm />
+      </div>
       
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <FundRequestList type="all" />

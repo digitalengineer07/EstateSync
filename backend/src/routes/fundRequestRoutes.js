@@ -13,7 +13,8 @@ router.get('/incoming', verifyJWT, fundRequestController.getIncomingRequests); /
 router.post('/:id/approve', verifyJWT, fundRequestController.approveRequest);
 router.post('/:id/reject', verifyJWT, fundRequestController.rejectRequest);
 
-// Admin specific route
+// Admin specific routes
 router.get('/all', verifyJWT, checkPermission('fund.approve'), fundRequestController.getAllRequests);
+router.post('/allocate', verifyJWT, checkPermission('fund.allocate'), fundRequestController.directAllocateFunds);
 
 module.exports = router;
