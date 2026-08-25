@@ -64,7 +64,8 @@ exports.getAllUsers = async (req, res) => {
         wallet: {
           select: {
             availableBalance: true,
-            totalAllocated: true
+            totalAllocated: true,
+            totalSpent: true
           }
         }
       },
