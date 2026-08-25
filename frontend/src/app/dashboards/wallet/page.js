@@ -2,6 +2,7 @@ import ExpenseUploadForm from "@/components/ExpenseUploadForm";
 import FundRequestForm from "@/components/FundRequestForm";
 import FundRequestList from "@/components/FundRequestList";
 import DashboardStats from "@/components/DashboardStats";
+import ExpenseList from "@/components/ExpenseList";
 
 export default function WalletDashboard() {
   return (
@@ -16,12 +17,13 @@ export default function WalletDashboard() {
       </div>
       
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <div>
+        <div className="space-y-6">
           <FundRequestForm />
           <FundRequestList type="outgoing" />
         </div>
-        <div>
+        <div className="space-y-6">
           <ExpenseUploadForm />
+          <ExpenseList type="my" />
         </div>
       </div>
     </div>

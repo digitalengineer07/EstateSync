@@ -91,3 +91,75 @@ exports.createExpense = async (req, res) => {
     res.status(500).json({ success: false, message: error.message || 'Server error creating expense' });
   }
 };
+
+// Get expenses recorded by current user
+exports.getMyExpenses = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const expenses = await prisma.expense.findMany({
+      where: { userId },
+      include: {
+        category: { select: { id: true, name: true, description: true } }
+      },
+      orderBy: { date: 'desc' }
+    });
+    res.json({ success: true, expenses });
+  } catch (error) {
+    console.error('Error fetching my expenses:', error);
+    res.status(500).json({ success: false, message: 'Server error fetching my expenses' });
+  }
+};
+
+// Get team expenses (for manager)
+exports.getTeamExpenses = async (req, res) => {
+  try {
+    const managerId = req.user.userId;
+
+    // Find all users who have made fund requests to this manager
+    const requests = await prisma.fundRequest.findMany({
+      where: { managerId },
+      select: { requesterId: true }
+    });
+
+    const teamUserIds = [...new Set(requests.map(r => r.requesterId))];
+
+    // If Admin or Manager, fetch expenses from their team members or general team
+    const whereClause = req.user.role === 'ADMIN'
+      ? {}
+      : teamUserIds.length > 0
+        ? { userId: { in: teamUserIds } }
+        : { user: { role: { name: { in: ['SALES', 'MARKETING', 'OTHER'] } } } };
+
+    const expenses = await prisma.expense.findMany({
+      where: whereClause,
+      include: {
+        user: { select: { id: true, name: true, email: true, role: { select: { name: true } } } },
+        category: { select: { id: true, name: true, description: true } }
+      },
+      orderBy: { date: 'desc' }
+    });
+
+    res.json({ success: true, expenses });
+  } catch (error) {
+    console.error('Error fetching team expenses:', error);
+    res.status(500).json({ success: false, message: 'Server error fetching team expenses' });
+  }
+};
+
+// Get all expenses (for Admin & Accounting)
+exports.getAllExpenses = async (req, res) => {
+  try {
+    const expenses = await prisma.expense.findMany({
+      include: {
+        user: { select: { id: true, name: true, email: true, role: { select: { name: true } } } },
+        category: { select: { id: true, name: true, description: true } }
+      },
+      orderBy: { date: 'desc' }
+    });
+    res.json({ success: true, expenses });
+  } catch (error) {
+    console.error('Error fetching all expenses:', error);
+    res.status(500).json({ success: false, message: 'Server error fetching all expenses' });
+  }
+};
+

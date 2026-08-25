@@ -6,14 +6,26 @@
  */
 exports.checkPermission = (requiredPermission) => {
   return (req, res, next) => {
-    if (!req.user || !req.user.permissions) {
+    if (!req.user) {
       return res.status(403).json({ success: false, message: 'Access denied: No permissions found' });
     }
 
-    if (req.user.permissions.includes(requiredPermission)) {
+    if (req.user.role === 'ADMIN') {
+      return next();
+    }
+
+    const permissions = req.user.permissions || [];
+    const required = Array.isArray(requiredPermission) ? requiredPermission : [requiredPermission];
+
+    const hasPermission = required.some(p => permissions.includes(p));
+
+    if (hasPermission) {
       next();
     } else {
-      return res.status(403).json({ success: false, message: `Access denied: Requires ${requiredPermission}` });
+      return res.status(403).json({ 
+        success: false, 
+        message: `Access denied: Requires ${required.join(' or ')}` 
+      });
     }
   };
 };

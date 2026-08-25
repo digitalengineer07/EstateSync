@@ -1,5 +1,6 @@
 import FundRequestList from "@/components/FundRequestList";
 import DashboardStats from "@/components/DashboardStats";
+import ExpenseList from "@/components/ExpenseList";
 
 export default function ManagerDashboard() {
   return (
@@ -13,7 +14,10 @@ export default function ManagerDashboard() {
         <DashboardStats type="manager" />
       </div>
 
-      <FundRequestList type="incoming" />
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <FundRequestList type="incoming" />
+        <ExpenseList type="team" />
+      </div>
     </div>
   );
 }

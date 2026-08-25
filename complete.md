@@ -32,8 +32,8 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 | Feature | Status | Notes |
 |---------|--------|-------|
 | Users can record their own expenses | ✅ **Implemented** | `ExpenseUploadForm` deducts wallet balance and creates expense records securely. |
-| Users can view their own expenses | ❌ **Pending** | Requires an `ExpenseList` UI component on the Wallet Dashboard. |
-| Managers can view team expenses | ❌ **Pending** | Requires an `ExpenseList` UI component on the Manager Dashboard. |
+| Users can view their own expenses | ✅ **Implemented** | `ExpenseList (type="my")` on the Wallet Dashboard. |
+| Managers can view team expenses | ✅ **Implemented** | `ExpenseList (type="team")` on the Manager Dashboard. |
 
 ## 5. Dashboards & Visibility
 | Feature | Status | Notes |
