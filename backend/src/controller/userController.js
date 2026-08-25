@@ -20,11 +20,13 @@ exports.getRoles = async (req, res) => {
 
 exports.getManagers = async (req, res) => {
   try {
+    const currentUserId = req.user?.userId;
     const managers = await prisma.user.findMany({
       where: {
         role: {
-          name: 'MANAGER'
-        }
+          name: { in: ['MANAGER', 'ADMIN'] }
+        },
+        ...(currentUserId ? { id: { not: currentUserId } } : {})
       },
       select: {
         id: true,

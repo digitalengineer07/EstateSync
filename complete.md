@@ -25,7 +25,7 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 | Sales / Marketing / Other users can request funds | ✅ **Implemented** | `FundRequestForm` allows users to select their manager and request funds. |
 | Managers can approve team fund requests | ✅ **Implemented** | `FundRequestList` on Manager dashboard supports one-click atomic approvals. |
 | Managers cannot approve requests exceeding available funds | ✅ **Implemented** | Prisma `$transaction` explicitly blocks approval if manager's balance is too low. |
-| Managers can request additional funds from Admin | ❌ **Pending** | Needs UI support for Managers to select Admin as a funding source. |
+| Managers can request additional funds from Admin | ✅ **Implemented** | Managers can select System Admin as their approver in `FundRequestForm`. |
 | Fund transfers are atomic | ✅ **Implemented** | Handled natively by Prisma `$transaction`. |
 
 ## 4. Expense Management
