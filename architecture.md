@@ -2,7 +2,7 @@
 
 ## 1. Scope
 
-This document covers the architecture for the **Fund Management, Wallet, and Accounting** module — a single Next.js frontend connected to a single Node/Express backend API, backed by PostgreSQL and Redis. No Electron packaging or offline sync in this phase.
+This document covers the architecture for the **Fund Management, Wallet, and Accounting** module — a single Next.js frontend connected to a single Node/Express backend API, backed by PostgreSQL (Redis deferred to the last phase, for caching only). No Electron packaging or offline sync in this phase.
 
 ## 2. High-Level Architecture
 
@@ -18,10 +18,10 @@ This document covers the architecture for the **Fund Management, Wallet, and Acc
                                   │                                    │
                            ┌─────────────┐                  ┌─────────────┐
                            │ PostgreSQL   │                  │ Redis        │
-                           │ (wallets,    │                  │ (sessions,   │
-                           │ transactions,│                  │ rate limits, │
-                           │ ledger)      │                  │ idempotency, │
-                           │              │                  │ wallet locks)│
+                           │ (wallets,    │                  │ (caching     │
+                           │ transactions,│                  │ only,        │
+                           │ ledger)      │                  │ deferred to  │
+                           │              │                  │ last phase)  │
                            └─────────────┘                  └─────────────┘
 ```
 
@@ -32,7 +32,7 @@ This document covers the architecture for the **Fund Management, Wallet, and Acc
 | Next.js Frontend | Role-aware dashboards (Admin, Manager, Sales, Marketing, Accounting, Other), wallet views, fund request forms, expense entry, never enforces security itself |
 | Node/Express API | Auth, RBAC, wallet transaction logic, fund allocation/request workflows, expense posting, accounting/ledger posting, audit logging |
 | PostgreSQL | Source of truth: `users`, `roles`, `permissions`, `wallets`, `wallet_transactions`, `fund_requests`, `fund_allocations`, `expenses`, `chart_of_accounts`, `journal_entries`, `journal_lines`, `audit_logs` |
-| Redis | Session/refresh-token store, rate-limit counters, idempotency keys, and short-lived locks around wallet transactions to serialize concurrent requests before the DB-level lock is acquired |
+| Redis | Deferred to the last phase and will ONLY be used for caching (NOT sessions or rate limits). |
 
 **Golden rule (unchanged from prior phases):** the frontend renders and collects input only. Every wallet balance check, permission check, and financial invariant is enforced server-side.
 
@@ -94,7 +94,7 @@ Locking both wallets **in a consistent order** (e.g. always lock the lower `wall
 
 ### 5.3 Idempotency
 
-Every allocation/transfer/expense-posting request carries a client-generated `idempotency_key`. The API checks Redis (and/or a DB `idempotency_keys` table) before processing — a retried request with the same key returns the original result rather than creating a duplicate transaction.
+Every allocation/transfer/expense-posting request carries a client-generated `idempotency_key`. The API checks a DB `idempotency_keys` table before processing (Redis caching deferred to last phase) — a retried request with the same key returns the original result rather than creating a duplicate transaction.
 
 ### 5.4 Fund Request → Approval → Allocation Pipeline
 

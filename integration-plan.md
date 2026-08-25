@@ -136,6 +136,8 @@ Build the Fund Management phase as planned, but treat these four tables as **sha
 
 When the original CRM/property/booking spec is eventually built, it becomes a set of **new modules that write into the same ledger, the same audit trail, and the same approval engine** — not a second system requiring data migration or reconciliation against what you build today.
 
+*Note on Cache/Sessions:* Redis integration is deferred entirely to the final phase and will ONLY be used for caching. It will not be used for session management or rate limiting (which will use in-memory express middleware instead).
+
 ## 8. Related Documents
 
 - `prd.md` — Fund Management & Accounting phase requirements

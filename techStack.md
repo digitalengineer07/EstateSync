@@ -2,7 +2,7 @@
 
 ## 1. Current Phase
 
-Single Next.js frontend + single Node/Express backend API, connected over HTTP, backed by PostgreSQL and Redis. No Electron packaging or offline sync in this phase.
+Single Next.js frontend + single Node/Express backend API, connected over HTTP, backed by PostgreSQL (Redis for caching only, deferred to the last phase). No Electron packaging or offline sync in this phase.
 
 ## 2. Frontend
 
@@ -19,7 +19,7 @@ Single Next.js frontend + single Node/Express backend API, connected over HTTP, 
 |---|---|---|
 | Runtime | Node.js | |
 | API framework | Express.js | Versioned REST API, `/api/v1/...` |
-| Auth | JWT (short-lived access token) + refresh tokens | Refresh tokens stored server-side (Postgres/Redis), individually revocable |
+| Auth | JWT (short-lived access token) + refresh tokens | Refresh tokens stored server-side using express-session (Redis deferred), individually revocable |
 | Password hashing | bcrypt | Cost factor 12+ |
 | Middleware chain | `verifyJWT -> checkPermission('resource.action') -> rateLimiter -> controller` | Applied to every protected route, including all fund/wallet/expense endpoints |
 | RBAC | Atomic permission codes (`fund.allocate`, `fund.approve`, `fund.request`, `wallet.view`, `wallet.view_all`, `expense.create`, `expense.approve`, `expense.reverse`, `transaction.view_all`, `accounting.view`, `audit.view`) mapped through roles | Never hard-coded role-name checks |
@@ -99,13 +99,13 @@ backend/
 
 | Concern | Choice | Notes |
 |---|---|---|
-| In-memory store | Redis | Session/refresh-token storage, rate-limit counters, idempotency keys on fund allocation/transfer/expense endpoints, short-lived locks to serialize concurrent wallet-affecting requests ahead of the DB-level lock |
+| In-memory store | express-session & express-rate-limit | Redis will ONLY be used for caching and is integrated in the last phase. Sessions and rate limits are handled via express middleware without Redis. |
 
 ## 6. Rate Limiting
 
 | Concern | Choice | Notes |
 |---|---|---|
-| Library | `rate-limiter-flexible` | Backed by Redis |
+| Library | `express-rate-limit` | In-memory rate limiting (Redis deferred and not used for rate limiting) |
 | Policy | Tiered | Strict on `/auth/login`, `/auth/reset-password`; moderate-to-strict on fund allocation/transfer and fund-request endpoints to prevent rapid-fire balance manipulation attempts; standard on general read endpoints |
 
 ## 7. Idempotency
@@ -130,9 +130,9 @@ backend/
 | Password hashing | bcrypt, cost 12+ |
 | Auth | JWT (short-lived) + revocable server-tracked refresh tokens |
 | Authorization | Permission-code based RBAC, enforced server-side on every endpoint |
-| Rate limiting | Redis-backed, tiered by endpoint sensitivity |
+| Rate limiting | In-memory express-rate-limit, tiered by endpoint sensitivity |
 | Concurrency safety | Postgres row locks (consistent lock ordering) + application-level balance checks |
-| Idempotency | Redis/DB-stored idempotency keys on all fund/expense mutation endpoints |
+| Idempotency | DB-stored idempotency keys (Redis caching deferred to last phase) |
 | Audit trail | Every wallet/fund/expense mutation logged in the same transaction as the action |
 | Secrets management | Environment variables / secret manager on the server only |
 

@@ -5,7 +5,7 @@
 **Frontend:** Next.js / React
 **Backend:** Node.js + Express.js
 **Database:** PostgreSQL
-**Cache:** Redis
+**Cache:** None (Redis implementation deferred to the final phase)
 **API:** REST `/api/v1/...`
 
 ---
@@ -475,6 +475,7 @@ The wallet/fund system is the operational core; the accounting ledger is the fin
 - Whether Accounting requires any conditional allocation authority in specific approved scenarios (currently: view/oversight only).
 - Expense approval thresholds and categories, to be aligned with the broader EstateSync expense/accounting design from the CRM phase.
 - Reconciliation process between wallet transactions and bank/cash evidence.
+- Redis integration for caching, sessions, and idempotency (deferred to the final phase).
 
 ## 20. Related Documents
 
