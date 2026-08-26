@@ -1,0 +1,200 @@
+const prisma = require('../config/db');
+
+const STANDARD_ACCOUNTS = [
+  { code: '1010', name: 'Corporate Bank / Primary Treasury', type: 'ASSET', description: 'Central company bank account and master capital reserve' },
+  { code: '1020', name: 'Manager Operational Wallets', type: 'ASSET', description: 'Allocated funds held in Manager wallets' },
+  { code: '1030', name: 'Team / Field Wallets', type: 'ASSET', description: 'Allocated funds held in Sales, Marketing, and Staff wallets' },
+  { code: '3010', name: 'Organizational Capital', type: 'EQUITY', description: 'Capital reserves and equity funding' },
+  { code: '5010', name: 'Travel & Field Expenses', type: 'EXPENSE', description: 'Client site visits, travel, fuel, transport' },
+  { code: '5020', name: 'Marketing & Promotions', type: 'EXPENSE', description: 'Lead generation, print collateral, digital ads' },
+  { code: '5030', name: 'Client Entertainment & Hospitality', type: 'EXPENSE', description: 'Customer meetings, food, refreshments' },
+  { code: '5040', name: 'Office Supplies & Utilities', type: 'EXPENSE', description: 'Stationery, telecom, petty equipment' },
+  { code: '5050', name: 'General & Miscellaneous Operations', type: 'EXPENSE', description: 'General operational overheads' }
+];
+
+/**
+ * Ensure default Chart of Accounts exist in the database
+ */
+async function ensureStandardAccounts(db = prisma) {
+  for (const acc of STANDARD_ACCOUNTS) {
+    await db.account.upsert({
+      where: { code: acc.code },
+      update: {},
+      create: acc
+    });
+  }
+}
+
+/**
+ * Post an atomic Double-Entry Journal Entry
+ * Invariant: Sum of Debits MUST equal Sum of Credits.
+ */
+async function postJournalEntry(tx, {
+  description,
+  referenceType,
+  referenceId,
+  createdBy,
+  lines // [{ accountCode, debit, credit, description }]
+}) {
+  if (!lines || lines.length < 2) {
+    throw new Error('Journal entry requires at least two lines (Double-Entry Bookkeeping)');
+  }
+
+  let totalDebit = 0;
+  let totalCredit = 0;
+
+  for (const line of lines) {
+    totalDebit += parseFloat(line.debit || 0);
+    totalCredit += parseFloat(line.credit || 0);
+  }
+
+  // Float precision comparison up to 2 decimals
+  if (Math.abs(totalDebit - totalCredit) > 0.009) {
+    throw new Error(`Double-entry bookkeeping mismatch: Total Debits (₹${totalDebit.toFixed(2)}) must equal Total Credits (₹${totalCredit.toFixed(2)})`);
+  }
+
+  // Ensure accounts exist
+  await ensureStandardAccounts(tx);
+
+  // Fetch account IDs for codes
+  const codes = lines.map(l => l.accountCode);
+  const accounts = await tx.account.findMany({
+    where: { code: { in: codes } }
+  });
+  const accountMap = new Map(accounts.map(a => [a.code, a.id]));
+
+  // Generate sequence number
+  const count = await tx.journalEntry.count();
+  const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  const entryNumber = `JE-${dateStr}-${String(count + 1).padStart(4, '0')}`;
+
+  const entry = await tx.journalEntry.create({
+    data: {
+      entryNumber,
+      description,
+      referenceType,
+      referenceId: referenceId ? String(referenceId) : null,
+      createdBy: String(createdBy || 'SYSTEM'),
+      status: 'POSTED',
+      lines: {
+        create: lines.map(l => ({
+          accountId: accountMap.get(l.accountCode) || accounts[0].id,
+          debit: parseFloat(l.debit || 0),
+          credit: parseFloat(l.credit || 0),
+          description: l.description || description
+        }))
+      }
+    },
+    include: {
+      lines: {
+        include: { account: true }
+      }
+    }
+  });
+
+  return entry;
+}
+
+/**
+ * Double-Entry Post: Direct Fund Allocation
+ * Debit: Recipient Wallet (Asset +)
+ * Credit: Source Wallet / Treasury (Asset -)
+ */
+async function postAllocationJournal(tx, {
+  sourceWalletType = 'TREASURY', // 'TREASURY' or 'MANAGER'
+  recipientWalletType = 'MANAGER', // 'MANAGER' or 'TEAM'
+  amount,
+  description,
+  referenceId,
+  createdBy
+}) {
+  const debitCode = recipientWalletType === 'MANAGER' ? '1020' : '1030';
+  const creditCode = sourceWalletType === 'TREASURY' ? '1010' : '1020';
+
+  return await postJournalEntry(tx, {
+    description: `Fund Allocation: ${description}`,
+    referenceType: 'FUND_ALLOCATION',
+    referenceId,
+    createdBy,
+    lines: [
+      { accountCode: debitCode, debit: amount, credit: 0, description: `Increase ${recipientWalletType} Wallet Balance` },
+      { accountCode: creditCode, debit: 0, credit: amount, description: `Decrease ${sourceWalletType} Available Capital` }
+    ]
+  });
+}
+
+/**
+ * Double-Entry Post: Expense Recorded
+ * Debit: Expense Account (Expense +)
+ * Credit: User Wallet Account (Asset -)
+ */
+async function postExpenseJournal(tx, {
+  categoryName = 'General',
+  userRole = 'TEAM',
+  amount,
+  description,
+  referenceId,
+  createdBy
+}) {
+  let expenseCode = '5050';
+  const cat = (categoryName || '').toLowerCase();
+  if (cat.includes('travel') || cat.includes('cab') || cat.includes('fuel')) expenseCode = '5010';
+  else if (cat.includes('market') || cat.includes('ad') || cat.includes('lead')) expenseCode = '5020';
+  else if (cat.includes('food') || cat.includes('client') || cat.includes('entertain')) expenseCode = '5030';
+  else if (cat.includes('office') || cat.includes('suppl') || cat.includes('station')) expenseCode = '5040';
+
+  const walletCode = userRole === 'MANAGER' ? '1020' : '1030';
+
+  return await postJournalEntry(tx, {
+    description: `Expense Recorded: ${description}`,
+    referenceType: 'EXPENSE',
+    referenceId,
+    createdBy,
+    lines: [
+      { accountCode: expenseCode, debit: amount, credit: 0, description: `Recognize Expense: ${categoryName}` },
+      { accountCode: walletCode, debit: 0, credit: amount, description: `Deduct from ${userRole} Wallet` }
+    ]
+  });
+}
+
+/**
+ * Double-Entry Post: Expense Reversal
+ * Debit: User Wallet Account (Asset +)
+ * Credit: Expense Account (Expense -)
+ */
+async function postExpenseReversalJournal(tx, {
+  categoryName = 'General',
+  userRole = 'TEAM',
+  amount,
+  description,
+  referenceId,
+  createdBy
+}) {
+  let expenseCode = '5050';
+  const cat = (categoryName || '').toLowerCase();
+  if (cat.includes('travel') || cat.includes('cab') || cat.includes('fuel')) expenseCode = '5010';
+  else if (cat.includes('market') || cat.includes('ad') || cat.includes('lead')) expenseCode = '5020';
+  else if (cat.includes('food') || cat.includes('client') || cat.includes('entertain')) expenseCode = '5030';
+  else if (cat.includes('office') || cat.includes('suppl') || cat.includes('station')) expenseCode = '5040';
+
+  const walletCode = userRole === 'MANAGER' ? '1020' : '1030';
+
+  return await postJournalEntry(tx, {
+    description: `Reversal of Expense: ${description}`,
+    referenceType: 'EXPENSE_REVERSAL',
+    referenceId,
+    createdBy,
+    lines: [
+      { accountCode: walletCode, debit: amount, credit: 0, description: `Restored Balance to ${userRole} Wallet` },
+      { accountCode: expenseCode, debit: 0, credit: amount, description: `Reversed Expense Category: ${categoryName}` }
+    ]
+  });
+}
+
+module.exports = {
+  ensureStandardAccounts,
+  postJournalEntry,
+  postAllocationJournal,
+  postExpenseJournal,
+  postExpenseReversalJournal
+};
