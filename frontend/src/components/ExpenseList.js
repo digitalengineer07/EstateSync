@@ -7,6 +7,23 @@ export default function ExpenseList({ type = "my" }) {
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [successMsg, setSuccessMsg] = useState(null);
+  const [currentUserRole, setCurrentUserRole] = useState("");
+  
+  // Reversal Modal State
+  const [selectedExpense, setSelectedExpense] = useState(null);
+  const [reversalReason, setReversalReason] = useState("");
+  const [reversing, setReversing] = useState(false);
+
+  useEffect(() => {
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      try {
+        const u = JSON.parse(userStr);
+        setCurrentUserRole(u.role || "");
+      } catch (e) {}
+    }
+  }, []);
 
   const fetchExpenses = async () => {
     setLoading(true);
@@ -37,7 +54,46 @@ export default function ExpenseList({ type = "my" }) {
     fetchExpenses();
   }, [type]);
 
-  const totalSpentSum = expenses.reduce((sum, item) => sum + parseFloat(item.amount || 0), 0);
+  const handleReverseExpense = async (e) => {
+    e.preventDefault();
+    if (!selectedExpense) return;
+
+    setReversing(true);
+    setError(null);
+    setSuccessMsg(null);
+
+    try {
+      const token = localStorage.getItem("accessToken");
+      const res = await fetch(`http://localhost:4000/api/v1/expenses/${selectedExpense.id}/reverse`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ reason: reversalReason || "Administrative correction & wallet balance restored" })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setSuccessMsg(data.message || "Expense reversed and balance restored.");
+        setSelectedExpense(null);
+        setReversalReason("");
+        fetchExpenses();
+      } else {
+        setError(data.message || "Failed to reverse expense.");
+      }
+    } catch (err) {
+      console.error("Reversal Error:", err);
+      setError("Network error attempting to reverse expense.");
+    }
+    setReversing(false);
+  };
+
+  const totalSpentSum = expenses
+    .filter(item => item.status === 'RECORDED')
+    .reduce((sum, item) => sum + parseFloat(item.amount || 0), 0);
+
+  const canReverse = ["ADMIN", "ACCOUNTING"].includes(currentUserRole);
 
   if (loading) {
     return (
@@ -76,7 +132,7 @@ export default function ExpenseList({ type = "my" }) {
         </div>
         <div className="flex items-center space-x-3">
           <div className="text-right">
-            <span className="text-xs text-gray-500 block">Total Recorded</span>
+            <span className="text-xs text-gray-500 block">Total Active Recorded</span>
             <span className="text-sm font-bold text-gray-900">
               ₹{totalSpentSum.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
@@ -89,6 +145,12 @@ export default function ExpenseList({ type = "my" }) {
           </button>
         </div>
       </div>
+
+      {successMsg && (
+        <div className="p-4 mb-4 bg-emerald-50 text-emerald-900 border border-emerald-200 rounded-md text-sm">
+          ✓ {successMsg}
+        </div>
+      )}
 
       {error && (
         <div className="p-4 mb-4 bg-red-50 text-red-900 border border-red-200 rounded-md text-sm">
@@ -115,7 +177,8 @@ export default function ExpenseList({ type = "my" }) {
                 <th scope="col" className="px-5 py-3">Description</th>
                 <th scope="col" className="px-5 py-3">Vendor / Ref</th>
                 <th scope="col" className="px-5 py-3">Amount</th>
-                <th scope="col" className="px-5 py-3 text-right">Status</th>
+                <th scope="col" className="px-5 py-3">Status</th>
+                {canReverse && type !== "my" && <th scope="col" className="px-5 py-3 text-right">Actions</th>}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 text-gray-900 font-normal">
@@ -152,21 +215,86 @@ export default function ExpenseList({ type = "my" }) {
                   <td className="px-5 py-3.5 font-bold text-gray-900">
                     ₹{parseFloat(item.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </td>
-                  <td className="px-5 py-3.5 text-right">
+                  <td className="px-5 py-3.5">
                     <span
                       className={`px-2.5 py-0.5 text-xs font-semibold rounded-full ${
                         item.status === "RECORDED"
                           ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                          : "bg-amber-100 text-amber-800 border border-amber-200"
+                          : "bg-rose-100 text-rose-800 border border-rose-200 line-through"
                       }`}
                     >
                       {item.status}
                     </span>
                   </td>
+                  {canReverse && type !== "my" && (
+                    <td className="px-5 py-3.5 text-right">
+                      {item.status === "RECORDED" ? (
+                        <button
+                          onClick={() => setSelectedExpense(item)}
+                          className="px-2.5 py-1 text-xs font-medium text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded transition-colors"
+                        >
+                          Reverse Entry
+                        </button>
+                      ) : (
+                        <span className="text-xs text-gray-400 italic">Reversed</span>
+                      )}
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* Reversal Confirmation Modal */}
+      {selectedExpense && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 border border-gray-100">
+            <h4 className="text-lg font-bold text-gray-900">Reverse Expense Entry</h4>
+            <p className="text-sm text-gray-600 mt-2">
+              Are you sure you want to reverse this expense of{" "}
+              <strong className="text-rose-600">₹{parseFloat(selectedExpense.amount).toLocaleString()}</strong> recorded by{" "}
+              <strong>{selectedExpense.user?.name || "User"}</strong>?
+            </p>
+            <div className="mt-3 p-3 bg-amber-50 rounded-md border border-amber-200 text-xs text-amber-900">
+              ⚠️ This will atomically refund ₹{parseFloat(selectedExpense.amount).toLocaleString()} back into the user&apos;s available wallet balance, create an <code className="font-mono font-bold">EXPENSE_REVERSAL</code> ledger entry, and post a balancing double-entry journal.
+            </div>
+
+            <form onSubmit={handleReverseExpense} className="mt-4 space-y-3">
+              <div>
+                <label className="block text-xs font-medium text-gray-700 mb-1">
+                  Reason for Reversal <span className="text-rose-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g., Duplicate entry / Incorrect bill amount"
+                  value={reversalReason}
+                  onChange={(e) => setReversalReason(e.target.value)}
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-rose-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="flex justify-end space-x-3 pt-2">
+                <button
+                  type="button"
+                  disabled={reversing}
+                  onClick={() => { setSelectedExpense(null); setReversalReason(""); }}
+                  className="px-4 py-2 text-xs font-medium text-gray-700 hover:bg-gray-100 rounded-md border border-gray-300"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={reversing || !reversalReason.trim()}
+                  className="px-4 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 rounded-md transition-colors disabled:opacity-50"
+                >
+                  {reversing ? "Reversing..." : "Confirm Reversal & Refund"}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>
