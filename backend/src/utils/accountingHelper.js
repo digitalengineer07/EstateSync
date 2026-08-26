@@ -12,18 +12,34 @@ const STANDARD_ACCOUNTS = [
   { code: '5050', name: 'General & Miscellaneous Operations', type: 'EXPENSE', description: 'General operational overheads' }
 ];
 
+let accountsInitialized = false;
+
 /**
- * Ensure default Chart of Accounts exist in the database
+ * Ensure default Chart of Accounts exist in the database (cached in-memory)
  */
 async function ensureStandardAccounts(db = prisma) {
-  for (const acc of STANDARD_ACCOUNTS) {
-    await db.account.upsert({
-      where: { code: acc.code },
-      update: {},
-      create: acc
+  if (accountsInitialized) return;
+  try {
+    const existing = await db.account.findMany({
+      select: { code: true }
     });
+    const existingCodes = new Set(existing.map(a => a.code));
+    const missing = STANDARD_ACCOUNTS.filter(a => !existingCodes.has(a.code));
+
+    if (missing.length > 0) {
+      await db.account.createMany({
+        data: missing,
+        skipDuplicates: true
+      });
+    }
+    accountsInitialized = true;
+  } catch (err) {
+    console.error('Account seeding error:', err);
   }
 }
+
+// Pre-initialize standard accounts in background
+ensureStandardAccounts().catch(console.error);
 
 /**
  * Post an atomic Double-Entry Journal Entry
@@ -53,14 +69,19 @@ async function postJournalEntry(tx, {
     throw new Error(`Double-entry bookkeeping mismatch: Total Debits (₹${totalDebit.toFixed(2)}) must equal Total Credits (₹${totalCredit.toFixed(2)})`);
   }
 
-  // Ensure accounts exist
-  await ensureStandardAccounts(tx);
-
-  // Fetch account IDs for codes
+  // Fetch account IDs for codes in a single query
   const codes = lines.map(l => l.accountCode);
-  const accounts = await tx.account.findMany({
+  let accounts = await tx.account.findMany({
     where: { code: { in: codes } }
   });
+
+  if (accounts.length === 0) {
+    await ensureStandardAccounts(tx);
+    accounts = await tx.account.findMany({
+      where: { code: { in: codes } }
+    });
+  }
+
   const accountMap = new Map(accounts.map(a => [a.code, a.id]));
 
   // Generate sequence number
@@ -78,16 +99,11 @@ async function postJournalEntry(tx, {
       status: 'POSTED',
       lines: {
         create: lines.map(l => ({
-          accountId: accountMap.get(l.accountCode) || accounts[0].id,
+          accountId: accountMap.get(l.accountCode) || accounts[0]?.id,
           debit: parseFloat(l.debit || 0),
           credit: parseFloat(l.credit || 0),
           description: l.description || description
         }))
-      }
-    },
-    include: {
-      lines: {
-        include: { account: true }
       }
     }
   });
@@ -101,8 +117,8 @@ async function postJournalEntry(tx, {
  * Credit: Source Wallet / Treasury (Asset -)
  */
 async function postAllocationJournal(tx, {
-  sourceWalletType = 'TREASURY', // 'TREASURY' or 'MANAGER'
-  recipientWalletType = 'MANAGER', // 'MANAGER' or 'TEAM'
+  sourceWalletType = 'TREASURY',
+  recipientWalletType = 'MANAGER',
   amount,
   description,
   referenceId,

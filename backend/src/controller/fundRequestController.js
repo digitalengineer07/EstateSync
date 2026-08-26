@@ -205,7 +205,7 @@ exports.approveRequest = async (req, res) => {
       });
 
       return updatedReq;
-    });
+    }, { timeout: 20000 });
 
     res.json({ success: true, message: 'Request approved successfully', request: result });
   } catch (error) {
@@ -355,7 +355,7 @@ exports.directAllocateFunds = async (req, res) => {
       });
 
       return { wallet: updatedWallet, transaction };
-    });
+    }, { timeout: 20000 });
 
     res.status(200).json({
       success: true,

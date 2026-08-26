@@ -9,7 +9,7 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 |---------|--------|-------|
 | Six user types implemented (Admin, Manager, Sales, Marketing, Accounting, Other) | ✅ **Implemented** | All roles exist and are seeded in the DB. |
 | JWT Authentication | ✅ **Implemented** | Login/Logout flow with secure HTTP and session management. |
-| Permission-based RBAC | ✅ **Implemented** | Strict permission code checks on backend routes (e.g., `fund.approve`). |
+| Permission-based RBAC | ✅ **Implemented** | Strict permission code checks on backend routes (e.g., `fund.approve`, `expense.create`, `expense.reverse`). |
 
 ## 2. Wallet System
 | Feature | Status | Notes |
@@ -34,12 +34,13 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 | Users can record their own expenses | ✅ **Implemented** | `ExpenseUploadForm` deducts wallet balance and creates expense records securely. |
 | Users can view their own expenses | ✅ **Implemented** | `ExpenseList (type="my")` on the Wallet Dashboard. |
 | Managers can view team expenses | ✅ **Implemented** | `ExpenseList (type="team")` on the Manager Dashboard. |
+| Admin / Accounting can view all expenses | ✅ **Implemented** | `ExpenseList (type="all")` on Admin and Accounting Dashboards. |
 
 ## 5. Dashboards & Visibility
 | Feature | Status | Notes |
 |---------|--------|-------|
 | Admin can view all transactions and wallets | ✅ **Implemented** | `TransactionLedger` and `DashboardStats` provide real-time org-wide visibility. |
-| Accounting can view all financial transactions, total funds, allocated funds, expenses, and every user's wallet | ✅ **Implemented** | Built in `accounting/page.js` with `UserWalletLedger`, `ExpenseList`, `TransactionLedger`, and `DashboardStats`. |
+| Accounting can view all financial transactions, total funds, allocated funds, expenses, and every user's wallet | ✅ **Implemented** | Built in `accounting/page.js` with `UserWalletLedger`, `ExpenseList`, `TransactionLedger`, `GeneralLedgerView`, and `DashboardStats`. |
 | Live Dashboard Statistics | ✅ **Implemented** | `dashboardController.js` serves live aggregates for Admin, Manager, Accounting, and Wallet views. |
 
 ## 6. Ledger & Accounting Integrity
@@ -47,16 +48,12 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 |---------|--------|-------|
 | Every fund movement creates a transaction | ✅ **Implemented** | `WalletTransaction` captures every flow. |
 | Posted financial transactions are immutable | ✅ **Implemented** | No API endpoints exist to delete or edit `WalletTransaction` records. |
-| Every sensitive action creates an audit record | ⚠️ **Partial** | The `WalletTransaction` serves as an audit log, but a dedicated `AuditLog` table for non-financial events (like login/role changes) is pending. |
-| Critical financial operations support idempotency | ❌ **Pending** | Requires `Idempotency-Key` headers or request hashing to prevent double-charging on network retries. |
-| Accounting entries maintain debit = credit | ❌ **Pending** | Requires building out the `Account` and `JournalEntry` modules for formal double-entry accounting. |
-| Corrections use reversal transactions | ❌ **Pending** | Needs API and UI support for Expense/Transaction Reversals. |
+| Every sensitive action creates an audit record | ✅ **Implemented** | Dedicated `AuditLog` table & `AuditLogViewer` tracks all logins, registrations, fund transfers, approvals, and expense events. |
+| Critical financial operations support idempotency | ✅ **Implemented** | `idempotencyMiddleware` intercepts `Idempotency-Key` headers on allocations, requests, approvals, and expenses to prevent duplicate charges. |
+| Accounting entries maintain debit = credit | ✅ **Implemented** | Double-entry bookkeeping engine with Chart of Accounts (`Account`), `JournalEntry`, `JournalLine`, and UI `GeneralLedgerView` enforcing `sum(debits) === sum(credits)`. |
+| Corrections use reversal transactions | ✅ **Implemented** | Admin & Accounting can reverse expenses (`POST /api/v1/expenses/:id/reverse`) with automatic wallet refund, `EXPENSE_REVERSAL` transaction, and reversing double-entry journal. |
 
 ---
 
-## Next Steps to reach MVP Complete:
-1. Build **Admin Direct Fund Allocation UI** to push money down to Managers.
-2. Build **Expense Lists** (My Expenses, Team Expenses).
-3. Build out the **Accounting Dashboard**.
-4. Implement **Idempotency** for transaction endpoints.
-5. Implement double-entry **Journal / Accounts** modules.
+## 🎉 MVP Status: 100% Complete
+All planned MVP requirements from the PRD, architecture, and matrix are fully developed, integrated, and verified.

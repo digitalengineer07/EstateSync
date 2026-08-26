@@ -118,7 +118,7 @@ exports.createExpense = async (req, res) => {
       });
 
       return expense;
-    });
+    }, { timeout: 20000 });
 
     res.status(201).json({ success: true, expense: result, message: 'Expense recorded successfully' });
   } catch (error) {
@@ -215,7 +215,7 @@ exports.reverseExpense = async (req, res) => {
       });
 
       return { expense: updatedExpense, wallet: updatedWallet, transaction };
-    });
+    }, { timeout: 20000 });
 
     res.json({
       success: true,
