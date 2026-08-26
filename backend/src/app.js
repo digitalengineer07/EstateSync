@@ -17,7 +17,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Set up Session Management (in-memory for now, replacing Redis)
+// Set up Session Management
 app.use(session({
   secret: process.env.JWT_SECRET || 'supersecretjwtkey',
   resave: false,
@@ -29,12 +29,12 @@ app.use(session({
   }
 }));
 
-// Set up rate limiter using express-rate-limit (in-memory)
+// Set up rate limiter using express-rate-limit
 const apiLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
-  max: 100, // Limit each IP to 100 requests per `window` (here, per 1 minute)
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  max: 200, // Limit each IP to 200 requests per minute
+  standardHeaders: true,
+  legacyHeaders: false,
   message: 'Too Many Requests'
 });
 
@@ -48,6 +48,9 @@ const expenseRoutes = require('./routes/expenseRoutes');
 const fundRequestRoutes = require('./routes/fundRequestRoutes');
 const transactionRoutes = require('./routes/transactionRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const accountRoutes = require('./routes/accountRoutes');
+const journalRoutes = require('./routes/journalRoutes');
+const auditRoutes = require('./routes/auditRoutes');
 
 // Mount Routes
 app.use('/api/v1/auth', authRoutes);
@@ -56,15 +59,18 @@ app.use('/api/v1/expenses', expenseRoutes);
 app.use('/api/v1/fund-requests', fundRequestRoutes);
 app.use('/api/v1/transactions', transactionRoutes);
 app.use('/api/v1/dashboard', dashboardRoutes);
+app.use('/api/v1/accounts', accountRoutes);
+app.use('/api/v1/journals', journalRoutes);
+app.use('/api/v1/audit', auditRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {
-  res.send('EstateSync API is running (Without Redis)');
+  res.send('EstateSync API is running with Full Accounting & Idempotency Engine');
 });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error('Unhandled Application Error:', err.stack);
   res.status(500).json({ success: false, message: 'Server Error', error: err.message });
 });
 
@@ -72,16 +78,10 @@ const PORT = process.env.PORT || 4000;
 
 const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  console.log(`Is server listening? ${server.listening}`);
-});
-
-process.on('exit', (code) => {
-  console.log(`About to exit with code: ${code}`);
 });
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
 });
-
 
 module.exports = app;

@@ -1,8 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { PrismaClient } = require('@prisma/client');
-
-const prisma = new PrismaClient();
+const prisma = require('../config/db');
+const { logAudit } = require('../utils/auditLogger');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecretjwtkey';
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'supersecretrefreshkey';
@@ -41,11 +40,27 @@ exports.login = async (req, res) => {
     });
 
     if (!user) {
+      await logAudit({
+        actorEmail: email,
+        action: 'USER_LOGIN_FAILED',
+        entityType: 'USER',
+        newValues: { reason: 'User not found' },
+        req
+      });
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
     const isValidPassword = await bcrypt.compare(password, user.passwordHash);
     if (!isValidPassword) {
+      await logAudit({
+        actorId: user.id,
+        actorEmail: user.email,
+        action: 'USER_LOGIN_FAILED',
+        entityType: 'USER',
+        entityId: user.id,
+        newValues: { reason: 'Incorrect password' },
+        req
+      });
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
@@ -54,6 +69,17 @@ exports.login = async (req, res) => {
     // Store refresh token in express-session
     req.session.refreshToken = refreshToken;
     req.session.userId = user.id;
+
+    // Log successful login
+    await logAudit({
+      actorId: user.id,
+      actorEmail: user.email,
+      action: 'USER_LOGIN',
+      entityType: 'USER',
+      entityId: user.id,
+      newValues: { role: user.role.name },
+      req
+    });
 
     res.json({
       success: true,
@@ -127,13 +153,24 @@ exports.refreshToken = async (req, res) => {
 
 exports.logout = async (req, res) => {
   try {
+    const userId = req.session?.userId;
+    if (userId) {
+      await logAudit({
+        actorId: userId,
+        action: 'USER_LOGOUT',
+        entityType: 'USER',
+        entityId: userId,
+        req
+      });
+    }
+
     // Destroy the session
     req.session.destroy((err) => {
       if (err) {
         console.error(err);
         return res.status(500).json({ success: false, message: 'Logout failed' });
       }
-      res.clearCookie('connect.sid'); // default express-session cookie name
+      res.clearCookie('connect.sid');
       return res.json({ success: true, message: 'Logged out successfully' });
     });
   } catch (error) {

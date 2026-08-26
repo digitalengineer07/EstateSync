@@ -1,5 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = require('../config/db');
 
 exports.getWalletStats = async (req, res) => {
   try {
@@ -63,7 +62,6 @@ exports.getManagerStats = async (req, res) => {
       }
     });
 
-    // Simpler logic for MVP: just count all Fund Requests approved by this manager.
     const totalApprovedFunds = await prisma.fundRequest.aggregate({
       where: {
         managerId: managerId,
@@ -100,6 +98,7 @@ exports.getAdminStats = async (req, res) => {
     });
 
     const allExpenses = await prisma.expense.aggregate({
+      where: { status: 'RECORDED' },
       _sum: {
         amount: true
       }
@@ -110,7 +109,7 @@ exports.getAdminStats = async (req, res) => {
     res.json({
       success: true,
       stats: {
-        totalOrganizationalFunds: allWallets._sum.availableBalance || 0, // In this model, available balance in all wallets combined is the cash on hand in the org
+        totalOrganizationalFunds: allWallets._sum.availableBalance || 0,
         totalAllocated: allWallets._sum.totalAllocated || 0,
         totalExpenses: allExpenses._sum.amount || 0,
         totalSpent: allWallets._sum.totalSpent || 0,
@@ -120,5 +119,59 @@ exports.getAdminStats = async (req, res) => {
   } catch (error) {
     console.error('Error fetching admin stats:', error);
     res.status(500).json({ success: false, message: 'Server error fetching admin stats' });
+  }
+};
+
+exports.getAccountingStats = async (req, res) => {
+  try {
+    const allWallets = await prisma.wallet.aggregate({
+      _sum: {
+        totalAllocated: true,
+        availableBalance: true,
+        totalSpent: true
+      },
+      _count: {
+        id: true
+      }
+    });
+
+    const allExpenses = await prisma.expense.aggregate({
+      where: { status: 'RECORDED' },
+      _sum: {
+        amount: true
+      },
+      _count: {
+        id: true
+      }
+    });
+
+    const pendingRequests = await prisma.fundRequest.aggregate({
+      where: { status: 'PENDING' },
+      _sum: { amount: true },
+      _count: { id: true }
+    });
+
+    const totalAllocated = Number(allWallets._sum.totalAllocated || 0);
+    const totalSpent = Number(allWallets._sum.totalSpent || 0);
+    const availableBalance = Number(allWallets._sum.availableBalance || 0);
+    const utilizationRate = totalAllocated > 0 ? ((totalSpent / totalAllocated) * 100).toFixed(1) : '0.0';
+
+    res.json({
+      success: true,
+      stats: {
+        totalOrganizationalFunds: availableBalance,
+        totalAllocated,
+        totalSpent,
+        totalRecordedExpenses: Number(allExpenses._sum.amount || 0),
+        expenseCount: allExpenses._count.id || 0,
+        totalWallets: allWallets._count.id || 0,
+        pendingRequestsAmount: Number(pendingRequests._sum.amount || 0),
+        pendingRequestsCount: pendingRequests._count.id || 0,
+        budgetUtilization: `${utilizationRate}%`
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching accounting stats:', error);
+    res.status(500).json({ success: false, message: 'Server error fetching accounting stats' });
   }
 };

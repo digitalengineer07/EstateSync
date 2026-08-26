@@ -1,7 +1,6 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = require('../config/db');
 
-// Get all transactions (for ADMIN visibility)
+// Get all transactions (for ADMIN and ACCOUNTING visibility)
 exports.getAllTransactions = async (req, res) => {
   try {
     const transactions = await prisma.walletTransaction.findMany({
@@ -14,7 +13,7 @@ exports.getAllTransactions = async (req, res) => {
         }
       },
       orderBy: { createdAt: 'desc' },
-      take: 100 // limit to last 100 for performance on MVP
+      take: 100 // limit to last 100 for performance
     });
 
     res.json({ success: true, transactions });

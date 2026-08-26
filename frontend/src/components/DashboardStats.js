@@ -104,5 +104,32 @@ export default function DashboardStats({ type }) {
     );
   }
 
+  if (type === 'accounting') {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+        <div className="bg-indigo-50 p-6 rounded-lg border border-indigo-100 transition-all hover:shadow-md">
+          <h3 className="text-sm font-semibold text-indigo-800 uppercase tracking-wide">Available Org Liquidity</h3>
+          <p className="text-3xl font-bold text-indigo-700 mt-2">{formatCurrency(stats.totalOrganizationalFunds)}</p>
+          <span className="text-xs text-indigo-600 mt-1 block">Across {stats.totalWallets || 0} active wallets</span>
+        </div>
+        <div className="bg-emerald-50 p-6 rounded-lg border border-emerald-100 transition-all hover:shadow-md">
+          <h3 className="text-sm font-semibold text-emerald-800 uppercase tracking-wide">Total Allocated Funds</h3>
+          <p className="text-3xl font-bold text-emerald-700 mt-2">{formatCurrency(stats.totalAllocated)}</p>
+          <span className="text-xs text-emerald-600 mt-1 block">Assigned operational budget</span>
+        </div>
+        <div className="bg-rose-50 p-6 rounded-lg border border-rose-100 transition-all hover:shadow-md">
+          <h3 className="text-sm font-semibold text-rose-800 uppercase tracking-wide">Total Realized Expenses</h3>
+          <p className="text-3xl font-bold text-rose-700 mt-2">{formatCurrency(stats.totalRecordedExpenses)}</p>
+          <span className="text-xs text-rose-600 mt-1 block">{stats.expenseCount || 0} recorded receipts</span>
+        </div>
+        <div className="bg-amber-50 p-6 rounded-lg border border-amber-100 transition-all hover:shadow-md">
+          <h3 className="text-sm font-semibold text-amber-800 uppercase tracking-wide">Budget Utilization</h3>
+          <p className="text-3xl font-bold text-amber-700 mt-2">{stats.budgetUtilization || '0%'}</p>
+          <span className="text-xs text-amber-600 mt-1 block">Total Spent: {formatCurrency(stats.totalSpent)}</span>
+        </div>
+      </div>
+    );
+  }
+
   return null;
 }

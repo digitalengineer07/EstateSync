@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = require('../config/db');
+const { logAudit } = require('../utils/auditLogger');
 
 exports.getRoles = async (req, res) => {
   try {
@@ -20,22 +20,62 @@ exports.getRoles = async (req, res) => {
 
 exports.getManagers = async (req, res) => {
   try {
+    const currentUserId = req.user?.userId;
     const managers = await prisma.user.findMany({
       where: {
         role: {
-          name: 'MANAGER'
-        }
+          name: { in: ['MANAGER', 'ADMIN'] }
+        },
+        ...(currentUserId ? { id: { not: currentUserId } } : {})
       },
       select: {
         id: true,
         name: true,
-        email: true
+        email: true,
+        role: {
+          select: { name: true }
+        },
+        wallet: {
+          select: {
+            availableBalance: true,
+            totalAllocated: true,
+            totalSpent: true
+          }
+        }
       }
     });
     res.json({ success: true, managers });
   } catch (error) {
     console.error('Error fetching managers:', error);
     res.status(500).json({ success: false, message: 'Server error fetching managers' });
+  }
+};
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: {
+          select: { name: true }
+        },
+        wallet: {
+          select: {
+            id: true,
+            availableBalance: true,
+            totalAllocated: true,
+            totalSpent: true
+          }
+        }
+      },
+      orderBy: { name: 'asc' }
+    });
+    res.json({ success: true, users });
+  } catch (error) {
+    console.error('Error fetching all users:', error);
+    res.status(500).json({ success: false, message: 'Server error fetching users' });
   }
 };
 
@@ -74,13 +114,24 @@ exports.registerUser = async (req, res) => {
       });
 
       // Every user needs a wallet in EstateSync
-      await tx.wallet.create({
+      const wallet = await tx.wallet.create({
         data: {
           userId: user.id,
           totalAllocated: 0,
           totalSpent: 0,
           availableBalance: 0
         }
+      });
+
+      await logAudit({
+        actorId: req.user?.userId,
+        actorEmail: req.user?.email,
+        action: 'USER_REGISTER',
+        entityType: 'USER',
+        entityId: user.id,
+        newValues: { email, name, role: role.name, walletId: wallet.id },
+        req,
+        tx
       });
 
       return user;

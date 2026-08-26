@@ -13,4 +13,7 @@ router.get('/manager', verifyJWT, checkPermission('fund.approve'), dashboardCont
 // GET /api/v1/dashboard/admin
 router.get('/admin', verifyJWT, checkPermission('user.manage'), dashboardController.getAdminStats);
 
+// GET /api/v1/dashboard/accounting
+router.get('/accounting', verifyJWT, checkPermission(['accounting.view', 'wallet.view_all', 'user.manage']), dashboardController.getAccountingStats);
+
 module.exports = router;

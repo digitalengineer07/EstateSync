@@ -1,0 +1,54 @@
+# Implementation Plan - Admin Direct Fund Allocation UI
+
+Build a dedicated **Direct Fund Allocation** module allowing Administrators to directly push funds into Manager (and team member) wallets from the Admin Dashboard, recording an atomic ledger transaction and immediately updating the manager's available balance.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [fundRequestRoutes.js](file:///d:/EstateSync/backend/src/routes/fundRequestRoutes.js)
+- Add `POST /api/v1/fund-requests/allocate` route protected with `verifyJWT` and `checkPermission('fund.allocate')`.
+
+#### [MODIFY] [fundRequestController.js](file:///d:/EstateSync/backend/src/controller/fundRequestController.js)
+- Implement `directAllocateFunds`:
+  - Validates `targetUserId`, `amount` (> 0), and `description`.
+  - Executes a Prisma transaction (`$transaction`):
+    1. Increments `totalAllocated` and `availableBalance` on target user's `Wallet`.
+    2. Creates an immutable `WalletTransaction` with type `FUND_ALLOCATION`, status `COMPLETED`, and reference `DIRECT_ALLOCATION`.
+  - Returns the updated wallet and created transaction.
+
+#### [MODIFY] [userController.js](file:///d:/EstateSync/backend/src/controller/userController.js) & [userRoutes.js](file:///d:/EstateSync/backend/src/routes/userRoutes.js)
+- Enhance `getManagers` (or add `getFundableUsers`) to include the user's current wallet balance and role name, so the Admin can see the current balance of each manager directly in the selection dropdown.
+
+---
+
+### Frontend
+
+#### [NEW] [DirectFundAllocationForm.js](file:///d:/EstateSync/frontend/src/components/DirectFundAllocationForm.js)
+- Create a dedicated component with:
+  - Manager / User dropdown showing Name, Email, and Current Wallet Balance.
+  - Amount input field with currency symbol (₹).
+  - Reason / Description field.
+  - Submit action with loading spinner, success feedback, and form reset.
+  - `onAllocationSuccess` callback to refresh the stats and transaction ledger dynamically.
+
+#### [MODIFY] [Admin Dashboard](file:///d:/EstateSync/frontend/src/app/dashboards/admin/page.js)
+- Embed `DirectFundAllocationForm` in the Admin Dashboard alongside user registration and stats.
+
+---
+
+## Verification Plan
+
+### Automated Verification
+- Run an automated node script `backend/test-allocation.js` to simulate direct fund allocation via API with Admin token.
+- Verify that `Wallet.availableBalance` increments and `WalletTransaction` is created.
+
+### Manual Verification Flow
+1. **Admin Allocation**:
+   - Log into `http://localhost:3000/login` with `admin@estatesync.com` / `admin123`.
+   - On the Admin Dashboard, locate the "Direct Fund Allocation" card.
+   - Select a Manager from the dropdown, input amount `₹25,000`, description `Q3 Initial Budget Allocation`, and submit.
+   - Confirm success message is shown and `TransactionLedger` displays the new `FUND_ALLOCATION` row.
+2. **Manager Verification**:
+   - Log into `http://localhost:3000/login` with `manager@estatesync.com` / `manager123`.
+   - Confirm that "My Budget Available" on Manager Dashboard has increased by `₹25,000`.
