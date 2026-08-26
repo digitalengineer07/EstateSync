@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = require('../config/db');
+const { logAudit } = require('../utils/auditLogger');
 
 exports.getRoles = async (req, res) => {
   try {
@@ -63,6 +63,7 @@ exports.getAllUsers = async (req, res) => {
         },
         wallet: {
           select: {
+            id: true,
             availableBalance: true,
             totalAllocated: true,
             totalSpent: true
@@ -113,13 +114,24 @@ exports.registerUser = async (req, res) => {
       });
 
       // Every user needs a wallet in EstateSync
-      await tx.wallet.create({
+      const wallet = await tx.wallet.create({
         data: {
           userId: user.id,
           totalAllocated: 0,
           totalSpent: 0,
           availableBalance: 0
         }
+      });
+
+      await logAudit({
+        actorId: req.user?.userId,
+        actorEmail: req.user?.email,
+        action: 'USER_REGISTER',
+        entityType: 'USER',
+        entityId: user.id,
+        newValues: { email, name, role: role.name, walletId: wallet.id },
+        req,
+        tx
       });
 
       return user;

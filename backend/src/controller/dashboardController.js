@@ -1,5 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = require('../config/db');
 
 exports.getWalletStats = async (req, res) => {
   try {
@@ -63,7 +62,6 @@ exports.getManagerStats = async (req, res) => {
       }
     });
 
-    // Simpler logic for MVP: just count all Fund Requests approved by this manager.
     const totalApprovedFunds = await prisma.fundRequest.aggregate({
       where: {
         managerId: managerId,
@@ -100,6 +98,7 @@ exports.getAdminStats = async (req, res) => {
     });
 
     const allExpenses = await prisma.expense.aggregate({
+      where: { status: 'RECORDED' },
       _sum: {
         amount: true
       }
@@ -110,7 +109,7 @@ exports.getAdminStats = async (req, res) => {
     res.json({
       success: true,
       stats: {
-        totalOrganizationalFunds: allWallets._sum.availableBalance || 0, // In this model, available balance in all wallets combined is the cash on hand in the org
+        totalOrganizationalFunds: allWallets._sum.availableBalance || 0,
         totalAllocated: allWallets._sum.totalAllocated || 0,
         totalExpenses: allExpenses._sum.amount || 0,
         totalSpent: allWallets._sum.totalSpent || 0,
@@ -137,6 +136,7 @@ exports.getAccountingStats = async (req, res) => {
     });
 
     const allExpenses = await prisma.expense.aggregate({
+      where: { status: 'RECORDED' },
       _sum: {
         amount: true
       },
@@ -175,4 +175,3 @@ exports.getAccountingStats = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error fetching accounting stats' });
   }
 };
-
