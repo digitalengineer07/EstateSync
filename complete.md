@@ -53,10 +53,35 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 | Accounting entries maintain debit = credit | ✅ **Implemented** | Double-entry bookkeeping engine with Chart of Accounts (`Account`), `JournalEntry`, `JournalLine`, and UI `GeneralLedgerView` enforcing `sum(debits) === sum(credits)`. |
 | Corrections use reversal transactions | ✅ **Implemented** | Admin & Accounting can reverse expenses (`POST /api/v1/expenses/:id/reverse`) with automatic wallet refund, `EXPENSE_REVERSAL` transaction, and reversing double-entry journal. |
 
+## 7. Customer Management & Sales Collections (PRD §19 — NEW)
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Sales can create customer profile (master + commercial snapshot) | ⏳ **Pending** | Plot no., area, khata no., project/location, identity/KYC, rate/sq.ft., land cost, registry cost, other charges, discount, taxes, total contract value. |
+| Accounting can record customer payments | ⏳ **Pending** | Date, amount, payment mode, source account, destination account. |
+| Customer payment updates Organization Wallet + customer total paid/balance | ⏳ **Pending** | Requires new `CUSTOMER_PAYMENT_RECEIVED` transaction type and journal posting (Dr Bank, Cr Revenue/Receivable). |
+| Customer payments are immutable / auditable / idempotent | ⏳ **Pending** | Same guarantees as existing expense/allocation flows. |
+| Customer payment displays as CREDIT | ⏳ **Pending** | New `entry_type` field on ledger rows (PRD §4.4). |
+
+## 8. Property Acquisition Management (PRD §20 — NEW)
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Admin/Accounting can create property/land acquisition record | ⏳ **Pending** | Khata no., plot no., land owner name, total land value. |
+| Accounting can record payments to land owner | ⏳ **Pending** | Deducts from Organization Wallet; blocked if it would exceed wallet balance or property's remaining balance. |
+| Property payment updates total paid / balance remaining | ⏳ **Pending** | Requires new `LAND_ACQUISITION_PAYMENT` transaction type and journal posting (Dr Land Asset, Cr Bank). |
+| Property payments are immutable / auditable / idempotent | ⏳ **Pending** | Same guarantees as existing expense/allocation flows. |
+| Property payment displays as DEBIT | ⏳ **Pending** | Same `entry_type` field, tagged DEBIT (PRD §4.4). |
+
+## 9. Accounting Role — Write Authority Update (PRD §3.6 — CHANGED)
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Accounting formally has write access (no longer read-only) | ⏳ **Pending** | Scoped to: record customer payments, record land-owner payments, reverse expenses (already implemented). `fund.allocate`/`fund.approve` remain Admin/Manager-only. |
+| Every transaction ledger row shows CREDIT/DEBIT tag | ⏳ **Pending** | Applies system-wide — Transaction Ledger, Wallet Dashboard, Customer/Property payment histories (PRD §4.4). |
+
 ---
 
-## 🎉 MVP Status: 100% Complete
-All planned MVP requirements from the PRD, architecture, and matrix are fully developed, integrated, and verified.
+## 🎉 MVP Status (original scope, §1–§6 above): 100% Complete
+## 🚧 Phase Addition (§19–§20 of PRD v1.2): Not yet implemented
+Customer/Sales Collections and Property Acquisition are new requirements added in PRD v1.2 and are not part of the verified 100% completion above.
 
 ---
 
