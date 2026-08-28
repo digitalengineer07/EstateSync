@@ -101,10 +101,10 @@ export default function TransactionLedger() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-gray-600">
-                    {txn.sourceWallet?.user?.name || (txn.type === 'FUND_ALLOCATION' ? 'SYSTEM (Treasury)' : txn.type === 'CUSTOMER_PAYMENT_RECEIVED' ? 'EXTERNAL (Client)' : 'N/A')}
+                    {txn.sourceWallet?.user?.name || (txn.type === 'FUND_ALLOCATION' ? 'SYSTEM (Treasury)' : txn.type === 'CUSTOMER_PAYMENT_RECEIVED' ? 'EXTERNAL (Client Inflow)' : 'N/A')}
                   </td>
                   <td className="px-6 py-4 text-gray-600">
-                    {txn.destWallet?.user?.name || (txn.type === 'CUSTOMER_PAYMENT_RECEIVED' ? 'Corporate Treasury' : 'N/A')}
+                    {txn.destWallet?.user?.name || (txn.type === 'CUSTOMER_PAYMENT_RECEIVED' ? 'Corporate Treasury' : txn.type === 'LAND_ACQUISITION_PAYMENT' ? 'EXTERNAL (Land Owner)' : txn.type === 'EXPENSE' ? 'EXTERNAL (Vendor/Spend)' : 'N/A')}
                   </td>
                   <td className="px-6 py-4 font-bold text-gray-900 text-right">
                     ₹{parseFloat(txn.amount).toLocaleString()}

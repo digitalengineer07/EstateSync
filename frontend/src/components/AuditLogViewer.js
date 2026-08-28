@@ -42,6 +42,14 @@ export default function AuditLogViewer() {
         return <span className="px-2 py-0.5 text-xs font-bold bg-rose-100 text-rose-800 rounded border border-rose-200">EXPENSE_REVERSE</span>;
       case "EXPENSE_CREATE":
         return <span className="px-2 py-0.5 text-xs font-bold bg-purple-100 text-purple-800 rounded border border-purple-200">EXPENSE_CREATE</span>;
+      case "CUSTOMER_CREATE":
+        return <span className="px-2 py-0.5 text-xs font-bold bg-teal-100 text-teal-800 rounded border border-teal-200">CUSTOMER_CREATE</span>;
+      case "CUSTOMER_PAYMENT_RECORD":
+        return <span className="px-2 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-800 rounded border border-emerald-200">CUSTOMER_PAYMENT</span>;
+      case "PROPERTY_CREATE":
+        return <span className="px-2 py-0.5 text-xs font-bold bg-amber-100 text-amber-800 rounded border border-amber-200">PROPERTY_CREATE</span>;
+      case "PROPERTY_PAYMENT_RECORD":
+        return <span className="px-2 py-0.5 text-xs font-bold bg-orange-100 text-orange-800 rounded border border-orange-200">PROPERTY_PAYMENT</span>;
       case "FUND_DIRECT_ALLOCATE":
         return <span className="px-2 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-800 rounded border border-emerald-200">FUND_ALLOCATE</span>;
       case "FUND_REQUEST_APPROVE":
@@ -61,7 +69,7 @@ export default function AuditLogViewer() {
         <div>
           <h3 className="text-xl font-bold text-gray-900">Security & Governance Audit Trail</h3>
           <p className="text-sm text-gray-600 mt-0.5">
-            Immutable log of all user logins, administrative fund allocations, approvals, expense submissions, and reversals.
+            Immutable log of all user logins, treasury fund movements, customer collections, land acquisitions, and expense governance.
           </p>
         </div>
 
@@ -72,6 +80,10 @@ export default function AuditLogViewer() {
             className="text-xs border border-gray-300 rounded-md px-3 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <option value="">All Audit Actions</option>
+            <option value="CUSTOMER_PAYMENT_RECORD">Customer Collections</option>
+            <option value="PROPERTY_PAYMENT_RECORD">Land Owner Payouts</option>
+            <option value="CUSTOMER_CREATE">Customer Registrations</option>
+            <option value="PROPERTY_CREATE">Land Acquisitions</option>
             <option value="FUND_DIRECT_ALLOCATE">Fund Allocations</option>
             <option value="FUND_REQUEST_APPROVE">Fund Approvals</option>
             <option value="EXPENSE_CREATE">Expense Submissions</option>

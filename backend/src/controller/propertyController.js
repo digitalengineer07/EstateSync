@@ -246,11 +246,22 @@ exports.recordPayment = async (req, res) => {
       include: { wallet: true }
     });
 
-    if (!adminUser || !adminUser.wallet) {
-      return res.status(500).json({ success: false, message: 'Corporate Treasury Admin wallet not configured' });
+    if (!adminUser) {
+      return res.status(500).json({ success: false, message: 'Corporate Treasury Admin user not found' });
     }
 
-    const treasuryWallet = adminUser.wallet;
+    let treasuryWallet = adminUser.wallet;
+    if (!treasuryWallet) {
+      treasuryWallet = await prisma.wallet.create({
+        data: {
+          userId: adminUser.id,
+          availableBalance: 0,
+          totalAllocated: 0,
+          totalSpent: 0
+        }
+      });
+    }
+
     const availableTreasuryBalance = parseFloat(treasuryWallet.availableBalance);
 
     // Invariant check: No negative wallet balance (PRD §4.3 & §20.3)
