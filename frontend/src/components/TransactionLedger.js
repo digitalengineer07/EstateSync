@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-export default function TransactionLedger() {
+export default function TransactionLedger({ embedded = false, showHeader = true }) {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -58,19 +58,21 @@ export default function TransactionLedger() {
     }
   };
 
-  if (loading) return <div className="p-4 text-gray-500">Loading ledger...</div>;
+  if (loading) return <div className="p-4 text-gray-500 text-sm">Loading ledger...</div>;
 
   return (
-    <div className="bg-white shadow rounded-lg p-6 mt-8">
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h3 className="text-xl font-bold text-gray-800">Global Transaction Ledger</h3>
-          <p className="text-xs text-gray-500 mt-0.5">Immutable audit record with Credit/Debit classification (PRD §4.4)</p>
+    <div className={embedded ? "" : "bg-white shadow rounded-lg p-6 mt-8"}>
+      {showHeader && (
+        <div className="flex justify-between items-center mb-6">
+          <div>
+            <h3 className="text-xl font-bold text-gray-800">Global Transaction Ledger</h3>
+            <p className="text-xs text-gray-500 mt-0.5">Immutable audit record with Credit/Debit classification (PRD §4.4)</p>
+          </div>
+          <button onClick={fetchTransactions} className="text-sm text-blue-600 hover:underline">
+            Refresh Ledger
+          </button>
         </div>
-        <button onClick={fetchTransactions} className="text-sm text-blue-600 hover:underline">
-          Refresh Ledger
-        </button>
-      </div>
+      )}
 
       {transactions.length === 0 ? (
         <p className="text-gray-500">No transactions recorded yet.</p>
