@@ -11,27 +11,26 @@ export default function ManagerDashboard() {
 
   return (
     <div className="space-y-6">
-      {/* Top Header Card */}
-      <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 sm:p-7">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pb-5 border-b border-slate-100">
-          <div>
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Manager Oversight Hub
-              </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200/80">
-                <Layers className="w-3.5 h-3.5" />
-                Departmental Budget & Approvals
-              </span>
-            </div>
-            <p className="text-slate-500 text-xs sm:text-sm mt-1">
-              Approve incoming fund requests from your field team, monitor departmental spending, and request additional capital from Admin.
-            </p>
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+              Manager Oversight Hub
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">
+              <Layers className="w-3.5 h-3.5" />
+              Department Budget
+            </span>
           </div>
+          <p className="text-slate-500 text-xs sm:text-sm mt-1">
+            Approve incoming fund requests from your field team, monitor departmental spending, and request additional capital from Admin.
+          </p>
         </div>
-        
-        <DashboardStats type="manager" />
       </div>
+
+      {/* 3 Clean Stats */}
+      <DashboardStats type="manager" />
 
       {/* Toggled Operations Container */}
       <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6">

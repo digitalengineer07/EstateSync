@@ -9,7 +9,7 @@ import GeneralLedgerView from "@/components/GeneralLedgerView";
 import AuditLogViewer from "@/components/AuditLogViewer";
 import CustomerPortfolioList from "@/components/CustomerPortfolioList";
 import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
-import { Users, MapPin, Scale, Wallet, Receipt, ArrowLeftRight } from "lucide-react";
+import { Users, MapPin, Scale, Wallet, Receipt, ArrowLeftRight, ShieldCheck } from "lucide-react";
 
 export default function AccountingDashboard() {
   const [activeTab, setActiveTab] = useState("collections");
@@ -24,30 +24,25 @@ export default function AccountingDashboard() {
 
   return (
     <div className="space-y-6">
-      {/* Page Header & Global Stats Container */}
-      <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 sm:p-7">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pb-5 border-b border-slate-100">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Accounting & Financial Hub
-              </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                Full Write & Audit Authority
-              </span>
-            </div>
-            <p className="text-slate-500 text-xs sm:text-sm mt-1">
-              Corporate treasury inflows, customer collections (PRD §19), land acquisitions (PRD §20), balanced double-entry ledger, and expense governance.
-            </p>
+      {/* Top Header & Navigation Bar */}
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+              Accounting & Financial Hub
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              Full Audit Authority
+            </span>
           </div>
+          <p className="text-slate-500 text-xs sm:text-sm mt-1">
+            Corporate treasury inflows, customer collections, land acquisitions, balanced double-entry ledger, and expense governance.
+          </p>
         </div>
 
-        {/* Global Financial Stats */}
-        <DashboardStats type="accounting" />
-
-        {/* Horizontal Navigation Sub-Tab Bar (Linear/Stripe Style) */}
-        <div className="flex items-center gap-1.5 mt-6 pt-5 border-t border-slate-100 overflow-x-auto">
+        {/* Top-Right Tab Navigation Pills */}
+        <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-xs overflow-x-auto self-start lg:self-auto">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             const Icon = tab.icon;
@@ -55,26 +50,24 @@ export default function AccountingDashboard() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 whitespace-nowrap ${
+                className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 whitespace-nowrap ${
                   isActive
                     ? "bg-slate-900 text-white shadow-xs"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                 }`}
               >
                 <Icon className={`w-3.5 h-3.5 ${isActive ? "text-indigo-400" : "text-slate-400"}`} />
                 <span>{tab.label}</span>
-                <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-                  isActive ? "bg-slate-800 text-slate-300" : "bg-slate-100 text-slate-500"
-                }`}>
-                  {tab.badge}
-                </span>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Main Tab Content */}
+      {/* 4 Clean Key Metrics */}
+      <DashboardStats type="accounting" />
+
+      {/* Active Tab Content */}
       <div>
         {activeTab === "collections" && (
           <CustomerPortfolioList mode="accounting" userRole="ACCOUNTING" />

@@ -17,29 +17,28 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-6">
-      {/* Top Header Card with Global Treasury Stats */}
-      <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 sm:p-7">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pb-5 border-b border-slate-100">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Admin Dashboard & Global Treasury
-              </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                Master Treasury Control
-              </span>
-            </div>
-            <p className="text-slate-500 text-xs sm:text-sm mt-1">
-              Allocate organizational capital, provision team accounts, oversee customer revenue collections, manage land parcel disbursements, and inspect live double-entry journals.
-            </p>
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+              Admin Dashboard & Global Treasury
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              Master Control
+            </span>
           </div>
+          <p className="text-slate-500 text-xs sm:text-sm mt-1">
+            Allocate organizational capital, provision team accounts, oversee customer revenue collections, manage land parcels, and inspect double-entry journals.
+          </p>
         </div>
-        
-        <DashboardStats type="admin" />
       </div>
+
+      {/* 4 Clean Stats */}
+      <DashboardStats type="admin" />
       
-      {/* Top Operations Grid */}
+      {/* Operations Grid: Direct Allocation & User Registration */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <DirectFundAllocationForm />
         <UserRegistrationForm />
@@ -52,7 +51,7 @@ export default function AdminDashboard() {
       <PropertyAcquisitionList userRole="ADMIN" />
       
       {/* Toggled Unified Container: Fund Requests & Global Transaction Ledger */}
-      <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 sm:p-7">
+      <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-5 border-b border-slate-100">
           <div>
             <div className="flex items-center gap-2">
