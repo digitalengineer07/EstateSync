@@ -17,26 +17,42 @@ export default function WalletDashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white shadow rounded-xl p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="bg-white shadow-sm hover:shadow-md transition-shadow rounded-2xl p-6 sm:p-7 border border-slate-200/80">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-slate-100">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Personal Portal & Operational Hub</h2>
-            <p className="text-gray-600 text-sm mt-1">
+            <div className="flex items-center gap-2.5 mb-1.5">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                Personal Portal & Operational Hub
+              </h2>
+              <span className="px-3 py-1 bg-indigo-50 text-indigo-800 text-xs font-bold rounded-full border border-indigo-200 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+                Wallet & Field Operations
+              </span>
+            </div>
+            <p className="text-slate-500 text-xs sm:text-sm">
               Manage your personal wallet balance, request departmental funds, file expense receipts, and register customer contracts.
             </p>
           </div>
 
           {isSalesOrAdmin && (
-            <div className="flex bg-gray-100 p-1 rounded-xl border border-gray-200 self-start sm:self-auto text-xs font-semibold">
+            <div className="flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200 self-start sm:self-auto text-xs font-semibold gap-1.5 shadow-inner">
               <button
                 onClick={() => setActiveTab("wallet")}
-                className={`px-4 py-2 rounded-lg transition ${activeTab === "wallet" ? "bg-white text-indigo-700 shadow-sm" : "text-gray-600 hover:text-gray-900"}`}
+                className={`px-4 py-2 rounded-xl transition-all duration-150 flex items-center gap-1.5 ${
+                  activeTab === "wallet"
+                    ? "bg-white text-indigo-700 shadow-sm font-bold"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
               >
                 💼 Wallet & Expenses
               </button>
               <button
                 onClick={() => setActiveTab("customers")}
-                className={`px-4 py-2 rounded-lg transition ${activeTab === "customers" ? "bg-white text-indigo-700 shadow-sm" : "text-gray-600 hover:text-gray-900"}`}
+                className={`px-4 py-2 rounded-xl transition-all duration-150 flex items-center gap-1.5 ${
+                  activeTab === "customers"
+                    ? "bg-white text-indigo-700 shadow-sm font-bold"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
               >
                 👥 Customer Bookings (PRD §19)
               </button>
