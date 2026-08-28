@@ -22,13 +22,27 @@ exports.getWalletStats = async (req, res) => {
       }
     });
 
+    const myCustomers = await prisma.customer.aggregate({
+      where: { salesOwnerId: userId },
+      _sum: {
+        totalContractValue: true,
+        totalPaid: true,
+        balanceDue: true
+      },
+      _count: { id: true }
+    });
+
     res.json({
       success: true,
       stats: {
         availableBalance: wallet.availableBalance,
         totalAllocated: wallet.totalAllocated,
         totalSpent: wallet.totalSpent,
-        pendingRequestsAmount: pendingRequests._sum.amount || 0
+        pendingRequestsAmount: pendingRequests._sum.amount || 0,
+        customerCount: myCustomers._count.id || 0,
+        myContractValue: myCustomers._sum.totalContractValue || 0,
+        myCollections: myCustomers._sum.totalPaid || 0,
+        myOutstanding: myCustomers._sum.balanceDue || 0
       }
     });
   } catch (error) {
@@ -104,6 +118,15 @@ exports.getAdminStats = async (req, res) => {
       }
     });
 
+    const customerAgg = await prisma.customer.aggregate({
+      _sum: {
+        totalContractValue: true,
+        totalPaid: true,
+        balanceDue: true
+      },
+      _count: { id: true }
+    });
+
     const userCount = await prisma.user.count();
 
     res.json({
@@ -113,7 +136,11 @@ exports.getAdminStats = async (req, res) => {
         totalAllocated: allWallets._sum.totalAllocated || 0,
         totalExpenses: allExpenses._sum.amount || 0,
         totalSpent: allWallets._sum.totalSpent || 0,
-        activeUsers: userCount
+        activeUsers: userCount,
+        totalCustomers: customerAgg._count.id || 0,
+        totalCustomerContracts: customerAgg._sum.totalContractValue || 0,
+        totalCustomerCollections: customerAgg._sum.totalPaid || 0,
+        totalCustomerReceivables: customerAgg._sum.balanceDue || 0
       }
     });
   } catch (error) {
@@ -145,6 +172,15 @@ exports.getAccountingStats = async (req, res) => {
       }
     });
 
+    const customerAgg = await prisma.customer.aggregate({
+      _sum: {
+        totalContractValue: true,
+        totalPaid: true,
+        balanceDue: true
+      },
+      _count: { id: true }
+    });
+
     const pendingRequests = await prisma.fundRequest.aggregate({
       where: { status: 'PENDING' },
       _sum: { amount: true },
@@ -167,7 +203,11 @@ exports.getAccountingStats = async (req, res) => {
         totalWallets: allWallets._count.id || 0,
         pendingRequestsAmount: Number(pendingRequests._sum.amount || 0),
         pendingRequestsCount: pendingRequests._count.id || 0,
-        budgetUtilization: `${utilizationRate}%`
+        budgetUtilization: `${utilizationRate}%`,
+        totalCustomers: customerAgg._count.id || 0,
+        totalCustomerContracts: Number(customerAgg._sum.totalContractValue || 0),
+        totalCustomerCollections: Number(customerAgg._sum.totalPaid || 0),
+        totalCustomerReceivables: Number(customerAgg._sum.balanceDue || 0)
       }
     });
   } catch (error) {

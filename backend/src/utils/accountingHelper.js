@@ -5,6 +5,7 @@ const STANDARD_ACCOUNTS = [
   { code: '1020', name: 'Manager Operational Wallets', type: 'ASSET', description: 'Allocated funds held in Manager wallets' },
   { code: '1030', name: 'Team / Field Wallets', type: 'ASSET', description: 'Allocated funds held in Sales, Marketing, and Staff wallets' },
   { code: '3010', name: 'Organizational Capital', type: 'EQUITY', description: 'Capital reserves and equity funding' },
+  { code: '4010', name: 'Customer Sales & Contract Revenue', type: 'REVENUE', description: 'Customer plot bookings and contract collections' },
   { code: '5010', name: 'Travel & Field Expenses', type: 'EXPENSE', description: 'Client site visits, travel, fuel, transport' },
   { code: '5020', name: 'Marketing & Promotions', type: 'EXPENSE', description: 'Lead generation, print collateral, digital ads' },
   { code: '5030', name: 'Client Entertainment & Hospitality', type: 'EXPENSE', description: 'Customer meetings, food, refreshments' },
@@ -207,10 +208,36 @@ async function postExpenseReversalJournal(tx, {
   });
 }
 
+/**
+ * Double-Entry Post: Customer Payment Received
+ * Debit: Corporate Bank / Primary Treasury (Asset +)
+ * Credit: Customer Sales & Contract Revenue (Revenue +)
+ */
+async function postCustomerPaymentJournal(tx, {
+  amount,
+  customerName,
+  plotNo,
+  referenceId,
+  createdBy
+}) {
+  return await postJournalEntry(tx, {
+    description: `Customer Collection: ${customerName} (Plot ${plotNo})`,
+    referenceType: 'CUSTOMER_PAYMENT',
+    referenceId,
+    createdBy,
+    lines: [
+      { accountCode: '1010', debit: amount, credit: 0, description: `Bank Inflow: Collection from ${customerName}` },
+      { accountCode: '4010', debit: 0, credit: amount, description: `Recognize Contract Revenue: Plot ${plotNo}` }
+    ]
+  });
+}
+
 module.exports = {
   ensureStandardAccounts,
   postJournalEntry,
   postAllocationJournal,
   postExpenseJournal,
-  postExpenseReversalJournal
+  postExpenseReversalJournal,
+  postCustomerPaymentJournal
 };
+

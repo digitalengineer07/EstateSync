@@ -22,7 +22,9 @@ async function main() {
     'wallet.view', 'wallet.view_all', 'expense.create', 'expense.view',
     'expense.view_all', 'expense.approve', 'expense.reverse',
     'transaction.view', 'transaction.view_all', 'accounting.view',
-    'report.view', 'audit.view', 'user.manage'
+    'report.view', 'audit.view', 'user.manage',
+    'customer.create', 'customer.view', 'customer.view_all', 'customer.edit',
+    'customer.payment.record', 'customer.payment.view'
   ];
   
   const createdPerms = {};
@@ -52,8 +54,11 @@ async function main() {
     });
   }
   
-  // Sales gets own wallet/expense perms
-  const salesPerms = ['wallet.view', 'expense.create', 'expense.view', 'transaction.view', 'fund.request'];
+  // Sales gets own wallet/expense perms and customer creation
+  const salesPerms = [
+    'wallet.view', 'expense.create', 'expense.view', 'transaction.view', 'fund.request',
+    'customer.create', 'customer.view', 'customer.edit', 'customer.payment.view'
+  ];
   for (const permCode of salesPerms) {
     await prisma.rolePermission.upsert({
       where: {
@@ -71,7 +76,7 @@ async function main() {
   }
 
   // Manager gets team perms and approval perms
-  const managerPerms = [...salesPerms, 'expense.view_team', 'fund.approve', 'report.view_team'];
+  const managerPerms = [...salesPerms, 'expense.view_team', 'fund.approve', 'report.view_team', 'customer.view_all'];
   for (const permCode of managerPerms) {
     if (createdPerms[permCode]) { // only if it exists in seed
       await prisma.rolePermission.upsert({
@@ -107,8 +112,12 @@ async function main() {
     });
   }
 
-  // Accounting gets global view and approval
-  const accountingPerms = ['wallet.view_all', 'expense.view_all', 'expense.approve', 'transaction.view_all', 'accounting.view', 'report.view'];
+  // Accounting gets global view, expense approval/reversal, and customer payment record authority
+  const accountingPerms = [
+    'wallet.view_all', 'expense.view_all', 'expense.approve', 'expense.reverse',
+    'transaction.view_all', 'accounting.view', 'report.view',
+    'customer.view_all', 'customer.payment.record', 'customer.payment.view'
+  ];
   for (const permCode of accountingPerms) {
     if (createdPerms[permCode]) {
       await prisma.rolePermission.upsert({

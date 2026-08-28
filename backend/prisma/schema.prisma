@@ -23,6 +23,8 @@ model User {
   managedRequests FundRequest[]    @relation("ManagerRequests")
   expenses        Expense[]
   auditLogs       AuditLog[]
+  customers       Customer[]        @relation("SalesCustomers")
+  recordedPayments CustomerPayment[] @relation("RecordedCustomerPayments")
 }
 
 model Role {
@@ -204,3 +206,52 @@ model AuditLog {
   userAgent   String?
   createdAt   DateTime  @default(now())
 }
+
+// -------------------------------------------------------------
+// Customer Management & Sales Collections Models (PRD §19)
+// -------------------------------------------------------------
+model Customer {
+  id                 String            @id @default(uuid())
+  salesOwnerId       String
+  salesOwner         User              @relation("SalesCustomers", fields: [salesOwnerId], references: [id])
+  customerName       String
+  customerContact    String
+  customerAddress    String?
+  projectLocation    String
+  plotNo             String
+  areaSqft           Decimal           @db.Decimal(10, 2)
+  khataNo            String
+  identityType       String            // Aadhaar, PAN, Passport, Voter ID, Driving License
+  identityNumber     String
+  kycDocuments       Json?             // Array of document references
+  status             String            @default("ACTIVE") // ACTIVE, CANCELLED
+  ratePerSqft        Decimal           @db.Decimal(15, 2) @default(0)
+  landCost           Decimal           @db.Decimal(15, 2) @default(0)
+  registryCost       Decimal           @db.Decimal(15, 2) @default(0)
+  otherCharges       Decimal           @db.Decimal(15, 2) @default(0)
+  discount           Decimal           @db.Decimal(15, 2) @default(0)
+  taxes              Decimal           @db.Decimal(15, 2) @default(0)
+  totalContractValue Decimal           @db.Decimal(15, 2)
+  totalPaid          Decimal           @db.Decimal(15, 2) @default(0)
+  balanceDue         Decimal           @db.Decimal(15, 2)
+  payments           CustomerPayment[]
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+}
+
+model CustomerPayment {
+  id                 String    @id @default(uuid())
+  customerId         String
+  customer           Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  dateOfPayment      DateTime  @default(now())
+  amount             Decimal   @db.Decimal(15, 2)
+  paymentMode        String    // CASH, CHEQUE, NEFT, RTGS, UPI, DD
+  sourceAccount      String?   // Client bank/account description
+  destinationAccount String?   // Treasury collection bank account
+  referenceNo        String?   // UTR / Cheque / Transaction reference
+  recordedById       String
+  recordedBy         User      @relation("RecordedCustomerPayments", fields: [recordedById], references: [id])
+  status             String    @default("RECORDED") // RECORDED, REVERSED
+  createdAt          DateTime  @default(now())
+}
+

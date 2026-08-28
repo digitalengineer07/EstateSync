@@ -275,6 +275,47 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.CustomerScalarFieldEnum = {
+  id: 'id',
+  salesOwnerId: 'salesOwnerId',
+  customerName: 'customerName',
+  customerContact: 'customerContact',
+  customerAddress: 'customerAddress',
+  projectLocation: 'projectLocation',
+  plotNo: 'plotNo',
+  areaSqft: 'areaSqft',
+  khataNo: 'khataNo',
+  identityType: 'identityType',
+  identityNumber: 'identityNumber',
+  kycDocuments: 'kycDocuments',
+  status: 'status',
+  ratePerSqft: 'ratePerSqft',
+  landCost: 'landCost',
+  registryCost: 'registryCost',
+  otherCharges: 'otherCharges',
+  discount: 'discount',
+  taxes: 'taxes',
+  totalContractValue: 'totalContractValue',
+  totalPaid: 'totalPaid',
+  balanceDue: 'balanceDue',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CustomerPaymentScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  dateOfPayment: 'dateOfPayment',
+  amount: 'amount',
+  paymentMode: 'paymentMode',
+  sourceAccount: 'sourceAccount',
+  destinationAccount: 'destinationAccount',
+  referenceNo: 'referenceNo',
+  recordedById: 'recordedById',
+  status: 'status',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -320,7 +361,9 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   JournalEntry: 'JournalEntry',
   JournalLine: 'JournalLine',
-  AuditLog: 'AuditLog'
+  AuditLog: 'AuditLog',
+  Customer: 'Customer',
+  CustomerPayment: 'CustomerPayment'
 };
 
 /**

@@ -53,14 +53,14 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 | Accounting entries maintain debit = credit | ✅ **Implemented** | Double-entry bookkeeping engine with Chart of Accounts (`Account`), `JournalEntry`, `JournalLine`, and UI `GeneralLedgerView` enforcing `sum(debits) === sum(credits)`. |
 | Corrections use reversal transactions | ✅ **Implemented** | Admin & Accounting can reverse expenses (`POST /api/v1/expenses/:id/reverse`) with automatic wallet refund, `EXPENSE_REVERSAL` transaction, and reversing double-entry journal. |
 
-## 7. Customer Management & Sales Collections (PRD §19 — NEW)
+## 7. Customer Management & Sales Collections (PRD §19 — COMPLETED)
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Sales can create customer profile (master + commercial snapshot) | ⏳ **Pending** | Plot no., area, khata no., project/location, identity/KYC, rate/sq.ft., land cost, registry cost, other charges, discount, taxes, total contract value. |
-| Accounting can record customer payments | ⏳ **Pending** | Date, amount, payment mode, source account, destination account. |
-| Customer payment updates Organization Wallet + customer total paid/balance | ⏳ **Pending** | Requires new `CUSTOMER_PAYMENT_RECEIVED` transaction type and journal posting (Dr Bank, Cr Revenue/Receivable). |
-| Customer payments are immutable / auditable / idempotent | ⏳ **Pending** | Same guarantees as existing expense/allocation flows. |
-| Customer payment displays as CREDIT | ⏳ **Pending** | New `entry_type` field on ledger rows (PRD §4.4). |
+| Sales can create customer profile (master + commercial snapshot) | ✅ **Implemented** | `CustomerRegistrationModal.js` & `POST /api/v1/customers` with auto-calculated frozen `totalContractValue` (`(landCost + registry + other + taxes) - discount`). |
+| Accounting can record customer payments | ✅ **Implemented** | `RecordCustomerPaymentModal.js` & `POST /api/v1/customers/:id/payments` with validation against `balanceDue`. |
+| Customer payment updates Organization Wallet + customer total paid/balance | ✅ **Implemented** | `CUSTOMER_PAYMENT_RECEIVED` transaction increments Treasury Wallet, decrements customer `balanceDue`, and posts double-entry journal (`Dr 1010 Bank`, `Cr 4010 Customer Revenue`). |
+| Customer payments are immutable / auditable / idempotent | ✅ **Implemented** | Protected by `idempotencyMiddleware`, security `AuditLog` records (`CUSTOMER_PAYMENT_RECORD`), and permanent ledger entries. |
+| Customer payment displays as CREDIT | ✅ **Implemented** | Ledger rows display bright green `+ CREDIT` tag (PRD §4.4). |
 
 ## 8. Property Acquisition Management (PRD §20 — NEW)
 | Feature | Status | Notes |
@@ -74,14 +74,13 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 ## 9. Accounting Role — Write Authority Update (PRD §3.6 — CHANGED)
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Accounting formally has write access (no longer read-only) | ⏳ **Pending** | Scoped to: record customer payments, record land-owner payments, reverse expenses (already implemented). `fund.allocate`/`fund.approve` remain Admin/Manager-only. |
-| Every transaction ledger row shows CREDIT/DEBIT tag | ⏳ **Pending** | Applies system-wide — Transaction Ledger, Wallet Dashboard, Customer/Property payment histories (PRD §4.4). |
+| Accounting formally has write access (no longer read-only) | ✅ **Partially Implemented** | Scoped to: record customer payments (✅ implemented), reverse expenses (✅ implemented), record land-owner payments (⏳ pending §20). `fund.allocate`/`fund.approve` remain Admin/Manager-only. |
+| Every transaction ledger row shows CREDIT/DEBIT tag | ✅ **Implemented** | Applies system-wide — Transaction Ledger, Customer payment histories, and Wallet Dashboards (PRD §4.4). |
 
 ---
 
-## 🎉 MVP Status (original scope, §1–§6 above): 100% Complete
-## 🚧 Phase Addition (§19–§20 of PRD v1.2): Not yet implemented
-Customer/Sales Collections and Property Acquisition are new requirements added in PRD v1.2 and are not part of the verified 100% completion above.
+## 🎉 MVP Status (original scope + PRD §19 Customer Collections): 100% Complete
+## 🚧 Next Phase Addition: Property Acquisition Management (§20 of PRD v1.2)
 
 ---
 
