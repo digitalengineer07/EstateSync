@@ -70,7 +70,12 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
       setTimeout(() => {
         onPaymentRecorded?.(data.data);
         onClose();
-      }, 1200);
+        setAmount("");
+        setReferenceNo("");
+        setSourceAccount("");
+        setError(null);
+        setSuccessMsg(null);
+      }, 700);
     } catch (err) {
       setError(err.message);
     } finally {

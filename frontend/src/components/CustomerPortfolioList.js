@@ -272,7 +272,17 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
           setIsPaymentOpen(false);
           setSelectedCustomerForPayment(null);
         }}
-        onPaymentRecorded={() => fetchCustomers()}
+        onPaymentRecorded={(paymentResult) => {
+          fetchCustomers();
+          if (historyCustomer && paymentResult?.customer && historyCustomer.id === paymentResult.customer.id) {
+            setHistoryCustomer(prev => ({
+              ...prev,
+              totalPaid: paymentResult.customer.totalPaid,
+              balanceDue: paymentResult.customer.balanceDue,
+              payments: [paymentResult.payment, ...(prev.payments || [])]
+            }));
+          }
+        }}
       />
 
       {/* Payment History Detail Drawer / Modal */}

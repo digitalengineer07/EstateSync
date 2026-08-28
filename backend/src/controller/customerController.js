@@ -340,11 +340,14 @@ exports.recordPayment = async (req, res) => {
       });
 
       // 4. Update Customer running balances
+      const newTotalPaid = parseFloat(customer.totalPaid || 0) + payAmount;
+      const newBalanceDue = Math.max(0, parseFloat(customer.balanceDue || 0) - payAmount);
+
       const updatedCustomer = await tx.customer.update({
         where: { id: customer.id },
         data: {
-          totalPaid: { increment: payAmount },
-          balanceDue: { decrement: payAmount }
+          totalPaid: newTotalPaid,
+          balanceDue: newBalanceDue
         }
       });
 
