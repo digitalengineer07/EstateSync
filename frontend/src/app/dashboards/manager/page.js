@@ -4,26 +4,28 @@ import { useState } from "react";
 import FundRequestList from "@/components/FundRequestList";
 import DashboardStats from "@/components/DashboardStats";
 import ExpenseList from "@/components/ExpenseList";
+import { Layers, FileCheck, Receipt } from "lucide-react";
 
 export default function ManagerDashboard() {
   const [managerTab, setManagerTab] = useState("approvals");
 
   return (
     <div className="space-y-6">
-      <div className="bg-white shadow-sm hover:shadow-md transition-shadow rounded-2xl p-6 sm:p-7 border border-slate-200/80">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-slate-100">
+      {/* Top Header Card */}
+      <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 sm:p-7">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pb-5 border-b border-slate-100">
           <div>
-            <div className="flex items-center gap-2.5 mb-1.5">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <div className="flex items-center gap-3">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
                 Manager Oversight Hub
-              </h2>
-              <span className="px-3 py-1 bg-purple-50 text-purple-800 text-xs font-bold rounded-full border border-purple-200 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+              </h1>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200/80">
+                <Layers className="w-3.5 h-3.5" />
                 Departmental Budget & Approvals
               </span>
             </div>
-            <p className="text-slate-500 text-xs sm:text-sm">
-              Approve incoming fund requests from your field team, monitor team expenditures, and request additional liquidity from Admin.
+            <p className="text-slate-500 text-xs sm:text-sm mt-1">
+              Approve incoming fund requests from your field team, monitor departmental spending, and request additional capital from Admin.
             </p>
           </div>
         </div>
@@ -32,39 +34,41 @@ export default function ManagerDashboard() {
       </div>
 
       {/* Toggled Operations Container */}
-      <div className="bg-white shadow-sm rounded-2xl p-6 sm:p-7 border border-slate-200/80">
+      <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-5 border-b border-slate-100">
           <div>
-            <h3 className="text-xl font-bold text-slate-900">
+            <h3 className="text-lg font-bold text-slate-900">
               {managerTab === "approvals" ? "Incoming Team Fund Requests" : "Team Expense Submissions"}
             </h3>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 mt-0.5">
               {managerTab === "approvals"
                 ? "Review and one-click approve pending fund allocations to team members."
                 : "Monitor itemized receipts and expenditures filed by your team."}
             </p>
           </div>
 
-          <div className="flex bg-slate-100 p-1.5 rounded-xl border border-slate-200 self-start sm:self-auto text-xs font-semibold shadow-inner">
+          <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs font-semibold">
             <button
               onClick={() => setManagerTab("approvals")}
-              className={`px-4 py-2 rounded-lg transition-all duration-150 flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 rounded-md transition flex items-center gap-1.5 ${
                 managerTab === "approvals"
-                  ? "bg-white text-purple-700 shadow-sm font-bold"
+                  ? "bg-white text-slate-900 shadow-xs font-bold"
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              📥 Pending Approvals
+              <FileCheck className="w-3.5 h-3.5" />
+              Pending Approvals
             </button>
             <button
               onClick={() => setManagerTab("expenses")}
-              className={`px-4 py-2 rounded-lg transition-all duration-150 flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 rounded-md transition flex items-center gap-1.5 ${
                 managerTab === "expenses"
-                  ? "bg-white text-purple-700 shadow-sm font-bold"
+                  ? "bg-white text-slate-900 shadow-xs font-bold"
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              🧾 Team Expenses
+              <Receipt className="w-3.5 h-3.5" />
+              Team Expenses
             </button>
           </div>
         </div>

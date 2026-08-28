@@ -9,65 +9,73 @@ import GeneralLedgerView from "@/components/GeneralLedgerView";
 import AuditLogViewer from "@/components/AuditLogViewer";
 import CustomerPortfolioList from "@/components/CustomerPortfolioList";
 import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
+import { Users, MapPin, Scale, Wallet, Receipt, ArrowLeftRight } from "lucide-react";
 
 export default function AccountingDashboard() {
   const [activeTab, setActiveTab] = useState("collections");
   const [walletSubTab, setWalletSubTab] = useState("expenses");
 
   const tabs = [
-    { id: "collections", label: "Customer Collections", badge: "PRD §19", icon: "💵", activeClass: "bg-emerald-600 text-white shadow-md shadow-emerald-700/30 font-bold" },
-    { id: "properties", label: "Land Acquisitions", badge: "PRD §20", icon: "🏞️", activeClass: "bg-amber-600 text-white shadow-md shadow-amber-700/30 font-bold" },
-    { id: "ledger", label: "General Ledger (Dr = Cr)", badge: "Bookkeeping", icon: "⚖️", activeClass: "bg-indigo-600 text-white shadow-md shadow-indigo-700/30 font-bold" },
-    { id: "wallets", label: "Wallets & Expenses", badge: "Corporate", icon: "💼", activeClass: "bg-slate-800 text-white shadow-md shadow-slate-900/30 font-bold" },
+    { id: "collections", label: "Customer Collections", icon: Users, badge: "PRD §19" },
+    { id: "properties", label: "Land Acquisitions", icon: MapPin, badge: "PRD §20" },
+    { id: "ledger", label: "General Ledger", icon: Scale, badge: "Dr = Cr" },
+    { id: "wallets", label: "Wallets & Expenses", icon: Wallet, badge: "Corporate" },
   ];
 
   return (
     <div className="space-y-6">
-      {/* Top Hub Header Card */}
-      <div className="bg-white shadow-sm hover:shadow-md transition-shadow rounded-2xl p-6 sm:p-7 border border-slate-200/80">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 pb-6 border-b border-slate-100">
+      {/* Page Header & Global Stats Container */}
+      <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 sm:p-7">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pb-5 border-b border-slate-100">
           <div>
-            <div className="flex flex-wrap items-center gap-2.5 mb-1.5">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <div className="flex flex-wrap items-center gap-3">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
                 Accounting & Financial Hub
-              </h2>
-              <span className="px-3 py-1 bg-emerald-50 text-emerald-800 text-xs font-bold rounded-full border border-emerald-200 shadow-2xs flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              </h1>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                 Full Write & Audit Authority
               </span>
             </div>
-            <p className="text-slate-500 text-xs sm:text-sm max-w-3xl">
-              Corporate treasury inflows, customer collections (PRD §19), land acquisitions (PRD §20), balanced double-entry general ledger, and expense governance.
+            <p className="text-slate-500 text-xs sm:text-sm mt-1">
+              Corporate treasury inflows, customer collections (PRD §19), land acquisitions (PRD §20), balanced double-entry ledger, and expense governance.
             </p>
-          </div>
-
-          {/* Navigation Sub-Tabs */}
-          <div className="flex flex-wrap bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200 self-start lg:self-auto text-xs font-semibold gap-1.5 shadow-inner">
-            {tabs.map((tab) => {
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`px-4 py-2.5 rounded-xl transition-all duration-150 flex items-center gap-2 ${
-                    isActive
-                      ? tab.activeClass
-                      : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
-                  }`}
-                >
-                  <span className="text-sm">{tab.icon}</span>
-                  <span>{tab.label}</span>
-                </button>
-              );
-            })}
           </div>
         </div>
 
+        {/* Global Financial Stats */}
         <DashboardStats type="accounting" />
+
+        {/* Horizontal Navigation Sub-Tab Bar (Linear/Stripe Style) */}
+        <div className="flex items-center gap-1.5 mt-6 pt-5 border-t border-slate-100 overflow-x-auto">
+          {tabs.map((tab) => {
+            const isActive = activeTab === tab.id;
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-4 py-2.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 whitespace-nowrap ${
+                  isActive
+                    ? "bg-slate-900 text-white shadow-xs"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                }`}
+              >
+                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-indigo-400" : "text-slate-400"}`} />
+                <span>{tab.label}</span>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
+                  isActive ? "bg-slate-800 text-slate-300" : "bg-slate-100 text-slate-500"
+                }`}>
+                  {tab.badge}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Main Tab Content */}
-      <div className="transition-all duration-200">
+      <div>
         {activeTab === "collections" && (
           <CustomerPortfolioList mode="accounting" userRole="ACCOUNTING" />
         )}
@@ -84,39 +92,41 @@ export default function AccountingDashboard() {
           <div className="space-y-6">
             <UserWalletLedger />
             
-            <div className="bg-white shadow-sm rounded-2xl p-6 border border-slate-200/80">
+            <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-5 border-b border-slate-100">
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900">
+                  <h3 className="text-lg font-bold text-slate-900">
                     {walletSubTab === "expenses" ? "All Corporate Expense Records" : "Global Transaction Ledger"}
                   </h3>
-                  <p className="text-xs text-slate-500 mt-1">
+                  <p className="text-xs text-slate-500 mt-0.5">
                     {walletSubTab === "expenses"
                       ? "Audit user receipts, line-item expenses, and execute administrative reversals."
                       : "Complete audit record of fund allocations, collections, debits, and credits (PRD §4.4)."}
                   </p>
                 </div>
 
-                <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200 self-start sm:self-auto text-xs font-semibold">
+                <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs font-semibold">
                   <button
                     onClick={() => setWalletSubTab("expenses")}
-                    className={`px-4 py-2 rounded-lg transition flex items-center gap-1.5 ${
+                    className={`px-3.5 py-1.5 rounded-md transition flex items-center gap-1.5 ${
                       walletSubTab === "expenses"
-                        ? "bg-white text-indigo-700 shadow-sm font-bold"
+                        ? "bg-white text-slate-900 shadow-xs font-bold"
                         : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
-                    🧾 All Expenses
+                    <Receipt className="w-3.5 h-3.5" />
+                    All Expenses
                   </button>
                   <button
                     onClick={() => setWalletSubTab("transactions")}
-                    className={`px-4 py-2 rounded-lg transition flex items-center gap-1.5 ${
+                    className={`px-3.5 py-1.5 rounded-md transition flex items-center gap-1.5 ${
                       walletSubTab === "transactions"
-                        ? "bg-white text-indigo-700 shadow-sm font-bold"
+                        ? "bg-white text-slate-900 shadow-xs font-bold"
                         : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
-                    💳 Transaction Ledger
+                    <ArrowLeftRight className="w-3.5 h-3.5" />
+                    Transaction Ledger
                   </button>
                 </div>
               </div>
@@ -133,7 +143,7 @@ export default function AccountingDashboard() {
         )}
       </div>
 
-      {/* Persistent Security & Audit Trail */}
+      {/* Security & Audit Trail */}
       <AuditLogViewer />
     </div>
   );
