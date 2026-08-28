@@ -121,7 +121,17 @@ exports.getCustomers = async (req, res) => {
       include: {
         salesOwner: { select: { id: true, name: true, email: true } },
         payments: {
-          select: { id: true, amount: true, dateOfPayment: true, paymentMode: true, referenceNo: true, status: true },
+          select: {
+            id: true,
+            amount: true,
+            dateOfPayment: true,
+            paymentMode: true,
+            sourceAccount: true,
+            destinationAccount: true,
+            referenceNo: true,
+            status: true,
+            recordedBy: { select: { id: true, name: true, email: true } }
+          },
           orderBy: { dateOfPayment: 'desc' }
         }
       },
