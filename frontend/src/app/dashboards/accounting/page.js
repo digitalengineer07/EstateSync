@@ -8,6 +8,7 @@ import TransactionLedger from "@/components/TransactionLedger";
 import GeneralLedgerView from "@/components/GeneralLedgerView";
 import AuditLogViewer from "@/components/AuditLogViewer";
 import CustomerPortfolioList from "@/components/CustomerPortfolioList";
+import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
 
 export default function AccountingDashboard() {
   const [activeTab, setActiveTab] = useState("collections");
@@ -20,21 +21,27 @@ export default function AccountingDashboard() {
             <div className="flex items-center gap-2 mb-1">
               <h2 className="text-2xl font-bold text-gray-900">Accounting & Financial Hub</h2>
               <span className="px-3 py-1 bg-emerald-50 text-emerald-800 text-xs font-semibold rounded-full border border-emerald-200">
-                Write & Audit Mode
+                Full Write & Audit Authority
               </span>
             </div>
             <p className="text-gray-600 text-sm">
-              Corporate treasury inflows, customer collections, double-entry general ledger, audit trails, and expense governance.
+              Corporate treasury inflows, customer collections (PRD §19), land acquisitions (PRD §20), double-entry general ledger, and expense governance.
             </p>
           </div>
 
           {/* Navigation Sub-Tabs */}
-          <div className="flex bg-gray-100 p-1 rounded-xl border border-gray-200 self-start sm:self-auto text-xs font-semibold">
+          <div className="flex flex-wrap bg-gray-100 p-1 rounded-xl border border-gray-200 self-start sm:self-auto text-xs font-semibold gap-1">
             <button
               onClick={() => setActiveTab("collections")}
               className={`px-3.5 py-2 rounded-lg transition ${activeTab === "collections" ? "bg-white text-emerald-800 shadow-sm" : "text-gray-600 hover:text-gray-900"}`}
             >
-              💵 Customer Collections (PRD §19)
+              💵 Collections (PRD §19)
+            </button>
+            <button
+              onClick={() => setActiveTab("properties")}
+              className={`px-3.5 py-2 rounded-lg transition ${activeTab === "properties" ? "bg-white text-amber-900 shadow-sm" : "text-gray-600 hover:text-gray-900"}`}
+            >
+              🏞️ Land Acquisitions (PRD §20)
             </button>
             <button
               onClick={() => setActiveTab("ledger")}
@@ -56,6 +63,10 @@ export default function AccountingDashboard() {
 
       {activeTab === "collections" && (
         <CustomerPortfolioList mode="accounting" userRole="ACCOUNTING" />
+      )}
+
+      {activeTab === "properties" && (
+        <PropertyAcquisitionList userRole="ACCOUNTING" />
       )}
 
       {activeTab === "ledger" && (

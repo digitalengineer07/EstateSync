@@ -62,25 +62,25 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 | Customer payments are immutable / auditable / idempotent | ✅ **Implemented** | Protected by `idempotencyMiddleware`, security `AuditLog` records (`CUSTOMER_PAYMENT_RECORD`), and permanent ledger entries. |
 | Customer payment displays as CREDIT | ✅ **Implemented** | Ledger rows display bright green `+ CREDIT` tag (PRD §4.4). |
 
-## 8. Property Acquisition Management (PRD §20 — NEW)
+## 8. Property Acquisition Management (PRD §20 — COMPLETED)
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Admin/Accounting can create property/land acquisition record | ⏳ **Pending** | Khata no., plot no., land owner name, total land value. |
-| Accounting can record payments to land owner | ⏳ **Pending** | Deducts from Organization Wallet; blocked if it would exceed wallet balance or property's remaining balance. |
-| Property payment updates total paid / balance remaining | ⏳ **Pending** | Requires new `LAND_ACQUISITION_PAYMENT` transaction type and journal posting (Dr Land Asset, Cr Bank). |
-| Property payments are immutable / auditable / idempotent | ⏳ **Pending** | Same guarantees as existing expense/allocation flows. |
-| Property payment displays as DEBIT | ⏳ **Pending** | Same `entry_type` field, tagged DEBIT (PRD §4.4). |
+| Admin/Accounting can create property/land acquisition record | ✅ **Implemented** | `PropertyAcquisitionModal.js` & `POST /api/v1/properties` with Khata no., plot no., location, owner name, contact, area, total land value, agreement date. |
+| Accounting can record payments to land owner | ✅ **Implemented** | `RecordPropertyPaymentModal.js` & `POST /api/v1/properties/:id/payments` with strict validation against both property remaining liability and Treasury available liquidity. |
+| Property payment updates total paid / balance remaining | ✅ **Implemented** | `LAND_ACQUISITION_PAYMENT` transaction atomically decrements Organization Wallet, updates property running totals (`totalPaidToOwner`, `balanceRemaining`), and posts double-entry Fixed Asset journal (`Dr 1510 Land Assets`, `Cr 1010 Corporate Bank`). |
+| Property payments are immutable / auditable / idempotent | ✅ **Implemented** | Protected by `idempotencyMiddleware`, security `AuditLog` records (`PROPERTY_PAYMENT_RECORD`), and permanent ledger records. |
+| Property payment displays as DEBIT | ✅ **Implemented** | Ledger rows display bright rose `− DEBIT` tag (PRD §4.4). |
 
-## 9. Accounting Role — Write Authority Update (PRD §3.6 — CHANGED)
+## 9. Accounting Role — Write Authority Update (PRD §3.6 — COMPLETED)
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Accounting formally has write access (no longer read-only) | ✅ **Partially Implemented** | Scoped to: record customer payments (✅ implemented), reverse expenses (✅ implemented), record land-owner payments (⏳ pending §20). `fund.allocate`/`fund.approve` remain Admin/Manager-only. |
-| Every transaction ledger row shows CREDIT/DEBIT tag | ✅ **Implemented** | Applies system-wide — Transaction Ledger, Customer payment histories, and Wallet Dashboards (PRD §4.4). |
+| Accounting formally has write access (no longer read-only) | ✅ **Implemented** | Scoped to: record customer collections (`customer.payment.record`), record land-owner disbursements (`property.payment.record`), register land parcels (`property.create`), reverse expenses (`expense.reverse`). `fund.allocate`/`fund.approve` strictly remain Admin/Manager-only. |
+| Every transaction ledger row shows CREDIT/DEBIT tag | ✅ **Implemented** | Applies system-wide — Transaction Ledger, Customer payment histories, Property payout histories, and Wallet Dashboards (PRD §4.4). |
 
 ---
 
-## 🎉 MVP Status (original scope + PRD §19 Customer Collections): 100% Complete
-## 🚧 Next Phase Addition: Property Acquisition Management (§20 of PRD v1.2)
+## 🎉 Overall EstateSync Platform Status (PRD v1.2 Scope Complete): 100% Implemented & Verified!
+All features defined across PRD §1 through §20, including Double-Entry Financial Engine, Idempotency Middleware, RBAC Security Boundaries, Customer Sales Collections, Property Land Acquisitions, and Next.js Dashboards are 100% implemented, automated-test verified, and production-build verified.
 
 ---
 

@@ -8,6 +8,7 @@ import DirectFundAllocationForm from "@/components/DirectFundAllocationForm";
 import GeneralLedgerView from "@/components/GeneralLedgerView";
 import AuditLogViewer from "@/components/AuditLogViewer";
 import CustomerPortfolioList from "@/components/CustomerPortfolioList";
+import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
 
 export default function AdminDashboard() {
   return (
@@ -15,7 +16,7 @@ export default function AdminDashboard() {
       <div className="bg-white shadow rounded-xl p-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Admin Dashboard & Global Treasury</h2>
         <p className="text-gray-600 text-sm">
-          Welcome to the system administration panel. Here you can allocate treasury funds, manage corporate users, monitor double-entry journals, track customer collections, and oversee governance audits.
+          Welcome to the system administration panel. Here you can allocate treasury funds, manage corporate users, monitor double-entry journals, track customer collections, and oversee land acquisitions.
         </p>
         
         <DashboardStats type="admin" />
@@ -27,6 +28,8 @@ export default function AdminDashboard() {
       </div>
 
       <CustomerPortfolioList mode="accounting" userRole="ADMIN" />
+
+      <PropertyAcquisitionList userRole="ADMIN" />
       
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <FundRequestList type="all" />

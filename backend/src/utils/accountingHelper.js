@@ -4,6 +4,7 @@ const STANDARD_ACCOUNTS = [
   { code: '1010', name: 'Corporate Bank / Primary Treasury', type: 'ASSET', description: 'Central company bank account and master capital reserve' },
   { code: '1020', name: 'Manager Operational Wallets', type: 'ASSET', description: 'Allocated funds held in Manager wallets' },
   { code: '1030', name: 'Team / Field Wallets', type: 'ASSET', description: 'Allocated funds held in Sales, Marketing, and Staff wallets' },
+  { code: '1510', name: 'Land & Real Estate Property Assets', type: 'ASSET', description: 'Acquired land parcels, fixed property assets, and development rights' },
   { code: '3010', name: 'Organizational Capital', type: 'EQUITY', description: 'Capital reserves and equity funding' },
   { code: '4010', name: 'Customer Sales & Contract Revenue', type: 'REVENUE', description: 'Customer plot bookings and contract collections' },
   { code: '5010', name: 'Travel & Field Expenses', type: 'EXPENSE', description: 'Client site visits, travel, fuel, transport' },
@@ -232,12 +233,39 @@ async function postCustomerPaymentJournal(tx, {
   });
 }
 
+/**
+ * Double-Entry Post: Land Acquisition Payout to Land Owner
+ * Debit: Land & Real Estate Property Assets (Asset +)
+ * Credit: Corporate Bank / Primary Treasury (Asset -)
+ */
+async function postPropertyPaymentJournal(tx, {
+  amount,
+  landOwnerName,
+  khataNo,
+  plotNo,
+  referenceId,
+  createdBy
+}) {
+  return await postJournalEntry(tx, {
+    description: `Land Acquisition Payment: ${landOwnerName} (Khata ${khataNo}, Plot ${plotNo})`,
+    referenceType: 'PROPERTY_PAYMENT',
+    referenceId,
+    createdBy,
+    lines: [
+      { accountCode: '1510', debit: amount, credit: 0, description: `Fixed Asset Inflow: Land Parcel Khata ${khataNo} Plot ${plotNo}` },
+      { accountCode: '1010', debit: 0, credit: amount, description: `Bank Outflow: Payout to ${landOwnerName}` }
+    ]
+  });
+}
+
 module.exports = {
   ensureStandardAccounts,
   postJournalEntry,
   postAllocationJournal,
   postExpenseJournal,
   postExpenseReversalJournal,
-  postCustomerPaymentJournal
+  postCustomerPaymentJournal,
+  postPropertyPaymentJournal
 };
+
 

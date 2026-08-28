@@ -24,7 +24,9 @@ async function main() {
     'transaction.view', 'transaction.view_all', 'accounting.view',
     'report.view', 'audit.view', 'user.manage',
     'customer.create', 'customer.view', 'customer.view_all', 'customer.edit',
-    'customer.payment.record', 'customer.payment.view'
+    'customer.payment.record', 'customer.payment.view',
+    'property.create', 'property.view_all', 'property.edit',
+    'property.payment.record', 'property.payment.view'
   ];
   
   const createdPerms = {};
@@ -112,11 +114,12 @@ async function main() {
     });
   }
 
-  // Accounting gets global view, expense approval/reversal, and customer payment record authority
+  // Accounting gets global view, expense approval/reversal, customer payment & property acquisition authority
   const accountingPerms = [
     'wallet.view_all', 'expense.view_all', 'expense.approve', 'expense.reverse',
     'transaction.view_all', 'accounting.view', 'report.view',
-    'customer.view_all', 'customer.payment.record', 'customer.payment.view'
+    'customer.view_all', 'customer.payment.record', 'customer.payment.view',
+    'property.create', 'property.view_all', 'property.edit', 'property.payment.record', 'property.payment.view'
   ];
   for (const permCode of accountingPerms) {
     if (createdPerms[permCode]) {

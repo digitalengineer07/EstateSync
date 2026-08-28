@@ -316,6 +316,40 @@ exports.Prisma.CustomerPaymentScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PropertyAcquisitionScalarFieldEnum = {
+  id: 'id',
+  khataNo: 'khataNo',
+  plotNo: 'plotNo',
+  projectLocation: 'projectLocation',
+  landOwnerName: 'landOwnerName',
+  landOwnerContact: 'landOwnerContact',
+  landOwnerAddress: 'landOwnerAddress',
+  areaSqft: 'areaSqft',
+  totalLandValue: 'totalLandValue',
+  totalPaidToOwner: 'totalPaidToOwner',
+  balanceRemaining: 'balanceRemaining',
+  status: 'status',
+  agreementDate: 'agreementDate',
+  documents: 'documents',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PropertyPaymentScalarFieldEnum = {
+  id: 'id',
+  propertyId: 'propertyId',
+  dateOfPayment: 'dateOfPayment',
+  amount: 'amount',
+  paymentMode: 'paymentMode',
+  paidFromAccount: 'paidFromAccount',
+  referenceNo: 'referenceNo',
+  notes: 'notes',
+  paidById: 'paidById',
+  status: 'status',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -363,7 +397,9 @@ exports.Prisma.ModelName = {
   JournalLine: 'JournalLine',
   AuditLog: 'AuditLog',
   Customer: 'Customer',
-  CustomerPayment: 'CustomerPayment'
+  CustomerPayment: 'CustomerPayment',
+  PropertyAcquisition: 'PropertyAcquisition',
+  PropertyPayment: 'PropertyPayment'
 };
 
 /**

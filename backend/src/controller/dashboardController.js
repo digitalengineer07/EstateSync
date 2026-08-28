@@ -127,6 +127,15 @@ exports.getAdminStats = async (req, res) => {
       _count: { id: true }
     });
 
+    const propertyAgg = await prisma.propertyAcquisition.aggregate({
+      _sum: {
+        totalLandValue: true,
+        totalPaidToOwner: true,
+        balanceRemaining: true
+      },
+      _count: { id: true }
+    });
+
     const userCount = await prisma.user.count();
 
     res.json({
@@ -140,7 +149,11 @@ exports.getAdminStats = async (req, res) => {
         totalCustomers: customerAgg._count.id || 0,
         totalCustomerContracts: customerAgg._sum.totalContractValue || 0,
         totalCustomerCollections: customerAgg._sum.totalPaid || 0,
-        totalCustomerReceivables: customerAgg._sum.balanceDue || 0
+        totalCustomerReceivables: customerAgg._sum.balanceDue || 0,
+        totalProperties: propertyAgg._count.id || 0,
+        totalLandValuation: propertyAgg._sum.totalLandValue || 0,
+        totalLandPayouts: propertyAgg._sum.totalPaidToOwner || 0,
+        totalLandLiabilities: propertyAgg._sum.balanceRemaining || 0
       }
     });
   } catch (error) {
@@ -181,6 +194,15 @@ exports.getAccountingStats = async (req, res) => {
       _count: { id: true }
     });
 
+    const propertyAgg = await prisma.propertyAcquisition.aggregate({
+      _sum: {
+        totalLandValue: true,
+        totalPaidToOwner: true,
+        balanceRemaining: true
+      },
+      _count: { id: true }
+    });
+
     const pendingRequests = await prisma.fundRequest.aggregate({
       where: { status: 'PENDING' },
       _sum: { amount: true },
@@ -207,7 +229,11 @@ exports.getAccountingStats = async (req, res) => {
         totalCustomers: customerAgg._count.id || 0,
         totalCustomerContracts: Number(customerAgg._sum.totalContractValue || 0),
         totalCustomerCollections: Number(customerAgg._sum.totalPaid || 0),
-        totalCustomerReceivables: Number(customerAgg._sum.balanceDue || 0)
+        totalCustomerReceivables: Number(customerAgg._sum.balanceDue || 0),
+        totalProperties: propertyAgg._count.id || 0,
+        totalLandValuation: Number(propertyAgg._sum.totalLandValue || 0),
+        totalLandPayouts: Number(propertyAgg._sum.totalPaidToOwner || 0),
+        totalLandLiabilities: Number(propertyAgg._sum.balanceRemaining || 0)
       }
     });
   } catch (error) {

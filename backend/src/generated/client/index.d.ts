@@ -93,6 +93,16 @@ export type Customer = $Result.DefaultSelection<Prisma.$CustomerPayload>
  * 
  */
 export type CustomerPayment = $Result.DefaultSelection<Prisma.$CustomerPaymentPayload>
+/**
+ * Model PropertyAcquisition
+ * 
+ */
+export type PropertyAcquisition = $Result.DefaultSelection<Prisma.$PropertyAcquisitionPayload>
+/**
+ * Model PropertyPayment
+ * 
+ */
+export type PropertyPayment = $Result.DefaultSelection<Prisma.$PropertyPaymentPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -376,6 +386,26 @@ export class PrismaClient<
     * ```
     */
   get customerPayment(): Prisma.CustomerPaymentDelegate<ExtArgs>;
+
+  /**
+   * `prisma.propertyAcquisition`: Exposes CRUD operations for the **PropertyAcquisition** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PropertyAcquisitions
+    * const propertyAcquisitions = await prisma.propertyAcquisition.findMany()
+    * ```
+    */
+  get propertyAcquisition(): Prisma.PropertyAcquisitionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.propertyPayment`: Exposes CRUD operations for the **PropertyPayment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PropertyPayments
+    * const propertyPayments = await prisma.propertyPayment.findMany()
+    * ```
+    */
+  get propertyPayment(): Prisma.PropertyPaymentDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -832,7 +862,9 @@ export namespace Prisma {
     JournalLine: 'JournalLine',
     AuditLog: 'AuditLog',
     Customer: 'Customer',
-    CustomerPayment: 'CustomerPayment'
+    CustomerPayment: 'CustomerPayment',
+    PropertyAcquisition: 'PropertyAcquisition',
+    PropertyPayment: 'PropertyPayment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -848,7 +880,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "role" | "permission" | "rolePermission" | "wallet" | "walletTransaction" | "fundRequest" | "expense" | "expenseCategory" | "idempotencyKey" | "account" | "journalEntry" | "journalLine" | "auditLog" | "customer" | "customerPayment"
+      modelProps: "user" | "role" | "permission" | "rolePermission" | "wallet" | "walletTransaction" | "fundRequest" | "expense" | "expenseCategory" | "idempotencyKey" | "account" | "journalEntry" | "journalLine" | "auditLog" | "customer" | "customerPayment" | "propertyAcquisition" | "propertyPayment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1972,6 +2004,146 @@ export namespace Prisma {
           }
         }
       }
+      PropertyAcquisition: {
+        payload: Prisma.$PropertyAcquisitionPayload<ExtArgs>
+        fields: Prisma.PropertyAcquisitionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PropertyAcquisitionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyAcquisitionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PropertyAcquisitionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyAcquisitionPayload>
+          }
+          findFirst: {
+            args: Prisma.PropertyAcquisitionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyAcquisitionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PropertyAcquisitionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyAcquisitionPayload>
+          }
+          findMany: {
+            args: Prisma.PropertyAcquisitionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyAcquisitionPayload>[]
+          }
+          create: {
+            args: Prisma.PropertyAcquisitionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyAcquisitionPayload>
+          }
+          createMany: {
+            args: Prisma.PropertyAcquisitionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PropertyAcquisitionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyAcquisitionPayload>[]
+          }
+          delete: {
+            args: Prisma.PropertyAcquisitionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyAcquisitionPayload>
+          }
+          update: {
+            args: Prisma.PropertyAcquisitionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyAcquisitionPayload>
+          }
+          deleteMany: {
+            args: Prisma.PropertyAcquisitionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PropertyAcquisitionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PropertyAcquisitionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyAcquisitionPayload>
+          }
+          aggregate: {
+            args: Prisma.PropertyAcquisitionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePropertyAcquisition>
+          }
+          groupBy: {
+            args: Prisma.PropertyAcquisitionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PropertyAcquisitionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PropertyAcquisitionCountArgs<ExtArgs>
+            result: $Utils.Optional<PropertyAcquisitionCountAggregateOutputType> | number
+          }
+        }
+      }
+      PropertyPayment: {
+        payload: Prisma.$PropertyPaymentPayload<ExtArgs>
+        fields: Prisma.PropertyPaymentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PropertyPaymentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPaymentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PropertyPaymentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPaymentPayload>
+          }
+          findFirst: {
+            args: Prisma.PropertyPaymentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPaymentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PropertyPaymentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPaymentPayload>
+          }
+          findMany: {
+            args: Prisma.PropertyPaymentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPaymentPayload>[]
+          }
+          create: {
+            args: Prisma.PropertyPaymentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPaymentPayload>
+          }
+          createMany: {
+            args: Prisma.PropertyPaymentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PropertyPaymentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPaymentPayload>[]
+          }
+          delete: {
+            args: Prisma.PropertyPaymentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPaymentPayload>
+          }
+          update: {
+            args: Prisma.PropertyPaymentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPaymentPayload>
+          }
+          deleteMany: {
+            args: Prisma.PropertyPaymentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PropertyPaymentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PropertyPaymentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyPaymentPayload>
+          }
+          aggregate: {
+            args: Prisma.PropertyPaymentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePropertyPayment>
+          }
+          groupBy: {
+            args: Prisma.PropertyPaymentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PropertyPaymentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PropertyPaymentCountArgs<ExtArgs>
+            result: $Utils.Optional<PropertyPaymentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2139,6 +2311,8 @@ export namespace Prisma {
     auditLogs: number
     customers: number
     recordedPayments: number
+    createdProperties: number
+    recordedPropertyPayments: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2148,6 +2322,8 @@ export namespace Prisma {
     auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
     customers?: boolean | UserCountOutputTypeCountCustomersArgs
     recordedPayments?: boolean | UserCountOutputTypeCountRecordedPaymentsArgs
+    createdProperties?: boolean | UserCountOutputTypeCountCreatedPropertiesArgs
+    recordedPropertyPayments?: boolean | UserCountOutputTypeCountRecordedPropertyPaymentsArgs
   }
 
   // Custom InputTypes
@@ -2201,6 +2377,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountRecordedPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CustomerPaymentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCreatedPropertiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PropertyAcquisitionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRecordedPropertyPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PropertyPaymentWhereInput
   }
 
 
@@ -2480,6 +2670,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type PropertyAcquisitionCountOutputType
+   */
+
+  export type PropertyAcquisitionCountOutputType = {
+    payments: number
+  }
+
+  export type PropertyAcquisitionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    payments?: boolean | PropertyAcquisitionCountOutputTypeCountPaymentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PropertyAcquisitionCountOutputType without action
+   */
+  export type PropertyAcquisitionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisitionCountOutputType
+     */
+    select?: PropertyAcquisitionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PropertyAcquisitionCountOutputType without action
+   */
+  export type PropertyAcquisitionCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PropertyPaymentWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -2671,6 +2892,8 @@ export namespace Prisma {
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     customers?: boolean | User$customersArgs<ExtArgs>
     recordedPayments?: boolean | User$recordedPaymentsArgs<ExtArgs>
+    createdProperties?: boolean | User$createdPropertiesArgs<ExtArgs>
+    recordedPropertyPayments?: boolean | User$recordedPropertyPaymentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2704,6 +2927,8 @@ export namespace Prisma {
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     customers?: boolean | User$customersArgs<ExtArgs>
     recordedPayments?: boolean | User$recordedPaymentsArgs<ExtArgs>
+    createdProperties?: boolean | User$createdPropertiesArgs<ExtArgs>
+    recordedPropertyPayments?: boolean | User$recordedPropertyPaymentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2721,6 +2946,8 @@ export namespace Prisma {
       auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
       customers: Prisma.$CustomerPayload<ExtArgs>[]
       recordedPayments: Prisma.$CustomerPaymentPayload<ExtArgs>[]
+      createdProperties: Prisma.$PropertyAcquisitionPayload<ExtArgs>[]
+      recordedPropertyPayments: Prisma.$PropertyPaymentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3102,6 +3329,8 @@ export namespace Prisma {
     auditLogs<T extends User$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany"> | Null>
     customers<T extends User$customersArgs<ExtArgs> = {}>(args?: Subset<T, User$customersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany"> | Null>
     recordedPayments<T extends User$recordedPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$recordedPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPaymentPayload<ExtArgs>, T, "findMany"> | Null>
+    createdProperties<T extends User$createdPropertiesArgs<ExtArgs> = {}>(args?: Subset<T, User$createdPropertiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "findMany"> | Null>
+    recordedPropertyPayments<T extends User$recordedPropertyPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$recordedPropertyPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3588,6 +3817,46 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CustomerPaymentScalarFieldEnum | CustomerPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * User.createdProperties
+   */
+  export type User$createdPropertiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisition
+     */
+    select?: PropertyAcquisitionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyAcquisitionInclude<ExtArgs> | null
+    where?: PropertyAcquisitionWhereInput
+    orderBy?: PropertyAcquisitionOrderByWithRelationInput | PropertyAcquisitionOrderByWithRelationInput[]
+    cursor?: PropertyAcquisitionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PropertyAcquisitionScalarFieldEnum | PropertyAcquisitionScalarFieldEnum[]
+  }
+
+  /**
+   * User.recordedPropertyPayments
+   */
+  export type User$recordedPropertyPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentInclude<ExtArgs> | null
+    where?: PropertyPaymentWhereInput
+    orderBy?: PropertyPaymentOrderByWithRelationInput | PropertyPaymentOrderByWithRelationInput[]
+    cursor?: PropertyPaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PropertyPaymentScalarFieldEnum | PropertyPaymentScalarFieldEnum[]
   }
 
   /**
@@ -18951,6 +19220,2196 @@ export namespace Prisma {
 
 
   /**
+   * Model PropertyAcquisition
+   */
+
+  export type AggregatePropertyAcquisition = {
+    _count: PropertyAcquisitionCountAggregateOutputType | null
+    _avg: PropertyAcquisitionAvgAggregateOutputType | null
+    _sum: PropertyAcquisitionSumAggregateOutputType | null
+    _min: PropertyAcquisitionMinAggregateOutputType | null
+    _max: PropertyAcquisitionMaxAggregateOutputType | null
+  }
+
+  export type PropertyAcquisitionAvgAggregateOutputType = {
+    areaSqft: Decimal | null
+    totalLandValue: Decimal | null
+    totalPaidToOwner: Decimal | null
+    balanceRemaining: Decimal | null
+  }
+
+  export type PropertyAcquisitionSumAggregateOutputType = {
+    areaSqft: Decimal | null
+    totalLandValue: Decimal | null
+    totalPaidToOwner: Decimal | null
+    balanceRemaining: Decimal | null
+  }
+
+  export type PropertyAcquisitionMinAggregateOutputType = {
+    id: string | null
+    khataNo: string | null
+    plotNo: string | null
+    projectLocation: string | null
+    landOwnerName: string | null
+    landOwnerContact: string | null
+    landOwnerAddress: string | null
+    areaSqft: Decimal | null
+    totalLandValue: Decimal | null
+    totalPaidToOwner: Decimal | null
+    balanceRemaining: Decimal | null
+    status: string | null
+    agreementDate: Date | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PropertyAcquisitionMaxAggregateOutputType = {
+    id: string | null
+    khataNo: string | null
+    plotNo: string | null
+    projectLocation: string | null
+    landOwnerName: string | null
+    landOwnerContact: string | null
+    landOwnerAddress: string | null
+    areaSqft: Decimal | null
+    totalLandValue: Decimal | null
+    totalPaidToOwner: Decimal | null
+    balanceRemaining: Decimal | null
+    status: string | null
+    agreementDate: Date | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PropertyAcquisitionCountAggregateOutputType = {
+    id: number
+    khataNo: number
+    plotNo: number
+    projectLocation: number
+    landOwnerName: number
+    landOwnerContact: number
+    landOwnerAddress: number
+    areaSqft: number
+    totalLandValue: number
+    totalPaidToOwner: number
+    balanceRemaining: number
+    status: number
+    agreementDate: number
+    documents: number
+    createdById: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PropertyAcquisitionAvgAggregateInputType = {
+    areaSqft?: true
+    totalLandValue?: true
+    totalPaidToOwner?: true
+    balanceRemaining?: true
+  }
+
+  export type PropertyAcquisitionSumAggregateInputType = {
+    areaSqft?: true
+    totalLandValue?: true
+    totalPaidToOwner?: true
+    balanceRemaining?: true
+  }
+
+  export type PropertyAcquisitionMinAggregateInputType = {
+    id?: true
+    khataNo?: true
+    plotNo?: true
+    projectLocation?: true
+    landOwnerName?: true
+    landOwnerContact?: true
+    landOwnerAddress?: true
+    areaSqft?: true
+    totalLandValue?: true
+    totalPaidToOwner?: true
+    balanceRemaining?: true
+    status?: true
+    agreementDate?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PropertyAcquisitionMaxAggregateInputType = {
+    id?: true
+    khataNo?: true
+    plotNo?: true
+    projectLocation?: true
+    landOwnerName?: true
+    landOwnerContact?: true
+    landOwnerAddress?: true
+    areaSqft?: true
+    totalLandValue?: true
+    totalPaidToOwner?: true
+    balanceRemaining?: true
+    status?: true
+    agreementDate?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PropertyAcquisitionCountAggregateInputType = {
+    id?: true
+    khataNo?: true
+    plotNo?: true
+    projectLocation?: true
+    landOwnerName?: true
+    landOwnerContact?: true
+    landOwnerAddress?: true
+    areaSqft?: true
+    totalLandValue?: true
+    totalPaidToOwner?: true
+    balanceRemaining?: true
+    status?: true
+    agreementDate?: true
+    documents?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PropertyAcquisitionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PropertyAcquisition to aggregate.
+     */
+    where?: PropertyAcquisitionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyAcquisitions to fetch.
+     */
+    orderBy?: PropertyAcquisitionOrderByWithRelationInput | PropertyAcquisitionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PropertyAcquisitionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyAcquisitions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyAcquisitions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PropertyAcquisitions
+    **/
+    _count?: true | PropertyAcquisitionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PropertyAcquisitionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PropertyAcquisitionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PropertyAcquisitionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PropertyAcquisitionMaxAggregateInputType
+  }
+
+  export type GetPropertyAcquisitionAggregateType<T extends PropertyAcquisitionAggregateArgs> = {
+        [P in keyof T & keyof AggregatePropertyAcquisition]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePropertyAcquisition[P]>
+      : GetScalarType<T[P], AggregatePropertyAcquisition[P]>
+  }
+
+
+
+
+  export type PropertyAcquisitionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PropertyAcquisitionWhereInput
+    orderBy?: PropertyAcquisitionOrderByWithAggregationInput | PropertyAcquisitionOrderByWithAggregationInput[]
+    by: PropertyAcquisitionScalarFieldEnum[] | PropertyAcquisitionScalarFieldEnum
+    having?: PropertyAcquisitionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PropertyAcquisitionCountAggregateInputType | true
+    _avg?: PropertyAcquisitionAvgAggregateInputType
+    _sum?: PropertyAcquisitionSumAggregateInputType
+    _min?: PropertyAcquisitionMinAggregateInputType
+    _max?: PropertyAcquisitionMaxAggregateInputType
+  }
+
+  export type PropertyAcquisitionGroupByOutputType = {
+    id: string
+    khataNo: string
+    plotNo: string
+    projectLocation: string
+    landOwnerName: string
+    landOwnerContact: string
+    landOwnerAddress: string | null
+    areaSqft: Decimal | null
+    totalLandValue: Decimal
+    totalPaidToOwner: Decimal
+    balanceRemaining: Decimal
+    status: string
+    agreementDate: Date | null
+    documents: JsonValue | null
+    createdById: string
+    createdAt: Date
+    updatedAt: Date
+    _count: PropertyAcquisitionCountAggregateOutputType | null
+    _avg: PropertyAcquisitionAvgAggregateOutputType | null
+    _sum: PropertyAcquisitionSumAggregateOutputType | null
+    _min: PropertyAcquisitionMinAggregateOutputType | null
+    _max: PropertyAcquisitionMaxAggregateOutputType | null
+  }
+
+  type GetPropertyAcquisitionGroupByPayload<T extends PropertyAcquisitionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PropertyAcquisitionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PropertyAcquisitionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PropertyAcquisitionGroupByOutputType[P]>
+            : GetScalarType<T[P], PropertyAcquisitionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PropertyAcquisitionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    khataNo?: boolean
+    plotNo?: boolean
+    projectLocation?: boolean
+    landOwnerName?: boolean
+    landOwnerContact?: boolean
+    landOwnerAddress?: boolean
+    areaSqft?: boolean
+    totalLandValue?: boolean
+    totalPaidToOwner?: boolean
+    balanceRemaining?: boolean
+    status?: boolean
+    agreementDate?: boolean
+    documents?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    payments?: boolean | PropertyAcquisition$paymentsArgs<ExtArgs>
+    _count?: boolean | PropertyAcquisitionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["propertyAcquisition"]>
+
+  export type PropertyAcquisitionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    khataNo?: boolean
+    plotNo?: boolean
+    projectLocation?: boolean
+    landOwnerName?: boolean
+    landOwnerContact?: boolean
+    landOwnerAddress?: boolean
+    areaSqft?: boolean
+    totalLandValue?: boolean
+    totalPaidToOwner?: boolean
+    balanceRemaining?: boolean
+    status?: boolean
+    agreementDate?: boolean
+    documents?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["propertyAcquisition"]>
+
+  export type PropertyAcquisitionSelectScalar = {
+    id?: boolean
+    khataNo?: boolean
+    plotNo?: boolean
+    projectLocation?: boolean
+    landOwnerName?: boolean
+    landOwnerContact?: boolean
+    landOwnerAddress?: boolean
+    areaSqft?: boolean
+    totalLandValue?: boolean
+    totalPaidToOwner?: boolean
+    balanceRemaining?: boolean
+    status?: boolean
+    agreementDate?: boolean
+    documents?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PropertyAcquisitionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    payments?: boolean | PropertyAcquisition$paymentsArgs<ExtArgs>
+    _count?: boolean | PropertyAcquisitionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PropertyAcquisitionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PropertyAcquisitionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PropertyAcquisition"
+    objects: {
+      createdBy: Prisma.$UserPayload<ExtArgs>
+      payments: Prisma.$PropertyPaymentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      khataNo: string
+      plotNo: string
+      projectLocation: string
+      landOwnerName: string
+      landOwnerContact: string
+      landOwnerAddress: string | null
+      areaSqft: Prisma.Decimal | null
+      totalLandValue: Prisma.Decimal
+      totalPaidToOwner: Prisma.Decimal
+      balanceRemaining: Prisma.Decimal
+      status: string
+      agreementDate: Date | null
+      documents: Prisma.JsonValue | null
+      createdById: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["propertyAcquisition"]>
+    composites: {}
+  }
+
+  type PropertyAcquisitionGetPayload<S extends boolean | null | undefined | PropertyAcquisitionDefaultArgs> = $Result.GetResult<Prisma.$PropertyAcquisitionPayload, S>
+
+  type PropertyAcquisitionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PropertyAcquisitionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PropertyAcquisitionCountAggregateInputType | true
+    }
+
+  export interface PropertyAcquisitionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PropertyAcquisition'], meta: { name: 'PropertyAcquisition' } }
+    /**
+     * Find zero or one PropertyAcquisition that matches the filter.
+     * @param {PropertyAcquisitionFindUniqueArgs} args - Arguments to find a PropertyAcquisition
+     * @example
+     * // Get one PropertyAcquisition
+     * const propertyAcquisition = await prisma.propertyAcquisition.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PropertyAcquisitionFindUniqueArgs>(args: SelectSubset<T, PropertyAcquisitionFindUniqueArgs<ExtArgs>>): Prisma__PropertyAcquisitionClient<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PropertyAcquisition that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PropertyAcquisitionFindUniqueOrThrowArgs} args - Arguments to find a PropertyAcquisition
+     * @example
+     * // Get one PropertyAcquisition
+     * const propertyAcquisition = await prisma.propertyAcquisition.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PropertyAcquisitionFindUniqueOrThrowArgs>(args: SelectSubset<T, PropertyAcquisitionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PropertyAcquisitionClient<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PropertyAcquisition that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyAcquisitionFindFirstArgs} args - Arguments to find a PropertyAcquisition
+     * @example
+     * // Get one PropertyAcquisition
+     * const propertyAcquisition = await prisma.propertyAcquisition.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PropertyAcquisitionFindFirstArgs>(args?: SelectSubset<T, PropertyAcquisitionFindFirstArgs<ExtArgs>>): Prisma__PropertyAcquisitionClient<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PropertyAcquisition that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyAcquisitionFindFirstOrThrowArgs} args - Arguments to find a PropertyAcquisition
+     * @example
+     * // Get one PropertyAcquisition
+     * const propertyAcquisition = await prisma.propertyAcquisition.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PropertyAcquisitionFindFirstOrThrowArgs>(args?: SelectSubset<T, PropertyAcquisitionFindFirstOrThrowArgs<ExtArgs>>): Prisma__PropertyAcquisitionClient<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PropertyAcquisitions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyAcquisitionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PropertyAcquisitions
+     * const propertyAcquisitions = await prisma.propertyAcquisition.findMany()
+     * 
+     * // Get first 10 PropertyAcquisitions
+     * const propertyAcquisitions = await prisma.propertyAcquisition.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const propertyAcquisitionWithIdOnly = await prisma.propertyAcquisition.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PropertyAcquisitionFindManyArgs>(args?: SelectSubset<T, PropertyAcquisitionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PropertyAcquisition.
+     * @param {PropertyAcquisitionCreateArgs} args - Arguments to create a PropertyAcquisition.
+     * @example
+     * // Create one PropertyAcquisition
+     * const PropertyAcquisition = await prisma.propertyAcquisition.create({
+     *   data: {
+     *     // ... data to create a PropertyAcquisition
+     *   }
+     * })
+     * 
+     */
+    create<T extends PropertyAcquisitionCreateArgs>(args: SelectSubset<T, PropertyAcquisitionCreateArgs<ExtArgs>>): Prisma__PropertyAcquisitionClient<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PropertyAcquisitions.
+     * @param {PropertyAcquisitionCreateManyArgs} args - Arguments to create many PropertyAcquisitions.
+     * @example
+     * // Create many PropertyAcquisitions
+     * const propertyAcquisition = await prisma.propertyAcquisition.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PropertyAcquisitionCreateManyArgs>(args?: SelectSubset<T, PropertyAcquisitionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PropertyAcquisitions and returns the data saved in the database.
+     * @param {PropertyAcquisitionCreateManyAndReturnArgs} args - Arguments to create many PropertyAcquisitions.
+     * @example
+     * // Create many PropertyAcquisitions
+     * const propertyAcquisition = await prisma.propertyAcquisition.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PropertyAcquisitions and only return the `id`
+     * const propertyAcquisitionWithIdOnly = await prisma.propertyAcquisition.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PropertyAcquisitionCreateManyAndReturnArgs>(args?: SelectSubset<T, PropertyAcquisitionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PropertyAcquisition.
+     * @param {PropertyAcquisitionDeleteArgs} args - Arguments to delete one PropertyAcquisition.
+     * @example
+     * // Delete one PropertyAcquisition
+     * const PropertyAcquisition = await prisma.propertyAcquisition.delete({
+     *   where: {
+     *     // ... filter to delete one PropertyAcquisition
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PropertyAcquisitionDeleteArgs>(args: SelectSubset<T, PropertyAcquisitionDeleteArgs<ExtArgs>>): Prisma__PropertyAcquisitionClient<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PropertyAcquisition.
+     * @param {PropertyAcquisitionUpdateArgs} args - Arguments to update one PropertyAcquisition.
+     * @example
+     * // Update one PropertyAcquisition
+     * const propertyAcquisition = await prisma.propertyAcquisition.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PropertyAcquisitionUpdateArgs>(args: SelectSubset<T, PropertyAcquisitionUpdateArgs<ExtArgs>>): Prisma__PropertyAcquisitionClient<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PropertyAcquisitions.
+     * @param {PropertyAcquisitionDeleteManyArgs} args - Arguments to filter PropertyAcquisitions to delete.
+     * @example
+     * // Delete a few PropertyAcquisitions
+     * const { count } = await prisma.propertyAcquisition.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PropertyAcquisitionDeleteManyArgs>(args?: SelectSubset<T, PropertyAcquisitionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PropertyAcquisitions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyAcquisitionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PropertyAcquisitions
+     * const propertyAcquisition = await prisma.propertyAcquisition.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PropertyAcquisitionUpdateManyArgs>(args: SelectSubset<T, PropertyAcquisitionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PropertyAcquisition.
+     * @param {PropertyAcquisitionUpsertArgs} args - Arguments to update or create a PropertyAcquisition.
+     * @example
+     * // Update or create a PropertyAcquisition
+     * const propertyAcquisition = await prisma.propertyAcquisition.upsert({
+     *   create: {
+     *     // ... data to create a PropertyAcquisition
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PropertyAcquisition we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PropertyAcquisitionUpsertArgs>(args: SelectSubset<T, PropertyAcquisitionUpsertArgs<ExtArgs>>): Prisma__PropertyAcquisitionClient<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PropertyAcquisitions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyAcquisitionCountArgs} args - Arguments to filter PropertyAcquisitions to count.
+     * @example
+     * // Count the number of PropertyAcquisitions
+     * const count = await prisma.propertyAcquisition.count({
+     *   where: {
+     *     // ... the filter for the PropertyAcquisitions we want to count
+     *   }
+     * })
+    **/
+    count<T extends PropertyAcquisitionCountArgs>(
+      args?: Subset<T, PropertyAcquisitionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PropertyAcquisitionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PropertyAcquisition.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyAcquisitionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PropertyAcquisitionAggregateArgs>(args: Subset<T, PropertyAcquisitionAggregateArgs>): Prisma.PrismaPromise<GetPropertyAcquisitionAggregateType<T>>
+
+    /**
+     * Group by PropertyAcquisition.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyAcquisitionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PropertyAcquisitionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PropertyAcquisitionGroupByArgs['orderBy'] }
+        : { orderBy?: PropertyAcquisitionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PropertyAcquisitionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPropertyAcquisitionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PropertyAcquisition model
+   */
+  readonly fields: PropertyAcquisitionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PropertyAcquisition.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PropertyAcquisitionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    payments<T extends PropertyAcquisition$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, PropertyAcquisition$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PropertyAcquisition model
+   */ 
+  interface PropertyAcquisitionFieldRefs {
+    readonly id: FieldRef<"PropertyAcquisition", 'String'>
+    readonly khataNo: FieldRef<"PropertyAcquisition", 'String'>
+    readonly plotNo: FieldRef<"PropertyAcquisition", 'String'>
+    readonly projectLocation: FieldRef<"PropertyAcquisition", 'String'>
+    readonly landOwnerName: FieldRef<"PropertyAcquisition", 'String'>
+    readonly landOwnerContact: FieldRef<"PropertyAcquisition", 'String'>
+    readonly landOwnerAddress: FieldRef<"PropertyAcquisition", 'String'>
+    readonly areaSqft: FieldRef<"PropertyAcquisition", 'Decimal'>
+    readonly totalLandValue: FieldRef<"PropertyAcquisition", 'Decimal'>
+    readonly totalPaidToOwner: FieldRef<"PropertyAcquisition", 'Decimal'>
+    readonly balanceRemaining: FieldRef<"PropertyAcquisition", 'Decimal'>
+    readonly status: FieldRef<"PropertyAcquisition", 'String'>
+    readonly agreementDate: FieldRef<"PropertyAcquisition", 'DateTime'>
+    readonly documents: FieldRef<"PropertyAcquisition", 'Json'>
+    readonly createdById: FieldRef<"PropertyAcquisition", 'String'>
+    readonly createdAt: FieldRef<"PropertyAcquisition", 'DateTime'>
+    readonly updatedAt: FieldRef<"PropertyAcquisition", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PropertyAcquisition findUnique
+   */
+  export type PropertyAcquisitionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisition
+     */
+    select?: PropertyAcquisitionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyAcquisitionInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyAcquisition to fetch.
+     */
+    where: PropertyAcquisitionWhereUniqueInput
+  }
+
+  /**
+   * PropertyAcquisition findUniqueOrThrow
+   */
+  export type PropertyAcquisitionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisition
+     */
+    select?: PropertyAcquisitionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyAcquisitionInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyAcquisition to fetch.
+     */
+    where: PropertyAcquisitionWhereUniqueInput
+  }
+
+  /**
+   * PropertyAcquisition findFirst
+   */
+  export type PropertyAcquisitionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisition
+     */
+    select?: PropertyAcquisitionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyAcquisitionInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyAcquisition to fetch.
+     */
+    where?: PropertyAcquisitionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyAcquisitions to fetch.
+     */
+    orderBy?: PropertyAcquisitionOrderByWithRelationInput | PropertyAcquisitionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PropertyAcquisitions.
+     */
+    cursor?: PropertyAcquisitionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyAcquisitions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyAcquisitions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PropertyAcquisitions.
+     */
+    distinct?: PropertyAcquisitionScalarFieldEnum | PropertyAcquisitionScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyAcquisition findFirstOrThrow
+   */
+  export type PropertyAcquisitionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisition
+     */
+    select?: PropertyAcquisitionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyAcquisitionInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyAcquisition to fetch.
+     */
+    where?: PropertyAcquisitionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyAcquisitions to fetch.
+     */
+    orderBy?: PropertyAcquisitionOrderByWithRelationInput | PropertyAcquisitionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PropertyAcquisitions.
+     */
+    cursor?: PropertyAcquisitionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyAcquisitions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyAcquisitions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PropertyAcquisitions.
+     */
+    distinct?: PropertyAcquisitionScalarFieldEnum | PropertyAcquisitionScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyAcquisition findMany
+   */
+  export type PropertyAcquisitionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisition
+     */
+    select?: PropertyAcquisitionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyAcquisitionInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyAcquisitions to fetch.
+     */
+    where?: PropertyAcquisitionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyAcquisitions to fetch.
+     */
+    orderBy?: PropertyAcquisitionOrderByWithRelationInput | PropertyAcquisitionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PropertyAcquisitions.
+     */
+    cursor?: PropertyAcquisitionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyAcquisitions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyAcquisitions.
+     */
+    skip?: number
+    distinct?: PropertyAcquisitionScalarFieldEnum | PropertyAcquisitionScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyAcquisition create
+   */
+  export type PropertyAcquisitionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisition
+     */
+    select?: PropertyAcquisitionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyAcquisitionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PropertyAcquisition.
+     */
+    data: XOR<PropertyAcquisitionCreateInput, PropertyAcquisitionUncheckedCreateInput>
+  }
+
+  /**
+   * PropertyAcquisition createMany
+   */
+  export type PropertyAcquisitionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PropertyAcquisitions.
+     */
+    data: PropertyAcquisitionCreateManyInput | PropertyAcquisitionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PropertyAcquisition createManyAndReturn
+   */
+  export type PropertyAcquisitionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisition
+     */
+    select?: PropertyAcquisitionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PropertyAcquisitions.
+     */
+    data: PropertyAcquisitionCreateManyInput | PropertyAcquisitionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyAcquisitionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PropertyAcquisition update
+   */
+  export type PropertyAcquisitionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisition
+     */
+    select?: PropertyAcquisitionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyAcquisitionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PropertyAcquisition.
+     */
+    data: XOR<PropertyAcquisitionUpdateInput, PropertyAcquisitionUncheckedUpdateInput>
+    /**
+     * Choose, which PropertyAcquisition to update.
+     */
+    where: PropertyAcquisitionWhereUniqueInput
+  }
+
+  /**
+   * PropertyAcquisition updateMany
+   */
+  export type PropertyAcquisitionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PropertyAcquisitions.
+     */
+    data: XOR<PropertyAcquisitionUpdateManyMutationInput, PropertyAcquisitionUncheckedUpdateManyInput>
+    /**
+     * Filter which PropertyAcquisitions to update
+     */
+    where?: PropertyAcquisitionWhereInput
+  }
+
+  /**
+   * PropertyAcquisition upsert
+   */
+  export type PropertyAcquisitionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisition
+     */
+    select?: PropertyAcquisitionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyAcquisitionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PropertyAcquisition to update in case it exists.
+     */
+    where: PropertyAcquisitionWhereUniqueInput
+    /**
+     * In case the PropertyAcquisition found by the `where` argument doesn't exist, create a new PropertyAcquisition with this data.
+     */
+    create: XOR<PropertyAcquisitionCreateInput, PropertyAcquisitionUncheckedCreateInput>
+    /**
+     * In case the PropertyAcquisition was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PropertyAcquisitionUpdateInput, PropertyAcquisitionUncheckedUpdateInput>
+  }
+
+  /**
+   * PropertyAcquisition delete
+   */
+  export type PropertyAcquisitionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisition
+     */
+    select?: PropertyAcquisitionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyAcquisitionInclude<ExtArgs> | null
+    /**
+     * Filter which PropertyAcquisition to delete.
+     */
+    where: PropertyAcquisitionWhereUniqueInput
+  }
+
+  /**
+   * PropertyAcquisition deleteMany
+   */
+  export type PropertyAcquisitionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PropertyAcquisitions to delete
+     */
+    where?: PropertyAcquisitionWhereInput
+  }
+
+  /**
+   * PropertyAcquisition.payments
+   */
+  export type PropertyAcquisition$paymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentInclude<ExtArgs> | null
+    where?: PropertyPaymentWhereInput
+    orderBy?: PropertyPaymentOrderByWithRelationInput | PropertyPaymentOrderByWithRelationInput[]
+    cursor?: PropertyPaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PropertyPaymentScalarFieldEnum | PropertyPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyAcquisition without action
+   */
+  export type PropertyAcquisitionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyAcquisition
+     */
+    select?: PropertyAcquisitionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyAcquisitionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PropertyPayment
+   */
+
+  export type AggregatePropertyPayment = {
+    _count: PropertyPaymentCountAggregateOutputType | null
+    _avg: PropertyPaymentAvgAggregateOutputType | null
+    _sum: PropertyPaymentSumAggregateOutputType | null
+    _min: PropertyPaymentMinAggregateOutputType | null
+    _max: PropertyPaymentMaxAggregateOutputType | null
+  }
+
+  export type PropertyPaymentAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type PropertyPaymentSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type PropertyPaymentMinAggregateOutputType = {
+    id: string | null
+    propertyId: string | null
+    dateOfPayment: Date | null
+    amount: Decimal | null
+    paymentMode: string | null
+    paidFromAccount: string | null
+    referenceNo: string | null
+    notes: string | null
+    paidById: string | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type PropertyPaymentMaxAggregateOutputType = {
+    id: string | null
+    propertyId: string | null
+    dateOfPayment: Date | null
+    amount: Decimal | null
+    paymentMode: string | null
+    paidFromAccount: string | null
+    referenceNo: string | null
+    notes: string | null
+    paidById: string | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type PropertyPaymentCountAggregateOutputType = {
+    id: number
+    propertyId: number
+    dateOfPayment: number
+    amount: number
+    paymentMode: number
+    paidFromAccount: number
+    referenceNo: number
+    notes: number
+    paidById: number
+    status: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PropertyPaymentAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type PropertyPaymentSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type PropertyPaymentMinAggregateInputType = {
+    id?: true
+    propertyId?: true
+    dateOfPayment?: true
+    amount?: true
+    paymentMode?: true
+    paidFromAccount?: true
+    referenceNo?: true
+    notes?: true
+    paidById?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type PropertyPaymentMaxAggregateInputType = {
+    id?: true
+    propertyId?: true
+    dateOfPayment?: true
+    amount?: true
+    paymentMode?: true
+    paidFromAccount?: true
+    referenceNo?: true
+    notes?: true
+    paidById?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type PropertyPaymentCountAggregateInputType = {
+    id?: true
+    propertyId?: true
+    dateOfPayment?: true
+    amount?: true
+    paymentMode?: true
+    paidFromAccount?: true
+    referenceNo?: true
+    notes?: true
+    paidById?: true
+    status?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PropertyPaymentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PropertyPayment to aggregate.
+     */
+    where?: PropertyPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyPayments to fetch.
+     */
+    orderBy?: PropertyPaymentOrderByWithRelationInput | PropertyPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PropertyPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PropertyPayments
+    **/
+    _count?: true | PropertyPaymentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PropertyPaymentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PropertyPaymentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PropertyPaymentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PropertyPaymentMaxAggregateInputType
+  }
+
+  export type GetPropertyPaymentAggregateType<T extends PropertyPaymentAggregateArgs> = {
+        [P in keyof T & keyof AggregatePropertyPayment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePropertyPayment[P]>
+      : GetScalarType<T[P], AggregatePropertyPayment[P]>
+  }
+
+
+
+
+  export type PropertyPaymentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PropertyPaymentWhereInput
+    orderBy?: PropertyPaymentOrderByWithAggregationInput | PropertyPaymentOrderByWithAggregationInput[]
+    by: PropertyPaymentScalarFieldEnum[] | PropertyPaymentScalarFieldEnum
+    having?: PropertyPaymentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PropertyPaymentCountAggregateInputType | true
+    _avg?: PropertyPaymentAvgAggregateInputType
+    _sum?: PropertyPaymentSumAggregateInputType
+    _min?: PropertyPaymentMinAggregateInputType
+    _max?: PropertyPaymentMaxAggregateInputType
+  }
+
+  export type PropertyPaymentGroupByOutputType = {
+    id: string
+    propertyId: string
+    dateOfPayment: Date
+    amount: Decimal
+    paymentMode: string
+    paidFromAccount: string | null
+    referenceNo: string | null
+    notes: string | null
+    paidById: string
+    status: string
+    createdAt: Date
+    _count: PropertyPaymentCountAggregateOutputType | null
+    _avg: PropertyPaymentAvgAggregateOutputType | null
+    _sum: PropertyPaymentSumAggregateOutputType | null
+    _min: PropertyPaymentMinAggregateOutputType | null
+    _max: PropertyPaymentMaxAggregateOutputType | null
+  }
+
+  type GetPropertyPaymentGroupByPayload<T extends PropertyPaymentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PropertyPaymentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PropertyPaymentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PropertyPaymentGroupByOutputType[P]>
+            : GetScalarType<T[P], PropertyPaymentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PropertyPaymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    propertyId?: boolean
+    dateOfPayment?: boolean
+    amount?: boolean
+    paymentMode?: boolean
+    paidFromAccount?: boolean
+    referenceNo?: boolean
+    notes?: boolean
+    paidById?: boolean
+    status?: boolean
+    createdAt?: boolean
+    property?: boolean | PropertyAcquisitionDefaultArgs<ExtArgs>
+    paidBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["propertyPayment"]>
+
+  export type PropertyPaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    propertyId?: boolean
+    dateOfPayment?: boolean
+    amount?: boolean
+    paymentMode?: boolean
+    paidFromAccount?: boolean
+    referenceNo?: boolean
+    notes?: boolean
+    paidById?: boolean
+    status?: boolean
+    createdAt?: boolean
+    property?: boolean | PropertyAcquisitionDefaultArgs<ExtArgs>
+    paidBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["propertyPayment"]>
+
+  export type PropertyPaymentSelectScalar = {
+    id?: boolean
+    propertyId?: boolean
+    dateOfPayment?: boolean
+    amount?: boolean
+    paymentMode?: boolean
+    paidFromAccount?: boolean
+    referenceNo?: boolean
+    notes?: boolean
+    paidById?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }
+
+  export type PropertyPaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    property?: boolean | PropertyAcquisitionDefaultArgs<ExtArgs>
+    paidBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PropertyPaymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    property?: boolean | PropertyAcquisitionDefaultArgs<ExtArgs>
+    paidBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PropertyPaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PropertyPayment"
+    objects: {
+      property: Prisma.$PropertyAcquisitionPayload<ExtArgs>
+      paidBy: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      propertyId: string
+      dateOfPayment: Date
+      amount: Prisma.Decimal
+      paymentMode: string
+      paidFromAccount: string | null
+      referenceNo: string | null
+      notes: string | null
+      paidById: string
+      status: string
+      createdAt: Date
+    }, ExtArgs["result"]["propertyPayment"]>
+    composites: {}
+  }
+
+  type PropertyPaymentGetPayload<S extends boolean | null | undefined | PropertyPaymentDefaultArgs> = $Result.GetResult<Prisma.$PropertyPaymentPayload, S>
+
+  type PropertyPaymentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PropertyPaymentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PropertyPaymentCountAggregateInputType | true
+    }
+
+  export interface PropertyPaymentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PropertyPayment'], meta: { name: 'PropertyPayment' } }
+    /**
+     * Find zero or one PropertyPayment that matches the filter.
+     * @param {PropertyPaymentFindUniqueArgs} args - Arguments to find a PropertyPayment
+     * @example
+     * // Get one PropertyPayment
+     * const propertyPayment = await prisma.propertyPayment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PropertyPaymentFindUniqueArgs>(args: SelectSubset<T, PropertyPaymentFindUniqueArgs<ExtArgs>>): Prisma__PropertyPaymentClient<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PropertyPayment that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PropertyPaymentFindUniqueOrThrowArgs} args - Arguments to find a PropertyPayment
+     * @example
+     * // Get one PropertyPayment
+     * const propertyPayment = await prisma.propertyPayment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PropertyPaymentFindUniqueOrThrowArgs>(args: SelectSubset<T, PropertyPaymentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PropertyPaymentClient<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PropertyPayment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPaymentFindFirstArgs} args - Arguments to find a PropertyPayment
+     * @example
+     * // Get one PropertyPayment
+     * const propertyPayment = await prisma.propertyPayment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PropertyPaymentFindFirstArgs>(args?: SelectSubset<T, PropertyPaymentFindFirstArgs<ExtArgs>>): Prisma__PropertyPaymentClient<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PropertyPayment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPaymentFindFirstOrThrowArgs} args - Arguments to find a PropertyPayment
+     * @example
+     * // Get one PropertyPayment
+     * const propertyPayment = await prisma.propertyPayment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PropertyPaymentFindFirstOrThrowArgs>(args?: SelectSubset<T, PropertyPaymentFindFirstOrThrowArgs<ExtArgs>>): Prisma__PropertyPaymentClient<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PropertyPayments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPaymentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PropertyPayments
+     * const propertyPayments = await prisma.propertyPayment.findMany()
+     * 
+     * // Get first 10 PropertyPayments
+     * const propertyPayments = await prisma.propertyPayment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const propertyPaymentWithIdOnly = await prisma.propertyPayment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PropertyPaymentFindManyArgs>(args?: SelectSubset<T, PropertyPaymentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PropertyPayment.
+     * @param {PropertyPaymentCreateArgs} args - Arguments to create a PropertyPayment.
+     * @example
+     * // Create one PropertyPayment
+     * const PropertyPayment = await prisma.propertyPayment.create({
+     *   data: {
+     *     // ... data to create a PropertyPayment
+     *   }
+     * })
+     * 
+     */
+    create<T extends PropertyPaymentCreateArgs>(args: SelectSubset<T, PropertyPaymentCreateArgs<ExtArgs>>): Prisma__PropertyPaymentClient<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PropertyPayments.
+     * @param {PropertyPaymentCreateManyArgs} args - Arguments to create many PropertyPayments.
+     * @example
+     * // Create many PropertyPayments
+     * const propertyPayment = await prisma.propertyPayment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PropertyPaymentCreateManyArgs>(args?: SelectSubset<T, PropertyPaymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PropertyPayments and returns the data saved in the database.
+     * @param {PropertyPaymentCreateManyAndReturnArgs} args - Arguments to create many PropertyPayments.
+     * @example
+     * // Create many PropertyPayments
+     * const propertyPayment = await prisma.propertyPayment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PropertyPayments and only return the `id`
+     * const propertyPaymentWithIdOnly = await prisma.propertyPayment.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PropertyPaymentCreateManyAndReturnArgs>(args?: SelectSubset<T, PropertyPaymentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PropertyPayment.
+     * @param {PropertyPaymentDeleteArgs} args - Arguments to delete one PropertyPayment.
+     * @example
+     * // Delete one PropertyPayment
+     * const PropertyPayment = await prisma.propertyPayment.delete({
+     *   where: {
+     *     // ... filter to delete one PropertyPayment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PropertyPaymentDeleteArgs>(args: SelectSubset<T, PropertyPaymentDeleteArgs<ExtArgs>>): Prisma__PropertyPaymentClient<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PropertyPayment.
+     * @param {PropertyPaymentUpdateArgs} args - Arguments to update one PropertyPayment.
+     * @example
+     * // Update one PropertyPayment
+     * const propertyPayment = await prisma.propertyPayment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PropertyPaymentUpdateArgs>(args: SelectSubset<T, PropertyPaymentUpdateArgs<ExtArgs>>): Prisma__PropertyPaymentClient<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PropertyPayments.
+     * @param {PropertyPaymentDeleteManyArgs} args - Arguments to filter PropertyPayments to delete.
+     * @example
+     * // Delete a few PropertyPayments
+     * const { count } = await prisma.propertyPayment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PropertyPaymentDeleteManyArgs>(args?: SelectSubset<T, PropertyPaymentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PropertyPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPaymentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PropertyPayments
+     * const propertyPayment = await prisma.propertyPayment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PropertyPaymentUpdateManyArgs>(args: SelectSubset<T, PropertyPaymentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PropertyPayment.
+     * @param {PropertyPaymentUpsertArgs} args - Arguments to update or create a PropertyPayment.
+     * @example
+     * // Update or create a PropertyPayment
+     * const propertyPayment = await prisma.propertyPayment.upsert({
+     *   create: {
+     *     // ... data to create a PropertyPayment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PropertyPayment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PropertyPaymentUpsertArgs>(args: SelectSubset<T, PropertyPaymentUpsertArgs<ExtArgs>>): Prisma__PropertyPaymentClient<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PropertyPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPaymentCountArgs} args - Arguments to filter PropertyPayments to count.
+     * @example
+     * // Count the number of PropertyPayments
+     * const count = await prisma.propertyPayment.count({
+     *   where: {
+     *     // ... the filter for the PropertyPayments we want to count
+     *   }
+     * })
+    **/
+    count<T extends PropertyPaymentCountArgs>(
+      args?: Subset<T, PropertyPaymentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PropertyPaymentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PropertyPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPaymentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PropertyPaymentAggregateArgs>(args: Subset<T, PropertyPaymentAggregateArgs>): Prisma.PrismaPromise<GetPropertyPaymentAggregateType<T>>
+
+    /**
+     * Group by PropertyPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyPaymentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PropertyPaymentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PropertyPaymentGroupByArgs['orderBy'] }
+        : { orderBy?: PropertyPaymentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PropertyPaymentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPropertyPaymentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PropertyPayment model
+   */
+  readonly fields: PropertyPaymentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PropertyPayment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PropertyPaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    property<T extends PropertyAcquisitionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PropertyAcquisitionDefaultArgs<ExtArgs>>): Prisma__PropertyAcquisitionClient<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    paidBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PropertyPayment model
+   */ 
+  interface PropertyPaymentFieldRefs {
+    readonly id: FieldRef<"PropertyPayment", 'String'>
+    readonly propertyId: FieldRef<"PropertyPayment", 'String'>
+    readonly dateOfPayment: FieldRef<"PropertyPayment", 'DateTime'>
+    readonly amount: FieldRef<"PropertyPayment", 'Decimal'>
+    readonly paymentMode: FieldRef<"PropertyPayment", 'String'>
+    readonly paidFromAccount: FieldRef<"PropertyPayment", 'String'>
+    readonly referenceNo: FieldRef<"PropertyPayment", 'String'>
+    readonly notes: FieldRef<"PropertyPayment", 'String'>
+    readonly paidById: FieldRef<"PropertyPayment", 'String'>
+    readonly status: FieldRef<"PropertyPayment", 'String'>
+    readonly createdAt: FieldRef<"PropertyPayment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PropertyPayment findUnique
+   */
+  export type PropertyPaymentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyPayment to fetch.
+     */
+    where: PropertyPaymentWhereUniqueInput
+  }
+
+  /**
+   * PropertyPayment findUniqueOrThrow
+   */
+  export type PropertyPaymentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyPayment to fetch.
+     */
+    where: PropertyPaymentWhereUniqueInput
+  }
+
+  /**
+   * PropertyPayment findFirst
+   */
+  export type PropertyPaymentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyPayment to fetch.
+     */
+    where?: PropertyPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyPayments to fetch.
+     */
+    orderBy?: PropertyPaymentOrderByWithRelationInput | PropertyPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PropertyPayments.
+     */
+    cursor?: PropertyPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PropertyPayments.
+     */
+    distinct?: PropertyPaymentScalarFieldEnum | PropertyPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyPayment findFirstOrThrow
+   */
+  export type PropertyPaymentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyPayment to fetch.
+     */
+    where?: PropertyPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyPayments to fetch.
+     */
+    orderBy?: PropertyPaymentOrderByWithRelationInput | PropertyPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PropertyPayments.
+     */
+    cursor?: PropertyPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PropertyPayments.
+     */
+    distinct?: PropertyPaymentScalarFieldEnum | PropertyPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyPayment findMany
+   */
+  export type PropertyPaymentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyPayments to fetch.
+     */
+    where?: PropertyPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyPayments to fetch.
+     */
+    orderBy?: PropertyPaymentOrderByWithRelationInput | PropertyPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PropertyPayments.
+     */
+    cursor?: PropertyPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyPayments.
+     */
+    skip?: number
+    distinct?: PropertyPaymentScalarFieldEnum | PropertyPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyPayment create
+   */
+  export type PropertyPaymentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PropertyPayment.
+     */
+    data: XOR<PropertyPaymentCreateInput, PropertyPaymentUncheckedCreateInput>
+  }
+
+  /**
+   * PropertyPayment createMany
+   */
+  export type PropertyPaymentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PropertyPayments.
+     */
+    data: PropertyPaymentCreateManyInput | PropertyPaymentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PropertyPayment createManyAndReturn
+   */
+  export type PropertyPaymentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PropertyPayments.
+     */
+    data: PropertyPaymentCreateManyInput | PropertyPaymentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PropertyPayment update
+   */
+  export type PropertyPaymentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PropertyPayment.
+     */
+    data: XOR<PropertyPaymentUpdateInput, PropertyPaymentUncheckedUpdateInput>
+    /**
+     * Choose, which PropertyPayment to update.
+     */
+    where: PropertyPaymentWhereUniqueInput
+  }
+
+  /**
+   * PropertyPayment updateMany
+   */
+  export type PropertyPaymentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PropertyPayments.
+     */
+    data: XOR<PropertyPaymentUpdateManyMutationInput, PropertyPaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which PropertyPayments to update
+     */
+    where?: PropertyPaymentWhereInput
+  }
+
+  /**
+   * PropertyPayment upsert
+   */
+  export type PropertyPaymentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PropertyPayment to update in case it exists.
+     */
+    where: PropertyPaymentWhereUniqueInput
+    /**
+     * In case the PropertyPayment found by the `where` argument doesn't exist, create a new PropertyPayment with this data.
+     */
+    create: XOR<PropertyPaymentCreateInput, PropertyPaymentUncheckedCreateInput>
+    /**
+     * In case the PropertyPayment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PropertyPaymentUpdateInput, PropertyPaymentUncheckedUpdateInput>
+  }
+
+  /**
+   * PropertyPayment delete
+   */
+  export type PropertyPaymentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentInclude<ExtArgs> | null
+    /**
+     * Filter which PropertyPayment to delete.
+     */
+    where: PropertyPaymentWhereUniqueInput
+  }
+
+  /**
+   * PropertyPayment deleteMany
+   */
+  export type PropertyPaymentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PropertyPayments to delete
+     */
+    where?: PropertyPaymentWhereInput
+  }
+
+  /**
+   * PropertyPayment without action
+   */
+  export type PropertyPaymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyPayment
+     */
+    select?: PropertyPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyPaymentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -19206,6 +21665,46 @@ export namespace Prisma {
   export type CustomerPaymentScalarFieldEnum = (typeof CustomerPaymentScalarFieldEnum)[keyof typeof CustomerPaymentScalarFieldEnum]
 
 
+  export const PropertyAcquisitionScalarFieldEnum: {
+    id: 'id',
+    khataNo: 'khataNo',
+    plotNo: 'plotNo',
+    projectLocation: 'projectLocation',
+    landOwnerName: 'landOwnerName',
+    landOwnerContact: 'landOwnerContact',
+    landOwnerAddress: 'landOwnerAddress',
+    areaSqft: 'areaSqft',
+    totalLandValue: 'totalLandValue',
+    totalPaidToOwner: 'totalPaidToOwner',
+    balanceRemaining: 'balanceRemaining',
+    status: 'status',
+    agreementDate: 'agreementDate',
+    documents: 'documents',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PropertyAcquisitionScalarFieldEnum = (typeof PropertyAcquisitionScalarFieldEnum)[keyof typeof PropertyAcquisitionScalarFieldEnum]
+
+
+  export const PropertyPaymentScalarFieldEnum: {
+    id: 'id',
+    propertyId: 'propertyId',
+    dateOfPayment: 'dateOfPayment',
+    amount: 'amount',
+    paymentMode: 'paymentMode',
+    paidFromAccount: 'paidFromAccount',
+    referenceNo: 'referenceNo',
+    notes: 'notes',
+    paidById: 'paidById',
+    status: 'status',
+    createdAt: 'createdAt'
+  };
+
+  export type PropertyPaymentScalarFieldEnum = (typeof PropertyPaymentScalarFieldEnum)[keyof typeof PropertyPaymentScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -19358,6 +21857,8 @@ export namespace Prisma {
     auditLogs?: AuditLogListRelationFilter
     customers?: CustomerListRelationFilter
     recordedPayments?: CustomerPaymentListRelationFilter
+    createdProperties?: PropertyAcquisitionListRelationFilter
+    recordedPropertyPayments?: PropertyPaymentListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -19376,6 +21877,8 @@ export namespace Prisma {
     auditLogs?: AuditLogOrderByRelationAggregateInput
     customers?: CustomerOrderByRelationAggregateInput
     recordedPayments?: CustomerPaymentOrderByRelationAggregateInput
+    createdProperties?: PropertyAcquisitionOrderByRelationAggregateInput
+    recordedPropertyPayments?: PropertyPaymentOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -19397,6 +21900,8 @@ export namespace Prisma {
     auditLogs?: AuditLogListRelationFilter
     customers?: CustomerListRelationFilter
     recordedPayments?: CustomerPaymentListRelationFilter
+    createdProperties?: PropertyAcquisitionListRelationFilter
+    recordedPropertyPayments?: PropertyPaymentListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -20626,6 +23131,216 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"CustomerPayment"> | Date | string
   }
 
+  export type PropertyAcquisitionWhereInput = {
+    AND?: PropertyAcquisitionWhereInput | PropertyAcquisitionWhereInput[]
+    OR?: PropertyAcquisitionWhereInput[]
+    NOT?: PropertyAcquisitionWhereInput | PropertyAcquisitionWhereInput[]
+    id?: StringFilter<"PropertyAcquisition"> | string
+    khataNo?: StringFilter<"PropertyAcquisition"> | string
+    plotNo?: StringFilter<"PropertyAcquisition"> | string
+    projectLocation?: StringFilter<"PropertyAcquisition"> | string
+    landOwnerName?: StringFilter<"PropertyAcquisition"> | string
+    landOwnerContact?: StringFilter<"PropertyAcquisition"> | string
+    landOwnerAddress?: StringNullableFilter<"PropertyAcquisition"> | string | null
+    areaSqft?: DecimalNullableFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"PropertyAcquisition"> | string
+    agreementDate?: DateTimeNullableFilter<"PropertyAcquisition"> | Date | string | null
+    documents?: JsonNullableFilter<"PropertyAcquisition">
+    createdById?: StringFilter<"PropertyAcquisition"> | string
+    createdAt?: DateTimeFilter<"PropertyAcquisition"> | Date | string
+    updatedAt?: DateTimeFilter<"PropertyAcquisition"> | Date | string
+    createdBy?: XOR<UserRelationFilter, UserWhereInput>
+    payments?: PropertyPaymentListRelationFilter
+  }
+
+  export type PropertyAcquisitionOrderByWithRelationInput = {
+    id?: SortOrder
+    khataNo?: SortOrder
+    plotNo?: SortOrder
+    projectLocation?: SortOrder
+    landOwnerName?: SortOrder
+    landOwnerContact?: SortOrder
+    landOwnerAddress?: SortOrderInput | SortOrder
+    areaSqft?: SortOrderInput | SortOrder
+    totalLandValue?: SortOrder
+    totalPaidToOwner?: SortOrder
+    balanceRemaining?: SortOrder
+    status?: SortOrder
+    agreementDate?: SortOrderInput | SortOrder
+    documents?: SortOrderInput | SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdBy?: UserOrderByWithRelationInput
+    payments?: PropertyPaymentOrderByRelationAggregateInput
+  }
+
+  export type PropertyAcquisitionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PropertyAcquisitionWhereInput | PropertyAcquisitionWhereInput[]
+    OR?: PropertyAcquisitionWhereInput[]
+    NOT?: PropertyAcquisitionWhereInput | PropertyAcquisitionWhereInput[]
+    khataNo?: StringFilter<"PropertyAcquisition"> | string
+    plotNo?: StringFilter<"PropertyAcquisition"> | string
+    projectLocation?: StringFilter<"PropertyAcquisition"> | string
+    landOwnerName?: StringFilter<"PropertyAcquisition"> | string
+    landOwnerContact?: StringFilter<"PropertyAcquisition"> | string
+    landOwnerAddress?: StringNullableFilter<"PropertyAcquisition"> | string | null
+    areaSqft?: DecimalNullableFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"PropertyAcquisition"> | string
+    agreementDate?: DateTimeNullableFilter<"PropertyAcquisition"> | Date | string | null
+    documents?: JsonNullableFilter<"PropertyAcquisition">
+    createdById?: StringFilter<"PropertyAcquisition"> | string
+    createdAt?: DateTimeFilter<"PropertyAcquisition"> | Date | string
+    updatedAt?: DateTimeFilter<"PropertyAcquisition"> | Date | string
+    createdBy?: XOR<UserRelationFilter, UserWhereInput>
+    payments?: PropertyPaymentListRelationFilter
+  }, "id">
+
+  export type PropertyAcquisitionOrderByWithAggregationInput = {
+    id?: SortOrder
+    khataNo?: SortOrder
+    plotNo?: SortOrder
+    projectLocation?: SortOrder
+    landOwnerName?: SortOrder
+    landOwnerContact?: SortOrder
+    landOwnerAddress?: SortOrderInput | SortOrder
+    areaSqft?: SortOrderInput | SortOrder
+    totalLandValue?: SortOrder
+    totalPaidToOwner?: SortOrder
+    balanceRemaining?: SortOrder
+    status?: SortOrder
+    agreementDate?: SortOrderInput | SortOrder
+    documents?: SortOrderInput | SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PropertyAcquisitionCountOrderByAggregateInput
+    _avg?: PropertyAcquisitionAvgOrderByAggregateInput
+    _max?: PropertyAcquisitionMaxOrderByAggregateInput
+    _min?: PropertyAcquisitionMinOrderByAggregateInput
+    _sum?: PropertyAcquisitionSumOrderByAggregateInput
+  }
+
+  export type PropertyAcquisitionScalarWhereWithAggregatesInput = {
+    AND?: PropertyAcquisitionScalarWhereWithAggregatesInput | PropertyAcquisitionScalarWhereWithAggregatesInput[]
+    OR?: PropertyAcquisitionScalarWhereWithAggregatesInput[]
+    NOT?: PropertyAcquisitionScalarWhereWithAggregatesInput | PropertyAcquisitionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PropertyAcquisition"> | string
+    khataNo?: StringWithAggregatesFilter<"PropertyAcquisition"> | string
+    plotNo?: StringWithAggregatesFilter<"PropertyAcquisition"> | string
+    projectLocation?: StringWithAggregatesFilter<"PropertyAcquisition"> | string
+    landOwnerName?: StringWithAggregatesFilter<"PropertyAcquisition"> | string
+    landOwnerContact?: StringWithAggregatesFilter<"PropertyAcquisition"> | string
+    landOwnerAddress?: StringNullableWithAggregatesFilter<"PropertyAcquisition"> | string | null
+    areaSqft?: DecimalNullableWithAggregatesFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalWithAggregatesFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalWithAggregatesFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalWithAggregatesFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string
+    status?: StringWithAggregatesFilter<"PropertyAcquisition"> | string
+    agreementDate?: DateTimeNullableWithAggregatesFilter<"PropertyAcquisition"> | Date | string | null
+    documents?: JsonNullableWithAggregatesFilter<"PropertyAcquisition">
+    createdById?: StringWithAggregatesFilter<"PropertyAcquisition"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PropertyAcquisition"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PropertyAcquisition"> | Date | string
+  }
+
+  export type PropertyPaymentWhereInput = {
+    AND?: PropertyPaymentWhereInput | PropertyPaymentWhereInput[]
+    OR?: PropertyPaymentWhereInput[]
+    NOT?: PropertyPaymentWhereInput | PropertyPaymentWhereInput[]
+    id?: StringFilter<"PropertyPayment"> | string
+    propertyId?: StringFilter<"PropertyPayment"> | string
+    dateOfPayment?: DateTimeFilter<"PropertyPayment"> | Date | string
+    amount?: DecimalFilter<"PropertyPayment"> | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFilter<"PropertyPayment"> | string
+    paidFromAccount?: StringNullableFilter<"PropertyPayment"> | string | null
+    referenceNo?: StringNullableFilter<"PropertyPayment"> | string | null
+    notes?: StringNullableFilter<"PropertyPayment"> | string | null
+    paidById?: StringFilter<"PropertyPayment"> | string
+    status?: StringFilter<"PropertyPayment"> | string
+    createdAt?: DateTimeFilter<"PropertyPayment"> | Date | string
+    property?: XOR<PropertyAcquisitionRelationFilter, PropertyAcquisitionWhereInput>
+    paidBy?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type PropertyPaymentOrderByWithRelationInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+    dateOfPayment?: SortOrder
+    amount?: SortOrder
+    paymentMode?: SortOrder
+    paidFromAccount?: SortOrderInput | SortOrder
+    referenceNo?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    paidById?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    property?: PropertyAcquisitionOrderByWithRelationInput
+    paidBy?: UserOrderByWithRelationInput
+  }
+
+  export type PropertyPaymentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PropertyPaymentWhereInput | PropertyPaymentWhereInput[]
+    OR?: PropertyPaymentWhereInput[]
+    NOT?: PropertyPaymentWhereInput | PropertyPaymentWhereInput[]
+    propertyId?: StringFilter<"PropertyPayment"> | string
+    dateOfPayment?: DateTimeFilter<"PropertyPayment"> | Date | string
+    amount?: DecimalFilter<"PropertyPayment"> | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFilter<"PropertyPayment"> | string
+    paidFromAccount?: StringNullableFilter<"PropertyPayment"> | string | null
+    referenceNo?: StringNullableFilter<"PropertyPayment"> | string | null
+    notes?: StringNullableFilter<"PropertyPayment"> | string | null
+    paidById?: StringFilter<"PropertyPayment"> | string
+    status?: StringFilter<"PropertyPayment"> | string
+    createdAt?: DateTimeFilter<"PropertyPayment"> | Date | string
+    property?: XOR<PropertyAcquisitionRelationFilter, PropertyAcquisitionWhereInput>
+    paidBy?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type PropertyPaymentOrderByWithAggregationInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+    dateOfPayment?: SortOrder
+    amount?: SortOrder
+    paymentMode?: SortOrder
+    paidFromAccount?: SortOrderInput | SortOrder
+    referenceNo?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    paidById?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    _count?: PropertyPaymentCountOrderByAggregateInput
+    _avg?: PropertyPaymentAvgOrderByAggregateInput
+    _max?: PropertyPaymentMaxOrderByAggregateInput
+    _min?: PropertyPaymentMinOrderByAggregateInput
+    _sum?: PropertyPaymentSumOrderByAggregateInput
+  }
+
+  export type PropertyPaymentScalarWhereWithAggregatesInput = {
+    AND?: PropertyPaymentScalarWhereWithAggregatesInput | PropertyPaymentScalarWhereWithAggregatesInput[]
+    OR?: PropertyPaymentScalarWhereWithAggregatesInput[]
+    NOT?: PropertyPaymentScalarWhereWithAggregatesInput | PropertyPaymentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PropertyPayment"> | string
+    propertyId?: StringWithAggregatesFilter<"PropertyPayment"> | string
+    dateOfPayment?: DateTimeWithAggregatesFilter<"PropertyPayment"> | Date | string
+    amount?: DecimalWithAggregatesFilter<"PropertyPayment"> | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringWithAggregatesFilter<"PropertyPayment"> | string
+    paidFromAccount?: StringNullableWithAggregatesFilter<"PropertyPayment"> | string | null
+    referenceNo?: StringNullableWithAggregatesFilter<"PropertyPayment"> | string | null
+    notes?: StringNullableWithAggregatesFilter<"PropertyPayment"> | string | null
+    paidById?: StringWithAggregatesFilter<"PropertyPayment"> | string
+    status?: StringWithAggregatesFilter<"PropertyPayment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PropertyPayment"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -20641,6 +23356,8 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -20658,6 +23375,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUpdateInput = {
@@ -20675,6 +23394,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -20692,6 +23413,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -22039,6 +24762,245 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PropertyAcquisitionCreateInput = {
+    id?: string
+    khataNo: string
+    plotNo: string
+    projectLocation: string
+    landOwnerName: string
+    landOwnerContact: string
+    landOwnerAddress?: string | null
+    areaSqft?: Decimal | DecimalJsLike | number | string | null
+    totalLandValue: Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: Decimal | DecimalJsLike | number | string
+    balanceRemaining: Decimal | DecimalJsLike | number | string
+    status?: string
+    agreementDate?: Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutCreatedPropertiesInput
+    payments?: PropertyPaymentCreateNestedManyWithoutPropertyInput
+  }
+
+  export type PropertyAcquisitionUncheckedCreateInput = {
+    id?: string
+    khataNo: string
+    plotNo: string
+    projectLocation: string
+    landOwnerName: string
+    landOwnerContact: string
+    landOwnerAddress?: string | null
+    areaSqft?: Decimal | DecimalJsLike | number | string | null
+    totalLandValue: Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: Decimal | DecimalJsLike | number | string
+    balanceRemaining: Decimal | DecimalJsLike | number | string
+    status?: string
+    agreementDate?: Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdById: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payments?: PropertyPaymentUncheckedCreateNestedManyWithoutPropertyInput
+  }
+
+  export type PropertyAcquisitionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    landOwnerName?: StringFieldUpdateOperationsInput | string
+    landOwnerContact?: StringFieldUpdateOperationsInput | string
+    landOwnerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    areaSqft?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    agreementDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutCreatedPropertiesNestedInput
+    payments?: PropertyPaymentUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type PropertyAcquisitionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    landOwnerName?: StringFieldUpdateOperationsInput | string
+    landOwnerContact?: StringFieldUpdateOperationsInput | string
+    landOwnerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    areaSqft?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    agreementDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: PropertyPaymentUncheckedUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type PropertyAcquisitionCreateManyInput = {
+    id?: string
+    khataNo: string
+    plotNo: string
+    projectLocation: string
+    landOwnerName: string
+    landOwnerContact: string
+    landOwnerAddress?: string | null
+    areaSqft?: Decimal | DecimalJsLike | number | string | null
+    totalLandValue: Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: Decimal | DecimalJsLike | number | string
+    balanceRemaining: Decimal | DecimalJsLike | number | string
+    status?: string
+    agreementDate?: Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdById: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PropertyAcquisitionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    landOwnerName?: StringFieldUpdateOperationsInput | string
+    landOwnerContact?: StringFieldUpdateOperationsInput | string
+    landOwnerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    areaSqft?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    agreementDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyAcquisitionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    landOwnerName?: StringFieldUpdateOperationsInput | string
+    landOwnerContact?: StringFieldUpdateOperationsInput | string
+    landOwnerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    areaSqft?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    agreementDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyPaymentCreateInput = {
+    id?: string
+    dateOfPayment?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    paidFromAccount?: string | null
+    referenceNo?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    property: PropertyAcquisitionCreateNestedOneWithoutPaymentsInput
+    paidBy: UserCreateNestedOneWithoutRecordedPropertyPaymentsInput
+  }
+
+  export type PropertyPaymentUncheckedCreateInput = {
+    id?: string
+    propertyId: string
+    dateOfPayment?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    paidFromAccount?: string | null
+    referenceNo?: string | null
+    notes?: string | null
+    paidById: string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PropertyPaymentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dateOfPayment?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    paidFromAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    property?: PropertyAcquisitionUpdateOneRequiredWithoutPaymentsNestedInput
+    paidBy?: UserUpdateOneRequiredWithoutRecordedPropertyPaymentsNestedInput
+  }
+
+  export type PropertyPaymentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    propertyId?: StringFieldUpdateOperationsInput | string
+    dateOfPayment?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    paidFromAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidById?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyPaymentCreateManyInput = {
+    id?: string
+    propertyId: string
+    dateOfPayment?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    paidFromAccount?: string | null
+    referenceNo?: string | null
+    notes?: string | null
+    paidById: string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PropertyPaymentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dateOfPayment?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    paidFromAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyPaymentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    propertyId?: StringFieldUpdateOperationsInput | string
+    dateOfPayment?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    paidFromAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidById?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -22105,6 +25067,18 @@ export namespace Prisma {
     none?: CustomerPaymentWhereInput
   }
 
+  export type PropertyAcquisitionListRelationFilter = {
+    every?: PropertyAcquisitionWhereInput
+    some?: PropertyAcquisitionWhereInput
+    none?: PropertyAcquisitionWhereInput
+  }
+
+  export type PropertyPaymentListRelationFilter = {
+    every?: PropertyPaymentWhereInput
+    some?: PropertyPaymentWhereInput
+    none?: PropertyPaymentWhereInput
+  }
+
   export type FundRequestOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -22122,6 +25096,14 @@ export namespace Prisma {
   }
 
   export type CustomerPaymentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PropertyAcquisitionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PropertyPaymentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -23120,6 +26102,160 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type PropertyAcquisitionCountOrderByAggregateInput = {
+    id?: SortOrder
+    khataNo?: SortOrder
+    plotNo?: SortOrder
+    projectLocation?: SortOrder
+    landOwnerName?: SortOrder
+    landOwnerContact?: SortOrder
+    landOwnerAddress?: SortOrder
+    areaSqft?: SortOrder
+    totalLandValue?: SortOrder
+    totalPaidToOwner?: SortOrder
+    balanceRemaining?: SortOrder
+    status?: SortOrder
+    agreementDate?: SortOrder
+    documents?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PropertyAcquisitionAvgOrderByAggregateInput = {
+    areaSqft?: SortOrder
+    totalLandValue?: SortOrder
+    totalPaidToOwner?: SortOrder
+    balanceRemaining?: SortOrder
+  }
+
+  export type PropertyAcquisitionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    khataNo?: SortOrder
+    plotNo?: SortOrder
+    projectLocation?: SortOrder
+    landOwnerName?: SortOrder
+    landOwnerContact?: SortOrder
+    landOwnerAddress?: SortOrder
+    areaSqft?: SortOrder
+    totalLandValue?: SortOrder
+    totalPaidToOwner?: SortOrder
+    balanceRemaining?: SortOrder
+    status?: SortOrder
+    agreementDate?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PropertyAcquisitionMinOrderByAggregateInput = {
+    id?: SortOrder
+    khataNo?: SortOrder
+    plotNo?: SortOrder
+    projectLocation?: SortOrder
+    landOwnerName?: SortOrder
+    landOwnerContact?: SortOrder
+    landOwnerAddress?: SortOrder
+    areaSqft?: SortOrder
+    totalLandValue?: SortOrder
+    totalPaidToOwner?: SortOrder
+    balanceRemaining?: SortOrder
+    status?: SortOrder
+    agreementDate?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PropertyAcquisitionSumOrderByAggregateInput = {
+    areaSqft?: SortOrder
+    totalLandValue?: SortOrder
+    totalPaidToOwner?: SortOrder
+    balanceRemaining?: SortOrder
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type PropertyAcquisitionRelationFilter = {
+    is?: PropertyAcquisitionWhereInput
+    isNot?: PropertyAcquisitionWhereInput
+  }
+
+  export type PropertyPaymentCountOrderByAggregateInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+    dateOfPayment?: SortOrder
+    amount?: SortOrder
+    paymentMode?: SortOrder
+    paidFromAccount?: SortOrder
+    referenceNo?: SortOrder
+    notes?: SortOrder
+    paidById?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PropertyPaymentAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type PropertyPaymentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+    dateOfPayment?: SortOrder
+    amount?: SortOrder
+    paymentMode?: SortOrder
+    paidFromAccount?: SortOrder
+    referenceNo?: SortOrder
+    notes?: SortOrder
+    paidById?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PropertyPaymentMinOrderByAggregateInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+    dateOfPayment?: SortOrder
+    amount?: SortOrder
+    paymentMode?: SortOrder
+    paidFromAccount?: SortOrder
+    referenceNo?: SortOrder
+    notes?: SortOrder
+    paidById?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PropertyPaymentSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
   export type RoleCreateNestedOneWithoutUsersInput = {
     create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
     connectOrCreate?: RoleCreateOrConnectWithoutUsersInput
@@ -23174,6 +26310,20 @@ export namespace Prisma {
     connect?: CustomerPaymentWhereUniqueInput | CustomerPaymentWhereUniqueInput[]
   }
 
+  export type PropertyAcquisitionCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<PropertyAcquisitionCreateWithoutCreatedByInput, PropertyAcquisitionUncheckedCreateWithoutCreatedByInput> | PropertyAcquisitionCreateWithoutCreatedByInput[] | PropertyAcquisitionUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: PropertyAcquisitionCreateOrConnectWithoutCreatedByInput | PropertyAcquisitionCreateOrConnectWithoutCreatedByInput[]
+    createMany?: PropertyAcquisitionCreateManyCreatedByInputEnvelope
+    connect?: PropertyAcquisitionWhereUniqueInput | PropertyAcquisitionWhereUniqueInput[]
+  }
+
+  export type PropertyPaymentCreateNestedManyWithoutPaidByInput = {
+    create?: XOR<PropertyPaymentCreateWithoutPaidByInput, PropertyPaymentUncheckedCreateWithoutPaidByInput> | PropertyPaymentCreateWithoutPaidByInput[] | PropertyPaymentUncheckedCreateWithoutPaidByInput[]
+    connectOrCreate?: PropertyPaymentCreateOrConnectWithoutPaidByInput | PropertyPaymentCreateOrConnectWithoutPaidByInput[]
+    createMany?: PropertyPaymentCreateManyPaidByInputEnvelope
+    connect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+  }
+
   export type WalletUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput
@@ -23220,6 +26370,20 @@ export namespace Prisma {
     connectOrCreate?: CustomerPaymentCreateOrConnectWithoutRecordedByInput | CustomerPaymentCreateOrConnectWithoutRecordedByInput[]
     createMany?: CustomerPaymentCreateManyRecordedByInputEnvelope
     connect?: CustomerPaymentWhereUniqueInput | CustomerPaymentWhereUniqueInput[]
+  }
+
+  export type PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<PropertyAcquisitionCreateWithoutCreatedByInput, PropertyAcquisitionUncheckedCreateWithoutCreatedByInput> | PropertyAcquisitionCreateWithoutCreatedByInput[] | PropertyAcquisitionUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: PropertyAcquisitionCreateOrConnectWithoutCreatedByInput | PropertyAcquisitionCreateOrConnectWithoutCreatedByInput[]
+    createMany?: PropertyAcquisitionCreateManyCreatedByInputEnvelope
+    connect?: PropertyAcquisitionWhereUniqueInput | PropertyAcquisitionWhereUniqueInput[]
+  }
+
+  export type PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput = {
+    create?: XOR<PropertyPaymentCreateWithoutPaidByInput, PropertyPaymentUncheckedCreateWithoutPaidByInput> | PropertyPaymentCreateWithoutPaidByInput[] | PropertyPaymentUncheckedCreateWithoutPaidByInput[]
+    connectOrCreate?: PropertyPaymentCreateOrConnectWithoutPaidByInput | PropertyPaymentCreateOrConnectWithoutPaidByInput[]
+    createMany?: PropertyPaymentCreateManyPaidByInputEnvelope
+    connect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -23332,6 +26496,34 @@ export namespace Prisma {
     deleteMany?: CustomerPaymentScalarWhereInput | CustomerPaymentScalarWhereInput[]
   }
 
+  export type PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<PropertyAcquisitionCreateWithoutCreatedByInput, PropertyAcquisitionUncheckedCreateWithoutCreatedByInput> | PropertyAcquisitionCreateWithoutCreatedByInput[] | PropertyAcquisitionUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: PropertyAcquisitionCreateOrConnectWithoutCreatedByInput | PropertyAcquisitionCreateOrConnectWithoutCreatedByInput[]
+    upsert?: PropertyAcquisitionUpsertWithWhereUniqueWithoutCreatedByInput | PropertyAcquisitionUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: PropertyAcquisitionCreateManyCreatedByInputEnvelope
+    set?: PropertyAcquisitionWhereUniqueInput | PropertyAcquisitionWhereUniqueInput[]
+    disconnect?: PropertyAcquisitionWhereUniqueInput | PropertyAcquisitionWhereUniqueInput[]
+    delete?: PropertyAcquisitionWhereUniqueInput | PropertyAcquisitionWhereUniqueInput[]
+    connect?: PropertyAcquisitionWhereUniqueInput | PropertyAcquisitionWhereUniqueInput[]
+    update?: PropertyAcquisitionUpdateWithWhereUniqueWithoutCreatedByInput | PropertyAcquisitionUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: PropertyAcquisitionUpdateManyWithWhereWithoutCreatedByInput | PropertyAcquisitionUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: PropertyAcquisitionScalarWhereInput | PropertyAcquisitionScalarWhereInput[]
+  }
+
+  export type PropertyPaymentUpdateManyWithoutPaidByNestedInput = {
+    create?: XOR<PropertyPaymentCreateWithoutPaidByInput, PropertyPaymentUncheckedCreateWithoutPaidByInput> | PropertyPaymentCreateWithoutPaidByInput[] | PropertyPaymentUncheckedCreateWithoutPaidByInput[]
+    connectOrCreate?: PropertyPaymentCreateOrConnectWithoutPaidByInput | PropertyPaymentCreateOrConnectWithoutPaidByInput[]
+    upsert?: PropertyPaymentUpsertWithWhereUniqueWithoutPaidByInput | PropertyPaymentUpsertWithWhereUniqueWithoutPaidByInput[]
+    createMany?: PropertyPaymentCreateManyPaidByInputEnvelope
+    set?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    disconnect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    delete?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    connect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    update?: PropertyPaymentUpdateWithWhereUniqueWithoutPaidByInput | PropertyPaymentUpdateWithWhereUniqueWithoutPaidByInput[]
+    updateMany?: PropertyPaymentUpdateManyWithWhereWithoutPaidByInput | PropertyPaymentUpdateManyWithWhereWithoutPaidByInput[]
+    deleteMany?: PropertyPaymentScalarWhereInput | PropertyPaymentScalarWhereInput[]
+  }
+
   export type WalletUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput
@@ -23424,6 +26616,34 @@ export namespace Prisma {
     update?: CustomerPaymentUpdateWithWhereUniqueWithoutRecordedByInput | CustomerPaymentUpdateWithWhereUniqueWithoutRecordedByInput[]
     updateMany?: CustomerPaymentUpdateManyWithWhereWithoutRecordedByInput | CustomerPaymentUpdateManyWithWhereWithoutRecordedByInput[]
     deleteMany?: CustomerPaymentScalarWhereInput | CustomerPaymentScalarWhereInput[]
+  }
+
+  export type PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<PropertyAcquisitionCreateWithoutCreatedByInput, PropertyAcquisitionUncheckedCreateWithoutCreatedByInput> | PropertyAcquisitionCreateWithoutCreatedByInput[] | PropertyAcquisitionUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: PropertyAcquisitionCreateOrConnectWithoutCreatedByInput | PropertyAcquisitionCreateOrConnectWithoutCreatedByInput[]
+    upsert?: PropertyAcquisitionUpsertWithWhereUniqueWithoutCreatedByInput | PropertyAcquisitionUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: PropertyAcquisitionCreateManyCreatedByInputEnvelope
+    set?: PropertyAcquisitionWhereUniqueInput | PropertyAcquisitionWhereUniqueInput[]
+    disconnect?: PropertyAcquisitionWhereUniqueInput | PropertyAcquisitionWhereUniqueInput[]
+    delete?: PropertyAcquisitionWhereUniqueInput | PropertyAcquisitionWhereUniqueInput[]
+    connect?: PropertyAcquisitionWhereUniqueInput | PropertyAcquisitionWhereUniqueInput[]
+    update?: PropertyAcquisitionUpdateWithWhereUniqueWithoutCreatedByInput | PropertyAcquisitionUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: PropertyAcquisitionUpdateManyWithWhereWithoutCreatedByInput | PropertyAcquisitionUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: PropertyAcquisitionScalarWhereInput | PropertyAcquisitionScalarWhereInput[]
+  }
+
+  export type PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput = {
+    create?: XOR<PropertyPaymentCreateWithoutPaidByInput, PropertyPaymentUncheckedCreateWithoutPaidByInput> | PropertyPaymentCreateWithoutPaidByInput[] | PropertyPaymentUncheckedCreateWithoutPaidByInput[]
+    connectOrCreate?: PropertyPaymentCreateOrConnectWithoutPaidByInput | PropertyPaymentCreateOrConnectWithoutPaidByInput[]
+    upsert?: PropertyPaymentUpsertWithWhereUniqueWithoutPaidByInput | PropertyPaymentUpsertWithWhereUniqueWithoutPaidByInput[]
+    createMany?: PropertyPaymentCreateManyPaidByInputEnvelope
+    set?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    disconnect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    delete?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    connect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    update?: PropertyPaymentUpdateWithWhereUniqueWithoutPaidByInput | PropertyPaymentUpdateWithWhereUniqueWithoutPaidByInput[]
+    updateMany?: PropertyPaymentUpdateManyWithWhereWithoutPaidByInput | PropertyPaymentUpdateManyWithWhereWithoutPaidByInput[]
+    deleteMany?: PropertyPaymentScalarWhereInput | PropertyPaymentScalarWhereInput[]
   }
 
   export type UserCreateNestedManyWithoutRoleInput = {
@@ -24158,6 +27378,98 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRecordedPaymentsInput, UserUpdateWithoutRecordedPaymentsInput>, UserUncheckedUpdateWithoutRecordedPaymentsInput>
   }
 
+  export type UserCreateNestedOneWithoutCreatedPropertiesInput = {
+    create?: XOR<UserCreateWithoutCreatedPropertiesInput, UserUncheckedCreateWithoutCreatedPropertiesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedPropertiesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PropertyPaymentCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<PropertyPaymentCreateWithoutPropertyInput, PropertyPaymentUncheckedCreateWithoutPropertyInput> | PropertyPaymentCreateWithoutPropertyInput[] | PropertyPaymentUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: PropertyPaymentCreateOrConnectWithoutPropertyInput | PropertyPaymentCreateOrConnectWithoutPropertyInput[]
+    createMany?: PropertyPaymentCreateManyPropertyInputEnvelope
+    connect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+  }
+
+  export type PropertyPaymentUncheckedCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<PropertyPaymentCreateWithoutPropertyInput, PropertyPaymentUncheckedCreateWithoutPropertyInput> | PropertyPaymentCreateWithoutPropertyInput[] | PropertyPaymentUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: PropertyPaymentCreateOrConnectWithoutPropertyInput | PropertyPaymentCreateOrConnectWithoutPropertyInput[]
+    createMany?: PropertyPaymentCreateManyPropertyInputEnvelope
+    connect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type UserUpdateOneRequiredWithoutCreatedPropertiesNestedInput = {
+    create?: XOR<UserCreateWithoutCreatedPropertiesInput, UserUncheckedCreateWithoutCreatedPropertiesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedPropertiesInput
+    upsert?: UserUpsertWithoutCreatedPropertiesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedPropertiesInput, UserUpdateWithoutCreatedPropertiesInput>, UserUncheckedUpdateWithoutCreatedPropertiesInput>
+  }
+
+  export type PropertyPaymentUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<PropertyPaymentCreateWithoutPropertyInput, PropertyPaymentUncheckedCreateWithoutPropertyInput> | PropertyPaymentCreateWithoutPropertyInput[] | PropertyPaymentUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: PropertyPaymentCreateOrConnectWithoutPropertyInput | PropertyPaymentCreateOrConnectWithoutPropertyInput[]
+    upsert?: PropertyPaymentUpsertWithWhereUniqueWithoutPropertyInput | PropertyPaymentUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: PropertyPaymentCreateManyPropertyInputEnvelope
+    set?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    disconnect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    delete?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    connect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    update?: PropertyPaymentUpdateWithWhereUniqueWithoutPropertyInput | PropertyPaymentUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: PropertyPaymentUpdateManyWithWhereWithoutPropertyInput | PropertyPaymentUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: PropertyPaymentScalarWhereInput | PropertyPaymentScalarWhereInput[]
+  }
+
+  export type PropertyPaymentUncheckedUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<PropertyPaymentCreateWithoutPropertyInput, PropertyPaymentUncheckedCreateWithoutPropertyInput> | PropertyPaymentCreateWithoutPropertyInput[] | PropertyPaymentUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: PropertyPaymentCreateOrConnectWithoutPropertyInput | PropertyPaymentCreateOrConnectWithoutPropertyInput[]
+    upsert?: PropertyPaymentUpsertWithWhereUniqueWithoutPropertyInput | PropertyPaymentUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: PropertyPaymentCreateManyPropertyInputEnvelope
+    set?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    disconnect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    delete?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    connect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+    update?: PropertyPaymentUpdateWithWhereUniqueWithoutPropertyInput | PropertyPaymentUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: PropertyPaymentUpdateManyWithWhereWithoutPropertyInput | PropertyPaymentUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: PropertyPaymentScalarWhereInput | PropertyPaymentScalarWhereInput[]
+  }
+
+  export type PropertyAcquisitionCreateNestedOneWithoutPaymentsInput = {
+    create?: XOR<PropertyAcquisitionCreateWithoutPaymentsInput, PropertyAcquisitionUncheckedCreateWithoutPaymentsInput>
+    connectOrCreate?: PropertyAcquisitionCreateOrConnectWithoutPaymentsInput
+    connect?: PropertyAcquisitionWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutRecordedPropertyPaymentsInput = {
+    create?: XOR<UserCreateWithoutRecordedPropertyPaymentsInput, UserUncheckedCreateWithoutRecordedPropertyPaymentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRecordedPropertyPaymentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PropertyAcquisitionUpdateOneRequiredWithoutPaymentsNestedInput = {
+    create?: XOR<PropertyAcquisitionCreateWithoutPaymentsInput, PropertyAcquisitionUncheckedCreateWithoutPaymentsInput>
+    connectOrCreate?: PropertyAcquisitionCreateOrConnectWithoutPaymentsInput
+    upsert?: PropertyAcquisitionUpsertWithoutPaymentsInput
+    connect?: PropertyAcquisitionWhereUniqueInput
+    update?: XOR<XOR<PropertyAcquisitionUpdateToOneWithWhereWithoutPaymentsInput, PropertyAcquisitionUpdateWithoutPaymentsInput>, PropertyAcquisitionUncheckedUpdateWithoutPaymentsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutRecordedPropertyPaymentsNestedInput = {
+    create?: XOR<UserCreateWithoutRecordedPropertyPaymentsInput, UserUncheckedCreateWithoutRecordedPropertyPaymentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRecordedPropertyPaymentsInput
+    upsert?: UserUpsertWithoutRecordedPropertyPaymentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRecordedPropertyPaymentsInput, UserUpdateWithoutRecordedPropertyPaymentsInput>, UserUncheckedUpdateWithoutRecordedPropertyPaymentsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -24388,6 +27700,33 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type RoleCreateWithoutUsersInput = {
@@ -24714,6 +28053,92 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PropertyAcquisitionCreateWithoutCreatedByInput = {
+    id?: string
+    khataNo: string
+    plotNo: string
+    projectLocation: string
+    landOwnerName: string
+    landOwnerContact: string
+    landOwnerAddress?: string | null
+    areaSqft?: Decimal | DecimalJsLike | number | string | null
+    totalLandValue: Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: Decimal | DecimalJsLike | number | string
+    balanceRemaining: Decimal | DecimalJsLike | number | string
+    status?: string
+    agreementDate?: Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payments?: PropertyPaymentCreateNestedManyWithoutPropertyInput
+  }
+
+  export type PropertyAcquisitionUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    khataNo: string
+    plotNo: string
+    projectLocation: string
+    landOwnerName: string
+    landOwnerContact: string
+    landOwnerAddress?: string | null
+    areaSqft?: Decimal | DecimalJsLike | number | string | null
+    totalLandValue: Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: Decimal | DecimalJsLike | number | string
+    balanceRemaining: Decimal | DecimalJsLike | number | string
+    status?: string
+    agreementDate?: Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payments?: PropertyPaymentUncheckedCreateNestedManyWithoutPropertyInput
+  }
+
+  export type PropertyAcquisitionCreateOrConnectWithoutCreatedByInput = {
+    where: PropertyAcquisitionWhereUniqueInput
+    create: XOR<PropertyAcquisitionCreateWithoutCreatedByInput, PropertyAcquisitionUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type PropertyAcquisitionCreateManyCreatedByInputEnvelope = {
+    data: PropertyAcquisitionCreateManyCreatedByInput | PropertyAcquisitionCreateManyCreatedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PropertyPaymentCreateWithoutPaidByInput = {
+    id?: string
+    dateOfPayment?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    paidFromAccount?: string | null
+    referenceNo?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    property: PropertyAcquisitionCreateNestedOneWithoutPaymentsInput
+  }
+
+  export type PropertyPaymentUncheckedCreateWithoutPaidByInput = {
+    id?: string
+    propertyId: string
+    dateOfPayment?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    paidFromAccount?: string | null
+    referenceNo?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PropertyPaymentCreateOrConnectWithoutPaidByInput = {
+    where: PropertyPaymentWhereUniqueInput
+    create: XOR<PropertyPaymentCreateWithoutPaidByInput, PropertyPaymentUncheckedCreateWithoutPaidByInput>
+  }
+
+  export type PropertyPaymentCreateManyPaidByInputEnvelope = {
+    data: PropertyPaymentCreateManyPaidByInput | PropertyPaymentCreateManyPaidByInput[]
+    skipDuplicates?: boolean
+  }
+
   export type RoleUpsertWithoutUsersInput = {
     update: XOR<RoleUpdateWithoutUsersInput, RoleUncheckedUpdateWithoutUsersInput>
     create: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
@@ -24980,6 +28405,78 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CustomerPayment"> | Date | string
   }
 
+  export type PropertyAcquisitionUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: PropertyAcquisitionWhereUniqueInput
+    update: XOR<PropertyAcquisitionUpdateWithoutCreatedByInput, PropertyAcquisitionUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<PropertyAcquisitionCreateWithoutCreatedByInput, PropertyAcquisitionUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type PropertyAcquisitionUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: PropertyAcquisitionWhereUniqueInput
+    data: XOR<PropertyAcquisitionUpdateWithoutCreatedByInput, PropertyAcquisitionUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type PropertyAcquisitionUpdateManyWithWhereWithoutCreatedByInput = {
+    where: PropertyAcquisitionScalarWhereInput
+    data: XOR<PropertyAcquisitionUpdateManyMutationInput, PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
+  export type PropertyAcquisitionScalarWhereInput = {
+    AND?: PropertyAcquisitionScalarWhereInput | PropertyAcquisitionScalarWhereInput[]
+    OR?: PropertyAcquisitionScalarWhereInput[]
+    NOT?: PropertyAcquisitionScalarWhereInput | PropertyAcquisitionScalarWhereInput[]
+    id?: StringFilter<"PropertyAcquisition"> | string
+    khataNo?: StringFilter<"PropertyAcquisition"> | string
+    plotNo?: StringFilter<"PropertyAcquisition"> | string
+    projectLocation?: StringFilter<"PropertyAcquisition"> | string
+    landOwnerName?: StringFilter<"PropertyAcquisition"> | string
+    landOwnerContact?: StringFilter<"PropertyAcquisition"> | string
+    landOwnerAddress?: StringNullableFilter<"PropertyAcquisition"> | string | null
+    areaSqft?: DecimalNullableFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalFilter<"PropertyAcquisition"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"PropertyAcquisition"> | string
+    agreementDate?: DateTimeNullableFilter<"PropertyAcquisition"> | Date | string | null
+    documents?: JsonNullableFilter<"PropertyAcquisition">
+    createdById?: StringFilter<"PropertyAcquisition"> | string
+    createdAt?: DateTimeFilter<"PropertyAcquisition"> | Date | string
+    updatedAt?: DateTimeFilter<"PropertyAcquisition"> | Date | string
+  }
+
+  export type PropertyPaymentUpsertWithWhereUniqueWithoutPaidByInput = {
+    where: PropertyPaymentWhereUniqueInput
+    update: XOR<PropertyPaymentUpdateWithoutPaidByInput, PropertyPaymentUncheckedUpdateWithoutPaidByInput>
+    create: XOR<PropertyPaymentCreateWithoutPaidByInput, PropertyPaymentUncheckedCreateWithoutPaidByInput>
+  }
+
+  export type PropertyPaymentUpdateWithWhereUniqueWithoutPaidByInput = {
+    where: PropertyPaymentWhereUniqueInput
+    data: XOR<PropertyPaymentUpdateWithoutPaidByInput, PropertyPaymentUncheckedUpdateWithoutPaidByInput>
+  }
+
+  export type PropertyPaymentUpdateManyWithWhereWithoutPaidByInput = {
+    where: PropertyPaymentScalarWhereInput
+    data: XOR<PropertyPaymentUpdateManyMutationInput, PropertyPaymentUncheckedUpdateManyWithoutPaidByInput>
+  }
+
+  export type PropertyPaymentScalarWhereInput = {
+    AND?: PropertyPaymentScalarWhereInput | PropertyPaymentScalarWhereInput[]
+    OR?: PropertyPaymentScalarWhereInput[]
+    NOT?: PropertyPaymentScalarWhereInput | PropertyPaymentScalarWhereInput[]
+    id?: StringFilter<"PropertyPayment"> | string
+    propertyId?: StringFilter<"PropertyPayment"> | string
+    dateOfPayment?: DateTimeFilter<"PropertyPayment"> | Date | string
+    amount?: DecimalFilter<"PropertyPayment"> | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFilter<"PropertyPayment"> | string
+    paidFromAccount?: StringNullableFilter<"PropertyPayment"> | string | null
+    referenceNo?: StringNullableFilter<"PropertyPayment"> | string | null
+    notes?: StringNullableFilter<"PropertyPayment"> | string | null
+    paidById?: StringFilter<"PropertyPayment"> | string
+    status?: StringFilter<"PropertyPayment"> | string
+    createdAt?: DateTimeFilter<"PropertyPayment"> | Date | string
+  }
+
   export type UserCreateWithoutRoleInput = {
     id?: string
     email: string
@@ -24994,6 +28491,8 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutRoleInput = {
@@ -25010,6 +28509,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutRoleInput = {
@@ -25241,6 +28742,8 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutWalletInput = {
@@ -25257,6 +28760,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutWalletInput = {
@@ -25405,6 +28910,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletInput = {
@@ -25421,6 +28928,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type WalletTransactionUpsertWithWhereUniqueWithoutSourceWalletInput = {
@@ -25630,6 +29139,8 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutFundRequestsInput = {
@@ -25646,6 +29157,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutFundRequestsInput = {
@@ -25667,6 +29180,8 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutManagedRequestsInput = {
@@ -25683,6 +29198,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutManagedRequestsInput = {
@@ -25802,6 +29319,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFundRequestsInput = {
@@ -25818,6 +29337,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUpsertWithoutManagedRequestsInput = {
@@ -25845,6 +29366,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutManagedRequestsInput = {
@@ -25861,6 +29384,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type FundRequestUpsertWithoutChildRequestsInput = {
@@ -25940,6 +29465,8 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutExpensesInput = {
@@ -25956,6 +29483,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutExpensesInput = {
@@ -26034,6 +29563,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExpensesInput = {
@@ -26050,6 +29581,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type WalletUpsertWithoutExpensesInput = {
@@ -26400,6 +29933,8 @@ export namespace Prisma {
     expenses?: ExpenseCreateNestedManyWithoutUserInput
     customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -26416,6 +29951,8 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedCreateNestedManyWithoutUserInput
     customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -26448,6 +29985,8 @@ export namespace Prisma {
     expenses?: ExpenseUpdateManyWithoutUserNestedInput
     customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -26464,6 +30003,8 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedUpdateManyWithoutUserNestedInput
     customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserCreateWithoutCustomersInput = {
@@ -26480,6 +30021,8 @@ export namespace Prisma {
     expenses?: ExpenseCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutCustomersInput = {
@@ -26496,6 +30039,8 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutCustomersInput = {
@@ -26564,6 +30109,8 @@ export namespace Prisma {
     expenses?: ExpenseUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomersInput = {
@@ -26580,6 +30127,8 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type CustomerPaymentUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -26671,6 +30220,8 @@ export namespace Prisma {
     expenses?: ExpenseCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
     customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
+    createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
   }
 
   export type UserUncheckedCreateWithoutRecordedPaymentsInput = {
@@ -26687,6 +30238,8 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedCreateNestedManyWithoutUserInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
     customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
+    createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
   }
 
   export type UserCreateOrConnectWithoutRecordedPaymentsInput = {
@@ -26784,6 +30337,8 @@ export namespace Prisma {
     expenses?: ExpenseUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
+    createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRecordedPaymentsInput = {
@@ -26800,6 +30355,332 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedUpdateManyWithoutUserNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
+    createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  }
+
+  export type UserCreateWithoutCreatedPropertiesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role: RoleCreateNestedOneWithoutUsersInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    fundRequests?: FundRequestCreateNestedManyWithoutRequesterInput
+    managedRequests?: FundRequestCreateNestedManyWithoutManagerInput
+    expenses?: ExpenseCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
+    recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
+    recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
+  }
+
+  export type UserUncheckedCreateWithoutCreatedPropertiesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    roleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    fundRequests?: FundRequestUncheckedCreateNestedManyWithoutRequesterInput
+    managedRequests?: FundRequestUncheckedCreateNestedManyWithoutManagerInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
+    recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
+  }
+
+  export type UserCreateOrConnectWithoutCreatedPropertiesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreatedPropertiesInput, UserUncheckedCreateWithoutCreatedPropertiesInput>
+  }
+
+  export type PropertyPaymentCreateWithoutPropertyInput = {
+    id?: string
+    dateOfPayment?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    paidFromAccount?: string | null
+    referenceNo?: string | null
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    paidBy: UserCreateNestedOneWithoutRecordedPropertyPaymentsInput
+  }
+
+  export type PropertyPaymentUncheckedCreateWithoutPropertyInput = {
+    id?: string
+    dateOfPayment?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    paidFromAccount?: string | null
+    referenceNo?: string | null
+    notes?: string | null
+    paidById: string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PropertyPaymentCreateOrConnectWithoutPropertyInput = {
+    where: PropertyPaymentWhereUniqueInput
+    create: XOR<PropertyPaymentCreateWithoutPropertyInput, PropertyPaymentUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type PropertyPaymentCreateManyPropertyInputEnvelope = {
+    data: PropertyPaymentCreateManyPropertyInput | PropertyPaymentCreateManyPropertyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutCreatedPropertiesInput = {
+    update: XOR<UserUpdateWithoutCreatedPropertiesInput, UserUncheckedUpdateWithoutCreatedPropertiesInput>
+    create: XOR<UserCreateWithoutCreatedPropertiesInput, UserUncheckedCreateWithoutCreatedPropertiesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreatedPropertiesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreatedPropertiesInput, UserUncheckedUpdateWithoutCreatedPropertiesInput>
+  }
+
+  export type UserUpdateWithoutCreatedPropertiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    fundRequests?: FundRequestUpdateManyWithoutRequesterNestedInput
+    managedRequests?: FundRequestUpdateManyWithoutManagerNestedInput
+    expenses?: ExpenseUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
+    recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreatedPropertiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    fundRequests?: FundRequestUncheckedUpdateManyWithoutRequesterNestedInput
+    managedRequests?: FundRequestUncheckedUpdateManyWithoutManagerNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
+    recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  }
+
+  export type PropertyPaymentUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: PropertyPaymentWhereUniqueInput
+    update: XOR<PropertyPaymentUpdateWithoutPropertyInput, PropertyPaymentUncheckedUpdateWithoutPropertyInput>
+    create: XOR<PropertyPaymentCreateWithoutPropertyInput, PropertyPaymentUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type PropertyPaymentUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: PropertyPaymentWhereUniqueInput
+    data: XOR<PropertyPaymentUpdateWithoutPropertyInput, PropertyPaymentUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type PropertyPaymentUpdateManyWithWhereWithoutPropertyInput = {
+    where: PropertyPaymentScalarWhereInput
+    data: XOR<PropertyPaymentUpdateManyMutationInput, PropertyPaymentUncheckedUpdateManyWithoutPropertyInput>
+  }
+
+  export type PropertyAcquisitionCreateWithoutPaymentsInput = {
+    id?: string
+    khataNo: string
+    plotNo: string
+    projectLocation: string
+    landOwnerName: string
+    landOwnerContact: string
+    landOwnerAddress?: string | null
+    areaSqft?: Decimal | DecimalJsLike | number | string | null
+    totalLandValue: Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: Decimal | DecimalJsLike | number | string
+    balanceRemaining: Decimal | DecimalJsLike | number | string
+    status?: string
+    agreementDate?: Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutCreatedPropertiesInput
+  }
+
+  export type PropertyAcquisitionUncheckedCreateWithoutPaymentsInput = {
+    id?: string
+    khataNo: string
+    plotNo: string
+    projectLocation: string
+    landOwnerName: string
+    landOwnerContact: string
+    landOwnerAddress?: string | null
+    areaSqft?: Decimal | DecimalJsLike | number | string | null
+    totalLandValue: Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: Decimal | DecimalJsLike | number | string
+    balanceRemaining: Decimal | DecimalJsLike | number | string
+    status?: string
+    agreementDate?: Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdById: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PropertyAcquisitionCreateOrConnectWithoutPaymentsInput = {
+    where: PropertyAcquisitionWhereUniqueInput
+    create: XOR<PropertyAcquisitionCreateWithoutPaymentsInput, PropertyAcquisitionUncheckedCreateWithoutPaymentsInput>
+  }
+
+  export type UserCreateWithoutRecordedPropertyPaymentsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role: RoleCreateNestedOneWithoutUsersInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    fundRequests?: FundRequestCreateNestedManyWithoutRequesterInput
+    managedRequests?: FundRequestCreateNestedManyWithoutManagerInput
+    expenses?: ExpenseCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
+    recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutRecordedPropertyPaymentsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    roleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    fundRequests?: FundRequestUncheckedCreateNestedManyWithoutRequesterInput
+    managedRequests?: FundRequestUncheckedCreateNestedManyWithoutManagerInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
+    recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutRecordedPropertyPaymentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRecordedPropertyPaymentsInput, UserUncheckedCreateWithoutRecordedPropertyPaymentsInput>
+  }
+
+  export type PropertyAcquisitionUpsertWithoutPaymentsInput = {
+    update: XOR<PropertyAcquisitionUpdateWithoutPaymentsInput, PropertyAcquisitionUncheckedUpdateWithoutPaymentsInput>
+    create: XOR<PropertyAcquisitionCreateWithoutPaymentsInput, PropertyAcquisitionUncheckedCreateWithoutPaymentsInput>
+    where?: PropertyAcquisitionWhereInput
+  }
+
+  export type PropertyAcquisitionUpdateToOneWithWhereWithoutPaymentsInput = {
+    where?: PropertyAcquisitionWhereInput
+    data: XOR<PropertyAcquisitionUpdateWithoutPaymentsInput, PropertyAcquisitionUncheckedUpdateWithoutPaymentsInput>
+  }
+
+  export type PropertyAcquisitionUpdateWithoutPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    landOwnerName?: StringFieldUpdateOperationsInput | string
+    landOwnerContact?: StringFieldUpdateOperationsInput | string
+    landOwnerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    areaSqft?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    agreementDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutCreatedPropertiesNestedInput
+  }
+
+  export type PropertyAcquisitionUncheckedUpdateWithoutPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    landOwnerName?: StringFieldUpdateOperationsInput | string
+    landOwnerContact?: StringFieldUpdateOperationsInput | string
+    landOwnerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    areaSqft?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    agreementDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutRecordedPropertyPaymentsInput = {
+    update: XOR<UserUpdateWithoutRecordedPropertyPaymentsInput, UserUncheckedUpdateWithoutRecordedPropertyPaymentsInput>
+    create: XOR<UserCreateWithoutRecordedPropertyPaymentsInput, UserUncheckedCreateWithoutRecordedPropertyPaymentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRecordedPropertyPaymentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRecordedPropertyPaymentsInput, UserUncheckedUpdateWithoutRecordedPropertyPaymentsInput>
+  }
+
+  export type UserUpdateWithoutRecordedPropertyPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    fundRequests?: FundRequestUpdateManyWithoutRequesterNestedInput
+    managedRequests?: FundRequestUpdateManyWithoutManagerNestedInput
+    expenses?: ExpenseUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
+    recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRecordedPropertyPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    fundRequests?: FundRequestUncheckedUpdateManyWithoutRequesterNestedInput
+    managedRequests?: FundRequestUncheckedUpdateManyWithoutManagerNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
+    recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type FundRequestCreateManyRequesterInput = {
@@ -26901,6 +30782,38 @@ export namespace Prisma {
     sourceAccount?: string | null
     destinationAccount?: string | null
     referenceNo?: string | null
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PropertyAcquisitionCreateManyCreatedByInput = {
+    id?: string
+    khataNo: string
+    plotNo: string
+    projectLocation: string
+    landOwnerName: string
+    landOwnerContact: string
+    landOwnerAddress?: string | null
+    areaSqft?: Decimal | DecimalJsLike | number | string | null
+    totalLandValue: Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: Decimal | DecimalJsLike | number | string
+    balanceRemaining: Decimal | DecimalJsLike | number | string
+    status?: string
+    agreementDate?: Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PropertyPaymentCreateManyPaidByInput = {
+    id?: string
+    propertyId: string
+    dateOfPayment?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    paidFromAccount?: string | null
+    referenceNo?: string | null
+    notes?: string | null
     status?: string
     createdAt?: Date | string
   }
@@ -27220,6 +31133,104 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PropertyAcquisitionUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    landOwnerName?: StringFieldUpdateOperationsInput | string
+    landOwnerContact?: StringFieldUpdateOperationsInput | string
+    landOwnerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    areaSqft?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    agreementDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: PropertyPaymentUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type PropertyAcquisitionUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    landOwnerName?: StringFieldUpdateOperationsInput | string
+    landOwnerContact?: StringFieldUpdateOperationsInput | string
+    landOwnerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    areaSqft?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    agreementDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: PropertyPaymentUncheckedUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    landOwnerName?: StringFieldUpdateOperationsInput | string
+    landOwnerContact?: StringFieldUpdateOperationsInput | string
+    landOwnerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    areaSqft?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    totalLandValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaidToOwner?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceRemaining?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    agreementDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documents?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyPaymentUpdateWithoutPaidByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dateOfPayment?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    paidFromAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    property?: PropertyAcquisitionUpdateOneRequiredWithoutPaymentsNestedInput
+  }
+
+  export type PropertyPaymentUncheckedUpdateWithoutPaidByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    propertyId?: StringFieldUpdateOperationsInput | string
+    dateOfPayment?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    paidFromAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyPaymentUncheckedUpdateManyWithoutPaidByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    propertyId?: StringFieldUpdateOperationsInput | string
+    dateOfPayment?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    paidFromAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateManyRoleInput = {
     id?: string
     email: string
@@ -27247,6 +31258,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
     customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleInput = {
@@ -27263,6 +31276,8 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
     customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -27728,6 +31743,58 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PropertyPaymentCreateManyPropertyInput = {
+    id?: string
+    dateOfPayment?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    paidFromAccount?: string | null
+    referenceNo?: string | null
+    notes?: string | null
+    paidById: string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PropertyPaymentUpdateWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dateOfPayment?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    paidFromAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paidBy?: UserUpdateOneRequiredWithoutRecordedPropertyPaymentsNestedInput
+  }
+
+  export type PropertyPaymentUncheckedUpdateWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dateOfPayment?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    paidFromAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidById?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyPaymentUncheckedUpdateManyWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dateOfPayment?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    paidFromAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    paidById?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -27769,6 +31836,10 @@ export namespace Prisma {
      * @deprecated Use CustomerCountOutputTypeDefaultArgs instead
      */
     export type CustomerCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CustomerCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PropertyAcquisitionCountOutputTypeDefaultArgs instead
+     */
+    export type PropertyAcquisitionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PropertyAcquisitionCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
@@ -27833,6 +31904,14 @@ export namespace Prisma {
      * @deprecated Use CustomerPaymentDefaultArgs instead
      */
     export type CustomerPaymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CustomerPaymentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PropertyAcquisitionDefaultArgs instead
+     */
+    export type PropertyAcquisitionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PropertyAcquisitionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PropertyPaymentDefaultArgs instead
+     */
+    export type PropertyPaymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PropertyPaymentDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

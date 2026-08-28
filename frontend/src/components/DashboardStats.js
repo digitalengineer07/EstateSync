@@ -140,6 +140,23 @@ export default function DashboardStats({ type }) {
             </div>
           </div>
         )}
+
+        {stats.totalProperties > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-amber-50/60 p-4 rounded-xl border border-amber-200">
+            <div>
+              <span className="text-xs font-semibold text-amber-800">Land Parcels Acquired ({stats.totalProperties})</span>
+              <p className="text-lg font-bold text-amber-950">{formatCurrency(stats.totalLandValuation)}</p>
+            </div>
+            <div>
+              <span className="text-xs font-semibold text-emerald-700">Disbursed to Owners</span>
+              <p className="text-lg font-bold text-emerald-800">{formatCurrency(stats.totalLandPayouts)}</p>
+            </div>
+            <div>
+              <span className="text-xs font-semibold text-rose-700">Pending Land Liabilities</span>
+              <p className="text-lg font-bold text-rose-800">{formatCurrency(stats.totalLandLiabilities)}</p>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -183,6 +200,23 @@ export default function DashboardStats({ type }) {
             <div>
               <span className="text-xs font-semibold text-rose-700">Total Market Receivables</span>
               <p className="text-lg font-bold text-rose-800">{formatCurrency(stats.totalCustomerReceivables)}</p>
+            </div>
+          </div>
+        )}
+
+        {stats.totalProperties > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-amber-50/60 p-4 rounded-xl border border-amber-200">
+            <div>
+              <span className="text-xs font-semibold text-amber-900">Fixed Land Assets (1510)</span>
+              <p className="text-lg font-bold text-amber-950">{formatCurrency(stats.totalLandValuation)} ({stats.totalProperties} Parcels)</p>
+            </div>
+            <div>
+              <span className="text-xs font-semibold text-emerald-700">Disbursed Outflows</span>
+              <p className="text-lg font-bold text-emerald-800">{formatCurrency(stats.totalLandPayouts)}</p>
+            </div>
+            <div>
+              <span className="text-xs font-semibold text-rose-700">Outstanding Land Liabilities</span>
+              <p className="text-lg font-bold text-rose-800">{formatCurrency(stats.totalLandLiabilities)}</p>
             </div>
           </div>
         )}

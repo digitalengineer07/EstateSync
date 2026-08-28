@@ -1,7 +1,6 @@
 generator client {
   provider   = "prisma-client-js"
   engineType = "binary"
-  output     = "../src/generated/client"
 }
 
 datasource db {
@@ -23,8 +22,10 @@ model User {
   managedRequests FundRequest[]    @relation("ManagerRequests")
   expenses        Expense[]
   auditLogs       AuditLog[]
-  customers       Customer[]        @relation("SalesCustomers")
+  customers        Customer[]        @relation("SalesCustomers")
   recordedPayments CustomerPayment[] @relation("RecordedCustomerPayments")
+  createdProperties PropertyAcquisition[] @relation("CreatedProperties")
+  recordedPropertyPayments PropertyPayment[] @relation("RecordedPropertyPayments")
 }
 
 model Role {
@@ -254,4 +255,46 @@ model CustomerPayment {
   status             String    @default("RECORDED") // RECORDED, REVERSED
   createdAt          DateTime  @default(now())
 }
+
+// -------------------------------------------------------------
+// Property Acquisition Management Models (PRD §20)
+// -------------------------------------------------------------
+model PropertyAcquisition {
+  id                 String            @id @default(uuid())
+  khataNo            String
+  plotNo             String
+  projectLocation    String
+  landOwnerName      String
+  landOwnerContact   String
+  landOwnerAddress   String?
+  areaSqft           Decimal?          @db.Decimal(10, 2)
+  totalLandValue     Decimal           @db.Decimal(15, 2)
+  totalPaidToOwner   Decimal           @db.Decimal(15, 2) @default(0)
+  balanceRemaining   Decimal           @db.Decimal(15, 2)
+  status             String            @default("ONGOING") // ONGOING, FULLY_PAID, CANCELLED
+  agreementDate      DateTime?
+  documents          Json?
+  createdById        String
+  createdBy          User              @relation("CreatedProperties", fields: [createdById], references: [id])
+  payments           PropertyPayment[]
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+}
+
+model PropertyPayment {
+  id                 String              @id @default(uuid())
+  propertyId         String
+  property           PropertyAcquisition @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  dateOfPayment      DateTime            @default(now())
+  amount             Decimal             @db.Decimal(15, 2)
+  paymentMode        String              // CASH, CHEQUE, NEFT, RTGS, UPI, DD
+  paidFromAccount    String?             // Corporate Treasury Bank Account (1010)
+  referenceNo        String?             // UTR / Cheque / Bank transaction number
+  notes              String?
+  paidById           String
+  paidBy             User                @relation("RecordedPropertyPayments", fields: [paidById], references: [id])
+  status             String              @default("RECORDED") // RECORDED, REVERSED
+  createdAt          DateTime            @default(now())
+}
+
 
