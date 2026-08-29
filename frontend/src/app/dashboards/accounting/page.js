@@ -9,13 +9,15 @@ import GeneralLedgerView from "@/components/GeneralLedgerView";
 import AuditLogViewer from "@/components/AuditLogViewer";
 import CustomerPortfolioList from "@/components/CustomerPortfolioList";
 import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
-import { Users, MapPin, Scale, Wallet, Receipt, ArrowLeftRight, ShieldCheck } from "lucide-react";
+import TreasuryInflowList from "@/components/TreasuryInflowList";
+import { Users, MapPin, Scale, Wallet, Receipt, ArrowLeftRight, ShieldCheck, Landmark } from "lucide-react";
 
 export default function AccountingDashboard() {
-  const [activeTab, setActiveTab] = useState("collections");
+  const [activeTab, setActiveTab] = useState("treasury");
   const [walletSubTab, setWalletSubTab] = useState("expenses");
 
   const tabs = [
+    { id: "treasury", label: "Bank Inflow & Treasury", icon: Landmark, badge: "PRD §4.1" },
     { id: "collections", label: "Customer Collections", icon: Users, badge: "PRD §19" },
     { id: "properties", label: "Land Acquisitions", icon: MapPin, badge: "PRD §20" },
     { id: "ledger", label: "General Ledger", icon: Scale, badge: "Dr = Cr" },
@@ -69,6 +71,10 @@ export default function AccountingDashboard() {
 
       {/* Active Tab Content */}
       <div>
+        {activeTab === "treasury" && (
+          <TreasuryInflowList userRole="ACCOUNTING" />
+        )}
+
         {activeTab === "collections" && (
           <CustomerPortfolioList mode="accounting" userRole="ACCOUNTING" />
         )}

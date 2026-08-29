@@ -6,7 +6,9 @@ const STANDARD_ACCOUNTS = [
   { code: '1030', name: 'Team / Field Wallets', type: 'ASSET', description: 'Allocated funds held in Sales, Marketing, and Staff wallets' },
   { code: '1510', name: 'Land & Real Estate Property Assets', type: 'ASSET', description: 'Acquired land parcels, fixed property assets, and development rights' },
   { code: '3010', name: 'Organizational Capital', type: 'EQUITY', description: 'Capital reserves and equity funding' },
+  { code: '3020', name: 'Director Loans & Shareholder Advances', type: 'LIABILITY', description: 'Promoter loans and director capital advances' },
   { code: '4010', name: 'Customer Sales & Contract Revenue', type: 'REVENUE', description: 'Customer plot bookings and contract collections' },
+  { code: '4020', name: 'Bank Interest & Miscellaneous Receipts', type: 'REVENUE', description: 'Bank interest, refunds, and miscellaneous receipts' },
   { code: '5010', name: 'Travel & Field Expenses', type: 'EXPENSE', description: 'Client site visits, travel, fuel, transport' },
   { code: '5020', name: 'Marketing & Promotions', type: 'EXPENSE', description: 'Lead generation, print collateral, digital ads' },
   { code: '5030', name: 'Client Entertainment & Hospitality', type: 'EXPENSE', description: 'Customer meetings, food, refreshments' },
@@ -258,6 +260,43 @@ async function postPropertyPaymentJournal(tx, {
   });
 }
 
+/**
+ * Double-Entry Post: Bank Inflow / Capital Infusion into Corporate Treasury
+ * Debit: Corporate Bank / Primary Treasury (Asset +)
+ * Credit: Organizational Capital (3010) or Director Loan (3020) or Other Inflow (4020)
+ */
+async function postCapitalInfusionJournal(tx, {
+  amount,
+  inflowType = 'CAPITAL_INFUSION', // 'CAPITAL_INFUSION', 'DIRECTOR_LOAN', 'BANK_INTEREST', 'OTHER'
+  bankName,
+  referenceNo,
+  description,
+  referenceId,
+  createdBy
+}) {
+  let creditCode = '3010';
+  let creditLabel = 'Organizational Capital & Shareholder Equity';
+  
+  if (inflowType === 'DIRECTOR_LOAN') {
+    creditCode = '3020';
+    creditLabel = 'Director Loans & Shareholder Advances';
+  } else if (inflowType === 'BANK_INTEREST' || inflowType === 'OTHER') {
+    creditCode = '4020';
+    creditLabel = 'Bank Interest & Miscellaneous Receipts';
+  }
+
+  return await postJournalEntry(tx, {
+    description: `Bank Inflow (${bankName || 'Treasury'}): ${description || referenceNo || 'Capital Deposit'}`,
+    referenceType: 'CAPITAL_INFUSION',
+    referenceId,
+    createdBy,
+    lines: [
+      { accountCode: '1010', debit: amount, credit: 0, description: `Bank Asset Inflow: ${bankName || 'Corporate Bank'} (Ref: ${referenceNo || 'N/A'})` },
+      { accountCode: creditCode, debit: 0, credit: amount, description: `Recognize Inflow: ${creditLabel}` }
+    ]
+  });
+}
+
 module.exports = {
   ensureStandardAccounts,
   postJournalEntry,
@@ -265,7 +304,8 @@ module.exports = {
   postExpenseJournal,
   postExpenseReversalJournal,
   postCustomerPaymentJournal,
-  postPropertyPaymentJournal
+  postPropertyPaymentJournal,
+  postCapitalInfusionJournal
 };
 
 
