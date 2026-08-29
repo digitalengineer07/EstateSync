@@ -82,6 +82,20 @@ const PORT = process.env.PORT || 4000;
 
 const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+
+  // Keep-alive ping mechanism to prevent Render sleep
+  const BACKEND_URL = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
+  const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
+  
+  setInterval(async () => {
+    try {
+      if (BACKEND_URL) await fetch(BACKEND_URL);
+      if (FRONTEND_URL) await fetch(FRONTEND_URL);
+      console.log('Keep-alive ping sent to prevent sleep');
+    } catch (err) {
+      console.error('Keep-alive ping failed:', err.message);
+    }
+  }, 14 * 60 * 1000); // 14 minutes
 });
 
 process.on('uncaughtException', (err) => {
