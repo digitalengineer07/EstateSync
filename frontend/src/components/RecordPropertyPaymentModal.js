@@ -21,7 +21,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
       const fetchTreasury = async () => {
         try {
           const token = localStorage.getItem("accessToken");
-          const res = await fetch("http://localhost:4000/api/v1/dashboard/accounting", {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/dashboard/accounting`, {
             headers: { "Authorization": `Bearer ${token}` }
           });
           const data = await res.json();
@@ -73,7 +73,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
       const token = localStorage.getItem("accessToken");
       const idempotencyKey = `prop-pay-${Date.now()}`;
 
-      const res = await fetch(`http://localhost:4000/api/v1/properties/${property.id}/payments`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/properties/${property.id}/payments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

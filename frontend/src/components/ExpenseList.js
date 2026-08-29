@@ -30,9 +30,9 @@ export default function ExpenseList({ type = "my" }) {
     setError(null);
     try {
       const token = localStorage.getItem("accessToken");
-      let endpoint = "http://localhost:4000/api/v1/expenses/my";
-      if (type === "team") endpoint = "http://localhost:4000/api/v1/expenses/team";
-      if (type === "all") endpoint = "http://localhost:4000/api/v1/expenses/all";
+      let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/expenses/my`;
+      if (type === "team") endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/expenses/team`;
+      if (type === "all") endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/expenses/all`;
 
       const res = await fetch(endpoint, {
         headers: { "Authorization": `Bearer ${token}` }
@@ -64,7 +64,7 @@ export default function ExpenseList({ type = "my" }) {
 
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`http://localhost:4000/api/v1/expenses/${selectedExpense.id}/reverse`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/expenses/${selectedExpense.id}/reverse`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

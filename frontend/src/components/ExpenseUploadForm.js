@@ -21,7 +21,7 @@ export default function ExpenseUploadForm() {
     const fetchCategories = async () => {
       try {
         const token = localStorage.getItem("accessToken");
-        const res = await fetch("http://localhost:4000/api/v1/expenses/categories", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/expenses/categories`, {
           headers: {
             "Authorization": `Bearer ${token}`
           }
@@ -52,7 +52,7 @@ export default function ExpenseUploadForm() {
     setMessage(null);
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch("http://localhost:4000/api/v1/expenses", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/expenses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

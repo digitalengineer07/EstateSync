@@ -18,8 +18,8 @@ export default function GeneralLedgerView() {
       const headers = { "Authorization": `Bearer ${token}` };
 
       const [journalsRes, accountsRes] = await Promise.all([
-        fetch("http://localhost:4000/api/v1/journals", { headers }),
-        fetch("http://localhost:4000/api/v1/accounts", { headers })
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/journals`, { headers }),
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/accounts`, { headers })
       ]);
 
       const jData = await journalsRes.json();

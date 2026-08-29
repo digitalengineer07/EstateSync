@@ -25,7 +25,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
     setLoading(true);
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch("http://localhost:4000/api/v1/customers", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/customers`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
       const data = await res.json();

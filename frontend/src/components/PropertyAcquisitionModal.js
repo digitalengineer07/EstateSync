@@ -46,7 +46,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
       const token = localStorage.getItem("accessToken");
       const idempotencyKey = `prop-create-${Date.now()}`;
 
-      const res = await fetch("http://localhost:4000/api/v1/properties", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/properties`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

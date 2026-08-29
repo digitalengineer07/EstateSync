@@ -12,9 +12,9 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
     setLoading(true);
     try {
       const token = localStorage.getItem("accessToken");
-      let endpoint = "http://localhost:4000/api/v1/fund-requests/my";
-      if (type === "incoming") endpoint = "http://localhost:4000/api/v1/fund-requests/incoming";
-      if (type === "all") endpoint = "http://localhost:4000/api/v1/fund-requests/all";
+      let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/fund-requests/my`;
+      if (type === "incoming") endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/fund-requests/incoming`;
+      if (type === "all") endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/fund-requests/all`;
 
       const res = await fetch(endpoint, {
         headers: { "Authorization": `Bearer ${token}` }
@@ -37,7 +37,7 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
     setActionError(null);
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`http://localhost:4000/api/v1/fund-requests/${id}/${action}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/fund-requests/${id}/${action}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

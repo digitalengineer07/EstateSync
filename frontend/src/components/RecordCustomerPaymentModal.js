@@ -44,7 +44,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
       const token = localStorage.getItem("accessToken");
       const idempotencyKey = `cust-pay-${Date.now()}`;
 
-      const res = await fetch(`http://localhost:4000/api/v1/customers/${customer.id}/payments`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/customers/${customer.id}/payments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -13,7 +13,7 @@ export default function AuditLogViewer() {
     setError(null);
     try {
       const token = localStorage.getItem("accessToken");
-      let url = "http://localhost:4000/api/v1/audit?limit=100";
+      let url = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/audit?limit=100`;
       if (filterAction) url += `&action=${filterAction}`;
 
       const res = await fetch(url, {
