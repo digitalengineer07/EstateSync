@@ -69,8 +69,8 @@ async function runTest() {
   try {
     console.log('1. Logging in as Admin...');
     const loginRes = await postJson('/api/v1/auth/login', {
-      email: 'admin@estatesync.com',
-      password: 'admin123'
+      email: 'admin@estatesync.local',
+      password: 'password123'
     });
     
     if (!loginRes.data.success) {

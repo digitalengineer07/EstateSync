@@ -1,8 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { 
+  Landmark, 
+  CreditCard, 
+  TrendingUp,
+  Receipt,
+  Users, 
+  MapPin,
+  Clock, 
+  CheckCircle2,
+  Coins
+} from "lucide-react";
 
-// type can be 'wallet', 'manager', or 'admin'
 export default function DashboardStats({ type }) {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -32,9 +42,11 @@ export default function DashboardStats({ type }) {
 
   if (loading || !stats) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 animate-pulse">
-        <div className="bg-gray-100 p-6 rounded-lg h-28"></div>
-        <div className="bg-gray-100 p-6 rounded-lg h-28"></div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-pulse">
+        <div className="bg-white rounded-xl h-28 border border-slate-200"></div>
+        <div className="bg-white rounded-xl h-28 border border-slate-200"></div>
+        <div className="bg-white rounded-xl h-28 border border-slate-200"></div>
+        <div className="bg-white rounded-xl h-28 border border-slate-200"></div>
       </div>
     );
   }
@@ -43,39 +55,59 @@ export default function DashboardStats({ type }) {
     return `₹${parseFloat(val || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
   };
 
-  if (type === 'wallet') {
+  if (type === 'accounting') {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        <div className="bg-green-50 p-6 rounded-lg border border-green-100 transition-all hover:shadow-md">
-          <h3 className="text-lg font-semibold text-green-800">Available Balance</h3>
-          <p className="text-3xl font-bold text-green-600 mt-2">{formatCurrency(stats.availableBalance)}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Treasury Liquidity</span>
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <Landmark className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {formatCurrency(stats.totalOrganizationalFunds)}
+          </p>
+          <p className="text-xs text-slate-500 mt-1">Across {stats.totalWallets || 0} active wallets</p>
         </div>
-        <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 transition-all hover:shadow-md">
-          <h3 className="text-lg font-semibold text-blue-800">Total Spent</h3>
-          <p className="text-3xl font-bold text-blue-600 mt-2">{formatCurrency(stats.totalSpent)}</p>
-        </div>
-        <div className="bg-orange-50 p-6 rounded-lg border border-orange-100 transition-all hover:shadow-md">
-          <h3 className="text-lg font-semibold text-orange-800">Pending Requests</h3>
-          <p className="text-3xl font-bold text-orange-600 mt-2">{formatCurrency(stats.pendingRequestsAmount)}</p>
-        </div>
-      </div>
-    );
-  }
 
-  if (type === 'manager') {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        <div className="bg-purple-50 p-6 rounded-lg border border-purple-100 transition-all hover:shadow-md">
-          <h3 className="text-lg font-semibold text-purple-800">My Budget Available</h3>
-          <p className="text-3xl font-bold text-purple-600 mt-2">{formatCurrency(stats.managerAvailableBalance)}</p>
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Customer Collections</span>
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <TrendingUp className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {formatCurrency(stats.totalCustomerCollections || 0)}
+          </p>
+          <p className="text-xs text-slate-500 mt-1">{stats.totalCustomers || 0} Clients • {formatCurrency(stats.totalCustomerReceivables || 0)} due</p>
         </div>
-        <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 transition-all hover:shadow-md">
-          <h3 className="text-lg font-semibold text-blue-800">Pending Approvals</h3>
-          <p className="text-3xl font-bold text-blue-600 mt-2">{stats.pendingApprovalsCount} <span className="text-lg font-normal text-blue-700">({formatCurrency(stats.pendingApprovalsAmount)})</span></p>
+
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Land Assets (1510)</span>
+            <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+              <MapPin className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {formatCurrency(stats.totalLandValuation || 0)}
+          </p>
+          <p className="text-xs text-slate-500 mt-1">{stats.totalProperties || 0} Parcels • {formatCurrency(stats.totalLandPayouts || 0)} paid</p>
         </div>
-        <div className="bg-red-50 p-6 rounded-lg border border-red-100 transition-all hover:shadow-md">
-          <h3 className="text-lg font-semibold text-red-800">Total Team Approvals</h3>
-          <p className="text-3xl font-bold text-red-600 mt-2">{formatCurrency(stats.totalTeamApprovedFunds)}</p>
+
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Operating Expenses</span>
+            <div className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
+              <Receipt className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {formatCurrency(stats.totalRecordedExpenses)}
+          </p>
+          <p className="text-xs text-slate-500 mt-1">{stats.expenseCount || 0} receipts • {stats.budgetUtilization || '0%'} utilization</p>
         </div>
       </div>
     );
@@ -83,49 +115,149 @@ export default function DashboardStats({ type }) {
 
   if (type === 'admin') {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
-        <div className="bg-indigo-50 p-6 rounded-lg border border-indigo-100 transition-all hover:shadow-md">
-          <h3 className="text-lg font-semibold text-indigo-800">Total Org Cash</h3>
-          <p className="text-3xl font-bold text-indigo-600 mt-2">{formatCurrency(stats.totalOrganizationalFunds)}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Treasury Liquidity</span>
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <Landmark className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {formatCurrency(stats.totalOrganizationalFunds)}
+          </p>
+          <p className="text-xs text-slate-500 mt-1">Primary corporate account balance</p>
         </div>
-        <div className="bg-green-50 p-6 rounded-lg border border-green-100 transition-all hover:shadow-md">
-          <h3 className="text-lg font-semibold text-green-800">Total Allocated</h3>
-          <p className="text-3xl font-bold text-green-600 mt-2">{formatCurrency(stats.totalAllocated)}</p>
+
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Allocated Funds</span>
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <CreditCard className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {formatCurrency(stats.totalAllocated)}
+          </p>
+          <p className="text-xs text-slate-500 mt-1">Operational budget assigned</p>
         </div>
-        <div className="bg-red-50 p-6 rounded-lg border border-red-100 transition-all hover:shadow-md">
-          <h3 className="text-lg font-semibold text-red-800">Total Spent</h3>
-          <p className="text-3xl font-bold text-red-600 mt-2">{formatCurrency(stats.totalSpent)}</p>
+
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Customer Revenue</span>
+            <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center">
+              <TrendingUp className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {formatCurrency(stats.totalCustomerCollections || 0)}
+          </p>
+          <p className="text-xs text-slate-500 mt-1">{stats.totalCustomers || 0} Active Client Bookings</p>
         </div>
-        <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 transition-all hover:shadow-md">
-          <h3 className="text-lg font-semibold text-gray-800">Active Users</h3>
-          <p className="text-3xl font-bold text-gray-600 mt-2">{stats.activeUsers}</p>
+
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Active Personnel</span>
+            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center">
+              <Users className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {stats.activeUsers} Users
+          </p>
+          <p className="text-xs text-slate-500 mt-1">Fund-controlled staff members</p>
         </div>
       </div>
     );
   }
 
-  if (type === 'accounting') {
+  if (type === 'manager') {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-        <div className="bg-indigo-50 p-6 rounded-lg border border-indigo-100 transition-all hover:shadow-md">
-          <h3 className="text-sm font-semibold text-indigo-800 uppercase tracking-wide">Available Org Liquidity</h3>
-          <p className="text-3xl font-bold text-indigo-700 mt-2">{formatCurrency(stats.totalOrganizationalFunds)}</p>
-          <span className="text-xs text-indigo-600 mt-1 block">Across {stats.totalWallets || 0} active wallets</span>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">My Budget Available</span>
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <Landmark className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {formatCurrency(stats.managerAvailableBalance)}
+          </p>
+          <p className="text-xs text-slate-500 mt-1">Departmental liquidity ready for team</p>
         </div>
-        <div className="bg-emerald-50 p-6 rounded-lg border border-emerald-100 transition-all hover:shadow-md">
-          <h3 className="text-sm font-semibold text-emerald-800 uppercase tracking-wide">Total Allocated Funds</h3>
-          <p className="text-3xl font-bold text-emerald-700 mt-2">{formatCurrency(stats.totalAllocated)}</p>
-          <span className="text-xs text-emerald-600 mt-1 block">Assigned operational budget</span>
+
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pending Team Approvals</span>
+            <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+              <Clock className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {stats.pendingApprovalsCount} Requests
+          </p>
+          <p className="text-xs text-slate-500 mt-1">{formatCurrency(stats.pendingApprovalsAmount)} total requested</p>
         </div>
-        <div className="bg-rose-50 p-6 rounded-lg border border-rose-100 transition-all hover:shadow-md">
-          <h3 className="text-sm font-semibold text-rose-800 uppercase tracking-wide">Total Realized Expenses</h3>
-          <p className="text-3xl font-bold text-rose-700 mt-2">{formatCurrency(stats.totalRecordedExpenses)}</p>
-          <span className="text-xs text-rose-600 mt-1 block">{stats.expenseCount || 0} recorded receipts</span>
+
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Team Disbursed</span>
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <CheckCircle2 className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {formatCurrency(stats.totalTeamApprovedFunds)}
+          </p>
+          <p className="text-xs text-slate-500 mt-1">Approved to team members</p>
         </div>
-        <div className="bg-amber-50 p-6 rounded-lg border border-amber-100 transition-all hover:shadow-md">
-          <h3 className="text-sm font-semibold text-amber-800 uppercase tracking-wide">Budget Utilization</h3>
-          <p className="text-3xl font-bold text-amber-700 mt-2">{stats.budgetUtilization || '0%'}</p>
-          <span className="text-xs text-amber-600 mt-1 block">Total Spent: {formatCurrency(stats.totalSpent)}</span>
+      </div>
+    );
+  }
+
+  if (type === 'wallet') {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Available Wallet Balance</span>
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <Coins className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {formatCurrency(stats.availableBalance)}
+          </p>
+          <p className="text-xs text-emerald-600 font-medium mt-1 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active field liquidity
+          </p>
+        </div>
+
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Spent / Realized</span>
+            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <Receipt className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {formatCurrency(stats.totalSpent)}
+          </p>
+          <p className="text-xs text-slate-500 mt-1">Cumulative filed expenses</p>
+        </div>
+
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pending Fund Requests</span>
+            <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+              <Clock className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
+            {formatCurrency(stats.pendingRequestsAmount)}
+          </p>
+          <p className="text-xs text-slate-500 mt-1">Awaiting manager approval</p>
         </div>
       </div>
     );

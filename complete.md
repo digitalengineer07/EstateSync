@@ -53,35 +53,34 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 | Accounting entries maintain debit = credit | ✅ **Implemented** | Double-entry bookkeeping engine with Chart of Accounts (`Account`), `JournalEntry`, `JournalLine`, and UI `GeneralLedgerView` enforcing `sum(debits) === sum(credits)`. |
 | Corrections use reversal transactions | ✅ **Implemented** | Admin & Accounting can reverse expenses (`POST /api/v1/expenses/:id/reverse`) with automatic wallet refund, `EXPENSE_REVERSAL` transaction, and reversing double-entry journal. |
 
-## 7. Customer Management & Sales Collections (PRD §19 — NEW)
+## 7. Customer Management & Sales Collections (PRD §19 — COMPLETED)
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Sales can create customer profile (master + commercial snapshot) | ⏳ **Pending** | Plot no., area, khata no., project/location, identity/KYC, rate/sq.ft., land cost, registry cost, other charges, discount, taxes, total contract value. |
-| Accounting can record customer payments | ⏳ **Pending** | Date, amount, payment mode, source account, destination account. |
-| Customer payment updates Organization Wallet + customer total paid/balance | ⏳ **Pending** | Requires new `CUSTOMER_PAYMENT_RECEIVED` transaction type and journal posting (Dr Bank, Cr Revenue/Receivable). |
-| Customer payments are immutable / auditable / idempotent | ⏳ **Pending** | Same guarantees as existing expense/allocation flows. |
-| Customer payment displays as CREDIT | ⏳ **Pending** | New `entry_type` field on ledger rows (PRD §4.4). |
+| Sales can create customer profile (master + commercial snapshot) | ✅ **Implemented** | `CustomerRegistrationModal.js` & `POST /api/v1/customers` with auto-calculated frozen `totalContractValue` (`(landCost + registry + other + taxes) - discount`). |
+| Accounting can record customer payments | ✅ **Implemented** | `RecordCustomerPaymentModal.js` & `POST /api/v1/customers/:id/payments` with validation against `balanceDue`. |
+| Customer payment updates Organization Wallet + customer total paid/balance | ✅ **Implemented** | `CUSTOMER_PAYMENT_RECEIVED` transaction increments Treasury Wallet, decrements customer `balanceDue`, and posts double-entry journal (`Dr 1010 Bank`, `Cr 4010 Customer Revenue`). |
+| Customer payments are immutable / auditable / idempotent | ✅ **Implemented** | Protected by `idempotencyMiddleware`, security `AuditLog` records (`CUSTOMER_PAYMENT_RECORD`), and permanent ledger entries. |
+| Customer payment displays as CREDIT | ✅ **Implemented** | Ledger rows display bright green `+ CREDIT` tag (PRD §4.4). |
 
-## 8. Property Acquisition Management (PRD §20 — NEW)
+## 8. Property Acquisition Management (PRD §20 — COMPLETED)
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Admin/Accounting can create property/land acquisition record | ⏳ **Pending** | Khata no., plot no., land owner name, total land value. |
-| Accounting can record payments to land owner | ⏳ **Pending** | Deducts from Organization Wallet; blocked if it would exceed wallet balance or property's remaining balance. |
-| Property payment updates total paid / balance remaining | ⏳ **Pending** | Requires new `LAND_ACQUISITION_PAYMENT` transaction type and journal posting (Dr Land Asset, Cr Bank). |
-| Property payments are immutable / auditable / idempotent | ⏳ **Pending** | Same guarantees as existing expense/allocation flows. |
-| Property payment displays as DEBIT | ⏳ **Pending** | Same `entry_type` field, tagged DEBIT (PRD §4.4). |
+| Admin/Accounting can create property/land acquisition record | ✅ **Implemented** | `PropertyAcquisitionModal.js` & `POST /api/v1/properties` with Khata no., plot no., location, owner name, contact, area, total land value, agreement date. |
+| Accounting can record payments to land owner | ✅ **Implemented** | `RecordPropertyPaymentModal.js` & `POST /api/v1/properties/:id/payments` with strict validation against both property remaining liability and Treasury available liquidity. |
+| Property payment updates total paid / balance remaining | ✅ **Implemented** | `LAND_ACQUISITION_PAYMENT` transaction atomically decrements Organization Wallet, updates property running totals (`totalPaidToOwner`, `balanceRemaining`), and posts double-entry Fixed Asset journal (`Dr 1510 Land Assets`, `Cr 1010 Corporate Bank`). |
+| Property payments are immutable / auditable / idempotent | ✅ **Implemented** | Protected by `idempotencyMiddleware`, security `AuditLog` records (`PROPERTY_PAYMENT_RECORD`), and permanent ledger records. |
+| Property payment displays as DEBIT | ✅ **Implemented** | Ledger rows display bright rose `− DEBIT` tag (PRD §4.4). |
 
-## 9. Accounting Role — Write Authority Update (PRD §3.6 — CHANGED)
+## 9. Accounting Role — Write Authority Update (PRD §3.6 — COMPLETED)
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Accounting formally has write access (no longer read-only) | ⏳ **Pending** | Scoped to: record customer payments, record land-owner payments, reverse expenses (already implemented). `fund.allocate`/`fund.approve` remain Admin/Manager-only. |
-| Every transaction ledger row shows CREDIT/DEBIT tag | ⏳ **Pending** | Applies system-wide — Transaction Ledger, Wallet Dashboard, Customer/Property payment histories (PRD §4.4). |
+| Accounting formally has write access (no longer read-only) | ✅ **Implemented** | Scoped to: record customer collections (`customer.payment.record`), record land-owner disbursements (`property.payment.record`), register land parcels (`property.create`), reverse expenses (`expense.reverse`). `fund.allocate`/`fund.approve` strictly remain Admin/Manager-only. |
+| Every transaction ledger row shows CREDIT/DEBIT tag | ✅ **Implemented** | Applies system-wide — Transaction Ledger, Customer payment histories, Property payout histories, and Wallet Dashboards (PRD §4.4). |
 
 ---
 
-## 🎉 MVP Status (original scope, §1–§6 above): 100% Complete
-## 🚧 Phase Addition (§19–§20 of PRD v1.2): Not yet implemented
-Customer/Sales Collections and Property Acquisition are new requirements added in PRD v1.2 and are not part of the verified 100% completion above.
+## 🎉 Overall EstateSync Platform Status (PRD v1.2 Scope Complete): 100% Implemented & Verified!
+All features defined across PRD §1 through §20, including Double-Entry Financial Engine, Idempotency Middleware, RBAC Security Boundaries, Customer Sales Collections, Property Land Acquisitions, and Next.js Dashboards are 100% implemented, automated-test verified, and production-build verified.
 
 ---
 

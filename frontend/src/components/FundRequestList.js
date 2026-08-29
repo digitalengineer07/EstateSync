@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 // type can be 'outgoing', 'incoming', or 'all'
-export default function FundRequestList({ type = "outgoing" }) {
+export default function FundRequestList({ type = "outgoing", embedded = false, showHeader = true }) {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [actionError, setActionError] = useState(null);
@@ -58,16 +58,18 @@ export default function FundRequestList({ type = "outgoing" }) {
     }
   };
 
-  if (loading) return <div className="p-4 text-gray-500">Loading requests...</div>;
+  if (loading) return <div className="p-4 text-gray-500 text-sm">Loading requests...</div>;
 
   return (
-    <div className="bg-white shadow rounded-lg p-6 mt-8">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-bold text-gray-800">
-          {type === 'outgoing' ? 'My Fund Requests' : type === 'incoming' ? 'Team Fund Requests' : 'All Fund Requests'}
-        </h3>
-        <button onClick={fetchRequests} className="text-sm text-blue-600 hover:underline">Refresh</button>
-      </div>
+    <div className={embedded ? "" : "bg-white shadow rounded-lg p-6 mt-8"}>
+      {showHeader && (
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-xl font-bold text-gray-800">
+            {type === 'outgoing' ? 'My Fund Requests' : type === 'incoming' ? 'Team Fund Requests' : 'All Fund Requests'}
+          </h3>
+          <button onClick={fetchRequests} className="text-sm text-blue-600 hover:underline">Refresh</button>
+        </div>
+      )}
 
       {actionError && (
         <div className="p-4 mb-4 bg-red-50 text-red-800 border border-red-200 rounded-md">
