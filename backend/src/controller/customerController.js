@@ -1,6 +1,7 @@
 const prisma = require('../config/db');
 const { logAudit } = require('../utils/auditLogger');
-const { postCustomerPaymentJournal } = require('../utils/accountingHelper');
+const { postCustomerPaymentJournal, postCustomerRefundJournal } = require('../utils/accountingHelper');
+const { getPrimaryTreasuryWallet } = require('../utils/treasuryHelper');
 
 // 1. Create a new Customer profile with commercial terms
 exports.createCustomer = async (req, res) => {
@@ -288,6 +289,29 @@ exports.updateCustomer = async (req, res) => {
       });
     }
 
+    const newStatus = status ? status.trim().toUpperCase() : existing.status;
+    let cancellationStatus = existing.cancellationStatus;
+    let cancelledAt = existing.cancelledAt;
+    let cancelledById = existing.cancelledById;
+    let cancellationReason = req.body.cancellationReason || existing.cancellationReason;
+
+    // Handle cancellation trigger
+    if (newStatus === 'CANCELLED' && existing.status !== 'CANCELLED') {
+      cancelledAt = new Date();
+      cancelledById = req.user.userId;
+      const totalPaid = parseFloat(existing.totalPaid || 0);
+      if (totalPaid > 0) {
+        cancellationStatus = 'PENDING_SETTLEMENT'; // Requires Accounting refund & costing verification
+      } else {
+        cancellationStatus = 'NO_FUNDS_TO_SETTLE'; // No money was paid
+      }
+    } else if (newStatus === 'ACTIVE' && existing.status === 'CANCELLED') {
+      cancellationStatus = null;
+      cancelledAt = null;
+      cancelledById = null;
+      cancellationReason = null;
+    }
+
     const updatedData = {
       customerName: customerName ? customerName.trim() : existing.customerName,
       customerContact: customerContact ? customerContact.trim() : existing.customerContact,
@@ -299,7 +323,11 @@ exports.updateCustomer = async (req, res) => {
       khataNo: trimmedKhataNo,
       areaSqft: areaSqft !== undefined && !isNaN(parseFloat(areaSqft)) && parseFloat(areaSqft) > 0 ? parseFloat(areaSqft) : existing.areaSqft,
       kycDocuments: kycDocuments !== undefined ? kycDocuments : existing.kycDocuments,
-      status: status ? status.trim() : existing.status
+      status: newStatus,
+      cancellationStatus,
+      cancelledAt,
+      cancelledById,
+      cancellationReason
     };
 
     const updated = await prisma.customer.update({
@@ -327,22 +355,219 @@ exports.updateCustomer = async (req, res) => {
         customerContact: existing.customerContact,
         plotNo: existing.plotNo,
         projectLocation: existing.projectLocation,
-        status: existing.status
+        status: existing.status,
+        cancellationStatus: existing.cancellationStatus
       },
       newValues: {
         customerName: updated.customerName,
         customerContact: updated.customerContact,
         plotNo: updated.plotNo,
         projectLocation: updated.projectLocation,
-        status: updated.status
+        status: updated.status,
+        cancellationStatus: updated.cancellationStatus
       },
       req
     });
 
-    res.json({ success: true, message: 'Customer profile updated successfully', customer: updated });
+    res.json({
+      success: true,
+      message: newStatus === 'CANCELLED' && parseFloat(existing.totalPaid || 0) > 0
+        ? 'Customer booking cancelled. Account sent to Accounting for costing deduction and refund settlement.'
+        : 'Customer profile updated successfully',
+      customer: updated
+    });
   } catch (error) {
     console.error('Error updating customer:', error);
     res.status(500).json({ success: false, message: 'Server error updating customer profile', error: error.message });
+  }
+};
+
+// 4b. Settle Customer Cancellation & Refund Payout (Accounting & Admin only)
+exports.settleCustomerCancellationRefund = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { deductionAmount, refundMode, payoutAccount, referenceNo, notes } = req.body;
+    const accountingUserId = req.user.userId;
+
+    const customer = await prisma.customer.findUnique({
+      where: { id },
+      include: {
+        salesOwner: { select: { id: true, name: true, email: true } },
+        payments: true
+      }
+    });
+
+    if (!customer) {
+      return res.status(404).json({ success: false, message: 'Customer not found' });
+    }
+
+    if (customer.status !== 'CANCELLED') {
+      return res.status(400).json({
+        success: false,
+        message: 'Refund settlement is only applicable for CANCELLED customer accounts.'
+      });
+    }
+
+    if (customer.cancellationStatus === 'SETTLED') {
+      return res.status(400).json({
+        success: false,
+        message: 'This customer cancellation has already been settled and refunded.'
+      });
+    }
+
+    const totalPaid = parseFloat(customer.totalPaid || 0);
+    if (totalPaid <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'No deposited funds exist on this customer account to refund.'
+      });
+    }
+
+    const numDeduction = parseFloat(deductionAmount || 0);
+    if (isNaN(numDeduction) || numDeduction < 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Company deduction / costing amount cannot be negative.'
+      });
+    }
+
+    if (numDeduction > totalPaid) {
+      return res.status(400).json({
+        success: false,
+        message: `Deduction amount (₹${numDeduction.toLocaleString('en-IN')}) cannot exceed total customer deposits (₹${totalPaid.toLocaleString('en-IN')}).`
+      });
+    }
+
+    const refundAmount = totalPaid - numDeduction;
+
+    if (refundAmount > 0 && !refundMode) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please select a refund payment mode (CASH, CHEQUE, NEFT, RTGS, UPI).'
+      });
+    }
+
+    // Check Corporate Treasury Liquidity
+    const treasuryWallet = await getPrimaryTreasuryWallet();
+    const availableTreasury = parseFloat(treasuryWallet.availableBalance || 0);
+
+    if (refundAmount > 0 && refundAmount > availableTreasury) {
+      return res.status(400).json({
+        success: false,
+        message: `Insufficient Treasury liquidity: Available cash is ₹${availableTreasury.toLocaleString('en-IN')}, but refund payout is ₹${refundAmount.toLocaleString('en-IN')}.`
+      });
+    }
+
+    const result = await prisma.$transaction(async (tx) => {
+      // 1. If refundAmount > 0: Deduct from Treasury Wallet
+      let updatedWallet = treasuryWallet;
+      if (refundAmount > 0) {
+        updatedWallet = await tx.wallet.update({
+          where: { id: treasuryWallet.id },
+          data: {
+            availableBalance: { decrement: refundAmount },
+            totalAllocated: { decrement: refundAmount }
+          }
+        });
+
+        // 2. Create WalletTransaction with DEBIT (CUSTOMER_REFUND)
+        await tx.walletTransaction.create({
+          data: {
+            type: 'CUSTOMER_REFUND',
+            sourceWalletId: treasuryWallet.id,
+            destWalletId: null,
+            amount: refundAmount,
+            referenceType: 'CUSTOMER_REFUND',
+            referenceId: customer.id,
+            description: `Customer Cancellation Refund: ₹${refundAmount.toLocaleString('en-IN')} disbursed to ${customer.customerName} for Plot ${customer.plotNo} (Company Costing Retained: ₹${numDeduction.toLocaleString('en-IN')}) via ${(refundMode || 'DIRECT').toUpperCase()}`,
+            createdBy: accountingUserId,
+            status: 'COMPLETED'
+          }
+        });
+
+        // 3. Post Double-Entry Journal
+        await postCustomerRefundJournal(tx, {
+          amount: refundAmount,
+          customerName: customer.customerName,
+          plotNo: customer.plotNo,
+          referenceId: customer.id,
+          createdBy: accountingUserId
+        });
+      }
+
+      // 4. Create a refund outflow record in CustomerPayment table
+      let refundPaymentRecord = null;
+      if (refundAmount > 0) {
+        refundPaymentRecord = await tx.customerPayment.create({
+          data: {
+            customerId: customer.id,
+            amount: refundAmount,
+            paymentMode: (refundMode || 'DIRECT').toUpperCase(),
+            sourceAccount: payoutAccount || 'Corporate Treasury Account (1010)',
+            destinationAccount: 'Customer Bank / Beneficiary Account',
+            referenceNo: referenceNo || null,
+            recordedById: accountingUserId,
+            dateOfPayment: new Date(),
+            status: 'REFUND_DISBURSED'
+          }
+        });
+      }
+
+      // 5. Update Customer with settlement fields
+      const updatedCustomer = await tx.customer.update({
+        where: { id: customer.id },
+        data: {
+          status: 'CANCELLED',
+          cancellationStatus: 'SETTLED',
+          deductionAmount: numDeduction,
+          refundAmount: refundAmount,
+          refundDate: new Date(),
+          refundMode: refundMode ? refundMode.toUpperCase() : 'N/A',
+          refundReferenceNo: referenceNo || null,
+          refundNotes: notes || null,
+          refundSettledById: accountingUserId,
+          balanceDue: 0
+        }
+      });
+
+      // 6. Record Audit Log
+      await logAudit({
+        actorId: accountingUserId,
+        actorEmail: req.user.email,
+        action: 'CUSTOMER_CANCELLATION_REFUND_SETTLED',
+        entityType: 'CUSTOMER',
+        entityId: customer.id,
+        newValues: {
+          customerId: customer.id,
+          customerName: customer.customerName,
+          totalPaid,
+          deductionAmount: numDeduction,
+          refundAmount,
+          refundMode,
+          referenceNo,
+          treasuryWalletBalance: parseFloat(updatedWallet.availableBalance)
+        },
+        req,
+        tx
+      });
+
+      return {
+        customer: updatedCustomer,
+        refundPaymentRecord,
+        refundAmount,
+        deductionAmount: numDeduction,
+        treasuryWallet: updatedWallet
+      };
+    }, { timeout: 20000 });
+
+    res.status(200).json({
+      success: true,
+      message: `Cancellation settlement completed! ₹${refundAmount.toLocaleString('en-IN')} refunded to ${customer.customerName}, ₹${numDeduction.toLocaleString('en-IN')} retained as company costing.`,
+      data: result
+    });
+  } catch (error) {
+    console.error('Error settling customer cancellation refund:', error);
+    res.status(500).json({ success: false, message: 'Server error settling customer cancellation refund', error: error.message });
   }
 };
 

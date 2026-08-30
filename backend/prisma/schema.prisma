@@ -1,6 +1,7 @@
 generator client {
   provider   = "prisma-client-js"
   engineType = "binary"
+  output     = "../src/prisma-client"
 }
 
 datasource db {
@@ -235,6 +236,17 @@ model Customer {
   totalContractValue Decimal           @db.Decimal(15, 2)
   totalPaid          Decimal           @db.Decimal(15, 2) @default(0)
   balanceDue         Decimal           @db.Decimal(15, 2)
+  cancellationStatus String?           // PENDING_SETTLEMENT, SETTLED, NO_FUNDS_TO_SETTLE
+  cancellationReason String?
+  cancelledAt        DateTime?
+  cancelledById      String?
+  deductionAmount    Decimal           @db.Decimal(15, 2) @default(0)
+  refundAmount       Decimal           @db.Decimal(15, 2) @default(0)
+  refundDate         DateTime?
+  refundMode         String?           // CASH, CHEQUE, NEFT, RTGS, UPI
+  refundReferenceNo  String?
+  refundNotes        String?
+  refundSettledById  String?
   payments           CustomerPayment[]
   createdAt          DateTime          @default(now())
   updatedAt          DateTime          @updatedAt

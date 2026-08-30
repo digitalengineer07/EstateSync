@@ -16944,6 +16944,8 @@ export namespace Prisma {
     totalContractValue: Decimal | null
     totalPaid: Decimal | null
     balanceDue: Decimal | null
+    deductionAmount: Decimal | null
+    refundAmount: Decimal | null
   }
 
   export type CustomerSumAggregateOutputType = {
@@ -16957,6 +16959,8 @@ export namespace Prisma {
     totalContractValue: Decimal | null
     totalPaid: Decimal | null
     balanceDue: Decimal | null
+    deductionAmount: Decimal | null
+    refundAmount: Decimal | null
   }
 
   export type CustomerMinAggregateOutputType = {
@@ -16981,6 +16985,17 @@ export namespace Prisma {
     totalContractValue: Decimal | null
     totalPaid: Decimal | null
     balanceDue: Decimal | null
+    cancellationStatus: string | null
+    cancellationReason: string | null
+    cancelledAt: Date | null
+    cancelledById: string | null
+    deductionAmount: Decimal | null
+    refundAmount: Decimal | null
+    refundDate: Date | null
+    refundMode: string | null
+    refundReferenceNo: string | null
+    refundNotes: string | null
+    refundSettledById: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -17007,6 +17022,17 @@ export namespace Prisma {
     totalContractValue: Decimal | null
     totalPaid: Decimal | null
     balanceDue: Decimal | null
+    cancellationStatus: string | null
+    cancellationReason: string | null
+    cancelledAt: Date | null
+    cancelledById: string | null
+    deductionAmount: Decimal | null
+    refundAmount: Decimal | null
+    refundDate: Date | null
+    refundMode: string | null
+    refundReferenceNo: string | null
+    refundNotes: string | null
+    refundSettledById: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -17034,6 +17060,17 @@ export namespace Prisma {
     totalContractValue: number
     totalPaid: number
     balanceDue: number
+    cancellationStatus: number
+    cancellationReason: number
+    cancelledAt: number
+    cancelledById: number
+    deductionAmount: number
+    refundAmount: number
+    refundDate: number
+    refundMode: number
+    refundReferenceNo: number
+    refundNotes: number
+    refundSettledById: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -17051,6 +17088,8 @@ export namespace Prisma {
     totalContractValue?: true
     totalPaid?: true
     balanceDue?: true
+    deductionAmount?: true
+    refundAmount?: true
   }
 
   export type CustomerSumAggregateInputType = {
@@ -17064,6 +17103,8 @@ export namespace Prisma {
     totalContractValue?: true
     totalPaid?: true
     balanceDue?: true
+    deductionAmount?: true
+    refundAmount?: true
   }
 
   export type CustomerMinAggregateInputType = {
@@ -17088,6 +17129,17 @@ export namespace Prisma {
     totalContractValue?: true
     totalPaid?: true
     balanceDue?: true
+    cancellationStatus?: true
+    cancellationReason?: true
+    cancelledAt?: true
+    cancelledById?: true
+    deductionAmount?: true
+    refundAmount?: true
+    refundDate?: true
+    refundMode?: true
+    refundReferenceNo?: true
+    refundNotes?: true
+    refundSettledById?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -17114,6 +17166,17 @@ export namespace Prisma {
     totalContractValue?: true
     totalPaid?: true
     balanceDue?: true
+    cancellationStatus?: true
+    cancellationReason?: true
+    cancelledAt?: true
+    cancelledById?: true
+    deductionAmount?: true
+    refundAmount?: true
+    refundDate?: true
+    refundMode?: true
+    refundReferenceNo?: true
+    refundNotes?: true
+    refundSettledById?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -17141,6 +17204,17 @@ export namespace Prisma {
     totalContractValue?: true
     totalPaid?: true
     balanceDue?: true
+    cancellationStatus?: true
+    cancellationReason?: true
+    cancelledAt?: true
+    cancelledById?: true
+    deductionAmount?: true
+    refundAmount?: true
+    refundDate?: true
+    refundMode?: true
+    refundReferenceNo?: true
+    refundNotes?: true
+    refundSettledById?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -17255,6 +17329,17 @@ export namespace Prisma {
     totalContractValue: Decimal
     totalPaid: Decimal
     balanceDue: Decimal
+    cancellationStatus: string | null
+    cancellationReason: string | null
+    cancelledAt: Date | null
+    cancelledById: string | null
+    deductionAmount: Decimal
+    refundAmount: Decimal
+    refundDate: Date | null
+    refundMode: string | null
+    refundReferenceNo: string | null
+    refundNotes: string | null
+    refundSettledById: string | null
     createdAt: Date
     updatedAt: Date
     _count: CustomerCountAggregateOutputType | null
@@ -17301,6 +17386,17 @@ export namespace Prisma {
     totalContractValue?: boolean
     totalPaid?: boolean
     balanceDue?: boolean
+    cancellationStatus?: boolean
+    cancellationReason?: boolean
+    cancelledAt?: boolean
+    cancelledById?: boolean
+    deductionAmount?: boolean
+    refundAmount?: boolean
+    refundDate?: boolean
+    refundMode?: boolean
+    refundReferenceNo?: boolean
+    refundNotes?: boolean
+    refundSettledById?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     salesOwner?: boolean | UserDefaultArgs<ExtArgs>
@@ -17331,6 +17427,17 @@ export namespace Prisma {
     totalContractValue?: boolean
     totalPaid?: boolean
     balanceDue?: boolean
+    cancellationStatus?: boolean
+    cancellationReason?: boolean
+    cancelledAt?: boolean
+    cancelledById?: boolean
+    deductionAmount?: boolean
+    refundAmount?: boolean
+    refundDate?: boolean
+    refundMode?: boolean
+    refundReferenceNo?: boolean
+    refundNotes?: boolean
+    refundSettledById?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     salesOwner?: boolean | UserDefaultArgs<ExtArgs>
@@ -17359,6 +17466,17 @@ export namespace Prisma {
     totalContractValue?: boolean
     totalPaid?: boolean
     balanceDue?: boolean
+    cancellationStatus?: boolean
+    cancellationReason?: boolean
+    cancelledAt?: boolean
+    cancelledById?: boolean
+    deductionAmount?: boolean
+    refundAmount?: boolean
+    refundDate?: boolean
+    refundMode?: boolean
+    refundReferenceNo?: boolean
+    refundNotes?: boolean
+    refundSettledById?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -17401,6 +17519,17 @@ export namespace Prisma {
       totalContractValue: Prisma.Decimal
       totalPaid: Prisma.Decimal
       balanceDue: Prisma.Decimal
+      cancellationStatus: string | null
+      cancellationReason: string | null
+      cancelledAt: Date | null
+      cancelledById: string | null
+      deductionAmount: Prisma.Decimal
+      refundAmount: Prisma.Decimal
+      refundDate: Date | null
+      refundMode: string | null
+      refundReferenceNo: string | null
+      refundNotes: string | null
+      refundSettledById: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["customer"]>
@@ -17820,6 +17949,17 @@ export namespace Prisma {
     readonly totalContractValue: FieldRef<"Customer", 'Decimal'>
     readonly totalPaid: FieldRef<"Customer", 'Decimal'>
     readonly balanceDue: FieldRef<"Customer", 'Decimal'>
+    readonly cancellationStatus: FieldRef<"Customer", 'String'>
+    readonly cancellationReason: FieldRef<"Customer", 'String'>
+    readonly cancelledAt: FieldRef<"Customer", 'DateTime'>
+    readonly cancelledById: FieldRef<"Customer", 'String'>
+    readonly deductionAmount: FieldRef<"Customer", 'Decimal'>
+    readonly refundAmount: FieldRef<"Customer", 'Decimal'>
+    readonly refundDate: FieldRef<"Customer", 'DateTime'>
+    readonly refundMode: FieldRef<"Customer", 'String'>
+    readonly refundReferenceNo: FieldRef<"Customer", 'String'>
+    readonly refundNotes: FieldRef<"Customer", 'String'>
+    readonly refundSettledById: FieldRef<"Customer", 'String'>
     readonly createdAt: FieldRef<"Customer", 'DateTime'>
     readonly updatedAt: FieldRef<"Customer", 'DateTime'>
   }
@@ -21641,6 +21781,17 @@ export namespace Prisma {
     totalContractValue: 'totalContractValue',
     totalPaid: 'totalPaid',
     balanceDue: 'balanceDue',
+    cancellationStatus: 'cancellationStatus',
+    cancellationReason: 'cancellationReason',
+    cancelledAt: 'cancelledAt',
+    cancelledById: 'cancelledById',
+    deductionAmount: 'deductionAmount',
+    refundAmount: 'refundAmount',
+    refundDate: 'refundDate',
+    refundMode: 'refundMode',
+    refundReferenceNo: 'refundReferenceNo',
+    refundNotes: 'refundNotes',
+    refundSettledById: 'refundSettledById',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -22912,6 +23063,17 @@ export namespace Prisma {
     totalContractValue?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: StringNullableFilter<"Customer"> | string | null
+    cancellationReason?: StringNullableFilter<"Customer"> | string | null
+    cancelledAt?: DateTimeNullableFilter<"Customer"> | Date | string | null
+    cancelledById?: StringNullableFilter<"Customer"> | string | null
+    deductionAmount?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
+    refundDate?: DateTimeNullableFilter<"Customer"> | Date | string | null
+    refundMode?: StringNullableFilter<"Customer"> | string | null
+    refundReferenceNo?: StringNullableFilter<"Customer"> | string | null
+    refundNotes?: StringNullableFilter<"Customer"> | string | null
+    refundSettledById?: StringNullableFilter<"Customer"> | string | null
     createdAt?: DateTimeFilter<"Customer"> | Date | string
     updatedAt?: DateTimeFilter<"Customer"> | Date | string
     salesOwner?: XOR<UserRelationFilter, UserWhereInput>
@@ -22941,6 +23103,17 @@ export namespace Prisma {
     totalContractValue?: SortOrder
     totalPaid?: SortOrder
     balanceDue?: SortOrder
+    cancellationStatus?: SortOrderInput | SortOrder
+    cancellationReason?: SortOrderInput | SortOrder
+    cancelledAt?: SortOrderInput | SortOrder
+    cancelledById?: SortOrderInput | SortOrder
+    deductionAmount?: SortOrder
+    refundAmount?: SortOrder
+    refundDate?: SortOrderInput | SortOrder
+    refundMode?: SortOrderInput | SortOrder
+    refundReferenceNo?: SortOrderInput | SortOrder
+    refundNotes?: SortOrderInput | SortOrder
+    refundSettledById?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     salesOwner?: UserOrderByWithRelationInput
@@ -22973,6 +23146,17 @@ export namespace Prisma {
     totalContractValue?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: StringNullableFilter<"Customer"> | string | null
+    cancellationReason?: StringNullableFilter<"Customer"> | string | null
+    cancelledAt?: DateTimeNullableFilter<"Customer"> | Date | string | null
+    cancelledById?: StringNullableFilter<"Customer"> | string | null
+    deductionAmount?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
+    refundDate?: DateTimeNullableFilter<"Customer"> | Date | string | null
+    refundMode?: StringNullableFilter<"Customer"> | string | null
+    refundReferenceNo?: StringNullableFilter<"Customer"> | string | null
+    refundNotes?: StringNullableFilter<"Customer"> | string | null
+    refundSettledById?: StringNullableFilter<"Customer"> | string | null
     createdAt?: DateTimeFilter<"Customer"> | Date | string
     updatedAt?: DateTimeFilter<"Customer"> | Date | string
     salesOwner?: XOR<UserRelationFilter, UserWhereInput>
@@ -23002,6 +23186,17 @@ export namespace Prisma {
     totalContractValue?: SortOrder
     totalPaid?: SortOrder
     balanceDue?: SortOrder
+    cancellationStatus?: SortOrderInput | SortOrder
+    cancellationReason?: SortOrderInput | SortOrder
+    cancelledAt?: SortOrderInput | SortOrder
+    cancelledById?: SortOrderInput | SortOrder
+    deductionAmount?: SortOrder
+    refundAmount?: SortOrder
+    refundDate?: SortOrderInput | SortOrder
+    refundMode?: SortOrderInput | SortOrder
+    refundReferenceNo?: SortOrderInput | SortOrder
+    refundNotes?: SortOrderInput | SortOrder
+    refundSettledById?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CustomerCountOrderByAggregateInput
@@ -23037,6 +23232,17 @@ export namespace Prisma {
     totalContractValue?: DecimalWithAggregatesFilter<"Customer"> | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalWithAggregatesFilter<"Customer"> | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalWithAggregatesFilter<"Customer"> | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: StringNullableWithAggregatesFilter<"Customer"> | string | null
+    cancellationReason?: StringNullableWithAggregatesFilter<"Customer"> | string | null
+    cancelledAt?: DateTimeNullableWithAggregatesFilter<"Customer"> | Date | string | null
+    cancelledById?: StringNullableWithAggregatesFilter<"Customer"> | string | null
+    deductionAmount?: DecimalWithAggregatesFilter<"Customer"> | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalWithAggregatesFilter<"Customer"> | Decimal | DecimalJsLike | number | string
+    refundDate?: DateTimeNullableWithAggregatesFilter<"Customer"> | Date | string | null
+    refundMode?: StringNullableWithAggregatesFilter<"Customer"> | string | null
+    refundReferenceNo?: StringNullableWithAggregatesFilter<"Customer"> | string | null
+    refundNotes?: StringNullableWithAggregatesFilter<"Customer"> | string | null
+    refundSettledById?: StringNullableWithAggregatesFilter<"Customer"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
   }
@@ -24496,6 +24702,17 @@ export namespace Prisma {
     totalContractValue: Decimal | DecimalJsLike | number | string
     totalPaid?: Decimal | DecimalJsLike | number | string
     balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     salesOwner: UserCreateNestedOneWithoutCustomersInput
@@ -24525,6 +24742,17 @@ export namespace Prisma {
     totalContractValue: Decimal | DecimalJsLike | number | string
     totalPaid?: Decimal | DecimalJsLike | number | string
     balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payments?: CustomerPaymentUncheckedCreateNestedManyWithoutCustomerInput
@@ -24552,6 +24780,17 @@ export namespace Prisma {
     totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     salesOwner?: UserUpdateOneRequiredWithoutCustomersNestedInput
@@ -24581,6 +24820,17 @@ export namespace Prisma {
     totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payments?: CustomerPaymentUncheckedUpdateManyWithoutCustomerNestedInput
@@ -24609,6 +24859,17 @@ export namespace Prisma {
     totalContractValue: Decimal | DecimalJsLike | number | string
     totalPaid?: Decimal | DecimalJsLike | number | string
     balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -24635,6 +24896,17 @@ export namespace Prisma {
     totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24662,6 +24934,17 @@ export namespace Prisma {
     totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25965,6 +26248,17 @@ export namespace Prisma {
     totalContractValue?: SortOrder
     totalPaid?: SortOrder
     balanceDue?: SortOrder
+    cancellationStatus?: SortOrder
+    cancellationReason?: SortOrder
+    cancelledAt?: SortOrder
+    cancelledById?: SortOrder
+    deductionAmount?: SortOrder
+    refundAmount?: SortOrder
+    refundDate?: SortOrder
+    refundMode?: SortOrder
+    refundReferenceNo?: SortOrder
+    refundNotes?: SortOrder
+    refundSettledById?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25980,6 +26274,8 @@ export namespace Prisma {
     totalContractValue?: SortOrder
     totalPaid?: SortOrder
     balanceDue?: SortOrder
+    deductionAmount?: SortOrder
+    refundAmount?: SortOrder
   }
 
   export type CustomerMaxOrderByAggregateInput = {
@@ -26004,6 +26300,17 @@ export namespace Prisma {
     totalContractValue?: SortOrder
     totalPaid?: SortOrder
     balanceDue?: SortOrder
+    cancellationStatus?: SortOrder
+    cancellationReason?: SortOrder
+    cancelledAt?: SortOrder
+    cancelledById?: SortOrder
+    deductionAmount?: SortOrder
+    refundAmount?: SortOrder
+    refundDate?: SortOrder
+    refundMode?: SortOrder
+    refundReferenceNo?: SortOrder
+    refundNotes?: SortOrder
+    refundSettledById?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -26030,6 +26337,17 @@ export namespace Prisma {
     totalContractValue?: SortOrder
     totalPaid?: SortOrder
     balanceDue?: SortOrder
+    cancellationStatus?: SortOrder
+    cancellationReason?: SortOrder
+    cancelledAt?: SortOrder
+    cancelledById?: SortOrder
+    deductionAmount?: SortOrder
+    refundAmount?: SortOrder
+    refundDate?: SortOrder
+    refundMode?: SortOrder
+    refundReferenceNo?: SortOrder
+    refundNotes?: SortOrder
+    refundSettledById?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -26045,6 +26363,8 @@ export namespace Prisma {
     totalContractValue?: SortOrder
     totalPaid?: SortOrder
     balanceDue?: SortOrder
+    deductionAmount?: SortOrder
+    refundAmount?: SortOrder
   }
 
   export type CustomerRelationFilter = {
@@ -27975,6 +28295,17 @@ export namespace Prisma {
     totalContractValue: Decimal | DecimalJsLike | number | string
     totalPaid?: Decimal | DecimalJsLike | number | string
     balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payments?: CustomerPaymentCreateNestedManyWithoutCustomerInput
@@ -28002,6 +28333,17 @@ export namespace Prisma {
     totalContractValue: Decimal | DecimalJsLike | number | string
     totalPaid?: Decimal | DecimalJsLike | number | string
     balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payments?: CustomerPaymentUncheckedCreateNestedManyWithoutCustomerInput
@@ -28368,6 +28710,17 @@ export namespace Prisma {
     totalContractValue?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: StringNullableFilter<"Customer"> | string | null
+    cancellationReason?: StringNullableFilter<"Customer"> | string | null
+    cancelledAt?: DateTimeNullableFilter<"Customer"> | Date | string | null
+    cancelledById?: StringNullableFilter<"Customer"> | string | null
+    deductionAmount?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
+    refundDate?: DateTimeNullableFilter<"Customer"> | Date | string | null
+    refundMode?: StringNullableFilter<"Customer"> | string | null
+    refundReferenceNo?: StringNullableFilter<"Customer"> | string | null
+    refundNotes?: StringNullableFilter<"Customer"> | string | null
+    refundSettledById?: StringNullableFilter<"Customer"> | string | null
     createdAt?: DateTimeFilter<"Customer"> | Date | string
     updatedAt?: DateTimeFilter<"Customer"> | Date | string
   }
@@ -30169,6 +30522,17 @@ export namespace Prisma {
     totalContractValue: Decimal | DecimalJsLike | number | string
     totalPaid?: Decimal | DecimalJsLike | number | string
     balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     salesOwner: UserCreateNestedOneWithoutCustomersInput
@@ -30197,6 +30561,17 @@ export namespace Prisma {
     totalContractValue: Decimal | DecimalJsLike | number | string
     totalPaid?: Decimal | DecimalJsLike | number | string
     balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -30280,6 +30655,17 @@ export namespace Prisma {
     totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     salesOwner?: UserUpdateOneRequiredWithoutCustomersNestedInput
@@ -30308,6 +30694,17 @@ export namespace Prisma {
     totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -30769,6 +31166,17 @@ export namespace Prisma {
     totalContractValue: Decimal | DecimalJsLike | number | string
     totalPaid?: Decimal | DecimalJsLike | number | string
     balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31036,6 +31444,17 @@ export namespace Prisma {
     totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payments?: CustomerPaymentUpdateManyWithoutCustomerNestedInput
@@ -31063,6 +31482,17 @@ export namespace Prisma {
     totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payments?: CustomerPaymentUncheckedUpdateManyWithoutCustomerNestedInput
@@ -31090,6 +31520,17 @@ export namespace Prisma {
     totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

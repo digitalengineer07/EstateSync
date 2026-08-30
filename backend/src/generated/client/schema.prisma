@@ -10,21 +10,23 @@ datasource db {
 }
 
 model User {
-  id               String            @id @default(uuid())
-  email            String            @unique
-  passwordHash     String
-  name             String
-  roleId           String
-  role             Role              @relation(fields: [roleId], references: [id])
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-  wallet           Wallet?
-  fundRequests     FundRequest[]     @relation("UserRequests")
-  managedRequests  FundRequest[]     @relation("ManagerRequests")
-  expenses         Expense[]
-  auditLogs        AuditLog[]
-  customers        Customer[]        @relation("SalesCustomers")
-  recordedPayments CustomerPayment[] @relation("RecordedCustomerPayments")
+  id                       String                @id @default(uuid())
+  email                    String                @unique
+  passwordHash             String
+  name                     String
+  roleId                   String
+  role                     Role                  @relation(fields: [roleId], references: [id])
+  createdAt                DateTime              @default(now())
+  updatedAt                DateTime              @updatedAt
+  wallet                   Wallet?
+  fundRequests             FundRequest[]         @relation("UserRequests")
+  managedRequests          FundRequest[]         @relation("ManagerRequests")
+  expenses                 Expense[]
+  auditLogs                AuditLog[]
+  customers                Customer[]            @relation("SalesCustomers")
+  recordedPayments         CustomerPayment[]     @relation("RecordedCustomerPayments")
+  createdProperties        PropertyAcquisition[] @relation("CreatedProperties")
+  recordedPropertyPayments PropertyPayment[]     @relation("RecordedPropertyPayments")
 }
 
 model Role {
@@ -234,6 +236,17 @@ model Customer {
   totalContractValue Decimal           @db.Decimal(15, 2)
   totalPaid          Decimal           @default(0) @db.Decimal(15, 2)
   balanceDue         Decimal           @db.Decimal(15, 2)
+  cancellationStatus String? // PENDING_SETTLEMENT, SETTLED, NO_FUNDS_TO_SETTLE
+  cancellationReason String?
+  cancelledAt        DateTime?
+  cancelledById      String?
+  deductionAmount    Decimal           @default(0) @db.Decimal(15, 2)
+  refundAmount       Decimal           @default(0) @db.Decimal(15, 2)
+  refundDate         DateTime?
+  refundMode         String? // CASH, CHEQUE, NEFT, RTGS, UPI
+  refundReferenceNo  String?
+  refundNotes        String?
+  refundSettledById  String?
   payments           CustomerPayment[]
   createdAt          DateTime          @default(now())
   updatedAt          DateTime          @updatedAt
@@ -253,4 +266,45 @@ model CustomerPayment {
   recordedBy         User     @relation("RecordedCustomerPayments", fields: [recordedById], references: [id])
   status             String   @default("RECORDED") // RECORDED, REVERSED
   createdAt          DateTime @default(now())
+}
+
+// -------------------------------------------------------------
+// Property Acquisition Management Models (PRD §20)
+// -------------------------------------------------------------
+model PropertyAcquisition {
+  id               String            @id @default(uuid())
+  khataNo          String
+  plotNo           String
+  projectLocation  String
+  landOwnerName    String
+  landOwnerContact String
+  landOwnerAddress String?
+  areaSqft         Decimal?          @db.Decimal(10, 2)
+  totalLandValue   Decimal           @db.Decimal(15, 2)
+  totalPaidToOwner Decimal           @default(0) @db.Decimal(15, 2)
+  balanceRemaining Decimal           @db.Decimal(15, 2)
+  status           String            @default("ONGOING") // ONGOING, FULLY_PAID, CANCELLED
+  agreementDate    DateTime?
+  documents        Json?
+  createdById      String
+  createdBy        User              @relation("CreatedProperties", fields: [createdById], references: [id])
+  payments         PropertyPayment[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model PropertyPayment {
+  id              String              @id @default(uuid())
+  propertyId      String
+  property        PropertyAcquisition @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  dateOfPayment   DateTime            @default(now())
+  amount          Decimal             @db.Decimal(15, 2)
+  paymentMode     String // CASH, CHEQUE, NEFT, RTGS, UPI, DD
+  paidFromAccount String? // Corporate Treasury Bank Account (1010)
+  referenceNo     String? // UTR / Cheque / Bank transaction number
+  notes           String?
+  paidById        String
+  paidBy          User                @relation("RecordedPropertyPayments", fields: [paidById], references: [id])
+  status          String              @default("RECORDED") // RECORDED, REVERSED
+  createdAt       DateTime            @default(now())
 }

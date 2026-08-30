@@ -298,6 +298,17 @@ exports.Prisma.CustomerScalarFieldEnum = {
   totalContractValue: 'totalContractValue',
   totalPaid: 'totalPaid',
   balanceDue: 'balanceDue',
+  cancellationStatus: 'cancellationStatus',
+  cancellationReason: 'cancellationReason',
+  cancelledAt: 'cancelledAt',
+  cancelledById: 'cancelledById',
+  deductionAmount: 'deductionAmount',
+  refundAmount: 'refundAmount',
+  refundDate: 'refundDate',
+  refundMode: 'refundMode',
+  refundReferenceNo: 'refundReferenceNo',
+  refundNotes: 'refundNotes',
+  refundSettledById: 'refundSettledById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

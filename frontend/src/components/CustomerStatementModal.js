@@ -252,6 +252,29 @@ export default function CustomerStatementModal({
             </table>
           </div>
 
+          {/* Cancelled Account Banner */}
+          {customer.status === 'CANCELLED' && (
+            <div className="bg-amber-500/10 border-2 border-amber-500/30 rounded-xl p-3 mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-amber-950">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 bg-amber-600 text-white rounded text-[10px] font-black uppercase tracking-wider shrink-0">
+                  Cancelled Account
+                </span>
+                <span className="text-xs font-bold">
+                  This booking is CANCELLED. All payment records below are preserved under &quot;Recorded on Cancelled Account&quot;.
+                </span>
+              </div>
+              {customer.cancellationStatus === 'SETTLED' ? (
+                <div className="text-xs font-mono font-bold bg-white/80 px-2.5 py-1 rounded border border-amber-200 text-slate-900">
+                  Costing Retained: <span className="text-rose-700">₹{parseFloat(customer.deductionAmount || 0).toLocaleString('en-IN')}</span> • Refund: <span className="text-emerald-700">₹{parseFloat(customer.refundAmount || 0).toLocaleString('en-IN')}</span>
+                </div>
+              ) : (
+                <span className="text-xs font-bold text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded border border-amber-300">
+                  Pending Accounting Refund Settlement
+                </span>
+              )}
+            </div>
+          )}
+
           {/* Payment Ledger Table (Exact Excel Columns) */}
           <div className="overflow-x-auto border border-slate-800 mt-4">
             <table className="w-full text-xs border-collapse border border-slate-800 whitespace-nowrap">
@@ -280,7 +303,7 @@ export default function CustomerStatementModal({
                   </tr>
                 ) : (
                   payments.map((p, idx) => (
-                    <tr key={p.id || idx} className="divide-x divide-slate-300 hover:bg-slate-50">
+                    <tr key={p.id || idx} className={`divide-x divide-slate-300 ${p.status === 'REFUND_DISBURSED' ? 'bg-rose-50/40' : 'hover:bg-slate-50'}`}>
                       <td className="py-1.5 px-3 text-center font-mono text-slate-500">{idx + 1}</td>
                       <td className="py-1.5 px-3 font-mono text-slate-800">
                         {new Date(p.dateOfPayment).toLocaleDateString("en-IN", {
@@ -290,18 +313,38 @@ export default function CustomerStatementModal({
                         })}
                       </td>
                       <td className="py-1.5 px-3 font-bold text-slate-900">
-                        {p.referenceNo ? `${p.paymentMode}-${p.referenceNo}` : p.paymentMode}
+                        {p.status === 'REFUND_DISBURSED' ? (
+                          <span className="text-rose-700 font-extrabold">{p.paymentMode} (REFUND)</span>
+                        ) : p.referenceNo ? (
+                          `${p.paymentMode}-${p.referenceNo}`
+                        ) : (
+                          p.paymentMode
+                        )}
                       </td>
                       <td className="py-1.5 px-3 text-slate-700">{p.sourceAccount || "Direct"}</td>
-                      <td className="py-1.5 px-3 text-right font-mono font-black text-slate-950">
-                        {parseFloat(p.amount).toLocaleString('en-IN')}
+                      <td className={`py-1.5 px-3 text-right font-mono font-black ${p.status === 'REFUND_DISBURSED' ? 'text-rose-700' : 'text-slate-950'}`}>
+                        {p.status === 'REFUND_DISBURSED' ? `-₹${parseFloat(p.amount).toLocaleString('en-IN')}` : `₹${parseFloat(p.amount).toLocaleString('en-IN')}`}
                       </td>
-                      <td className="py-1.5 px-3 text-slate-800 font-semibold">ESTATESYNC INDIA</td>
+                      <td className="py-1.5 px-3 text-slate-800 font-semibold">
+                        {p.status === 'REFUND_DISBURSED' ? customer.customerName : 'ESTATESYNC INDIA'}
+                      </td>
                       <td className="py-1.5 px-3 text-slate-700 font-mono text-[11px]">
                         {p.destinationAccount || "HDFC-1010"}
                       </td>
-                      <td className="py-1.5 px-3 text-slate-600 text-[11px]">
-                        {p.status || "RECORDED"} (Recorded by {p.recordedBy?.name || "Accounts"})
+                      <td className="py-1.5 px-3 text-[11px]">
+                        {p.status === 'REFUND_DISBURSED' ? (
+                          <span className="text-rose-800 font-bold">
+                            REFUND DISBURSED (Ref: {p.referenceNo || "N/A"})
+                          </span>
+                        ) : customer.status === 'CANCELLED' ? (
+                          <span className="text-amber-800 font-semibold">
+                            Recorded on Cancelled Account (by {p.recordedBy?.name || "Accounts"})
+                          </span>
+                        ) : (
+                          <span className="text-slate-600">
+                            {p.status || "RECORDED"} (Recorded by {p.recordedBy?.name || "Accounts"})
+                          </span>
+                        )}
                       </td>
                     </tr>
                   ))
