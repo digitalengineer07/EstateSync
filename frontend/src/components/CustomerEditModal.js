@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Edit3, CheckCircle2, AlertCircle, X, ShieldAlert, FileText } from "lucide-react";
+import { Edit3, CheckCircle2, AlertCircle, X, ShieldAlert, FileText, AlertTriangle } from "lucide-react";
 import { API_URL } from "@/config/api";
 
 export default function CustomerEditModal({ isOpen, onClose, customer, onCustomerUpdated }) {
@@ -15,12 +15,14 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
     plotNo: "",
     khataNo: "",
     areaSqft: "",
-    status: "ACTIVE"
+    status: "ACTIVE",
+    cancellationReason: ""
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   useEffect(() => {
     if (customer) {
@@ -34,10 +36,12 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
         plotNo: customer.plotNo || "",
         khataNo: customer.khataNo || "",
         areaSqft: customer.areaSqft || "",
-        status: customer.status || "ACTIVE"
+        status: customer.status || "ACTIVE",
+        cancellationReason: customer.cancellationReason || ""
       });
       setError(null);
       setSuccessMsg(null);
+      setShowCancelConfirm(false);
     }
   }, [customer, isOpen]);
 
@@ -46,7 +50,16 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    // When user switches status to CANCELLED, show confirmation panel
+    if (name === 'status' && value === 'CANCELLED' && customer.status !== 'CANCELLED') {
+      setShowCancelConfirm(true);
+    } else if (name === 'status' && value === 'ACTIVE') {
+      setShowCancelConfirm(false);
+    }
   };
+
+  const isCancellingNow = formData.status === 'CANCELLED' && customer.status !== 'CANCELLED';
+  const customerTotalPaid = parseFloat(customer.totalPaid || 0);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,6 +81,20 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
 
     if (!formData.khataNo?.trim()) {
       setError("Khata Number is compulsory and cannot be empty.");
+      setLoading(false);
+      return;
+    }
+
+    // Require cancellation reason when cancelling
+    if (isCancellingNow && !formData.cancellationReason?.trim()) {
+      setError("Cancellation Reason is mandatory. Please provide a reason for booking cancellation.");
+      setLoading(false);
+      return;
+    }
+
+    // Require explicit confirmation step for cancellation
+    if (isCancellingNow && !showCancelConfirm) {
+      setShowCancelConfirm(true);
       setLoading(false);
       return;
     }
@@ -279,13 +306,71 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                   name="status"
                   value={formData.status}
                   onChange={handleChange}
-                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none bg-white font-medium"
+                  className={`w-full text-xs border rounded-lg px-3 py-2 focus:ring-2 focus:outline-none font-medium ${
+                    isCancellingNow
+                      ? 'border-rose-300 bg-rose-50 text-rose-700 focus:ring-rose-500/20 focus:border-rose-500'
+                      : 'border-slate-200 bg-white focus:ring-indigo-500/20 focus:border-indigo-500'
+                  }`}
                 >
                   <option value="ACTIVE">ACTIVE</option>
                   <option value="CANCELLED">CANCELLED</option>
                 </select>
               </div>
             </div>
+
+            {/* Cancellation Confirmation Panel */}
+            {isCancellingNow && showCancelConfirm && (
+              <div className="mt-4 p-4 bg-rose-50 rounded-xl border-2 border-rose-200 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="flex items-start gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-rose-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+                    <AlertTriangle className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-rose-800">⚠️ Confirm Booking Cancellation</h4>
+                    <p className="text-xs text-rose-600 mt-0.5 leading-relaxed">
+                      You are about to cancel the booking for <strong>{customer.customerName}</strong> — Plot {customer.plotNo} ({customer.projectLocation}).
+                      This action will mark the customer account as CANCELLED.
+                    </p>
+                  </div>
+                </div>
+
+                {/* What will happen next */}
+                <div className={`p-3 rounded-lg border text-xs leading-relaxed ${
+                  customerTotalPaid > 0
+                    ? 'bg-amber-50 border-amber-200 text-amber-800'
+                    : 'bg-slate-50 border-slate-200 text-slate-600'
+                }`}>
+                  <span className="font-bold block mb-1">
+                    {customerTotalPaid > 0 ? '💰 Settlement Required After Cancellation' : '✅ No Financial Settlement Needed'}
+                  </span>
+                  {customerTotalPaid > 0 ? (
+                    <>
+                      <p>This customer has paid <strong className="font-mono">₹{customerTotalPaid.toLocaleString('en-IN')}</strong> so far.</p>
+                      <p className="mt-1">After cancellation, the account will be marked as <strong>"Refund Pending"</strong> and sent to the <strong>Accounting team</strong> for costing deduction and refund settlement.</p>
+                    </>
+                  ) : (
+                    <p>No payments have been recorded for this customer. The booking will be cancelled immediately with no financial settlement required.</p>
+                  )}
+                </div>
+
+                {/* Cancellation Reason - Required */}
+                <div>
+                  <label className="block text-xs font-bold text-rose-800 mb-1">Cancellation Reason *</label>
+                  <textarea
+                    name="cancellationReason"
+                    rows={2}
+                    required
+                    value={formData.cancellationReason}
+                    onChange={handleChange}
+                    placeholder="e.g. Customer requested cancellation due to personal reasons / financial constraints / relocated to another city..."
+                    className="w-full text-xs border border-rose-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 focus:outline-none bg-white placeholder:text-rose-300"
+                  />
+                  {!formData.cancellationReason?.trim() && (
+                    <p className="text-[10px] text-rose-500 mt-1 font-medium">⚠ A reason is mandatory before cancellation can proceed.</p>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Section 3: Read-Only Financial Ledger Guard */}
@@ -322,17 +407,33 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
           <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-2.5">
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => {
+                if (showCancelConfirm) {
+                  setShowCancelConfirm(false);
+                  setFormData(prev => ({ ...prev, status: 'ACTIVE', cancellationReason: '' }));
+                } else {
+                  onClose();
+                }
+              }}
               className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-lg transition"
             >
-              Cancel
+              {showCancelConfirm && isCancellingNow ? 'Go Back' : 'Cancel'}
             </button>
             <button
               type="submit"
-              disabled={loading}
-              className="px-5 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:scale-95 rounded-lg transition shadow-xs disabled:opacity-50 flex items-center gap-1.5"
+              disabled={loading || (isCancellingNow && showCancelConfirm && !formData.cancellationReason?.trim())}
+              className={`px-5 py-2 text-xs font-bold text-white active:scale-95 rounded-lg transition shadow-xs disabled:opacity-50 flex items-center gap-1.5 ${
+                isCancellingNow && showCancelConfirm
+                  ? 'bg-rose-600 hover:bg-rose-700'
+                  : 'bg-indigo-600 hover:bg-indigo-700'
+              }`}
             >
-              {loading ? "Saving Changes..." : "Save Customer Changes"}
+              {loading
+                ? "Processing..."
+                : isCancellingNow && showCancelConfirm
+                  ? `Confirm Cancellation${customerTotalPaid > 0 ? ' & Send to Accounting' : ''}`
+                  : "Save Customer Changes"
+              }
             </button>
           </div>
         </form>
