@@ -38,13 +38,20 @@ exports.createExpense = async (req, res) => {
 
     // Run within a Prisma transaction to ensure atomicity
     const result = await prisma.$transaction(async (tx) => {
-      // 1. Fetch user's wallet
-      const wallet = await tx.wallet.findUnique({
+      // 1. Fetch user's wallet (auto-create if missing)
+      let wallet = await tx.wallet.findUnique({
         where: { userId: userId }
       });
 
       if (!wallet) {
-        throw new Error('Wallet not found for user');
+        wallet = await tx.wallet.create({
+          data: {
+            userId: userId,
+            totalAllocated: 0,
+            totalSpent: 0,
+            availableBalance: 0
+          }
+        });
       }
 
       // 2. Check sufficient balance
@@ -70,8 +77,8 @@ exports.createExpense = async (req, res) => {
           amount: expenseAmount,
           description,
           date: new Date(date),
-          vendorId,
-          reference,
+          vendorId: vendorId ? String(vendorId).trim() : null,
+          reference: reference ? String(reference).trim() : null,
           status: 'RECORDED'
         }
       });

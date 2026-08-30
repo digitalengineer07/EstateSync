@@ -206,7 +206,19 @@ exports.updateCustomer = async (req, res) => {
   try {
     const { id } = req.params;
     const userRole = req.user.role;
-    const { customerName, customerContact, customerAddress, identityType, identityNumber, kycDocuments, status } = req.body;
+    const {
+      customerName,
+      customerContact,
+      customerAddress,
+      identityType,
+      identityNumber,
+      projectLocation,
+      plotNo,
+      khataNo,
+      areaSqft,
+      kycDocuments,
+      status
+    } = req.body;
 
     const existing = await prisma.customer.findUnique({ where: { id } });
     if (!existing) {
@@ -217,16 +229,31 @@ exports.updateCustomer = async (req, res) => {
       return res.status(403).json({ success: false, message: 'Only the assigned sales owner or Admin can update this customer' });
     }
 
+    const updatedData = {
+      customerName: customerName ? customerName.trim() : existing.customerName,
+      customerContact: customerContact ? customerContact.trim() : existing.customerContact,
+      customerAddress: customerAddress !== undefined ? (customerAddress ? customerAddress.trim() : null) : existing.customerAddress,
+      identityType: identityType ? identityType.trim() : existing.identityType,
+      identityNumber: identityNumber ? identityNumber.trim() : existing.identityNumber,
+      projectLocation: projectLocation ? projectLocation.trim() : existing.projectLocation,
+      plotNo: plotNo ? plotNo.trim() : existing.plotNo,
+      khataNo: khataNo ? khataNo.trim() : existing.khataNo,
+      areaSqft: areaSqft !== undefined && !isNaN(parseFloat(areaSqft)) && parseFloat(areaSqft) > 0 ? parseFloat(areaSqft) : existing.areaSqft,
+      kycDocuments: kycDocuments !== undefined ? kycDocuments : existing.kycDocuments,
+      status: status ? status.trim() : existing.status
+    };
+
     const updated = await prisma.customer.update({
       where: { id },
-      data: {
-        customerName: customerName ?? existing.customerName,
-        customerContact: customerContact ?? existing.customerContact,
-        customerAddress: customerAddress ?? existing.customerAddress,
-        identityType: identityType ?? existing.identityType,
-        identityNumber: identityNumber ?? existing.identityNumber,
-        kycDocuments: kycDocuments !== undefined ? kycDocuments : existing.kycDocuments,
-        status: status ?? existing.status
+      data: updatedData,
+      include: {
+        salesOwner: { select: { id: true, name: true, email: true } },
+        payments: {
+          include: {
+            recordedBy: { select: { id: true, name: true, email: true } }
+          },
+          orderBy: { dateOfPayment: 'desc' }
+        }
       }
     });
 
@@ -236,15 +263,27 @@ exports.updateCustomer = async (req, res) => {
       action: 'CUSTOMER_UPDATE',
       entityType: 'CUSTOMER',
       entityId: id,
-      oldValues: { customerName: existing.customerName, status: existing.status },
-      newValues: { customerName: updated.customerName, status: updated.status },
+      oldValues: {
+        customerName: existing.customerName,
+        customerContact: existing.customerContact,
+        plotNo: existing.plotNo,
+        projectLocation: existing.projectLocation,
+        status: existing.status
+      },
+      newValues: {
+        customerName: updated.customerName,
+        customerContact: updated.customerContact,
+        plotNo: updated.plotNo,
+        projectLocation: updated.projectLocation,
+        status: updated.status
+      },
       req
     });
 
-    res.json({ success: true, message: 'Customer updated successfully', customer: updated });
+    res.json({ success: true, message: 'Customer profile updated successfully', customer: updated });
   } catch (error) {
     console.error('Error updating customer:', error);
-    res.status(500).json({ success: false, message: 'Server error updating customer profile' });
+    res.status(500).json({ success: false, message: 'Server error updating customer profile', error: error.message });
   }
 };
 

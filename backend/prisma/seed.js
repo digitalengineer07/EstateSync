@@ -56,29 +56,36 @@ async function main() {
     });
   }
   
+  // Base employee permissions
+  const baseEmployeePerms = [
+    'wallet.view', 'expense.create', 'expense.view', 'transaction.view', 'fund.request', 'fund.view'
+  ];
+
   // Sales gets own wallet/expense perms and customer creation
   const salesPerms = [
-    'wallet.view', 'expense.create', 'expense.view', 'transaction.view', 'fund.request',
+    ...baseEmployeePerms,
     'customer.create', 'customer.view', 'customer.edit', 'customer.payment.view'
   ];
   for (const permCode of salesPerms) {
-    await prisma.rolePermission.upsert({
-      where: {
-        roleId_permissionId: {
+    if (createdPerms[permCode]) {
+      await prisma.rolePermission.upsert({
+        where: {
+          roleId_permissionId: {
+            roleId: createdRoles['SALES'].id,
+            permissionId: createdPerms[permCode].id
+          }
+        },
+        update: {},
+        create: {
           roleId: createdRoles['SALES'].id,
           permissionId: createdPerms[permCode].id
         }
-      },
-      update: {},
-      create: {
-        roleId: createdRoles['SALES'].id,
-        permissionId: createdPerms[permCode].id
-      }
-    });
+      });
+    }
   }
 
   // Manager gets team perms and approval perms
-  const managerPerms = [...salesPerms, 'expense.view_team', 'fund.approve', 'report.view_team', 'customer.view_all'];
+  const managerPerms = [...salesPerms, 'expense.view_team', 'fund.approve', 'fund.reject', 'report.view_team', 'customer.view_all'];
   for (const permCode of managerPerms) {
     if (createdPerms[permCode]) { // only if it exists in seed
       await prisma.rolePermission.upsert({
@@ -99,23 +106,26 @@ async function main() {
 
   // Marketing gets same as sales
   for (const permCode of salesPerms) {
-    await prisma.rolePermission.upsert({
-      where: {
-        roleId_permissionId: {
+    if (createdPerms[permCode]) {
+      await prisma.rolePermission.upsert({
+        where: {
+          roleId_permissionId: {
+            roleId: createdRoles['MARKETING'].id,
+            permissionId: createdPerms[permCode].id
+          }
+        },
+        update: {},
+        create: {
           roleId: createdRoles['MARKETING'].id,
           permissionId: createdPerms[permCode].id
         }
-      },
-      update: {},
-      create: {
-        roleId: createdRoles['MARKETING'].id,
-        permissionId: createdPerms[permCode].id
-      }
-    });
+      });
+    }
   }
 
-  // Accounting gets global view, expense approval/reversal, customer payment & property acquisition authority
+  // Accounting gets base employee perms + global view, expense approval/reversal, customer payment & property acquisition authority
   const accountingPerms = [
+    ...baseEmployeePerms,
     'wallet.view_all', 'expense.view_all', 'expense.approve', 'expense.reverse',
     'transaction.view_all', 'accounting.view', 'report.view',
     'customer.view_all', 'customer.payment.record', 'customer.payment.view',
@@ -133,6 +143,25 @@ async function main() {
         update: {},
         create: {
           roleId: createdRoles['ACCOUNTING'].id,
+          permissionId: createdPerms[permCode].id
+        }
+      });
+    }
+  }
+
+  // Other gets base employee perms
+  for (const permCode of baseEmployeePerms) {
+    if (createdPerms[permCode]) {
+      await prisma.rolePermission.upsert({
+        where: {
+          roleId_permissionId: {
+            roleId: createdRoles['OTHER'].id,
+            permissionId: createdPerms[permCode].id
+          }
+        },
+        update: {},
+        create: {
+          roleId: createdRoles['OTHER'].id,
           permissionId: createdPerms[permCode].id
         }
       });

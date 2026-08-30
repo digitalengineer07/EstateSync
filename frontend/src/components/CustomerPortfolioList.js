@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import CustomerRegistrationModal from "./CustomerRegistrationModal";
+import CustomerEditModal from "./CustomerEditModal";
 import RecordCustomerPaymentModal from "./RecordCustomerPaymentModal";
 import CustomerStatementModal from "./CustomerStatementModal";
-import { Users, Search, RefreshCw, Plus, FileSpreadsheet, Eye, CreditCard } from "lucide-react";
+import { Users, Search, RefreshCw, Plus, FileSpreadsheet, Eye, CreditCard, Edit3 } from "lucide-react";
 
 export default function CustomerPortfolioList({ mode = "sales", userRole = "SALES" }) {
   const [customers, setCustomers] = useState([]);
@@ -12,14 +13,26 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
+  const [currentUserId, setCurrentUserId] = useState(null);
 
   // Modals state
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [editCustomer, setEditCustomer] = useState(null);
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [selectedCustomerForPayment, setSelectedCustomerForPayment] = useState(null);
   
   // Statement Modal State (Excel sheet layout)
   const [statementCustomer, setStatementCustomer] = useState(null);
+
+  useEffect(() => {
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      try {
+        const u = JSON.parse(userStr);
+        setCurrentUserId(u.id || null);
+      } catch (e) {}
+    }
+  }, []);
 
   const fetchCustomers = async () => {
     setLoading(true);
@@ -55,6 +68,18 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
     setIsPaymentOpen(true);
   };
 
+  const handleOpenEdit = (customer) => {
+    setEditCustomer(customer);
+  };
+
+  const handleCustomerUpdated = (updatedCust) => {
+    setCustomers(prev => prev.map(c => c.id === updatedCust.id ? { ...c, ...updatedCust } : c));
+    if (statementCustomer && statementCustomer.id === updatedCust.id) {
+      setStatementCustomer(prev => ({ ...prev, ...updatedCust }));
+    }
+    fetchCustomers();
+  };
+
   const filteredCustomers = customers.filter(c => {
     const matchesSearch = 
       c.customerName?.toLowerCase().includes(search.toLowerCase()) ||
@@ -66,7 +91,14 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
   });
 
   const canRecordPayment = ["ACCOUNTING", "ADMIN"].includes(userRole);
-  const canRegisterCustomer = ["SALES", "ADMIN"].includes(userRole);
+  const canRegisterCustomer = ["SALES", "ADMIN", "MARKETING", "MANAGER"].includes(userRole);
+  const canEditCustomer = (cust) => {
+    if (userRole === "ADMIN") return true;
+    if (["SALES", "MARKETING", "MANAGER"].includes(userRole)) {
+      return !cust.salesOwnerId || !currentUserId || cust.salesOwnerId === currentUserId;
+    }
+    return false;
+  };
 
   return (
     <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 sm:p-7">
@@ -84,7 +116,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
           <p className="text-xs text-slate-500 mt-1">
             {mode === "accounting"
               ? "Click on any customer to view their complete accounting statement, commercial breakdown, and payment history."
-              : "Register client bookings, monitor plot contract terms, and review payment progress."}
+              : "Register client bookings, edit incorrect master details anytime, and track sales collections."}
           </p>
         </div>
 
@@ -173,6 +205,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                 const paid = parseFloat(cust.totalPaid || 0);
                 const due = parseFloat(cust.balanceDue || 0);
                 const pct = contract > 0 ? Math.min(100, Math.round((paid / contract) * 100)) : 0;
+                const userCanEdit = canEditCustomer(cust);
 
                 return (
                   <tr 
@@ -224,10 +257,21 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                       </span>
                     </td>
 
-                    <td className="px-4 py-3.5 text-right space-x-2" onClick={(e) => e.stopPropagation()}>
+                    <td className="px-4 py-3.5 text-right space-x-1.5" onClick={(e) => e.stopPropagation()}>
+                      {userCanEdit && (
+                        <button
+                          onClick={() => handleOpenEdit(cust)}
+                          className="px-2.5 py-1 text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-md transition inline-flex items-center gap-1 border border-slate-200"
+                          title="Edit Customer Profile & Allotment Details"
+                        >
+                          <Edit3 className="w-3 h-3 text-slate-500" />
+                          <span>Edit</span>
+                        </button>
+                      )}
+
                       <button
                         onClick={() => setStatementCustomer(cust)}
-                        className="px-2.5 py-1 text-[11px] font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-md transition inline-flex items-center gap-1"
+                        className="px-2.5 py-1 text-[11px] font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-md transition inline-flex items-center gap-1 border border-indigo-100"
                         title="View Full Customer Statement & Excel Ledger"
                       >
                         <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -257,7 +301,9 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
         customer={statementCustomer}
         onClose={() => setStatementCustomer(null)}
         onOpenPayment={handleOpenPayment}
+        onOpenEdit={handleOpenEdit}
         canRecordPayment={canRecordPayment}
+        userRole={userRole}
       />
 
       {/* Registration Modal */}
@@ -265,6 +311,14 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
         isOpen={isRegisterOpen}
         onClose={() => setIsRegisterOpen(false)}
         onCustomerCreated={() => fetchCustomers()}
+      />
+
+      {/* Edit Customer Modal */}
+      <CustomerEditModal
+        isOpen={!!editCustomer}
+        customer={editCustomer}
+        onClose={() => setEditCustomer(null)}
+        onCustomerUpdated={handleCustomerUpdated}
       />
 
       {/* Record Payment Modal */}
