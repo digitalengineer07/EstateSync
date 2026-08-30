@@ -256,14 +256,14 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                     )}
 
                     <td className="px-4 py-3.5 text-right font-mono">
-                      <div className="font-bold text-slate-900 text-sm">₹{contract.toLocaleString()}</div>
+                      <div className="font-bold text-slate-900 text-sm">₹{contract.toLocaleString('en-IN')}</div>
                       <div className="text-[10px] text-slate-400 font-sans">Rate: ₹{cust.ratePerSqft}/sqft</div>
                     </td>
 
                     <td className="px-4 py-3.5 min-w-[160px]">
                       <div className="flex justify-between text-[11px] font-semibold mb-1 font-mono">
-                        <span className="text-emerald-700">₹{paid.toLocaleString()}</span>
-                        <span className="text-slate-500">Due: ₹{due.toLocaleString()}</span>
+                        <span className="text-emerald-700">₹{paid.toLocaleString('en-IN')}</span>
+                        <span className="text-slate-500">Due: ₹{due.toLocaleString('en-IN')}</span>
                       </div>
                       <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
                         <div

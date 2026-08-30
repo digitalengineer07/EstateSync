@@ -130,7 +130,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
             </option>
             {users.map((u) => {
               const balance = u.wallet?.availableBalance
-                ? parseFloat(u.wallet.availableBalance).toLocaleString()
+                ? parseFloat(u.wallet.availableBalance).toLocaleString('en-IN')
                 : "0";
               return (
                 <option key={u.id} value={u.id}>
@@ -143,7 +143,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
             <p className="text-xs text-gray-500 mt-1.5">
               Current Available Balance:{" "}
               <span className="font-semibold text-gray-800">
-                ₹{parseFloat(selectedUser.wallet?.availableBalance || 0).toLocaleString()}
+                ₹{parseFloat(selectedUser.wallet?.availableBalance || 0).toLocaleString('en-IN')}
               </span>
             </p>
           )}
@@ -179,7 +179,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
                 onClick={() => handleQuickAmount(val)}
                 className="px-2.5 py-1 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded border border-gray-200 transition-colors"
               >
-                +₹{val.toLocaleString()}
+                +₹{val.toLocaleString('en-IN')}
               </button>
             ))}
           </div>

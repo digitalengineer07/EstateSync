@@ -166,10 +166,10 @@ export default function CustomerStatementModal({
                   <td className="py-1.5 px-2.5 font-bold text-slate-900 font-mono border-r border-slate-800">{customer.customerContact}</td>
                   
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-28 text-[10px] uppercase">RATE (PER SQ. FEET)</td>
-                  <td className="py-1.5 px-2.5 font-bold text-slate-900 text-right font-mono border-r border-slate-800">₹{ratePerSqft.toLocaleString()}</td>
+                  <td className="py-1.5 px-2.5 font-bold text-slate-900 text-right font-mono border-r border-slate-800">₹{ratePerSqft.toLocaleString('en-IN')}</td>
                   
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-28 text-[10px] uppercase">TOTAL AMT</td>
-                  <td className="py-1.5 px-2.5 font-extrabold text-slate-950 text-right font-mono">₹{totalContract.toLocaleString()}</td>
+                  <td className="py-1.5 px-2.5 font-extrabold text-slate-950 text-right font-mono">₹{totalContract.toLocaleString('en-IN')}</td>
                 </tr>
 
                 {/* Row 2 */}
@@ -184,11 +184,11 @@ export default function CustomerStatementModal({
                   </td>
                   
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-28 text-[10px] uppercase">COST OF LAND</td>
-                  <td className="py-1.5 px-2.5 font-bold text-slate-900 text-right font-mono border-r border-slate-800">₹{landCost.toLocaleString()}</td>
+                  <td className="py-1.5 px-2.5 font-bold text-slate-900 text-right font-mono border-r border-slate-800">₹{landCost.toLocaleString('en-IN')}</td>
                   
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-28 text-[10px] uppercase">EXTRA / TAXES</td>
                   <td className="py-1.5 px-2.5 font-mono text-slate-700 text-right">
-                    {taxes > 0 ? `+₹${taxes.toLocaleString()}` : "₹0"}
+                    {taxes > 0 ? `+₹${taxes.toLocaleString('en-IN')}` : "₹0"}
                   </td>
                 </tr>
 
@@ -201,16 +201,16 @@ export default function CustomerStatementModal({
                   <td className="py-1.5 px-2.5 text-slate-700 text-[11px] leading-tight border-r border-slate-800">{customer.customerAddress || "N/A"}</td>
                   
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-28 text-[10px] uppercase">REGISTRY COST</td>
-                  <td className="py-1.5 px-2.5 font-bold text-slate-900 text-right font-mono border-r border-slate-800">₹{registryCost.toLocaleString()}</td>
+                  <td className="py-1.5 px-2.5 font-bold text-slate-900 text-right font-mono border-r border-slate-800">₹{registryCost.toLocaleString('en-IN')}</td>
                   
                   <td className="py-1.5 px-2.5 bg-emerald-50/70 font-black text-emerald-800 w-28 text-[10px] uppercase">TOTAL RECEIVED</td>
-                  <td className="py-1.5 px-2.5 font-black text-emerald-700 text-right font-mono">₹{totalPaid.toLocaleString()}</td>
+                  <td className="py-1.5 px-2.5 font-black text-emerald-700 text-right font-mono">₹{totalPaid.toLocaleString('en-IN')}</td>
                 </tr>
 
                 {/* Row 4 */}
                 <tr className="divide-x divide-slate-300">
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-24 text-[10px] uppercase">AREA -</td>
-                  <td className="py-1.5 px-2.5 font-bold text-slate-900 border-r border-slate-800">{areaSqft.toLocaleString()} sq.ft</td>
+                  <td className="py-1.5 px-2.5 font-bold text-slate-900 border-r border-slate-800">{areaSqft.toLocaleString('en-IN')} sq.ft</td>
                   
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-24 text-[10px] uppercase">SALES REP</td>
                   <td className="py-1.5 px-2.5 font-semibold text-indigo-700 text-[11px] border-r border-slate-800">{customer.salesOwner?.name || "System"}</td>
@@ -218,16 +218,16 @@ export default function CustomerStatementModal({
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-28 text-[10px] uppercase">OTHER / DISCOUNT</td>
                   <td className="py-1.5 px-2.5 font-mono text-slate-800 text-right border-r border-slate-800">
                     {discount > 0 ? (
-                      <span className="text-rose-600">-₹{discount.toLocaleString()}</span>
+                      <span className="text-rose-600">-₹{discount.toLocaleString('en-IN')}</span>
                     ) : otherCharges > 0 ? (
-                      `+₹${otherCharges.toLocaleString()}`
+                      `+₹${otherCharges.toLocaleString('en-IN')}`
                     ) : (
                       "₹0"
                     )}
                   </td>
                   
                   <td className="py-1.5 px-2.5 bg-rose-50/70 font-black text-rose-800 w-28 text-[10px] uppercase">NET CREDIT DUE</td>
-                  <td className="py-1.5 px-2.5 font-black text-rose-700 text-right font-mono">₹{balanceDue.toLocaleString()}</td>
+                  <td className="py-1.5 px-2.5 font-black text-rose-700 text-right font-mono">₹{balanceDue.toLocaleString('en-IN')}</td>
                 </tr>
 
                 {/* Row 5 (Summary Row) */}
@@ -245,7 +245,7 @@ export default function CustomerStatementModal({
                   </td>
                   
                   <td className="py-1.5 px-2.5 bg-slate-200/80 font-black text-slate-900 w-28 text-[10px] uppercase">TOTAL AMT</td>
-                  <td className="py-1.5 px-2.5 font-black text-slate-950 text-right font-mono border-r border-slate-800">₹{totalContract.toLocaleString()}</td>
+                  <td className="py-1.5 px-2.5 font-black text-slate-950 text-right font-mono border-r border-slate-800">₹{totalContract.toLocaleString('en-IN')}</td>
                   
                   <td className="py-1.5 px-2.5 bg-slate-200/80 font-bold text-slate-700 w-28 text-[10px] uppercase">REMARKS</td>
                   <td className="py-1.5 px-2.5 text-slate-600 text-[10px] italic">Commercial verified</td>
@@ -296,7 +296,7 @@ export default function CustomerStatementModal({
                       </td>
                       <td className="py-1.5 px-3 text-slate-700">{p.sourceAccount || "Direct"}</td>
                       <td className="py-1.5 px-3 text-right font-mono font-black text-slate-950">
-                        {parseFloat(p.amount).toLocaleString()}
+                        {parseFloat(p.amount).toLocaleString('en-IN')}
                       </td>
                       <td className="py-1.5 px-3 text-slate-800 font-semibold">ESTATESYNC INDIA</td>
                       <td className="py-1.5 px-3 text-slate-700 font-mono text-[11px]">
@@ -312,12 +312,12 @@ export default function CustomerStatementModal({
 
               {/* Bottom Summary Rows (Exact Excel footer) */}
               <tfoot className="border-t-2 border-slate-800 bg-slate-100 font-black text-xs">
-                <tr className="divide-x divide-slate-800">
+                <tr className="divide-x border-slate-800">
                   <td colSpan={4} className="py-2 px-4 text-right uppercase tracking-wider text-slate-900">
                     TOTAL AMT RECEIVED:
                   </td>
                   <td className="py-2 px-3 text-right font-mono text-sm text-emerald-700 font-black">
-                    {totalPaid.toLocaleString()}
+                    {totalPaid.toLocaleString('en-IN')}
                   </td>
                   <td colSpan={3} className="py-2 px-3 text-slate-500 font-normal italic">
                     Corporate Treasury Inflow (Dr 1010 / Cr 4010)
@@ -328,7 +328,7 @@ export default function CustomerStatementModal({
                     NET CREDIT DUE:
                   </td>
                   <td className="py-2 px-3 text-right font-mono text-sm text-rose-700 font-black">
-                    {balanceDue.toLocaleString()}
+                    {balanceDue.toLocaleString('en-IN')}
                   </td>
                   <td colSpan={3} className="py-2 px-3 text-slate-600 font-normal">
                     Remaining Client Balance Receivable

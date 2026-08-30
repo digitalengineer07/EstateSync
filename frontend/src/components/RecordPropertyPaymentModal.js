@@ -59,13 +59,13 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
     }
 
     if (numAmount > balanceRemaining) {
-      setError(`Payout amount (₹${numAmount.toLocaleString()}) cannot exceed property remaining liability (₹${balanceRemaining.toLocaleString()})`);
+      setError(`Payout amount (₹${numAmount.toLocaleString('en-IN')}) cannot exceed property remaining liability (₹${balanceRemaining.toLocaleString('en-IN')})`);
       setLoading(false);
       return;
     }
 
     if (treasuryCash !== null && numAmount > treasuryCash) {
-      setError(`Insufficient Treasury liquidity: Available cash is ₹${treasuryCash.toLocaleString()}, but trying to disburse ₹${numAmount.toLocaleString()}`);
+      setError(`Insufficient Treasury liquidity: Available cash is ₹${treasuryCash.toLocaleString('en-IN')}, but trying to disburse ₹${numAmount.toLocaleString('en-IN')}`);
       setLoading(false);
       return;
     }
@@ -96,7 +96,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
         throw new Error(data.message || "Failed to record land owner payout");
       }
 
-      setSuccessMsg(`Disbursement of ₹${numAmount.toLocaleString()} to ${property.landOwnerName} recorded successfully!`);
+      setSuccessMsg(`Disbursement of ₹${numAmount.toLocaleString('en-IN')} to ${property.landOwnerName} recorded successfully!`);
       setTimeout(() => {
         onPaymentRecorded?.(data.data);
         onClose();
@@ -142,15 +142,15 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
           <div className="grid grid-cols-3 gap-2 mt-3 text-center pt-2 border-t border-amber-200/60">
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold">Total Land Value</span>
-              <p className="text-xs font-bold text-gray-800">₹{totalValue.toLocaleString()}</p>
+              <p className="text-xs font-bold text-gray-800">₹{totalValue.toLocaleString('en-IN')}</p>
             </div>
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold">Paid To Date</span>
-              <p className="text-xs font-bold text-emerald-700">₹{totalPaid.toLocaleString()}</p>
+              <p className="text-xs font-bold text-emerald-700">₹{totalPaid.toLocaleString('en-IN')}</p>
             </div>
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold">Remaining Liability</span>
-              <p className="text-xs font-bold text-amber-900">₹{balanceRemaining.toLocaleString()}</p>
+              <p className="text-xs font-bold text-amber-900">₹{balanceRemaining.toLocaleString('en-IN')}</p>
             </div>
           </div>
         </div>
@@ -173,7 +173,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
           {treasuryCash !== null && (
             <div className="flex justify-between items-center px-3 py-2 bg-indigo-50/70 border border-indigo-100 rounded-lg text-xs">
               <span className="text-indigo-800 font-medium">Available Treasury Cash:</span>
-              <span className="font-bold text-indigo-900">₹{treasuryCash.toLocaleString()}</span>
+              <span className="font-bold text-indigo-900">₹{treasuryCash.toLocaleString('en-IN')}</span>
             </div>
           )}
 
@@ -185,7 +185,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
                 onClick={() => setAmount(maxPayable.toString())}
                 className="text-[11px] font-semibold text-amber-800 hover:underline"
               >
-                Max Payable (₹{maxPayable.toLocaleString()})
+                Max Payable (₹{maxPayable.toLocaleString('en-IN')})
               </button>
             </div>
             <input
@@ -277,7 +277,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
               disabled={loading || numAmount <= 0 || numAmount > balanceRemaining || (treasuryCash !== null && numAmount > treasuryCash)}
               className="px-5 py-2 text-xs font-bold text-white bg-amber-800 hover:bg-amber-900 active:scale-95 rounded-lg shadow-md transition disabled:opacity-50"
             >
-              {loading ? "Posting Disbursement..." : `Disburse ₹${numAmount ? numAmount.toLocaleString() : "0"}`}
+              {loading ? "Posting Disbursement..." : `Disburse ₹${numAmount ? numAmount.toLocaleString('en-IN') : "0"}`}
             </button>
           </div>
         </form>

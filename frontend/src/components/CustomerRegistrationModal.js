@@ -79,7 +79,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
         throw new Error(data.message || "Failed to register customer");
       }
 
-      setSuccessMsg(`Customer ${data.customer.customerName} registered successfully! (Contract: ₹${parseFloat(data.customer.totalContractValue).toLocaleString()})`);
+      setSuccessMsg(`Customer ${data.customer.customerName} registered successfully! (Contract: ₹${parseFloat(data.customer.totalContractValue).toLocaleString('en-IN')})`);
       setTimeout(() => {
         onCustomerCreated?.(data.customer);
         onClose();

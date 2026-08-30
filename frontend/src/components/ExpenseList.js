@@ -255,11 +255,11 @@ export default function ExpenseList({ type = "my" }) {
             <h4 className="text-lg font-bold text-gray-900">Reverse Expense Entry</h4>
             <p className="text-sm text-gray-600 mt-2">
               Are you sure you want to reverse this expense of{" "}
-              <strong className="text-rose-600">₹{parseFloat(selectedExpense.amount).toLocaleString()}</strong> recorded by{" "}
+              <strong className="text-rose-600">₹{parseFloat(selectedExpense.amount).toLocaleString('en-IN')}</strong> recorded by{" "}
               <strong>{selectedExpense.user?.name || "User"}</strong>?
             </p>
             <div className="mt-3 p-3 bg-amber-50 rounded-md border border-amber-200 text-xs text-amber-900">
-              ⚠️ This will atomically refund ₹{parseFloat(selectedExpense.amount).toLocaleString()} back into the user&apos;s available wallet balance, create an <code className="font-mono font-bold">EXPENSE_REVERSAL</code> ledger entry, and post a balancing double-entry journal.
+              ⚠️ This will atomically refund ₹{parseFloat(selectedExpense.amount).toLocaleString('en-IN')} back into the user&apos;s available wallet balance, create an <code className="font-mono font-bold">EXPENSE_REVERSAL</code> ledger entry, and post a balancing double-entry journal.
             </div>
 
             <form onSubmit={handleReverseExpense} className="mt-4 space-y-3">

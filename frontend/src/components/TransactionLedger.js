@@ -94,7 +94,7 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
             <tbody className="divide-y divide-gray-200 text-gray-900 text-xs">
               {transactions.map((txn) => (
                 <tr key={txn.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-4 text-gray-600">{new Date(txn.createdAt).toLocaleString()}</td>
+                  <td className="px-6 py-4 text-gray-600">{new Date(txn.createdAt).toLocaleString('en-IN')}</td>
                   <td className="px-6 py-4">
                     {getEntryBadge(txn.type)}
                   </td>
@@ -110,7 +110,7 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
                     {txn.destWallet?.user?.name || (txn.type === 'CUSTOMER_PAYMENT_RECEIVED' ? 'Corporate Treasury' : txn.type === 'LAND_ACQUISITION_PAYMENT' ? 'EXTERNAL (Land Owner)' : txn.type === 'EXPENSE' ? 'EXTERNAL (Vendor/Spend)' : 'N/A')}
                   </td>
                   <td className="px-6 py-4 font-bold text-gray-900 text-right">
-                    ₹{parseFloat(txn.amount).toLocaleString()}
+                    ₹{parseFloat(txn.amount).toLocaleString('en-IN')}
                   </td>
                   <td className="px-6 py-4 text-gray-600 truncate max-w-xs" title={txn.description}>{txn.description}</td>
                 </tr>

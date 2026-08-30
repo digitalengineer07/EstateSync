@@ -36,7 +36,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
     }
 
     if (numAmount > balanceDue) {
-      setError(`Payment amount (₹${numAmount.toLocaleString()}) cannot exceed remaining balance due (₹${balanceDue.toLocaleString()})`);
+      setError(`Payment amount (₹${numAmount.toLocaleString('en-IN')}) cannot exceed remaining balance due (₹${balanceDue.toLocaleString('en-IN')})`);
       setLoading(false);
       return;
     }
@@ -67,7 +67,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
         throw new Error(data.message || "Failed to record customer payment");
       }
 
-      setSuccessMsg(`Payment of ₹${numAmount.toLocaleString()} recorded successfully! Organization Wallet credited.`);
+      setSuccessMsg(`Payment of ₹${numAmount.toLocaleString('en-IN')} recorded successfully! Organization Wallet credited.`);
       setTimeout(() => {
         onPaymentRecorded?.(data.data);
         onClose();
@@ -117,15 +117,15 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
           <div className="grid grid-cols-3 gap-2 mt-3 text-center pt-2 border-t border-emerald-200/60">
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold">Contract</span>
-              <p className="text-xs font-bold text-gray-800">₹{totalContract.toLocaleString()}</p>
+              <p className="text-xs font-bold text-gray-800">₹{totalContract.toLocaleString('en-IN')}</p>
             </div>
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold">Paid</span>
-              <p className="text-xs font-bold text-emerald-700">₹{totalPaid.toLocaleString()}</p>
+              <p className="text-xs font-bold text-emerald-700">₹{totalPaid.toLocaleString('en-IN')}</p>
             </div>
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold">Balance Due</span>
-              <p className="text-xs font-bold text-rose-700">₹{balanceDue.toLocaleString()}</p>
+              <p className="text-xs font-bold text-rose-700">₹{balanceDue.toLocaleString('en-IN')}</p>
             </div>
           </div>
         </div>
@@ -152,7 +152,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
                 onClick={() => setAmount(balanceDue.toString())}
                 className="text-[11px] font-semibold text-emerald-700 hover:underline"
               >
-                Pay Full Due (₹{balanceDue.toLocaleString()})
+                Pay Full Due (₹{balanceDue.toLocaleString('en-IN')})
               </button>
             </div>
             <input
@@ -244,7 +244,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
               disabled={loading || numAmount <= 0 || numAmount > balanceDue}
               className="px-5 py-2 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] rounded-lg shadow-md transition disabled:opacity-50"
             >
-              {loading ? "Posting Payment..." : `Post Credit of ₹${numAmount ? numAmount.toLocaleString() : "0"}`}
+              {loading ? "Posting Payment..." : `Post Credit of ₹${numAmount ? numAmount.toLocaleString('en-IN') : "0"}`}
             </button>
           </div>
         </form>

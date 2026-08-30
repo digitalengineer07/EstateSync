@@ -284,15 +284,15 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
             <div className="grid grid-cols-3 gap-2 text-xs font-mono">
               <div className="bg-white p-2 rounded-lg border border-slate-200 text-center">
                 <span className="text-[10px] text-slate-400 block font-sans">Contract Value</span>
-                <span className="font-bold text-slate-900">₹{parseFloat(customer.totalContractValue || 0).toLocaleString()}</span>
+                <span className="font-bold text-slate-900">₹{parseFloat(customer.totalContractValue || 0).toLocaleString('en-IN')}</span>
               </div>
               <div className="bg-white p-2 rounded-lg border border-slate-200 text-center">
                 <span className="text-[10px] text-slate-400 block font-sans">Total Collected</span>
-                <span className="font-bold text-emerald-600">₹{parseFloat(customer.totalPaid || 0).toLocaleString()}</span>
+                <span className="font-bold text-emerald-600">₹{parseFloat(customer.totalPaid || 0).toLocaleString('en-IN')}</span>
               </div>
               <div className="bg-white p-2 rounded-lg border border-slate-200 text-center">
                 <span className="text-[10px] text-slate-400 block font-sans">Balance Due</span>
-                <span className="font-bold text-slate-700">₹{parseFloat(customer.balanceDue || 0).toLocaleString()}</span>
+                <span className="font-bold text-slate-700">₹{parseFloat(customer.balanceDue || 0).toLocaleString('en-IN')}</span>
               </div>
             </div>
             <p className="text-[11px] text-slate-500 mt-2 font-sans leading-tight">
