@@ -103,12 +103,40 @@ exports.getManagerStats = async (req, res) => {
 
 exports.getAdminStats = async (req, res) => {
   try {
-    const allWallets = await prisma.wallet.aggregate({
+    // 1. Get Primary Liquid Treasury Balance (Master Corporate Wallet)
+    let treasuryBalance = 0;
+    if (req.user?.userId) {
+      const myWallet = await prisma.wallet.findUnique({ where: { userId: req.user.userId } });
+      if (myWallet && parseFloat(myWallet.availableBalance) > 0) {
+        treasuryBalance = parseFloat(myWallet.availableBalance);
+      }
+    }
+
+    if (treasuryBalance === 0) {
+      const adminUser = await prisma.user.findFirst({
+        where: {
+          role: { name: 'ADMIN' },
+          wallet: { availableBalance: { gt: 0 } }
+        },
+        include: { wallet: true }
+      }) || await prisma.user.findFirst({
+        where: { role: { name: 'ADMIN' } },
+        include: { wallet: true }
+      });
+      treasuryBalance = parseFloat(adminUser?.wallet?.availableBalance || 0);
+    }
+
+    // 2. Sum of operational funds allocated to staff & managers (excluding Admin)
+    const teamWallets = await prisma.wallet.aggregate({
+      where: {
+        user: { role: { name: { not: 'ADMIN' } } }
+      },
       _sum: {
         totalAllocated: true,
         availableBalance: true,
         totalSpent: true
-      }
+      },
+      _count: { id: true }
     });
 
     const allExpenses = await prisma.expense.aggregate({
@@ -141,10 +169,11 @@ exports.getAdminStats = async (req, res) => {
     res.json({
       success: true,
       stats: {
-        totalOrganizationalFunds: allWallets._sum.availableBalance || 0,
-        totalAllocated: allWallets._sum.totalAllocated || 0,
-        totalExpenses: allExpenses._sum.amount || 0,
-        totalSpent: allWallets._sum.totalSpent || 0,
+        totalOrganizationalFunds: treasuryBalance,
+        totalAllocated: parseFloat(teamWallets._sum.totalAllocated || 0),
+        totalTeamBalance: parseFloat(teamWallets._sum.availableBalance || 0),
+        totalExpenses: parseFloat(allExpenses._sum.amount || 0),
+        totalSpent: parseFloat(teamWallets._sum.totalSpent || 0),
         activeUsers: userCount,
         totalCustomers: customerAgg._count.id || 0,
         totalCustomerContracts: customerAgg._sum.totalContractValue || 0,
@@ -164,7 +193,24 @@ exports.getAdminStats = async (req, res) => {
 
 exports.getAccountingStats = async (req, res) => {
   try {
-    const allWallets = await prisma.wallet.aggregate({
+    let treasuryBalance = 0;
+    const adminUser = await prisma.user.findFirst({
+      where: {
+        role: { name: 'ADMIN' },
+        wallet: { availableBalance: { gt: 0 } }
+      },
+      include: { wallet: true }
+    }) || await prisma.user.findFirst({
+      where: { role: { name: 'ADMIN' } },
+      include: { wallet: true }
+    });
+
+    treasuryBalance = parseFloat(adminUser?.wallet?.availableBalance || 0);
+
+    const teamWallets = await prisma.wallet.aggregate({
+      where: {
+        user: { role: { name: { not: 'ADMIN' } } }
+      },
       _sum: {
         totalAllocated: true,
         availableBalance: true,
@@ -209,20 +255,19 @@ exports.getAccountingStats = async (req, res) => {
       _count: { id: true }
     });
 
-    const totalAllocated = Number(allWallets._sum.totalAllocated || 0);
-    const totalSpent = Number(allWallets._sum.totalSpent || 0);
-    const availableBalance = Number(allWallets._sum.availableBalance || 0);
+    const totalAllocated = Number(teamWallets._sum.totalAllocated || 0);
+    const totalSpent = Number(teamWallets._sum.totalSpent || 0);
     const utilizationRate = totalAllocated > 0 ? ((totalSpent / totalAllocated) * 100).toFixed(1) : '0.0';
 
     res.json({
       success: true,
       stats: {
-        totalOrganizationalFunds: availableBalance,
+        totalOrganizationalFunds: treasuryBalance,
         totalAllocated,
         totalSpent,
         totalRecordedExpenses: Number(allExpenses._sum.amount || 0),
         expenseCount: allExpenses._count.id || 0,
-        totalWallets: allWallets._count.id || 0,
+        totalWallets: teamWallets._count.id || 0,
         pendingRequestsAmount: Number(pendingRequests._sum.amount || 0),
         pendingRequestsCount: pendingRequests._count.id || 0,
         budgetUtilization: `${utilizationRate}%`,

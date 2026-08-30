@@ -95,28 +95,77 @@ exports.getAllRequests = async (req, res) => {
 };
 
 // Approve a request
+// Approve a request
 exports.approveRequest = async (req, res) => {
   try {
     const { id } = req.params;
     const approverId = req.user.userId;
+    const isApproverAdmin = req.user.role === 'ADMIN';
 
     const result = await prisma.$transaction(async (tx) => {
       const request = await tx.fundRequest.findUnique({
         where: { id },
-        include: { requester: { include: { role: true } } }
+        include: {
+          requester: { include: { role: true, wallet: true } },
+          manager: { include: { role: true, wallet: true } }
+        }
       });
       if (!request) throw new Error('NOT_FOUND');
       if (request.status !== 'PENDING') throw new Error('NOT_PENDING');
-      if (request.managerId !== approverId && req.user.role !== 'ADMIN') {
+      if (request.managerId !== approverId && !isApproverAdmin) {
         throw new Error('UNAUTHORIZED');
       }
 
       const reqAmount = parseFloat(request.amount);
+      if (isNaN(reqAmount) || reqAmount <= 0) throw new Error('INVALID_AMOUNT');
 
-      // 1. Get wallets
-      const managerWallet = await tx.wallet.findUnique({ where: { userId: approverId } });
+      // 1. Identify Source Wallet (Entity releasing the funds)
+      let sourceWallet;
+      let sourceWalletType;
+
+      if (isApproverAdmin) {
+        // Admin approves -> Released from Corporate Treasury (Admin's Wallet)
+        sourceWallet = await tx.wallet.findUnique({ where: { userId: approverId } });
+        
+        // Fallback: If logged in admin's personal wallet doesn't have sufficient funds, find primary funded admin wallet
+        if (!sourceWallet || parseFloat(sourceWallet.availableBalance) < reqAmount) {
+          const primaryAdmin = await tx.user.findFirst({
+            where: { role: { name: 'ADMIN' }, wallet: { availableBalance: { gte: reqAmount } } },
+            include: { wallet: true }
+          });
+          if (primaryAdmin?.wallet) {
+            sourceWallet = primaryAdmin.wallet;
+          }
+        }
+
+        if (!sourceWallet) {
+          sourceWallet = await tx.wallet.create({
+            data: {
+              userId: approverId,
+              totalAllocated: 0,
+              totalSpent: 0,
+              availableBalance: 0
+            }
+          });
+        }
+
+        if (parseFloat(sourceWallet.availableBalance) < reqAmount) {
+          throw new Error('INSUFFICIENT_FUNDS');
+        }
+
+        sourceWalletType = 'TREASURY';
+      } else {
+        // Manager approves -> Released from Manager Float
+        sourceWallet = await tx.wallet.findUnique({ where: { userId: approverId } });
+        if (!sourceWallet) throw new Error('WALLET_MISSING');
+        if (parseFloat(sourceWallet.availableBalance) < reqAmount) {
+          throw new Error('INSUFFICIENT_FUNDS');
+        }
+        sourceWalletType = 'MANAGER';
+      }
+
+      // 2. Identify / Create Requester Wallet
       let requesterWallet = await tx.wallet.findUnique({ where: { userId: request.requesterId } });
-
       if (!requesterWallet) {
         requesterWallet = await tx.wallet.create({
           data: {
@@ -128,23 +177,16 @@ exports.approveRequest = async (req, res) => {
         });
       }
 
-      if (!managerWallet && req.user.role !== 'ADMIN') throw new Error('WALLET_MISSING');
+      // 3. Decrement Source Wallet Balance (CRITICAL: Minus from Approver / Treasury)
+      const updatedSourceWallet = await tx.wallet.update({
+        where: { id: sourceWallet.id },
+        data: {
+          availableBalance: { decrement: reqAmount }
+        }
+      });
 
-      // 2. Check manager balance (Admin bypasses this check if funding manager directly)
-      if (req.user.role !== 'ADMIN' && parseFloat(managerWallet.availableBalance) < reqAmount) {
-        throw new Error('INSUFFICIENT_FUNDS');
-      }
-
-      // 3. Decrease manager balance (unless Admin)
-      if (req.user.role !== 'ADMIN') {
-        await tx.wallet.update({
-          where: { id: managerWallet.id },
-          data: { availableBalance: { decrement: reqAmount } }
-        });
-      }
-
-      // 4. Increase requester balance and allocated amount
-      await tx.wallet.update({
+      // 4. Increment Requester Wallet Balance and Total Allocated (Plus to Requester)
+      const updatedRequesterWallet = await tx.wallet.update({
         where: { id: requesterWallet.id },
         data: {
           totalAllocated: { increment: reqAmount },
@@ -156,7 +198,7 @@ exports.approveRequest = async (req, res) => {
       const transaction = await tx.walletTransaction.create({
         data: {
           type: 'FUND_ALLOCATION',
-          sourceWalletId: req.user.role !== 'ADMIN' ? managerWallet.id : (managerWallet?.id || null),
+          sourceWalletId: sourceWallet.id,
           destWalletId: requesterWallet.id,
           amount: reqAmount,
           referenceType: 'FUND_REQUEST',
@@ -167,10 +209,10 @@ exports.approveRequest = async (req, res) => {
         }
       });
 
-      // 6. Post Double-Entry Journal Entry (Debit: Recipient Wallet, Credit: Manager Wallet / Treasury)
+      // 6. Post Double-Entry Journal Entry
       const recipientType = request.requester?.role?.name === 'MANAGER' ? 'MANAGER' : 'TEAM';
       await postAllocationJournal(tx, {
-        sourceWalletType: req.user.role === 'ADMIN' ? 'TREASURY' : 'MANAGER',
+        sourceWalletType,
         recipientWalletType: recipientType,
         amount: reqAmount,
         description: `Fund Request Approval for ${request.requester.name} (${request.reason})`,
@@ -199,6 +241,9 @@ exports.approveRequest = async (req, res) => {
           status: 'APPROVED',
           amount: reqAmount,
           approvedBy: approverId,
+          sourceWalletId: sourceWallet.id,
+          sourceBalanceAfter: parseFloat(updatedSourceWallet.availableBalance),
+          requesterBalanceAfter: parseFloat(updatedRequesterWallet.availableBalance),
           transactionId: transaction.id
         },
         req,
@@ -212,12 +257,19 @@ exports.approveRequest = async (req, res) => {
   } catch (error) {
     if (error.message === 'NOT_FOUND') return res.status(404).json({ success: false, message: 'Request not found' });
     if (error.message === 'NOT_PENDING') return res.status(400).json({ success: false, message: 'Request is not pending' });
-    if (error.message === 'UNAUTHORIZED') return res.status(403).json({ success: false, message: 'Unauthorized' });
-    if (error.message === 'WALLET_MISSING') return res.status(400).json({ success: false, message: 'Wallet missing' });
-    if (error.message === 'INSUFFICIENT_FUNDS') return res.status(400).json({ success: false, message: 'Insufficient funds in your wallet to approve this request' });
+    if (error.message === 'UNAUTHORIZED') return res.status(403).json({ success: false, message: 'Unauthorized to approve this request' });
+    if (error.message === 'WALLET_MISSING') return res.status(400).json({ success: false, message: 'Source wallet missing' });
+    if (error.message === 'INSUFFICIENT_FUNDS') {
+      return res.status(400).json({
+        success: false,
+        message: req.user.role === 'ADMIN'
+          ? 'Insufficient Corporate Treasury balance to approve this fund request. Record a bank capital inflow first.'
+          : 'Insufficient Manager wallet balance to approve this fund request. Please request a fund top-up from Admin.'
+      });
+    }
     
     console.error('Approval Error:', error);
-    res.status(500).json({ success: false, message: 'Server error during approval' });
+    res.status(500).json({ success: false, message: 'Server error during approval: ' + error.message });
   }
 };
 
@@ -286,25 +338,57 @@ exports.directAllocateFunds = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Target user not found' });
     }
 
-    let targetWallet = targetUser.wallet;
-    if (!targetWallet) {
-      targetWallet = await prisma.wallet.create({
+    const result = await prisma.$transaction(async (tx) => {
+      // 1. Identify Admin / Treasury Source Wallet
+      let adminWallet = await tx.wallet.findUnique({ where: { userId: adminId } });
+      
+      if (!adminWallet || parseFloat(adminWallet.availableBalance) < allocAmount) {
+        const primaryAdmin = await tx.user.findFirst({
+          where: { role: { name: 'ADMIN' }, wallet: { availableBalance: { gte: allocAmount } } },
+          include: { wallet: true }
+        });
+        if (primaryAdmin?.wallet) {
+          adminWallet = primaryAdmin.wallet;
+        }
+      }
+
+      if (!adminWallet) {
+        adminWallet = await tx.wallet.create({
+          data: {
+            userId: adminId,
+            totalAllocated: 0,
+            totalSpent: 0,
+            availableBalance: 0
+          }
+        });
+      }
+
+      if (parseFloat(adminWallet.availableBalance) < allocAmount) {
+        throw new Error('INSUFFICIENT_FUNDS');
+      }
+
+      // 2. Decrement from Admin Treasury Wallet (Minus from Treasury)
+      const updatedAdminWallet = await tx.wallet.update({
+        where: { id: adminWallet.id },
         data: {
-          userId: targetUser.id,
-          totalAllocated: 0,
-          totalSpent: 0,
-          availableBalance: 0
+          availableBalance: { decrement: allocAmount }
         }
       });
-    }
 
-    const adminWallet = await prisma.wallet.findUnique({
-      where: { userId: adminId }
-    });
+      // 3. Fetch/Create Target Wallet & Increment (Plus to Target)
+      let targetWallet = await tx.wallet.findUnique({ where: { userId: targetUser.id } });
+      if (!targetWallet) {
+        targetWallet = await tx.wallet.create({
+          data: {
+            userId: targetUser.id,
+            totalAllocated: 0,
+            totalSpent: 0,
+            availableBalance: 0
+          }
+        });
+      }
 
-    const result = await prisma.$transaction(async (tx) => {
-      // 1. Update target wallet balance
-      const updatedWallet = await tx.wallet.update({
+      const updatedTargetWallet = await tx.wallet.update({
         where: { id: targetWallet.id },
         data: {
           totalAllocated: { increment: allocAmount },
@@ -312,11 +396,11 @@ exports.directAllocateFunds = async (req, res) => {
         }
       });
 
-      // 2. Create immutable transaction entry
+      // 4. Create immutable transaction entry
       const transaction = await tx.walletTransaction.create({
         data: {
           type: 'FUND_ALLOCATION',
-          sourceWalletId: adminWallet?.id || null,
+          sourceWalletId: adminWallet.id,
           destWalletId: targetWallet.id,
           amount: allocAmount,
           referenceType: 'DIRECT_ALLOCATION',
@@ -327,7 +411,7 @@ exports.directAllocateFunds = async (req, res) => {
         }
       });
 
-      // 3. Post Double-Entry Journal (Debit: Manager/User Wallet, Credit: Treasury Bank)
+      // 5. Post Double-Entry Journal (Debit: Manager/User Wallet, Credit: Treasury Bank)
       const recipientType = targetUser.role.name === 'MANAGER' ? 'MANAGER' : 'TEAM';
       await postAllocationJournal(tx, {
         sourceWalletType: 'TREASURY',
@@ -338,7 +422,7 @@ exports.directAllocateFunds = async (req, res) => {
         createdBy: adminId
       });
 
-      // 4. Record Audit Log
+      // 6. Record Audit Log
       await logAudit({
         actorId: adminId,
         actorEmail: req.user.email,
@@ -349,13 +433,15 @@ exports.directAllocateFunds = async (req, res) => {
           targetUser: targetUser.name,
           targetRole: targetUser.role.name,
           amount: allocAmount,
-          description
+          description,
+          sourceBalanceAfter: parseFloat(updatedAdminWallet.availableBalance),
+          targetBalanceAfter: parseFloat(updatedTargetWallet.availableBalance)
         },
         req,
         tx
       });
 
-      return { wallet: updatedWallet, transaction };
+      return { wallet: updatedTargetWallet, transaction };
     }, { timeout: 20000 });
 
     res.status(200).json({
@@ -364,7 +450,13 @@ exports.directAllocateFunds = async (req, res) => {
       data: result
     });
   } catch (error) {
+    if (error.message === 'INSUFFICIENT_FUNDS') {
+      return res.status(400).json({
+        success: false,
+        message: 'Insufficient treasury funds in Corporate Treasury wallet to allocate this amount. Record a bank capital inflow first.'
+      });
+    }
     console.error('Direct Allocation Error:', error);
-    res.status(500).json({ success: false, message: 'Server error during fund allocation' });
+    res.status(500).json({ success: false, message: error.message || 'Server error during fund allocation' });
   }
 };
