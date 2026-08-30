@@ -297,6 +297,30 @@ async function postCapitalInfusionJournal(tx, {
   });
 }
 
+/**
+ * Double-Entry Post: Customer Cancellation Refund Payout
+ * Debit: Customer Sales & Contract Revenue (Revenue - / Refund)
+ * Credit: Corporate Bank / Primary Treasury (Asset - / Cash Outflow)
+ */
+async function postCustomerRefundJournal(tx, {
+  amount,
+  customerName,
+  plotNo,
+  referenceId,
+  createdBy
+}) {
+  return await postJournalEntry(tx, {
+    description: `Customer Cancellation Refund: ${customerName} (Plot ${plotNo})`,
+    referenceType: 'CUSTOMER_REFUND',
+    referenceId,
+    createdBy,
+    lines: [
+      { accountCode: '4010', debit: amount, credit: 0, description: `Refund Adjustment: Reversal from Revenue for ${customerName}` },
+      { accountCode: '1010', debit: 0, credit: amount, description: `Bank Outflow: Refund Disbursed to ${customerName}` }
+    ]
+  });
+}
+
 module.exports = {
   ensureStandardAccounts,
   postJournalEntry,
@@ -304,6 +328,7 @@ module.exports = {
   postExpenseJournal,
   postExpenseReversalJournal,
   postCustomerPaymentJournal,
+  postCustomerRefundJournal,
   postPropertyPaymentJournal,
   postCapitalInfusionJournal
 };

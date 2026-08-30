@@ -47,4 +47,13 @@ router.post(
   customerController.recordPayment
 );
 
+// 6. Settle Customer Cancellation & Refund Payout (Accounting / Admin only, Idempotent)
+router.post(
+  '/:id/settle-cancellation',
+  verifyJWT,
+  idempotencyMiddleware,
+  checkPermission('customer.payment.record'),
+  customerController.settleCustomerCancellationRefund
+);
+
 module.exports = router;

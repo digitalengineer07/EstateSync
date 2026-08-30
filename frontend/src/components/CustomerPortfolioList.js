@@ -5,6 +5,7 @@ import CustomerRegistrationModal from "./CustomerRegistrationModal";
 import CustomerEditModal from "./CustomerEditModal";
 import RecordCustomerPaymentModal from "./RecordCustomerPaymentModal";
 import CustomerStatementModal from "./CustomerStatementModal";
+import CustomerCancellationSettlementModal from "./CustomerCancellationSettlementModal";
 import { Users, Search, RefreshCw, Plus, FileSpreadsheet, Eye, CreditCard, Edit3 } from "lucide-react";
 import { API_URL } from "@/config/api";
 
@@ -275,9 +276,23 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                     </td>
 
                     <td className="px-4 py-3.5 text-center">
-                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${cust.status === 'ACTIVE' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-100 text-slate-600'}`}>
-                        {cust.status}
-                      </span>
+                      {cust.status === 'ACTIVE' ? (
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                          ACTIVE
+                        </span>
+                      ) : cust.cancellationStatus === 'PENDING_SETTLEMENT' ? (
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
+                          CANCELLED (Refund Pending)
+                        </span>
+                      ) : cust.cancellationStatus === 'SETTLED' ? (
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-300">
+                          CANCELLED (Settled)
+                        </span>
+                      ) : (
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600">
+                          CANCELLED
+                        </span>
+                      )}
                     </td>
 
                     <td className="px-4 py-3.5 text-right space-x-1.5" onClick={(e) => e.stopPropagation()}>
@@ -307,6 +322,16 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                           className="px-3 py-1 text-[11px] font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-md shadow-xs transition active:scale-95"
                         >
                           + Record Payment
+                        </button>
+                      )}
+
+                      {canRecordPayment && cust.status === 'CANCELLED' && cust.cancellationStatus === 'PENDING_SETTLEMENT' && (
+                        <button
+                          onClick={() => setSettlementCustomer(cust)}
+                          className="px-3 py-1 text-[11px] font-bold text-white bg-amber-600 hover:bg-amber-700 rounded-md shadow-xs transition active:scale-95 inline-flex items-center gap-1"
+                          title="Settle Customer Cancellation Refund & Costing"
+                        >
+                          <span>Settle Refund</span>
                         </button>
                       )}
                     </td>
@@ -343,6 +368,20 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
         onClose={() => setEditCustomer(null)}
         onCustomerUpdated={handleCustomerUpdated}
       />
+
+      {/* Customer Cancellation Settlement Modal */}
+      {settlementCustomer && (
+        <CustomerCancellationSettlementModal
+          customer={settlementCustomer}
+          onClose={() => setSettlementCustomer(null)}
+          onSettled={(updatedCustomer) => {
+            fetchCustomers();
+            if (statementCustomer && statementCustomer.id === updatedCustomer.id) {
+              setStatementCustomer(updatedCustomer);
+            }
+          }}
+        />
+      )}
 
       {/* Record Payment Modal */}
       <RecordCustomerPaymentModal

@@ -1,0 +1,310 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "binary"
+  output     = "../src/prisma-client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                       String                @id @default(uuid())
+  email                    String                @unique
+  passwordHash             String
+  name                     String
+  roleId                   String
+  role                     Role                  @relation(fields: [roleId], references: [id])
+  createdAt                DateTime              @default(now())
+  updatedAt                DateTime              @updatedAt
+  wallet                   Wallet?
+  fundRequests             FundRequest[]         @relation("UserRequests")
+  managedRequests          FundRequest[]         @relation("ManagerRequests")
+  expenses                 Expense[]
+  auditLogs                AuditLog[]
+  customers                Customer[]            @relation("SalesCustomers")
+  recordedPayments         CustomerPayment[]     @relation("RecordedCustomerPayments")
+  createdProperties        PropertyAcquisition[] @relation("CreatedProperties")
+  recordedPropertyPayments PropertyPayment[]     @relation("RecordedPropertyPayments")
+}
+
+model Role {
+  id          String           @id @default(uuid())
+  name        String           @unique // ADMIN, MANAGER, SALES, MARKETING, ACCOUNTING, OTHER
+  description String?
+  users       User[]
+  permissions RolePermission[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model Permission {
+  id          String           @id @default(uuid())
+  code        String           @unique // e.g., fund.allocate, expense.create, expense.reverse
+  description String?
+  roles       RolePermission[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+}
+
+model Wallet {
+  id               String              @id @default(uuid())
+  userId           String              @unique
+  user             User                @relation(fields: [userId], references: [id])
+  totalAllocated   Decimal             @default(0) @db.Decimal(15, 2)
+  totalSpent       Decimal             @default(0) @db.Decimal(15, 2)
+  availableBalance Decimal             @default(0) @db.Decimal(15, 2)
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  transactionsSrc  WalletTransaction[] @relation("SourceWallet")
+  transactionsDest WalletTransaction[] @relation("DestWallet")
+  expenses         Expense[]
+}
+
+model WalletTransaction {
+  id             String   @id @default(uuid())
+  type           String // FUND_ALLOCATION, FUND_TRANSFER, EXPENSE, EXPENSE_REVERSAL, ADJUSTMENT
+  sourceWalletId String?
+  destWalletId   String?
+  sourceWallet   Wallet?  @relation("SourceWallet", fields: [sourceWalletId], references: [id])
+  destWallet     Wallet?  @relation("DestWallet", fields: [destWalletId], references: [id])
+  amount         Decimal  @db.Decimal(15, 2)
+  referenceType  String? // FUND_REQUEST, EXPENSE, DIRECT_ALLOCATION, REVERSAL
+  referenceId    String?
+  description    String?
+  createdBy      String
+  status         String // COMPLETED, REVERSED
+  createdAt      DateTime @default(now())
+}
+
+model FundRequest {
+  id              String        @id @default(uuid())
+  requesterId     String
+  managerId       String
+  requester       User          @relation("UserRequests", fields: [requesterId], references: [id])
+  manager         User          @relation("ManagerRequests", fields: [managerId], references: [id])
+  parentRequestId String?
+  parentRequest   FundRequest?  @relation("ParentRequest", fields: [parentRequestId], references: [id])
+  childRequests   FundRequest[] @relation("ParentRequest")
+  requestedFrom   String? // ADMIN, MANAGER
+  amount          Decimal       @db.Decimal(15, 2)
+  reason          String
+  status          String // PENDING, APPROVED, REJECTED, INSUFFICIENT_MANAGER_FUNDS
+  comments        String?
+  approvedBy      String?
+  rejectedBy      String?
+  approvedAt      DateTime?
+  rejectedAt      DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Expense {
+  id             String          @id @default(uuid())
+  userId         String
+  walletId       String
+  user           User            @relation(fields: [userId], references: [id])
+  wallet         Wallet          @relation(fields: [walletId], references: [id])
+  categoryId     String
+  category       ExpenseCategory @relation(fields: [categoryId], references: [id])
+  amount         Decimal         @db.Decimal(15, 2)
+  description    String
+  date           DateTime
+  vendorId       String?
+  reference      String?
+  attachment     String?
+  status         String // RECORDED, REVERSED
+  reversedAt     DateTime?
+  reversedBy     String?
+  reversalReason String?
+  createdAt      DateTime        @default(now())
+}
+
+model ExpenseCategory {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String?
+  expenses    Expense[]
+}
+
+// -------------------------------------------------------------
+// Idempotency Model
+// Prevents duplicate charges or transactions on network retries
+// -------------------------------------------------------------
+model IdempotencyKey {
+  id             String   @id @default(uuid())
+  key            String   @unique
+  userId         String
+  endpoint       String
+  responseStatus Int
+  responseBody   Json
+  createdAt      DateTime @default(now())
+  expiresAt      DateTime
+}
+
+// -------------------------------------------------------------
+// Double-Entry Accounting Models (General Ledger)
+// Enforces Debit = Credit integrity
+// -------------------------------------------------------------
+model Account {
+  id           String        @id @default(uuid())
+  code         String        @unique // e.g., "1010", "1020", "5010"
+  name         String // Cash/Bank, Manager Float, Operational Expense, etc.
+  type         String // ASSET, LIABILITY, EQUITY, REVENUE, EXPENSE
+  description  String?
+  journalLines JournalLine[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model JournalEntry {
+  id            String        @id @default(uuid())
+  entryNumber   String        @unique // e.g. "JE-2026-0001"
+  date          DateTime      @default(now())
+  referenceType String? // WALLET_TRANSACTION, EXPENSE, REVERSAL, DIRECT_ALLOCATION
+  referenceId   String?
+  description   String
+  status        String        @default("POSTED") // POSTED, REVERSED
+  createdBy     String
+  lines         JournalLine[]
+  createdAt     DateTime      @default(now())
+}
+
+model JournalLine {
+  id             String       @id @default(uuid())
+  journalEntryId String
+  journalEntry   JournalEntry @relation(fields: [journalEntryId], references: [id], onDelete: Cascade)
+  accountId      String
+  account        Account      @relation(fields: [accountId], references: [id])
+  debit          Decimal      @default(0) @db.Decimal(15, 2)
+  credit         Decimal      @default(0) @db.Decimal(15, 2)
+  description    String?
+}
+
+// -------------------------------------------------------------
+// Dedicated Audit Log Model
+// -------------------------------------------------------------
+model AuditLog {
+  id         String   @id @default(uuid())
+  actorId    String?
+  actorEmail String?
+  actor      User?    @relation(fields: [actorId], references: [id])
+  action     String // USER_LOGIN, FUND_ALLOCATE, FUND_APPROVE, EXPENSE_CREATE, EXPENSE_REVERSE, USER_CREATE
+  entityType String // USER, WALLET, EXPENSE, FUND_REQUEST, TRANSACTION
+  entityId   String?
+  oldValues  Json?
+  newValues  Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+}
+
+// -------------------------------------------------------------
+// Customer Management & Sales Collections Models (PRD §19)
+// -------------------------------------------------------------
+model Customer {
+  id                 String            @id @default(uuid())
+  salesOwnerId       String
+  salesOwner         User              @relation("SalesCustomers", fields: [salesOwnerId], references: [id])
+  customerName       String
+  customerContact    String
+  customerAddress    String?
+  projectLocation    String
+  plotNo             String
+  areaSqft           Decimal           @db.Decimal(10, 2)
+  khataNo            String
+  identityType       String // Aadhaar, PAN, Passport, Voter ID, Driving License
+  identityNumber     String
+  kycDocuments       Json? // Array of document references
+  status             String            @default("ACTIVE") // ACTIVE, CANCELLED
+  ratePerSqft        Decimal           @default(0) @db.Decimal(15, 2)
+  landCost           Decimal           @default(0) @db.Decimal(15, 2)
+  registryCost       Decimal           @default(0) @db.Decimal(15, 2)
+  otherCharges       Decimal           @default(0) @db.Decimal(15, 2)
+  discount           Decimal           @default(0) @db.Decimal(15, 2)
+  taxes              Decimal           @default(0) @db.Decimal(15, 2)
+  totalContractValue Decimal           @db.Decimal(15, 2)
+  totalPaid          Decimal           @default(0) @db.Decimal(15, 2)
+  balanceDue         Decimal           @db.Decimal(15, 2)
+  cancellationStatus String? // PENDING_SETTLEMENT, SETTLED, NO_FUNDS_TO_SETTLE
+  cancellationReason String?
+  cancelledAt        DateTime?
+  cancelledById      String?
+  deductionAmount    Decimal           @default(0) @db.Decimal(15, 2)
+  refundAmount       Decimal           @default(0) @db.Decimal(15, 2)
+  refundDate         DateTime?
+  refundMode         String? // CASH, CHEQUE, NEFT, RTGS, UPI
+  refundReferenceNo  String?
+  refundNotes        String?
+  refundSettledById  String?
+  payments           CustomerPayment[]
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+}
+
+model CustomerPayment {
+  id                 String   @id @default(uuid())
+  customerId         String
+  customer           Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  dateOfPayment      DateTime @default(now())
+  amount             Decimal  @db.Decimal(15, 2)
+  paymentMode        String // CASH, CHEQUE, NEFT, RTGS, UPI, DD
+  sourceAccount      String? // Client bank/account description
+  destinationAccount String? // Treasury collection bank account
+  referenceNo        String? // UTR / Cheque / Transaction reference
+  recordedById       String
+  recordedBy         User     @relation("RecordedCustomerPayments", fields: [recordedById], references: [id])
+  status             String   @default("RECORDED") // RECORDED, REVERSED
+  createdAt          DateTime @default(now())
+}
+
+// -------------------------------------------------------------
+// Property Acquisition Management Models (PRD §20)
+// -------------------------------------------------------------
+model PropertyAcquisition {
+  id               String            @id @default(uuid())
+  khataNo          String
+  plotNo           String
+  projectLocation  String
+  landOwnerName    String
+  landOwnerContact String
+  landOwnerAddress String?
+  areaSqft         Decimal?          @db.Decimal(10, 2)
+  totalLandValue   Decimal           @db.Decimal(15, 2)
+  totalPaidToOwner Decimal           @default(0) @db.Decimal(15, 2)
+  balanceRemaining Decimal           @db.Decimal(15, 2)
+  status           String            @default("ONGOING") // ONGOING, FULLY_PAID, CANCELLED
+  agreementDate    DateTime?
+  documents        Json?
+  createdById      String
+  createdBy        User              @relation("CreatedProperties", fields: [createdById], references: [id])
+  payments         PropertyPayment[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model PropertyPayment {
+  id              String              @id @default(uuid())
+  propertyId      String
+  property        PropertyAcquisition @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  dateOfPayment   DateTime            @default(now())
+  amount          Decimal             @db.Decimal(15, 2)
+  paymentMode     String // CASH, CHEQUE, NEFT, RTGS, UPI, DD
+  paidFromAccount String? // Corporate Treasury Bank Account (1010)
+  referenceNo     String? // UTR / Cheque / Bank transaction number
+  notes           String?
+  paidById        String
+  paidBy          User                @relation("RecordedPropertyPayments", fields: [paidById], references: [id])
+  status          String              @default("RECORDED") // RECORDED, REVERSED
+  createdAt       DateTime            @default(now())
+}
