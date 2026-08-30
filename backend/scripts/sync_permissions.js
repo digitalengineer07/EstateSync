@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function syncPerms() {
-  console.log('Syncing database permissions...');
+  console.log('Syncing database permissions in batch...');
   
   // 1. Ensure all standard permissions exist
   const permissions = [
@@ -17,22 +17,23 @@ async function syncPerms() {
     'property.payment.record', 'property.payment.view'
   ];
 
-  const permMap = {};
-  for (const code of permissions) {
-    const p = await prisma.permission.upsert({
-      where: { code },
-      update: {},
-      create: { code, description: 'Permission for ' + code }
+  const existingPerms = await prisma.permission.findMany();
+  const existingCodeMap = new Map(existingPerms.map(p => [p.code, p.id]));
+  const missingPerms = permissions.filter(code => !existingCodeMap.has(code));
+
+  if (missingPerms.length > 0) {
+    await prisma.permission.createMany({
+      data: missingPerms.map(code => ({ code, description: 'Permission for ' + code })),
+      skipDuplicates: true
     });
-    permMap[code] = p.id;
   }
+
+  const allPerms = await prisma.permission.findMany();
+  const permMap = new Map(allPerms.map(p => [p.code, p.id]));
 
   // 2. Roles mapping
   const roles = await prisma.role.findMany();
-  const roleMap = {};
-  for (const r of roles) {
-    roleMap[r.name] = r.id;
-  }
+  const roleMap = new Map(roles.map(r => [r.name, r.id]));
 
   const baseEmployeePerms = [
     'wallet.view', 'expense.create', 'expense.view', 'transaction.view', 'fund.request', 'fund.view'
@@ -63,25 +64,25 @@ async function syncPerms() {
     OTHER: baseEmployeePerms
   };
 
+  const rolePermRecords = [];
   for (const [roleName, perms] of Object.entries(rolePermDefinitions)) {
-    const roleId = roleMap[roleName];
+    const roleId = roleMap.get(roleName);
     if (!roleId) continue;
 
     for (const permCode of perms) {
-      const permissionId = permMap[permCode];
-      if (!permissionId) continue;
-
-      await prisma.rolePermission.upsert({
-        where: {
-          roleId_permissionId: { roleId, permissionId }
-        },
-        update: {},
-        create: { roleId, permissionId }
-      });
+      const permissionId = permMap.get(permCode);
+      if (permissionId) {
+        rolePermRecords.push({ roleId, permissionId });
+      }
     }
   }
 
-  console.log('Role permissions synced successfully!');
+  await prisma.rolePermission.createMany({
+    data: rolePermRecords,
+    skipDuplicates: true
+  });
+
+  console.log('Role permissions synced successfully with createMany!');
 
   // Verify
   const accountingRole = await prisma.role.findUnique({
