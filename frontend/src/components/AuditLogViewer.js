@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { API_URL } from "@/config/api";
 
 export default function AuditLogViewer() {
   const [logs, setLogs] = useState([]);
@@ -13,7 +14,7 @@ export default function AuditLogViewer() {
     setError(null);
     try {
       const token = localStorage.getItem("accessToken");
-      let url = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/audit?limit=100`;
+      let url = `${API_URL}/api/v1/audit?limit=100`;
       if (filterAction) url += `&action=${filterAction}`;
 
       const res = await fetch(url, {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { API_URL } from "@/config/api";
 
 export default function TransactionLedger({ embedded = false, showHeader = true }) {
   const [transactions, setTransactions] = useState([]);
@@ -10,7 +11,7 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
     setLoading(true);
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/transactions/all`, {
+      const res = await fetch(`${API_URL}/api/v1/transactions/all`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
       const data = await res.json();

@@ -6,6 +6,7 @@ import CustomerEditModal from "./CustomerEditModal";
 import RecordCustomerPaymentModal from "./RecordCustomerPaymentModal";
 import CustomerStatementModal from "./CustomerStatementModal";
 import { Users, Search, RefreshCw, Plus, FileSpreadsheet, Eye, CreditCard, Edit3 } from "lucide-react";
+import { API_URL } from "@/config/api";
 
 export default function CustomerPortfolioList({ mode = "sales", userRole = "SALES" }) {
   const [customers, setCustomers] = useState([]);
@@ -38,7 +39,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
     setLoading(true);
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/customers`, {
+      const res = await fetch(`${API_URL}/api/v1/customers`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
       const data = await res.json();

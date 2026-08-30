@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Landmark, ArrowUpRight, X, ShieldCheck, CheckCircle2, AlertCircle } from "lucide-react";
+import { API_URL } from "@/config/api";
 
 export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -45,7 +46,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
 
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch("http://localhost:4000/api/v1/treasury/inflow", {
+      const res = await fetch(`${API_URL}/api/v1/treasury/inflow`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

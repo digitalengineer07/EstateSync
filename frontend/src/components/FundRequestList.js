@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { CheckCircle2, XCircle, Clock, RefreshCw } from "lucide-react";
+import { API_URL } from "@/config/api";
 
 // type can be 'outgoing', 'incoming', or 'all'
 export default function FundRequestList({ type = "outgoing", embedded = false, showHeader = true }) {
@@ -18,9 +19,9 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
     setActionError(null);
     try {
       const token = localStorage.getItem("accessToken");
-      let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/fund-requests/my`;
-      if (type === "incoming") endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/fund-requests/incoming`;
-      if (type === "all") endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/fund-requests/all`;
+      let endpoint = `${API_URL}/api/v1/fund-requests/my`;
+      if (type === "incoming") endpoint = `${API_URL}/api/v1/fund-requests/incoming`;
+      if (type === "all") endpoint = `${API_URL}/api/v1/fund-requests/all`;
 
       const res = await fetch(endpoint, {
         headers: { "Authorization": `Bearer ${token}` }
@@ -48,7 +49,7 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
     setProcessingId(id);
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/fund-requests/${id}/${action}`, {
+      const res = await fetch(`${API_URL}/api/v1/fund-requests/${id}/${action}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

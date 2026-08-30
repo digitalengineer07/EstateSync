@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { API_URL } from "@/config/api";
 
 // type can be 'my', 'team', or 'all'
 export default function ExpenseList({ type = "my" }) {
@@ -30,9 +31,9 @@ export default function ExpenseList({ type = "my" }) {
     setError(null);
     try {
       const token = localStorage.getItem("accessToken");
-      let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/expenses/my`;
-      if (type === "team") endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/expenses/team`;
-      if (type === "all") endpoint = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/expenses/all`;
+      let endpoint = `${API_URL}/api/v1/expenses/my`;
+      if (type === "team") endpoint = `${API_URL}/api/v1/expenses/team`;
+      if (type === "all") endpoint = `${API_URL}/api/v1/expenses/all`;
 
       const res = await fetch(endpoint, {
         headers: { "Authorization": `Bearer ${token}` }
@@ -64,7 +65,7 @@ export default function ExpenseList({ type = "my" }) {
 
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/expenses/${selectedExpense.id}/reverse`, {
+      const res = await fetch(`${API_URL}/api/v1/expenses/${selectedExpense.id}/reverse`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

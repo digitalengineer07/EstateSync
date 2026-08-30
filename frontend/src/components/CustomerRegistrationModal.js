@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { API_URL } from "@/config/api";
 
 export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerCreated }) {
   const [formData, setFormData] = useState({
@@ -63,7 +64,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
         taxes: tax
       };
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/customers`, {
+      const res = await fetch(`${API_URL}/api/v1/customers`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

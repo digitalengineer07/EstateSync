@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import RecordBankInflowModal from "./RecordBankInflowModal";
 import { Landmark, Plus, Search, RefreshCw, ArrowDownRight, ShieldCheck, FileCheck } from "lucide-react";
+import { API_URL } from "@/config/api";
 
 export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
   const [inflows, setInflows] = useState([]);
@@ -15,7 +16,7 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
     setLoading(true);
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch("http://localhost:4000/api/v1/treasury/inflows", {
+      const res = await fetch(`${API_URL}/api/v1/treasury/inflows`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
       const data = await res.json();

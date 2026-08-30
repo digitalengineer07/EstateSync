@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Edit3, CheckCircle2, AlertCircle, X, ShieldAlert, FileText } from "lucide-react";
+import { API_URL } from "@/config/api";
 
 export default function CustomerEditModal({ isOpen, onClose, customer, onCustomerUpdated }) {
   const [formData, setFormData] = useState({
@@ -55,7 +56,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
 
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`http://localhost:4000/api/v1/customers/${customer.id}`, {
+      const res = await fetch(`${API_URL}/api/v1/customers/${customer.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

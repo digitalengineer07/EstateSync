@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { API_URL } from "@/config/api";
 
 export default function GeneralLedgerView() {
   const [activeTab, setActiveTab] = useState("journals"); // "journals" or "accounts"
@@ -18,8 +19,8 @@ export default function GeneralLedgerView() {
       const headers = { "Authorization": `Bearer ${token}` };
 
       const [journalsRes, accountsRes] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/journals`, { headers }),
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/accounts`, { headers })
+        fetch(`${API_URL}/api/v1/journals`, { headers }),
+        fetch(`${API_URL}/api/v1/accounts`, { headers })
       ]);
 
       const jData = await journalsRes.json();

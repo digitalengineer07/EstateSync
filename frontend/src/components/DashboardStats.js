@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   Coins
 } from "lucide-react";
+import { API_URL } from "@/config/api";
 
 export default function DashboardStats({ type }) {
   const [stats, setStats] = useState(null);
@@ -22,7 +23,7 @@ export default function DashboardStats({ type }) {
       setLoading(true);
       try {
         const token = localStorage.getItem("accessToken");
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/dashboard/${type}`, {
+        const res = await fetch(`${API_URL}/api/v1/dashboard/${type}`, {
           headers: { "Authorization": `Bearer ${token}` }
         });
         const data = await res.json();

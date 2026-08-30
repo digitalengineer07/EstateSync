@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { API_URL } from "@/config/api";
 
 export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, onPaymentRecorded }) {
   const [amount, setAmount] = useState("");
@@ -44,7 +45,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
       const token = localStorage.getItem("accessToken");
       const idempotencyKey = `cust-pay-${Date.now()}`;
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/customers/${customer.id}/payments`, {
+      const res = await fetch(`${API_URL}/api/v1/customers/${customer.id}/payments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
