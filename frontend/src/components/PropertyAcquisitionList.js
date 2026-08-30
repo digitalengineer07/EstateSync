@@ -108,15 +108,15 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
           </div>
           <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
             <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Total Asset Valuation</span>
-            <p className="text-2xl font-extrabold text-slate-900 mt-0.5">₹{summary.totalLandValuation?.toLocaleString()}</p>
+            <p className="text-2xl font-extrabold text-slate-900 mt-0.5">₹{parseFloat(summary.totalLandValuation || 0).toLocaleString('en-IN')}</p>
           </div>
           <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
             <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Total Paid to Owners</span>
-            <p className="text-2xl font-extrabold text-emerald-600 mt-0.5">₹{summary.totalPaidToOwners?.toLocaleString()}</p>
+            <p className="text-2xl font-extrabold text-emerald-600 mt-0.5">₹{parseFloat(summary.totalPaidToOwners || 0).toLocaleString('en-IN')}</p>
           </div>
           <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
             <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Pending Liabilities</span>
-            <p className="text-2xl font-extrabold text-slate-900 mt-0.5">₹{summary.totalOutstandingLiabilities?.toLocaleString()}</p>
+            <p className="text-2xl font-extrabold text-slate-900 mt-0.5">₹{parseFloat(summary.totalOutstandingLiabilities || 0).toLocaleString('en-IN')}</p>
           </div>
         </div>
       )}

@@ -140,7 +140,7 @@ export default function DashboardStats({ type }) {
           <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
             {formatCurrency(stats.totalAllocated)}
           </p>
-          <p className="text-xs text-slate-500 mt-1">Operational budget assigned</p>
+          <p className="text-xs text-slate-500 mt-1">In-hand: {formatCurrency(stats.totalTeamBalance)} • {formatCurrency(stats.totalSpent)} spent</p>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
@@ -151,22 +151,22 @@ export default function DashboardStats({ type }) {
             </div>
           </div>
           <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
-            {formatCurrency(stats.totalCustomerCollections || 0)}
+            {formatCurrency(stats.totalCustomerContracts || 0)}
           </p>
-          <p className="text-xs text-slate-500 mt-1">{stats.totalCustomers || 0} Active Client Bookings</p>
+          <p className="text-xs text-slate-500 mt-1">{formatCurrency(stats.totalCustomerCollections || 0)} collected • {stats.totalCustomers || 0} clients</p>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Active Personnel</span>
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center">
-              <Users className="w-4 h-4" />
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Land Acquisitions</span>
+            <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+              <MapPin className="w-4 h-4" />
             </div>
           </div>
           <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
-            {stats.activeUsers} Users
+            {formatCurrency(stats.totalLandValuation || 0)}
           </p>
-          <p className="text-xs text-slate-500 mt-1">Fund-controlled staff members</p>
+          <p className="text-xs text-slate-500 mt-1">{formatCurrency(stats.totalLandPayouts || 0)} paid • {stats.totalProperties || 0} parcels</p>
         </div>
       </div>
     );

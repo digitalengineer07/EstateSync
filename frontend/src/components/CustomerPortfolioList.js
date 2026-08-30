@@ -141,8 +141,30 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
         </div>
       </div>
 
+      {/* Summary KPI Cards */}
+      {summary && (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-5">
+          <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Active Clients</span>
+            <p className="text-2xl font-extrabold text-slate-900 mt-0.5">{summary.totalCustomers}</p>
+          </div>
+          <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Total Booked Value</span>
+            <p className="text-2xl font-extrabold text-slate-900 mt-0.5">₹{parseFloat(summary.totalPortfolioValue || 0).toLocaleString('en-IN')}</p>
+          </div>
+          <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Total Collections</span>
+            <p className="text-2xl font-extrabold text-emerald-600 mt-0.5">₹{parseFloat(summary.totalCollected || 0).toLocaleString('en-IN')}</p>
+          </div>
+          <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Outstanding Receivables</span>
+            <p className="text-2xl font-extrabold text-slate-900 mt-0.5">₹{parseFloat(summary.totalOutstanding || 0).toLocaleString('en-IN')}</p>
+          </div>
+        </div>
+      )}
+
       {/* Filter & Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 my-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">
         <div className="relative w-full sm:w-80">
           <Search className="absolute left-3 top-2.5 w-3.5 h-3.5 text-slate-400" />
           <input
