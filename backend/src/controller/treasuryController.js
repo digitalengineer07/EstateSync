@@ -1,6 +1,7 @@
 const prisma = require('../config/db');
 const { postCapitalInfusionJournal } = require('../utils/accountingHelper');
 const { logAudit } = require('../utils/auditLogger');
+const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
 
 /**
  * Record Bank Statement Transaction / Capital Infusion into Main Organization Treasury
@@ -31,12 +32,7 @@ exports.recordBankInflow = async (req, res) => {
     // Execute atomic financial transaction
     const result = await prisma.$transaction(async (tx) => {
       // 1. Locate Master Admin User / Treasury Wallet
-      const adminUser = await tx.user.findFirst({
-        where: {
-          role: { name: 'ADMIN' }
-        },
-        include: { wallet: true }
-      });
+      const adminUser = await getPrimaryTreasuryAdmin(tx);
 
       if (!adminUser) {
         throw new Error('No Master Admin Account found to receive treasury funds.');

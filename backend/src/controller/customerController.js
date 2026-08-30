@@ -326,11 +326,10 @@ exports.recordPayment = async (req, res) => {
       });
     }
 
+const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
+
     // Find the Organization / Admin Wallet (Primary Treasury)
-    let adminUser = await prisma.user.findFirst({
-      where: { role: { name: 'ADMIN' } },
-      include: { wallet: true }
-    });
+    let adminUser = await getPrimaryTreasuryAdmin(prisma);
 
     if (!adminUser) {
       return res.status(500).json({ success: false, message: 'Corporate Treasury Admin wallet not configured' });

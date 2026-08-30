@@ -1,4 +1,5 @@
 const prisma = require('../config/db');
+const { getPrimaryTreasuryWallet } = require('../utils/treasuryHelper');
 
 exports.getWalletStats = async (req, res) => {
   try {
@@ -103,28 +104,9 @@ exports.getManagerStats = async (req, res) => {
 
 exports.getAdminStats = async (req, res) => {
   try {
-    // 1. Get Primary Liquid Treasury Balance (Master Corporate Wallet)
-    let treasuryBalance = 0;
-    if (req.user?.userId) {
-      const myWallet = await prisma.wallet.findUnique({ where: { userId: req.user.userId } });
-      if (myWallet && parseFloat(myWallet.availableBalance) > 0) {
-        treasuryBalance = parseFloat(myWallet.availableBalance);
-      }
-    }
-
-    if (treasuryBalance === 0) {
-      const adminUser = await prisma.user.findFirst({
-        where: {
-          role: { name: 'ADMIN' },
-          wallet: { availableBalance: { gt: 0 } }
-        },
-        include: { wallet: true }
-      }) || await prisma.user.findFirst({
-        where: { role: { name: 'ADMIN' } },
-        include: { wallet: true }
-      });
-      treasuryBalance = parseFloat(adminUser?.wallet?.availableBalance || 0);
-    }
+    // 1. Get Unified Single Source of Truth Corporate Treasury Wallet
+    const treasuryWallet = await getPrimaryTreasuryWallet();
+    const treasuryBalance = parseFloat(treasuryWallet.availableBalance || 0);
 
     // 2. Sum of operational funds allocated to staff & managers (excluding Admin)
     const teamWallets = await prisma.wallet.aggregate({
@@ -193,19 +175,8 @@ exports.getAdminStats = async (req, res) => {
 
 exports.getAccountingStats = async (req, res) => {
   try {
-    let treasuryBalance = 0;
-    const adminUser = await prisma.user.findFirst({
-      where: {
-        role: { name: 'ADMIN' },
-        wallet: { availableBalance: { gt: 0 } }
-      },
-      include: { wallet: true }
-    }) || await prisma.user.findFirst({
-      where: { role: { name: 'ADMIN' } },
-      include: { wallet: true }
-    });
-
-    treasuryBalance = parseFloat(adminUser?.wallet?.availableBalance || 0);
+    const treasuryWallet = await getPrimaryTreasuryWallet();
+    const treasuryBalance = parseFloat(treasuryWallet.availableBalance || 0);
 
     const teamWallets = await prisma.wallet.aggregate({
       where: {

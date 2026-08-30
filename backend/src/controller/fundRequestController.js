@@ -1,6 +1,7 @@
 const prisma = require('../config/db');
 const { logAudit } = require('../utils/auditLogger');
 const { postAllocationJournal } = require('../utils/accountingHelper');
+const { getPrimaryTreasuryWallet } = require('../utils/treasuryHelper');
 
 // User creates a request to a manager
 exports.createRequest = async (req, res) => {
@@ -124,30 +125,8 @@ exports.approveRequest = async (req, res) => {
       let sourceWalletType;
 
       if (isApproverAdmin) {
-        // Admin approves -> Released from Corporate Treasury (Admin's Wallet)
-        sourceWallet = await tx.wallet.findUnique({ where: { userId: approverId } });
-        
-        // Fallback: If logged in admin's personal wallet doesn't have sufficient funds, find primary funded admin wallet
-        if (!sourceWallet || parseFloat(sourceWallet.availableBalance) < reqAmount) {
-          const primaryAdmin = await tx.user.findFirst({
-            where: { role: { name: 'ADMIN' }, wallet: { availableBalance: { gte: reqAmount } } },
-            include: { wallet: true }
-          });
-          if (primaryAdmin?.wallet) {
-            sourceWallet = primaryAdmin.wallet;
-          }
-        }
-
-        if (!sourceWallet) {
-          sourceWallet = await tx.wallet.create({
-            data: {
-              userId: approverId,
-              totalAllocated: 0,
-              totalSpent: 0,
-              availableBalance: 0
-            }
-          });
-        }
+        // Admin approves -> Released from Corporate Treasury (Primary Treasury Wallet)
+        sourceWallet = await getPrimaryTreasuryWallet(tx);
 
         if (parseFloat(sourceWallet.availableBalance) < reqAmount) {
           throw new Error('INSUFFICIENT_FUNDS');
@@ -339,29 +318,8 @@ exports.directAllocateFunds = async (req, res) => {
     }
 
     const result = await prisma.$transaction(async (tx) => {
-      // 1. Identify Admin / Treasury Source Wallet
-      let adminWallet = await tx.wallet.findUnique({ where: { userId: adminId } });
-      
-      if (!adminWallet || parseFloat(adminWallet.availableBalance) < allocAmount) {
-        const primaryAdmin = await tx.user.findFirst({
-          where: { role: { name: 'ADMIN' }, wallet: { availableBalance: { gte: allocAmount } } },
-          include: { wallet: true }
-        });
-        if (primaryAdmin?.wallet) {
-          adminWallet = primaryAdmin.wallet;
-        }
-      }
-
-      if (!adminWallet) {
-        adminWallet = await tx.wallet.create({
-          data: {
-            userId: adminId,
-            totalAllocated: 0,
-            totalSpent: 0,
-            availableBalance: 0
-          }
-        });
-      }
+      // 1. Identify Unified Master Treasury Source Wallet
+      const adminWallet = await getPrimaryTreasuryWallet(tx);
 
       if (parseFloat(adminWallet.availableBalance) < allocAmount) {
         throw new Error('INSUFFICIENT_FUNDS');
