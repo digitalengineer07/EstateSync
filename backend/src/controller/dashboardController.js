@@ -28,7 +28,8 @@ exports.getWalletStats = async (req, res) => {
       _sum: {
         totalContractValue: true,
         totalPaid: true,
-        balanceDue: true
+        balanceDue: true,
+        refundAmount: true
       },
       _count: { id: true }
     });
@@ -42,7 +43,7 @@ exports.getWalletStats = async (req, res) => {
         pendingRequestsAmount: pendingRequests._sum.amount || 0,
         customerCount: myCustomers._count.id || 0,
         myContractValue: myCustomers._sum.totalContractValue || 0,
-        myCollections: myCustomers._sum.totalPaid || 0,
+        myCollections: (myCustomers._sum.totalPaid || 0) - (myCustomers._sum.refundAmount || 0),
         myOutstanding: myCustomers._sum.balanceDue || 0
       }
     });
@@ -133,7 +134,8 @@ exports.getAdminStats = async (req, res) => {
       _sum: {
         totalContractValue: true,
         totalPaid: true,
-        balanceDue: true
+        balanceDue: true,
+        refundAmount: true
       },
       _count: { id: true }
     });
@@ -175,7 +177,7 @@ exports.getAdminStats = async (req, res) => {
         budgetUtilization: `${utilizationRate}%`,
         totalCustomers: customerAgg._count.id || 0,
         totalCustomerContracts: Number(customerAgg._sum.totalContractValue || 0),
-        totalCustomerCollections: Number(customerAgg._sum.totalPaid || 0),
+        totalCustomerCollections: Number(customerAgg._sum.totalPaid || 0) - Number(customerAgg._sum.refundAmount || 0),
         totalCustomerReceivables: Number(customerAgg._sum.balanceDue || 0),
         totalProperties: propertyAgg._count.id || 0,
         totalLandValuation: Number(propertyAgg._sum.totalLandValue || 0),
@@ -222,7 +224,8 @@ exports.getAccountingStats = async (req, res) => {
       _sum: {
         totalContractValue: true,
         totalPaid: true,
-        balanceDue: true
+        balanceDue: true,
+        refundAmount: true
       },
       _count: { id: true }
     });
@@ -264,7 +267,7 @@ exports.getAccountingStats = async (req, res) => {
         budgetUtilization: `${utilizationRate}%`,
         totalCustomers: customerAgg._count.id || 0,
         totalCustomerContracts: Number(customerAgg._sum.totalContractValue || 0),
-        totalCustomerCollections: Number(customerAgg._sum.totalPaid || 0),
+        totalCustomerCollections: Number(customerAgg._sum.totalPaid || 0) - Number(customerAgg._sum.refundAmount || 0),
         totalCustomerReceivables: Number(customerAgg._sum.balanceDue || 0),
         totalProperties: propertyAgg._count.id || 0,
         totalLandValuation: Number(propertyAgg._sum.totalLandValue || 0),
