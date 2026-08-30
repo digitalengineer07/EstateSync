@@ -1,14 +1,16 @@
 "use client";
 
 import { useRef } from "react";
-import { Printer, Download, Plus, X, Building2 } from "lucide-react";
+import { Printer, Download, Plus, X, Building2, Edit3 } from "lucide-react";
 
 export default function CustomerStatementModal({ 
   isOpen, 
   onClose, 
   customer, 
   onOpenPayment,
-  canRecordPayment = false 
+  onOpenEdit,
+  canRecordPayment = false,
+  userRole = "SALES"
 }) {
   const printRef = useRef(null);
 
@@ -60,6 +62,8 @@ export default function CustomerStatementModal({
     document.body.removeChild(link);
   };
 
+  const canEdit = ["SALES", "ADMIN", "MARKETING", "MANAGER"].includes(userRole);
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 print:p-0 print:bg-white print:static">
       <div className="bg-white rounded-xl shadow-2xl max-w-6xl w-full flex flex-col overflow-hidden border border-slate-300 animate-in fade-in zoom-in-95 duration-150 print:border-none print:shadow-none print:max-w-none">
@@ -73,6 +77,19 @@ export default function CustomerStatementModal({
           </div>
 
           <div className="flex items-center gap-2">
+            {canEdit && (
+              <button
+                onClick={() => {
+                  onOpenEdit?.(customer);
+                }}
+                className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-md text-xs font-semibold flex items-center gap-1.5 transition border border-slate-700"
+                title="Edit Customer Profile & Plot Info"
+              >
+                <Edit3 className="w-3.5 h-3.5 text-indigo-400" />
+                <span>Edit Profile</span>
+              </button>
+            )}
+
             <button
               onClick={handleExportCSV}
               className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-md text-xs font-semibold flex items-center gap-1.5 transition border border-slate-700"
