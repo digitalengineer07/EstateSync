@@ -54,6 +54,24 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
     setError(null);
     setSuccessMsg(null);
 
+    if (!formData.customerName?.trim() || !formData.customerContact?.trim()) {
+      setError("Customer Name and Contact are required.");
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.plotNo?.trim()) {
+      setError("Plot Number is compulsory and cannot be empty.");
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.khataNo?.trim()) {
+      setError("Khata Number is compulsory and cannot be empty.");
+      setLoading(false);
+      return;
+    }
+
     try {
       const token = localStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/customers/${customer.id}`, {

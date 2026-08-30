@@ -49,12 +49,44 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
     setError(null);
     setSuccessMsg(null);
 
+    if (!formData.customerName?.trim() || !formData.customerContact?.trim() || !formData.projectLocation?.trim()) {
+      setError("Customer Name, Contact, and Project Location are required.");
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.plotNo?.trim()) {
+      setError("Plot Number is compulsory and cannot be empty.");
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.khataNo?.trim()) {
+      setError("Khata Number is compulsory and cannot be empty.");
+      setLoading(false);
+      return;
+    }
+
+    if (area <= 0) {
+      setError("Plot Area (sq.ft) must be greater than zero.");
+      setLoading(false);
+      return;
+    }
+
     try {
       const token = localStorage.getItem("accessToken");
       const idempotencyKey = `cust-create-${Date.now()}`;
 
       const payload = {
         ...formData,
+        customerName: formData.customerName.trim(),
+        customerContact: formData.customerContact.trim(),
+        customerAddress: formData.customerAddress?.trim() || null,
+        projectLocation: formData.projectLocation.trim(),
+        plotNo: formData.plotNo.trim(),
+        khataNo: formData.khataNo.trim(),
+        identityType: formData.identityType.trim(),
+        identityNumber: formData.identityNumber.trim(),
         areaSqft: area,
         ratePerSqft: rate,
         landCost: computedLandCost,

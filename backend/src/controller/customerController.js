@@ -26,14 +26,49 @@ exports.createCustomer = async (req, res) => {
 
     const salesOwnerId = req.user.userId;
 
-    if (!customerName || !customerContact || !projectLocation || !plotNo || !areaSqft || !khataNo || !identityType || !identityNumber) {
+    const trimmedCustomerName = customerName ? customerName.trim() : '';
+    const trimmedCustomerContact = customerContact ? customerContact.trim() : '';
+    const trimmedCustomerAddress = customerAddress ? customerAddress.trim() : null;
+    const trimmedProjectLocation = projectLocation ? projectLocation.trim() : '';
+    const trimmedPlotNo = plotNo ? plotNo.trim() : '';
+    const trimmedKhataNo = khataNo ? khataNo.trim() : '';
+    const trimmedIdentityType = identityType ? identityType.trim() : '';
+    const trimmedIdentityNumber = identityNumber ? identityNumber.trim() : '';
+
+    if (!trimmedCustomerName || !trimmedCustomerContact || !trimmedProjectLocation || !trimmedPlotNo || !trimmedKhataNo || !trimmedIdentityType || !trimmedIdentityNumber) {
       return res.status(400).json({
         success: false,
-        message: 'All master profile fields (Customer Name, Contact, Project, Plot No, Area, Khata No, ID Type & Number) are required'
+        message: 'All master profile fields (Customer Name, Contact, Project Location, Plot No., Khata No., Identity Type & ID Number) are compulsory.'
       });
     }
 
     const numArea = parseFloat(areaSqft) || 0;
+    if (numArea <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Plot Area (sq.ft) is compulsory and must be greater than zero.'
+      });
+    }
+
+    // 2. Strict Check for Duplicate Plot & Khata across the database
+    const existingPlotCustomer = await prisma.customer.findFirst({
+      where: {
+        khataNo: { equals: trimmedKhataNo, mode: 'insensitive' },
+        plotNo: { equals: trimmedPlotNo, mode: 'insensitive' },
+        status: { not: 'CANCELLED' }
+      },
+      include: {
+        salesOwner: { select: { name: true, email: true } }
+      }
+    });
+
+    if (existingPlotCustomer) {
+      return res.status(400).json({
+        success: false,
+        message: `Duplicate Record Error: A customer account (${existingPlotCustomer.customerName}) is already registered for Khata No. "${trimmedKhataNo}" and Plot No. "${trimmedPlotNo}" (Location: ${existingPlotCustomer.projectLocation}). Multiple accounts cannot be created for the same plot.`
+      });
+    }
+
     const numRate = parseFloat(ratePerSqft) || 0;
     const numLandCost = parseFloat(landCost) || (numRate > 0 && numArea > 0 ? numRate * numArea : 0);
     const numRegistry = parseFloat(registryCost) || 0;
@@ -47,22 +82,22 @@ exports.createCustomer = async (req, res) => {
     if (totalContractValue <= 0) {
       return res.status(400).json({
         success: false,
-        message: 'Total contract value must be greater than zero'
+        message: 'Total contract value must be greater than zero.'
       });
     }
 
     const customer = await prisma.customer.create({
       data: {
         salesOwnerId,
-        customerName,
-        customerContact,
-        customerAddress: customerAddress || null,
-        projectLocation,
-        plotNo,
+        customerName: trimmedCustomerName,
+        customerContact: trimmedCustomerContact,
+        customerAddress: trimmedCustomerAddress,
+        projectLocation: trimmedProjectLocation,
+        plotNo: trimmedPlotNo,
         areaSqft: numArea,
-        khataNo,
-        identityType,
-        identityNumber,
+        khataNo: trimmedKhataNo,
+        identityType: trimmedIdentityType,
+        identityNumber: trimmedIdentityNumber,
         kycDocuments: kycDocuments || null,
         status: 'ACTIVE',
         ratePerSqft: numRate,
@@ -87,9 +122,10 @@ exports.createCustomer = async (req, res) => {
       entityType: 'CUSTOMER',
       entityId: customer.id,
       newValues: {
-        customerName,
-        plotNo,
-        projectLocation,
+        customerName: trimmedCustomerName,
+        plotNo: trimmedPlotNo,
+        khataNo: trimmedKhataNo,
+        projectLocation: trimmedProjectLocation,
         totalContractValue,
         salesOwner: req.user.email
       },
@@ -225,8 +261,31 @@ exports.updateCustomer = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Customer not found' });
     }
 
-    if (userRole !== 'ADMIN' && existing.salesOwnerId !== req.user.userId) {
-      return res.status(403).json({ success: false, message: 'Only the assigned sales owner or Admin can update this customer' });
+    const trimmedPlotNo = plotNo !== undefined ? (plotNo ? plotNo.trim() : '') : existing.plotNo;
+    const trimmedKhataNo = khataNo !== undefined ? (khataNo ? khataNo.trim() : '') : existing.khataNo;
+
+    if (!trimmedPlotNo || !trimmedKhataNo) {
+      return res.status(400).json({
+        success: false,
+        message: 'Plot No. and Khata No. are compulsory and cannot be empty.'
+      });
+    }
+
+    // Check if another customer already has this Plot No and Khata No
+    const duplicateCheck = await prisma.customer.findFirst({
+      where: {
+        id: { not: id },
+        khataNo: { equals: trimmedKhataNo, mode: 'insensitive' },
+        plotNo: { equals: trimmedPlotNo, mode: 'insensitive' },
+        status: { not: 'CANCELLED' }
+      }
+    });
+
+    if (duplicateCheck) {
+      return res.status(400).json({
+        success: false,
+        message: `Duplicate Record Error: Another customer account (${duplicateCheck.customerName}) already exists with Khata No. "${trimmedKhataNo}" and Plot No. "${trimmedPlotNo}". Duplicate entry is not allowed.`
+      });
     }
 
     const updatedData = {
@@ -236,8 +295,8 @@ exports.updateCustomer = async (req, res) => {
       identityType: identityType ? identityType.trim() : existing.identityType,
       identityNumber: identityNumber ? identityNumber.trim() : existing.identityNumber,
       projectLocation: projectLocation ? projectLocation.trim() : existing.projectLocation,
-      plotNo: plotNo ? plotNo.trim() : existing.plotNo,
-      khataNo: khataNo ? khataNo.trim() : existing.khataNo,
+      plotNo: trimmedPlotNo,
+      khataNo: trimmedKhataNo,
       areaSqft: areaSqft !== undefined && !isNaN(parseFloat(areaSqft)) && parseFloat(areaSqft) > 0 ? parseFloat(areaSqft) : existing.areaSqft,
       kycDocuments: kycDocuments !== undefined ? kycDocuments : existing.kycDocuments,
       status: status ? status.trim() : existing.status
