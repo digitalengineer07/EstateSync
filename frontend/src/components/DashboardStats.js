@@ -56,9 +56,10 @@ export default function DashboardStats({ type }) {
     return `₹${parseFloat(val || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
   };
 
-  if (type === 'accounting') {
+  if (type === 'accounting' || type === 'admin') {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Card 1: Treasury Liquidity (Corporate Main Balance) */}
         <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Treasury Liquidity</span>
@@ -69,9 +70,10 @@ export default function DashboardStats({ type }) {
           <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
             {formatCurrency(stats.totalOrganizationalFunds)}
           </p>
-          <p className="text-xs text-slate-500 mt-1">Across {stats.totalWallets || 0} active wallets</p>
+          <p className="text-xs text-slate-500 mt-1">Across {stats.totalWallets || stats.activeUsers || 0} active wallets</p>
         </div>
 
+        {/* Card 2: Customer Collections */}
         <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Customer Collections</span>
@@ -85,6 +87,7 @@ export default function DashboardStats({ type }) {
           <p className="text-xs text-slate-500 mt-1">{stats.totalCustomers || 0} Clients • {formatCurrency(stats.totalCustomerReceivables || 0)} due</p>
         </div>
 
+        {/* Card 3: Land Acquisitions (Asset 1510) */}
         <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Land Assets (1510)</span>
@@ -98,6 +101,7 @@ export default function DashboardStats({ type }) {
           <p className="text-xs text-slate-500 mt-1">{stats.totalProperties || 0} Parcels • {formatCurrency(stats.totalLandPayouts || 0)} paid</p>
         </div>
 
+        {/* Card 4: Operating Expenses & Allocations */}
         <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Operating Expenses</span>
@@ -106,67 +110,9 @@ export default function DashboardStats({ type }) {
             </div>
           </div>
           <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
-            {formatCurrency(stats.totalRecordedExpenses)}
+            {formatCurrency(stats.totalRecordedExpenses ?? stats.totalExpenses ?? 0)}
           </p>
-          <p className="text-xs text-slate-500 mt-1">{stats.expenseCount || 0} receipts • {stats.budgetUtilization || '0%'} utilization</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (type === 'admin') {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Treasury Liquidity</span>
-            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
-              <Landmark className="w-4 h-4" />
-            </div>
-          </div>
-          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
-            {formatCurrency(stats.totalOrganizationalFunds)}
-          </p>
-          <p className="text-xs text-slate-500 mt-1">Primary corporate account balance</p>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Allocated Funds</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <CreditCard className="w-4 h-4" />
-            </div>
-          </div>
-          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
-            {formatCurrency(stats.totalAllocated)}
-          </p>
-          <p className="text-xs text-slate-500 mt-1">In-hand: {formatCurrency(stats.totalTeamBalance)} • {formatCurrency(stats.totalSpent)} spent</p>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Customer Revenue</span>
-            <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center">
-              <TrendingUp className="w-4 h-4" />
-            </div>
-          </div>
-          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
-            {formatCurrency(stats.totalCustomerContracts || 0)}
-          </p>
-          <p className="text-xs text-slate-500 mt-1">{formatCurrency(stats.totalCustomerCollections || 0)} collected • {stats.totalCustomers || 0} clients</p>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Land Acquisitions</span>
-            <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
-              <MapPin className="w-4 h-4" />
-            </div>
-          </div>
-          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
-            {formatCurrency(stats.totalLandValuation || 0)}
-          </p>
-          <p className="text-xs text-slate-500 mt-1">{formatCurrency(stats.totalLandPayouts || 0)} paid • {stats.totalProperties || 0} parcels</p>
+          <p className="text-xs text-slate-500 mt-1">{stats.expenseCount || 0} receipts • {formatCurrency(stats.totalAllocated)} budget</p>
         </div>
       </div>
     );

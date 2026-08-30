@@ -125,7 +125,8 @@ exports.getAdminStats = async (req, res) => {
       where: { status: 'RECORDED' },
       _sum: {
         amount: true
-      }
+      },
+      _count: { id: true }
     });
 
     const customerAgg = await prisma.customer.aggregate({
@@ -146,25 +147,40 @@ exports.getAdminStats = async (req, res) => {
       _count: { id: true }
     });
 
+    const pendingRequests = await prisma.fundRequest.aggregate({
+      where: { status: 'PENDING' },
+      _sum: { amount: true },
+      _count: { id: true }
+    });
+
     const userCount = await prisma.user.count();
+    const totalAllocated = Number(teamWallets._sum.totalAllocated || 0);
+    const totalSpent = Number(teamWallets._sum.totalSpent || 0);
+    const utilizationRate = totalAllocated > 0 ? ((totalSpent / totalAllocated) * 100).toFixed(1) : '0.0';
 
     res.json({
       success: true,
       stats: {
         totalOrganizationalFunds: treasuryBalance,
-        totalAllocated: parseFloat(teamWallets._sum.totalAllocated || 0),
+        totalAllocated,
         totalTeamBalance: parseFloat(teamWallets._sum.availableBalance || 0),
-        totalExpenses: parseFloat(allExpenses._sum.amount || 0),
-        totalSpent: parseFloat(teamWallets._sum.totalSpent || 0),
+        totalSpent,
+        totalRecordedExpenses: Number(allExpenses._sum.amount || 0),
+        totalExpenses: Number(allExpenses._sum.amount || 0),
+        expenseCount: allExpenses._count.id || 0,
+        totalWallets: teamWallets._count.id || 0,
         activeUsers: userCount,
+        pendingRequestsAmount: Number(pendingRequests._sum.amount || 0),
+        pendingRequestsCount: pendingRequests._count.id || 0,
+        budgetUtilization: `${utilizationRate}%`,
         totalCustomers: customerAgg._count.id || 0,
-        totalCustomerContracts: customerAgg._sum.totalContractValue || 0,
-        totalCustomerCollections: customerAgg._sum.totalPaid || 0,
-        totalCustomerReceivables: customerAgg._sum.balanceDue || 0,
+        totalCustomerContracts: Number(customerAgg._sum.totalContractValue || 0),
+        totalCustomerCollections: Number(customerAgg._sum.totalPaid || 0),
+        totalCustomerReceivables: Number(customerAgg._sum.balanceDue || 0),
         totalProperties: propertyAgg._count.id || 0,
-        totalLandValuation: propertyAgg._sum.totalLandValue || 0,
-        totalLandPayouts: propertyAgg._sum.totalPaidToOwner || 0,
-        totalLandLiabilities: propertyAgg._sum.balanceRemaining || 0
+        totalLandValuation: Number(propertyAgg._sum.totalLandValue || 0),
+        totalLandPayouts: Number(propertyAgg._sum.totalPaidToOwner || 0),
+        totalLandLiabilities: Number(propertyAgg._sum.balanceRemaining || 0)
       }
     });
   } catch (error) {
@@ -226,6 +242,7 @@ exports.getAccountingStats = async (req, res) => {
       _count: { id: true }
     });
 
+    const userCount = await prisma.user.count();
     const totalAllocated = Number(teamWallets._sum.totalAllocated || 0);
     const totalSpent = Number(teamWallets._sum.totalSpent || 0);
     const utilizationRate = totalAllocated > 0 ? ((totalSpent / totalAllocated) * 100).toFixed(1) : '0.0';
@@ -235,10 +252,13 @@ exports.getAccountingStats = async (req, res) => {
       stats: {
         totalOrganizationalFunds: treasuryBalance,
         totalAllocated,
+        totalTeamBalance: parseFloat(teamWallets._sum.availableBalance || 0),
         totalSpent,
         totalRecordedExpenses: Number(allExpenses._sum.amount || 0),
+        totalExpenses: Number(allExpenses._sum.amount || 0),
         expenseCount: allExpenses._count.id || 0,
         totalWallets: teamWallets._count.id || 0,
+        activeUsers: userCount,
         pendingRequestsAmount: Number(pendingRequests._sum.amount || 0),
         pendingRequestsCount: pendingRequests._count.id || 0,
         budgetUtilization: `${utilizationRate}%`,
