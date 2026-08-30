@@ -60,6 +60,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
   });
 
   const canManage = ["ACCOUNTING", "ADMIN"].includes(userRole);
+  const canRecordPayout = ["ACCOUNTING", "ADMIN"].includes(userRole);
 
   return (
     <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 sm:p-7">
