@@ -1,15 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { CheckCircle2, XCircle, Clock, RefreshCw } from "lucide-react";
 
 // type can be 'outgoing', 'incoming', or 'all'
 export default function FundRequestList({ type = "outgoing", embedded = false, showHeader = true }) {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [processingId, setProcessingId] = useState(null);
   const [actionError, setActionError] = useState(null);
+  const [actionSuccess, setActionSuccess] = useState(null);
+
+  const isApproverView = type === "incoming" || type === "all";
 
   const fetchRequests = async () => {
     setLoading(true);
+    setActionError(null);
     try {
       const token = localStorage.getItem("accessToken");
       let endpoint = "http://localhost:4000/api/v1/fund-requests/my";
@@ -21,10 +27,13 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
       });
       const data = await res.json();
       if (data.success) {
-        setRequests(data.requests);
+        setRequests(data.requests || []);
+      } else {
+        setActionError(data.message || "Failed to fetch fund requests.");
       }
     } catch (error) {
       console.error("Failed to fetch requests", error);
+      setActionError("Network error loading requests.");
     }
     setLoading(false);
   };
@@ -35,6 +44,8 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
 
   const handleAction = async (id, action) => {
     setActionError(null);
+    setActionSuccess(null);
+    setProcessingId(id);
     try {
       const token = localStorage.getItem("accessToken");
       const res = await fetch(`http://localhost:4000/api/v1/fund-requests/${id}/${action}`, {
@@ -48,76 +59,137 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
       const data = await res.json();
       
       if (data.success) {
-        // Refresh list
+        setActionSuccess(`Request ${action === 'approve' ? 'approved and funds allocated' : 'rejected'} successfully!`);
         fetchRequests();
       } else {
         setActionError(data.message || `Failed to ${action} request.`);
       }
     } catch (error) {
-      setActionError("Network error occurred.");
+      setActionError("Network error occurred while processing action.");
     }
+    setProcessingId(null);
   };
 
-  if (loading) return <div className="p-4 text-gray-500 text-sm">Loading requests...</div>;
+  if (loading) {
+    return (
+      <div className={embedded ? "p-4 text-slate-500 text-sm" : "bg-white shadow rounded-lg p-6 mt-8"}>
+        <div className="flex items-center gap-2 text-slate-500 text-sm">
+          <RefreshCw className="w-4 h-4 animate-spin" />
+          <span>Loading fund requests...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={embedded ? "" : "bg-white shadow rounded-lg p-6 mt-8"}>
       {showHeader && (
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-xl font-bold text-gray-800">
-            {type === 'outgoing' ? 'My Fund Requests' : type === 'incoming' ? 'Team Fund Requests' : 'All Fund Requests'}
-          </h3>
-          <button onClick={fetchRequests} className="text-sm text-blue-600 hover:underline">Refresh</button>
+          <div>
+            <h3 className="text-xl font-bold text-gray-800">
+              {type === 'outgoing' ? 'My Fund Requests' : type === 'incoming' ? 'Team Fund Requests' : 'All Fund Requests'}
+            </h3>
+            <p className="text-xs text-gray-500 mt-0.5">
+              {type === 'outgoing' ? 'Status of your submitted wallet top-up requests' : 'Review and approve pending fund allocation requests'}
+            </p>
+          </div>
+          <button 
+            onClick={fetchRequests} 
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 rounded-md transition-colors"
+          >
+            <RefreshCw className="w-3.5 h-3.5" />
+            <span>Refresh</span>
+          </button>
+        </div>
+      )}
+
+      {actionSuccess && (
+        <div className="p-3.5 mb-4 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-md text-sm flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span>{actionSuccess}</span>
+          </div>
+          <button onClick={() => setActionSuccess(null)} className="text-emerald-600 hover:text-emerald-900 text-xs font-bold ml-4">✕</button>
         </div>
       )}
 
       {actionError && (
-        <div className="p-4 mb-4 bg-red-50 text-red-800 border border-red-200 rounded-md">
-          {actionError}
+        <div className="p-3.5 mb-4 bg-red-50 text-red-800 border border-red-200 rounded-md text-sm flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <XCircle className="w-4 h-4 text-red-600 shrink-0" />
+            <span>{actionError}</span>
+          </div>
+          <button onClick={() => setActionError(null)} className="text-red-600 hover:text-red-900 text-xs font-bold ml-4">✕</button>
         </div>
       )}
 
       {requests.length === 0 ? (
-        <p className="text-gray-500">No requests found.</p>
+        <div className="p-8 text-center bg-slate-50 rounded-lg border border-dashed border-slate-200">
+          <Clock className="w-8 h-8 text-slate-400 mx-auto mb-2 opacity-60" />
+          <p className="text-sm font-medium text-slate-600">No fund requests found.</p>
+          <p className="text-xs text-slate-400 mt-1">Submitted fund requests will appear here in real-time.</p>
+        </div>
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full text-left text-sm whitespace-nowrap">
-            <thead className="uppercase tracking-wider border-b-2 border-gray-200 text-gray-600">
+            <thead className="uppercase tracking-wider border-b-2 border-gray-200 text-gray-600 text-xs font-semibold">
               <tr>
-                <th scope="col" className="px-6 py-3">Date</th>
-                {type !== 'outgoing' && <th scope="col" className="px-6 py-3">Requester</th>}
-                {type !== 'incoming' && <th scope="col" className="px-6 py-3">Manager</th>}
-                <th scope="col" className="px-6 py-3">Amount</th>
-                <th scope="col" className="px-6 py-3">Reason</th>
-                <th scope="col" className="px-6 py-3">Status</th>
-                {type === 'incoming' && <th scope="col" className="px-6 py-3 text-right">Actions</th>}
+                <th scope="col" className="px-5 py-3">Date</th>
+                {type !== 'outgoing' && <th scope="col" className="px-5 py-3">Requester</th>}
+                {type !== 'incoming' && <th scope="col" className="px-5 py-3">Manager / Approver</th>}
+                <th scope="col" className="px-5 py-3">Amount</th>
+                <th scope="col" className="px-5 py-3">Reason</th>
+                <th scope="col" className="px-5 py-3">Status</th>
+                {isApproverView && <th scope="col" className="px-5 py-3 text-right">Actions</th>}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 text-gray-900">
               {requests.map((req) => (
                 <tr key={req.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-4">{new Date(req.createdAt).toLocaleDateString()}</td>
-                  {type !== 'outgoing' && <td className="px-6 py-4">{req.requester?.name || req.requesterId}</td>}
-                  {type !== 'incoming' && <td className="px-6 py-4">{req.manager?.name || req.managerId}</td>}
-                  <td className="px-6 py-4 font-semibold">₹{parseFloat(req.amount).toLocaleString()}</td>
-                  <td className="px-6 py-4">{req.reason}</td>
-                  <td className="px-6 py-4">
-                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                      ${req.status === 'APPROVED' ? 'bg-green-100 text-green-800' : 
-                        req.status === 'REJECTED' ? 'bg-red-100 text-red-800' : 
-                        'bg-yellow-100 text-yellow-800'}`}>
+                  <td className="px-5 py-4 text-xs text-gray-600">{new Date(req.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
+                  {type !== 'outgoing' && (
+                    <td className="px-5 py-4 font-medium text-slate-800">
+                      <div>{req.requester?.name || 'User'}</div>
+                      <div className="text-[11px] text-slate-400 font-normal">{req.requester?.email || req.requesterId}</div>
+                    </td>
+                  )}
+                  {type !== 'incoming' && (
+                    <td className="px-5 py-4 text-slate-700">
+                      <div>{req.manager?.name || 'Authority'}</div>
+                      <div className="text-[11px] text-slate-400 font-normal">{req.manager?.email || req.managerId}</div>
+                    </td>
+                  )}
+                  <td className="px-5 py-4 font-bold text-slate-900">₹{parseFloat(req.amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                  <td className="px-5 py-4 text-slate-700 max-w-xs truncate">{req.reason}</td>
+                  <td className="px-5 py-4">
+                    <span className={`px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full 
+                      ${req.status === 'APPROVED' ? 'bg-green-100 text-green-800 border border-green-200' : 
+                        req.status === 'REJECTED' ? 'bg-red-100 text-red-800 border border-red-200' : 
+                        'bg-amber-100 text-amber-800 border border-amber-200'}`}>
                       {req.status}
                     </span>
                   </td>
-                  {type === 'incoming' && (
-                    <td className="px-6 py-4 text-right">
+                  {isApproverView && (
+                    <td className="px-5 py-4 text-right">
                       {req.status === 'PENDING' ? (
                         <div className="flex justify-end space-x-2">
-                          <button onClick={() => handleAction(req.id, 'approve')} className="text-green-600 hover:text-green-900 font-medium">Approve</button>
-                          <button onClick={() => handleAction(req.id, 'reject')} className="text-red-600 hover:text-red-900 font-medium">Reject</button>
+                          <button 
+                            disabled={processingId === req.id}
+                            onClick={() => handleAction(req.id, 'approve')} 
+                            className="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs font-semibold transition-colors disabled:opacity-50"
+                          >
+                            {processingId === req.id ? "Processing..." : "Approve"}
+                          </button>
+                          <button 
+                            disabled={processingId === req.id}
+                            onClick={() => handleAction(req.id, 'reject')} 
+                            className="px-3 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded text-xs font-semibold border border-rose-200 transition-colors disabled:opacity-50"
+                          >
+                            Reject
+                          </button>
                         </div>
                       ) : (
-                        <span className="text-gray-400">-</span>
+                        <span className="text-gray-400 text-xs font-medium">—</span>
                       )}
                     </td>
                   )}

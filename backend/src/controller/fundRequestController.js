@@ -156,7 +156,7 @@ exports.approveRequest = async (req, res) => {
       const transaction = await tx.walletTransaction.create({
         data: {
           type: 'FUND_ALLOCATION',
-          sourceWalletId: req.user.role !== 'ADMIN' ? managerWallet.id : null,
+          sourceWalletId: req.user.role !== 'ADMIN' ? managerWallet.id : (managerWallet?.id || null),
           destWalletId: requesterWallet.id,
           amount: reqAmount,
           referenceType: 'FUND_REQUEST',
@@ -167,10 +167,11 @@ exports.approveRequest = async (req, res) => {
         }
       });
 
-      // 6. Post Double-Entry Journal Entry (Debit: Team Wallet, Credit: Manager Wallet / Treasury)
+      // 6. Post Double-Entry Journal Entry (Debit: Recipient Wallet, Credit: Manager Wallet / Treasury)
+      const recipientType = request.requester?.role?.name === 'MANAGER' ? 'MANAGER' : 'TEAM';
       await postAllocationJournal(tx, {
         sourceWalletType: req.user.role === 'ADMIN' ? 'TREASURY' : 'MANAGER',
-        recipientWalletType: 'TEAM',
+        recipientWalletType: recipientType,
         amount: reqAmount,
         description: `Fund Request Approval for ${request.requester.name} (${request.reason})`,
         referenceId: request.id,
