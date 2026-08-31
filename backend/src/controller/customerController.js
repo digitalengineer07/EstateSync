@@ -183,18 +183,22 @@ exports.getCustomers = async (req, res) => {
     let totalPortfolioValue = 0;
     let totalCollected = 0;
     let totalOutstanding = 0;
+    let activeCustomersCount = 0;
 
     for (const c of customers) {
-      totalPortfolioValue += parseFloat(c.totalContractValue || 0);
-      totalCollected += parseFloat(c.totalPaid || 0) - parseFloat(c.refundAmount || 0);
-      totalOutstanding += parseFloat(c.balanceDue || 0);
+      if (c.status !== 'CANCELLED') {
+        activeCustomersCount++;
+        totalPortfolioValue += parseFloat(c.totalContractValue || 0);
+        totalCollected += parseFloat(c.totalPaid || 0) - parseFloat(c.refundAmount || 0);
+        totalOutstanding += parseFloat(c.balanceDue || 0);
+      }
     }
 
     res.json({
       success: true,
       customers,
       summary: {
-        totalCustomers: customers.length,
+        totalCustomers: activeCustomersCount,
         totalPortfolioValue,
         totalCollected,
         totalOutstanding

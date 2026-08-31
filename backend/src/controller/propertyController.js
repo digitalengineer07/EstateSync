@@ -135,20 +135,24 @@ exports.getProperties = async (req, res) => {
     let totalOutstandingLiabilities = 0;
     let ongoingCount = 0;
     let fullyPaidCount = 0;
+    let activePropertiesCount = 0;
 
     for (const p of properties) {
-      totalLandValuation += parseFloat(p.totalLandValue || 0);
-      totalPaidToOwners += parseFloat(p.totalPaidToOwner || 0);
-      totalOutstandingLiabilities += parseFloat(p.balanceRemaining || 0);
-      if (p.status === 'FULLY_PAID') fullyPaidCount++;
-      else ongoingCount++;
+      if (p.status !== 'CANCELLED') {
+        activePropertiesCount++;
+        totalLandValuation += parseFloat(p.totalLandValue || 0);
+        totalPaidToOwners += parseFloat(p.totalPaidToOwner || 0);
+        totalOutstandingLiabilities += parseFloat(p.balanceRemaining || 0);
+        if (p.status === 'FULLY_PAID') fullyPaidCount++;
+        else ongoingCount++;
+      }
     }
 
     res.json({
       success: true,
       properties,
       summary: {
-        totalProperties: properties.length,
+        totalProperties: activePropertiesCount,
         totalLandValuation,
         totalPaidToOwners,
         totalOutstandingLiabilities,

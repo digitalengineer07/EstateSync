@@ -24,7 +24,7 @@ exports.getWalletStats = async (req, res) => {
     });
 
     const myCustomers = await prisma.customer.aggregate({
-      where: { salesOwnerId: userId },
+      where: { salesOwnerId: userId, status: { not: 'CANCELLED' } },
       _sum: {
         totalContractValue: true,
         totalPaid: true,
@@ -139,6 +139,7 @@ exports.getAdminStats = async (req, res) => {
     });
 
     const customerAgg = await prisma.customer.aggregate({
+      where: { status: { not: 'CANCELLED' } },
       _sum: {
         totalContractValue: true,
         totalPaid: true,
@@ -149,6 +150,7 @@ exports.getAdminStats = async (req, res) => {
     });
 
     const propertyAgg = await prisma.propertyAcquisition.aggregate({
+      where: { status: { not: 'CANCELLED' } },
       _sum: {
         totalLandValue: true,
         totalPaidToOwner: true,
@@ -241,6 +243,7 @@ exports.getAccountingStats = async (req, res) => {
     });
 
     const customerAgg = await prisma.customer.aggregate({
+      where: { status: { not: 'CANCELLED' } },
       _sum: {
         totalContractValue: true,
         totalPaid: true,
@@ -251,6 +254,7 @@ exports.getAccountingStats = async (req, res) => {
     });
 
     const propertyAgg = await prisma.propertyAcquisition.aggregate({
+      where: { status: { not: 'CANCELLED' } },
       _sum: {
         totalLandValue: true,
         totalPaidToOwner: true,

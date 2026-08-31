@@ -38,7 +38,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
       return;
     }
 
-    if (!formData.bankName.trim() || !formData.referenceNo.trim()) {
+    if (formData.paymentMode !== 'CASH' && (!formData.bankName.trim() || !formData.referenceNo.trim())) {
       setError("Bank Name and UTR / Reference Number are required.");
       setLoading(false);
       return;
@@ -54,9 +54,9 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
         },
         body: JSON.stringify({
           ...formData,
-          bankName: formData.bankName.trim(),
-          accountNo: formData.accountNo ? formData.accountNo.trim() : null,
-          referenceNo: formData.referenceNo.trim(),
+          bankName: formData.paymentMode === 'CASH' ? 'Cash In Hand' : formData.bankName.trim(),
+          accountNo: formData.paymentMode === 'CASH' ? null : (formData.accountNo ? formData.accountNo.trim() : null),
+          referenceNo: formData.paymentMode === 'CASH' ? null : formData.referenceNo.trim(),
           narration: formData.narration ? formData.narration.trim() : null
         })
       });
@@ -190,37 +190,41 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
               </select>
             </div>
 
-            {/* Bank Name */}
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Corporate Bank Account <span className="text-rose-500">*</span>
-              </label>
-              <input
-                type="text"
-                name="bankName"
-                value={formData.bankName}
-                onChange={handleChange}
-                placeholder="e.g. HDFC Bank Ltd - Corporate"
-                required
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
-              />
-            </div>
+            {formData.paymentMode !== 'CASH' && (
+              <>
+                {/* Bank Name */}
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                    Corporate Bank Account <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="bankName"
+                    value={formData.bankName}
+                    onChange={handleChange}
+                    placeholder="e.g. HDFC Bank Ltd - Corporate"
+                    required
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                  />
+                </div>
 
-            {/* UTR / Reference No */}
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Bank Reference No / UTR / Cheque No <span className="text-rose-500">*</span>
-              </label>
-              <input
-                type="text"
-                name="referenceNo"
-                value={formData.referenceNo}
-                onChange={handleChange}
-                placeholder="e.g. UTR202608290091"
-                required
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-bold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
-              />
-            </div>
+                {/* UTR / Reference No */}
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                    Bank Reference No / UTR / Cheque No <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="referenceNo"
+                    value={formData.referenceNo}
+                    onChange={handleChange}
+                    placeholder="e.g. UTR202608290091"
+                    required
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-bold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                  />
+                </div>
+              </>
+            )}
 
             {/* Transaction Value Date */}
             <div>
@@ -237,19 +241,21 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
             </div>
 
             {/* Account Number (Optional) */}
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Bank Account Number (Optional)
-              </label>
-              <input
-                type="text"
-                name="accountNo"
-                value={formData.accountNo}
-                onChange={handleChange}
-                placeholder="e.g. 50200091823412"
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
-              />
-            </div>
+            {formData.paymentMode !== 'CASH' && (
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  Bank Account Number (Optional)
+                </label>
+                <input
+                  type="text"
+                  name="accountNo"
+                  value={formData.accountNo}
+                  onChange={handleChange}
+                  placeholder="e.g. 50200091823412"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                />
+              </div>
+            )}
 
             {/* Narration */}
             <div className="sm:col-span-2">

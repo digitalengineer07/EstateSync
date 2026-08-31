@@ -55,9 +55,9 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
         body: JSON.stringify({
           amount: numAmount,
           paymentMode,
-          sourceAccount: sourceAccount?.trim() || null,
-          destinationAccount: destinationAccount?.trim() || null,
-          referenceNo: referenceNo?.trim() || null,
+          sourceAccount: paymentMode === 'CASH' ? 'Cash In Hand' : (sourceAccount?.trim() || null),
+          destinationAccount: paymentMode === 'CASH' ? 'Cash In Hand' : (destinationAccount?.trim() || null),
+          referenceNo: paymentMode === 'CASH' ? null : (referenceNo?.trim() || null),
           dateOfPayment: new Date(dateOfPayment).toISOString()
         })
       });
@@ -197,37 +197,41 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
             </div>
           </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-gray-700 mb-1">UTR / Cheque / Ref Number</label>
-            <input
-              type="text"
-              value={referenceNo}
-              onChange={(e) => setReferenceNo(e.target.value)}
-              placeholder="e.g. UTR-HDFC-99881102"
-              className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none font-mono"
-            />
-          </div>
+          {paymentMode !== 'CASH' && (
+            <>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">UTR / Cheque / Ref Number</label>
+                <input
+                  type="text"
+                  value={referenceNo}
+                  onChange={(e) => setReferenceNo(e.target.value)}
+                  placeholder="e.g. UTR-HDFC-99881102"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none font-mono"
+                />
+              </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-gray-700 mb-1">Source Account (Client Bank / Branch)</label>
-            <input
-              type="text"
-              value={sourceAccount}
-              onChange={(e) => setSourceAccount(e.target.value)}
-              placeholder="e.g. HDFC Bank Client A/C ...9081"
-              className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
-            />
-          </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">Source Account (Client Bank / Branch)</label>
+                <input
+                  type="text"
+                  value={sourceAccount}
+                  onChange={(e) => setSourceAccount(e.target.value)}
+                  placeholder="e.g. HDFC Bank Client A/C ...9081"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                />
+              </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-gray-700 mb-1">Destination Treasury Account</label>
-            <input
-              type="text"
-              value={destinationAccount}
-              onChange={(e) => setDestinationAccount(e.target.value)}
-              className="w-full text-xs border border-gray-200 bg-gray-50 text-gray-600 rounded-lg px-3 py-2 focus:outline-none"
-            />
-          </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">Destination Treasury Account</label>
+                <input
+                  type="text"
+                  value={destinationAccount}
+                  onChange={(e) => setDestinationAccount(e.target.value)}
+                  className="w-full text-xs border border-gray-200 bg-gray-50 text-gray-600 rounded-lg px-3 py-2 focus:outline-none"
+                />
+              </div>
+            </>
+          )}
 
           {/* Actions */}
           <div className="flex justify-end gap-3 pt-3 border-t border-gray-200">

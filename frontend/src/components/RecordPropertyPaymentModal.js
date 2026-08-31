@@ -11,6 +11,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
   const [notes, setNotes] = useState("");
   const [dateOfPayment, setDateOfPayment] = useState(new Date().toISOString().split("T")[0]);
   
+  const [treasuryLiquid, setTreasuryLiquid] = useState(null);
   const [treasuryCash, setTreasuryCash] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -27,7 +28,8 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
           });
           const data = await res.json();
           if (data.success) {
-            setTreasuryCash(parseFloat(data.stats.totalOrganizationalFunds || 0));
+            setTreasuryLiquid(parseFloat(data.stats.totalOrganizationalFundsLiquid || 0));
+            setTreasuryCash(parseFloat(data.stats.totalOrganizationalFundsCash || 0));
           }
         } catch (err) {
           console.error("Failed to fetch treasury liquidity:", err);
@@ -44,7 +46,8 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
   const balanceRemaining = parseFloat(property.balanceRemaining || 0);
 
   const numAmount = parseFloat(amount) || 0;
-  const maxPayable = treasuryCash !== null ? Math.min(balanceRemaining, treasuryCash) : balanceRemaining;
+  const availableFunds = paymentMode === 'CASH' ? treasuryCash : treasuryLiquid;
+  const maxPayable = availableFunds !== null ? Math.min(balanceRemaining, availableFunds) : balanceRemaining;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,8 +67,8 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
       return;
     }
 
-    if (treasuryCash !== null && numAmount > treasuryCash) {
-      setError(`Insufficient Treasury liquidity: Available cash is ₹${treasuryCash.toLocaleString('en-IN')}, but trying to disburse ₹${numAmount.toLocaleString('en-IN')}`);
+    if (availableFunds !== null && numAmount > availableFunds) {
+      setError(`Insufficient Treasury liquidity: Available ${paymentMode === 'CASH' ? 'cash' : 'liquid funds'} is ₹${availableFunds.toLocaleString('en-IN')}, but trying to disburse ₹${numAmount.toLocaleString('en-IN')}`);
       setLoading(false);
       return;
     }
@@ -84,8 +87,8 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
         body: JSON.stringify({
           amount: numAmount,
           paymentMode,
-          paidFromAccount: paidFromAccount?.trim() || null,
-          referenceNo: referenceNo?.trim() || null,
+          paidFromAccount: paymentMode === 'CASH' ? 'Cash In Hand' : (paidFromAccount?.trim() || null),
+          referenceNo: paymentMode === 'CASH' ? null : (referenceNo?.trim() || null),
           notes: notes?.trim() || null,
           dateOfPayment: new Date(dateOfPayment).toISOString()
         })
@@ -170,10 +173,10 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
           )}
 
           {/* Treasury Liquidity Alert */}
-          {treasuryCash !== null && (
+          {availableFunds !== null && (
             <div className="flex justify-between items-center px-3 py-2 bg-indigo-50/70 border border-indigo-100 rounded-lg text-xs">
-              <span className="text-indigo-800 font-medium">Available Treasury Cash:</span>
-              <span className="font-bold text-indigo-900">₹{treasuryCash.toLocaleString('en-IN')}</span>
+              <span className="text-indigo-800 font-medium">Available Treasury {paymentMode === 'CASH' ? 'Cash' : 'Liquid Funds'}:</span>
+              <span className="font-bold text-indigo-900">₹{availableFunds.toLocaleString('en-IN')}</span>
             </div>
           )}
 
@@ -230,26 +233,30 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
             </div>
           </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-gray-700 mb-1">UTR / Cheque / Transaction Ref No</label>
-            <input
-              type="text"
-              value={referenceNo}
-              onChange={(e) => setReferenceNo(e.target.value)}
-              placeholder="e.g. RTGS-HDFC-88990011"
-              className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none font-mono"
-            />
-          </div>
+          {paymentMode !== 'CASH' && (
+            <>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">UTR / Cheque / Transaction Ref No</label>
+                <input
+                  type="text"
+                  value={referenceNo}
+                  onChange={(e) => setReferenceNo(e.target.value)}
+                  placeholder="e.g. RTGS-HDFC-88990011"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none font-mono"
+                />
+              </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-gray-700 mb-1">Paid From Account</label>
-            <input
-              type="text"
-              value={paidFromAccount}
-              onChange={(e) => setPaidFromAccount(e.target.value)}
-              className="w-full text-xs border border-gray-200 bg-gray-50 text-gray-600 rounded-lg px-3 py-2 focus:outline-none"
-            />
-          </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">Paid From Account</label>
+                <input
+                  type="text"
+                  value={paidFromAccount}
+                  onChange={(e) => setPaidFromAccount(e.target.value)}
+                  className="w-full text-xs border border-gray-200 bg-gray-50 text-gray-600 rounded-lg px-3 py-2 focus:outline-none"
+                />
+              </div>
+            </>
+          )}
 
           <div>
             <label className="block text-xs font-semibold text-gray-700 mb-1">Disbursement Tranche Notes</label>
@@ -274,7 +281,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
             </button>
             <button
               type="submit"
-              disabled={loading || numAmount <= 0 || numAmount > balanceRemaining || (treasuryCash !== null && numAmount > treasuryCash)}
+              disabled={loading || numAmount <= 0 || numAmount > balanceRemaining || (availableFunds !== null && numAmount > availableFunds)}
               className="px-5 py-2 text-xs font-bold text-white bg-amber-800 hover:bg-amber-900 active:scale-95 rounded-lg shadow-md transition disabled:opacity-50"
             >
               {loading ? "Posting Disbursement..." : `Disburse ₹${numAmount ? numAmount.toLocaleString('en-IN') : "0"}`}
