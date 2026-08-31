@@ -21,10 +21,17 @@ exports.createProperty = async (req, res) => {
 
     const createdById = req.user.userId;
 
-    if (!khataNo || !plotNo || !projectLocation || !landOwnerName || !landOwnerContact || !totalLandValue) {
+    const cleanKhataNo = khataNo ? khataNo.trim() : '';
+    const cleanPlotNo = plotNo ? plotNo.trim() : '';
+    const cleanProjectLocation = projectLocation ? projectLocation.trim() : '';
+    const cleanOwnerName = landOwnerName ? landOwnerName.trim() : '';
+    const cleanOwnerContact = landOwnerContact ? landOwnerContact.trim() : '';
+    const cleanOwnerAddress = landOwnerAddress ? landOwnerAddress.trim() : null;
+
+    if (!cleanKhataNo || !cleanPlotNo || !cleanProjectLocation || !cleanOwnerName || !cleanOwnerContact || !totalLandValue) {
       return res.status(400).json({
         success: false,
-        message: 'Khata No, Plot No, Project Location, Land Owner Name, Contact, and Total Land Value are required'
+        message: 'Khata No, Plot No, Project Location, Land Owner Name, Contact, and Total Land Value are compulsory.'
       });
     }
 
@@ -36,16 +43,32 @@ exports.createProperty = async (req, res) => {
       });
     }
 
+    // Check for duplicate Land Acquisition (same Khata No & Plot No)
+    const existingProperty = await prisma.propertyAcquisition.findFirst({
+      where: {
+        khataNo: { equals: cleanKhataNo, mode: 'insensitive' },
+        plotNo: { equals: cleanPlotNo, mode: 'insensitive' },
+        status: { not: 'CANCELLED' }
+      }
+    });
+
+    if (existingProperty) {
+      return res.status(400).json({
+        success: false,
+        message: `Duplicate Record Error: A land acquisition record for Khata No. "${cleanKhataNo}" and Plot No. "${cleanPlotNo}" is already registered (Land Owner: "${existingProperty.landOwnerName}", Location: "${existingProperty.projectLocation}"). Multiple land acquisition records cannot be created for the same plot and khata.`
+      });
+    }
+
     const numArea = areaSqft ? parseFloat(areaSqft) : null;
 
     const property = await prisma.propertyAcquisition.create({
       data: {
-        khataNo,
-        plotNo,
-        projectLocation,
-        landOwnerName,
-        landOwnerContact,
-        landOwnerAddress: landOwnerAddress || null,
+        khataNo: cleanKhataNo,
+        plotNo: cleanPlotNo,
+        projectLocation: cleanProjectLocation,
+        landOwnerName: cleanOwnerName,
+        landOwnerContact: cleanOwnerContact,
+        landOwnerAddress: cleanOwnerAddress,
         areaSqft: numArea,
         totalLandValue: numValue,
         totalPaidToOwner: 0,
@@ -166,19 +189,43 @@ exports.getPropertyById = async (req, res) => {
 exports.updateProperty = async (req, res) => {
   try {
     const { id } = req.params;
-    const { landOwnerName, landOwnerContact, landOwnerAddress, documents, status } = req.body;
+    const { khataNo, plotNo, projectLocation, landOwnerName, landOwnerContact, landOwnerAddress, documents, status } = req.body;
 
     const existing = await prisma.propertyAcquisition.findUnique({ where: { id } });
     if (!existing) {
       return res.status(404).json({ success: false, message: 'Property acquisition record not found' });
     }
 
+    const targetPlot = plotNo ? plotNo.trim() : existing.plotNo;
+    const targetKhata = khataNo ? khataNo.trim() : existing.khataNo;
+
+    if (plotNo !== undefined || khataNo !== undefined) {
+      const duplicate = await prisma.propertyAcquisition.findFirst({
+        where: {
+          id: { not: id },
+          plotNo: { equals: targetPlot, mode: 'insensitive' },
+          khataNo: { equals: targetKhata, mode: 'insensitive' },
+          status: { not: 'CANCELLED' }
+        }
+      });
+
+      if (duplicate) {
+        return res.status(400).json({
+          success: false,
+          message: `Duplicate Record Error: Another land acquisition record for Khata No. "${targetKhata}" and Plot No. "${targetPlot}" already exists (Land Owner: "${duplicate.landOwnerName}").`
+        });
+      }
+    }
+
     const updated = await prisma.propertyAcquisition.update({
       where: { id },
       data: {
-        landOwnerName: landOwnerName ?? existing.landOwnerName,
-        landOwnerContact: landOwnerContact ?? existing.landOwnerContact,
-        landOwnerAddress: landOwnerAddress ?? existing.landOwnerAddress,
+        khataNo: khataNo ? khataNo.trim() : existing.khataNo,
+        plotNo: plotNo ? plotNo.trim() : existing.plotNo,
+        projectLocation: projectLocation ? projectLocation.trim() : existing.projectLocation,
+        landOwnerName: landOwnerName ? landOwnerName.trim() : existing.landOwnerName,
+        landOwnerContact: landOwnerContact ? landOwnerContact.trim() : existing.landOwnerContact,
+        landOwnerAddress: landOwnerAddress !== undefined ? (landOwnerAddress ? landOwnerAddress.trim() : null) : existing.landOwnerAddress,
         documents: documents !== undefined ? documents : existing.documents,
         status: status ?? existing.status
       }

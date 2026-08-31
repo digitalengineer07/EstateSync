@@ -37,6 +37,12 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
     setError(null);
     setSuccessMsg(null);
 
+    if (!formData.khataNo.trim() || !formData.plotNo.trim() || !formData.projectLocation.trim() || !formData.landOwnerName.trim() || !formData.landOwnerContact.trim()) {
+      setError("Khata No, Plot No, Project Location, Land Owner Name, and Contact Number are compulsory.");
+      setLoading(false);
+      return;
+    }
+
     if (numValue <= 0) {
       setError("Please enter a valid total land valuation greater than zero");
       setLoading(false);
@@ -55,10 +61,15 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
           "Idempotency-Key": idempotencyKey
         },
         body: JSON.stringify({
-          ...formData,
+          khataNo: formData.khataNo.trim(),
+          plotNo: formData.plotNo.trim(),
+          projectLocation: formData.projectLocation.trim(),
+          landOwnerName: formData.landOwnerName.trim(),
+          landOwnerContact: formData.landOwnerContact.trim(),
+          landOwnerAddress: formData.landOwnerAddress ? formData.landOwnerAddress.trim() : null,
           areaSqft: numArea || null,
           totalLandValue: numValue,
-          agreementDate: new Date(formData.agreementDate).toISOString()
+          agreementDate: formData.agreementDate ? new Date(formData.agreementDate).toISOString() : null
         })
       });
 
