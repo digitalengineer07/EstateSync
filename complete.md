@@ -79,8 +79,20 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 
 ---
 
-## 🎉 Overall EstateSync Platform Status (PRD v1.2 Scope Complete): 100% Implemented & Verified!
-All features defined across PRD §1 through §20, including Double-Entry Financial Engine, Idempotency Middleware, RBAC Security Boundaries, Customer Sales Collections, Property Land Acquisitions, and Next.js Dashboards are 100% implemented, automated-test verified, and production-build verified.
+## 🎉 Overall EstateSync Platform Status (PRD v1.2 Core MVP Complete): ~90% Implemented
+While all core MVP features defined across PRD §1 through §20 (including Double-Entry Financial Engine, Idempotency Middleware, RBAC Security Boundaries, Customer Sales Collections, Property Land Acquisitions, and Next.js Dashboards) are 100% implemented and verified, some advanced modules listed in the API Structure (§13) and Open Items (§21) are still pending.
+
+---
+
+## 10. Pending Features & Open Items (PRD §13 & §21)
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Vendor Management API (`/api/v1/vendors`) | ⏳ **Pending** | `vendorController.js` is empty. `Vendor` model is missing in `schema.prisma`. |
+| Accounting Periods API (`/api/v1/accounting-periods`) | ⏳ **Pending** | `accountingPeriodController.js` is empty. No DB models to lock accounting periods. |
+| Reconciliations API (`/api/v1/reconciliations`) | ⏳ **Pending** | `reconciliationController.js` is empty. Bank/cash reconciliation process is an open item in PRD §21. |
+| Financial Reports API (`/api/v1/reports`) | ⏳ **Pending** | `reportController.js` is empty. Custom financial reports generation is pending. |
+| Expense Approval Thresholds | ⏳ **Pending** | Highlighted as an open item in PRD §21. Currently, managers can approve any amount up to their available balance. |
+| Redis Integration | ⏳ **Pending** | Deferred to the final phase per PRD §21. Currently, idempotency and sessions are handled via the database and in-memory. |
 
 ---
 
