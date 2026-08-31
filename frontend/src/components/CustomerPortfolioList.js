@@ -25,6 +25,9 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
   
   // Statement Modal State (Excel sheet layout)
   const [statementCustomer, setStatementCustomer] = useState(null);
+  
+  // Cancellation Settlement Modal State
+  const [settlementCustomer, setSettlementCustomer] = useState(null);
 
   useEffect(() => {
     const userStr = localStorage.getItem("user");

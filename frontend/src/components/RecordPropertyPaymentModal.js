@@ -84,9 +84,9 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
         body: JSON.stringify({
           amount: numAmount,
           paymentMode,
-          paidFromAccount,
-          referenceNo,
-          notes,
+          paidFromAccount: paidFromAccount?.trim() || null,
+          referenceNo: referenceNo?.trim() || null,
+          notes: notes?.trim() || null,
           dateOfPayment: new Date(dateOfPayment).toISOString()
         })
       });

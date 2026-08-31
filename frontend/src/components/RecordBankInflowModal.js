@@ -52,7 +52,13 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          bankName: formData.bankName.trim(),
+          accountNo: formData.accountNo ? formData.accountNo.trim() : null,
+          referenceNo: formData.referenceNo.trim(),
+          narration: formData.narration ? formData.narration.trim() : null
+        })
       });
 
       const data = await res.json();

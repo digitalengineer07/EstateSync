@@ -2,6 +2,7 @@ const prisma = require('../config/db');
 const { postCapitalInfusionJournal } = require('../utils/accountingHelper');
 const { logAudit } = require('../utils/auditLogger');
 const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
+const { checkDuplicateReferenceNo } = require('../utils/referenceValidator');
 
 /**
  * Record Bank Statement Transaction / Capital Infusion into Main Organization Treasury
@@ -25,8 +26,16 @@ exports.recordBankInflow = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Valid positive amount is required' });
     }
 
-    if (!bankName || !referenceNo) {
+    if (!bankName || !referenceNo || !referenceNo.trim()) {
       return res.status(400).json({ success: false, message: 'Bank Name and UTR / Reference Number are required' });
+    }
+
+    const cleanRef = referenceNo.trim();
+
+    // Check for duplicate UTR / Reference Number across system
+    const duplicateErr = await checkDuplicateReferenceNo(prisma, cleanRef);
+    if (duplicateErr) {
+      return res.status(400).json({ success: false, message: duplicateErr });
     }
 
     // Execute atomic financial transaction

@@ -55,9 +55,9 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
         body: JSON.stringify({
           amount: numAmount,
           paymentMode,
-          sourceAccount,
-          destinationAccount,
-          referenceNo,
+          sourceAccount: sourceAccount?.trim() || null,
+          destinationAccount: destinationAccount?.trim() || null,
+          referenceNo: referenceNo?.trim() || null,
           dateOfPayment: new Date(dateOfPayment).toISOString()
         })
       });
