@@ -37,9 +37,12 @@ exports.getManagers = async (req, res) => {
         },
         wallet: {
           select: {
-            availableBalance: true,
-            totalAllocated: true,
-            totalSpent: true
+            availableBalanceLiquid: true,
+            availableBalanceCash: true,
+            totalAllocatedLiquid: true,
+            totalAllocatedCash: true,
+            totalSpentLiquid: true,
+            totalSpentCash: true
           }
         }
       }
@@ -64,9 +67,12 @@ exports.getAllUsers = async (req, res) => {
         wallet: {
           select: {
             id: true,
-            availableBalance: true,
-            totalAllocated: true,
-            totalSpent: true
+            availableBalanceLiquid: true,
+            availableBalanceCash: true,
+            totalAllocatedLiquid: true,
+            totalAllocatedCash: true,
+            totalSpentLiquid: true,
+            totalSpentCash: true
           }
         }
       },
@@ -117,9 +123,12 @@ exports.registerUser = async (req, res) => {
       const wallet = await tx.wallet.create({
         data: {
           userId: user.id,
-          totalAllocated: 0,
-          totalSpent: 0,
-          availableBalance: 0
+          totalAllocatedLiquid: 0,
+          totalAllocatedCash: 0,
+          totalSpentLiquid: 0,
+          totalSpentCash: 0,
+          availableBalanceLiquid: 0,
+          availableBalanceCash: 0
         }
       });
 
