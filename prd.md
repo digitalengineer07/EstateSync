@@ -142,9 +142,9 @@ The wallet is the central concept of the fund-management system. Every fund-cont
 ```
 
 ### 4.1 Wallet Fields
-`wallet_id`, `user_id`, `total_allocated`, `total_spent`, `available_balance`, `created_at`, `updated_at`.
+`wallet_id`, `user_id`, `total_allocated_liquid`, `total_allocated_cash`, `total_spent_liquid`, `total_spent_cash`, `available_balance_liquid`, `available_balance_cash`, `created_at`, `updated_at`.
 
-Conceptually: `available_balance = total_allocated - total_spent`. The actual implementation must maintain full transactional records rather than relying on a calculated number alone.
+Conceptually: `available_balance_liquid = total_allocated_liquid - total_spent_liquid` (and similarly for cash). The actual implementation must maintain full transactional records rather than relying on a calculated number alone.
 
 ### 4.2 Wallet Transaction Types
 `FUND_ALLOCATION`, `FUND_TRANSFER`, `FUND_REQUEST`, `FUND_REQUEST_APPROVED`, `FUND_REQUEST_REJECTED`, `EXPENSE`, `EXPENSE_REVERSAL`, `FUND_RETURN`, `ADJUSTMENT`, `CUSTOMER_PAYMENT_RECEIVED`, `LAND_ACQUISITION_PAYMENT`.
@@ -222,7 +222,7 @@ PENDING → INSUFFICIENT_MANAGER_FUNDS → ADMIN_FUND_REQUEST → ADMIN_APPROVED
 ```
 
 ### 5.1 Fund Request Fields
-`request_id`, `requester_id`, `manager_id`, `amount`, `reason`, `status`, `created_at`, `approved_at`, `rejected_at`, `approved_by`, `rejected_by`, `comments`. Admin-directed requests additionally carry `requested_from = ADMIN`.
+`request_id`, `requester_id`, `manager_id`, `amount`, `fund_mode` (`LIQUID` or `CASH`), `reason`, `status`, `created_at`, `approved_at`, `rejected_at`, `approved_by`, `rejected_by`, `comments`. Admin-directed requests additionally carry `requested_from = ADMIN`.
 
 `parent_request_id` links a manager's escalated request to Admin back to the original employee request, preserving the full chain (e.g. Sales Request #100 → Manager Request #101 → Admin).
 
@@ -269,7 +269,7 @@ If any step fails: **full rollback**. No partial allocation is ever persisted.
 
 Every user with fund access can record expenses against their wallet. An expense always posts as a **DEBIT** against the spending wallet (§4.4).
 
-**Expense fields:** `expense_id`, `user_id`, `wallet_id`, `category`, `amount`, `description`, `date`, `vendor`, `reference`, `attachment`, `status`, `created_at`.
+**Expense fields:** `expense_id`, `user_id`, `wallet_id`, `category`, `amount`, `fund_mode` (`LIQUID` or `CASH`), `description`, `date`, `vendor`, `reference`, `attachment`, `status`, `created_at`.
 
 **Flow:**
 ```

@@ -9,10 +9,15 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [processingId, setProcessingId] = useState(null);
+  const [overrideModes, setOverrideModes] = useState({});
   const [actionError, setActionError] = useState(null);
   const [actionSuccess, setActionSuccess] = useState(null);
 
   const isApproverView = type === "incoming" || type === "all";
+
+  const handleOverrideMode = (id, mode) => {
+    setOverrideModes(prev => ({ ...prev, [id]: mode }));
+  };
 
   const fetchRequests = async () => {
     setLoading(true);
@@ -49,13 +54,23 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
     setProcessingId(id);
     try {
       const token = localStorage.getItem("accessToken");
+      
+      let bodyData = {};
+      if (action === 'reject') {
+        bodyData = { comments: "Rejected via Dashboard" };
+      } else if (action === 'approve') {
+        if (overrideModes[id]) {
+          bodyData = { overrideFundMode: overrideModes[id] };
+        }
+      }
+
       const res = await fetch(`${API_URL}/api/v1/fund-requests/${id}/${action}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(action === 'reject' ? { comments: "Rejected via Dashboard" } : {})
+        body: JSON.stringify(bodyData)
       });
       const data = await res.json();
       
@@ -179,7 +194,16 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
                   {isApproverView && (
                     <td className="px-5 py-4 text-right">
                       {req.status === 'PENDING' ? (
-                        <div className="flex justify-end space-x-2">
+                        <div className="flex justify-end items-center space-x-2">
+                          <select
+                            value={overrideModes[req.id] || req.fundMode || 'LIQUID'}
+                            onChange={(e) => handleOverrideMode(req.id, e.target.value)}
+                            disabled={processingId === req.id}
+                            className="px-2 py-1 bg-white border border-slate-300 rounded text-[10px] font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500"
+                          >
+                            <option value="LIQUID">LIQUID</option>
+                            <option value="CASH">CASH</option>
+                          </select>
                           <button 
                             disabled={processingId === req.id}
                             onClick={() => handleAction(req.id, 'approve')} 

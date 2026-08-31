@@ -103,6 +103,7 @@ exports.getAllRequests = async (req, res) => {
 exports.approveRequest = async (req, res) => {
   try {
     const { id } = req.params;
+    const { overrideFundMode } = req.body;
     const approverId = req.user.userId;
     const isApproverAdmin = req.user.role === 'ADMIN';
 
@@ -123,7 +124,11 @@ exports.approveRequest = async (req, res) => {
       const reqAmount = parseFloat(request.amount);
       if (isNaN(reqAmount) || reqAmount <= 0) throw new Error('INVALID_AMOUNT');
       
-      const fMode = request.fundMode || 'LIQUID';
+      let fMode = request.fundMode || 'LIQUID';
+      if (overrideFundMode && ['LIQUID', 'CASH'].includes(overrideFundMode)) {
+        fMode = overrideFundMode;
+      }
+      
       const balanceField = fMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
 
       // 1. Identify Source Wallet (Entity releasing the funds)
@@ -215,6 +220,7 @@ exports.approveRequest = async (req, res) => {
         where: { id },
         data: {
           status: 'APPROVED',
+          fundMode: fMode,
           approvedBy: approverId,
           approvedAt: new Date()
         }

@@ -227,14 +227,17 @@ model User {
 
 // 2. Wallets & Transactions
 model Wallet {
-  id               String              @id @default(uuid())
-  userId           String              @unique
-  totalAllocated   Decimal             @default(0) @db.Decimal(15, 2)
-  totalSpent       Decimal             @default(0) @db.Decimal(15, 2)
-  availableBalance Decimal             @default(0) @db.Decimal(15, 2)
-  transactionsSrc  WalletTransaction[] @relation("SourceWallet")
-  transactionsDest WalletTransaction[] @relation("DestWallet")
-  expenses         Expense[]
+  id                     String              @id @default(uuid())
+  userId                 String              @unique
+  totalAllocatedLiquid   Decimal             @db.Decimal(15, 2) @default(0)
+  totalAllocatedCash     Decimal             @db.Decimal(15, 2) @default(0)
+  totalSpentLiquid       Decimal             @db.Decimal(15, 2) @default(0)
+  totalSpentCash         Decimal             @db.Decimal(15, 2) @default(0)
+  availableBalanceLiquid Decimal             @db.Decimal(15, 2) @default(0)
+  availableBalanceCash   Decimal             @db.Decimal(15, 2) @default(0)
+  transactionsSrc        WalletTransaction[] @relation("SourceWallet")
+  transactionsDest       WalletTransaction[] @relation("DestWallet")
+  expenses               Expense[]
 }
 
 model WalletTransaction {
@@ -243,6 +246,7 @@ model WalletTransaction {
   sourceWalletId String?
   destWalletId   String?
   amount         Decimal  @db.Decimal(15, 2)
+  fundMode       String   @default("LIQUID") // "LIQUID", "CASH"
   referenceType  String?
   referenceId    String?
   description    String?
