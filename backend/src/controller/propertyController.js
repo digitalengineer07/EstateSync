@@ -1,6 +1,7 @@
 const prisma = require('../config/db');
 const { logAudit } = require('../utils/auditLogger');
 const { postPropertyPaymentJournal } = require('../utils/accountingHelper');
+const { checkDuplicateReferenceNo } = require('../utils/referenceValidator');
 
 // 1. Create a new Land/Property Acquisition record (Admin / Accounting only)
 exports.createProperty = async (req, res) => {
@@ -216,6 +217,15 @@ exports.recordPayment = async (req, res) => {
 
     if (!paymentMode) {
       return res.status(400).json({ success: false, message: 'Payment mode (CASH, CHEQUE, NEFT, RTGS, UPI, DD) is required' });
+    }
+
+    const cleanRef = referenceNo ? referenceNo.trim() : null;
+
+    if (cleanRef) {
+      const dupErr = await checkDuplicateReferenceNo(prisma, cleanRef);
+      if (dupErr) {
+        return res.status(400).json({ success: false, message: dupErr });
+      }
     }
 
     const payAmount = parseFloat(amount);

@@ -88,10 +88,30 @@ async function postJournalEntry(tx, {
 
   const accountMap = new Map(accounts.map(a => [a.code, a.id]));
 
-  // Generate sequence number
-  const count = await tx.journalEntry.count();
+  // Generate sequential unique entry number for today
   const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-  const entryNumber = `JE-${dateStr}-${String(count + 1).padStart(4, '0')}`;
+  const todayPrefix = `JE-${dateStr}-`;
+  const latestEntry = await tx.journalEntry.findFirst({
+    where: { entryNumber: { startsWith: todayPrefix } },
+    orderBy: { entryNumber: 'desc' }
+  });
+
+  let nextSeq = 1;
+  if (latestEntry) {
+    const parts = latestEntry.entryNumber.split('-');
+    const lastNum = parseInt(parts[2], 10);
+    if (!isNaN(lastNum)) {
+      nextSeq = lastNum + 1;
+    }
+  }
+
+  let entryNumber = `${todayPrefix}${String(nextSeq).padStart(4, '0')}`;
+
+  // Double check uniqueness in case of race condition
+  const existing = await tx.journalEntry.findUnique({ where: { entryNumber } });
+  if (existing) {
+    entryNumber = `${todayPrefix}${Date.now().toString().slice(-4)}`;
+  }
 
   const entry = await tx.journalEntry.create({
     data: {
