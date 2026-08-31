@@ -183,7 +183,7 @@ exports.getCustomers = async (req, res) => {
 
     for (const c of customers) {
       totalPortfolioValue += parseFloat(c.totalContractValue || 0);
-      totalCollected += parseFloat(c.totalPaid || 0);
+      totalCollected += parseFloat(c.totalPaid || 0) - parseFloat(c.refundAmount || 0);
       totalOutstanding += parseFloat(c.balanceDue || 0);
     }
 

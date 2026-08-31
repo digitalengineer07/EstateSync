@@ -14,7 +14,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState("ALL");
+  const [statusFilter, setStatusFilter] = useState("ACTIVE");
   const [currentUserId, setCurrentUserId] = useState(null);
 
   // Modals state
@@ -98,6 +98,9 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
   const canRecordPayment = ["ACCOUNTING", "ADMIN"].includes(userRole);
   const canRegisterCustomer = ["SALES", "ADMIN", "MARKETING", "MANAGER"].includes(userRole);
   const canEditCustomer = (cust) => {
+    // Prevent editing if the cancellation has already been settled
+    if (cust.cancellationStatus === 'SETTLED') return false;
+    
     if (userRole === "ADMIN") return true;
     if (["SALES", "MARKETING", "MANAGER"].includes(userRole)) {
       return !cust.salesOwnerId || !currentUserId || cust.salesOwnerId === currentUserId;
