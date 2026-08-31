@@ -316,19 +316,26 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
       return res.status(500).json({ success: false, message: 'Corporate Treasury Admin user not found' });
     }
 
+    const fMode = paymentMode === 'CASH' ? 'CASH' : 'LIQUID';
+    const balanceField = fMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
+    const spentField = fMode === 'CASH' ? 'totalSpentCash' : 'totalSpentLiquid';
+
     let treasuryWallet = adminUser.wallet;
     if (!treasuryWallet) {
       treasuryWallet = await prisma.wallet.create({
         data: {
           userId: adminUser.id,
-          availableBalance: 0,
-          totalAllocated: 0,
-          totalSpent: 0
+          availableBalanceLiquid: 0,
+          availableBalanceCash: 0,
+          totalAllocatedLiquid: 0,
+          totalAllocatedCash: 0,
+          totalSpentLiquid: 0,
+          totalSpentCash: 0
         }
       });
     }
 
-    const availableTreasuryBalance = parseFloat(treasuryWallet.availableBalance);
+    const availableTreasuryBalance = parseFloat(treasuryWallet[balanceField] || 0);
 
     // Invariant check: No negative wallet balance (PRD §4.3 & §20.3)
     if (payAmount > availableTreasuryBalance) {
@@ -358,8 +365,8 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
       const updatedOrgWallet = await tx.wallet.update({
         where: { id: treasuryWallet.id },
         data: {
-          availableBalance: { decrement: payAmount },
-          totalSpent: { increment: payAmount }
+          [balanceField]: { decrement: payAmount },
+          [spentField]: { increment: payAmount }
         }
       });
 
@@ -370,6 +377,7 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
           sourceWalletId: treasuryWallet.id,
           destWalletId: null,
           amount: payAmount,
+          fundMode: fMode,
           referenceType: 'PROPERTY_PAYMENT',
           referenceId: payment.id,
           description: `Land acquisition payout of ₹${payAmount.toLocaleString()} to ${property.landOwnerName} (Plot ${property.plotNo}, Khata ${property.khataNo}) via ${paymentMode.toUpperCase()}`,
@@ -417,7 +425,7 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
           referenceNo,
           propertyTotalPaid: newTotalPaid,
           propertyBalanceRemaining: newBalanceRemaining,
-          treasuryWalletBalance: parseFloat(updatedOrgWallet.availableBalance)
+          treasuryWalletBalance: parseFloat(updatedOrgWallet[balanceField])
         },
         req,
         tx

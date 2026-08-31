@@ -466,7 +466,10 @@ exports.settleCustomerCancellationRefund = async (req, res) => {
 
     // Check Corporate Treasury Liquidity
     const treasuryWallet = await getPrimaryTreasuryWallet();
-    const availableTreasury = parseFloat(treasuryWallet.availableBalance || 0);
+    const fMode = refundMode === 'CASH' ? 'CASH' : 'LIQUID';
+    const balanceField = fMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
+    const allocatedField = fMode === 'CASH' ? 'totalAllocatedCash' : 'totalAllocatedLiquid';
+    const availableTreasury = parseFloat(treasuryWallet[balanceField] || 0);
 
     if (refundAmount > 0 && refundAmount > availableTreasury) {
       return res.status(400).json({
@@ -482,8 +485,8 @@ exports.settleCustomerCancellationRefund = async (req, res) => {
         updatedWallet = await tx.wallet.update({
           where: { id: treasuryWallet.id },
           data: {
-            availableBalance: { decrement: refundAmount },
-            totalAllocated: { decrement: refundAmount }
+            [balanceField]: { decrement: refundAmount },
+            [allocatedField]: { decrement: refundAmount }
           }
         });
 
@@ -494,6 +497,7 @@ exports.settleCustomerCancellationRefund = async (req, res) => {
             sourceWalletId: treasuryWallet.id,
             destWalletId: null,
             amount: refundAmount,
+            fundMode: fMode,
             referenceType: 'CUSTOMER_REFUND',
             referenceId: customer.id,
             description: `Customer Cancellation Refund: ₹${refundAmount.toLocaleString('en-IN')} disbursed to ${customer.customerName} for Plot ${customer.plotNo} (Company Costing Retained: ₹${numDeduction.toLocaleString('en-IN')}) via ${(refundMode || 'DIRECT').toUpperCase()}`,
@@ -562,7 +566,7 @@ exports.settleCustomerCancellationRefund = async (req, res) => {
           refundAmount,
           refundMode,
           referenceNo,
-          treasuryWalletBalance: parseFloat(updatedWallet.availableBalance)
+          treasuryWalletBalance: parseFloat(updatedWallet[balanceField])
         },
         req,
         tx
@@ -645,14 +649,21 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
       return res.status(500).json({ success: false, message: 'Corporate Treasury Admin wallet not configured' });
     }
 
+    const fMode = paymentMode === 'CASH' ? 'CASH' : 'LIQUID';
+    const balanceField = fMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
+    const allocatedField = fMode === 'CASH' ? 'totalAllocatedCash' : 'totalAllocatedLiquid';
+
     let treasuryWallet = adminUser.wallet;
     if (!treasuryWallet) {
       treasuryWallet = await prisma.wallet.create({
         data: {
           userId: adminUser.id,
-          availableBalance: 0,
-          totalAllocated: 0,
-          totalSpent: 0
+          availableBalanceLiquid: 0,
+          availableBalanceCash: 0,
+          totalAllocatedLiquid: 0,
+          totalAllocatedCash: 0,
+          totalSpentLiquid: 0,
+          totalSpentCash: 0
         }
       });
     }
@@ -677,8 +688,8 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
       const updatedOrgWallet = await tx.wallet.update({
         where: { id: treasuryWallet.id },
         data: {
-          availableBalance: { increment: payAmount },
-          totalAllocated: { increment: payAmount }
+          [balanceField]: { increment: payAmount },
+          [allocatedField]: { increment: payAmount }
         }
       });
 
@@ -689,6 +700,7 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
           sourceWalletId: null,
           destWalletId: treasuryWallet.id,
           amount: payAmount,
+          fundMode: fMode,
           referenceType: 'CUSTOMER_PAYMENT',
           referenceId: payment.id,
           description: `Customer payment received from ${customer.customerName} for Plot ${customer.plotNo} (${customer.projectLocation}) via ${paymentMode.toUpperCase()}`,
@@ -733,7 +745,7 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
           referenceNo,
           customerTotalPaid: parseFloat(updatedCustomer.totalPaid),
           customerBalanceDue: parseFloat(updatedCustomer.balanceDue),
-          treasuryWalletBalance: parseFloat(updatedOrgWallet.availableBalance)
+          treasuryWalletBalance: parseFloat(updatedOrgWallet[balanceField])
         },
         req,
         tx
