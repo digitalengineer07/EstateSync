@@ -9,6 +9,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
   const [formData, setFormData] = useState({
     targetUserId: "",
     amount: "",
+    fundMode: "LIQUID",
     description: ""
   });
   const [submitting, setSubmitting] = useState(false);
@@ -66,7 +67,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
           type: "success",
           text: data.message || "Funds successfully allocated!"
         });
-        setFormData({ targetUserId: "", amount: "", description: "" });
+        setFormData({ targetUserId: "", amount: "", fundMode: "LIQUID", description: "" });
         fetchUsers(); // Refresh wallet balances in dropdown
         if (onAllocationSuccess) onAllocationSuccess();
       } else {
@@ -140,13 +141,36 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
             })}
           </select>
           {selectedUser && (
-            <p className="text-xs text-gray-500 mt-1.5">
-              Current Available Balance:{" "}
-              <span className="font-semibold text-gray-800">
-                ₹{parseFloat(selectedUser.wallet?.availableBalance || 0).toLocaleString('en-IN')}
+            <p className="text-xs text-gray-500 mt-1.5 flex gap-4">
+              <span>
+                Liquid:{" "}
+                <span className="font-semibold text-gray-800">
+                  ₹{parseFloat(selectedUser.wallet?.availableBalanceLiquid || 0).toLocaleString('en-IN')}
+                </span>
+              </span>
+              <span>
+                Cash:{" "}
+                <span className="font-semibold text-gray-800">
+                  ₹{parseFloat(selectedUser.wallet?.availableBalanceCash || 0).toLocaleString('en-IN')}
+                </span>
               </span>
             </p>
           )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-800 mb-1.5">
+            Allocation Mode
+          </label>
+          <select
+            name="fundMode"
+            value={formData.fundMode}
+            onChange={handleChange}
+            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 bg-white"
+          >
+            <option value="LIQUID">Liquid (Online / Bank)</option>
+            <option value="CASH">Cash (Physical)</option>
+          </select>
         </div>
 
         <div>

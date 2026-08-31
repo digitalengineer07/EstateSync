@@ -52,19 +52,26 @@ exports.recordBankInflow = async (req, res) => {
         adminWallet = await tx.wallet.create({
           data: {
             userId: adminUser.id,
-            availableBalance: 0,
-            totalAllocated: 0,
-            totalSpent: 0
+            availableBalanceLiquid: 0,
+            availableBalanceCash: 0,
+            totalAllocatedLiquid: 0,
+            totalAllocatedCash: 0,
+            totalSpentLiquid: 0,
+            totalSpentCash: 0
           }
         });
       }
+
+      const fMode = paymentMode === 'CASH' ? 'CASH' : 'LIQUID';
+      const balanceField = fMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
+      const allocatedField = fMode === 'CASH' ? 'totalAllocatedCash' : 'totalAllocatedLiquid';
 
       // 2. Increment Admin Wallet Balance and Total Inflows
       const updatedAdminWallet = await tx.wallet.update({
         where: { id: adminWallet.id },
         data: {
-          availableBalance: { increment: parsedAmount },
-          totalAllocated: { increment: parsedAmount }
+          [balanceField]: { increment: parsedAmount },
+          [allocatedField]: { increment: parsedAmount }
         }
       });
 
@@ -75,6 +82,7 @@ exports.recordBankInflow = async (req, res) => {
         data: {
           type: 'CAPITAL_INFUSION',
           amount: parsedAmount,
+          fundMode: fMode,
           destWalletId: adminWallet.id,
           referenceType: 'BANK_STATEMENT',
           referenceId: referenceNo,
@@ -109,9 +117,10 @@ exports.recordBankInflow = async (req, res) => {
           paymentMode,
           referenceNo,
           inflowType,
+          fundMode: fMode,
           narration,
           journalEntryNumber: journalEntry.entryNumber,
-          newAdminBalance: updatedAdminWallet.availableBalance
+          newAdminBalance: updatedAdminWallet[balanceField]
         }
       });
 
@@ -130,7 +139,8 @@ exports.recordBankInflow = async (req, res) => {
       message: `Successfully recorded ₹${parsedAmount.toLocaleString('en-IN', { minimumFractionDigits: 2 })} bank inflow into Corporate Treasury.`,
       transaction: result.walletTxn,
       journalEntry: result.journalEntry,
-      availableTreasuryBalance: result.updatedAdminWallet.availableBalance
+      availableTreasuryBalanceLiquid: result.updatedAdminWallet.availableBalanceLiquid,
+      availableTreasuryBalanceCash: result.updatedAdminWallet.availableBalanceCash
     });
   } catch (error) {
     console.error('Error recording bank inflow:', error);

@@ -33,9 +33,12 @@ async function getPrimaryTreasuryWallet(tx = prisma) {
     wallet = await tx.wallet.create({
       data: {
         userId: admin.id,
-        availableBalance: 0,
-        totalAllocated: 0,
-        totalSpent: 0
+        availableBalanceLiquid: 0,
+        availableBalanceCash: 0,
+        totalAllocatedLiquid: 0,
+        totalAllocatedCash: 0,
+        totalSpentLiquid: 0,
+        totalSpentCash: 0
       }
     });
   }

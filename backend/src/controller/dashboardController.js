@@ -37,9 +37,12 @@ exports.getWalletStats = async (req, res) => {
     res.json({
       success: true,
       stats: {
-        availableBalance: wallet.availableBalance,
-        totalAllocated: wallet.totalAllocated,
-        totalSpent: wallet.totalSpent,
+        availableBalanceLiquid: wallet.availableBalanceLiquid,
+        availableBalanceCash: wallet.availableBalanceCash,
+        totalAllocatedLiquid: wallet.totalAllocatedLiquid,
+        totalAllocatedCash: wallet.totalAllocatedCash,
+        totalSpentLiquid: wallet.totalSpentLiquid,
+        totalSpentCash: wallet.totalSpentCash,
         pendingRequestsAmount: pendingRequests._sum.amount || 0,
         customerCount: myCustomers._count.id || 0,
         myContractValue: myCustomers._sum.totalContractValue || 0,
@@ -91,7 +94,8 @@ exports.getManagerStats = async (req, res) => {
     res.json({
       success: true,
       stats: {
-        managerAvailableBalance: managerWallet.availableBalance,
+        managerAvailableBalanceLiquid: managerWallet.availableBalanceLiquid,
+        managerAvailableBalanceCash: managerWallet.availableBalanceCash,
         pendingApprovalsCount: pendingApprovals._count.id || 0,
         pendingApprovalsAmount: pendingApprovals._sum.amount || 0,
         totalTeamApprovedFunds: totalApprovedFunds._sum.amount || 0
@@ -107,7 +111,8 @@ exports.getAdminStats = async (req, res) => {
   try {
     // 1. Get Unified Single Source of Truth Corporate Treasury Wallet
     const treasuryWallet = await getPrimaryTreasuryWallet();
-    const treasuryBalance = parseFloat(treasuryWallet.availableBalance || 0);
+    const treasuryBalanceLiquid = parseFloat(treasuryWallet.availableBalanceLiquid || 0);
+    const treasuryBalanceCash = parseFloat(treasuryWallet.availableBalanceCash || 0);
 
     // 2. Sum of operational funds allocated to staff & managers (excluding Admin)
     const teamWallets = await prisma.wallet.aggregate({
@@ -115,9 +120,12 @@ exports.getAdminStats = async (req, res) => {
         user: { role: { name: { not: 'ADMIN' } } }
       },
       _sum: {
-        totalAllocated: true,
-        availableBalance: true,
-        totalSpent: true
+        totalAllocatedLiquid: true,
+        totalAllocatedCash: true,
+        availableBalanceLiquid: true,
+        availableBalanceCash: true,
+        totalSpentLiquid: true,
+        totalSpentCash: true
       },
       _count: { id: true }
     });
@@ -156,17 +164,25 @@ exports.getAdminStats = async (req, res) => {
     });
 
     const userCount = await prisma.user.count();
-    const totalAllocated = Number(teamWallets._sum.totalAllocated || 0);
-    const totalSpent = Number(teamWallets._sum.totalSpent || 0);
+    const totalAllocatedLiquid = Number(teamWallets._sum.totalAllocatedLiquid || 0);
+    const totalAllocatedCash = Number(teamWallets._sum.totalAllocatedCash || 0);
+    const totalAllocated = totalAllocatedLiquid + totalAllocatedCash;
+    const totalSpentLiquid = Number(teamWallets._sum.totalSpentLiquid || 0);
+    const totalSpentCash = Number(teamWallets._sum.totalSpentCash || 0);
+    const totalSpent = totalSpentLiquid + totalSpentCash;
     const utilizationRate = totalAllocated > 0 ? ((totalSpent / totalAllocated) * 100).toFixed(1) : '0.0';
 
     res.json({
       success: true,
       stats: {
-        totalOrganizationalFunds: treasuryBalance,
-        totalAllocated,
-        totalTeamBalance: parseFloat(teamWallets._sum.availableBalance || 0),
-        totalSpent,
+        totalOrganizationalFundsLiquid: treasuryBalanceLiquid,
+        totalOrganizationalFundsCash: treasuryBalanceCash,
+        totalAllocatedLiquid,
+        totalAllocatedCash,
+        totalTeamBalanceLiquid: parseFloat(teamWallets._sum.availableBalanceLiquid || 0),
+        totalTeamBalanceCash: parseFloat(teamWallets._sum.availableBalanceCash || 0),
+        totalSpentLiquid,
+        totalSpentCash,
         totalRecordedExpenses: Number(allExpenses._sum.amount || 0),
         totalExpenses: Number(allExpenses._sum.amount || 0),
         expenseCount: allExpenses._count.id || 0,
@@ -194,16 +210,20 @@ exports.getAdminStats = async (req, res) => {
 exports.getAccountingStats = async (req, res) => {
   try {
     const treasuryWallet = await getPrimaryTreasuryWallet();
-    const treasuryBalance = parseFloat(treasuryWallet.availableBalance || 0);
+    const treasuryBalanceLiquid = parseFloat(treasuryWallet.availableBalanceLiquid || 0);
+    const treasuryBalanceCash = parseFloat(treasuryWallet.availableBalanceCash || 0);
 
     const teamWallets = await prisma.wallet.aggregate({
       where: {
         user: { role: { name: { not: 'ADMIN' } } }
       },
       _sum: {
-        totalAllocated: true,
-        availableBalance: true,
-        totalSpent: true
+        totalAllocatedLiquid: true,
+        totalAllocatedCash: true,
+        availableBalanceLiquid: true,
+        availableBalanceCash: true,
+        totalSpentLiquid: true,
+        totalSpentCash: true
       },
       _count: {
         id: true
@@ -246,17 +266,25 @@ exports.getAccountingStats = async (req, res) => {
     });
 
     const userCount = await prisma.user.count();
-    const totalAllocated = Number(teamWallets._sum.totalAllocated || 0);
-    const totalSpent = Number(teamWallets._sum.totalSpent || 0);
+    const totalAllocatedLiquid = Number(teamWallets._sum.totalAllocatedLiquid || 0);
+    const totalAllocatedCash = Number(teamWallets._sum.totalAllocatedCash || 0);
+    const totalAllocated = totalAllocatedLiquid + totalAllocatedCash;
+    const totalSpentLiquid = Number(teamWallets._sum.totalSpentLiquid || 0);
+    const totalSpentCash = Number(teamWallets._sum.totalSpentCash || 0);
+    const totalSpent = totalSpentLiquid + totalSpentCash;
     const utilizationRate = totalAllocated > 0 ? ((totalSpent / totalAllocated) * 100).toFixed(1) : '0.0';
 
     res.json({
       success: true,
       stats: {
-        totalOrganizationalFunds: treasuryBalance,
-        totalAllocated,
-        totalTeamBalance: parseFloat(teamWallets._sum.availableBalance || 0),
-        totalSpent,
+        totalOrganizationalFundsLiquid: treasuryBalanceLiquid,
+        totalOrganizationalFundsCash: treasuryBalanceCash,
+        totalAllocatedLiquid,
+        totalAllocatedCash,
+        totalTeamBalanceLiquid: parseFloat(teamWallets._sum.availableBalanceLiquid || 0),
+        totalTeamBalanceCash: parseFloat(teamWallets._sum.availableBalanceCash || 0),
+        totalSpentLiquid,
+        totalSpentCash,
         totalRecordedExpenses: Number(allExpenses._sum.amount || 0),
         totalExpenses: Number(allExpenses._sum.amount || 0),
         expenseCount: allExpenses._count.id || 0,

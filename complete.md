@@ -14,15 +14,15 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 ## 2. Wallet System
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Every fund-controlled user has a wallet | ✅ **Implemented** | Automatically generated upon user registration. |
-| Managers can view their wallet | ✅ **Implemented** | Built into the Manager Dashboard via `DashboardStats`. |
+| Every fund-controlled user has a wallet | ✅ **Implemented** | Automatically generated upon user registration with split Liquid and Cash tracking. |
+| Managers can view their wallet | ✅ **Implemented** | Built into the Manager Dashboard via `DashboardStats` aggregating Liquid and Cash distinctively. |
 | Wallet balances can never become negative | ✅ **Implemented** | Strict database validation and transaction locking prevent this. |
 
 ## 3. Fund Allocation & Requests
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Admin can allocate funds to managers | ✅ **Implemented** | `DirectFundAllocationForm` and `POST /api/v1/fund-requests/allocate` allow Admin to push funds directly into manager/user wallets. |
-| Sales / Marketing / Other users can request funds | ✅ **Implemented** | `FundRequestForm` allows users to select their manager and request funds. |
+| Admin can allocate funds to managers | ✅ **Implemented** | `DirectFundAllocationForm` and `POST /api/v1/fund-requests/allocate` allow Admin to push Liquid or Cash funds directly into manager/user wallets. |
+| Sales / Marketing / Other users can request funds | ✅ **Implemented** | `FundRequestForm` allows users to select their manager and request Liquid or Cash funds. |
 | Managers can approve team fund requests | ✅ **Implemented** | `FundRequestList` on Manager dashboard supports one-click atomic approvals. |
 | Managers cannot approve requests exceeding available funds | ✅ **Implemented** | Prisma `$transaction` explicitly blocks approval if manager's balance is too low. |
 | Managers can request additional funds from Admin | ✅ **Implemented** | Managers can select System Admin as their approver in `FundRequestForm`. |
@@ -31,7 +31,7 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 ## 4. Expense Management
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Users can record their own expenses | ✅ **Implemented** | `ExpenseUploadForm` deducts wallet balance and creates expense records securely. |
+| Users can record their own expenses | ✅ **Implemented** | `ExpenseUploadForm` deducts Liquid or Cash wallet balance securely. |
 | Users can view their own expenses | ✅ **Implemented** | `ExpenseList (type="my")` on the Wallet Dashboard. |
 | Managers can view team expenses | ✅ **Implemented** | `ExpenseList (type="team")` on the Manager Dashboard. |
 | Admin / Accounting can view all expenses | ✅ **Implemented** | `ExpenseList (type="all")` on Admin and Accounting Dashboards. |
@@ -40,8 +40,8 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 | Feature | Status | Notes |
 |---------|--------|-------|
 | Admin can view all transactions and wallets | ✅ **Implemented** | `TransactionLedger` and `DashboardStats` provide real-time org-wide visibility. |
-| Accounting can view all financial transactions, total funds, allocated funds, expenses, and every user's wallet | ✅ **Implemented** | Built in `accounting/page.js` with `UserWalletLedger`, `ExpenseList`, `TransactionLedger`, `GeneralLedgerView`, and `DashboardStats`. |
-| Live Dashboard Statistics | ✅ **Implemented** | `dashboardController.js` serves live aggregates for Admin, Manager, Accounting, and Wallet views. |
+| Accounting can view all financial transactions, total funds, allocated funds, expenses, and every user's wallet | ✅ **Implemented** | Built in `accounting/page.js` with `UserWalletLedger` displaying Liquid/Cash combinations. |
+| Live Dashboard Statistics | ✅ **Implemented** | `dashboardController.js` serves live aggregates distinctively for Liquid and Cash across all views. |
 
 ## 6. Ledger & Accounting Integrity
 | Feature | Status | Notes |

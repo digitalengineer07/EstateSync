@@ -58,17 +58,20 @@ model RolePermission {
 }
 
 model Wallet {
-  id               String              @id @default(uuid())
-  userId           String              @unique
-  user             User                @relation(fields: [userId], references: [id])
-  totalAllocated   Decimal             @default(0) @db.Decimal(15, 2)
-  totalSpent       Decimal             @default(0) @db.Decimal(15, 2)
-  availableBalance Decimal             @default(0) @db.Decimal(15, 2)
-  createdAt        DateTime            @default(now())
-  updatedAt        DateTime            @updatedAt
-  transactionsSrc  WalletTransaction[] @relation("SourceWallet")
-  transactionsDest WalletTransaction[] @relation("DestWallet")
-  expenses         Expense[]
+  id                     String              @id @default(uuid())
+  userId                 String              @unique
+  user                   User                @relation(fields: [userId], references: [id])
+  totalAllocatedLiquid   Decimal             @default(0) @db.Decimal(15, 2)
+  totalAllocatedCash     Decimal             @default(0) @db.Decimal(15, 2)
+  totalSpentLiquid       Decimal             @default(0) @db.Decimal(15, 2)
+  totalSpentCash         Decimal             @default(0) @db.Decimal(15, 2)
+  availableBalanceLiquid Decimal             @default(0) @db.Decimal(15, 2)
+  availableBalanceCash   Decimal             @default(0) @db.Decimal(15, 2)
+  createdAt              DateTime            @default(now())
+  updatedAt              DateTime            @updatedAt
+  transactionsSrc        WalletTransaction[] @relation("SourceWallet")
+  transactionsDest       WalletTransaction[] @relation("DestWallet")
+  expenses               Expense[]
 }
 
 model WalletTransaction {
@@ -79,6 +82,7 @@ model WalletTransaction {
   sourceWallet   Wallet?  @relation("SourceWallet", fields: [sourceWalletId], references: [id])
   destWallet     Wallet?  @relation("DestWallet", fields: [destWalletId], references: [id])
   amount         Decimal  @db.Decimal(15, 2)
+  fundMode       String   @default("LIQUID") // "LIQUID", "CASH"
   referenceType  String? // FUND_REQUEST, EXPENSE, DIRECT_ALLOCATION, REVERSAL
   referenceId    String?
   description    String?
@@ -98,6 +102,7 @@ model FundRequest {
   childRequests   FundRequest[] @relation("ParentRequest")
   requestedFrom   String? // ADMIN, MANAGER
   amount          Decimal       @db.Decimal(15, 2)
+  fundMode        String        @default("LIQUID") // "LIQUID", "CASH"
   reason          String
   status          String // PENDING, APPROVED, REJECTED, INSUFFICIENT_MANAGER_FUNDS
   comments        String?
@@ -118,6 +123,7 @@ model Expense {
   categoryId     String
   category       ExpenseCategory @relation(fields: [categoryId], references: [id])
   amount         Decimal         @db.Decimal(15, 2)
+  fundMode       String          @default("LIQUID") // "LIQUID", "CASH"
   description    String
   date           DateTime
   vendorId       String?

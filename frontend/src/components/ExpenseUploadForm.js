@@ -13,7 +13,8 @@ export default function ExpenseUploadForm() {
     categoryId: "",
     date: new Date().toISOString().split("T")[0],
     vendorId: "",
-    reference: ""
+    reference: "",
+    fundMode: "LIQUID"
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
@@ -65,7 +66,7 @@ export default function ExpenseUploadForm() {
       const data = await res.json();
       if (res.ok && data.success) {
         setMessage({ type: "success", text: "Expense recorded successfully!" });
-        setFormData({ ...formData, amount: "", description: "", reference: "" });
+        setFormData({ ...formData, amount: "", description: "", reference: "", fundMode: "LIQUID" });
         // Optionally trigger a re-fetch of wallet balance here
       } else {
         setMessage({ type: "error", text: data.message || "Failed to record expense." });
@@ -104,6 +105,18 @@ export default function ExpenseUploadForm() {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
               placeholder="e.g. 1500.00"
             />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Payment Mode</label>
+            <select
+              name="fundMode"
+              value={formData.fundMode}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="LIQUID">Liquid (Online / Bank)</option>
+              <option value="CASH">Cash (Physical)</option>
+            </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>

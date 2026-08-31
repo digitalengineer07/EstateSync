@@ -43,9 +43,9 @@ export default function UserWalletLedger() {
     );
   });
 
-  const totalAllocatedSum = users.reduce((acc, u) => acc + parseFloat(u.wallet?.totalAllocated || 0), 0);
-  const totalBalanceSum = users.reduce((acc, u) => acc + parseFloat(u.wallet?.availableBalance || 0), 0);
-  const totalSpentSum = users.reduce((acc, u) => acc + parseFloat(u.wallet?.totalSpent || 0), 0);
+  const totalAllocatedSum = users.reduce((acc, u) => acc + parseFloat(u.wallet?.totalAllocatedLiquid || 0) + parseFloat(u.wallet?.totalAllocatedCash || 0), 0);
+  const totalBalanceSum = users.reduce((acc, u) => acc + parseFloat(u.wallet?.availableBalanceLiquid || 0) + parseFloat(u.wallet?.availableBalanceCash || 0), 0);
+  const totalSpentSum = users.reduce((acc, u) => acc + parseFloat(u.wallet?.totalSpentLiquid || 0) + parseFloat(u.wallet?.totalSpentCash || 0), 0);
 
   if (loading) {
     return (
@@ -107,9 +107,16 @@ export default function UserWalletLedger() {
           </thead>
           <tbody className="divide-y divide-gray-200 text-gray-900">
             {filteredUsers.map((u) => {
-              const allocated = parseFloat(u.wallet?.totalAllocated || 0);
-              const balance = parseFloat(u.wallet?.availableBalance || 0);
-              const spentExpenses = parseFloat(u.wallet?.totalSpent || 0);
+              const allocatedLiquid = parseFloat(u.wallet?.totalAllocatedLiquid || 0);
+              const allocatedCash = parseFloat(u.wallet?.totalAllocatedCash || 0);
+              const balanceLiquid = parseFloat(u.wallet?.availableBalanceLiquid || 0);
+              const balanceCash = parseFloat(u.wallet?.availableBalanceCash || 0);
+              const spentLiquid = parseFloat(u.wallet?.totalSpentLiquid || 0);
+              const spentCash = parseFloat(u.wallet?.totalSpentCash || 0);
+              
+              const allocated = allocatedLiquid + allocatedCash;
+              const balance = balanceLiquid + balanceCash;
+              const spentExpenses = spentLiquid + spentCash;
               const disbursed = Math.max(0, allocated - balance - spentExpenses);
               
               // Total utilized = actual expenses + team disbursements
@@ -133,13 +140,16 @@ export default function UserWalletLedger() {
                     </span>
                   </td>
                   <td className="px-5 py-3.5 font-medium text-gray-900">
-                    ₹{allocated.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                    <div>₹{allocated.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+                    <div className="text-[10px] text-gray-500 mt-0.5">L: ₹{allocatedLiquid.toLocaleString('en-IN')} | C: ₹{allocatedCash.toLocaleString('en-IN')}</div>
                   </td>
                   <td className="px-5 py-3.5 font-bold text-indigo-700">
-                    ₹{balance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                    <div>₹{balance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+                    <div className="text-[10px] text-indigo-400 mt-0.5 font-normal">L: ₹{balanceLiquid.toLocaleString('en-IN')} | C: ₹{balanceCash.toLocaleString('en-IN')}</div>
                   </td>
                   <td className="px-5 py-3.5 font-semibold text-rose-700">
-                    {spentExpenses > 0 ? `₹${spentExpenses.toLocaleString('en-IN', { minimumFractionDigits: 2 })}` : '—'}
+                    <div>{spentExpenses > 0 ? `₹${spentExpenses.toLocaleString('en-IN', { minimumFractionDigits: 2 })}` : '—'}</div>
+                    {spentExpenses > 0 && <div className="text-[10px] text-rose-400 mt-0.5 font-normal">L: ₹{spentLiquid.toLocaleString('en-IN')} | C: ₹{spentCash.toLocaleString('en-IN')}</div>}
                   </td>
                   <td className="px-5 py-3.5 text-gray-600">
                     {disbursed > 0 ? `₹${disbursed.toLocaleString('en-IN', { minimumFractionDigits: 2 })}` : '—'}

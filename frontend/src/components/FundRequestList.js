@@ -140,6 +140,7 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
                 {type !== 'incoming' && <th scope="col" className="px-5 py-3">Manager / Approver</th>}
                 <th scope="col" className="px-5 py-3">Amount</th>
                 <th scope="col" className="px-5 py-3">Reason</th>
+                <th scope="col" className="px-5 py-3">Mode</th>
                 <th scope="col" className="px-5 py-3">Status</th>
                 {isApproverView && <th scope="col" className="px-5 py-3 text-right">Actions</th>}
               </tr>
@@ -162,6 +163,11 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
                   )}
                   <td className="px-5 py-4 font-bold text-slate-900">₹{parseFloat(req.amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
                   <td className="px-5 py-4 text-slate-700 max-w-xs truncate">{req.reason}</td>
+                  <td className="px-5 py-4">
+                    <span className="px-2.5 py-0.5 inline-flex text-[10px] font-bold rounded bg-slate-100 text-slate-700">
+                      {req.fundMode || 'LIQUID'}
+                    </span>
+                  </td>
                   <td className="px-5 py-4">
                     <span className={`px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full 
                       ${req.status === 'APPROVED' ? 'bg-green-100 text-green-800 border border-green-200' : 

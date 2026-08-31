@@ -6710,23 +6710,32 @@ export namespace Prisma {
   }
 
   export type WalletAvgAggregateOutputType = {
-    totalAllocated: Decimal | null
-    totalSpent: Decimal | null
-    availableBalance: Decimal | null
+    totalAllocatedLiquid: Decimal | null
+    totalAllocatedCash: Decimal | null
+    totalSpentLiquid: Decimal | null
+    totalSpentCash: Decimal | null
+    availableBalanceLiquid: Decimal | null
+    availableBalanceCash: Decimal | null
   }
 
   export type WalletSumAggregateOutputType = {
-    totalAllocated: Decimal | null
-    totalSpent: Decimal | null
-    availableBalance: Decimal | null
+    totalAllocatedLiquid: Decimal | null
+    totalAllocatedCash: Decimal | null
+    totalSpentLiquid: Decimal | null
+    totalSpentCash: Decimal | null
+    availableBalanceLiquid: Decimal | null
+    availableBalanceCash: Decimal | null
   }
 
   export type WalletMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    totalAllocated: Decimal | null
-    totalSpent: Decimal | null
-    availableBalance: Decimal | null
+    totalAllocatedLiquid: Decimal | null
+    totalAllocatedCash: Decimal | null
+    totalSpentLiquid: Decimal | null
+    totalSpentCash: Decimal | null
+    availableBalanceLiquid: Decimal | null
+    availableBalanceCash: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6734,9 +6743,12 @@ export namespace Prisma {
   export type WalletMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    totalAllocated: Decimal | null
-    totalSpent: Decimal | null
-    availableBalance: Decimal | null
+    totalAllocatedLiquid: Decimal | null
+    totalAllocatedCash: Decimal | null
+    totalSpentLiquid: Decimal | null
+    totalSpentCash: Decimal | null
+    availableBalanceLiquid: Decimal | null
+    availableBalanceCash: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6744,9 +6756,12 @@ export namespace Prisma {
   export type WalletCountAggregateOutputType = {
     id: number
     userId: number
-    totalAllocated: number
-    totalSpent: number
-    availableBalance: number
+    totalAllocatedLiquid: number
+    totalAllocatedCash: number
+    totalSpentLiquid: number
+    totalSpentCash: number
+    availableBalanceLiquid: number
+    availableBalanceCash: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -6754,23 +6769,32 @@ export namespace Prisma {
 
 
   export type WalletAvgAggregateInputType = {
-    totalAllocated?: true
-    totalSpent?: true
-    availableBalance?: true
+    totalAllocatedLiquid?: true
+    totalAllocatedCash?: true
+    totalSpentLiquid?: true
+    totalSpentCash?: true
+    availableBalanceLiquid?: true
+    availableBalanceCash?: true
   }
 
   export type WalletSumAggregateInputType = {
-    totalAllocated?: true
-    totalSpent?: true
-    availableBalance?: true
+    totalAllocatedLiquid?: true
+    totalAllocatedCash?: true
+    totalSpentLiquid?: true
+    totalSpentCash?: true
+    availableBalanceLiquid?: true
+    availableBalanceCash?: true
   }
 
   export type WalletMinAggregateInputType = {
     id?: true
     userId?: true
-    totalAllocated?: true
-    totalSpent?: true
-    availableBalance?: true
+    totalAllocatedLiquid?: true
+    totalAllocatedCash?: true
+    totalSpentLiquid?: true
+    totalSpentCash?: true
+    availableBalanceLiquid?: true
+    availableBalanceCash?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6778,9 +6802,12 @@ export namespace Prisma {
   export type WalletMaxAggregateInputType = {
     id?: true
     userId?: true
-    totalAllocated?: true
-    totalSpent?: true
-    availableBalance?: true
+    totalAllocatedLiquid?: true
+    totalAllocatedCash?: true
+    totalSpentLiquid?: true
+    totalSpentCash?: true
+    availableBalanceLiquid?: true
+    availableBalanceCash?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6788,9 +6815,12 @@ export namespace Prisma {
   export type WalletCountAggregateInputType = {
     id?: true
     userId?: true
-    totalAllocated?: true
-    totalSpent?: true
-    availableBalance?: true
+    totalAllocatedLiquid?: true
+    totalAllocatedCash?: true
+    totalSpentLiquid?: true
+    totalSpentCash?: true
+    availableBalanceLiquid?: true
+    availableBalanceCash?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -6885,9 +6915,12 @@ export namespace Prisma {
   export type WalletGroupByOutputType = {
     id: string
     userId: string
-    totalAllocated: Decimal
-    totalSpent: Decimal
-    availableBalance: Decimal
+    totalAllocatedLiquid: Decimal
+    totalAllocatedCash: Decimal
+    totalSpentLiquid: Decimal
+    totalSpentCash: Decimal
+    availableBalanceLiquid: Decimal
+    availableBalanceCash: Decimal
     createdAt: Date
     updatedAt: Date
     _count: WalletCountAggregateOutputType | null
@@ -6914,9 +6947,12 @@ export namespace Prisma {
   export type WalletSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    totalAllocated?: boolean
-    totalSpent?: boolean
-    availableBalance?: boolean
+    totalAllocatedLiquid?: boolean
+    totalAllocatedCash?: boolean
+    totalSpentLiquid?: boolean
+    totalSpentCash?: boolean
+    availableBalanceLiquid?: boolean
+    availableBalanceCash?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -6929,9 +6965,12 @@ export namespace Prisma {
   export type WalletSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    totalAllocated?: boolean
-    totalSpent?: boolean
-    availableBalance?: boolean
+    totalAllocatedLiquid?: boolean
+    totalAllocatedCash?: boolean
+    totalSpentLiquid?: boolean
+    totalSpentCash?: boolean
+    availableBalanceLiquid?: boolean
+    availableBalanceCash?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -6940,9 +6979,12 @@ export namespace Prisma {
   export type WalletSelectScalar = {
     id?: boolean
     userId?: boolean
-    totalAllocated?: boolean
-    totalSpent?: boolean
-    availableBalance?: boolean
+    totalAllocatedLiquid?: boolean
+    totalAllocatedCash?: boolean
+    totalSpentLiquid?: boolean
+    totalSpentCash?: boolean
+    availableBalanceLiquid?: boolean
+    availableBalanceCash?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -6969,9 +7011,12 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      totalAllocated: Prisma.Decimal
-      totalSpent: Prisma.Decimal
-      availableBalance: Prisma.Decimal
+      totalAllocatedLiquid: Prisma.Decimal
+      totalAllocatedCash: Prisma.Decimal
+      totalSpentLiquid: Prisma.Decimal
+      totalSpentCash: Prisma.Decimal
+      availableBalanceLiquid: Prisma.Decimal
+      availableBalanceCash: Prisma.Decimal
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["wallet"]>
@@ -7373,9 +7418,12 @@ export namespace Prisma {
   interface WalletFieldRefs {
     readonly id: FieldRef<"Wallet", 'String'>
     readonly userId: FieldRef<"Wallet", 'String'>
-    readonly totalAllocated: FieldRef<"Wallet", 'Decimal'>
-    readonly totalSpent: FieldRef<"Wallet", 'Decimal'>
-    readonly availableBalance: FieldRef<"Wallet", 'Decimal'>
+    readonly totalAllocatedLiquid: FieldRef<"Wallet", 'Decimal'>
+    readonly totalAllocatedCash: FieldRef<"Wallet", 'Decimal'>
+    readonly totalSpentLiquid: FieldRef<"Wallet", 'Decimal'>
+    readonly totalSpentCash: FieldRef<"Wallet", 'Decimal'>
+    readonly availableBalanceLiquid: FieldRef<"Wallet", 'Decimal'>
+    readonly availableBalanceCash: FieldRef<"Wallet", 'Decimal'>
     readonly createdAt: FieldRef<"Wallet", 'DateTime'>
     readonly updatedAt: FieldRef<"Wallet", 'DateTime'>
   }
@@ -7796,6 +7844,7 @@ export namespace Prisma {
     sourceWalletId: string | null
     destWalletId: string | null
     amount: Decimal | null
+    fundMode: string | null
     referenceType: string | null
     referenceId: string | null
     description: string | null
@@ -7810,6 +7859,7 @@ export namespace Prisma {
     sourceWalletId: string | null
     destWalletId: string | null
     amount: Decimal | null
+    fundMode: string | null
     referenceType: string | null
     referenceId: string | null
     description: string | null
@@ -7824,6 +7874,7 @@ export namespace Prisma {
     sourceWalletId: number
     destWalletId: number
     amount: number
+    fundMode: number
     referenceType: number
     referenceId: number
     description: number
@@ -7848,6 +7899,7 @@ export namespace Prisma {
     sourceWalletId?: true
     destWalletId?: true
     amount?: true
+    fundMode?: true
     referenceType?: true
     referenceId?: true
     description?: true
@@ -7862,6 +7914,7 @@ export namespace Prisma {
     sourceWalletId?: true
     destWalletId?: true
     amount?: true
+    fundMode?: true
     referenceType?: true
     referenceId?: true
     description?: true
@@ -7876,6 +7929,7 @@ export namespace Prisma {
     sourceWalletId?: true
     destWalletId?: true
     amount?: true
+    fundMode?: true
     referenceType?: true
     referenceId?: true
     description?: true
@@ -7977,6 +8031,7 @@ export namespace Prisma {
     sourceWalletId: string | null
     destWalletId: string | null
     amount: Decimal
+    fundMode: string
     referenceType: string | null
     referenceId: string | null
     description: string | null
@@ -8010,6 +8065,7 @@ export namespace Prisma {
     sourceWalletId?: boolean
     destWalletId?: boolean
     amount?: boolean
+    fundMode?: boolean
     referenceType?: boolean
     referenceId?: boolean
     description?: boolean
@@ -8026,6 +8082,7 @@ export namespace Prisma {
     sourceWalletId?: boolean
     destWalletId?: boolean
     amount?: boolean
+    fundMode?: boolean
     referenceType?: boolean
     referenceId?: boolean
     description?: boolean
@@ -8042,6 +8099,7 @@ export namespace Prisma {
     sourceWalletId?: boolean
     destWalletId?: boolean
     amount?: boolean
+    fundMode?: boolean
     referenceType?: boolean
     referenceId?: boolean
     description?: boolean
@@ -8071,6 +8129,7 @@ export namespace Prisma {
       sourceWalletId: string | null
       destWalletId: string | null
       amount: Prisma.Decimal
+      fundMode: string
       referenceType: string | null
       referenceId: string | null
       description: string | null
@@ -8477,6 +8536,7 @@ export namespace Prisma {
     readonly sourceWalletId: FieldRef<"WalletTransaction", 'String'>
     readonly destWalletId: FieldRef<"WalletTransaction", 'String'>
     readonly amount: FieldRef<"WalletTransaction", 'Decimal'>
+    readonly fundMode: FieldRef<"WalletTransaction", 'String'>
     readonly referenceType: FieldRef<"WalletTransaction", 'String'>
     readonly referenceId: FieldRef<"WalletTransaction", 'String'>
     readonly description: FieldRef<"WalletTransaction", 'String'>
@@ -8872,6 +8932,7 @@ export namespace Prisma {
     parentRequestId: string | null
     requestedFrom: string | null
     amount: Decimal | null
+    fundMode: string | null
     reason: string | null
     status: string | null
     comments: string | null
@@ -8890,6 +8951,7 @@ export namespace Prisma {
     parentRequestId: string | null
     requestedFrom: string | null
     amount: Decimal | null
+    fundMode: string | null
     reason: string | null
     status: string | null
     comments: string | null
@@ -8908,6 +8970,7 @@ export namespace Prisma {
     parentRequestId: number
     requestedFrom: number
     amount: number
+    fundMode: number
     reason: number
     status: number
     comments: number
@@ -8936,6 +8999,7 @@ export namespace Prisma {
     parentRequestId?: true
     requestedFrom?: true
     amount?: true
+    fundMode?: true
     reason?: true
     status?: true
     comments?: true
@@ -8954,6 +9018,7 @@ export namespace Prisma {
     parentRequestId?: true
     requestedFrom?: true
     amount?: true
+    fundMode?: true
     reason?: true
     status?: true
     comments?: true
@@ -8972,6 +9037,7 @@ export namespace Prisma {
     parentRequestId?: true
     requestedFrom?: true
     amount?: true
+    fundMode?: true
     reason?: true
     status?: true
     comments?: true
@@ -9077,6 +9143,7 @@ export namespace Prisma {
     parentRequestId: string | null
     requestedFrom: string | null
     amount: Decimal
+    fundMode: string
     reason: string
     status: string
     comments: string | null
@@ -9114,6 +9181,7 @@ export namespace Prisma {
     parentRequestId?: boolean
     requestedFrom?: boolean
     amount?: boolean
+    fundMode?: boolean
     reason?: boolean
     status?: boolean
     comments?: boolean
@@ -9137,6 +9205,7 @@ export namespace Prisma {
     parentRequestId?: boolean
     requestedFrom?: boolean
     amount?: boolean
+    fundMode?: boolean
     reason?: boolean
     status?: boolean
     comments?: boolean
@@ -9158,6 +9227,7 @@ export namespace Prisma {
     parentRequestId?: boolean
     requestedFrom?: boolean
     amount?: boolean
+    fundMode?: boolean
     reason?: boolean
     status?: boolean
     comments?: boolean
@@ -9197,6 +9267,7 @@ export namespace Prisma {
       parentRequestId: string | null
       requestedFrom: string | null
       amount: Prisma.Decimal
+      fundMode: string
       reason: string
       status: string
       comments: string | null
@@ -9609,6 +9680,7 @@ export namespace Prisma {
     readonly parentRequestId: FieldRef<"FundRequest", 'String'>
     readonly requestedFrom: FieldRef<"FundRequest", 'String'>
     readonly amount: FieldRef<"FundRequest", 'Decimal'>
+    readonly fundMode: FieldRef<"FundRequest", 'String'>
     readonly reason: FieldRef<"FundRequest", 'String'>
     readonly status: FieldRef<"FundRequest", 'String'>
     readonly comments: FieldRef<"FundRequest", 'String'>
@@ -10011,6 +10083,7 @@ export namespace Prisma {
     walletId: string | null
     categoryId: string | null
     amount: Decimal | null
+    fundMode: string | null
     description: string | null
     date: Date | null
     vendorId: string | null
@@ -10029,6 +10102,7 @@ export namespace Prisma {
     walletId: string | null
     categoryId: string | null
     amount: Decimal | null
+    fundMode: string | null
     description: string | null
     date: Date | null
     vendorId: string | null
@@ -10047,6 +10121,7 @@ export namespace Prisma {
     walletId: number
     categoryId: number
     amount: number
+    fundMode: number
     description: number
     date: number
     vendorId: number
@@ -10075,6 +10150,7 @@ export namespace Prisma {
     walletId?: true
     categoryId?: true
     amount?: true
+    fundMode?: true
     description?: true
     date?: true
     vendorId?: true
@@ -10093,6 +10169,7 @@ export namespace Prisma {
     walletId?: true
     categoryId?: true
     amount?: true
+    fundMode?: true
     description?: true
     date?: true
     vendorId?: true
@@ -10111,6 +10188,7 @@ export namespace Prisma {
     walletId?: true
     categoryId?: true
     amount?: true
+    fundMode?: true
     description?: true
     date?: true
     vendorId?: true
@@ -10216,6 +10294,7 @@ export namespace Prisma {
     walletId: string
     categoryId: string
     amount: Decimal
+    fundMode: string
     description: string
     date: Date
     vendorId: string | null
@@ -10253,6 +10332,7 @@ export namespace Prisma {
     walletId?: boolean
     categoryId?: boolean
     amount?: boolean
+    fundMode?: boolean
     description?: boolean
     date?: boolean
     vendorId?: boolean
@@ -10274,6 +10354,7 @@ export namespace Prisma {
     walletId?: boolean
     categoryId?: boolean
     amount?: boolean
+    fundMode?: boolean
     description?: boolean
     date?: boolean
     vendorId?: boolean
@@ -10295,6 +10376,7 @@ export namespace Prisma {
     walletId?: boolean
     categoryId?: boolean
     amount?: boolean
+    fundMode?: boolean
     description?: boolean
     date?: boolean
     vendorId?: boolean
@@ -10331,6 +10413,7 @@ export namespace Prisma {
       walletId: string
       categoryId: string
       amount: Prisma.Decimal
+      fundMode: string
       description: string
       date: Date
       vendorId: string | null
@@ -10742,6 +10825,7 @@ export namespace Prisma {
     readonly walletId: FieldRef<"Expense", 'String'>
     readonly categoryId: FieldRef<"Expense", 'String'>
     readonly amount: FieldRef<"Expense", 'Decimal'>
+    readonly fundMode: FieldRef<"Expense", 'String'>
     readonly description: FieldRef<"Expense", 'String'>
     readonly date: FieldRef<"Expense", 'DateTime'>
     readonly vendorId: FieldRef<"Expense", 'String'>
@@ -21609,9 +21693,12 @@ export namespace Prisma {
   export const WalletScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    totalAllocated: 'totalAllocated',
-    totalSpent: 'totalSpent',
-    availableBalance: 'availableBalance',
+    totalAllocatedLiquid: 'totalAllocatedLiquid',
+    totalAllocatedCash: 'totalAllocatedCash',
+    totalSpentLiquid: 'totalSpentLiquid',
+    totalSpentCash: 'totalSpentCash',
+    availableBalanceLiquid: 'availableBalanceLiquid',
+    availableBalanceCash: 'availableBalanceCash',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -21625,6 +21712,7 @@ export namespace Prisma {
     sourceWalletId: 'sourceWalletId',
     destWalletId: 'destWalletId',
     amount: 'amount',
+    fundMode: 'fundMode',
     referenceType: 'referenceType',
     referenceId: 'referenceId',
     description: 'description',
@@ -21643,6 +21731,7 @@ export namespace Prisma {
     parentRequestId: 'parentRequestId',
     requestedFrom: 'requestedFrom',
     amount: 'amount',
+    fundMode: 'fundMode',
     reason: 'reason',
     status: 'status',
     comments: 'comments',
@@ -21663,6 +21752,7 @@ export namespace Prisma {
     walletId: 'walletId',
     categoryId: 'categoryId',
     amount: 'amount',
+    fundMode: 'fundMode',
     description: 'description',
     date: 'date',
     vendorId: 'vendorId',
@@ -22244,9 +22334,12 @@ export namespace Prisma {
     NOT?: WalletWhereInput | WalletWhereInput[]
     id?: StringFilter<"Wallet"> | string
     userId?: StringFilter<"Wallet"> | string
-    totalAllocated?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Wallet"> | Date | string
     updatedAt?: DateTimeFilter<"Wallet"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -22258,9 +22351,12 @@ export namespace Prisma {
   export type WalletOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    totalAllocated?: SortOrder
-    totalSpent?: SortOrder
-    availableBalance?: SortOrder
+    totalAllocatedLiquid?: SortOrder
+    totalAllocatedCash?: SortOrder
+    totalSpentLiquid?: SortOrder
+    totalSpentCash?: SortOrder
+    availableBalanceLiquid?: SortOrder
+    availableBalanceCash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -22275,9 +22371,12 @@ export namespace Prisma {
     AND?: WalletWhereInput | WalletWhereInput[]
     OR?: WalletWhereInput[]
     NOT?: WalletWhereInput | WalletWhereInput[]
-    totalAllocated?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Wallet"> | Date | string
     updatedAt?: DateTimeFilter<"Wallet"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -22289,9 +22388,12 @@ export namespace Prisma {
   export type WalletOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    totalAllocated?: SortOrder
-    totalSpent?: SortOrder
-    availableBalance?: SortOrder
+    totalAllocatedLiquid?: SortOrder
+    totalAllocatedCash?: SortOrder
+    totalSpentLiquid?: SortOrder
+    totalSpentCash?: SortOrder
+    availableBalanceLiquid?: SortOrder
+    availableBalanceCash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: WalletCountOrderByAggregateInput
@@ -22307,9 +22409,12 @@ export namespace Prisma {
     NOT?: WalletScalarWhereWithAggregatesInput | WalletScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Wallet"> | string
     userId?: StringWithAggregatesFilter<"Wallet"> | string
-    totalAllocated?: DecimalWithAggregatesFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalWithAggregatesFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalWithAggregatesFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalWithAggregatesFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalWithAggregatesFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalWithAggregatesFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalWithAggregatesFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalWithAggregatesFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalWithAggregatesFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"Wallet"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Wallet"> | Date | string
   }
@@ -22323,6 +22428,7 @@ export namespace Prisma {
     sourceWalletId?: StringNullableFilter<"WalletTransaction"> | string | null
     destWalletId?: StringNullableFilter<"WalletTransaction"> | string | null
     amount?: DecimalFilter<"WalletTransaction"> | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFilter<"WalletTransaction"> | string
     referenceType?: StringNullableFilter<"WalletTransaction"> | string | null
     referenceId?: StringNullableFilter<"WalletTransaction"> | string | null
     description?: StringNullableFilter<"WalletTransaction"> | string | null
@@ -22339,6 +22445,7 @@ export namespace Prisma {
     sourceWalletId?: SortOrderInput | SortOrder
     destWalletId?: SortOrderInput | SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     referenceType?: SortOrderInput | SortOrder
     referenceId?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
@@ -22358,6 +22465,7 @@ export namespace Prisma {
     sourceWalletId?: StringNullableFilter<"WalletTransaction"> | string | null
     destWalletId?: StringNullableFilter<"WalletTransaction"> | string | null
     amount?: DecimalFilter<"WalletTransaction"> | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFilter<"WalletTransaction"> | string
     referenceType?: StringNullableFilter<"WalletTransaction"> | string | null
     referenceId?: StringNullableFilter<"WalletTransaction"> | string | null
     description?: StringNullableFilter<"WalletTransaction"> | string | null
@@ -22374,6 +22482,7 @@ export namespace Prisma {
     sourceWalletId?: SortOrderInput | SortOrder
     destWalletId?: SortOrderInput | SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     referenceType?: SortOrderInput | SortOrder
     referenceId?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
@@ -22396,6 +22505,7 @@ export namespace Prisma {
     sourceWalletId?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
     destWalletId?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
     amount?: DecimalWithAggregatesFilter<"WalletTransaction"> | Decimal | DecimalJsLike | number | string
+    fundMode?: StringWithAggregatesFilter<"WalletTransaction"> | string
     referenceType?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
     referenceId?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
     description?: StringNullableWithAggregatesFilter<"WalletTransaction"> | string | null
@@ -22414,6 +22524,7 @@ export namespace Prisma {
     parentRequestId?: StringNullableFilter<"FundRequest"> | string | null
     requestedFrom?: StringNullableFilter<"FundRequest"> | string | null
     amount?: DecimalFilter<"FundRequest"> | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFilter<"FundRequest"> | string
     reason?: StringFilter<"FundRequest"> | string
     status?: StringFilter<"FundRequest"> | string
     comments?: StringNullableFilter<"FundRequest"> | string | null
@@ -22436,6 +22547,7 @@ export namespace Prisma {
     parentRequestId?: SortOrderInput | SortOrder
     requestedFrom?: SortOrderInput | SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     comments?: SortOrderInput | SortOrder
@@ -22461,6 +22573,7 @@ export namespace Prisma {
     parentRequestId?: StringNullableFilter<"FundRequest"> | string | null
     requestedFrom?: StringNullableFilter<"FundRequest"> | string | null
     amount?: DecimalFilter<"FundRequest"> | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFilter<"FundRequest"> | string
     reason?: StringFilter<"FundRequest"> | string
     status?: StringFilter<"FundRequest"> | string
     comments?: StringNullableFilter<"FundRequest"> | string | null
@@ -22483,6 +22596,7 @@ export namespace Prisma {
     parentRequestId?: SortOrderInput | SortOrder
     requestedFrom?: SortOrderInput | SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     comments?: SortOrderInput | SortOrder
@@ -22509,6 +22623,7 @@ export namespace Prisma {
     parentRequestId?: StringNullableWithAggregatesFilter<"FundRequest"> | string | null
     requestedFrom?: StringNullableWithAggregatesFilter<"FundRequest"> | string | null
     amount?: DecimalWithAggregatesFilter<"FundRequest"> | Decimal | DecimalJsLike | number | string
+    fundMode?: StringWithAggregatesFilter<"FundRequest"> | string
     reason?: StringWithAggregatesFilter<"FundRequest"> | string
     status?: StringWithAggregatesFilter<"FundRequest"> | string
     comments?: StringNullableWithAggregatesFilter<"FundRequest"> | string | null
@@ -22529,6 +22644,7 @@ export namespace Prisma {
     walletId?: StringFilter<"Expense"> | string
     categoryId?: StringFilter<"Expense"> | string
     amount?: DecimalFilter<"Expense"> | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFilter<"Expense"> | string
     description?: StringFilter<"Expense"> | string
     date?: DateTimeFilter<"Expense"> | Date | string
     vendorId?: StringNullableFilter<"Expense"> | string | null
@@ -22550,6 +22666,7 @@ export namespace Prisma {
     walletId?: SortOrder
     categoryId?: SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     description?: SortOrder
     date?: SortOrder
     vendorId?: SortOrderInput | SortOrder
@@ -22574,6 +22691,7 @@ export namespace Prisma {
     walletId?: StringFilter<"Expense"> | string
     categoryId?: StringFilter<"Expense"> | string
     amount?: DecimalFilter<"Expense"> | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFilter<"Expense"> | string
     description?: StringFilter<"Expense"> | string
     date?: DateTimeFilter<"Expense"> | Date | string
     vendorId?: StringNullableFilter<"Expense"> | string | null
@@ -22595,6 +22713,7 @@ export namespace Prisma {
     walletId?: SortOrder
     categoryId?: SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     description?: SortOrder
     date?: SortOrder
     vendorId?: SortOrderInput | SortOrder
@@ -22621,6 +22740,7 @@ export namespace Prisma {
     walletId?: StringWithAggregatesFilter<"Expense"> | string
     categoryId?: StringWithAggregatesFilter<"Expense"> | string
     amount?: DecimalWithAggregatesFilter<"Expense"> | Decimal | DecimalJsLike | number | string
+    fundMode?: StringWithAggregatesFilter<"Expense"> | string
     description?: StringWithAggregatesFilter<"Expense"> | string
     date?: DateTimeWithAggregatesFilter<"Expense"> | Date | string
     vendorId?: StringNullableWithAggregatesFilter<"Expense"> | string | null
@@ -23812,9 +23932,12 @@ export namespace Prisma {
 
   export type WalletCreateInput = {
     id?: string
-    totalAllocated?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    availableBalance?: Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: Decimal | DecimalJsLike | number | string
+    totalSpentCash?: Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutWalletInput
@@ -23826,9 +23949,12 @@ export namespace Prisma {
   export type WalletUncheckedCreateInput = {
     id?: string
     userId: string
-    totalAllocated?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    availableBalance?: Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: Decimal | DecimalJsLike | number | string
+    totalSpentCash?: Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     transactionsSrc?: WalletTransactionUncheckedCreateNestedManyWithoutSourceWalletInput
@@ -23838,9 +23964,12 @@ export namespace Prisma {
 
   export type WalletUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    totalAllocated?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWalletNestedInput
@@ -23852,9 +23981,12 @@ export namespace Prisma {
   export type WalletUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    totalAllocated?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactionsSrc?: WalletTransactionUncheckedUpdateManyWithoutSourceWalletNestedInput
@@ -23865,18 +23997,24 @@ export namespace Prisma {
   export type WalletCreateManyInput = {
     id?: string
     userId: string
-    totalAllocated?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    availableBalance?: Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: Decimal | DecimalJsLike | number | string
+    totalSpentCash?: Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type WalletUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    totalAllocated?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23884,9 +24022,12 @@ export namespace Prisma {
   export type WalletUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    totalAllocated?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23895,6 +24036,7 @@ export namespace Prisma {
     id?: string
     type: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     referenceType?: string | null
     referenceId?: string | null
     description?: string | null
@@ -23911,6 +24053,7 @@ export namespace Prisma {
     sourceWalletId?: string | null
     destWalletId?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     referenceType?: string | null
     referenceId?: string | null
     description?: string | null
@@ -23923,6 +24066,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     referenceType?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23939,6 +24083,7 @@ export namespace Prisma {
     sourceWalletId?: NullableStringFieldUpdateOperationsInput | string | null
     destWalletId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     referenceType?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23953,6 +24098,7 @@ export namespace Prisma {
     sourceWalletId?: string | null
     destWalletId?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     referenceType?: string | null
     referenceId?: string | null
     description?: string | null
@@ -23965,6 +24111,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     referenceType?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23979,6 +24126,7 @@ export namespace Prisma {
     sourceWalletId?: NullableStringFieldUpdateOperationsInput | string | null
     destWalletId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     referenceType?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23991,6 +24139,7 @@ export namespace Prisma {
     id?: string
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -24013,6 +24162,7 @@ export namespace Prisma {
     parentRequestId?: string | null
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -24029,6 +24179,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24051,6 +24202,7 @@ export namespace Prisma {
     parentRequestId?: NullableStringFieldUpdateOperationsInput | string | null
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24070,6 +24222,7 @@ export namespace Prisma {
     parentRequestId?: string | null
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -24085,6 +24238,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24103,6 +24257,7 @@ export namespace Prisma {
     parentRequestId?: NullableStringFieldUpdateOperationsInput | string | null
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24117,6 +24272,7 @@ export namespace Prisma {
   export type ExpenseCreateInput = {
     id?: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     description: string
     date: Date | string
     vendorId?: string | null
@@ -24138,6 +24294,7 @@ export namespace Prisma {
     walletId: string
     categoryId: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     description: string
     date: Date | string
     vendorId?: string | null
@@ -24153,6 +24310,7 @@ export namespace Prisma {
   export type ExpenseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24174,6 +24332,7 @@ export namespace Prisma {
     walletId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24192,6 +24351,7 @@ export namespace Prisma {
     walletId: string
     categoryId: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     description: string
     date: Date | string
     vendorId?: string | null
@@ -24207,6 +24367,7 @@ export namespace Prisma {
   export type ExpenseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24225,6 +24386,7 @@ export namespace Prisma {
     walletId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25612,25 +25774,34 @@ export namespace Prisma {
   export type WalletCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    totalAllocated?: SortOrder
-    totalSpent?: SortOrder
-    availableBalance?: SortOrder
+    totalAllocatedLiquid?: SortOrder
+    totalAllocatedCash?: SortOrder
+    totalSpentLiquid?: SortOrder
+    totalSpentCash?: SortOrder
+    availableBalanceLiquid?: SortOrder
+    availableBalanceCash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type WalletAvgOrderByAggregateInput = {
-    totalAllocated?: SortOrder
-    totalSpent?: SortOrder
-    availableBalance?: SortOrder
+    totalAllocatedLiquid?: SortOrder
+    totalAllocatedCash?: SortOrder
+    totalSpentLiquid?: SortOrder
+    totalSpentCash?: SortOrder
+    availableBalanceLiquid?: SortOrder
+    availableBalanceCash?: SortOrder
   }
 
   export type WalletMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    totalAllocated?: SortOrder
-    totalSpent?: SortOrder
-    availableBalance?: SortOrder
+    totalAllocatedLiquid?: SortOrder
+    totalAllocatedCash?: SortOrder
+    totalSpentLiquid?: SortOrder
+    totalSpentCash?: SortOrder
+    availableBalanceLiquid?: SortOrder
+    availableBalanceCash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25638,17 +25809,23 @@ export namespace Prisma {
   export type WalletMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    totalAllocated?: SortOrder
-    totalSpent?: SortOrder
-    availableBalance?: SortOrder
+    totalAllocatedLiquid?: SortOrder
+    totalAllocatedCash?: SortOrder
+    totalSpentLiquid?: SortOrder
+    totalSpentCash?: SortOrder
+    availableBalanceLiquid?: SortOrder
+    availableBalanceCash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type WalletSumOrderByAggregateInput = {
-    totalAllocated?: SortOrder
-    totalSpent?: SortOrder
-    availableBalance?: SortOrder
+    totalAllocatedLiquid?: SortOrder
+    totalAllocatedCash?: SortOrder
+    totalSpentLiquid?: SortOrder
+    totalSpentCash?: SortOrder
+    availableBalanceLiquid?: SortOrder
+    availableBalanceCash?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -25673,6 +25850,7 @@ export namespace Prisma {
     sourceWalletId?: SortOrder
     destWalletId?: SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     referenceType?: SortOrder
     referenceId?: SortOrder
     description?: SortOrder
@@ -25691,6 +25869,7 @@ export namespace Prisma {
     sourceWalletId?: SortOrder
     destWalletId?: SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     referenceType?: SortOrder
     referenceId?: SortOrder
     description?: SortOrder
@@ -25705,6 +25884,7 @@ export namespace Prisma {
     sourceWalletId?: SortOrder
     destWalletId?: SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     referenceType?: SortOrder
     referenceId?: SortOrder
     description?: SortOrder
@@ -25740,6 +25920,7 @@ export namespace Prisma {
     parentRequestId?: SortOrder
     requestedFrom?: SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     comments?: SortOrder
@@ -25762,6 +25943,7 @@ export namespace Prisma {
     parentRequestId?: SortOrder
     requestedFrom?: SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     comments?: SortOrder
@@ -25780,6 +25962,7 @@ export namespace Prisma {
     parentRequestId?: SortOrder
     requestedFrom?: SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     comments?: SortOrder
@@ -25825,6 +26008,7 @@ export namespace Prisma {
     walletId?: SortOrder
     categoryId?: SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     description?: SortOrder
     date?: SortOrder
     vendorId?: SortOrder
@@ -25847,6 +26031,7 @@ export namespace Prisma {
     walletId?: SortOrder
     categoryId?: SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     description?: SortOrder
     date?: SortOrder
     vendorId?: SortOrder
@@ -25865,6 +26050,7 @@ export namespace Prisma {
     walletId?: SortOrder
     categoryId?: SortOrder
     amount?: SortOrder
+    fundMode?: SortOrder
     description?: SortOrder
     date?: SortOrder
     vendorId?: SortOrder
@@ -28074,9 +28260,12 @@ export namespace Prisma {
 
   export type WalletCreateWithoutUserInput = {
     id?: string
-    totalAllocated?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    availableBalance?: Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: Decimal | DecimalJsLike | number | string
+    totalSpentCash?: Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     transactionsSrc?: WalletTransactionCreateNestedManyWithoutSourceWalletInput
@@ -28086,9 +28275,12 @@ export namespace Prisma {
 
   export type WalletUncheckedCreateWithoutUserInput = {
     id?: string
-    totalAllocated?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    availableBalance?: Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: Decimal | DecimalJsLike | number | string
+    totalSpentCash?: Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     transactionsSrc?: WalletTransactionUncheckedCreateNestedManyWithoutSourceWalletInput
@@ -28105,6 +28297,7 @@ export namespace Prisma {
     id?: string
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -28125,6 +28318,7 @@ export namespace Prisma {
     parentRequestId?: string | null
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -28151,6 +28345,7 @@ export namespace Prisma {
     id?: string
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -28171,6 +28366,7 @@ export namespace Prisma {
     parentRequestId?: string | null
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -28196,6 +28392,7 @@ export namespace Prisma {
   export type ExpenseCreateWithoutUserInput = {
     id?: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     description: string
     date: Date | string
     vendorId?: string | null
@@ -28215,6 +28412,7 @@ export namespace Prisma {
     walletId: string
     categoryId: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     description: string
     date: Date | string
     vendorId?: string | null
@@ -28523,9 +28721,12 @@ export namespace Prisma {
 
   export type WalletUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    totalAllocated?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactionsSrc?: WalletTransactionUpdateManyWithoutSourceWalletNestedInput
@@ -28535,9 +28736,12 @@ export namespace Prisma {
 
   export type WalletUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    totalAllocated?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactionsSrc?: WalletTransactionUncheckedUpdateManyWithoutSourceWalletNestedInput
@@ -28571,6 +28775,7 @@ export namespace Prisma {
     parentRequestId?: StringNullableFilter<"FundRequest"> | string | null
     requestedFrom?: StringNullableFilter<"FundRequest"> | string | null
     amount?: DecimalFilter<"FundRequest"> | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFilter<"FundRequest"> | string
     reason?: StringFilter<"FundRequest"> | string
     status?: StringFilter<"FundRequest"> | string
     comments?: StringNullableFilter<"FundRequest"> | string | null
@@ -28623,6 +28828,7 @@ export namespace Prisma {
     walletId?: StringFilter<"Expense"> | string
     categoryId?: StringFilter<"Expense"> | string
     amount?: DecimalFilter<"Expense"> | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFilter<"Expense"> | string
     description?: StringFilter<"Expense"> | string
     date?: DateTimeFilter<"Expense"> | Date | string
     vendorId?: StringNullableFilter<"Expense"> | string | null
@@ -29126,6 +29332,7 @@ export namespace Prisma {
     id?: string
     type: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     referenceType?: string | null
     referenceId?: string | null
     description?: string | null
@@ -29140,6 +29347,7 @@ export namespace Prisma {
     type: string
     destWalletId?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     referenceType?: string | null
     referenceId?: string | null
     description?: string | null
@@ -29162,6 +29370,7 @@ export namespace Prisma {
     id?: string
     type: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     referenceType?: string | null
     referenceId?: string | null
     description?: string | null
@@ -29176,6 +29385,7 @@ export namespace Prisma {
     type: string
     sourceWalletId?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     referenceType?: string | null
     referenceId?: string | null
     description?: string | null
@@ -29197,6 +29407,7 @@ export namespace Prisma {
   export type ExpenseCreateWithoutWalletInput = {
     id?: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     description: string
     date: Date | string
     vendorId?: string | null
@@ -29216,6 +29427,7 @@ export namespace Prisma {
     userId: string
     categoryId: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     description: string
     date: Date | string
     vendorId?: string | null
@@ -29310,6 +29522,7 @@ export namespace Prisma {
     sourceWalletId?: StringNullableFilter<"WalletTransaction"> | string | null
     destWalletId?: StringNullableFilter<"WalletTransaction"> | string | null
     amount?: DecimalFilter<"WalletTransaction"> | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFilter<"WalletTransaction"> | string
     referenceType?: StringNullableFilter<"WalletTransaction"> | string | null
     referenceId?: StringNullableFilter<"WalletTransaction"> | string | null
     description?: StringNullableFilter<"WalletTransaction"> | string | null
@@ -29352,9 +29565,12 @@ export namespace Prisma {
 
   export type WalletCreateWithoutTransactionsSrcInput = {
     id?: string
-    totalAllocated?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    availableBalance?: Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: Decimal | DecimalJsLike | number | string
+    totalSpentCash?: Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutWalletInput
@@ -29365,9 +29581,12 @@ export namespace Prisma {
   export type WalletUncheckedCreateWithoutTransactionsSrcInput = {
     id?: string
     userId: string
-    totalAllocated?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    availableBalance?: Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: Decimal | DecimalJsLike | number | string
+    totalSpentCash?: Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     transactionsDest?: WalletTransactionUncheckedCreateNestedManyWithoutDestWalletInput
@@ -29381,9 +29600,12 @@ export namespace Prisma {
 
   export type WalletCreateWithoutTransactionsDestInput = {
     id?: string
-    totalAllocated?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    availableBalance?: Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: Decimal | DecimalJsLike | number | string
+    totalSpentCash?: Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutWalletInput
@@ -29394,9 +29616,12 @@ export namespace Prisma {
   export type WalletUncheckedCreateWithoutTransactionsDestInput = {
     id?: string
     userId: string
-    totalAllocated?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    availableBalance?: Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: Decimal | DecimalJsLike | number | string
+    totalSpentCash?: Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     transactionsSrc?: WalletTransactionUncheckedCreateNestedManyWithoutSourceWalletInput
@@ -29421,9 +29646,12 @@ export namespace Prisma {
 
   export type WalletUpdateWithoutTransactionsSrcInput = {
     id?: StringFieldUpdateOperationsInput | string
-    totalAllocated?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWalletNestedInput
@@ -29434,9 +29662,12 @@ export namespace Prisma {
   export type WalletUncheckedUpdateWithoutTransactionsSrcInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    totalAllocated?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactionsDest?: WalletTransactionUncheckedUpdateManyWithoutDestWalletNestedInput
@@ -29456,9 +29687,12 @@ export namespace Prisma {
 
   export type WalletUpdateWithoutTransactionsDestInput = {
     id?: StringFieldUpdateOperationsInput | string
-    totalAllocated?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWalletNestedInput
@@ -29469,9 +29703,12 @@ export namespace Prisma {
   export type WalletUncheckedUpdateWithoutTransactionsDestInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    totalAllocated?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactionsSrc?: WalletTransactionUncheckedUpdateManyWithoutSourceWalletNestedInput
@@ -29564,6 +29801,7 @@ export namespace Prisma {
     id?: string
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -29585,6 +29823,7 @@ export namespace Prisma {
     parentRequestId?: string | null
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -29605,6 +29844,7 @@ export namespace Prisma {
     id?: string
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -29625,6 +29865,7 @@ export namespace Prisma {
     managerId: string
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -29756,6 +29997,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29777,6 +30019,7 @@ export namespace Prisma {
     parentRequestId?: NullableStringFieldUpdateOperationsInput | string | null
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29847,9 +30090,12 @@ export namespace Prisma {
 
   export type WalletCreateWithoutExpensesInput = {
     id?: string
-    totalAllocated?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    availableBalance?: Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: Decimal | DecimalJsLike | number | string
+    totalSpentCash?: Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutWalletInput
@@ -29860,9 +30106,12 @@ export namespace Prisma {
   export type WalletUncheckedCreateWithoutExpensesInput = {
     id?: string
     userId: string
-    totalAllocated?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    availableBalance?: Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: Decimal | DecimalJsLike | number | string
+    totalSpentCash?: Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     transactionsSrc?: WalletTransactionUncheckedCreateNestedManyWithoutSourceWalletInput
@@ -29951,9 +30200,12 @@ export namespace Prisma {
 
   export type WalletUpdateWithoutExpensesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    totalAllocated?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWalletNestedInput
@@ -29964,9 +30216,12 @@ export namespace Prisma {
   export type WalletUncheckedUpdateWithoutExpensesInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    totalAllocated?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    availableBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAllocatedCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpentCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceLiquid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    availableBalanceCash?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactionsSrc?: WalletTransactionUncheckedUpdateManyWithoutSourceWalletNestedInput
@@ -29999,6 +30254,7 @@ export namespace Prisma {
   export type ExpenseCreateWithoutCategoryInput = {
     id?: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     description: string
     date: Date | string
     vendorId?: string | null
@@ -30018,6 +30274,7 @@ export namespace Prisma {
     userId: string
     walletId: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     description: string
     date: Date | string
     vendorId?: string | null
@@ -31086,6 +31343,7 @@ export namespace Prisma {
     parentRequestId?: string | null
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -31103,6 +31361,7 @@ export namespace Prisma {
     parentRequestId?: string | null
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -31119,6 +31378,7 @@ export namespace Prisma {
     walletId: string
     categoryId: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     description: string
     date: Date | string
     vendorId?: string | null
@@ -31230,6 +31490,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31250,6 +31511,7 @@ export namespace Prisma {
     parentRequestId?: NullableStringFieldUpdateOperationsInput | string | null
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31268,6 +31530,7 @@ export namespace Prisma {
     parentRequestId?: NullableStringFieldUpdateOperationsInput | string | null
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31283,6 +31546,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31303,6 +31567,7 @@ export namespace Prisma {
     parentRequestId?: NullableStringFieldUpdateOperationsInput | string | null
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31321,6 +31586,7 @@ export namespace Prisma {
     parentRequestId?: NullableStringFieldUpdateOperationsInput | string | null
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31335,6 +31601,7 @@ export namespace Prisma {
   export type ExpenseUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31354,6 +31621,7 @@ export namespace Prisma {
     walletId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31371,6 +31639,7 @@ export namespace Prisma {
     walletId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31763,6 +32032,7 @@ export namespace Prisma {
     type: string
     destWalletId?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     referenceType?: string | null
     referenceId?: string | null
     description?: string | null
@@ -31776,6 +32046,7 @@ export namespace Prisma {
     type: string
     sourceWalletId?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     referenceType?: string | null
     referenceId?: string | null
     description?: string | null
@@ -31789,6 +32060,7 @@ export namespace Prisma {
     userId: string
     categoryId: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     description: string
     date: Date | string
     vendorId?: string | null
@@ -31805,6 +32077,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     referenceType?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31819,6 +32092,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     destWalletId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     referenceType?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31832,6 +32106,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     destWalletId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     referenceType?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31844,6 +32119,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     referenceType?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31858,6 +32134,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     sourceWalletId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     referenceType?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31871,6 +32148,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     sourceWalletId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     referenceType?: NullableStringFieldUpdateOperationsInput | string | null
     referenceId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31882,6 +32160,7 @@ export namespace Prisma {
   export type ExpenseUpdateWithoutWalletInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31901,6 +32180,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31918,6 +32198,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31936,6 +32217,7 @@ export namespace Prisma {
     managerId: string
     requestedFrom?: string | null
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     reason: string
     status: string
     comments?: string | null
@@ -31951,6 +32233,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31971,6 +32254,7 @@ export namespace Prisma {
     managerId?: StringFieldUpdateOperationsInput | string
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31989,6 +32273,7 @@ export namespace Prisma {
     managerId?: StringFieldUpdateOperationsInput | string
     requestedFrom?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32005,6 +32290,7 @@ export namespace Prisma {
     userId: string
     walletId: string
     amount: Decimal | DecimalJsLike | number | string
+    fundMode?: string
     description: string
     date: Date | string
     vendorId?: string | null
@@ -32020,6 +32306,7 @@ export namespace Prisma {
   export type ExpenseUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32039,6 +32326,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     walletId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32056,6 +32344,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     walletId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fundMode?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     vendorId?: NullableStringFieldUpdateOperationsInput | string | null

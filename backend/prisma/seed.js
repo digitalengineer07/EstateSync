@@ -1,6 +1,8 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require('../src/prisma-client');
 const bcrypt = require('bcrypt');
 const prisma = new PrismaClient();
+
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 async function main() {
   console.log('Seeding data...');
@@ -14,6 +16,7 @@ async function main() {
       update: {},
       create: { name: roleName, description: `${roleName} Role` },
     });
+    await delay(50);
   }
 
   // 2. Create Permissions
@@ -36,6 +39,7 @@ async function main() {
       update: {},
       create: { code: permCode, description: `Permission for ${permCode}` },
     });
+    await delay(50);
   }
 
   // 3. Assign Permissions to Roles (Basic mapping)
@@ -54,6 +58,7 @@ async function main() {
         permissionId: createdPerms[permCode].id
       }
     });
+    await delay(50);
   }
   
   // Base employee permissions
@@ -81,6 +86,7 @@ async function main() {
           permissionId: createdPerms[permCode].id
         }
       });
+      await delay(50);
     }
   }
 
@@ -101,6 +107,7 @@ async function main() {
           permissionId: createdPerms[permCode].id
         }
       });
+      await delay(50);
     }
   }
 
@@ -120,6 +127,7 @@ async function main() {
           permissionId: createdPerms[permCode].id
         }
       });
+      await delay(50);
     }
   }
 
@@ -146,6 +154,7 @@ async function main() {
           permissionId: createdPerms[permCode].id
         }
       });
+      await delay(50);
     }
   }
 
@@ -165,6 +174,7 @@ async function main() {
           permissionId: createdPerms[permCode].id
         }
       });
+      await delay(50);
     }
   }
 
@@ -182,6 +192,7 @@ async function main() {
       update: {},
       create: cat,
     });
+    await delay(50);
   }
 
   // 5. Create Users

@@ -67,10 +67,17 @@ export default function DashboardStats({ type }) {
               <Landmark className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
-            {formatCurrency(stats.totalOrganizationalFunds)}
-          </p>
-          <p className="text-xs text-slate-500 mt-1">Across {stats.totalWallets || stats.activeUsers || 0} active wallets</p>
+          <div className="mt-2 space-y-1">
+            <p className="text-xl font-bold text-slate-900 tracking-tight flex items-center justify-between">
+              <span className="text-sm font-normal text-slate-500">Liquid:</span>
+              {formatCurrency(stats.totalOrganizationalFundsLiquid)}
+            </p>
+            <p className="text-xl font-bold text-slate-900 tracking-tight flex items-center justify-between">
+              <span className="text-sm font-normal text-slate-500">Cash:</span>
+              {formatCurrency(stats.totalOrganizationalFundsCash)}
+            </p>
+          </div>
+          <p className="text-xs text-slate-500 mt-2 border-t pt-2 border-slate-100">Across {stats.totalWallets || stats.activeUsers || 0} active wallets</p>
         </div>
 
         {/* Card 2: Customer Collections */}
@@ -112,7 +119,9 @@ export default function DashboardStats({ type }) {
           <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
             {formatCurrency(stats.totalRecordedExpenses ?? stats.totalExpenses ?? 0)}
           </p>
-          <p className="text-xs text-slate-500 mt-1">{stats.expenseCount || 0} receipts • {formatCurrency(stats.totalAllocated)} budget</p>
+          <p className="text-xs text-slate-500 mt-1">
+            {stats.expenseCount || 0} receipts • budget (Liq: {formatCurrency(stats.totalAllocatedLiquid)} | Csh: {formatCurrency(stats.totalAllocatedCash)})
+          </p>
         </div>
       </div>
     );
@@ -128,10 +137,17 @@ export default function DashboardStats({ type }) {
               <Landmark className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
-            {formatCurrency(stats.managerAvailableBalance)}
-          </p>
-          <p className="text-xs text-slate-500 mt-1">Departmental liquidity ready for team</p>
+          <div className="mt-2 space-y-1">
+            <p className="text-xl font-bold text-slate-900 tracking-tight flex items-center justify-between">
+              <span className="text-sm font-normal text-slate-500">Liquid:</span>
+              {formatCurrency(stats.managerAvailableBalanceLiquid)}
+            </p>
+            <p className="text-xl font-bold text-slate-900 tracking-tight flex items-center justify-between">
+              <span className="text-sm font-normal text-slate-500">Cash:</span>
+              {formatCurrency(stats.managerAvailableBalanceCash)}
+            </p>
+          </div>
+          <p className="text-xs text-slate-500 mt-2 border-t pt-2 border-slate-100">Departmental liquidity ready for team</p>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">
@@ -173,10 +189,17 @@ export default function DashboardStats({ type }) {
               <Coins className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
-            {formatCurrency(stats.availableBalance)}
-          </p>
-          <p className="text-xs text-emerald-600 font-medium mt-1 flex items-center gap-1.5">
+          <div className="mt-2 space-y-1">
+            <p className="text-xl font-bold text-slate-900 tracking-tight flex items-center justify-between">
+              <span className="text-sm font-normal text-slate-500">Liquid:</span>
+              {formatCurrency(stats.availableBalanceLiquid)}
+            </p>
+            <p className="text-xl font-bold text-slate-900 tracking-tight flex items-center justify-between">
+              <span className="text-sm font-normal text-slate-500">Cash:</span>
+              {formatCurrency(stats.availableBalanceCash)}
+            </p>
+          </div>
+          <p className="text-xs text-emerald-600 font-medium mt-2 pt-2 border-t border-slate-100 flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active field liquidity
           </p>
         </div>
@@ -188,10 +211,17 @@ export default function DashboardStats({ type }) {
               <Receipt className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
-            {formatCurrency(stats.totalSpent)}
-          </p>
-          <p className="text-xs text-slate-500 mt-1">Cumulative filed expenses</p>
+          <div className="mt-2 space-y-1">
+            <p className="text-xl font-bold text-slate-900 tracking-tight flex items-center justify-between">
+              <span className="text-sm font-normal text-slate-500">Liquid:</span>
+              {formatCurrency(stats.totalSpentLiquid)}
+            </p>
+            <p className="text-xl font-bold text-slate-900 tracking-tight flex items-center justify-between">
+              <span className="text-sm font-normal text-slate-500">Cash:</span>
+              {formatCurrency(stats.totalSpentCash)}
+            </p>
+          </div>
+          <p className="text-xs text-slate-500 mt-2 pt-2 border-t border-slate-100">Cumulative filed expenses</p>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-slate-300 transition">

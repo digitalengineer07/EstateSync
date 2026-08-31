@@ -14,7 +14,7 @@ exports.getCategories = async (req, res) => {
 
 exports.createExpense = async (req, res) => {
   try {
-    const { amount, description, categoryId, date, vendorId, reference } = req.body;
+    const { amount, description, categoryId, date, vendorId, reference, fundMode } = req.body;
     const userId = req.user.userId;
 
     if (!amount || !description || !categoryId || !date) {
@@ -43,19 +43,26 @@ exports.createExpense = async (req, res) => {
         where: { userId: userId }
       });
 
+      const fMode = ['LIQUID', 'CASH'].includes(fundMode) ? fundMode : 'LIQUID';
+      const balanceField = fMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
+      const spentField = fMode === 'CASH' ? 'totalSpentCash' : 'totalSpentLiquid';
+
       if (!wallet) {
         wallet = await tx.wallet.create({
           data: {
             userId: userId,
-            totalAllocated: 0,
-            totalSpent: 0,
-            availableBalance: 0
+            totalAllocatedLiquid: 0,
+            totalAllocatedCash: 0,
+            totalSpentLiquid: 0,
+            totalSpentCash: 0,
+            availableBalanceLiquid: 0,
+            availableBalanceCash: 0
           }
         });
       }
 
       // 2. Check sufficient balance
-      if (parseFloat(wallet.availableBalance) < expenseAmount) {
+      if (parseFloat(wallet[balanceField]) < expenseAmount) {
         throw new Error('INSUFFICIENT_FUNDS');
       }
 
@@ -63,8 +70,8 @@ exports.createExpense = async (req, res) => {
       await tx.wallet.update({
         where: { id: wallet.id },
         data: {
-          availableBalance: { decrement: expenseAmount },
-          totalSpent: { increment: expenseAmount }
+          [balanceField]: { decrement: expenseAmount },
+          [spentField]: { increment: expenseAmount }
         }
       });
 
@@ -75,6 +82,7 @@ exports.createExpense = async (req, res) => {
           walletId: wallet.id,
           categoryId: categoryId,
           amount: expenseAmount,
+          fundMode: fMode,
           description,
           date: new Date(date),
           vendorId: vendorId ? String(vendorId).trim() : null,
@@ -89,6 +97,7 @@ exports.createExpense = async (req, res) => {
           type: 'EXPENSE',
           sourceWalletId: wallet.id,
           amount: expenseAmount,
+          fundMode: fMode,
           referenceType: 'EXPENSE',
           referenceId: expense.id,
           description: `Expense: ${description}`,
@@ -176,11 +185,15 @@ exports.reverseExpense = async (req, res) => {
       });
 
       // 2. Restore user's wallet balances (re-increment availableBalance, decrement totalSpent)
+      const fMode = expense.fundMode || 'LIQUID';
+      const balanceField = fMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
+      const spentField = fMode === 'CASH' ? 'totalSpentCash' : 'totalSpentLiquid';
+
       const updatedWallet = await tx.wallet.update({
         where: { id: expense.walletId },
         data: {
-          availableBalance: { increment: expenseAmount },
-          totalSpent: { decrement: expenseAmount }
+          [balanceField]: { increment: expenseAmount },
+          [spentField]: { decrement: expenseAmount }
         }
       });
 
@@ -190,6 +203,7 @@ exports.reverseExpense = async (req, res) => {
           type: 'EXPENSE_REVERSAL',
           destWalletId: expense.walletId,
           amount: expenseAmount,
+          fundMode: fMode,
           referenceType: 'EXPENSE_REVERSAL',
           referenceId: expense.id,
           description: `Reversal of Expense #${expense.id.slice(0, 8)}: ${expense.description} (Reason: ${reason || 'Correction'})`,

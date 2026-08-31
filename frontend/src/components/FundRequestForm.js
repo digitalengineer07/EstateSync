@@ -10,7 +10,8 @@ export default function FundRequestForm() {
   const [formData, setFormData] = useState({
     amount: "",
     reason: "",
-    managerId: ""
+    managerId: "",
+    fundMode: "LIQUID"
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
@@ -55,7 +56,7 @@ export default function FundRequestForm() {
       const data = await res.json();
       if (res.ok && data.success) {
         setMessage({ type: "success", text: "Fund request submitted to manager!" });
-        setFormData({ amount: "", reason: "", managerId: "" });
+        setFormData({ amount: "", reason: "", managerId: "", fundMode: "LIQUID" });
         // Optionally trigger a list re-fetch here via props or context
       } else {
         setMessage({ type: "error", text: data.message || "Failed to submit request." });
@@ -113,6 +114,18 @@ export default function FundRequestForm() {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
               placeholder="e.g. 50000.00"
             />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Fund Mode</label>
+            <select
+              name="fundMode"
+              value={formData.fundMode}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="LIQUID">Liquid (Online / Bank)</option>
+              <option value="CASH">Cash (Physical)</option>
+            </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Reason for Request</label>

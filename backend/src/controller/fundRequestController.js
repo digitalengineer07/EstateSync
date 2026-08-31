@@ -6,12 +6,14 @@ const { getPrimaryTreasuryWallet } = require('../utils/treasuryHelper');
 // User creates a request to a manager
 exports.createRequest = async (req, res) => {
   try {
-    const { amount, reason, managerId } = req.body;
+    const { amount, reason, managerId, fundMode } = req.body;
     const requesterId = req.user.userId;
 
     if (!amount || !reason || !managerId) {
       return res.status(400).json({ success: false, message: 'Amount, reason, and manager ID are required' });
     }
+    
+    const validFundMode = ['LIQUID', 'CASH'].includes(fundMode) ? fundMode : 'LIQUID';
 
     const reqAmount = parseFloat(amount);
     if (isNaN(reqAmount) || reqAmount <= 0) {
@@ -23,6 +25,7 @@ exports.createRequest = async (req, res) => {
         requesterId,
         managerId,
         amount: reqAmount,
+        fundMode: validFundMode,
         reason,
         status: 'PENDING'
       }
@@ -34,7 +37,7 @@ exports.createRequest = async (req, res) => {
       action: 'FUND_REQUEST_CREATE',
       entityType: 'FUND_REQUEST',
       entityId: fundRequest.id,
-      newValues: { amount: reqAmount, reason, managerId },
+      newValues: { amount: reqAmount, fundMode: validFundMode, reason, managerId },
       req
     });
 
@@ -119,6 +122,9 @@ exports.approveRequest = async (req, res) => {
 
       const reqAmount = parseFloat(request.amount);
       if (isNaN(reqAmount) || reqAmount <= 0) throw new Error('INVALID_AMOUNT');
+      
+      const fMode = request.fundMode || 'LIQUID';
+      const balanceField = fMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
 
       // 1. Identify Source Wallet (Entity releasing the funds)
       let sourceWallet;
@@ -128,7 +134,7 @@ exports.approveRequest = async (req, res) => {
         // Admin approves -> Released from Corporate Treasury (Primary Treasury Wallet)
         sourceWallet = await getPrimaryTreasuryWallet(tx);
 
-        if (parseFloat(sourceWallet.availableBalance) < reqAmount) {
+        if (parseFloat(sourceWallet[balanceField]) < reqAmount) {
           throw new Error('INSUFFICIENT_FUNDS');
         }
 
@@ -137,7 +143,7 @@ exports.approveRequest = async (req, res) => {
         // Manager approves -> Released from Manager Float
         sourceWallet = await tx.wallet.findUnique({ where: { userId: approverId } });
         if (!sourceWallet) throw new Error('WALLET_MISSING');
-        if (parseFloat(sourceWallet.availableBalance) < reqAmount) {
+        if (parseFloat(sourceWallet[balanceField]) < reqAmount) {
           throw new Error('INSUFFICIENT_FUNDS');
         }
         sourceWalletType = 'MANAGER';
@@ -149,9 +155,12 @@ exports.approveRequest = async (req, res) => {
         requesterWallet = await tx.wallet.create({
           data: {
             userId: request.requesterId,
-            totalAllocated: 0,
-            totalSpent: 0,
-            availableBalance: 0
+            totalAllocatedLiquid: 0,
+            totalAllocatedCash: 0,
+            totalSpentLiquid: 0,
+            totalSpentCash: 0,
+            availableBalanceLiquid: 0,
+            availableBalanceCash: 0
           }
         });
       }
@@ -160,16 +169,17 @@ exports.approveRequest = async (req, res) => {
       const updatedSourceWallet = await tx.wallet.update({
         where: { id: sourceWallet.id },
         data: {
-          availableBalance: { decrement: reqAmount }
+          [balanceField]: { decrement: reqAmount }
         }
       });
 
+      const totalAllocatedField = fMode === 'CASH' ? 'totalAllocatedCash' : 'totalAllocatedLiquid';
       // 4. Increment Requester Wallet Balance and Total Allocated (Plus to Requester)
       const updatedRequesterWallet = await tx.wallet.update({
         where: { id: requesterWallet.id },
         data: {
-          totalAllocated: { increment: reqAmount },
-          availableBalance: { increment: reqAmount }
+          [totalAllocatedField]: { increment: reqAmount },
+          [balanceField]: { increment: reqAmount }
         }
       });
 
@@ -180,6 +190,7 @@ exports.approveRequest = async (req, res) => {
           sourceWalletId: sourceWallet.id,
           destWalletId: requesterWallet.id,
           amount: reqAmount,
+          fundMode: fMode,
           referenceType: 'FUND_REQUEST',
           referenceId: request.id,
           description: `Fund request approved: ${request.reason}`,
@@ -219,10 +230,11 @@ exports.approveRequest = async (req, res) => {
         newValues: {
           status: 'APPROVED',
           amount: reqAmount,
+          fundMode: fMode,
           approvedBy: approverId,
           sourceWalletId: sourceWallet.id,
-          sourceBalanceAfter: parseFloat(updatedSourceWallet.availableBalance),
-          requesterBalanceAfter: parseFloat(updatedRequesterWallet.availableBalance),
+          sourceBalanceAfter: parseFloat(updatedSourceWallet[balanceField]),
+          requesterBalanceAfter: parseFloat(updatedRequesterWallet[balanceField]),
           transactionId: transaction.id
         },
         req,
@@ -296,7 +308,7 @@ exports.rejectRequest = async (req, res) => {
 // Direct fund allocation by Admin to any user/manager
 exports.directAllocateFunds = async (req, res) => {
   try {
-    const { targetUserId, amount, description } = req.body;
+    const { targetUserId, amount, description, fundMode } = req.body;
     const adminId = req.user.userId;
 
     if (!targetUserId || !amount) {
@@ -318,10 +330,14 @@ exports.directAllocateFunds = async (req, res) => {
     }
 
     const result = await prisma.$transaction(async (tx) => {
+      const fMode = ['LIQUID', 'CASH'].includes(fundMode) ? fundMode : 'LIQUID';
+      const balanceField = fMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
+      const totalAllocatedField = fMode === 'CASH' ? 'totalAllocatedCash' : 'totalAllocatedLiquid';
+
       // 1. Identify Unified Master Treasury Source Wallet
       const adminWallet = await getPrimaryTreasuryWallet(tx);
 
-      if (parseFloat(adminWallet.availableBalance) < allocAmount) {
+      if (parseFloat(adminWallet[balanceField]) < allocAmount) {
         throw new Error('INSUFFICIENT_FUNDS');
       }
 
@@ -329,7 +345,7 @@ exports.directAllocateFunds = async (req, res) => {
       const updatedAdminWallet = await tx.wallet.update({
         where: { id: adminWallet.id },
         data: {
-          availableBalance: { decrement: allocAmount }
+          [balanceField]: { decrement: allocAmount }
         }
       });
 
@@ -339,9 +355,12 @@ exports.directAllocateFunds = async (req, res) => {
         targetWallet = await tx.wallet.create({
           data: {
             userId: targetUser.id,
-            totalAllocated: 0,
-            totalSpent: 0,
-            availableBalance: 0
+            totalAllocatedLiquid: 0,
+            totalAllocatedCash: 0,
+            totalSpentLiquid: 0,
+            totalSpentCash: 0,
+            availableBalanceLiquid: 0,
+            availableBalanceCash: 0
           }
         });
       }
@@ -349,8 +368,8 @@ exports.directAllocateFunds = async (req, res) => {
       const updatedTargetWallet = await tx.wallet.update({
         where: { id: targetWallet.id },
         data: {
-          totalAllocated: { increment: allocAmount },
-          availableBalance: { increment: allocAmount }
+          [totalAllocatedField]: { increment: allocAmount },
+          [balanceField]: { increment: allocAmount }
         }
       });
 
@@ -361,6 +380,7 @@ exports.directAllocateFunds = async (req, res) => {
           sourceWalletId: adminWallet.id,
           destWalletId: targetWallet.id,
           amount: allocAmount,
+          fundMode: fMode,
           referenceType: 'DIRECT_ALLOCATION',
           referenceId: null,
           description: description || `Direct fund allocation to ${targetUser.name} (${targetUser.role.name})`,
@@ -391,9 +411,10 @@ exports.directAllocateFunds = async (req, res) => {
           targetUser: targetUser.name,
           targetRole: targetUser.role.name,
           amount: allocAmount,
+          fundMode: fMode,
           description,
-          sourceBalanceAfter: parseFloat(updatedAdminWallet.availableBalance),
-          targetBalanceAfter: parseFloat(updatedTargetWallet.availableBalance)
+          sourceBalanceAfter: parseFloat(updatedAdminWallet[balanceField]),
+          targetBalanceAfter: parseFloat(updatedTargetWallet[balanceField])
         },
         req,
         tx

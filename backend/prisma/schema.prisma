@@ -61,10 +61,13 @@ model Wallet {
   id               String               @id @default(uuid())
   userId           String               @unique
   user             User                 @relation(fields: [userId], references: [id])
-  totalAllocated   Decimal              @db.Decimal(15, 2) @default(0)
-  totalSpent       Decimal              @db.Decimal(15, 2) @default(0)
-  availableBalance Decimal              @db.Decimal(15, 2) @default(0)
-  createdAt        DateTime             @default(now())
+  totalAllocatedLiquid   Decimal              @db.Decimal(15, 2) @default(0)
+  totalAllocatedCash     Decimal              @db.Decimal(15, 2) @default(0)
+  totalSpentLiquid       Decimal              @db.Decimal(15, 2) @default(0)
+  totalSpentCash         Decimal              @db.Decimal(15, 2) @default(0)
+  availableBalanceLiquid Decimal              @db.Decimal(15, 2) @default(0)
+  availableBalanceCash   Decimal              @db.Decimal(15, 2) @default(0)
+  createdAt              DateTime             @default(now())
   updatedAt        DateTime             @updatedAt
   transactionsSrc  WalletTransaction[]  @relation("SourceWallet")
   transactionsDest WalletTransaction[]  @relation("DestWallet")
@@ -79,6 +82,7 @@ model WalletTransaction {
   sourceWallet     Wallet?      @relation("SourceWallet", fields: [sourceWalletId], references: [id])
   destWallet       Wallet?      @relation("DestWallet", fields: [destWalletId], references: [id])
   amount           Decimal      @db.Decimal(15, 2)
+  fundMode         String       @default("LIQUID") // "LIQUID", "CASH"
   referenceType    String?      // FUND_REQUEST, EXPENSE, DIRECT_ALLOCATION, REVERSAL
   referenceId      String?
   description      String?
@@ -98,6 +102,7 @@ model FundRequest {
   childRequests    FundRequest[] @relation("ParentRequest")
   requestedFrom    String?       // ADMIN, MANAGER
   amount           Decimal       @db.Decimal(15, 2)
+  fundMode         String        @default("LIQUID") // "LIQUID", "CASH"
   reason           String
   status           String        // PENDING, APPROVED, REJECTED, INSUFFICIENT_MANAGER_FUNDS
   comments         String?
@@ -118,6 +123,7 @@ model Expense {
   categoryId       String
   category         ExpenseCategory @relation(fields: [categoryId], references: [id])
   amount           Decimal         @db.Decimal(15, 2)
+  fundMode         String          @default("LIQUID") // "LIQUID", "CASH"
   description      String
   date             DateTime
   vendorId         String?

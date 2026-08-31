@@ -88,7 +88,7 @@ const server = app.listen(PORT, () => {
   // Keep-alive ping mechanism to prevent Render sleep
   const BACKEND_URL = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
   const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
-  
+
   setInterval(async () => {
     try {
       if (BACKEND_URL) await fetch(BACKEND_URL);

@@ -179,6 +179,7 @@ export default function ExpenseList({ type = "my" }) {
                 <th scope="col" className="px-5 py-3">Description</th>
                 <th scope="col" className="px-5 py-3">Vendor / Ref</th>
                 <th scope="col" className="px-5 py-3">Amount</th>
+                <th scope="col" className="px-5 py-3">Mode</th>
                 <th scope="col" className="px-5 py-3">Status</th>
                 {canReverse && type !== "my" && <th scope="col" className="px-5 py-3 text-right">Actions</th>}
               </tr>
@@ -216,6 +217,11 @@ export default function ExpenseList({ type = "my" }) {
                   </td>
                   <td className="px-5 py-3.5 font-bold text-gray-900">
                     {formatINR(item.amount, { showDecimals: true })}
+                  </td>
+                  <td className="px-5 py-3.5">
+                    <span className="px-2.5 py-0.5 inline-flex text-[10px] font-bold rounded bg-slate-100 text-slate-700">
+                      {item.fundMode || 'LIQUID'}
+                    </span>
                   </td>
                   <td className="px-5 py-3.5">
                     <span

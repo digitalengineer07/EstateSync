@@ -85,6 +85,7 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
                 <th scope="col" className="px-6 py-3">Date</th>
                 <th scope="col" className="px-6 py-3">Entry Tag</th>
                 <th scope="col" className="px-6 py-3">Type</th>
+                <th scope="col" className="px-6 py-3">Mode</th>
                 <th scope="col" className="px-6 py-3">Source Wallet</th>
                 <th scope="col" className="px-6 py-3">Dest Wallet</th>
                 <th scope="col" className="px-6 py-3 text-right">Amount</th>
@@ -101,6 +102,11 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
                   <td className="px-6 py-4">
                     <span className="font-semibold text-gray-800">
                       {txn.type.replace(/_/g, ' ')}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="px-2.5 py-0.5 inline-flex text-[10px] font-bold rounded bg-slate-100 text-slate-700">
+                      {txn.fundMode || 'LIQUID'}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-gray-600">
