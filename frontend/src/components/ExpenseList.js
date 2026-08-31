@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
+import { formatINR } from "@/utils/formatters";
 
 // type can be 'my', 'team', or 'all'
 export default function ExpenseList({ type = "my" }) {
@@ -135,7 +136,7 @@ export default function ExpenseList({ type = "my" }) {
           <div className="text-right">
             <span className="text-xs text-gray-500 block">Total Active Recorded</span>
             <span className="text-sm font-bold text-gray-900">
-              ₹{totalSpentSum.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              {formatINR(totalSpentSum, { showDecimals: true })}
             </span>
           </div>
           <button
@@ -214,7 +215,7 @@ export default function ExpenseList({ type = "my" }) {
                     )}
                   </td>
                   <td className="px-5 py-3.5 font-bold text-gray-900">
-                    ₹{parseFloat(item.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    {formatINR(item.amount, { showDecimals: true })}
                   </td>
                   <td className="px-5 py-3.5">
                     <span

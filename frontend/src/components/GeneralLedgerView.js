@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
+import { formatINR } from "@/utils/formatters";
 
 export default function GeneralLedgerView() {
   const [activeTab, setActiveTab] = useState("journals"); // "journals" or "accounts"
@@ -158,10 +159,10 @@ export default function GeneralLedgerView() {
                           </td>
                           <td className="px-4 py-2 text-gray-600">{line.description}</td>
                           <td className="px-4 py-2 text-right font-mono font-bold text-gray-900">
-                            {parseFloat(line.debit) > 0 ? `₹${parseFloat(line.debit).toLocaleString(undefined, { minimumFractionDigits: 2 })}` : "—"}
+                            {parseFloat(line.debit) > 0 ? formatINR(line.debit, { showDecimals: true }) : "—"}
                           </td>
                           <td className="px-4 py-2 text-right font-mono font-bold text-gray-900">
-                            {parseFloat(line.credit) > 0 ? `₹${parseFloat(line.credit).toLocaleString(undefined, { minimumFractionDigits: 2 })}` : "—"}
+                            {parseFloat(line.credit) > 0 ? formatINR(line.credit, { showDecimals: true }) : "—"}
                           </td>
                         </tr>
                       ))}
@@ -170,10 +171,10 @@ export default function GeneralLedgerView() {
                       <tr>
                         <td colSpan="2" className="px-4 py-2 text-right text-gray-700">Entry Total:</td>
                         <td className="px-4 py-2 text-right text-indigo-900 font-mono">
-                          ₹{entry.totalDebit.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                          {formatINR(entry.totalDebit, { showDecimals: true })}
                         </td>
                         <td className="px-4 py-2 text-right text-indigo-900 font-mono">
-                          ₹{entry.totalCredit.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                          {formatINR(entry.totalCredit, { showDecimals: true })}
                         </td>
                       </tr>
                     </tfoot>
@@ -209,13 +210,13 @@ export default function GeneralLedgerView() {
                   </td>
                   <td className="px-5 py-3 text-xs text-gray-500 max-w-xs truncate">{acc.description}</td>
                   <td className="px-5 py-3 text-right font-mono text-gray-700">
-                    ₹{acc.totalDebit.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    {formatINR(acc.totalDebit, { showDecimals: true })}
                   </td>
                   <td className="px-5 py-3 text-right font-mono text-gray-700">
-                    ₹{acc.totalCredit.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    {formatINR(acc.totalCredit, { showDecimals: true })}
                   </td>
                   <td className="px-5 py-3 text-right font-mono font-bold text-gray-900">
-                    ₹{acc.balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    {formatINR(acc.balance, { showDecimals: true })}
                   </td>
                 </tr>
               ))}
