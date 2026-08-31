@@ -3,6 +3,7 @@ const { logAudit } = require('../utils/auditLogger');
 const { postCustomerPaymentJournal, postCustomerRefundJournal } = require('../utils/accountingHelper');
 const { getPrimaryTreasuryWallet } = require('../utils/treasuryHelper');
 const { checkDuplicateReferenceNo } = require('../utils/referenceValidator');
+const { cleanPlotNumber, cleanKhataNumber, normalizeForComparison } = require('../utils/identifierHelper');
 
 // 1. Create a new Customer profile with commercial terms
 exports.createCustomer = async (req, res) => {
@@ -32,8 +33,8 @@ exports.createCustomer = async (req, res) => {
     const trimmedCustomerContact = customerContact ? customerContact.trim() : '';
     const trimmedCustomerAddress = customerAddress ? customerAddress.trim() : null;
     const trimmedProjectLocation = projectLocation ? projectLocation.trim() : '';
-    const trimmedPlotNo = plotNo ? plotNo.trim() : '';
-    const trimmedKhataNo = khataNo ? khataNo.trim() : '';
+    const trimmedPlotNo = cleanPlotNumber(plotNo);
+    const trimmedKhataNo = cleanKhataNumber(khataNo);
     const trimmedIdentityType = identityType ? identityType.trim() : '';
     const trimmedIdentityNumber = identityNumber ? identityNumber.trim() : '';
 
@@ -52,17 +53,19 @@ exports.createCustomer = async (req, res) => {
       });
     }
 
-    // 2. Strict Check for Duplicate Plot & Khata across the database
-    const existingPlotCustomer = await prisma.customer.findFirst({
-      where: {
-        khataNo: { equals: trimmedKhataNo, mode: 'insensitive' },
-        plotNo: { equals: trimmedPlotNo, mode: 'insensitive' },
-        status: { not: 'CANCELLED' }
-      },
-      include: {
-        salesOwner: { select: { name: true, email: true } }
-      }
+    // 2. Strict Check for Duplicate Plot & Khata across the database using deep normalization
+    const normTargetPlot = normalizeForComparison(trimmedPlotNo);
+    const normTargetKhata = normalizeForComparison(trimmedKhataNo);
+
+    const allActiveCustomers = await prisma.customer.findMany({
+      where: { status: { not: 'CANCELLED' } },
+      select: { id: true, plotNo: true, khataNo: true, customerName: true, projectLocation: true }
     });
+
+    const existingPlotCustomer = allActiveCustomers.find(c =>
+      normalizeForComparison(c.plotNo) === normTargetPlot &&
+      normalizeForComparison(c.khataNo) === normTargetKhata
+    );
 
     if (existingPlotCustomer) {
       return res.status(400).json({
@@ -263,8 +266,8 @@ exports.updateCustomer = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Customer not found' });
     }
 
-    const trimmedPlotNo = plotNo !== undefined ? (plotNo ? plotNo.trim() : '') : existing.plotNo;
-    const trimmedKhataNo = khataNo !== undefined ? (khataNo ? khataNo.trim() : '') : existing.khataNo;
+    const trimmedPlotNo = plotNo !== undefined ? cleanPlotNumber(plotNo) : cleanPlotNumber(existing.plotNo);
+    const trimmedKhataNo = khataNo !== undefined ? cleanKhataNumber(khataNo) : cleanKhataNumber(existing.khataNo);
 
     if (!trimmedPlotNo || !trimmedKhataNo) {
       return res.status(400).json({
@@ -273,15 +276,19 @@ exports.updateCustomer = async (req, res) => {
       });
     }
 
-    // Check if another customer already has this Plot No and Khata No
-    const duplicateCheck = await prisma.customer.findFirst({
-      where: {
-        id: { not: id },
-        khataNo: { equals: trimmedKhataNo, mode: 'insensitive' },
-        plotNo: { equals: trimmedPlotNo, mode: 'insensitive' },
-        status: { not: 'CANCELLED' }
-      }
+    // Check if another customer already has this Plot No and Khata No using deep normalization
+    const normTargetPlot = normalizeForComparison(trimmedPlotNo);
+    const normTargetKhata = normalizeForComparison(trimmedKhataNo);
+
+    const allActiveCustomers = await prisma.customer.findMany({
+      where: { id: { not: id }, status: { not: 'CANCELLED' } },
+      select: { id: true, plotNo: true, khataNo: true, customerName: true }
     });
+
+    const duplicateCheck = allActiveCustomers.find(c =>
+      normalizeForComparison(c.plotNo) === normTargetPlot &&
+      normalizeForComparison(c.khataNo) === normTargetKhata
+    );
 
     if (duplicateCheck) {
       return res.status(400).json({

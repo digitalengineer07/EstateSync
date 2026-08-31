@@ -79,27 +79,27 @@ async function testPropertyDuplicates() {
     console.log(`  ✅ Passed: Initial property created (ID: ${propId1})`);
 
     // -------------------------------------------------------------
-    // Test 3: Attempt duplicate Land Acquisition with same Plot & Khata
+    // Test 3a: Attempt duplicate Land Acquisition with prefixes (e.g. "Plot ..." and "Khata: ...")
     // -------------------------------------------------------------
-    console.log(`\nTest 3: Attempting duplicate Land Acquisition with same Khata "${testKhata}" & Plot "${testPlot}"...`);
-    const res3 = await fetch(`${baseUrl}/api/v1/properties`, {
+    console.log(`\nTest 3a: Attempting duplicate with user-typed prefixes ("Plot ${testPlot}", "Khata: ${testKhata}")...`);
+    const res3a = await fetch(`${baseUrl}/api/v1/properties`, {
       method: 'POST',
       headers,
       body: JSON.stringify({
-        khataNo: `  ${testKhata.toLowerCase()}  `,
-        plotNo: `  ${testPlot.toLowerCase()}  `,
-        projectLocation: 'Green Zone',
-        landOwnerName: 'Imposter Land Owner',
-        landOwnerContact: '9999999999',
-        totalLandValue: 2000000
+        khataNo: `Khata: ${testKhata}`,
+        plotNo: `Plot ${testPlot}`,
+        projectLocation: 'Patna',
+        landOwnerName: 'ABC Duplicate User',
+        landOwnerContact: '8759465723',
+        totalLandValue: 300000
       })
     });
-    const data3 = await res3.json();
-    if (res3.status === 400 && data3.message?.includes('Duplicate Record Error')) {
-      console.log('  ✅ Passed: Successfully blocked duplicate Land Acquisition!');
-      console.log('  Error Response:', data3.message);
+    const data3a = await res3a.json();
+    if (res3a.status === 400 && data3a.message?.includes('Duplicate Record Error')) {
+      console.log('  ✅ Passed: Successfully blocked duplicate with "Plot " and "Khata: " prefixes!');
+      console.log('  Error Response:', data3a.message);
     } else {
-      console.error('  ❌ Failed Test 3: Expected 400 Duplicate error but got', res3.status, data3);
+      console.error('  ❌ Failed Test 3a: Expected 400 Duplicate error but got', res3a.status, data3a);
       process.exit(1);
     }
 

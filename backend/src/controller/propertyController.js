@@ -2,6 +2,7 @@ const prisma = require('../config/db');
 const { logAudit } = require('../utils/auditLogger');
 const { postPropertyPaymentJournal } = require('../utils/accountingHelper');
 const { checkDuplicateReferenceNo } = require('../utils/referenceValidator');
+const { cleanPlotNumber, cleanKhataNumber, normalizeForComparison } = require('../utils/identifierHelper');
 
 // 1. Create a new Land/Property Acquisition record (Admin / Accounting only)
 exports.createProperty = async (req, res) => {
@@ -21,8 +22,8 @@ exports.createProperty = async (req, res) => {
 
     const createdById = req.user.userId;
 
-    const cleanKhataNo = khataNo ? khataNo.trim() : '';
-    const cleanPlotNo = plotNo ? plotNo.trim() : '';
+    const cleanKhataNo = cleanKhataNumber(khataNo);
+    const cleanPlotNo = cleanPlotNumber(plotNo);
     const cleanProjectLocation = projectLocation ? projectLocation.trim() : '';
     const cleanOwnerName = landOwnerName ? landOwnerName.trim() : '';
     const cleanOwnerContact = landOwnerContact ? landOwnerContact.trim() : '';
@@ -43,14 +44,19 @@ exports.createProperty = async (req, res) => {
       });
     }
 
-    // Check for duplicate Land Acquisition (same Khata No & Plot No)
-    const existingProperty = await prisma.propertyAcquisition.findFirst({
-      where: {
-        khataNo: { equals: cleanKhataNo, mode: 'insensitive' },
-        plotNo: { equals: cleanPlotNo, mode: 'insensitive' },
-        status: { not: 'CANCELLED' }
-      }
+    // Check for duplicate Land Acquisition using deep normalization (ignoring prefixes, case, punctuation)
+    const normTargetPlot = normalizeForComparison(cleanPlotNo);
+    const normTargetKhata = normalizeForComparison(cleanKhataNo);
+
+    const allActiveProperties = await prisma.propertyAcquisition.findMany({
+      where: { status: { not: 'CANCELLED' } },
+      select: { id: true, plotNo: true, khataNo: true, landOwnerName: true, projectLocation: true }
     });
+
+    const existingProperty = allActiveProperties.find(p =>
+      normalizeForComparison(p.plotNo) === normTargetPlot &&
+      normalizeForComparison(p.khataNo) === normTargetKhata
+    );
 
     if (existingProperty) {
       return res.status(400).json({
@@ -196,18 +202,22 @@ exports.updateProperty = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Property acquisition record not found' });
     }
 
-    const targetPlot = plotNo ? plotNo.trim() : existing.plotNo;
-    const targetKhata = khataNo ? khataNo.trim() : existing.khataNo;
+    const targetPlot = plotNo !== undefined ? cleanPlotNumber(plotNo) : cleanPlotNumber(existing.plotNo);
+    const targetKhata = khataNo !== undefined ? cleanKhataNumber(khataNo) : cleanKhataNumber(existing.khataNo);
 
     if (plotNo !== undefined || khataNo !== undefined) {
-      const duplicate = await prisma.propertyAcquisition.findFirst({
-        where: {
-          id: { not: id },
-          plotNo: { equals: targetPlot, mode: 'insensitive' },
-          khataNo: { equals: targetKhata, mode: 'insensitive' },
-          status: { not: 'CANCELLED' }
-        }
+      const normTargetPlot = normalizeForComparison(targetPlot);
+      const normTargetKhata = normalizeForComparison(targetKhata);
+
+      const allActiveProperties = await prisma.propertyAcquisition.findMany({
+        where: { id: { not: id }, status: { not: 'CANCELLED' } },
+        select: { id: true, plotNo: true, khataNo: true, landOwnerName: true }
       });
+
+      const duplicate = allActiveProperties.find(p =>
+        normalizeForComparison(p.plotNo) === normTargetPlot &&
+        normalizeForComparison(p.khataNo) === normTargetKhata
+      );
 
       if (duplicate) {
         return res.status(400).json({
@@ -220,11 +230,11 @@ exports.updateProperty = async (req, res) => {
     const updated = await prisma.propertyAcquisition.update({
       where: { id },
       data: {
-        khataNo: khataNo ? khataNo.trim() : existing.khataNo,
-        plotNo: plotNo ? plotNo.trim() : existing.plotNo,
-        projectLocation: projectLocation ? projectLocation.trim() : existing.projectLocation,
-        landOwnerName: landOwnerName ? landOwnerName.trim() : existing.landOwnerName,
-        landOwnerContact: landOwnerContact ? landOwnerContact.trim() : existing.landOwnerContact,
+        khataNo: targetKhata,
+        plotNo: targetPlot,
+        projectLocation: projectLocation !== undefined ? projectLocation.trim() : existing.projectLocation,
+        landOwnerName: landOwnerName !== undefined ? landOwnerName.trim() : existing.landOwnerName,
+        landOwnerContact: landOwnerContact !== undefined ? landOwnerContact.trim() : existing.landOwnerContact,
         landOwnerAddress: landOwnerAddress !== undefined ? (landOwnerAddress ? landOwnerAddress.trim() : null) : existing.landOwnerAddress,
         documents: documents !== undefined ? documents : existing.documents,
         status: status ?? existing.status
