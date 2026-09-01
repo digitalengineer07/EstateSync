@@ -108,6 +108,26 @@ export type PropertyPayment = $Result.DefaultSelection<Prisma.$PropertyPaymentPa
  * 
  */
 export type Employee = $Result.DefaultSelection<Prisma.$EmployeePayload>
+/**
+ * Model SalaryComponent
+ * 
+ */
+export type SalaryComponent = $Result.DefaultSelection<Prisma.$SalaryComponentPayload>
+/**
+ * Model SalaryStructure
+ * 
+ */
+export type SalaryStructure = $Result.DefaultSelection<Prisma.$SalaryStructurePayload>
+/**
+ * Model SalaryStructureLine
+ * 
+ */
+export type SalaryStructureLine = $Result.DefaultSelection<Prisma.$SalaryStructureLinePayload>
+/**
+ * Model EmployeeSalaryAssignment
+ * 
+ */
+export type EmployeeSalaryAssignment = $Result.DefaultSelection<Prisma.$EmployeeSalaryAssignmentPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -421,6 +441,46 @@ export class PrismaClient<
     * ```
     */
   get employee(): Prisma.EmployeeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.salaryComponent`: Exposes CRUD operations for the **SalaryComponent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SalaryComponents
+    * const salaryComponents = await prisma.salaryComponent.findMany()
+    * ```
+    */
+  get salaryComponent(): Prisma.SalaryComponentDelegate<ExtArgs>;
+
+  /**
+   * `prisma.salaryStructure`: Exposes CRUD operations for the **SalaryStructure** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SalaryStructures
+    * const salaryStructures = await prisma.salaryStructure.findMany()
+    * ```
+    */
+  get salaryStructure(): Prisma.SalaryStructureDelegate<ExtArgs>;
+
+  /**
+   * `prisma.salaryStructureLine`: Exposes CRUD operations for the **SalaryStructureLine** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SalaryStructureLines
+    * const salaryStructureLines = await prisma.salaryStructureLine.findMany()
+    * ```
+    */
+  get salaryStructureLine(): Prisma.SalaryStructureLineDelegate<ExtArgs>;
+
+  /**
+   * `prisma.employeeSalaryAssignment`: Exposes CRUD operations for the **EmployeeSalaryAssignment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EmployeeSalaryAssignments
+    * const employeeSalaryAssignments = await prisma.employeeSalaryAssignment.findMany()
+    * ```
+    */
+  get employeeSalaryAssignment(): Prisma.EmployeeSalaryAssignmentDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -880,7 +940,11 @@ export namespace Prisma {
     CustomerPayment: 'CustomerPayment',
     PropertyAcquisition: 'PropertyAcquisition',
     PropertyPayment: 'PropertyPayment',
-    Employee: 'Employee'
+    Employee: 'Employee',
+    SalaryComponent: 'SalaryComponent',
+    SalaryStructure: 'SalaryStructure',
+    SalaryStructureLine: 'SalaryStructureLine',
+    EmployeeSalaryAssignment: 'EmployeeSalaryAssignment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -896,7 +960,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "role" | "permission" | "rolePermission" | "wallet" | "walletTransaction" | "fundRequest" | "expense" | "expenseCategory" | "idempotencyKey" | "account" | "journalEntry" | "journalLine" | "auditLog" | "customer" | "customerPayment" | "propertyAcquisition" | "propertyPayment" | "employee"
+      modelProps: "user" | "role" | "permission" | "rolePermission" | "wallet" | "walletTransaction" | "fundRequest" | "expense" | "expenseCategory" | "idempotencyKey" | "account" | "journalEntry" | "journalLine" | "auditLog" | "customer" | "customerPayment" | "propertyAcquisition" | "propertyPayment" | "employee" | "salaryComponent" | "salaryStructure" | "salaryStructureLine" | "employeeSalaryAssignment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2230,6 +2294,286 @@ export namespace Prisma {
           }
         }
       }
+      SalaryComponent: {
+        payload: Prisma.$SalaryComponentPayload<ExtArgs>
+        fields: Prisma.SalaryComponentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SalaryComponentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryComponentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SalaryComponentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryComponentPayload>
+          }
+          findFirst: {
+            args: Prisma.SalaryComponentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryComponentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SalaryComponentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryComponentPayload>
+          }
+          findMany: {
+            args: Prisma.SalaryComponentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryComponentPayload>[]
+          }
+          create: {
+            args: Prisma.SalaryComponentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryComponentPayload>
+          }
+          createMany: {
+            args: Prisma.SalaryComponentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SalaryComponentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryComponentPayload>[]
+          }
+          delete: {
+            args: Prisma.SalaryComponentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryComponentPayload>
+          }
+          update: {
+            args: Prisma.SalaryComponentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryComponentPayload>
+          }
+          deleteMany: {
+            args: Prisma.SalaryComponentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SalaryComponentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SalaryComponentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryComponentPayload>
+          }
+          aggregate: {
+            args: Prisma.SalaryComponentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSalaryComponent>
+          }
+          groupBy: {
+            args: Prisma.SalaryComponentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SalaryComponentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SalaryComponentCountArgs<ExtArgs>
+            result: $Utils.Optional<SalaryComponentCountAggregateOutputType> | number
+          }
+        }
+      }
+      SalaryStructure: {
+        payload: Prisma.$SalaryStructurePayload<ExtArgs>
+        fields: Prisma.SalaryStructureFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SalaryStructureFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructurePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SalaryStructureFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructurePayload>
+          }
+          findFirst: {
+            args: Prisma.SalaryStructureFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructurePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SalaryStructureFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructurePayload>
+          }
+          findMany: {
+            args: Prisma.SalaryStructureFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructurePayload>[]
+          }
+          create: {
+            args: Prisma.SalaryStructureCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructurePayload>
+          }
+          createMany: {
+            args: Prisma.SalaryStructureCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SalaryStructureCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructurePayload>[]
+          }
+          delete: {
+            args: Prisma.SalaryStructureDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructurePayload>
+          }
+          update: {
+            args: Prisma.SalaryStructureUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructurePayload>
+          }
+          deleteMany: {
+            args: Prisma.SalaryStructureDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SalaryStructureUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SalaryStructureUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructurePayload>
+          }
+          aggregate: {
+            args: Prisma.SalaryStructureAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSalaryStructure>
+          }
+          groupBy: {
+            args: Prisma.SalaryStructureGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SalaryStructureGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SalaryStructureCountArgs<ExtArgs>
+            result: $Utils.Optional<SalaryStructureCountAggregateOutputType> | number
+          }
+        }
+      }
+      SalaryStructureLine: {
+        payload: Prisma.$SalaryStructureLinePayload<ExtArgs>
+        fields: Prisma.SalaryStructureLineFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SalaryStructureLineFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructureLinePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SalaryStructureLineFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructureLinePayload>
+          }
+          findFirst: {
+            args: Prisma.SalaryStructureLineFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructureLinePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SalaryStructureLineFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructureLinePayload>
+          }
+          findMany: {
+            args: Prisma.SalaryStructureLineFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructureLinePayload>[]
+          }
+          create: {
+            args: Prisma.SalaryStructureLineCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructureLinePayload>
+          }
+          createMany: {
+            args: Prisma.SalaryStructureLineCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SalaryStructureLineCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructureLinePayload>[]
+          }
+          delete: {
+            args: Prisma.SalaryStructureLineDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructureLinePayload>
+          }
+          update: {
+            args: Prisma.SalaryStructureLineUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructureLinePayload>
+          }
+          deleteMany: {
+            args: Prisma.SalaryStructureLineDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SalaryStructureLineUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SalaryStructureLineUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryStructureLinePayload>
+          }
+          aggregate: {
+            args: Prisma.SalaryStructureLineAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSalaryStructureLine>
+          }
+          groupBy: {
+            args: Prisma.SalaryStructureLineGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SalaryStructureLineGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SalaryStructureLineCountArgs<ExtArgs>
+            result: $Utils.Optional<SalaryStructureLineCountAggregateOutputType> | number
+          }
+        }
+      }
+      EmployeeSalaryAssignment: {
+        payload: Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>
+        fields: Prisma.EmployeeSalaryAssignmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmployeeSalaryAssignmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSalaryAssignmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmployeeSalaryAssignmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSalaryAssignmentPayload>
+          }
+          findFirst: {
+            args: Prisma.EmployeeSalaryAssignmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSalaryAssignmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmployeeSalaryAssignmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSalaryAssignmentPayload>
+          }
+          findMany: {
+            args: Prisma.EmployeeSalaryAssignmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSalaryAssignmentPayload>[]
+          }
+          create: {
+            args: Prisma.EmployeeSalaryAssignmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSalaryAssignmentPayload>
+          }
+          createMany: {
+            args: Prisma.EmployeeSalaryAssignmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmployeeSalaryAssignmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSalaryAssignmentPayload>[]
+          }
+          delete: {
+            args: Prisma.EmployeeSalaryAssignmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSalaryAssignmentPayload>
+          }
+          update: {
+            args: Prisma.EmployeeSalaryAssignmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSalaryAssignmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.EmployeeSalaryAssignmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmployeeSalaryAssignmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.EmployeeSalaryAssignmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSalaryAssignmentPayload>
+          }
+          aggregate: {
+            args: Prisma.EmployeeSalaryAssignmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmployeeSalaryAssignment>
+          }
+          groupBy: {
+            args: Prisma.EmployeeSalaryAssignmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmployeeSalaryAssignmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmployeeSalaryAssignmentCountArgs<ExtArgs>
+            result: $Utils.Optional<EmployeeSalaryAssignmentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2792,10 +3136,12 @@ export namespace Prisma {
 
   export type EmployeeCountOutputType = {
     subordinates: number
+    salaryAssignments: number
   }
 
   export type EmployeeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subordinates?: boolean | EmployeeCountOutputTypeCountSubordinatesArgs
+    salaryAssignments?: boolean | EmployeeCountOutputTypeCountSalaryAssignmentsArgs
   }
 
   // Custom InputTypes
@@ -2814,6 +3160,84 @@ export namespace Prisma {
    */
   export type EmployeeCountOutputTypeCountSubordinatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EmployeeWhereInput
+  }
+
+  /**
+   * EmployeeCountOutputType without action
+   */
+  export type EmployeeCountOutputTypeCountSalaryAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmployeeSalaryAssignmentWhereInput
+  }
+
+
+  /**
+   * Count Type SalaryComponentCountOutputType
+   */
+
+  export type SalaryComponentCountOutputType = {
+    structureLines: number
+  }
+
+  export type SalaryComponentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    structureLines?: boolean | SalaryComponentCountOutputTypeCountStructureLinesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SalaryComponentCountOutputType without action
+   */
+  export type SalaryComponentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryComponentCountOutputType
+     */
+    select?: SalaryComponentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SalaryComponentCountOutputType without action
+   */
+  export type SalaryComponentCountOutputTypeCountStructureLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalaryStructureLineWhereInput
+  }
+
+
+  /**
+   * Count Type SalaryStructureCountOutputType
+   */
+
+  export type SalaryStructureCountOutputType = {
+    lines: number
+    assignments: number
+  }
+
+  export type SalaryStructureCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lines?: boolean | SalaryStructureCountOutputTypeCountLinesArgs
+    assignments?: boolean | SalaryStructureCountOutputTypeCountAssignmentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SalaryStructureCountOutputType without action
+   */
+  export type SalaryStructureCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureCountOutputType
+     */
+    select?: SalaryStructureCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SalaryStructureCountOutputType without action
+   */
+  export type SalaryStructureCountOutputTypeCountLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalaryStructureLineWhereInput
+  }
+
+  /**
+   * SalaryStructureCountOutputType without action
+   */
+  export type SalaryStructureCountOutputTypeCountAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmployeeSalaryAssignmentWhereInput
   }
 
 
@@ -22104,6 +22528,7 @@ export namespace Prisma {
     reportingManager?: boolean | Employee$reportingManagerArgs<ExtArgs>
     subordinates?: boolean | Employee$subordinatesArgs<ExtArgs>
     user?: boolean | Employee$userArgs<ExtArgs>
+    salaryAssignments?: boolean | Employee$salaryAssignmentsArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
@@ -22171,6 +22596,7 @@ export namespace Prisma {
     reportingManager?: boolean | Employee$reportingManagerArgs<ExtArgs>
     subordinates?: boolean | Employee$subordinatesArgs<ExtArgs>
     user?: boolean | Employee$userArgs<ExtArgs>
+    salaryAssignments?: boolean | Employee$salaryAssignmentsArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -22184,6 +22610,7 @@ export namespace Prisma {
       reportingManager: Prisma.$EmployeePayload<ExtArgs> | null
       subordinates: Prisma.$EmployeePayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs> | null
+      salaryAssignments: Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -22579,6 +23006,7 @@ export namespace Prisma {
     reportingManager<T extends Employee$reportingManagerArgs<ExtArgs> = {}>(args?: Subset<T, Employee$reportingManagerArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     subordinates<T extends Employee$subordinatesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$subordinatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany"> | Null>
     user<T extends Employee$userArgs<ExtArgs> = {}>(args?: Subset<T, Employee$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    salaryAssignments<T extends Employee$salaryAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$salaryAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -23002,6 +23430,26 @@ export namespace Prisma {
   }
 
   /**
+   * Employee.salaryAssignments
+   */
+  export type Employee$salaryAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentInclude<ExtArgs> | null
+    where?: EmployeeSalaryAssignmentWhereInput
+    orderBy?: EmployeeSalaryAssignmentOrderByWithRelationInput | EmployeeSalaryAssignmentOrderByWithRelationInput[]
+    cursor?: EmployeeSalaryAssignmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EmployeeSalaryAssignmentScalarFieldEnum | EmployeeSalaryAssignmentScalarFieldEnum[]
+  }
+
+  /**
    * Employee without action
    */
   export type EmployeeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -23013,6 +23461,4400 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: EmployeeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SalaryComponent
+   */
+
+  export type AggregateSalaryComponent = {
+    _count: SalaryComponentCountAggregateOutputType | null
+    _avg: SalaryComponentAvgAggregateOutputType | null
+    _sum: SalaryComponentSumAggregateOutputType | null
+    _min: SalaryComponentMinAggregateOutputType | null
+    _max: SalaryComponentMaxAggregateOutputType | null
+  }
+
+  export type SalaryComponentAvgAggregateOutputType = {
+    defaultValue: Decimal | null
+    percentageValue: Decimal | null
+    sequence: number | null
+  }
+
+  export type SalaryComponentSumAggregateOutputType = {
+    defaultValue: Decimal | null
+    percentageValue: Decimal | null
+    sequence: number | null
+  }
+
+  export type SalaryComponentMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    description: string | null
+    componentType: string | null
+    calculationMethod: string | null
+    calculationBase: string | null
+    defaultValue: Decimal | null
+    percentageValue: Decimal | null
+    sequence: number | null
+    isTaxable: boolean | null
+    isRecurring: boolean | null
+    isActive: boolean | null
+    glAccountCode: string | null
+    createdBy: string | null
+    updatedBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalaryComponentMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    description: string | null
+    componentType: string | null
+    calculationMethod: string | null
+    calculationBase: string | null
+    defaultValue: Decimal | null
+    percentageValue: Decimal | null
+    sequence: number | null
+    isTaxable: boolean | null
+    isRecurring: boolean | null
+    isActive: boolean | null
+    glAccountCode: string | null
+    createdBy: string | null
+    updatedBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalaryComponentCountAggregateOutputType = {
+    id: number
+    code: number
+    name: number
+    description: number
+    componentType: number
+    calculationMethod: number
+    calculationBase: number
+    defaultValue: number
+    percentageValue: number
+    sequence: number
+    isTaxable: number
+    isRecurring: number
+    isActive: number
+    glAccountCode: number
+    createdBy: number
+    updatedBy: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SalaryComponentAvgAggregateInputType = {
+    defaultValue?: true
+    percentageValue?: true
+    sequence?: true
+  }
+
+  export type SalaryComponentSumAggregateInputType = {
+    defaultValue?: true
+    percentageValue?: true
+    sequence?: true
+  }
+
+  export type SalaryComponentMinAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    description?: true
+    componentType?: true
+    calculationMethod?: true
+    calculationBase?: true
+    defaultValue?: true
+    percentageValue?: true
+    sequence?: true
+    isTaxable?: true
+    isRecurring?: true
+    isActive?: true
+    glAccountCode?: true
+    createdBy?: true
+    updatedBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalaryComponentMaxAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    description?: true
+    componentType?: true
+    calculationMethod?: true
+    calculationBase?: true
+    defaultValue?: true
+    percentageValue?: true
+    sequence?: true
+    isTaxable?: true
+    isRecurring?: true
+    isActive?: true
+    glAccountCode?: true
+    createdBy?: true
+    updatedBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalaryComponentCountAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    description?: true
+    componentType?: true
+    calculationMethod?: true
+    calculationBase?: true
+    defaultValue?: true
+    percentageValue?: true
+    sequence?: true
+    isTaxable?: true
+    isRecurring?: true
+    isActive?: true
+    glAccountCode?: true
+    createdBy?: true
+    updatedBy?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SalaryComponentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalaryComponent to aggregate.
+     */
+    where?: SalaryComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryComponents to fetch.
+     */
+    orderBy?: SalaryComponentOrderByWithRelationInput | SalaryComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SalaryComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryComponents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryComponents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SalaryComponents
+    **/
+    _count?: true | SalaryComponentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SalaryComponentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SalaryComponentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SalaryComponentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SalaryComponentMaxAggregateInputType
+  }
+
+  export type GetSalaryComponentAggregateType<T extends SalaryComponentAggregateArgs> = {
+        [P in keyof T & keyof AggregateSalaryComponent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSalaryComponent[P]>
+      : GetScalarType<T[P], AggregateSalaryComponent[P]>
+  }
+
+
+
+
+  export type SalaryComponentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalaryComponentWhereInput
+    orderBy?: SalaryComponentOrderByWithAggregationInput | SalaryComponentOrderByWithAggregationInput[]
+    by: SalaryComponentScalarFieldEnum[] | SalaryComponentScalarFieldEnum
+    having?: SalaryComponentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SalaryComponentCountAggregateInputType | true
+    _avg?: SalaryComponentAvgAggregateInputType
+    _sum?: SalaryComponentSumAggregateInputType
+    _min?: SalaryComponentMinAggregateInputType
+    _max?: SalaryComponentMaxAggregateInputType
+  }
+
+  export type SalaryComponentGroupByOutputType = {
+    id: string
+    code: string
+    name: string
+    description: string | null
+    componentType: string
+    calculationMethod: string
+    calculationBase: string | null
+    defaultValue: Decimal
+    percentageValue: Decimal
+    sequence: number
+    isTaxable: boolean
+    isRecurring: boolean
+    isActive: boolean
+    glAccountCode: string | null
+    createdBy: string | null
+    updatedBy: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SalaryComponentCountAggregateOutputType | null
+    _avg: SalaryComponentAvgAggregateOutputType | null
+    _sum: SalaryComponentSumAggregateOutputType | null
+    _min: SalaryComponentMinAggregateOutputType | null
+    _max: SalaryComponentMaxAggregateOutputType | null
+  }
+
+  type GetSalaryComponentGroupByPayload<T extends SalaryComponentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SalaryComponentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SalaryComponentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SalaryComponentGroupByOutputType[P]>
+            : GetScalarType<T[P], SalaryComponentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SalaryComponentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    componentType?: boolean
+    calculationMethod?: boolean
+    calculationBase?: boolean
+    defaultValue?: boolean
+    percentageValue?: boolean
+    sequence?: boolean
+    isTaxable?: boolean
+    isRecurring?: boolean
+    isActive?: boolean
+    glAccountCode?: boolean
+    createdBy?: boolean
+    updatedBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    structureLines?: boolean | SalaryComponent$structureLinesArgs<ExtArgs>
+    _count?: boolean | SalaryComponentCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["salaryComponent"]>
+
+  export type SalaryComponentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    componentType?: boolean
+    calculationMethod?: boolean
+    calculationBase?: boolean
+    defaultValue?: boolean
+    percentageValue?: boolean
+    sequence?: boolean
+    isTaxable?: boolean
+    isRecurring?: boolean
+    isActive?: boolean
+    glAccountCode?: boolean
+    createdBy?: boolean
+    updatedBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["salaryComponent"]>
+
+  export type SalaryComponentSelectScalar = {
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    componentType?: boolean
+    calculationMethod?: boolean
+    calculationBase?: boolean
+    defaultValue?: boolean
+    percentageValue?: boolean
+    sequence?: boolean
+    isTaxable?: boolean
+    isRecurring?: boolean
+    isActive?: boolean
+    glAccountCode?: boolean
+    createdBy?: boolean
+    updatedBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SalaryComponentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    structureLines?: boolean | SalaryComponent$structureLinesArgs<ExtArgs>
+    _count?: boolean | SalaryComponentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SalaryComponentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SalaryComponentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SalaryComponent"
+    objects: {
+      structureLines: Prisma.$SalaryStructureLinePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      name: string
+      description: string | null
+      componentType: string
+      calculationMethod: string
+      calculationBase: string | null
+      defaultValue: Prisma.Decimal
+      percentageValue: Prisma.Decimal
+      sequence: number
+      isTaxable: boolean
+      isRecurring: boolean
+      isActive: boolean
+      glAccountCode: string | null
+      createdBy: string | null
+      updatedBy: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["salaryComponent"]>
+    composites: {}
+  }
+
+  type SalaryComponentGetPayload<S extends boolean | null | undefined | SalaryComponentDefaultArgs> = $Result.GetResult<Prisma.$SalaryComponentPayload, S>
+
+  type SalaryComponentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SalaryComponentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SalaryComponentCountAggregateInputType | true
+    }
+
+  export interface SalaryComponentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SalaryComponent'], meta: { name: 'SalaryComponent' } }
+    /**
+     * Find zero or one SalaryComponent that matches the filter.
+     * @param {SalaryComponentFindUniqueArgs} args - Arguments to find a SalaryComponent
+     * @example
+     * // Get one SalaryComponent
+     * const salaryComponent = await prisma.salaryComponent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SalaryComponentFindUniqueArgs>(args: SelectSubset<T, SalaryComponentFindUniqueArgs<ExtArgs>>): Prisma__SalaryComponentClient<$Result.GetResult<Prisma.$SalaryComponentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SalaryComponent that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SalaryComponentFindUniqueOrThrowArgs} args - Arguments to find a SalaryComponent
+     * @example
+     * // Get one SalaryComponent
+     * const salaryComponent = await prisma.salaryComponent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SalaryComponentFindUniqueOrThrowArgs>(args: SelectSubset<T, SalaryComponentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SalaryComponentClient<$Result.GetResult<Prisma.$SalaryComponentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SalaryComponent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryComponentFindFirstArgs} args - Arguments to find a SalaryComponent
+     * @example
+     * // Get one SalaryComponent
+     * const salaryComponent = await prisma.salaryComponent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SalaryComponentFindFirstArgs>(args?: SelectSubset<T, SalaryComponentFindFirstArgs<ExtArgs>>): Prisma__SalaryComponentClient<$Result.GetResult<Prisma.$SalaryComponentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SalaryComponent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryComponentFindFirstOrThrowArgs} args - Arguments to find a SalaryComponent
+     * @example
+     * // Get one SalaryComponent
+     * const salaryComponent = await prisma.salaryComponent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SalaryComponentFindFirstOrThrowArgs>(args?: SelectSubset<T, SalaryComponentFindFirstOrThrowArgs<ExtArgs>>): Prisma__SalaryComponentClient<$Result.GetResult<Prisma.$SalaryComponentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SalaryComponents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryComponentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SalaryComponents
+     * const salaryComponents = await prisma.salaryComponent.findMany()
+     * 
+     * // Get first 10 SalaryComponents
+     * const salaryComponents = await prisma.salaryComponent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const salaryComponentWithIdOnly = await prisma.salaryComponent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SalaryComponentFindManyArgs>(args?: SelectSubset<T, SalaryComponentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryComponentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SalaryComponent.
+     * @param {SalaryComponentCreateArgs} args - Arguments to create a SalaryComponent.
+     * @example
+     * // Create one SalaryComponent
+     * const SalaryComponent = await prisma.salaryComponent.create({
+     *   data: {
+     *     // ... data to create a SalaryComponent
+     *   }
+     * })
+     * 
+     */
+    create<T extends SalaryComponentCreateArgs>(args: SelectSubset<T, SalaryComponentCreateArgs<ExtArgs>>): Prisma__SalaryComponentClient<$Result.GetResult<Prisma.$SalaryComponentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SalaryComponents.
+     * @param {SalaryComponentCreateManyArgs} args - Arguments to create many SalaryComponents.
+     * @example
+     * // Create many SalaryComponents
+     * const salaryComponent = await prisma.salaryComponent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SalaryComponentCreateManyArgs>(args?: SelectSubset<T, SalaryComponentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SalaryComponents and returns the data saved in the database.
+     * @param {SalaryComponentCreateManyAndReturnArgs} args - Arguments to create many SalaryComponents.
+     * @example
+     * // Create many SalaryComponents
+     * const salaryComponent = await prisma.salaryComponent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SalaryComponents and only return the `id`
+     * const salaryComponentWithIdOnly = await prisma.salaryComponent.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SalaryComponentCreateManyAndReturnArgs>(args?: SelectSubset<T, SalaryComponentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryComponentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SalaryComponent.
+     * @param {SalaryComponentDeleteArgs} args - Arguments to delete one SalaryComponent.
+     * @example
+     * // Delete one SalaryComponent
+     * const SalaryComponent = await prisma.salaryComponent.delete({
+     *   where: {
+     *     // ... filter to delete one SalaryComponent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SalaryComponentDeleteArgs>(args: SelectSubset<T, SalaryComponentDeleteArgs<ExtArgs>>): Prisma__SalaryComponentClient<$Result.GetResult<Prisma.$SalaryComponentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SalaryComponent.
+     * @param {SalaryComponentUpdateArgs} args - Arguments to update one SalaryComponent.
+     * @example
+     * // Update one SalaryComponent
+     * const salaryComponent = await prisma.salaryComponent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SalaryComponentUpdateArgs>(args: SelectSubset<T, SalaryComponentUpdateArgs<ExtArgs>>): Prisma__SalaryComponentClient<$Result.GetResult<Prisma.$SalaryComponentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SalaryComponents.
+     * @param {SalaryComponentDeleteManyArgs} args - Arguments to filter SalaryComponents to delete.
+     * @example
+     * // Delete a few SalaryComponents
+     * const { count } = await prisma.salaryComponent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SalaryComponentDeleteManyArgs>(args?: SelectSubset<T, SalaryComponentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SalaryComponents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryComponentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SalaryComponents
+     * const salaryComponent = await prisma.salaryComponent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SalaryComponentUpdateManyArgs>(args: SelectSubset<T, SalaryComponentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SalaryComponent.
+     * @param {SalaryComponentUpsertArgs} args - Arguments to update or create a SalaryComponent.
+     * @example
+     * // Update or create a SalaryComponent
+     * const salaryComponent = await prisma.salaryComponent.upsert({
+     *   create: {
+     *     // ... data to create a SalaryComponent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SalaryComponent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SalaryComponentUpsertArgs>(args: SelectSubset<T, SalaryComponentUpsertArgs<ExtArgs>>): Prisma__SalaryComponentClient<$Result.GetResult<Prisma.$SalaryComponentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SalaryComponents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryComponentCountArgs} args - Arguments to filter SalaryComponents to count.
+     * @example
+     * // Count the number of SalaryComponents
+     * const count = await prisma.salaryComponent.count({
+     *   where: {
+     *     // ... the filter for the SalaryComponents we want to count
+     *   }
+     * })
+    **/
+    count<T extends SalaryComponentCountArgs>(
+      args?: Subset<T, SalaryComponentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SalaryComponentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SalaryComponent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryComponentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SalaryComponentAggregateArgs>(args: Subset<T, SalaryComponentAggregateArgs>): Prisma.PrismaPromise<GetSalaryComponentAggregateType<T>>
+
+    /**
+     * Group by SalaryComponent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryComponentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SalaryComponentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SalaryComponentGroupByArgs['orderBy'] }
+        : { orderBy?: SalaryComponentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SalaryComponentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSalaryComponentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SalaryComponent model
+   */
+  readonly fields: SalaryComponentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SalaryComponent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SalaryComponentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    structureLines<T extends SalaryComponent$structureLinesArgs<ExtArgs> = {}>(args?: Subset<T, SalaryComponent$structureLinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryStructureLinePayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SalaryComponent model
+   */ 
+  interface SalaryComponentFieldRefs {
+    readonly id: FieldRef<"SalaryComponent", 'String'>
+    readonly code: FieldRef<"SalaryComponent", 'String'>
+    readonly name: FieldRef<"SalaryComponent", 'String'>
+    readonly description: FieldRef<"SalaryComponent", 'String'>
+    readonly componentType: FieldRef<"SalaryComponent", 'String'>
+    readonly calculationMethod: FieldRef<"SalaryComponent", 'String'>
+    readonly calculationBase: FieldRef<"SalaryComponent", 'String'>
+    readonly defaultValue: FieldRef<"SalaryComponent", 'Decimal'>
+    readonly percentageValue: FieldRef<"SalaryComponent", 'Decimal'>
+    readonly sequence: FieldRef<"SalaryComponent", 'Int'>
+    readonly isTaxable: FieldRef<"SalaryComponent", 'Boolean'>
+    readonly isRecurring: FieldRef<"SalaryComponent", 'Boolean'>
+    readonly isActive: FieldRef<"SalaryComponent", 'Boolean'>
+    readonly glAccountCode: FieldRef<"SalaryComponent", 'String'>
+    readonly createdBy: FieldRef<"SalaryComponent", 'String'>
+    readonly updatedBy: FieldRef<"SalaryComponent", 'String'>
+    readonly createdAt: FieldRef<"SalaryComponent", 'DateTime'>
+    readonly updatedAt: FieldRef<"SalaryComponent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SalaryComponent findUnique
+   */
+  export type SalaryComponentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryComponent
+     */
+    select?: SalaryComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryComponent to fetch.
+     */
+    where: SalaryComponentWhereUniqueInput
+  }
+
+  /**
+   * SalaryComponent findUniqueOrThrow
+   */
+  export type SalaryComponentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryComponent
+     */
+    select?: SalaryComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryComponent to fetch.
+     */
+    where: SalaryComponentWhereUniqueInput
+  }
+
+  /**
+   * SalaryComponent findFirst
+   */
+  export type SalaryComponentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryComponent
+     */
+    select?: SalaryComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryComponent to fetch.
+     */
+    where?: SalaryComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryComponents to fetch.
+     */
+    orderBy?: SalaryComponentOrderByWithRelationInput | SalaryComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalaryComponents.
+     */
+    cursor?: SalaryComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryComponents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryComponents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalaryComponents.
+     */
+    distinct?: SalaryComponentScalarFieldEnum | SalaryComponentScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryComponent findFirstOrThrow
+   */
+  export type SalaryComponentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryComponent
+     */
+    select?: SalaryComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryComponent to fetch.
+     */
+    where?: SalaryComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryComponents to fetch.
+     */
+    orderBy?: SalaryComponentOrderByWithRelationInput | SalaryComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalaryComponents.
+     */
+    cursor?: SalaryComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryComponents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryComponents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalaryComponents.
+     */
+    distinct?: SalaryComponentScalarFieldEnum | SalaryComponentScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryComponent findMany
+   */
+  export type SalaryComponentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryComponent
+     */
+    select?: SalaryComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryComponents to fetch.
+     */
+    where?: SalaryComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryComponents to fetch.
+     */
+    orderBy?: SalaryComponentOrderByWithRelationInput | SalaryComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SalaryComponents.
+     */
+    cursor?: SalaryComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryComponents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryComponents.
+     */
+    skip?: number
+    distinct?: SalaryComponentScalarFieldEnum | SalaryComponentScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryComponent create
+   */
+  export type SalaryComponentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryComponent
+     */
+    select?: SalaryComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryComponentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SalaryComponent.
+     */
+    data: XOR<SalaryComponentCreateInput, SalaryComponentUncheckedCreateInput>
+  }
+
+  /**
+   * SalaryComponent createMany
+   */
+  export type SalaryComponentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SalaryComponents.
+     */
+    data: SalaryComponentCreateManyInput | SalaryComponentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SalaryComponent createManyAndReturn
+   */
+  export type SalaryComponentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryComponent
+     */
+    select?: SalaryComponentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SalaryComponents.
+     */
+    data: SalaryComponentCreateManyInput | SalaryComponentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SalaryComponent update
+   */
+  export type SalaryComponentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryComponent
+     */
+    select?: SalaryComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryComponentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SalaryComponent.
+     */
+    data: XOR<SalaryComponentUpdateInput, SalaryComponentUncheckedUpdateInput>
+    /**
+     * Choose, which SalaryComponent to update.
+     */
+    where: SalaryComponentWhereUniqueInput
+  }
+
+  /**
+   * SalaryComponent updateMany
+   */
+  export type SalaryComponentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SalaryComponents.
+     */
+    data: XOR<SalaryComponentUpdateManyMutationInput, SalaryComponentUncheckedUpdateManyInput>
+    /**
+     * Filter which SalaryComponents to update
+     */
+    where?: SalaryComponentWhereInput
+  }
+
+  /**
+   * SalaryComponent upsert
+   */
+  export type SalaryComponentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryComponent
+     */
+    select?: SalaryComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryComponentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SalaryComponent to update in case it exists.
+     */
+    where: SalaryComponentWhereUniqueInput
+    /**
+     * In case the SalaryComponent found by the `where` argument doesn't exist, create a new SalaryComponent with this data.
+     */
+    create: XOR<SalaryComponentCreateInput, SalaryComponentUncheckedCreateInput>
+    /**
+     * In case the SalaryComponent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SalaryComponentUpdateInput, SalaryComponentUncheckedUpdateInput>
+  }
+
+  /**
+   * SalaryComponent delete
+   */
+  export type SalaryComponentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryComponent
+     */
+    select?: SalaryComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryComponentInclude<ExtArgs> | null
+    /**
+     * Filter which SalaryComponent to delete.
+     */
+    where: SalaryComponentWhereUniqueInput
+  }
+
+  /**
+   * SalaryComponent deleteMany
+   */
+  export type SalaryComponentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalaryComponents to delete
+     */
+    where?: SalaryComponentWhereInput
+  }
+
+  /**
+   * SalaryComponent.structureLines
+   */
+  export type SalaryComponent$structureLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineInclude<ExtArgs> | null
+    where?: SalaryStructureLineWhereInput
+    orderBy?: SalaryStructureLineOrderByWithRelationInput | SalaryStructureLineOrderByWithRelationInput[]
+    cursor?: SalaryStructureLineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalaryStructureLineScalarFieldEnum | SalaryStructureLineScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryComponent without action
+   */
+  export type SalaryComponentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryComponent
+     */
+    select?: SalaryComponentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryComponentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SalaryStructure
+   */
+
+  export type AggregateSalaryStructure = {
+    _count: SalaryStructureCountAggregateOutputType | null
+    _avg: SalaryStructureAvgAggregateOutputType | null
+    _sum: SalaryStructureSumAggregateOutputType | null
+    _min: SalaryStructureMinAggregateOutputType | null
+    _max: SalaryStructureMaxAggregateOutputType | null
+  }
+
+  export type SalaryStructureAvgAggregateOutputType = {
+    version: number | null
+  }
+
+  export type SalaryStructureSumAggregateOutputType = {
+    version: number | null
+  }
+
+  export type SalaryStructureMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    description: string | null
+    currency: string | null
+    status: string | null
+    version: number | null
+    effectiveFrom: Date | null
+    effectiveTo: Date | null
+    createdBy: string | null
+    updatedBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalaryStructureMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    description: string | null
+    currency: string | null
+    status: string | null
+    version: number | null
+    effectiveFrom: Date | null
+    effectiveTo: Date | null
+    createdBy: string | null
+    updatedBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalaryStructureCountAggregateOutputType = {
+    id: number
+    code: number
+    name: number
+    description: number
+    currency: number
+    status: number
+    version: number
+    effectiveFrom: number
+    effectiveTo: number
+    createdBy: number
+    updatedBy: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SalaryStructureAvgAggregateInputType = {
+    version?: true
+  }
+
+  export type SalaryStructureSumAggregateInputType = {
+    version?: true
+  }
+
+  export type SalaryStructureMinAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    description?: true
+    currency?: true
+    status?: true
+    version?: true
+    effectiveFrom?: true
+    effectiveTo?: true
+    createdBy?: true
+    updatedBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalaryStructureMaxAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    description?: true
+    currency?: true
+    status?: true
+    version?: true
+    effectiveFrom?: true
+    effectiveTo?: true
+    createdBy?: true
+    updatedBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalaryStructureCountAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    description?: true
+    currency?: true
+    status?: true
+    version?: true
+    effectiveFrom?: true
+    effectiveTo?: true
+    createdBy?: true
+    updatedBy?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SalaryStructureAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalaryStructure to aggregate.
+     */
+    where?: SalaryStructureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryStructures to fetch.
+     */
+    orderBy?: SalaryStructureOrderByWithRelationInput | SalaryStructureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SalaryStructureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryStructures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryStructures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SalaryStructures
+    **/
+    _count?: true | SalaryStructureCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SalaryStructureAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SalaryStructureSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SalaryStructureMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SalaryStructureMaxAggregateInputType
+  }
+
+  export type GetSalaryStructureAggregateType<T extends SalaryStructureAggregateArgs> = {
+        [P in keyof T & keyof AggregateSalaryStructure]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSalaryStructure[P]>
+      : GetScalarType<T[P], AggregateSalaryStructure[P]>
+  }
+
+
+
+
+  export type SalaryStructureGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalaryStructureWhereInput
+    orderBy?: SalaryStructureOrderByWithAggregationInput | SalaryStructureOrderByWithAggregationInput[]
+    by: SalaryStructureScalarFieldEnum[] | SalaryStructureScalarFieldEnum
+    having?: SalaryStructureScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SalaryStructureCountAggregateInputType | true
+    _avg?: SalaryStructureAvgAggregateInputType
+    _sum?: SalaryStructureSumAggregateInputType
+    _min?: SalaryStructureMinAggregateInputType
+    _max?: SalaryStructureMaxAggregateInputType
+  }
+
+  export type SalaryStructureGroupByOutputType = {
+    id: string
+    code: string
+    name: string
+    description: string | null
+    currency: string
+    status: string
+    version: number
+    effectiveFrom: Date
+    effectiveTo: Date | null
+    createdBy: string | null
+    updatedBy: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SalaryStructureCountAggregateOutputType | null
+    _avg: SalaryStructureAvgAggregateOutputType | null
+    _sum: SalaryStructureSumAggregateOutputType | null
+    _min: SalaryStructureMinAggregateOutputType | null
+    _max: SalaryStructureMaxAggregateOutputType | null
+  }
+
+  type GetSalaryStructureGroupByPayload<T extends SalaryStructureGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SalaryStructureGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SalaryStructureGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SalaryStructureGroupByOutputType[P]>
+            : GetScalarType<T[P], SalaryStructureGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SalaryStructureSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    currency?: boolean
+    status?: boolean
+    version?: boolean
+    effectiveFrom?: boolean
+    effectiveTo?: boolean
+    createdBy?: boolean
+    updatedBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lines?: boolean | SalaryStructure$linesArgs<ExtArgs>
+    assignments?: boolean | SalaryStructure$assignmentsArgs<ExtArgs>
+    _count?: boolean | SalaryStructureCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["salaryStructure"]>
+
+  export type SalaryStructureSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    currency?: boolean
+    status?: boolean
+    version?: boolean
+    effectiveFrom?: boolean
+    effectiveTo?: boolean
+    createdBy?: boolean
+    updatedBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["salaryStructure"]>
+
+  export type SalaryStructureSelectScalar = {
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    currency?: boolean
+    status?: boolean
+    version?: boolean
+    effectiveFrom?: boolean
+    effectiveTo?: boolean
+    createdBy?: boolean
+    updatedBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SalaryStructureInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lines?: boolean | SalaryStructure$linesArgs<ExtArgs>
+    assignments?: boolean | SalaryStructure$assignmentsArgs<ExtArgs>
+    _count?: boolean | SalaryStructureCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SalaryStructureIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SalaryStructurePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SalaryStructure"
+    objects: {
+      lines: Prisma.$SalaryStructureLinePayload<ExtArgs>[]
+      assignments: Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      name: string
+      description: string | null
+      currency: string
+      status: string
+      version: number
+      effectiveFrom: Date
+      effectiveTo: Date | null
+      createdBy: string | null
+      updatedBy: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["salaryStructure"]>
+    composites: {}
+  }
+
+  type SalaryStructureGetPayload<S extends boolean | null | undefined | SalaryStructureDefaultArgs> = $Result.GetResult<Prisma.$SalaryStructurePayload, S>
+
+  type SalaryStructureCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SalaryStructureFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SalaryStructureCountAggregateInputType | true
+    }
+
+  export interface SalaryStructureDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SalaryStructure'], meta: { name: 'SalaryStructure' } }
+    /**
+     * Find zero or one SalaryStructure that matches the filter.
+     * @param {SalaryStructureFindUniqueArgs} args - Arguments to find a SalaryStructure
+     * @example
+     * // Get one SalaryStructure
+     * const salaryStructure = await prisma.salaryStructure.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SalaryStructureFindUniqueArgs>(args: SelectSubset<T, SalaryStructureFindUniqueArgs<ExtArgs>>): Prisma__SalaryStructureClient<$Result.GetResult<Prisma.$SalaryStructurePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SalaryStructure that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SalaryStructureFindUniqueOrThrowArgs} args - Arguments to find a SalaryStructure
+     * @example
+     * // Get one SalaryStructure
+     * const salaryStructure = await prisma.salaryStructure.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SalaryStructureFindUniqueOrThrowArgs>(args: SelectSubset<T, SalaryStructureFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SalaryStructureClient<$Result.GetResult<Prisma.$SalaryStructurePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SalaryStructure that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureFindFirstArgs} args - Arguments to find a SalaryStructure
+     * @example
+     * // Get one SalaryStructure
+     * const salaryStructure = await prisma.salaryStructure.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SalaryStructureFindFirstArgs>(args?: SelectSubset<T, SalaryStructureFindFirstArgs<ExtArgs>>): Prisma__SalaryStructureClient<$Result.GetResult<Prisma.$SalaryStructurePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SalaryStructure that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureFindFirstOrThrowArgs} args - Arguments to find a SalaryStructure
+     * @example
+     * // Get one SalaryStructure
+     * const salaryStructure = await prisma.salaryStructure.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SalaryStructureFindFirstOrThrowArgs>(args?: SelectSubset<T, SalaryStructureFindFirstOrThrowArgs<ExtArgs>>): Prisma__SalaryStructureClient<$Result.GetResult<Prisma.$SalaryStructurePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SalaryStructures that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SalaryStructures
+     * const salaryStructures = await prisma.salaryStructure.findMany()
+     * 
+     * // Get first 10 SalaryStructures
+     * const salaryStructures = await prisma.salaryStructure.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const salaryStructureWithIdOnly = await prisma.salaryStructure.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SalaryStructureFindManyArgs>(args?: SelectSubset<T, SalaryStructureFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryStructurePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SalaryStructure.
+     * @param {SalaryStructureCreateArgs} args - Arguments to create a SalaryStructure.
+     * @example
+     * // Create one SalaryStructure
+     * const SalaryStructure = await prisma.salaryStructure.create({
+     *   data: {
+     *     // ... data to create a SalaryStructure
+     *   }
+     * })
+     * 
+     */
+    create<T extends SalaryStructureCreateArgs>(args: SelectSubset<T, SalaryStructureCreateArgs<ExtArgs>>): Prisma__SalaryStructureClient<$Result.GetResult<Prisma.$SalaryStructurePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SalaryStructures.
+     * @param {SalaryStructureCreateManyArgs} args - Arguments to create many SalaryStructures.
+     * @example
+     * // Create many SalaryStructures
+     * const salaryStructure = await prisma.salaryStructure.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SalaryStructureCreateManyArgs>(args?: SelectSubset<T, SalaryStructureCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SalaryStructures and returns the data saved in the database.
+     * @param {SalaryStructureCreateManyAndReturnArgs} args - Arguments to create many SalaryStructures.
+     * @example
+     * // Create many SalaryStructures
+     * const salaryStructure = await prisma.salaryStructure.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SalaryStructures and only return the `id`
+     * const salaryStructureWithIdOnly = await prisma.salaryStructure.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SalaryStructureCreateManyAndReturnArgs>(args?: SelectSubset<T, SalaryStructureCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryStructurePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SalaryStructure.
+     * @param {SalaryStructureDeleteArgs} args - Arguments to delete one SalaryStructure.
+     * @example
+     * // Delete one SalaryStructure
+     * const SalaryStructure = await prisma.salaryStructure.delete({
+     *   where: {
+     *     // ... filter to delete one SalaryStructure
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SalaryStructureDeleteArgs>(args: SelectSubset<T, SalaryStructureDeleteArgs<ExtArgs>>): Prisma__SalaryStructureClient<$Result.GetResult<Prisma.$SalaryStructurePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SalaryStructure.
+     * @param {SalaryStructureUpdateArgs} args - Arguments to update one SalaryStructure.
+     * @example
+     * // Update one SalaryStructure
+     * const salaryStructure = await prisma.salaryStructure.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SalaryStructureUpdateArgs>(args: SelectSubset<T, SalaryStructureUpdateArgs<ExtArgs>>): Prisma__SalaryStructureClient<$Result.GetResult<Prisma.$SalaryStructurePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SalaryStructures.
+     * @param {SalaryStructureDeleteManyArgs} args - Arguments to filter SalaryStructures to delete.
+     * @example
+     * // Delete a few SalaryStructures
+     * const { count } = await prisma.salaryStructure.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SalaryStructureDeleteManyArgs>(args?: SelectSubset<T, SalaryStructureDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SalaryStructures.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SalaryStructures
+     * const salaryStructure = await prisma.salaryStructure.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SalaryStructureUpdateManyArgs>(args: SelectSubset<T, SalaryStructureUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SalaryStructure.
+     * @param {SalaryStructureUpsertArgs} args - Arguments to update or create a SalaryStructure.
+     * @example
+     * // Update or create a SalaryStructure
+     * const salaryStructure = await prisma.salaryStructure.upsert({
+     *   create: {
+     *     // ... data to create a SalaryStructure
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SalaryStructure we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SalaryStructureUpsertArgs>(args: SelectSubset<T, SalaryStructureUpsertArgs<ExtArgs>>): Prisma__SalaryStructureClient<$Result.GetResult<Prisma.$SalaryStructurePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SalaryStructures.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureCountArgs} args - Arguments to filter SalaryStructures to count.
+     * @example
+     * // Count the number of SalaryStructures
+     * const count = await prisma.salaryStructure.count({
+     *   where: {
+     *     // ... the filter for the SalaryStructures we want to count
+     *   }
+     * })
+    **/
+    count<T extends SalaryStructureCountArgs>(
+      args?: Subset<T, SalaryStructureCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SalaryStructureCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SalaryStructure.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SalaryStructureAggregateArgs>(args: Subset<T, SalaryStructureAggregateArgs>): Prisma.PrismaPromise<GetSalaryStructureAggregateType<T>>
+
+    /**
+     * Group by SalaryStructure.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SalaryStructureGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SalaryStructureGroupByArgs['orderBy'] }
+        : { orderBy?: SalaryStructureGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SalaryStructureGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSalaryStructureGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SalaryStructure model
+   */
+  readonly fields: SalaryStructureFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SalaryStructure.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SalaryStructureClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lines<T extends SalaryStructure$linesArgs<ExtArgs> = {}>(args?: Subset<T, SalaryStructure$linesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryStructureLinePayload<ExtArgs>, T, "findMany"> | Null>
+    assignments<T extends SalaryStructure$assignmentsArgs<ExtArgs> = {}>(args?: Subset<T, SalaryStructure$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SalaryStructure model
+   */ 
+  interface SalaryStructureFieldRefs {
+    readonly id: FieldRef<"SalaryStructure", 'String'>
+    readonly code: FieldRef<"SalaryStructure", 'String'>
+    readonly name: FieldRef<"SalaryStructure", 'String'>
+    readonly description: FieldRef<"SalaryStructure", 'String'>
+    readonly currency: FieldRef<"SalaryStructure", 'String'>
+    readonly status: FieldRef<"SalaryStructure", 'String'>
+    readonly version: FieldRef<"SalaryStructure", 'Int'>
+    readonly effectiveFrom: FieldRef<"SalaryStructure", 'DateTime'>
+    readonly effectiveTo: FieldRef<"SalaryStructure", 'DateTime'>
+    readonly createdBy: FieldRef<"SalaryStructure", 'String'>
+    readonly updatedBy: FieldRef<"SalaryStructure", 'String'>
+    readonly createdAt: FieldRef<"SalaryStructure", 'DateTime'>
+    readonly updatedAt: FieldRef<"SalaryStructure", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SalaryStructure findUnique
+   */
+  export type SalaryStructureFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructure
+     */
+    select?: SalaryStructureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryStructure to fetch.
+     */
+    where: SalaryStructureWhereUniqueInput
+  }
+
+  /**
+   * SalaryStructure findUniqueOrThrow
+   */
+  export type SalaryStructureFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructure
+     */
+    select?: SalaryStructureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryStructure to fetch.
+     */
+    where: SalaryStructureWhereUniqueInput
+  }
+
+  /**
+   * SalaryStructure findFirst
+   */
+  export type SalaryStructureFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructure
+     */
+    select?: SalaryStructureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryStructure to fetch.
+     */
+    where?: SalaryStructureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryStructures to fetch.
+     */
+    orderBy?: SalaryStructureOrderByWithRelationInput | SalaryStructureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalaryStructures.
+     */
+    cursor?: SalaryStructureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryStructures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryStructures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalaryStructures.
+     */
+    distinct?: SalaryStructureScalarFieldEnum | SalaryStructureScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryStructure findFirstOrThrow
+   */
+  export type SalaryStructureFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructure
+     */
+    select?: SalaryStructureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryStructure to fetch.
+     */
+    where?: SalaryStructureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryStructures to fetch.
+     */
+    orderBy?: SalaryStructureOrderByWithRelationInput | SalaryStructureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalaryStructures.
+     */
+    cursor?: SalaryStructureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryStructures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryStructures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalaryStructures.
+     */
+    distinct?: SalaryStructureScalarFieldEnum | SalaryStructureScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryStructure findMany
+   */
+  export type SalaryStructureFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructure
+     */
+    select?: SalaryStructureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryStructures to fetch.
+     */
+    where?: SalaryStructureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryStructures to fetch.
+     */
+    orderBy?: SalaryStructureOrderByWithRelationInput | SalaryStructureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SalaryStructures.
+     */
+    cursor?: SalaryStructureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryStructures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryStructures.
+     */
+    skip?: number
+    distinct?: SalaryStructureScalarFieldEnum | SalaryStructureScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryStructure create
+   */
+  export type SalaryStructureCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructure
+     */
+    select?: SalaryStructureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SalaryStructure.
+     */
+    data: XOR<SalaryStructureCreateInput, SalaryStructureUncheckedCreateInput>
+  }
+
+  /**
+   * SalaryStructure createMany
+   */
+  export type SalaryStructureCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SalaryStructures.
+     */
+    data: SalaryStructureCreateManyInput | SalaryStructureCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SalaryStructure createManyAndReturn
+   */
+  export type SalaryStructureCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructure
+     */
+    select?: SalaryStructureSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SalaryStructures.
+     */
+    data: SalaryStructureCreateManyInput | SalaryStructureCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SalaryStructure update
+   */
+  export type SalaryStructureUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructure
+     */
+    select?: SalaryStructureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SalaryStructure.
+     */
+    data: XOR<SalaryStructureUpdateInput, SalaryStructureUncheckedUpdateInput>
+    /**
+     * Choose, which SalaryStructure to update.
+     */
+    where: SalaryStructureWhereUniqueInput
+  }
+
+  /**
+   * SalaryStructure updateMany
+   */
+  export type SalaryStructureUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SalaryStructures.
+     */
+    data: XOR<SalaryStructureUpdateManyMutationInput, SalaryStructureUncheckedUpdateManyInput>
+    /**
+     * Filter which SalaryStructures to update
+     */
+    where?: SalaryStructureWhereInput
+  }
+
+  /**
+   * SalaryStructure upsert
+   */
+  export type SalaryStructureUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructure
+     */
+    select?: SalaryStructureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SalaryStructure to update in case it exists.
+     */
+    where: SalaryStructureWhereUniqueInput
+    /**
+     * In case the SalaryStructure found by the `where` argument doesn't exist, create a new SalaryStructure with this data.
+     */
+    create: XOR<SalaryStructureCreateInput, SalaryStructureUncheckedCreateInput>
+    /**
+     * In case the SalaryStructure was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SalaryStructureUpdateInput, SalaryStructureUncheckedUpdateInput>
+  }
+
+  /**
+   * SalaryStructure delete
+   */
+  export type SalaryStructureDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructure
+     */
+    select?: SalaryStructureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureInclude<ExtArgs> | null
+    /**
+     * Filter which SalaryStructure to delete.
+     */
+    where: SalaryStructureWhereUniqueInput
+  }
+
+  /**
+   * SalaryStructure deleteMany
+   */
+  export type SalaryStructureDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalaryStructures to delete
+     */
+    where?: SalaryStructureWhereInput
+  }
+
+  /**
+   * SalaryStructure.lines
+   */
+  export type SalaryStructure$linesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineInclude<ExtArgs> | null
+    where?: SalaryStructureLineWhereInput
+    orderBy?: SalaryStructureLineOrderByWithRelationInput | SalaryStructureLineOrderByWithRelationInput[]
+    cursor?: SalaryStructureLineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalaryStructureLineScalarFieldEnum | SalaryStructureLineScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryStructure.assignments
+   */
+  export type SalaryStructure$assignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentInclude<ExtArgs> | null
+    where?: EmployeeSalaryAssignmentWhereInput
+    orderBy?: EmployeeSalaryAssignmentOrderByWithRelationInput | EmployeeSalaryAssignmentOrderByWithRelationInput[]
+    cursor?: EmployeeSalaryAssignmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EmployeeSalaryAssignmentScalarFieldEnum | EmployeeSalaryAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryStructure without action
+   */
+  export type SalaryStructureDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructure
+     */
+    select?: SalaryStructureSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SalaryStructureLine
+   */
+
+  export type AggregateSalaryStructureLine = {
+    _count: SalaryStructureLineCountAggregateOutputType | null
+    _avg: SalaryStructureLineAvgAggregateOutputType | null
+    _sum: SalaryStructureLineSumAggregateOutputType | null
+    _min: SalaryStructureLineMinAggregateOutputType | null
+    _max: SalaryStructureLineMaxAggregateOutputType | null
+  }
+
+  export type SalaryStructureLineAvgAggregateOutputType = {
+    value: Decimal | null
+    percentage: Decimal | null
+    sequence: number | null
+  }
+
+  export type SalaryStructureLineSumAggregateOutputType = {
+    value: Decimal | null
+    percentage: Decimal | null
+    sequence: number | null
+  }
+
+  export type SalaryStructureLineMinAggregateOutputType = {
+    id: string | null
+    structureId: string | null
+    componentId: string | null
+    calculationMethod: string | null
+    value: Decimal | null
+    percentage: Decimal | null
+    calculationBase: string | null
+    sequence: number | null
+    isMandatory: boolean | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalaryStructureLineMaxAggregateOutputType = {
+    id: string | null
+    structureId: string | null
+    componentId: string | null
+    calculationMethod: string | null
+    value: Decimal | null
+    percentage: Decimal | null
+    calculationBase: string | null
+    sequence: number | null
+    isMandatory: boolean | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalaryStructureLineCountAggregateOutputType = {
+    id: number
+    structureId: number
+    componentId: number
+    calculationMethod: number
+    value: number
+    percentage: number
+    calculationBase: number
+    sequence: number
+    isMandatory: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SalaryStructureLineAvgAggregateInputType = {
+    value?: true
+    percentage?: true
+    sequence?: true
+  }
+
+  export type SalaryStructureLineSumAggregateInputType = {
+    value?: true
+    percentage?: true
+    sequence?: true
+  }
+
+  export type SalaryStructureLineMinAggregateInputType = {
+    id?: true
+    structureId?: true
+    componentId?: true
+    calculationMethod?: true
+    value?: true
+    percentage?: true
+    calculationBase?: true
+    sequence?: true
+    isMandatory?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalaryStructureLineMaxAggregateInputType = {
+    id?: true
+    structureId?: true
+    componentId?: true
+    calculationMethod?: true
+    value?: true
+    percentage?: true
+    calculationBase?: true
+    sequence?: true
+    isMandatory?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalaryStructureLineCountAggregateInputType = {
+    id?: true
+    structureId?: true
+    componentId?: true
+    calculationMethod?: true
+    value?: true
+    percentage?: true
+    calculationBase?: true
+    sequence?: true
+    isMandatory?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SalaryStructureLineAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalaryStructureLine to aggregate.
+     */
+    where?: SalaryStructureLineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryStructureLines to fetch.
+     */
+    orderBy?: SalaryStructureLineOrderByWithRelationInput | SalaryStructureLineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SalaryStructureLineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryStructureLines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryStructureLines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SalaryStructureLines
+    **/
+    _count?: true | SalaryStructureLineCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SalaryStructureLineAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SalaryStructureLineSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SalaryStructureLineMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SalaryStructureLineMaxAggregateInputType
+  }
+
+  export type GetSalaryStructureLineAggregateType<T extends SalaryStructureLineAggregateArgs> = {
+        [P in keyof T & keyof AggregateSalaryStructureLine]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSalaryStructureLine[P]>
+      : GetScalarType<T[P], AggregateSalaryStructureLine[P]>
+  }
+
+
+
+
+  export type SalaryStructureLineGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalaryStructureLineWhereInput
+    orderBy?: SalaryStructureLineOrderByWithAggregationInput | SalaryStructureLineOrderByWithAggregationInput[]
+    by: SalaryStructureLineScalarFieldEnum[] | SalaryStructureLineScalarFieldEnum
+    having?: SalaryStructureLineScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SalaryStructureLineCountAggregateInputType | true
+    _avg?: SalaryStructureLineAvgAggregateInputType
+    _sum?: SalaryStructureLineSumAggregateInputType
+    _min?: SalaryStructureLineMinAggregateInputType
+    _max?: SalaryStructureLineMaxAggregateInputType
+  }
+
+  export type SalaryStructureLineGroupByOutputType = {
+    id: string
+    structureId: string
+    componentId: string
+    calculationMethod: string
+    value: Decimal
+    percentage: Decimal
+    calculationBase: string | null
+    sequence: number
+    isMandatory: boolean
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: SalaryStructureLineCountAggregateOutputType | null
+    _avg: SalaryStructureLineAvgAggregateOutputType | null
+    _sum: SalaryStructureLineSumAggregateOutputType | null
+    _min: SalaryStructureLineMinAggregateOutputType | null
+    _max: SalaryStructureLineMaxAggregateOutputType | null
+  }
+
+  type GetSalaryStructureLineGroupByPayload<T extends SalaryStructureLineGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SalaryStructureLineGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SalaryStructureLineGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SalaryStructureLineGroupByOutputType[P]>
+            : GetScalarType<T[P], SalaryStructureLineGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SalaryStructureLineSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    structureId?: boolean
+    componentId?: boolean
+    calculationMethod?: boolean
+    value?: boolean
+    percentage?: boolean
+    calculationBase?: boolean
+    sequence?: boolean
+    isMandatory?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    structure?: boolean | SalaryStructureDefaultArgs<ExtArgs>
+    component?: boolean | SalaryComponentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["salaryStructureLine"]>
+
+  export type SalaryStructureLineSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    structureId?: boolean
+    componentId?: boolean
+    calculationMethod?: boolean
+    value?: boolean
+    percentage?: boolean
+    calculationBase?: boolean
+    sequence?: boolean
+    isMandatory?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    structure?: boolean | SalaryStructureDefaultArgs<ExtArgs>
+    component?: boolean | SalaryComponentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["salaryStructureLine"]>
+
+  export type SalaryStructureLineSelectScalar = {
+    id?: boolean
+    structureId?: boolean
+    componentId?: boolean
+    calculationMethod?: boolean
+    value?: boolean
+    percentage?: boolean
+    calculationBase?: boolean
+    sequence?: boolean
+    isMandatory?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SalaryStructureLineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    structure?: boolean | SalaryStructureDefaultArgs<ExtArgs>
+    component?: boolean | SalaryComponentDefaultArgs<ExtArgs>
+  }
+  export type SalaryStructureLineIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    structure?: boolean | SalaryStructureDefaultArgs<ExtArgs>
+    component?: boolean | SalaryComponentDefaultArgs<ExtArgs>
+  }
+
+  export type $SalaryStructureLinePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SalaryStructureLine"
+    objects: {
+      structure: Prisma.$SalaryStructurePayload<ExtArgs>
+      component: Prisma.$SalaryComponentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      structureId: string
+      componentId: string
+      calculationMethod: string
+      value: Prisma.Decimal
+      percentage: Prisma.Decimal
+      calculationBase: string | null
+      sequence: number
+      isMandatory: boolean
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["salaryStructureLine"]>
+    composites: {}
+  }
+
+  type SalaryStructureLineGetPayload<S extends boolean | null | undefined | SalaryStructureLineDefaultArgs> = $Result.GetResult<Prisma.$SalaryStructureLinePayload, S>
+
+  type SalaryStructureLineCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SalaryStructureLineFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SalaryStructureLineCountAggregateInputType | true
+    }
+
+  export interface SalaryStructureLineDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SalaryStructureLine'], meta: { name: 'SalaryStructureLine' } }
+    /**
+     * Find zero or one SalaryStructureLine that matches the filter.
+     * @param {SalaryStructureLineFindUniqueArgs} args - Arguments to find a SalaryStructureLine
+     * @example
+     * // Get one SalaryStructureLine
+     * const salaryStructureLine = await prisma.salaryStructureLine.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SalaryStructureLineFindUniqueArgs>(args: SelectSubset<T, SalaryStructureLineFindUniqueArgs<ExtArgs>>): Prisma__SalaryStructureLineClient<$Result.GetResult<Prisma.$SalaryStructureLinePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SalaryStructureLine that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SalaryStructureLineFindUniqueOrThrowArgs} args - Arguments to find a SalaryStructureLine
+     * @example
+     * // Get one SalaryStructureLine
+     * const salaryStructureLine = await prisma.salaryStructureLine.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SalaryStructureLineFindUniqueOrThrowArgs>(args: SelectSubset<T, SalaryStructureLineFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SalaryStructureLineClient<$Result.GetResult<Prisma.$SalaryStructureLinePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SalaryStructureLine that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureLineFindFirstArgs} args - Arguments to find a SalaryStructureLine
+     * @example
+     * // Get one SalaryStructureLine
+     * const salaryStructureLine = await prisma.salaryStructureLine.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SalaryStructureLineFindFirstArgs>(args?: SelectSubset<T, SalaryStructureLineFindFirstArgs<ExtArgs>>): Prisma__SalaryStructureLineClient<$Result.GetResult<Prisma.$SalaryStructureLinePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SalaryStructureLine that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureLineFindFirstOrThrowArgs} args - Arguments to find a SalaryStructureLine
+     * @example
+     * // Get one SalaryStructureLine
+     * const salaryStructureLine = await prisma.salaryStructureLine.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SalaryStructureLineFindFirstOrThrowArgs>(args?: SelectSubset<T, SalaryStructureLineFindFirstOrThrowArgs<ExtArgs>>): Prisma__SalaryStructureLineClient<$Result.GetResult<Prisma.$SalaryStructureLinePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SalaryStructureLines that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureLineFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SalaryStructureLines
+     * const salaryStructureLines = await prisma.salaryStructureLine.findMany()
+     * 
+     * // Get first 10 SalaryStructureLines
+     * const salaryStructureLines = await prisma.salaryStructureLine.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const salaryStructureLineWithIdOnly = await prisma.salaryStructureLine.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SalaryStructureLineFindManyArgs>(args?: SelectSubset<T, SalaryStructureLineFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryStructureLinePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SalaryStructureLine.
+     * @param {SalaryStructureLineCreateArgs} args - Arguments to create a SalaryStructureLine.
+     * @example
+     * // Create one SalaryStructureLine
+     * const SalaryStructureLine = await prisma.salaryStructureLine.create({
+     *   data: {
+     *     // ... data to create a SalaryStructureLine
+     *   }
+     * })
+     * 
+     */
+    create<T extends SalaryStructureLineCreateArgs>(args: SelectSubset<T, SalaryStructureLineCreateArgs<ExtArgs>>): Prisma__SalaryStructureLineClient<$Result.GetResult<Prisma.$SalaryStructureLinePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SalaryStructureLines.
+     * @param {SalaryStructureLineCreateManyArgs} args - Arguments to create many SalaryStructureLines.
+     * @example
+     * // Create many SalaryStructureLines
+     * const salaryStructureLine = await prisma.salaryStructureLine.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SalaryStructureLineCreateManyArgs>(args?: SelectSubset<T, SalaryStructureLineCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SalaryStructureLines and returns the data saved in the database.
+     * @param {SalaryStructureLineCreateManyAndReturnArgs} args - Arguments to create many SalaryStructureLines.
+     * @example
+     * // Create many SalaryStructureLines
+     * const salaryStructureLine = await prisma.salaryStructureLine.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SalaryStructureLines and only return the `id`
+     * const salaryStructureLineWithIdOnly = await prisma.salaryStructureLine.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SalaryStructureLineCreateManyAndReturnArgs>(args?: SelectSubset<T, SalaryStructureLineCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryStructureLinePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SalaryStructureLine.
+     * @param {SalaryStructureLineDeleteArgs} args - Arguments to delete one SalaryStructureLine.
+     * @example
+     * // Delete one SalaryStructureLine
+     * const SalaryStructureLine = await prisma.salaryStructureLine.delete({
+     *   where: {
+     *     // ... filter to delete one SalaryStructureLine
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SalaryStructureLineDeleteArgs>(args: SelectSubset<T, SalaryStructureLineDeleteArgs<ExtArgs>>): Prisma__SalaryStructureLineClient<$Result.GetResult<Prisma.$SalaryStructureLinePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SalaryStructureLine.
+     * @param {SalaryStructureLineUpdateArgs} args - Arguments to update one SalaryStructureLine.
+     * @example
+     * // Update one SalaryStructureLine
+     * const salaryStructureLine = await prisma.salaryStructureLine.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SalaryStructureLineUpdateArgs>(args: SelectSubset<T, SalaryStructureLineUpdateArgs<ExtArgs>>): Prisma__SalaryStructureLineClient<$Result.GetResult<Prisma.$SalaryStructureLinePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SalaryStructureLines.
+     * @param {SalaryStructureLineDeleteManyArgs} args - Arguments to filter SalaryStructureLines to delete.
+     * @example
+     * // Delete a few SalaryStructureLines
+     * const { count } = await prisma.salaryStructureLine.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SalaryStructureLineDeleteManyArgs>(args?: SelectSubset<T, SalaryStructureLineDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SalaryStructureLines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureLineUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SalaryStructureLines
+     * const salaryStructureLine = await prisma.salaryStructureLine.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SalaryStructureLineUpdateManyArgs>(args: SelectSubset<T, SalaryStructureLineUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SalaryStructureLine.
+     * @param {SalaryStructureLineUpsertArgs} args - Arguments to update or create a SalaryStructureLine.
+     * @example
+     * // Update or create a SalaryStructureLine
+     * const salaryStructureLine = await prisma.salaryStructureLine.upsert({
+     *   create: {
+     *     // ... data to create a SalaryStructureLine
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SalaryStructureLine we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SalaryStructureLineUpsertArgs>(args: SelectSubset<T, SalaryStructureLineUpsertArgs<ExtArgs>>): Prisma__SalaryStructureLineClient<$Result.GetResult<Prisma.$SalaryStructureLinePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SalaryStructureLines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureLineCountArgs} args - Arguments to filter SalaryStructureLines to count.
+     * @example
+     * // Count the number of SalaryStructureLines
+     * const count = await prisma.salaryStructureLine.count({
+     *   where: {
+     *     // ... the filter for the SalaryStructureLines we want to count
+     *   }
+     * })
+    **/
+    count<T extends SalaryStructureLineCountArgs>(
+      args?: Subset<T, SalaryStructureLineCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SalaryStructureLineCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SalaryStructureLine.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureLineAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SalaryStructureLineAggregateArgs>(args: Subset<T, SalaryStructureLineAggregateArgs>): Prisma.PrismaPromise<GetSalaryStructureLineAggregateType<T>>
+
+    /**
+     * Group by SalaryStructureLine.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryStructureLineGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SalaryStructureLineGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SalaryStructureLineGroupByArgs['orderBy'] }
+        : { orderBy?: SalaryStructureLineGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SalaryStructureLineGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSalaryStructureLineGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SalaryStructureLine model
+   */
+  readonly fields: SalaryStructureLineFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SalaryStructureLine.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SalaryStructureLineClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    structure<T extends SalaryStructureDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SalaryStructureDefaultArgs<ExtArgs>>): Prisma__SalaryStructureClient<$Result.GetResult<Prisma.$SalaryStructurePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    component<T extends SalaryComponentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SalaryComponentDefaultArgs<ExtArgs>>): Prisma__SalaryComponentClient<$Result.GetResult<Prisma.$SalaryComponentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SalaryStructureLine model
+   */ 
+  interface SalaryStructureLineFieldRefs {
+    readonly id: FieldRef<"SalaryStructureLine", 'String'>
+    readonly structureId: FieldRef<"SalaryStructureLine", 'String'>
+    readonly componentId: FieldRef<"SalaryStructureLine", 'String'>
+    readonly calculationMethod: FieldRef<"SalaryStructureLine", 'String'>
+    readonly value: FieldRef<"SalaryStructureLine", 'Decimal'>
+    readonly percentage: FieldRef<"SalaryStructureLine", 'Decimal'>
+    readonly calculationBase: FieldRef<"SalaryStructureLine", 'String'>
+    readonly sequence: FieldRef<"SalaryStructureLine", 'Int'>
+    readonly isMandatory: FieldRef<"SalaryStructureLine", 'Boolean'>
+    readonly isActive: FieldRef<"SalaryStructureLine", 'Boolean'>
+    readonly createdAt: FieldRef<"SalaryStructureLine", 'DateTime'>
+    readonly updatedAt: FieldRef<"SalaryStructureLine", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SalaryStructureLine findUnique
+   */
+  export type SalaryStructureLineFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryStructureLine to fetch.
+     */
+    where: SalaryStructureLineWhereUniqueInput
+  }
+
+  /**
+   * SalaryStructureLine findUniqueOrThrow
+   */
+  export type SalaryStructureLineFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryStructureLine to fetch.
+     */
+    where: SalaryStructureLineWhereUniqueInput
+  }
+
+  /**
+   * SalaryStructureLine findFirst
+   */
+  export type SalaryStructureLineFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryStructureLine to fetch.
+     */
+    where?: SalaryStructureLineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryStructureLines to fetch.
+     */
+    orderBy?: SalaryStructureLineOrderByWithRelationInput | SalaryStructureLineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalaryStructureLines.
+     */
+    cursor?: SalaryStructureLineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryStructureLines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryStructureLines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalaryStructureLines.
+     */
+    distinct?: SalaryStructureLineScalarFieldEnum | SalaryStructureLineScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryStructureLine findFirstOrThrow
+   */
+  export type SalaryStructureLineFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryStructureLine to fetch.
+     */
+    where?: SalaryStructureLineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryStructureLines to fetch.
+     */
+    orderBy?: SalaryStructureLineOrderByWithRelationInput | SalaryStructureLineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalaryStructureLines.
+     */
+    cursor?: SalaryStructureLineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryStructureLines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryStructureLines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalaryStructureLines.
+     */
+    distinct?: SalaryStructureLineScalarFieldEnum | SalaryStructureLineScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryStructureLine findMany
+   */
+  export type SalaryStructureLineFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryStructureLines to fetch.
+     */
+    where?: SalaryStructureLineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryStructureLines to fetch.
+     */
+    orderBy?: SalaryStructureLineOrderByWithRelationInput | SalaryStructureLineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SalaryStructureLines.
+     */
+    cursor?: SalaryStructureLineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryStructureLines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryStructureLines.
+     */
+    skip?: number
+    distinct?: SalaryStructureLineScalarFieldEnum | SalaryStructureLineScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryStructureLine create
+   */
+  export type SalaryStructureLineCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SalaryStructureLine.
+     */
+    data: XOR<SalaryStructureLineCreateInput, SalaryStructureLineUncheckedCreateInput>
+  }
+
+  /**
+   * SalaryStructureLine createMany
+   */
+  export type SalaryStructureLineCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SalaryStructureLines.
+     */
+    data: SalaryStructureLineCreateManyInput | SalaryStructureLineCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SalaryStructureLine createManyAndReturn
+   */
+  export type SalaryStructureLineCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SalaryStructureLines.
+     */
+    data: SalaryStructureLineCreateManyInput | SalaryStructureLineCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SalaryStructureLine update
+   */
+  export type SalaryStructureLineUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SalaryStructureLine.
+     */
+    data: XOR<SalaryStructureLineUpdateInput, SalaryStructureLineUncheckedUpdateInput>
+    /**
+     * Choose, which SalaryStructureLine to update.
+     */
+    where: SalaryStructureLineWhereUniqueInput
+  }
+
+  /**
+   * SalaryStructureLine updateMany
+   */
+  export type SalaryStructureLineUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SalaryStructureLines.
+     */
+    data: XOR<SalaryStructureLineUpdateManyMutationInput, SalaryStructureLineUncheckedUpdateManyInput>
+    /**
+     * Filter which SalaryStructureLines to update
+     */
+    where?: SalaryStructureLineWhereInput
+  }
+
+  /**
+   * SalaryStructureLine upsert
+   */
+  export type SalaryStructureLineUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SalaryStructureLine to update in case it exists.
+     */
+    where: SalaryStructureLineWhereUniqueInput
+    /**
+     * In case the SalaryStructureLine found by the `where` argument doesn't exist, create a new SalaryStructureLine with this data.
+     */
+    create: XOR<SalaryStructureLineCreateInput, SalaryStructureLineUncheckedCreateInput>
+    /**
+     * In case the SalaryStructureLine was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SalaryStructureLineUpdateInput, SalaryStructureLineUncheckedUpdateInput>
+  }
+
+  /**
+   * SalaryStructureLine delete
+   */
+  export type SalaryStructureLineDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineInclude<ExtArgs> | null
+    /**
+     * Filter which SalaryStructureLine to delete.
+     */
+    where: SalaryStructureLineWhereUniqueInput
+  }
+
+  /**
+   * SalaryStructureLine deleteMany
+   */
+  export type SalaryStructureLineDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalaryStructureLines to delete
+     */
+    where?: SalaryStructureLineWhereInput
+  }
+
+  /**
+   * SalaryStructureLine without action
+   */
+  export type SalaryStructureLineDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryStructureLine
+     */
+    select?: SalaryStructureLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryStructureLineInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EmployeeSalaryAssignment
+   */
+
+  export type AggregateEmployeeSalaryAssignment = {
+    _count: EmployeeSalaryAssignmentCountAggregateOutputType | null
+    _avg: EmployeeSalaryAssignmentAvgAggregateOutputType | null
+    _sum: EmployeeSalaryAssignmentSumAggregateOutputType | null
+    _min: EmployeeSalaryAssignmentMinAggregateOutputType | null
+    _max: EmployeeSalaryAssignmentMaxAggregateOutputType | null
+  }
+
+  export type EmployeeSalaryAssignmentAvgAggregateOutputType = {
+    baseGross: Decimal | null
+  }
+
+  export type EmployeeSalaryAssignmentSumAggregateOutputType = {
+    baseGross: Decimal | null
+  }
+
+  export type EmployeeSalaryAssignmentMinAggregateOutputType = {
+    id: string | null
+    employeeId: string | null
+    salaryStructureId: string | null
+    baseGross: Decimal | null
+    effectiveFrom: Date | null
+    effectiveTo: Date | null
+    reason: string | null
+    notes: string | null
+    status: string | null
+    approvedBy: string | null
+    createdBy: string | null
+    updatedBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EmployeeSalaryAssignmentMaxAggregateOutputType = {
+    id: string | null
+    employeeId: string | null
+    salaryStructureId: string | null
+    baseGross: Decimal | null
+    effectiveFrom: Date | null
+    effectiveTo: Date | null
+    reason: string | null
+    notes: string | null
+    status: string | null
+    approvedBy: string | null
+    createdBy: string | null
+    updatedBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EmployeeSalaryAssignmentCountAggregateOutputType = {
+    id: number
+    employeeId: number
+    salaryStructureId: number
+    baseGross: number
+    effectiveFrom: number
+    effectiveTo: number
+    reason: number
+    notes: number
+    status: number
+    approvedBy: number
+    createdBy: number
+    updatedBy: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EmployeeSalaryAssignmentAvgAggregateInputType = {
+    baseGross?: true
+  }
+
+  export type EmployeeSalaryAssignmentSumAggregateInputType = {
+    baseGross?: true
+  }
+
+  export type EmployeeSalaryAssignmentMinAggregateInputType = {
+    id?: true
+    employeeId?: true
+    salaryStructureId?: true
+    baseGross?: true
+    effectiveFrom?: true
+    effectiveTo?: true
+    reason?: true
+    notes?: true
+    status?: true
+    approvedBy?: true
+    createdBy?: true
+    updatedBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EmployeeSalaryAssignmentMaxAggregateInputType = {
+    id?: true
+    employeeId?: true
+    salaryStructureId?: true
+    baseGross?: true
+    effectiveFrom?: true
+    effectiveTo?: true
+    reason?: true
+    notes?: true
+    status?: true
+    approvedBy?: true
+    createdBy?: true
+    updatedBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EmployeeSalaryAssignmentCountAggregateInputType = {
+    id?: true
+    employeeId?: true
+    salaryStructureId?: true
+    baseGross?: true
+    effectiveFrom?: true
+    effectiveTo?: true
+    reason?: true
+    notes?: true
+    status?: true
+    approvedBy?: true
+    createdBy?: true
+    updatedBy?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EmployeeSalaryAssignmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmployeeSalaryAssignment to aggregate.
+     */
+    where?: EmployeeSalaryAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeSalaryAssignments to fetch.
+     */
+    orderBy?: EmployeeSalaryAssignmentOrderByWithRelationInput | EmployeeSalaryAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmployeeSalaryAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeSalaryAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeSalaryAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EmployeeSalaryAssignments
+    **/
+    _count?: true | EmployeeSalaryAssignmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EmployeeSalaryAssignmentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EmployeeSalaryAssignmentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmployeeSalaryAssignmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmployeeSalaryAssignmentMaxAggregateInputType
+  }
+
+  export type GetEmployeeSalaryAssignmentAggregateType<T extends EmployeeSalaryAssignmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmployeeSalaryAssignment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmployeeSalaryAssignment[P]>
+      : GetScalarType<T[P], AggregateEmployeeSalaryAssignment[P]>
+  }
+
+
+
+
+  export type EmployeeSalaryAssignmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmployeeSalaryAssignmentWhereInput
+    orderBy?: EmployeeSalaryAssignmentOrderByWithAggregationInput | EmployeeSalaryAssignmentOrderByWithAggregationInput[]
+    by: EmployeeSalaryAssignmentScalarFieldEnum[] | EmployeeSalaryAssignmentScalarFieldEnum
+    having?: EmployeeSalaryAssignmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmployeeSalaryAssignmentCountAggregateInputType | true
+    _avg?: EmployeeSalaryAssignmentAvgAggregateInputType
+    _sum?: EmployeeSalaryAssignmentSumAggregateInputType
+    _min?: EmployeeSalaryAssignmentMinAggregateInputType
+    _max?: EmployeeSalaryAssignmentMaxAggregateInputType
+  }
+
+  export type EmployeeSalaryAssignmentGroupByOutputType = {
+    id: string
+    employeeId: string
+    salaryStructureId: string
+    baseGross: Decimal
+    effectiveFrom: Date
+    effectiveTo: Date | null
+    reason: string | null
+    notes: string | null
+    status: string
+    approvedBy: string | null
+    createdBy: string | null
+    updatedBy: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: EmployeeSalaryAssignmentCountAggregateOutputType | null
+    _avg: EmployeeSalaryAssignmentAvgAggregateOutputType | null
+    _sum: EmployeeSalaryAssignmentSumAggregateOutputType | null
+    _min: EmployeeSalaryAssignmentMinAggregateOutputType | null
+    _max: EmployeeSalaryAssignmentMaxAggregateOutputType | null
+  }
+
+  type GetEmployeeSalaryAssignmentGroupByPayload<T extends EmployeeSalaryAssignmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmployeeSalaryAssignmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmployeeSalaryAssignmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmployeeSalaryAssignmentGroupByOutputType[P]>
+            : GetScalarType<T[P], EmployeeSalaryAssignmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmployeeSalaryAssignmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeId?: boolean
+    salaryStructureId?: boolean
+    baseGross?: boolean
+    effectiveFrom?: boolean
+    effectiveTo?: boolean
+    reason?: boolean
+    notes?: boolean
+    status?: boolean
+    approvedBy?: boolean
+    createdBy?: boolean
+    updatedBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    salaryStructure?: boolean | SalaryStructureDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeSalaryAssignment"]>
+
+  export type EmployeeSalaryAssignmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeId?: boolean
+    salaryStructureId?: boolean
+    baseGross?: boolean
+    effectiveFrom?: boolean
+    effectiveTo?: boolean
+    reason?: boolean
+    notes?: boolean
+    status?: boolean
+    approvedBy?: boolean
+    createdBy?: boolean
+    updatedBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    salaryStructure?: boolean | SalaryStructureDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeSalaryAssignment"]>
+
+  export type EmployeeSalaryAssignmentSelectScalar = {
+    id?: boolean
+    employeeId?: boolean
+    salaryStructureId?: boolean
+    baseGross?: boolean
+    effectiveFrom?: boolean
+    effectiveTo?: boolean
+    reason?: boolean
+    notes?: boolean
+    status?: boolean
+    approvedBy?: boolean
+    createdBy?: boolean
+    updatedBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EmployeeSalaryAssignmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    salaryStructure?: boolean | SalaryStructureDefaultArgs<ExtArgs>
+  }
+  export type EmployeeSalaryAssignmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    salaryStructure?: boolean | SalaryStructureDefaultArgs<ExtArgs>
+  }
+
+  export type $EmployeeSalaryAssignmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EmployeeSalaryAssignment"
+    objects: {
+      employee: Prisma.$EmployeePayload<ExtArgs>
+      salaryStructure: Prisma.$SalaryStructurePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      employeeId: string
+      salaryStructureId: string
+      baseGross: Prisma.Decimal
+      effectiveFrom: Date
+      effectiveTo: Date | null
+      reason: string | null
+      notes: string | null
+      status: string
+      approvedBy: string | null
+      createdBy: string | null
+      updatedBy: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["employeeSalaryAssignment"]>
+    composites: {}
+  }
+
+  type EmployeeSalaryAssignmentGetPayload<S extends boolean | null | undefined | EmployeeSalaryAssignmentDefaultArgs> = $Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload, S>
+
+  type EmployeeSalaryAssignmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<EmployeeSalaryAssignmentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: EmployeeSalaryAssignmentCountAggregateInputType | true
+    }
+
+  export interface EmployeeSalaryAssignmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EmployeeSalaryAssignment'], meta: { name: 'EmployeeSalaryAssignment' } }
+    /**
+     * Find zero or one EmployeeSalaryAssignment that matches the filter.
+     * @param {EmployeeSalaryAssignmentFindUniqueArgs} args - Arguments to find a EmployeeSalaryAssignment
+     * @example
+     * // Get one EmployeeSalaryAssignment
+     * const employeeSalaryAssignment = await prisma.employeeSalaryAssignment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmployeeSalaryAssignmentFindUniqueArgs>(args: SelectSubset<T, EmployeeSalaryAssignmentFindUniqueArgs<ExtArgs>>): Prisma__EmployeeSalaryAssignmentClient<$Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one EmployeeSalaryAssignment that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {EmployeeSalaryAssignmentFindUniqueOrThrowArgs} args - Arguments to find a EmployeeSalaryAssignment
+     * @example
+     * // Get one EmployeeSalaryAssignment
+     * const employeeSalaryAssignment = await prisma.employeeSalaryAssignment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmployeeSalaryAssignmentFindUniqueOrThrowArgs>(args: SelectSubset<T, EmployeeSalaryAssignmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmployeeSalaryAssignmentClient<$Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first EmployeeSalaryAssignment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSalaryAssignmentFindFirstArgs} args - Arguments to find a EmployeeSalaryAssignment
+     * @example
+     * // Get one EmployeeSalaryAssignment
+     * const employeeSalaryAssignment = await prisma.employeeSalaryAssignment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmployeeSalaryAssignmentFindFirstArgs>(args?: SelectSubset<T, EmployeeSalaryAssignmentFindFirstArgs<ExtArgs>>): Prisma__EmployeeSalaryAssignmentClient<$Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first EmployeeSalaryAssignment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSalaryAssignmentFindFirstOrThrowArgs} args - Arguments to find a EmployeeSalaryAssignment
+     * @example
+     * // Get one EmployeeSalaryAssignment
+     * const employeeSalaryAssignment = await prisma.employeeSalaryAssignment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmployeeSalaryAssignmentFindFirstOrThrowArgs>(args?: SelectSubset<T, EmployeeSalaryAssignmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmployeeSalaryAssignmentClient<$Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more EmployeeSalaryAssignments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSalaryAssignmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EmployeeSalaryAssignments
+     * const employeeSalaryAssignments = await prisma.employeeSalaryAssignment.findMany()
+     * 
+     * // Get first 10 EmployeeSalaryAssignments
+     * const employeeSalaryAssignments = await prisma.employeeSalaryAssignment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const employeeSalaryAssignmentWithIdOnly = await prisma.employeeSalaryAssignment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EmployeeSalaryAssignmentFindManyArgs>(args?: SelectSubset<T, EmployeeSalaryAssignmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a EmployeeSalaryAssignment.
+     * @param {EmployeeSalaryAssignmentCreateArgs} args - Arguments to create a EmployeeSalaryAssignment.
+     * @example
+     * // Create one EmployeeSalaryAssignment
+     * const EmployeeSalaryAssignment = await prisma.employeeSalaryAssignment.create({
+     *   data: {
+     *     // ... data to create a EmployeeSalaryAssignment
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmployeeSalaryAssignmentCreateArgs>(args: SelectSubset<T, EmployeeSalaryAssignmentCreateArgs<ExtArgs>>): Prisma__EmployeeSalaryAssignmentClient<$Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many EmployeeSalaryAssignments.
+     * @param {EmployeeSalaryAssignmentCreateManyArgs} args - Arguments to create many EmployeeSalaryAssignments.
+     * @example
+     * // Create many EmployeeSalaryAssignments
+     * const employeeSalaryAssignment = await prisma.employeeSalaryAssignment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmployeeSalaryAssignmentCreateManyArgs>(args?: SelectSubset<T, EmployeeSalaryAssignmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EmployeeSalaryAssignments and returns the data saved in the database.
+     * @param {EmployeeSalaryAssignmentCreateManyAndReturnArgs} args - Arguments to create many EmployeeSalaryAssignments.
+     * @example
+     * // Create many EmployeeSalaryAssignments
+     * const employeeSalaryAssignment = await prisma.employeeSalaryAssignment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EmployeeSalaryAssignments and only return the `id`
+     * const employeeSalaryAssignmentWithIdOnly = await prisma.employeeSalaryAssignment.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmployeeSalaryAssignmentCreateManyAndReturnArgs>(args?: SelectSubset<T, EmployeeSalaryAssignmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a EmployeeSalaryAssignment.
+     * @param {EmployeeSalaryAssignmentDeleteArgs} args - Arguments to delete one EmployeeSalaryAssignment.
+     * @example
+     * // Delete one EmployeeSalaryAssignment
+     * const EmployeeSalaryAssignment = await prisma.employeeSalaryAssignment.delete({
+     *   where: {
+     *     // ... filter to delete one EmployeeSalaryAssignment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmployeeSalaryAssignmentDeleteArgs>(args: SelectSubset<T, EmployeeSalaryAssignmentDeleteArgs<ExtArgs>>): Prisma__EmployeeSalaryAssignmentClient<$Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one EmployeeSalaryAssignment.
+     * @param {EmployeeSalaryAssignmentUpdateArgs} args - Arguments to update one EmployeeSalaryAssignment.
+     * @example
+     * // Update one EmployeeSalaryAssignment
+     * const employeeSalaryAssignment = await prisma.employeeSalaryAssignment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmployeeSalaryAssignmentUpdateArgs>(args: SelectSubset<T, EmployeeSalaryAssignmentUpdateArgs<ExtArgs>>): Prisma__EmployeeSalaryAssignmentClient<$Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more EmployeeSalaryAssignments.
+     * @param {EmployeeSalaryAssignmentDeleteManyArgs} args - Arguments to filter EmployeeSalaryAssignments to delete.
+     * @example
+     * // Delete a few EmployeeSalaryAssignments
+     * const { count } = await prisma.employeeSalaryAssignment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmployeeSalaryAssignmentDeleteManyArgs>(args?: SelectSubset<T, EmployeeSalaryAssignmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmployeeSalaryAssignments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSalaryAssignmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EmployeeSalaryAssignments
+     * const employeeSalaryAssignment = await prisma.employeeSalaryAssignment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmployeeSalaryAssignmentUpdateManyArgs>(args: SelectSubset<T, EmployeeSalaryAssignmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one EmployeeSalaryAssignment.
+     * @param {EmployeeSalaryAssignmentUpsertArgs} args - Arguments to update or create a EmployeeSalaryAssignment.
+     * @example
+     * // Update or create a EmployeeSalaryAssignment
+     * const employeeSalaryAssignment = await prisma.employeeSalaryAssignment.upsert({
+     *   create: {
+     *     // ... data to create a EmployeeSalaryAssignment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EmployeeSalaryAssignment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmployeeSalaryAssignmentUpsertArgs>(args: SelectSubset<T, EmployeeSalaryAssignmentUpsertArgs<ExtArgs>>): Prisma__EmployeeSalaryAssignmentClient<$Result.GetResult<Prisma.$EmployeeSalaryAssignmentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of EmployeeSalaryAssignments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSalaryAssignmentCountArgs} args - Arguments to filter EmployeeSalaryAssignments to count.
+     * @example
+     * // Count the number of EmployeeSalaryAssignments
+     * const count = await prisma.employeeSalaryAssignment.count({
+     *   where: {
+     *     // ... the filter for the EmployeeSalaryAssignments we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmployeeSalaryAssignmentCountArgs>(
+      args?: Subset<T, EmployeeSalaryAssignmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmployeeSalaryAssignmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EmployeeSalaryAssignment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSalaryAssignmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmployeeSalaryAssignmentAggregateArgs>(args: Subset<T, EmployeeSalaryAssignmentAggregateArgs>): Prisma.PrismaPromise<GetEmployeeSalaryAssignmentAggregateType<T>>
+
+    /**
+     * Group by EmployeeSalaryAssignment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSalaryAssignmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmployeeSalaryAssignmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmployeeSalaryAssignmentGroupByArgs['orderBy'] }
+        : { orderBy?: EmployeeSalaryAssignmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmployeeSalaryAssignmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmployeeSalaryAssignmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EmployeeSalaryAssignment model
+   */
+  readonly fields: EmployeeSalaryAssignmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EmployeeSalaryAssignment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmployeeSalaryAssignmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    employee<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    salaryStructure<T extends SalaryStructureDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SalaryStructureDefaultArgs<ExtArgs>>): Prisma__SalaryStructureClient<$Result.GetResult<Prisma.$SalaryStructurePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EmployeeSalaryAssignment model
+   */ 
+  interface EmployeeSalaryAssignmentFieldRefs {
+    readonly id: FieldRef<"EmployeeSalaryAssignment", 'String'>
+    readonly employeeId: FieldRef<"EmployeeSalaryAssignment", 'String'>
+    readonly salaryStructureId: FieldRef<"EmployeeSalaryAssignment", 'String'>
+    readonly baseGross: FieldRef<"EmployeeSalaryAssignment", 'Decimal'>
+    readonly effectiveFrom: FieldRef<"EmployeeSalaryAssignment", 'DateTime'>
+    readonly effectiveTo: FieldRef<"EmployeeSalaryAssignment", 'DateTime'>
+    readonly reason: FieldRef<"EmployeeSalaryAssignment", 'String'>
+    readonly notes: FieldRef<"EmployeeSalaryAssignment", 'String'>
+    readonly status: FieldRef<"EmployeeSalaryAssignment", 'String'>
+    readonly approvedBy: FieldRef<"EmployeeSalaryAssignment", 'String'>
+    readonly createdBy: FieldRef<"EmployeeSalaryAssignment", 'String'>
+    readonly updatedBy: FieldRef<"EmployeeSalaryAssignment", 'String'>
+    readonly createdAt: FieldRef<"EmployeeSalaryAssignment", 'DateTime'>
+    readonly updatedAt: FieldRef<"EmployeeSalaryAssignment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EmployeeSalaryAssignment findUnique
+   */
+  export type EmployeeSalaryAssignmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeSalaryAssignment to fetch.
+     */
+    where: EmployeeSalaryAssignmentWhereUniqueInput
+  }
+
+  /**
+   * EmployeeSalaryAssignment findUniqueOrThrow
+   */
+  export type EmployeeSalaryAssignmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeSalaryAssignment to fetch.
+     */
+    where: EmployeeSalaryAssignmentWhereUniqueInput
+  }
+
+  /**
+   * EmployeeSalaryAssignment findFirst
+   */
+  export type EmployeeSalaryAssignmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeSalaryAssignment to fetch.
+     */
+    where?: EmployeeSalaryAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeSalaryAssignments to fetch.
+     */
+    orderBy?: EmployeeSalaryAssignmentOrderByWithRelationInput | EmployeeSalaryAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmployeeSalaryAssignments.
+     */
+    cursor?: EmployeeSalaryAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeSalaryAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeSalaryAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmployeeSalaryAssignments.
+     */
+    distinct?: EmployeeSalaryAssignmentScalarFieldEnum | EmployeeSalaryAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeSalaryAssignment findFirstOrThrow
+   */
+  export type EmployeeSalaryAssignmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeSalaryAssignment to fetch.
+     */
+    where?: EmployeeSalaryAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeSalaryAssignments to fetch.
+     */
+    orderBy?: EmployeeSalaryAssignmentOrderByWithRelationInput | EmployeeSalaryAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmployeeSalaryAssignments.
+     */
+    cursor?: EmployeeSalaryAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeSalaryAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeSalaryAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmployeeSalaryAssignments.
+     */
+    distinct?: EmployeeSalaryAssignmentScalarFieldEnum | EmployeeSalaryAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeSalaryAssignment findMany
+   */
+  export type EmployeeSalaryAssignmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeSalaryAssignments to fetch.
+     */
+    where?: EmployeeSalaryAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeSalaryAssignments to fetch.
+     */
+    orderBy?: EmployeeSalaryAssignmentOrderByWithRelationInput | EmployeeSalaryAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EmployeeSalaryAssignments.
+     */
+    cursor?: EmployeeSalaryAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeSalaryAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeSalaryAssignments.
+     */
+    skip?: number
+    distinct?: EmployeeSalaryAssignmentScalarFieldEnum | EmployeeSalaryAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeSalaryAssignment create
+   */
+  export type EmployeeSalaryAssignmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EmployeeSalaryAssignment.
+     */
+    data: XOR<EmployeeSalaryAssignmentCreateInput, EmployeeSalaryAssignmentUncheckedCreateInput>
+  }
+
+  /**
+   * EmployeeSalaryAssignment createMany
+   */
+  export type EmployeeSalaryAssignmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EmployeeSalaryAssignments.
+     */
+    data: EmployeeSalaryAssignmentCreateManyInput | EmployeeSalaryAssignmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EmployeeSalaryAssignment createManyAndReturn
+   */
+  export type EmployeeSalaryAssignmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many EmployeeSalaryAssignments.
+     */
+    data: EmployeeSalaryAssignmentCreateManyInput | EmployeeSalaryAssignmentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmployeeSalaryAssignment update
+   */
+  export type EmployeeSalaryAssignmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EmployeeSalaryAssignment.
+     */
+    data: XOR<EmployeeSalaryAssignmentUpdateInput, EmployeeSalaryAssignmentUncheckedUpdateInput>
+    /**
+     * Choose, which EmployeeSalaryAssignment to update.
+     */
+    where: EmployeeSalaryAssignmentWhereUniqueInput
+  }
+
+  /**
+   * EmployeeSalaryAssignment updateMany
+   */
+  export type EmployeeSalaryAssignmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EmployeeSalaryAssignments.
+     */
+    data: XOR<EmployeeSalaryAssignmentUpdateManyMutationInput, EmployeeSalaryAssignmentUncheckedUpdateManyInput>
+    /**
+     * Filter which EmployeeSalaryAssignments to update
+     */
+    where?: EmployeeSalaryAssignmentWhereInput
+  }
+
+  /**
+   * EmployeeSalaryAssignment upsert
+   */
+  export type EmployeeSalaryAssignmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EmployeeSalaryAssignment to update in case it exists.
+     */
+    where: EmployeeSalaryAssignmentWhereUniqueInput
+    /**
+     * In case the EmployeeSalaryAssignment found by the `where` argument doesn't exist, create a new EmployeeSalaryAssignment with this data.
+     */
+    create: XOR<EmployeeSalaryAssignmentCreateInput, EmployeeSalaryAssignmentUncheckedCreateInput>
+    /**
+     * In case the EmployeeSalaryAssignment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmployeeSalaryAssignmentUpdateInput, EmployeeSalaryAssignmentUncheckedUpdateInput>
+  }
+
+  /**
+   * EmployeeSalaryAssignment delete
+   */
+  export type EmployeeSalaryAssignmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter which EmployeeSalaryAssignment to delete.
+     */
+    where: EmployeeSalaryAssignmentWhereUniqueInput
+  }
+
+  /**
+   * EmployeeSalaryAssignment deleteMany
+   */
+  export type EmployeeSalaryAssignmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmployeeSalaryAssignments to delete
+     */
+    where?: EmployeeSalaryAssignmentWhereInput
+  }
+
+  /**
+   * EmployeeSalaryAssignment without action
+   */
+  export type EmployeeSalaryAssignmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSalaryAssignment
+     */
+    select?: EmployeeSalaryAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSalaryAssignmentInclude<ExtArgs> | null
   }
 
 
@@ -23361,6 +28203,87 @@ export namespace Prisma {
   export type EmployeeScalarFieldEnum = (typeof EmployeeScalarFieldEnum)[keyof typeof EmployeeScalarFieldEnum]
 
 
+  export const SalaryComponentScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    name: 'name',
+    description: 'description',
+    componentType: 'componentType',
+    calculationMethod: 'calculationMethod',
+    calculationBase: 'calculationBase',
+    defaultValue: 'defaultValue',
+    percentageValue: 'percentageValue',
+    sequence: 'sequence',
+    isTaxable: 'isTaxable',
+    isRecurring: 'isRecurring',
+    isActive: 'isActive',
+    glAccountCode: 'glAccountCode',
+    createdBy: 'createdBy',
+    updatedBy: 'updatedBy',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SalaryComponentScalarFieldEnum = (typeof SalaryComponentScalarFieldEnum)[keyof typeof SalaryComponentScalarFieldEnum]
+
+
+  export const SalaryStructureScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    name: 'name',
+    description: 'description',
+    currency: 'currency',
+    status: 'status',
+    version: 'version',
+    effectiveFrom: 'effectiveFrom',
+    effectiveTo: 'effectiveTo',
+    createdBy: 'createdBy',
+    updatedBy: 'updatedBy',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SalaryStructureScalarFieldEnum = (typeof SalaryStructureScalarFieldEnum)[keyof typeof SalaryStructureScalarFieldEnum]
+
+
+  export const SalaryStructureLineScalarFieldEnum: {
+    id: 'id',
+    structureId: 'structureId',
+    componentId: 'componentId',
+    calculationMethod: 'calculationMethod',
+    value: 'value',
+    percentage: 'percentage',
+    calculationBase: 'calculationBase',
+    sequence: 'sequence',
+    isMandatory: 'isMandatory',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SalaryStructureLineScalarFieldEnum = (typeof SalaryStructureLineScalarFieldEnum)[keyof typeof SalaryStructureLineScalarFieldEnum]
+
+
+  export const EmployeeSalaryAssignmentScalarFieldEnum: {
+    id: 'id',
+    employeeId: 'employeeId',
+    salaryStructureId: 'salaryStructureId',
+    baseGross: 'baseGross',
+    effectiveFrom: 'effectiveFrom',
+    effectiveTo: 'effectiveTo',
+    reason: 'reason',
+    notes: 'notes',
+    status: 'status',
+    approvedBy: 'approvedBy',
+    createdBy: 'createdBy',
+    updatedBy: 'updatedBy',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EmployeeSalaryAssignmentScalarFieldEnum = (typeof EmployeeSalaryAssignmentScalarFieldEnum)[keyof typeof EmployeeSalaryAssignmentScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -23474,6 +28397,13 @@ export namespace Prisma {
    * Reference to a field of type 'Json'
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -25118,6 +30048,7 @@ export namespace Prisma {
     reportingManager?: XOR<EmployeeNullableRelationFilter, EmployeeWhereInput> | null
     subordinates?: EmployeeListRelationFilter
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    salaryAssignments?: EmployeeSalaryAssignmentListRelationFilter
   }
 
   export type EmployeeOrderByWithRelationInput = {
@@ -25150,6 +30081,7 @@ export namespace Prisma {
     reportingManager?: EmployeeOrderByWithRelationInput
     subordinates?: EmployeeOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
+    salaryAssignments?: EmployeeSalaryAssignmentOrderByRelationAggregateInput
   }
 
   export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
@@ -25185,6 +30117,7 @@ export namespace Prisma {
     reportingManager?: XOR<EmployeeNullableRelationFilter, EmployeeWhereInput> | null
     subordinates?: EmployeeListRelationFilter
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    salaryAssignments?: EmployeeSalaryAssignmentListRelationFilter
   }, "id" | "employeeCode" | "mobile" | "email" | "userId">
 
   export type EmployeeOrderByWithAggregationInput = {
@@ -25249,6 +30182,429 @@ export namespace Prisma {
     archivedBy?: StringNullableWithAggregatesFilter<"Employee"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
+  }
+
+  export type SalaryComponentWhereInput = {
+    AND?: SalaryComponentWhereInput | SalaryComponentWhereInput[]
+    OR?: SalaryComponentWhereInput[]
+    NOT?: SalaryComponentWhereInput | SalaryComponentWhereInput[]
+    id?: StringFilter<"SalaryComponent"> | string
+    code?: StringFilter<"SalaryComponent"> | string
+    name?: StringFilter<"SalaryComponent"> | string
+    description?: StringNullableFilter<"SalaryComponent"> | string | null
+    componentType?: StringFilter<"SalaryComponent"> | string
+    calculationMethod?: StringFilter<"SalaryComponent"> | string
+    calculationBase?: StringNullableFilter<"SalaryComponent"> | string | null
+    defaultValue?: DecimalFilter<"SalaryComponent"> | Decimal | DecimalJsLike | number | string
+    percentageValue?: DecimalFilter<"SalaryComponent"> | Decimal | DecimalJsLike | number | string
+    sequence?: IntFilter<"SalaryComponent"> | number
+    isTaxable?: BoolFilter<"SalaryComponent"> | boolean
+    isRecurring?: BoolFilter<"SalaryComponent"> | boolean
+    isActive?: BoolFilter<"SalaryComponent"> | boolean
+    glAccountCode?: StringNullableFilter<"SalaryComponent"> | string | null
+    createdBy?: StringNullableFilter<"SalaryComponent"> | string | null
+    updatedBy?: StringNullableFilter<"SalaryComponent"> | string | null
+    createdAt?: DateTimeFilter<"SalaryComponent"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryComponent"> | Date | string
+    structureLines?: SalaryStructureLineListRelationFilter
+  }
+
+  export type SalaryComponentOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    componentType?: SortOrder
+    calculationMethod?: SortOrder
+    calculationBase?: SortOrderInput | SortOrder
+    defaultValue?: SortOrder
+    percentageValue?: SortOrder
+    sequence?: SortOrder
+    isTaxable?: SortOrder
+    isRecurring?: SortOrder
+    isActive?: SortOrder
+    glAccountCode?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    updatedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    structureLines?: SalaryStructureLineOrderByRelationAggregateInput
+  }
+
+  export type SalaryComponentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: SalaryComponentWhereInput | SalaryComponentWhereInput[]
+    OR?: SalaryComponentWhereInput[]
+    NOT?: SalaryComponentWhereInput | SalaryComponentWhereInput[]
+    name?: StringFilter<"SalaryComponent"> | string
+    description?: StringNullableFilter<"SalaryComponent"> | string | null
+    componentType?: StringFilter<"SalaryComponent"> | string
+    calculationMethod?: StringFilter<"SalaryComponent"> | string
+    calculationBase?: StringNullableFilter<"SalaryComponent"> | string | null
+    defaultValue?: DecimalFilter<"SalaryComponent"> | Decimal | DecimalJsLike | number | string
+    percentageValue?: DecimalFilter<"SalaryComponent"> | Decimal | DecimalJsLike | number | string
+    sequence?: IntFilter<"SalaryComponent"> | number
+    isTaxable?: BoolFilter<"SalaryComponent"> | boolean
+    isRecurring?: BoolFilter<"SalaryComponent"> | boolean
+    isActive?: BoolFilter<"SalaryComponent"> | boolean
+    glAccountCode?: StringNullableFilter<"SalaryComponent"> | string | null
+    createdBy?: StringNullableFilter<"SalaryComponent"> | string | null
+    updatedBy?: StringNullableFilter<"SalaryComponent"> | string | null
+    createdAt?: DateTimeFilter<"SalaryComponent"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryComponent"> | Date | string
+    structureLines?: SalaryStructureLineListRelationFilter
+  }, "id" | "code">
+
+  export type SalaryComponentOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    componentType?: SortOrder
+    calculationMethod?: SortOrder
+    calculationBase?: SortOrderInput | SortOrder
+    defaultValue?: SortOrder
+    percentageValue?: SortOrder
+    sequence?: SortOrder
+    isTaxable?: SortOrder
+    isRecurring?: SortOrder
+    isActive?: SortOrder
+    glAccountCode?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    updatedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SalaryComponentCountOrderByAggregateInput
+    _avg?: SalaryComponentAvgOrderByAggregateInput
+    _max?: SalaryComponentMaxOrderByAggregateInput
+    _min?: SalaryComponentMinOrderByAggregateInput
+    _sum?: SalaryComponentSumOrderByAggregateInput
+  }
+
+  export type SalaryComponentScalarWhereWithAggregatesInput = {
+    AND?: SalaryComponentScalarWhereWithAggregatesInput | SalaryComponentScalarWhereWithAggregatesInput[]
+    OR?: SalaryComponentScalarWhereWithAggregatesInput[]
+    NOT?: SalaryComponentScalarWhereWithAggregatesInput | SalaryComponentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SalaryComponent"> | string
+    code?: StringWithAggregatesFilter<"SalaryComponent"> | string
+    name?: StringWithAggregatesFilter<"SalaryComponent"> | string
+    description?: StringNullableWithAggregatesFilter<"SalaryComponent"> | string | null
+    componentType?: StringWithAggregatesFilter<"SalaryComponent"> | string
+    calculationMethod?: StringWithAggregatesFilter<"SalaryComponent"> | string
+    calculationBase?: StringNullableWithAggregatesFilter<"SalaryComponent"> | string | null
+    defaultValue?: DecimalWithAggregatesFilter<"SalaryComponent"> | Decimal | DecimalJsLike | number | string
+    percentageValue?: DecimalWithAggregatesFilter<"SalaryComponent"> | Decimal | DecimalJsLike | number | string
+    sequence?: IntWithAggregatesFilter<"SalaryComponent"> | number
+    isTaxable?: BoolWithAggregatesFilter<"SalaryComponent"> | boolean
+    isRecurring?: BoolWithAggregatesFilter<"SalaryComponent"> | boolean
+    isActive?: BoolWithAggregatesFilter<"SalaryComponent"> | boolean
+    glAccountCode?: StringNullableWithAggregatesFilter<"SalaryComponent"> | string | null
+    createdBy?: StringNullableWithAggregatesFilter<"SalaryComponent"> | string | null
+    updatedBy?: StringNullableWithAggregatesFilter<"SalaryComponent"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SalaryComponent"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SalaryComponent"> | Date | string
+  }
+
+  export type SalaryStructureWhereInput = {
+    AND?: SalaryStructureWhereInput | SalaryStructureWhereInput[]
+    OR?: SalaryStructureWhereInput[]
+    NOT?: SalaryStructureWhereInput | SalaryStructureWhereInput[]
+    id?: StringFilter<"SalaryStructure"> | string
+    code?: StringFilter<"SalaryStructure"> | string
+    name?: StringFilter<"SalaryStructure"> | string
+    description?: StringNullableFilter<"SalaryStructure"> | string | null
+    currency?: StringFilter<"SalaryStructure"> | string
+    status?: StringFilter<"SalaryStructure"> | string
+    version?: IntFilter<"SalaryStructure"> | number
+    effectiveFrom?: DateTimeFilter<"SalaryStructure"> | Date | string
+    effectiveTo?: DateTimeNullableFilter<"SalaryStructure"> | Date | string | null
+    createdBy?: StringNullableFilter<"SalaryStructure"> | string | null
+    updatedBy?: StringNullableFilter<"SalaryStructure"> | string | null
+    createdAt?: DateTimeFilter<"SalaryStructure"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryStructure"> | Date | string
+    lines?: SalaryStructureLineListRelationFilter
+    assignments?: EmployeeSalaryAssignmentListRelationFilter
+  }
+
+  export type SalaryStructureOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    currency?: SortOrder
+    status?: SortOrder
+    version?: SortOrder
+    effectiveFrom?: SortOrder
+    effectiveTo?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    updatedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lines?: SalaryStructureLineOrderByRelationAggregateInput
+    assignments?: EmployeeSalaryAssignmentOrderByRelationAggregateInput
+  }
+
+  export type SalaryStructureWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: SalaryStructureWhereInput | SalaryStructureWhereInput[]
+    OR?: SalaryStructureWhereInput[]
+    NOT?: SalaryStructureWhereInput | SalaryStructureWhereInput[]
+    name?: StringFilter<"SalaryStructure"> | string
+    description?: StringNullableFilter<"SalaryStructure"> | string | null
+    currency?: StringFilter<"SalaryStructure"> | string
+    status?: StringFilter<"SalaryStructure"> | string
+    version?: IntFilter<"SalaryStructure"> | number
+    effectiveFrom?: DateTimeFilter<"SalaryStructure"> | Date | string
+    effectiveTo?: DateTimeNullableFilter<"SalaryStructure"> | Date | string | null
+    createdBy?: StringNullableFilter<"SalaryStructure"> | string | null
+    updatedBy?: StringNullableFilter<"SalaryStructure"> | string | null
+    createdAt?: DateTimeFilter<"SalaryStructure"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryStructure"> | Date | string
+    lines?: SalaryStructureLineListRelationFilter
+    assignments?: EmployeeSalaryAssignmentListRelationFilter
+  }, "id" | "code">
+
+  export type SalaryStructureOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    currency?: SortOrder
+    status?: SortOrder
+    version?: SortOrder
+    effectiveFrom?: SortOrder
+    effectiveTo?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    updatedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SalaryStructureCountOrderByAggregateInput
+    _avg?: SalaryStructureAvgOrderByAggregateInput
+    _max?: SalaryStructureMaxOrderByAggregateInput
+    _min?: SalaryStructureMinOrderByAggregateInput
+    _sum?: SalaryStructureSumOrderByAggregateInput
+  }
+
+  export type SalaryStructureScalarWhereWithAggregatesInput = {
+    AND?: SalaryStructureScalarWhereWithAggregatesInput | SalaryStructureScalarWhereWithAggregatesInput[]
+    OR?: SalaryStructureScalarWhereWithAggregatesInput[]
+    NOT?: SalaryStructureScalarWhereWithAggregatesInput | SalaryStructureScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SalaryStructure"> | string
+    code?: StringWithAggregatesFilter<"SalaryStructure"> | string
+    name?: StringWithAggregatesFilter<"SalaryStructure"> | string
+    description?: StringNullableWithAggregatesFilter<"SalaryStructure"> | string | null
+    currency?: StringWithAggregatesFilter<"SalaryStructure"> | string
+    status?: StringWithAggregatesFilter<"SalaryStructure"> | string
+    version?: IntWithAggregatesFilter<"SalaryStructure"> | number
+    effectiveFrom?: DateTimeWithAggregatesFilter<"SalaryStructure"> | Date | string
+    effectiveTo?: DateTimeNullableWithAggregatesFilter<"SalaryStructure"> | Date | string | null
+    createdBy?: StringNullableWithAggregatesFilter<"SalaryStructure"> | string | null
+    updatedBy?: StringNullableWithAggregatesFilter<"SalaryStructure"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SalaryStructure"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SalaryStructure"> | Date | string
+  }
+
+  export type SalaryStructureLineWhereInput = {
+    AND?: SalaryStructureLineWhereInput | SalaryStructureLineWhereInput[]
+    OR?: SalaryStructureLineWhereInput[]
+    NOT?: SalaryStructureLineWhereInput | SalaryStructureLineWhereInput[]
+    id?: StringFilter<"SalaryStructureLine"> | string
+    structureId?: StringFilter<"SalaryStructureLine"> | string
+    componentId?: StringFilter<"SalaryStructureLine"> | string
+    calculationMethod?: StringFilter<"SalaryStructureLine"> | string
+    value?: DecimalFilter<"SalaryStructureLine"> | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFilter<"SalaryStructureLine"> | Decimal | DecimalJsLike | number | string
+    calculationBase?: StringNullableFilter<"SalaryStructureLine"> | string | null
+    sequence?: IntFilter<"SalaryStructureLine"> | number
+    isMandatory?: BoolFilter<"SalaryStructureLine"> | boolean
+    isActive?: BoolFilter<"SalaryStructureLine"> | boolean
+    createdAt?: DateTimeFilter<"SalaryStructureLine"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryStructureLine"> | Date | string
+    structure?: XOR<SalaryStructureRelationFilter, SalaryStructureWhereInput>
+    component?: XOR<SalaryComponentRelationFilter, SalaryComponentWhereInput>
+  }
+
+  export type SalaryStructureLineOrderByWithRelationInput = {
+    id?: SortOrder
+    structureId?: SortOrder
+    componentId?: SortOrder
+    calculationMethod?: SortOrder
+    value?: SortOrder
+    percentage?: SortOrder
+    calculationBase?: SortOrderInput | SortOrder
+    sequence?: SortOrder
+    isMandatory?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    structure?: SalaryStructureOrderByWithRelationInput
+    component?: SalaryComponentOrderByWithRelationInput
+  }
+
+  export type SalaryStructureLineWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    structureId_componentId?: SalaryStructureLineStructureIdComponentIdCompoundUniqueInput
+    AND?: SalaryStructureLineWhereInput | SalaryStructureLineWhereInput[]
+    OR?: SalaryStructureLineWhereInput[]
+    NOT?: SalaryStructureLineWhereInput | SalaryStructureLineWhereInput[]
+    structureId?: StringFilter<"SalaryStructureLine"> | string
+    componentId?: StringFilter<"SalaryStructureLine"> | string
+    calculationMethod?: StringFilter<"SalaryStructureLine"> | string
+    value?: DecimalFilter<"SalaryStructureLine"> | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFilter<"SalaryStructureLine"> | Decimal | DecimalJsLike | number | string
+    calculationBase?: StringNullableFilter<"SalaryStructureLine"> | string | null
+    sequence?: IntFilter<"SalaryStructureLine"> | number
+    isMandatory?: BoolFilter<"SalaryStructureLine"> | boolean
+    isActive?: BoolFilter<"SalaryStructureLine"> | boolean
+    createdAt?: DateTimeFilter<"SalaryStructureLine"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryStructureLine"> | Date | string
+    structure?: XOR<SalaryStructureRelationFilter, SalaryStructureWhereInput>
+    component?: XOR<SalaryComponentRelationFilter, SalaryComponentWhereInput>
+  }, "id" | "structureId_componentId">
+
+  export type SalaryStructureLineOrderByWithAggregationInput = {
+    id?: SortOrder
+    structureId?: SortOrder
+    componentId?: SortOrder
+    calculationMethod?: SortOrder
+    value?: SortOrder
+    percentage?: SortOrder
+    calculationBase?: SortOrderInput | SortOrder
+    sequence?: SortOrder
+    isMandatory?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SalaryStructureLineCountOrderByAggregateInput
+    _avg?: SalaryStructureLineAvgOrderByAggregateInput
+    _max?: SalaryStructureLineMaxOrderByAggregateInput
+    _min?: SalaryStructureLineMinOrderByAggregateInput
+    _sum?: SalaryStructureLineSumOrderByAggregateInput
+  }
+
+  export type SalaryStructureLineScalarWhereWithAggregatesInput = {
+    AND?: SalaryStructureLineScalarWhereWithAggregatesInput | SalaryStructureLineScalarWhereWithAggregatesInput[]
+    OR?: SalaryStructureLineScalarWhereWithAggregatesInput[]
+    NOT?: SalaryStructureLineScalarWhereWithAggregatesInput | SalaryStructureLineScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SalaryStructureLine"> | string
+    structureId?: StringWithAggregatesFilter<"SalaryStructureLine"> | string
+    componentId?: StringWithAggregatesFilter<"SalaryStructureLine"> | string
+    calculationMethod?: StringWithAggregatesFilter<"SalaryStructureLine"> | string
+    value?: DecimalWithAggregatesFilter<"SalaryStructureLine"> | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalWithAggregatesFilter<"SalaryStructureLine"> | Decimal | DecimalJsLike | number | string
+    calculationBase?: StringNullableWithAggregatesFilter<"SalaryStructureLine"> | string | null
+    sequence?: IntWithAggregatesFilter<"SalaryStructureLine"> | number
+    isMandatory?: BoolWithAggregatesFilter<"SalaryStructureLine"> | boolean
+    isActive?: BoolWithAggregatesFilter<"SalaryStructureLine"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"SalaryStructureLine"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SalaryStructureLine"> | Date | string
+  }
+
+  export type EmployeeSalaryAssignmentWhereInput = {
+    AND?: EmployeeSalaryAssignmentWhereInput | EmployeeSalaryAssignmentWhereInput[]
+    OR?: EmployeeSalaryAssignmentWhereInput[]
+    NOT?: EmployeeSalaryAssignmentWhereInput | EmployeeSalaryAssignmentWhereInput[]
+    id?: StringFilter<"EmployeeSalaryAssignment"> | string
+    employeeId?: StringFilter<"EmployeeSalaryAssignment"> | string
+    salaryStructureId?: StringFilter<"EmployeeSalaryAssignment"> | string
+    baseGross?: DecimalFilter<"EmployeeSalaryAssignment"> | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFilter<"EmployeeSalaryAssignment"> | Date | string
+    effectiveTo?: DateTimeNullableFilter<"EmployeeSalaryAssignment"> | Date | string | null
+    reason?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    notes?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    status?: StringFilter<"EmployeeSalaryAssignment"> | string
+    approvedBy?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    createdBy?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    updatedBy?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    createdAt?: DateTimeFilter<"EmployeeSalaryAssignment"> | Date | string
+    updatedAt?: DateTimeFilter<"EmployeeSalaryAssignment"> | Date | string
+    employee?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    salaryStructure?: XOR<SalaryStructureRelationFilter, SalaryStructureWhereInput>
+  }
+
+  export type EmployeeSalaryAssignmentOrderByWithRelationInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    salaryStructureId?: SortOrder
+    baseGross?: SortOrder
+    effectiveFrom?: SortOrder
+    effectiveTo?: SortOrderInput | SortOrder
+    reason?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    approvedBy?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    updatedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    employee?: EmployeeOrderByWithRelationInput
+    salaryStructure?: SalaryStructureOrderByWithRelationInput
+  }
+
+  export type EmployeeSalaryAssignmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EmployeeSalaryAssignmentWhereInput | EmployeeSalaryAssignmentWhereInput[]
+    OR?: EmployeeSalaryAssignmentWhereInput[]
+    NOT?: EmployeeSalaryAssignmentWhereInput | EmployeeSalaryAssignmentWhereInput[]
+    employeeId?: StringFilter<"EmployeeSalaryAssignment"> | string
+    salaryStructureId?: StringFilter<"EmployeeSalaryAssignment"> | string
+    baseGross?: DecimalFilter<"EmployeeSalaryAssignment"> | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFilter<"EmployeeSalaryAssignment"> | Date | string
+    effectiveTo?: DateTimeNullableFilter<"EmployeeSalaryAssignment"> | Date | string | null
+    reason?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    notes?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    status?: StringFilter<"EmployeeSalaryAssignment"> | string
+    approvedBy?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    createdBy?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    updatedBy?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    createdAt?: DateTimeFilter<"EmployeeSalaryAssignment"> | Date | string
+    updatedAt?: DateTimeFilter<"EmployeeSalaryAssignment"> | Date | string
+    employee?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    salaryStructure?: XOR<SalaryStructureRelationFilter, SalaryStructureWhereInput>
+  }, "id">
+
+  export type EmployeeSalaryAssignmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    salaryStructureId?: SortOrder
+    baseGross?: SortOrder
+    effectiveFrom?: SortOrder
+    effectiveTo?: SortOrderInput | SortOrder
+    reason?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    approvedBy?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    updatedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EmployeeSalaryAssignmentCountOrderByAggregateInput
+    _avg?: EmployeeSalaryAssignmentAvgOrderByAggregateInput
+    _max?: EmployeeSalaryAssignmentMaxOrderByAggregateInput
+    _min?: EmployeeSalaryAssignmentMinOrderByAggregateInput
+    _sum?: EmployeeSalaryAssignmentSumOrderByAggregateInput
+  }
+
+  export type EmployeeSalaryAssignmentScalarWhereWithAggregatesInput = {
+    AND?: EmployeeSalaryAssignmentScalarWhereWithAggregatesInput | EmployeeSalaryAssignmentScalarWhereWithAggregatesInput[]
+    OR?: EmployeeSalaryAssignmentScalarWhereWithAggregatesInput[]
+    NOT?: EmployeeSalaryAssignmentScalarWhereWithAggregatesInput | EmployeeSalaryAssignmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EmployeeSalaryAssignment"> | string
+    employeeId?: StringWithAggregatesFilter<"EmployeeSalaryAssignment"> | string
+    salaryStructureId?: StringWithAggregatesFilter<"EmployeeSalaryAssignment"> | string
+    baseGross?: DecimalWithAggregatesFilter<"EmployeeSalaryAssignment"> | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeWithAggregatesFilter<"EmployeeSalaryAssignment"> | Date | string
+    effectiveTo?: DateTimeNullableWithAggregatesFilter<"EmployeeSalaryAssignment"> | Date | string | null
+    reason?: StringNullableWithAggregatesFilter<"EmployeeSalaryAssignment"> | string | null
+    notes?: StringNullableWithAggregatesFilter<"EmployeeSalaryAssignment"> | string | null
+    status?: StringWithAggregatesFilter<"EmployeeSalaryAssignment"> | string
+    approvedBy?: StringNullableWithAggregatesFilter<"EmployeeSalaryAssignment"> | string | null
+    createdBy?: StringNullableWithAggregatesFilter<"EmployeeSalaryAssignment"> | string | null
+    updatedBy?: StringNullableWithAggregatesFilter<"EmployeeSalaryAssignment"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"EmployeeSalaryAssignment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EmployeeSalaryAssignment"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -27062,6 +32418,7 @@ export namespace Prisma {
     reportingManager?: EmployeeCreateNestedOneWithoutSubordinatesInput
     subordinates?: EmployeeCreateNestedManyWithoutReportingManagerInput
     user?: UserCreateNestedOneWithoutEmployeeInput
+    salaryAssignments?: EmployeeSalaryAssignmentCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateInput = {
@@ -27092,6 +32449,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     subordinates?: EmployeeUncheckedCreateNestedManyWithoutReportingManagerInput
+    salaryAssignments?: EmployeeSalaryAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUpdateInput = {
@@ -27122,6 +32480,7 @@ export namespace Prisma {
     reportingManager?: EmployeeUpdateOneWithoutSubordinatesNestedInput
     subordinates?: EmployeeUpdateManyWithoutReportingManagerNestedInput
     user?: UserUpdateOneWithoutEmployeeNestedInput
+    salaryAssignments?: EmployeeSalaryAssignmentUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateInput = {
@@ -27152,6 +32511,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subordinates?: EmployeeUncheckedUpdateManyWithoutReportingManagerNestedInput
+    salaryAssignments?: EmployeeSalaryAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeCreateManyInput = {
@@ -27235,6 +32595,497 @@ export namespace Prisma {
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryComponentCreateInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    componentType: string
+    calculationMethod: string
+    calculationBase?: string | null
+    defaultValue?: Decimal | DecimalJsLike | number | string
+    percentageValue?: Decimal | DecimalJsLike | number | string
+    sequence?: number
+    isTaxable?: boolean
+    isRecurring?: boolean
+    isActive?: boolean
+    glAccountCode?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    structureLines?: SalaryStructureLineCreateNestedManyWithoutComponentInput
+  }
+
+  export type SalaryComponentUncheckedCreateInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    componentType: string
+    calculationMethod: string
+    calculationBase?: string | null
+    defaultValue?: Decimal | DecimalJsLike | number | string
+    percentageValue?: Decimal | DecimalJsLike | number | string
+    sequence?: number
+    isTaxable?: boolean
+    isRecurring?: boolean
+    isActive?: boolean
+    glAccountCode?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    structureLines?: SalaryStructureLineUncheckedCreateNestedManyWithoutComponentInput
+  }
+
+  export type SalaryComponentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    componentType?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    defaultValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentageValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    glAccountCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    structureLines?: SalaryStructureLineUpdateManyWithoutComponentNestedInput
+  }
+
+  export type SalaryComponentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    componentType?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    defaultValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentageValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    glAccountCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    structureLines?: SalaryStructureLineUncheckedUpdateManyWithoutComponentNestedInput
+  }
+
+  export type SalaryComponentCreateManyInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    componentType: string
+    calculationMethod: string
+    calculationBase?: string | null
+    defaultValue?: Decimal | DecimalJsLike | number | string
+    percentageValue?: Decimal | DecimalJsLike | number | string
+    sequence?: number
+    isTaxable?: boolean
+    isRecurring?: boolean
+    isActive?: boolean
+    glAccountCode?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryComponentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    componentType?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    defaultValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentageValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    glAccountCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryComponentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    componentType?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    defaultValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentageValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    glAccountCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryStructureCreateInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    currency?: string
+    status?: string
+    version?: number
+    effectiveFrom?: Date | string
+    effectiveTo?: Date | string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lines?: SalaryStructureLineCreateNestedManyWithoutStructureInput
+    assignments?: EmployeeSalaryAssignmentCreateNestedManyWithoutSalaryStructureInput
+  }
+
+  export type SalaryStructureUncheckedCreateInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    currency?: string
+    status?: string
+    version?: number
+    effectiveFrom?: Date | string
+    effectiveTo?: Date | string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lines?: SalaryStructureLineUncheckedCreateNestedManyWithoutStructureInput
+    assignments?: EmployeeSalaryAssignmentUncheckedCreateNestedManyWithoutSalaryStructureInput
+  }
+
+  export type SalaryStructureUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: SalaryStructureLineUpdateManyWithoutStructureNestedInput
+    assignments?: EmployeeSalaryAssignmentUpdateManyWithoutSalaryStructureNestedInput
+  }
+
+  export type SalaryStructureUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: SalaryStructureLineUncheckedUpdateManyWithoutStructureNestedInput
+    assignments?: EmployeeSalaryAssignmentUncheckedUpdateManyWithoutSalaryStructureNestedInput
+  }
+
+  export type SalaryStructureCreateManyInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    currency?: string
+    status?: string
+    version?: number
+    effectiveFrom?: Date | string
+    effectiveTo?: Date | string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryStructureUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryStructureUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryStructureLineCreateInput = {
+    id?: string
+    calculationMethod: string
+    value?: Decimal | DecimalJsLike | number | string
+    percentage?: Decimal | DecimalJsLike | number | string
+    calculationBase?: string | null
+    sequence?: number
+    isMandatory?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    structure: SalaryStructureCreateNestedOneWithoutLinesInput
+    component: SalaryComponentCreateNestedOneWithoutStructureLinesInput
+  }
+
+  export type SalaryStructureLineUncheckedCreateInput = {
+    id?: string
+    structureId: string
+    componentId: string
+    calculationMethod: string
+    value?: Decimal | DecimalJsLike | number | string
+    percentage?: Decimal | DecimalJsLike | number | string
+    calculationBase?: string | null
+    sequence?: number
+    isMandatory?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryStructureLineUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    structure?: SalaryStructureUpdateOneRequiredWithoutLinesNestedInput
+    component?: SalaryComponentUpdateOneRequiredWithoutStructureLinesNestedInput
+  }
+
+  export type SalaryStructureLineUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    structureId?: StringFieldUpdateOperationsInput | string
+    componentId?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryStructureLineCreateManyInput = {
+    id?: string
+    structureId: string
+    componentId: string
+    calculationMethod: string
+    value?: Decimal | DecimalJsLike | number | string
+    percentage?: Decimal | DecimalJsLike | number | string
+    calculationBase?: string | null
+    sequence?: number
+    isMandatory?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryStructureLineUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryStructureLineUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    structureId?: StringFieldUpdateOperationsInput | string
+    componentId?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeSalaryAssignmentCreateInput = {
+    id?: string
+    baseGross?: Decimal | DecimalJsLike | number | string
+    effectiveFrom: Date | string
+    effectiveTo?: Date | string | null
+    reason?: string | null
+    notes?: string | null
+    status?: string
+    approvedBy?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employee: EmployeeCreateNestedOneWithoutSalaryAssignmentsInput
+    salaryStructure: SalaryStructureCreateNestedOneWithoutAssignmentsInput
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedCreateInput = {
+    id?: string
+    employeeId: string
+    salaryStructureId: string
+    baseGross?: Decimal | DecimalJsLike | number | string
+    effectiveFrom: Date | string
+    effectiveTo?: Date | string | null
+    reason?: string | null
+    notes?: string | null
+    status?: string
+    approvedBy?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EmployeeSalaryAssignmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    baseGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employee?: EmployeeUpdateOneRequiredWithoutSalaryAssignmentsNestedInput
+    salaryStructure?: SalaryStructureUpdateOneRequiredWithoutAssignmentsNestedInput
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    salaryStructureId?: StringFieldUpdateOperationsInput | string
+    baseGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeSalaryAssignmentCreateManyInput = {
+    id?: string
+    employeeId: string
+    salaryStructureId: string
+    baseGross?: Decimal | DecimalJsLike | number | string
+    effectiveFrom: Date | string
+    effectiveTo?: Date | string | null
+    reason?: string | null
+    notes?: string | null
+    status?: string
+    approvedBy?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EmployeeSalaryAssignmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    baseGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    salaryStructureId?: StringFieldUpdateOperationsInput | string
+    baseGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28566,7 +34417,17 @@ export namespace Prisma {
     none?: EmployeeWhereInput
   }
 
+  export type EmployeeSalaryAssignmentListRelationFilter = {
+    every?: EmployeeSalaryAssignmentWhereInput
+    some?: EmployeeSalaryAssignmentWhereInput
+    none?: EmployeeSalaryAssignmentWhereInput
+  }
+
   export type EmployeeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EmployeeSalaryAssignmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -28655,6 +34516,296 @@ export namespace Prisma {
     archivedBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type SalaryStructureLineListRelationFilter = {
+    every?: SalaryStructureLineWhereInput
+    some?: SalaryStructureLineWhereInput
+    none?: SalaryStructureLineWhereInput
+  }
+
+  export type SalaryStructureLineOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SalaryComponentCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    componentType?: SortOrder
+    calculationMethod?: SortOrder
+    calculationBase?: SortOrder
+    defaultValue?: SortOrder
+    percentageValue?: SortOrder
+    sequence?: SortOrder
+    isTaxable?: SortOrder
+    isRecurring?: SortOrder
+    isActive?: SortOrder
+    glAccountCode?: SortOrder
+    createdBy?: SortOrder
+    updatedBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryComponentAvgOrderByAggregateInput = {
+    defaultValue?: SortOrder
+    percentageValue?: SortOrder
+    sequence?: SortOrder
+  }
+
+  export type SalaryComponentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    componentType?: SortOrder
+    calculationMethod?: SortOrder
+    calculationBase?: SortOrder
+    defaultValue?: SortOrder
+    percentageValue?: SortOrder
+    sequence?: SortOrder
+    isTaxable?: SortOrder
+    isRecurring?: SortOrder
+    isActive?: SortOrder
+    glAccountCode?: SortOrder
+    createdBy?: SortOrder
+    updatedBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryComponentMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    componentType?: SortOrder
+    calculationMethod?: SortOrder
+    calculationBase?: SortOrder
+    defaultValue?: SortOrder
+    percentageValue?: SortOrder
+    sequence?: SortOrder
+    isTaxable?: SortOrder
+    isRecurring?: SortOrder
+    isActive?: SortOrder
+    glAccountCode?: SortOrder
+    createdBy?: SortOrder
+    updatedBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryComponentSumOrderByAggregateInput = {
+    defaultValue?: SortOrder
+    percentageValue?: SortOrder
+    sequence?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type SalaryStructureCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    currency?: SortOrder
+    status?: SortOrder
+    version?: SortOrder
+    effectiveFrom?: SortOrder
+    effectiveTo?: SortOrder
+    createdBy?: SortOrder
+    updatedBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryStructureAvgOrderByAggregateInput = {
+    version?: SortOrder
+  }
+
+  export type SalaryStructureMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    currency?: SortOrder
+    status?: SortOrder
+    version?: SortOrder
+    effectiveFrom?: SortOrder
+    effectiveTo?: SortOrder
+    createdBy?: SortOrder
+    updatedBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryStructureMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    currency?: SortOrder
+    status?: SortOrder
+    version?: SortOrder
+    effectiveFrom?: SortOrder
+    effectiveTo?: SortOrder
+    createdBy?: SortOrder
+    updatedBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryStructureSumOrderByAggregateInput = {
+    version?: SortOrder
+  }
+
+  export type SalaryStructureRelationFilter = {
+    is?: SalaryStructureWhereInput
+    isNot?: SalaryStructureWhereInput
+  }
+
+  export type SalaryComponentRelationFilter = {
+    is?: SalaryComponentWhereInput
+    isNot?: SalaryComponentWhereInput
+  }
+
+  export type SalaryStructureLineStructureIdComponentIdCompoundUniqueInput = {
+    structureId: string
+    componentId: string
+  }
+
+  export type SalaryStructureLineCountOrderByAggregateInput = {
+    id?: SortOrder
+    structureId?: SortOrder
+    componentId?: SortOrder
+    calculationMethod?: SortOrder
+    value?: SortOrder
+    percentage?: SortOrder
+    calculationBase?: SortOrder
+    sequence?: SortOrder
+    isMandatory?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryStructureLineAvgOrderByAggregateInput = {
+    value?: SortOrder
+    percentage?: SortOrder
+    sequence?: SortOrder
+  }
+
+  export type SalaryStructureLineMaxOrderByAggregateInput = {
+    id?: SortOrder
+    structureId?: SortOrder
+    componentId?: SortOrder
+    calculationMethod?: SortOrder
+    value?: SortOrder
+    percentage?: SortOrder
+    calculationBase?: SortOrder
+    sequence?: SortOrder
+    isMandatory?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryStructureLineMinOrderByAggregateInput = {
+    id?: SortOrder
+    structureId?: SortOrder
+    componentId?: SortOrder
+    calculationMethod?: SortOrder
+    value?: SortOrder
+    percentage?: SortOrder
+    calculationBase?: SortOrder
+    sequence?: SortOrder
+    isMandatory?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryStructureLineSumOrderByAggregateInput = {
+    value?: SortOrder
+    percentage?: SortOrder
+    sequence?: SortOrder
+  }
+
+  export type EmployeeRelationFilter = {
+    is?: EmployeeWhereInput
+    isNot?: EmployeeWhereInput
+  }
+
+  export type EmployeeSalaryAssignmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    salaryStructureId?: SortOrder
+    baseGross?: SortOrder
+    effectiveFrom?: SortOrder
+    effectiveTo?: SortOrder
+    reason?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    approvedBy?: SortOrder
+    createdBy?: SortOrder
+    updatedBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EmployeeSalaryAssignmentAvgOrderByAggregateInput = {
+    baseGross?: SortOrder
+  }
+
+  export type EmployeeSalaryAssignmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    salaryStructureId?: SortOrder
+    baseGross?: SortOrder
+    effectiveFrom?: SortOrder
+    effectiveTo?: SortOrder
+    reason?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    approvedBy?: SortOrder
+    createdBy?: SortOrder
+    updatedBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EmployeeSalaryAssignmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    employeeId?: SortOrder
+    salaryStructureId?: SortOrder
+    baseGross?: SortOrder
+    effectiveFrom?: SortOrder
+    effectiveTo?: SortOrder
+    reason?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    approvedBy?: SortOrder
+    createdBy?: SortOrder
+    updatedBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EmployeeSalaryAssignmentSumOrderByAggregateInput = {
+    baseGross?: SortOrder
   }
 
   export type RoleCreateNestedOneWithoutUsersInput = {
@@ -29922,11 +36073,25 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type EmployeeSalaryAssignmentCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<EmployeeSalaryAssignmentCreateWithoutEmployeeInput, EmployeeSalaryAssignmentUncheckedCreateWithoutEmployeeInput> | EmployeeSalaryAssignmentCreateWithoutEmployeeInput[] | EmployeeSalaryAssignmentUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeSalaryAssignmentCreateOrConnectWithoutEmployeeInput | EmployeeSalaryAssignmentCreateOrConnectWithoutEmployeeInput[]
+    createMany?: EmployeeSalaryAssignmentCreateManyEmployeeInputEnvelope
+    connect?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+  }
+
   export type EmployeeUncheckedCreateNestedManyWithoutReportingManagerInput = {
     create?: XOR<EmployeeCreateWithoutReportingManagerInput, EmployeeUncheckedCreateWithoutReportingManagerInput> | EmployeeCreateWithoutReportingManagerInput[] | EmployeeUncheckedCreateWithoutReportingManagerInput[]
     connectOrCreate?: EmployeeCreateOrConnectWithoutReportingManagerInput | EmployeeCreateOrConnectWithoutReportingManagerInput[]
     createMany?: EmployeeCreateManyReportingManagerInputEnvelope
     connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<EmployeeSalaryAssignmentCreateWithoutEmployeeInput, EmployeeSalaryAssignmentUncheckedCreateWithoutEmployeeInput> | EmployeeSalaryAssignmentCreateWithoutEmployeeInput[] | EmployeeSalaryAssignmentUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeSalaryAssignmentCreateOrConnectWithoutEmployeeInput | EmployeeSalaryAssignmentCreateOrConnectWithoutEmployeeInput[]
+    createMany?: EmployeeSalaryAssignmentCreateManyEmployeeInputEnvelope
+    connect?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
   }
 
   export type EmployeeUpdateOneWithoutSubordinatesNestedInput = {
@@ -29963,6 +36128,20 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEmployeeInput, UserUpdateWithoutEmployeeInput>, UserUncheckedUpdateWithoutEmployeeInput>
   }
 
+  export type EmployeeSalaryAssignmentUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<EmployeeSalaryAssignmentCreateWithoutEmployeeInput, EmployeeSalaryAssignmentUncheckedCreateWithoutEmployeeInput> | EmployeeSalaryAssignmentCreateWithoutEmployeeInput[] | EmployeeSalaryAssignmentUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeSalaryAssignmentCreateOrConnectWithoutEmployeeInput | EmployeeSalaryAssignmentCreateOrConnectWithoutEmployeeInput[]
+    upsert?: EmployeeSalaryAssignmentUpsertWithWhereUniqueWithoutEmployeeInput | EmployeeSalaryAssignmentUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: EmployeeSalaryAssignmentCreateManyEmployeeInputEnvelope
+    set?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    disconnect?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    delete?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    connect?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    update?: EmployeeSalaryAssignmentUpdateWithWhereUniqueWithoutEmployeeInput | EmployeeSalaryAssignmentUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: EmployeeSalaryAssignmentUpdateManyWithWhereWithoutEmployeeInput | EmployeeSalaryAssignmentUpdateManyWithWhereWithoutEmployeeInput[]
+    deleteMany?: EmployeeSalaryAssignmentScalarWhereInput | EmployeeSalaryAssignmentScalarWhereInput[]
+  }
+
   export type EmployeeUncheckedUpdateManyWithoutReportingManagerNestedInput = {
     create?: XOR<EmployeeCreateWithoutReportingManagerInput, EmployeeUncheckedCreateWithoutReportingManagerInput> | EmployeeCreateWithoutReportingManagerInput[] | EmployeeUncheckedCreateWithoutReportingManagerInput[]
     connectOrCreate?: EmployeeCreateOrConnectWithoutReportingManagerInput | EmployeeCreateOrConnectWithoutReportingManagerInput[]
@@ -29975,6 +36154,206 @@ export namespace Prisma {
     update?: EmployeeUpdateWithWhereUniqueWithoutReportingManagerInput | EmployeeUpdateWithWhereUniqueWithoutReportingManagerInput[]
     updateMany?: EmployeeUpdateManyWithWhereWithoutReportingManagerInput | EmployeeUpdateManyWithWhereWithoutReportingManagerInput[]
     deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<EmployeeSalaryAssignmentCreateWithoutEmployeeInput, EmployeeSalaryAssignmentUncheckedCreateWithoutEmployeeInput> | EmployeeSalaryAssignmentCreateWithoutEmployeeInput[] | EmployeeSalaryAssignmentUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: EmployeeSalaryAssignmentCreateOrConnectWithoutEmployeeInput | EmployeeSalaryAssignmentCreateOrConnectWithoutEmployeeInput[]
+    upsert?: EmployeeSalaryAssignmentUpsertWithWhereUniqueWithoutEmployeeInput | EmployeeSalaryAssignmentUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: EmployeeSalaryAssignmentCreateManyEmployeeInputEnvelope
+    set?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    disconnect?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    delete?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    connect?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    update?: EmployeeSalaryAssignmentUpdateWithWhereUniqueWithoutEmployeeInput | EmployeeSalaryAssignmentUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: EmployeeSalaryAssignmentUpdateManyWithWhereWithoutEmployeeInput | EmployeeSalaryAssignmentUpdateManyWithWhereWithoutEmployeeInput[]
+    deleteMany?: EmployeeSalaryAssignmentScalarWhereInput | EmployeeSalaryAssignmentScalarWhereInput[]
+  }
+
+  export type SalaryStructureLineCreateNestedManyWithoutComponentInput = {
+    create?: XOR<SalaryStructureLineCreateWithoutComponentInput, SalaryStructureLineUncheckedCreateWithoutComponentInput> | SalaryStructureLineCreateWithoutComponentInput[] | SalaryStructureLineUncheckedCreateWithoutComponentInput[]
+    connectOrCreate?: SalaryStructureLineCreateOrConnectWithoutComponentInput | SalaryStructureLineCreateOrConnectWithoutComponentInput[]
+    createMany?: SalaryStructureLineCreateManyComponentInputEnvelope
+    connect?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+  }
+
+  export type SalaryStructureLineUncheckedCreateNestedManyWithoutComponentInput = {
+    create?: XOR<SalaryStructureLineCreateWithoutComponentInput, SalaryStructureLineUncheckedCreateWithoutComponentInput> | SalaryStructureLineCreateWithoutComponentInput[] | SalaryStructureLineUncheckedCreateWithoutComponentInput[]
+    connectOrCreate?: SalaryStructureLineCreateOrConnectWithoutComponentInput | SalaryStructureLineCreateOrConnectWithoutComponentInput[]
+    createMany?: SalaryStructureLineCreateManyComponentInputEnvelope
+    connect?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type SalaryStructureLineUpdateManyWithoutComponentNestedInput = {
+    create?: XOR<SalaryStructureLineCreateWithoutComponentInput, SalaryStructureLineUncheckedCreateWithoutComponentInput> | SalaryStructureLineCreateWithoutComponentInput[] | SalaryStructureLineUncheckedCreateWithoutComponentInput[]
+    connectOrCreate?: SalaryStructureLineCreateOrConnectWithoutComponentInput | SalaryStructureLineCreateOrConnectWithoutComponentInput[]
+    upsert?: SalaryStructureLineUpsertWithWhereUniqueWithoutComponentInput | SalaryStructureLineUpsertWithWhereUniqueWithoutComponentInput[]
+    createMany?: SalaryStructureLineCreateManyComponentInputEnvelope
+    set?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    disconnect?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    delete?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    connect?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    update?: SalaryStructureLineUpdateWithWhereUniqueWithoutComponentInput | SalaryStructureLineUpdateWithWhereUniqueWithoutComponentInput[]
+    updateMany?: SalaryStructureLineUpdateManyWithWhereWithoutComponentInput | SalaryStructureLineUpdateManyWithWhereWithoutComponentInput[]
+    deleteMany?: SalaryStructureLineScalarWhereInput | SalaryStructureLineScalarWhereInput[]
+  }
+
+  export type SalaryStructureLineUncheckedUpdateManyWithoutComponentNestedInput = {
+    create?: XOR<SalaryStructureLineCreateWithoutComponentInput, SalaryStructureLineUncheckedCreateWithoutComponentInput> | SalaryStructureLineCreateWithoutComponentInput[] | SalaryStructureLineUncheckedCreateWithoutComponentInput[]
+    connectOrCreate?: SalaryStructureLineCreateOrConnectWithoutComponentInput | SalaryStructureLineCreateOrConnectWithoutComponentInput[]
+    upsert?: SalaryStructureLineUpsertWithWhereUniqueWithoutComponentInput | SalaryStructureLineUpsertWithWhereUniqueWithoutComponentInput[]
+    createMany?: SalaryStructureLineCreateManyComponentInputEnvelope
+    set?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    disconnect?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    delete?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    connect?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    update?: SalaryStructureLineUpdateWithWhereUniqueWithoutComponentInput | SalaryStructureLineUpdateWithWhereUniqueWithoutComponentInput[]
+    updateMany?: SalaryStructureLineUpdateManyWithWhereWithoutComponentInput | SalaryStructureLineUpdateManyWithWhereWithoutComponentInput[]
+    deleteMany?: SalaryStructureLineScalarWhereInput | SalaryStructureLineScalarWhereInput[]
+  }
+
+  export type SalaryStructureLineCreateNestedManyWithoutStructureInput = {
+    create?: XOR<SalaryStructureLineCreateWithoutStructureInput, SalaryStructureLineUncheckedCreateWithoutStructureInput> | SalaryStructureLineCreateWithoutStructureInput[] | SalaryStructureLineUncheckedCreateWithoutStructureInput[]
+    connectOrCreate?: SalaryStructureLineCreateOrConnectWithoutStructureInput | SalaryStructureLineCreateOrConnectWithoutStructureInput[]
+    createMany?: SalaryStructureLineCreateManyStructureInputEnvelope
+    connect?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+  }
+
+  export type EmployeeSalaryAssignmentCreateNestedManyWithoutSalaryStructureInput = {
+    create?: XOR<EmployeeSalaryAssignmentCreateWithoutSalaryStructureInput, EmployeeSalaryAssignmentUncheckedCreateWithoutSalaryStructureInput> | EmployeeSalaryAssignmentCreateWithoutSalaryStructureInput[] | EmployeeSalaryAssignmentUncheckedCreateWithoutSalaryStructureInput[]
+    connectOrCreate?: EmployeeSalaryAssignmentCreateOrConnectWithoutSalaryStructureInput | EmployeeSalaryAssignmentCreateOrConnectWithoutSalaryStructureInput[]
+    createMany?: EmployeeSalaryAssignmentCreateManySalaryStructureInputEnvelope
+    connect?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+  }
+
+  export type SalaryStructureLineUncheckedCreateNestedManyWithoutStructureInput = {
+    create?: XOR<SalaryStructureLineCreateWithoutStructureInput, SalaryStructureLineUncheckedCreateWithoutStructureInput> | SalaryStructureLineCreateWithoutStructureInput[] | SalaryStructureLineUncheckedCreateWithoutStructureInput[]
+    connectOrCreate?: SalaryStructureLineCreateOrConnectWithoutStructureInput | SalaryStructureLineCreateOrConnectWithoutStructureInput[]
+    createMany?: SalaryStructureLineCreateManyStructureInputEnvelope
+    connect?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedCreateNestedManyWithoutSalaryStructureInput = {
+    create?: XOR<EmployeeSalaryAssignmentCreateWithoutSalaryStructureInput, EmployeeSalaryAssignmentUncheckedCreateWithoutSalaryStructureInput> | EmployeeSalaryAssignmentCreateWithoutSalaryStructureInput[] | EmployeeSalaryAssignmentUncheckedCreateWithoutSalaryStructureInput[]
+    connectOrCreate?: EmployeeSalaryAssignmentCreateOrConnectWithoutSalaryStructureInput | EmployeeSalaryAssignmentCreateOrConnectWithoutSalaryStructureInput[]
+    createMany?: EmployeeSalaryAssignmentCreateManySalaryStructureInputEnvelope
+    connect?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+  }
+
+  export type SalaryStructureLineUpdateManyWithoutStructureNestedInput = {
+    create?: XOR<SalaryStructureLineCreateWithoutStructureInput, SalaryStructureLineUncheckedCreateWithoutStructureInput> | SalaryStructureLineCreateWithoutStructureInput[] | SalaryStructureLineUncheckedCreateWithoutStructureInput[]
+    connectOrCreate?: SalaryStructureLineCreateOrConnectWithoutStructureInput | SalaryStructureLineCreateOrConnectWithoutStructureInput[]
+    upsert?: SalaryStructureLineUpsertWithWhereUniqueWithoutStructureInput | SalaryStructureLineUpsertWithWhereUniqueWithoutStructureInput[]
+    createMany?: SalaryStructureLineCreateManyStructureInputEnvelope
+    set?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    disconnect?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    delete?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    connect?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    update?: SalaryStructureLineUpdateWithWhereUniqueWithoutStructureInput | SalaryStructureLineUpdateWithWhereUniqueWithoutStructureInput[]
+    updateMany?: SalaryStructureLineUpdateManyWithWhereWithoutStructureInput | SalaryStructureLineUpdateManyWithWhereWithoutStructureInput[]
+    deleteMany?: SalaryStructureLineScalarWhereInput | SalaryStructureLineScalarWhereInput[]
+  }
+
+  export type EmployeeSalaryAssignmentUpdateManyWithoutSalaryStructureNestedInput = {
+    create?: XOR<EmployeeSalaryAssignmentCreateWithoutSalaryStructureInput, EmployeeSalaryAssignmentUncheckedCreateWithoutSalaryStructureInput> | EmployeeSalaryAssignmentCreateWithoutSalaryStructureInput[] | EmployeeSalaryAssignmentUncheckedCreateWithoutSalaryStructureInput[]
+    connectOrCreate?: EmployeeSalaryAssignmentCreateOrConnectWithoutSalaryStructureInput | EmployeeSalaryAssignmentCreateOrConnectWithoutSalaryStructureInput[]
+    upsert?: EmployeeSalaryAssignmentUpsertWithWhereUniqueWithoutSalaryStructureInput | EmployeeSalaryAssignmentUpsertWithWhereUniqueWithoutSalaryStructureInput[]
+    createMany?: EmployeeSalaryAssignmentCreateManySalaryStructureInputEnvelope
+    set?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    disconnect?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    delete?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    connect?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    update?: EmployeeSalaryAssignmentUpdateWithWhereUniqueWithoutSalaryStructureInput | EmployeeSalaryAssignmentUpdateWithWhereUniqueWithoutSalaryStructureInput[]
+    updateMany?: EmployeeSalaryAssignmentUpdateManyWithWhereWithoutSalaryStructureInput | EmployeeSalaryAssignmentUpdateManyWithWhereWithoutSalaryStructureInput[]
+    deleteMany?: EmployeeSalaryAssignmentScalarWhereInput | EmployeeSalaryAssignmentScalarWhereInput[]
+  }
+
+  export type SalaryStructureLineUncheckedUpdateManyWithoutStructureNestedInput = {
+    create?: XOR<SalaryStructureLineCreateWithoutStructureInput, SalaryStructureLineUncheckedCreateWithoutStructureInput> | SalaryStructureLineCreateWithoutStructureInput[] | SalaryStructureLineUncheckedCreateWithoutStructureInput[]
+    connectOrCreate?: SalaryStructureLineCreateOrConnectWithoutStructureInput | SalaryStructureLineCreateOrConnectWithoutStructureInput[]
+    upsert?: SalaryStructureLineUpsertWithWhereUniqueWithoutStructureInput | SalaryStructureLineUpsertWithWhereUniqueWithoutStructureInput[]
+    createMany?: SalaryStructureLineCreateManyStructureInputEnvelope
+    set?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    disconnect?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    delete?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    connect?: SalaryStructureLineWhereUniqueInput | SalaryStructureLineWhereUniqueInput[]
+    update?: SalaryStructureLineUpdateWithWhereUniqueWithoutStructureInput | SalaryStructureLineUpdateWithWhereUniqueWithoutStructureInput[]
+    updateMany?: SalaryStructureLineUpdateManyWithWhereWithoutStructureInput | SalaryStructureLineUpdateManyWithWhereWithoutStructureInput[]
+    deleteMany?: SalaryStructureLineScalarWhereInput | SalaryStructureLineScalarWhereInput[]
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedUpdateManyWithoutSalaryStructureNestedInput = {
+    create?: XOR<EmployeeSalaryAssignmentCreateWithoutSalaryStructureInput, EmployeeSalaryAssignmentUncheckedCreateWithoutSalaryStructureInput> | EmployeeSalaryAssignmentCreateWithoutSalaryStructureInput[] | EmployeeSalaryAssignmentUncheckedCreateWithoutSalaryStructureInput[]
+    connectOrCreate?: EmployeeSalaryAssignmentCreateOrConnectWithoutSalaryStructureInput | EmployeeSalaryAssignmentCreateOrConnectWithoutSalaryStructureInput[]
+    upsert?: EmployeeSalaryAssignmentUpsertWithWhereUniqueWithoutSalaryStructureInput | EmployeeSalaryAssignmentUpsertWithWhereUniqueWithoutSalaryStructureInput[]
+    createMany?: EmployeeSalaryAssignmentCreateManySalaryStructureInputEnvelope
+    set?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    disconnect?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    delete?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    connect?: EmployeeSalaryAssignmentWhereUniqueInput | EmployeeSalaryAssignmentWhereUniqueInput[]
+    update?: EmployeeSalaryAssignmentUpdateWithWhereUniqueWithoutSalaryStructureInput | EmployeeSalaryAssignmentUpdateWithWhereUniqueWithoutSalaryStructureInput[]
+    updateMany?: EmployeeSalaryAssignmentUpdateManyWithWhereWithoutSalaryStructureInput | EmployeeSalaryAssignmentUpdateManyWithWhereWithoutSalaryStructureInput[]
+    deleteMany?: EmployeeSalaryAssignmentScalarWhereInput | EmployeeSalaryAssignmentScalarWhereInput[]
+  }
+
+  export type SalaryStructureCreateNestedOneWithoutLinesInput = {
+    create?: XOR<SalaryStructureCreateWithoutLinesInput, SalaryStructureUncheckedCreateWithoutLinesInput>
+    connectOrCreate?: SalaryStructureCreateOrConnectWithoutLinesInput
+    connect?: SalaryStructureWhereUniqueInput
+  }
+
+  export type SalaryComponentCreateNestedOneWithoutStructureLinesInput = {
+    create?: XOR<SalaryComponentCreateWithoutStructureLinesInput, SalaryComponentUncheckedCreateWithoutStructureLinesInput>
+    connectOrCreate?: SalaryComponentCreateOrConnectWithoutStructureLinesInput
+    connect?: SalaryComponentWhereUniqueInput
+  }
+
+  export type SalaryStructureUpdateOneRequiredWithoutLinesNestedInput = {
+    create?: XOR<SalaryStructureCreateWithoutLinesInput, SalaryStructureUncheckedCreateWithoutLinesInput>
+    connectOrCreate?: SalaryStructureCreateOrConnectWithoutLinesInput
+    upsert?: SalaryStructureUpsertWithoutLinesInput
+    connect?: SalaryStructureWhereUniqueInput
+    update?: XOR<XOR<SalaryStructureUpdateToOneWithWhereWithoutLinesInput, SalaryStructureUpdateWithoutLinesInput>, SalaryStructureUncheckedUpdateWithoutLinesInput>
+  }
+
+  export type SalaryComponentUpdateOneRequiredWithoutStructureLinesNestedInput = {
+    create?: XOR<SalaryComponentCreateWithoutStructureLinesInput, SalaryComponentUncheckedCreateWithoutStructureLinesInput>
+    connectOrCreate?: SalaryComponentCreateOrConnectWithoutStructureLinesInput
+    upsert?: SalaryComponentUpsertWithoutStructureLinesInput
+    connect?: SalaryComponentWhereUniqueInput
+    update?: XOR<XOR<SalaryComponentUpdateToOneWithWhereWithoutStructureLinesInput, SalaryComponentUpdateWithoutStructureLinesInput>, SalaryComponentUncheckedUpdateWithoutStructureLinesInput>
+  }
+
+  export type EmployeeCreateNestedOneWithoutSalaryAssignmentsInput = {
+    create?: XOR<EmployeeCreateWithoutSalaryAssignmentsInput, EmployeeUncheckedCreateWithoutSalaryAssignmentsInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutSalaryAssignmentsInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
+  export type SalaryStructureCreateNestedOneWithoutAssignmentsInput = {
+    create?: XOR<SalaryStructureCreateWithoutAssignmentsInput, SalaryStructureUncheckedCreateWithoutAssignmentsInput>
+    connectOrCreate?: SalaryStructureCreateOrConnectWithoutAssignmentsInput
+    connect?: SalaryStructureWhereUniqueInput
+  }
+
+  export type EmployeeUpdateOneRequiredWithoutSalaryAssignmentsNestedInput = {
+    create?: XOR<EmployeeCreateWithoutSalaryAssignmentsInput, EmployeeUncheckedCreateWithoutSalaryAssignmentsInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutSalaryAssignmentsInput
+    upsert?: EmployeeUpsertWithoutSalaryAssignmentsInput
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutSalaryAssignmentsInput, EmployeeUpdateWithoutSalaryAssignmentsInput>, EmployeeUncheckedUpdateWithoutSalaryAssignmentsInput>
+  }
+
+  export type SalaryStructureUpdateOneRequiredWithoutAssignmentsNestedInput = {
+    create?: XOR<SalaryStructureCreateWithoutAssignmentsInput, SalaryStructureUncheckedCreateWithoutAssignmentsInput>
+    connectOrCreate?: SalaryStructureCreateOrConnectWithoutAssignmentsInput
+    upsert?: SalaryStructureUpsertWithoutAssignmentsInput
+    connect?: SalaryStructureWhereUniqueInput
+    update?: XOR<XOR<SalaryStructureUpdateToOneWithWhereWithoutAssignmentsInput, SalaryStructureUpdateWithoutAssignmentsInput>, SalaryStructureUncheckedUpdateWithoutAssignmentsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -30234,6 +36613,19 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type RoleCreateWithoutUsersInput = {
@@ -30707,6 +37099,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     reportingManager?: EmployeeCreateNestedOneWithoutSubordinatesInput
     subordinates?: EmployeeCreateNestedManyWithoutReportingManagerInput
+    salaryAssignments?: EmployeeSalaryAssignmentCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutUserInput = {
@@ -30736,6 +37129,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     subordinates?: EmployeeUncheckedCreateNestedManyWithoutReportingManagerInput
+    salaryAssignments?: EmployeeSalaryAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutUserInput = {
@@ -31138,6 +37532,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reportingManager?: EmployeeUpdateOneWithoutSubordinatesNestedInput
     subordinates?: EmployeeUpdateManyWithoutReportingManagerNestedInput
+    salaryAssignments?: EmployeeSalaryAssignmentUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutUserInput = {
@@ -31167,6 +37562,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subordinates?: EmployeeUncheckedUpdateManyWithoutReportingManagerNestedInput
+    salaryAssignments?: EmployeeSalaryAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type UserCreateWithoutRoleInput = {
@@ -33535,6 +39931,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     reportingManager?: EmployeeCreateNestedOneWithoutSubordinatesInput
     user?: UserCreateNestedOneWithoutEmployeeInput
+    salaryAssignments?: EmployeeSalaryAssignmentCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
@@ -33564,6 +39961,7 @@ export namespace Prisma {
     archivedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    salaryAssignments?: EmployeeSalaryAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutSubordinatesInput = {
@@ -33598,6 +39996,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     subordinates?: EmployeeCreateNestedManyWithoutReportingManagerInput
     user?: UserCreateNestedOneWithoutEmployeeInput
+    salaryAssignments?: EmployeeSalaryAssignmentCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutReportingManagerInput = {
@@ -33627,6 +40026,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     subordinates?: EmployeeUncheckedCreateNestedManyWithoutReportingManagerInput
+    salaryAssignments?: EmployeeSalaryAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutReportingManagerInput = {
@@ -33682,6 +40082,48 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutEmployeeInput, UserUncheckedCreateWithoutEmployeeInput>
   }
 
+  export type EmployeeSalaryAssignmentCreateWithoutEmployeeInput = {
+    id?: string
+    baseGross?: Decimal | DecimalJsLike | number | string
+    effectiveFrom: Date | string
+    effectiveTo?: Date | string | null
+    reason?: string | null
+    notes?: string | null
+    status?: string
+    approvedBy?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salaryStructure: SalaryStructureCreateNestedOneWithoutAssignmentsInput
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedCreateWithoutEmployeeInput = {
+    id?: string
+    salaryStructureId: string
+    baseGross?: Decimal | DecimalJsLike | number | string
+    effectiveFrom: Date | string
+    effectiveTo?: Date | string | null
+    reason?: string | null
+    notes?: string | null
+    status?: string
+    approvedBy?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EmployeeSalaryAssignmentCreateOrConnectWithoutEmployeeInput = {
+    where: EmployeeSalaryAssignmentWhereUniqueInput
+    create: XOR<EmployeeSalaryAssignmentCreateWithoutEmployeeInput, EmployeeSalaryAssignmentUncheckedCreateWithoutEmployeeInput>
+  }
+
+  export type EmployeeSalaryAssignmentCreateManyEmployeeInputEnvelope = {
+    data: EmployeeSalaryAssignmentCreateManyEmployeeInput | EmployeeSalaryAssignmentCreateManyEmployeeInput[]
+    skipDuplicates?: boolean
+  }
+
   export type EmployeeUpsertWithoutSubordinatesInput = {
     update: XOR<EmployeeUpdateWithoutSubordinatesInput, EmployeeUncheckedUpdateWithoutSubordinatesInput>
     create: XOR<EmployeeCreateWithoutSubordinatesInput, EmployeeUncheckedCreateWithoutSubordinatesInput>
@@ -33720,6 +40162,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reportingManager?: EmployeeUpdateOneWithoutSubordinatesNestedInput
     user?: UserUpdateOneWithoutEmployeeNestedInput
+    salaryAssignments?: EmployeeSalaryAssignmentUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
@@ -33749,6 +40192,7 @@ export namespace Prisma {
     archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salaryAssignments?: EmployeeSalaryAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUpsertWithWhereUniqueWithoutReportingManagerInput = {
@@ -33846,6 +40290,630 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  }
+
+  export type EmployeeSalaryAssignmentUpsertWithWhereUniqueWithoutEmployeeInput = {
+    where: EmployeeSalaryAssignmentWhereUniqueInput
+    update: XOR<EmployeeSalaryAssignmentUpdateWithoutEmployeeInput, EmployeeSalaryAssignmentUncheckedUpdateWithoutEmployeeInput>
+    create: XOR<EmployeeSalaryAssignmentCreateWithoutEmployeeInput, EmployeeSalaryAssignmentUncheckedCreateWithoutEmployeeInput>
+  }
+
+  export type EmployeeSalaryAssignmentUpdateWithWhereUniqueWithoutEmployeeInput = {
+    where: EmployeeSalaryAssignmentWhereUniqueInput
+    data: XOR<EmployeeSalaryAssignmentUpdateWithoutEmployeeInput, EmployeeSalaryAssignmentUncheckedUpdateWithoutEmployeeInput>
+  }
+
+  export type EmployeeSalaryAssignmentUpdateManyWithWhereWithoutEmployeeInput = {
+    where: EmployeeSalaryAssignmentScalarWhereInput
+    data: XOR<EmployeeSalaryAssignmentUpdateManyMutationInput, EmployeeSalaryAssignmentUncheckedUpdateManyWithoutEmployeeInput>
+  }
+
+  export type EmployeeSalaryAssignmentScalarWhereInput = {
+    AND?: EmployeeSalaryAssignmentScalarWhereInput | EmployeeSalaryAssignmentScalarWhereInput[]
+    OR?: EmployeeSalaryAssignmentScalarWhereInput[]
+    NOT?: EmployeeSalaryAssignmentScalarWhereInput | EmployeeSalaryAssignmentScalarWhereInput[]
+    id?: StringFilter<"EmployeeSalaryAssignment"> | string
+    employeeId?: StringFilter<"EmployeeSalaryAssignment"> | string
+    salaryStructureId?: StringFilter<"EmployeeSalaryAssignment"> | string
+    baseGross?: DecimalFilter<"EmployeeSalaryAssignment"> | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFilter<"EmployeeSalaryAssignment"> | Date | string
+    effectiveTo?: DateTimeNullableFilter<"EmployeeSalaryAssignment"> | Date | string | null
+    reason?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    notes?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    status?: StringFilter<"EmployeeSalaryAssignment"> | string
+    approvedBy?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    createdBy?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    updatedBy?: StringNullableFilter<"EmployeeSalaryAssignment"> | string | null
+    createdAt?: DateTimeFilter<"EmployeeSalaryAssignment"> | Date | string
+    updatedAt?: DateTimeFilter<"EmployeeSalaryAssignment"> | Date | string
+  }
+
+  export type SalaryStructureLineCreateWithoutComponentInput = {
+    id?: string
+    calculationMethod: string
+    value?: Decimal | DecimalJsLike | number | string
+    percentage?: Decimal | DecimalJsLike | number | string
+    calculationBase?: string | null
+    sequence?: number
+    isMandatory?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    structure: SalaryStructureCreateNestedOneWithoutLinesInput
+  }
+
+  export type SalaryStructureLineUncheckedCreateWithoutComponentInput = {
+    id?: string
+    structureId: string
+    calculationMethod: string
+    value?: Decimal | DecimalJsLike | number | string
+    percentage?: Decimal | DecimalJsLike | number | string
+    calculationBase?: string | null
+    sequence?: number
+    isMandatory?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryStructureLineCreateOrConnectWithoutComponentInput = {
+    where: SalaryStructureLineWhereUniqueInput
+    create: XOR<SalaryStructureLineCreateWithoutComponentInput, SalaryStructureLineUncheckedCreateWithoutComponentInput>
+  }
+
+  export type SalaryStructureLineCreateManyComponentInputEnvelope = {
+    data: SalaryStructureLineCreateManyComponentInput | SalaryStructureLineCreateManyComponentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SalaryStructureLineUpsertWithWhereUniqueWithoutComponentInput = {
+    where: SalaryStructureLineWhereUniqueInput
+    update: XOR<SalaryStructureLineUpdateWithoutComponentInput, SalaryStructureLineUncheckedUpdateWithoutComponentInput>
+    create: XOR<SalaryStructureLineCreateWithoutComponentInput, SalaryStructureLineUncheckedCreateWithoutComponentInput>
+  }
+
+  export type SalaryStructureLineUpdateWithWhereUniqueWithoutComponentInput = {
+    where: SalaryStructureLineWhereUniqueInput
+    data: XOR<SalaryStructureLineUpdateWithoutComponentInput, SalaryStructureLineUncheckedUpdateWithoutComponentInput>
+  }
+
+  export type SalaryStructureLineUpdateManyWithWhereWithoutComponentInput = {
+    where: SalaryStructureLineScalarWhereInput
+    data: XOR<SalaryStructureLineUpdateManyMutationInput, SalaryStructureLineUncheckedUpdateManyWithoutComponentInput>
+  }
+
+  export type SalaryStructureLineScalarWhereInput = {
+    AND?: SalaryStructureLineScalarWhereInput | SalaryStructureLineScalarWhereInput[]
+    OR?: SalaryStructureLineScalarWhereInput[]
+    NOT?: SalaryStructureLineScalarWhereInput | SalaryStructureLineScalarWhereInput[]
+    id?: StringFilter<"SalaryStructureLine"> | string
+    structureId?: StringFilter<"SalaryStructureLine"> | string
+    componentId?: StringFilter<"SalaryStructureLine"> | string
+    calculationMethod?: StringFilter<"SalaryStructureLine"> | string
+    value?: DecimalFilter<"SalaryStructureLine"> | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFilter<"SalaryStructureLine"> | Decimal | DecimalJsLike | number | string
+    calculationBase?: StringNullableFilter<"SalaryStructureLine"> | string | null
+    sequence?: IntFilter<"SalaryStructureLine"> | number
+    isMandatory?: BoolFilter<"SalaryStructureLine"> | boolean
+    isActive?: BoolFilter<"SalaryStructureLine"> | boolean
+    createdAt?: DateTimeFilter<"SalaryStructureLine"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryStructureLine"> | Date | string
+  }
+
+  export type SalaryStructureLineCreateWithoutStructureInput = {
+    id?: string
+    calculationMethod: string
+    value?: Decimal | DecimalJsLike | number | string
+    percentage?: Decimal | DecimalJsLike | number | string
+    calculationBase?: string | null
+    sequence?: number
+    isMandatory?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    component: SalaryComponentCreateNestedOneWithoutStructureLinesInput
+  }
+
+  export type SalaryStructureLineUncheckedCreateWithoutStructureInput = {
+    id?: string
+    componentId: string
+    calculationMethod: string
+    value?: Decimal | DecimalJsLike | number | string
+    percentage?: Decimal | DecimalJsLike | number | string
+    calculationBase?: string | null
+    sequence?: number
+    isMandatory?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryStructureLineCreateOrConnectWithoutStructureInput = {
+    where: SalaryStructureLineWhereUniqueInput
+    create: XOR<SalaryStructureLineCreateWithoutStructureInput, SalaryStructureLineUncheckedCreateWithoutStructureInput>
+  }
+
+  export type SalaryStructureLineCreateManyStructureInputEnvelope = {
+    data: SalaryStructureLineCreateManyStructureInput | SalaryStructureLineCreateManyStructureInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EmployeeSalaryAssignmentCreateWithoutSalaryStructureInput = {
+    id?: string
+    baseGross?: Decimal | DecimalJsLike | number | string
+    effectiveFrom: Date | string
+    effectiveTo?: Date | string | null
+    reason?: string | null
+    notes?: string | null
+    status?: string
+    approvedBy?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employee: EmployeeCreateNestedOneWithoutSalaryAssignmentsInput
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedCreateWithoutSalaryStructureInput = {
+    id?: string
+    employeeId: string
+    baseGross?: Decimal | DecimalJsLike | number | string
+    effectiveFrom: Date | string
+    effectiveTo?: Date | string | null
+    reason?: string | null
+    notes?: string | null
+    status?: string
+    approvedBy?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EmployeeSalaryAssignmentCreateOrConnectWithoutSalaryStructureInput = {
+    where: EmployeeSalaryAssignmentWhereUniqueInput
+    create: XOR<EmployeeSalaryAssignmentCreateWithoutSalaryStructureInput, EmployeeSalaryAssignmentUncheckedCreateWithoutSalaryStructureInput>
+  }
+
+  export type EmployeeSalaryAssignmentCreateManySalaryStructureInputEnvelope = {
+    data: EmployeeSalaryAssignmentCreateManySalaryStructureInput | EmployeeSalaryAssignmentCreateManySalaryStructureInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SalaryStructureLineUpsertWithWhereUniqueWithoutStructureInput = {
+    where: SalaryStructureLineWhereUniqueInput
+    update: XOR<SalaryStructureLineUpdateWithoutStructureInput, SalaryStructureLineUncheckedUpdateWithoutStructureInput>
+    create: XOR<SalaryStructureLineCreateWithoutStructureInput, SalaryStructureLineUncheckedCreateWithoutStructureInput>
+  }
+
+  export type SalaryStructureLineUpdateWithWhereUniqueWithoutStructureInput = {
+    where: SalaryStructureLineWhereUniqueInput
+    data: XOR<SalaryStructureLineUpdateWithoutStructureInput, SalaryStructureLineUncheckedUpdateWithoutStructureInput>
+  }
+
+  export type SalaryStructureLineUpdateManyWithWhereWithoutStructureInput = {
+    where: SalaryStructureLineScalarWhereInput
+    data: XOR<SalaryStructureLineUpdateManyMutationInput, SalaryStructureLineUncheckedUpdateManyWithoutStructureInput>
+  }
+
+  export type EmployeeSalaryAssignmentUpsertWithWhereUniqueWithoutSalaryStructureInput = {
+    where: EmployeeSalaryAssignmentWhereUniqueInput
+    update: XOR<EmployeeSalaryAssignmentUpdateWithoutSalaryStructureInput, EmployeeSalaryAssignmentUncheckedUpdateWithoutSalaryStructureInput>
+    create: XOR<EmployeeSalaryAssignmentCreateWithoutSalaryStructureInput, EmployeeSalaryAssignmentUncheckedCreateWithoutSalaryStructureInput>
+  }
+
+  export type EmployeeSalaryAssignmentUpdateWithWhereUniqueWithoutSalaryStructureInput = {
+    where: EmployeeSalaryAssignmentWhereUniqueInput
+    data: XOR<EmployeeSalaryAssignmentUpdateWithoutSalaryStructureInput, EmployeeSalaryAssignmentUncheckedUpdateWithoutSalaryStructureInput>
+  }
+
+  export type EmployeeSalaryAssignmentUpdateManyWithWhereWithoutSalaryStructureInput = {
+    where: EmployeeSalaryAssignmentScalarWhereInput
+    data: XOR<EmployeeSalaryAssignmentUpdateManyMutationInput, EmployeeSalaryAssignmentUncheckedUpdateManyWithoutSalaryStructureInput>
+  }
+
+  export type SalaryStructureCreateWithoutLinesInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    currency?: string
+    status?: string
+    version?: number
+    effectiveFrom?: Date | string
+    effectiveTo?: Date | string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignments?: EmployeeSalaryAssignmentCreateNestedManyWithoutSalaryStructureInput
+  }
+
+  export type SalaryStructureUncheckedCreateWithoutLinesInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    currency?: string
+    status?: string
+    version?: number
+    effectiveFrom?: Date | string
+    effectiveTo?: Date | string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignments?: EmployeeSalaryAssignmentUncheckedCreateNestedManyWithoutSalaryStructureInput
+  }
+
+  export type SalaryStructureCreateOrConnectWithoutLinesInput = {
+    where: SalaryStructureWhereUniqueInput
+    create: XOR<SalaryStructureCreateWithoutLinesInput, SalaryStructureUncheckedCreateWithoutLinesInput>
+  }
+
+  export type SalaryComponentCreateWithoutStructureLinesInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    componentType: string
+    calculationMethod: string
+    calculationBase?: string | null
+    defaultValue?: Decimal | DecimalJsLike | number | string
+    percentageValue?: Decimal | DecimalJsLike | number | string
+    sequence?: number
+    isTaxable?: boolean
+    isRecurring?: boolean
+    isActive?: boolean
+    glAccountCode?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryComponentUncheckedCreateWithoutStructureLinesInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    componentType: string
+    calculationMethod: string
+    calculationBase?: string | null
+    defaultValue?: Decimal | DecimalJsLike | number | string
+    percentageValue?: Decimal | DecimalJsLike | number | string
+    sequence?: number
+    isTaxable?: boolean
+    isRecurring?: boolean
+    isActive?: boolean
+    glAccountCode?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryComponentCreateOrConnectWithoutStructureLinesInput = {
+    where: SalaryComponentWhereUniqueInput
+    create: XOR<SalaryComponentCreateWithoutStructureLinesInput, SalaryComponentUncheckedCreateWithoutStructureLinesInput>
+  }
+
+  export type SalaryStructureUpsertWithoutLinesInput = {
+    update: XOR<SalaryStructureUpdateWithoutLinesInput, SalaryStructureUncheckedUpdateWithoutLinesInput>
+    create: XOR<SalaryStructureCreateWithoutLinesInput, SalaryStructureUncheckedCreateWithoutLinesInput>
+    where?: SalaryStructureWhereInput
+  }
+
+  export type SalaryStructureUpdateToOneWithWhereWithoutLinesInput = {
+    where?: SalaryStructureWhereInput
+    data: XOR<SalaryStructureUpdateWithoutLinesInput, SalaryStructureUncheckedUpdateWithoutLinesInput>
+  }
+
+  export type SalaryStructureUpdateWithoutLinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignments?: EmployeeSalaryAssignmentUpdateManyWithoutSalaryStructureNestedInput
+  }
+
+  export type SalaryStructureUncheckedUpdateWithoutLinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignments?: EmployeeSalaryAssignmentUncheckedUpdateManyWithoutSalaryStructureNestedInput
+  }
+
+  export type SalaryComponentUpsertWithoutStructureLinesInput = {
+    update: XOR<SalaryComponentUpdateWithoutStructureLinesInput, SalaryComponentUncheckedUpdateWithoutStructureLinesInput>
+    create: XOR<SalaryComponentCreateWithoutStructureLinesInput, SalaryComponentUncheckedCreateWithoutStructureLinesInput>
+    where?: SalaryComponentWhereInput
+  }
+
+  export type SalaryComponentUpdateToOneWithWhereWithoutStructureLinesInput = {
+    where?: SalaryComponentWhereInput
+    data: XOR<SalaryComponentUpdateWithoutStructureLinesInput, SalaryComponentUncheckedUpdateWithoutStructureLinesInput>
+  }
+
+  export type SalaryComponentUpdateWithoutStructureLinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    componentType?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    defaultValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentageValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    glAccountCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryComponentUncheckedUpdateWithoutStructureLinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    componentType?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    defaultValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentageValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    glAccountCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeCreateWithoutSalaryAssignmentsInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reportingManager?: EmployeeCreateNestedOneWithoutSubordinatesInput
+    subordinates?: EmployeeCreateNestedManyWithoutReportingManagerInput
+    user?: UserCreateNestedOneWithoutEmployeeInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutSalaryAssignmentsInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    reportingManagerId?: string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    userId?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subordinates?: EmployeeUncheckedCreateNestedManyWithoutReportingManagerInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutSalaryAssignmentsInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutSalaryAssignmentsInput, EmployeeUncheckedCreateWithoutSalaryAssignmentsInput>
+  }
+
+  export type SalaryStructureCreateWithoutAssignmentsInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    currency?: string
+    status?: string
+    version?: number
+    effectiveFrom?: Date | string
+    effectiveTo?: Date | string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lines?: SalaryStructureLineCreateNestedManyWithoutStructureInput
+  }
+
+  export type SalaryStructureUncheckedCreateWithoutAssignmentsInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    currency?: string
+    status?: string
+    version?: number
+    effectiveFrom?: Date | string
+    effectiveTo?: Date | string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lines?: SalaryStructureLineUncheckedCreateNestedManyWithoutStructureInput
+  }
+
+  export type SalaryStructureCreateOrConnectWithoutAssignmentsInput = {
+    where: SalaryStructureWhereUniqueInput
+    create: XOR<SalaryStructureCreateWithoutAssignmentsInput, SalaryStructureUncheckedCreateWithoutAssignmentsInput>
+  }
+
+  export type EmployeeUpsertWithoutSalaryAssignmentsInput = {
+    update: XOR<EmployeeUpdateWithoutSalaryAssignmentsInput, EmployeeUncheckedUpdateWithoutSalaryAssignmentsInput>
+    create: XOR<EmployeeCreateWithoutSalaryAssignmentsInput, EmployeeUncheckedCreateWithoutSalaryAssignmentsInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutSalaryAssignmentsInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutSalaryAssignmentsInput, EmployeeUncheckedUpdateWithoutSalaryAssignmentsInput>
+  }
+
+  export type EmployeeUpdateWithoutSalaryAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reportingManager?: EmployeeUpdateOneWithoutSubordinatesNestedInput
+    subordinates?: EmployeeUpdateManyWithoutReportingManagerNestedInput
+    user?: UserUpdateOneWithoutEmployeeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutSalaryAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reportingManagerId?: NullableStringFieldUpdateOperationsInput | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subordinates?: EmployeeUncheckedUpdateManyWithoutReportingManagerNestedInput
+  }
+
+  export type SalaryStructureUpsertWithoutAssignmentsInput = {
+    update: XOR<SalaryStructureUpdateWithoutAssignmentsInput, SalaryStructureUncheckedUpdateWithoutAssignmentsInput>
+    create: XOR<SalaryStructureCreateWithoutAssignmentsInput, SalaryStructureUncheckedCreateWithoutAssignmentsInput>
+    where?: SalaryStructureWhereInput
+  }
+
+  export type SalaryStructureUpdateToOneWithWhereWithoutAssignmentsInput = {
+    where?: SalaryStructureWhereInput
+    data: XOR<SalaryStructureUpdateWithoutAssignmentsInput, SalaryStructureUncheckedUpdateWithoutAssignmentsInput>
+  }
+
+  export type SalaryStructureUpdateWithoutAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: SalaryStructureLineUpdateManyWithoutStructureNestedInput
+  }
+
+  export type SalaryStructureUncheckedUpdateWithoutAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: SalaryStructureLineUncheckedUpdateManyWithoutStructureNestedInput
   }
 
   export type FundRequestCreateManyRequesterInput = {
@@ -35066,6 +42134,22 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type EmployeeSalaryAssignmentCreateManyEmployeeInput = {
+    id?: string
+    salaryStructureId: string
+    baseGross?: Decimal | DecimalJsLike | number | string
+    effectiveFrom: Date | string
+    effectiveTo?: Date | string | null
+    reason?: string | null
+    notes?: string | null
+    status?: string
+    approvedBy?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type EmployeeUpdateWithoutReportingManagerInput = {
     id?: StringFieldUpdateOperationsInput | string
     employeeCode?: StringFieldUpdateOperationsInput | string
@@ -35093,6 +42177,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subordinates?: EmployeeUpdateManyWithoutReportingManagerNestedInput
     user?: UserUpdateOneWithoutEmployeeNestedInput
+    salaryAssignments?: EmployeeSalaryAssignmentUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutReportingManagerInput = {
@@ -35122,6 +42207,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subordinates?: EmployeeUncheckedUpdateManyWithoutReportingManagerNestedInput
+    salaryAssignments?: EmployeeSalaryAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateManyWithoutReportingManagerInput = {
@@ -35148,6 +42234,230 @@ export namespace Prisma {
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeSalaryAssignmentUpdateWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    baseGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salaryStructure?: SalaryStructureUpdateOneRequiredWithoutAssignmentsNestedInput
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedUpdateWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    salaryStructureId?: StringFieldUpdateOperationsInput | string
+    baseGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedUpdateManyWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    salaryStructureId?: StringFieldUpdateOperationsInput | string
+    baseGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryStructureLineCreateManyComponentInput = {
+    id?: string
+    structureId: string
+    calculationMethod: string
+    value?: Decimal | DecimalJsLike | number | string
+    percentage?: Decimal | DecimalJsLike | number | string
+    calculationBase?: string | null
+    sequence?: number
+    isMandatory?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryStructureLineUpdateWithoutComponentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    structure?: SalaryStructureUpdateOneRequiredWithoutLinesNestedInput
+  }
+
+  export type SalaryStructureLineUncheckedUpdateWithoutComponentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    structureId?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryStructureLineUncheckedUpdateManyWithoutComponentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    structureId?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryStructureLineCreateManyStructureInput = {
+    id?: string
+    componentId: string
+    calculationMethod: string
+    value?: Decimal | DecimalJsLike | number | string
+    percentage?: Decimal | DecimalJsLike | number | string
+    calculationBase?: string | null
+    sequence?: number
+    isMandatory?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EmployeeSalaryAssignmentCreateManySalaryStructureInput = {
+    id?: string
+    employeeId: string
+    baseGross?: Decimal | DecimalJsLike | number | string
+    effectiveFrom: Date | string
+    effectiveTo?: Date | string | null
+    reason?: string | null
+    notes?: string | null
+    status?: string
+    approvedBy?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryStructureLineUpdateWithoutStructureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    component?: SalaryComponentUpdateOneRequiredWithoutStructureLinesNestedInput
+  }
+
+  export type SalaryStructureLineUncheckedUpdateWithoutStructureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    componentId?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryStructureLineUncheckedUpdateManyWithoutStructureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    componentId?: StringFieldUpdateOperationsInput | string
+    calculationMethod?: StringFieldUpdateOperationsInput | string
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    percentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationBase?: NullableStringFieldUpdateOperationsInput | string | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    isMandatory?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeSalaryAssignmentUpdateWithoutSalaryStructureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    baseGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employee?: EmployeeUpdateOneRequiredWithoutSalaryAssignmentsNestedInput
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedUpdateWithoutSalaryStructureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    baseGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeSalaryAssignmentUncheckedUpdateManyWithoutSalaryStructureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    baseGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    effectiveFrom?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveTo?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -35201,6 +42511,14 @@ export namespace Prisma {
      * @deprecated Use EmployeeCountOutputTypeDefaultArgs instead
      */
     export type EmployeeCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EmployeeCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SalaryComponentCountOutputTypeDefaultArgs instead
+     */
+    export type SalaryComponentCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SalaryComponentCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SalaryStructureCountOutputTypeDefaultArgs instead
+     */
+    export type SalaryStructureCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SalaryStructureCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
@@ -35277,6 +42595,22 @@ export namespace Prisma {
      * @deprecated Use EmployeeDefaultArgs instead
      */
     export type EmployeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EmployeeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SalaryComponentDefaultArgs instead
+     */
+    export type SalaryComponentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SalaryComponentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SalaryStructureDefaultArgs instead
+     */
+    export type SalaryStructureArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SalaryStructureDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SalaryStructureLineDefaultArgs instead
+     */
+    export type SalaryStructureLineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SalaryStructureLineDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use EmployeeSalaryAssignmentDefaultArgs instead
+     */
+    export type EmployeeSalaryAssignmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EmployeeSalaryAssignmentDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

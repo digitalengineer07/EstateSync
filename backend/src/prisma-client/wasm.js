@@ -396,6 +396,75 @@ exports.Prisma.EmployeeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SalaryComponentScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  componentType: 'componentType',
+  calculationMethod: 'calculationMethod',
+  calculationBase: 'calculationBase',
+  defaultValue: 'defaultValue',
+  percentageValue: 'percentageValue',
+  sequence: 'sequence',
+  isTaxable: 'isTaxable',
+  isRecurring: 'isRecurring',
+  isActive: 'isActive',
+  glAccountCode: 'glAccountCode',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SalaryStructureScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  currency: 'currency',
+  status: 'status',
+  version: 'version',
+  effectiveFrom: 'effectiveFrom',
+  effectiveTo: 'effectiveTo',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SalaryStructureLineScalarFieldEnum = {
+  id: 'id',
+  structureId: 'structureId',
+  componentId: 'componentId',
+  calculationMethod: 'calculationMethod',
+  value: 'value',
+  percentage: 'percentage',
+  calculationBase: 'calculationBase',
+  sequence: 'sequence',
+  isMandatory: 'isMandatory',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EmployeeSalaryAssignmentScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  salaryStructureId: 'salaryStructureId',
+  baseGross: 'baseGross',
+  effectiveFrom: 'effectiveFrom',
+  effectiveTo: 'effectiveTo',
+  reason: 'reason',
+  notes: 'notes',
+  status: 'status',
+  approvedBy: 'approvedBy',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -446,7 +515,11 @@ exports.Prisma.ModelName = {
   CustomerPayment: 'CustomerPayment',
   PropertyAcquisition: 'PropertyAcquisition',
   PropertyPayment: 'PropertyPayment',
-  Employee: 'Employee'
+  Employee: 'Employee',
+  SalaryComponent: 'SalaryComponent',
+  SalaryStructure: 'SalaryStructure',
+  SalaryStructureLine: 'SalaryStructureLine',
+  EmployeeSalaryAssignment: 'EmployeeSalaryAssignment'
 };
 
 /**

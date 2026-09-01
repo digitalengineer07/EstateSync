@@ -30,7 +30,10 @@ async function main() {
     'customer.payment.record', 'customer.payment.view',
     'property.create', 'property.view_all', 'property.edit',
     'property.payment.record', 'property.payment.view',
-    'employee.view', 'employee.create', 'employee.update', 'employee.archive'
+    'employee.view', 'employee.create', 'employee.update', 'employee.archive',
+    'payroll.component.view', 'payroll.component.manage',
+    'payroll.structure.view', 'payroll.structure.create', 'payroll.structure.update', 'payroll.structure.archive',
+    'payroll.assignment.view', 'payroll.assignment.create', 'payroll.assignment.update', 'payroll.assignment.history'
   ];
   
   const createdPerms = {};
@@ -91,10 +94,15 @@ async function main() {
     }
   }
 
-  // Manager gets team perms, approval perms, and employee.view
-  const managerPerms = [...salesPerms, 'expense.view_team', 'fund.approve', 'fund.reject', 'report.view_team', 'customer.view_all', 'employee.view'];
+  // Manager gets team perms, approval perms, employee.view, structure.view, assignment.view
+  const managerPerms = [
+    ...salesPerms,
+    'expense.view_team', 'fund.approve', 'fund.reject', 'report.view_team',
+    'customer.view_all', 'employee.view',
+    'payroll.structure.view', 'payroll.assignment.view'
+  ];
   for (const permCode of managerPerms) {
-    if (createdPerms[permCode]) { // only if it exists in seed
+    if (createdPerms[permCode]) {
       await prisma.rolePermission.upsert({
         where: {
           roleId_permissionId: {
@@ -132,14 +140,17 @@ async function main() {
     }
   }
 
-  // Accounting gets base employee perms + global view, expense approval/reversal, customer payment & property acquisition authority + employee management
+  // Accounting gets base employee perms + global view, expense approval/reversal, customer payment & property acquisition authority + employee & payroll management
   const accountingPerms = [
     ...baseEmployeePerms,
     'wallet.view_all', 'expense.view_all', 'expense.approve', 'expense.reverse',
     'transaction.view_all', 'accounting.view', 'report.view',
     'customer.view_all', 'customer.payment.record', 'customer.payment.view',
     'property.create', 'property.view_all', 'property.edit', 'property.payment.record', 'property.payment.view',
-    'employee.view', 'employee.create', 'employee.update'
+    'employee.view', 'employee.create', 'employee.update',
+    'payroll.component.view', 'payroll.component.manage',
+    'payroll.structure.view', 'payroll.structure.create', 'payroll.structure.update',
+    'payroll.assignment.view', 'payroll.assignment.create', 'payroll.assignment.update', 'payroll.assignment.history'
   ];
   for (const permCode of accountingPerms) {
     if (createdPerms[permCode]) {
@@ -271,6 +282,141 @@ async function main() {
       wallet: { create: {} }
     },
   });
+
+  // 4. Seed Standard Salary Components (Phase 2)
+  const defaultComponents = [
+    {
+      code: 'BASIC',
+      name: 'Basic Salary',
+      description: 'Base salary component',
+      componentType: 'EARNING',
+      calculationMethod: 'PERCENTAGE_OF_GROSS',
+      calculationBase: 'GROSS',
+      percentageValue: 50.00,
+      defaultValue: 0,
+      sequence: 1,
+      isTaxable: true,
+      isRecurring: true,
+      glAccountCode: '5060'
+    },
+    {
+      code: 'HRA',
+      name: 'House Rent Allowance',
+      description: 'House rent assistance',
+      componentType: 'EARNING',
+      calculationMethod: 'PERCENTAGE_OF_BASIC',
+      calculationBase: 'BASIC',
+      percentageValue: 40.00,
+      defaultValue: 0,
+      sequence: 2,
+      isTaxable: true,
+      isRecurring: true,
+      glAccountCode: '5060'
+    },
+    {
+      code: 'CONVEYANCE',
+      name: 'Conveyance Allowance',
+      description: 'Local travel allowance',
+      componentType: 'EARNING',
+      calculationMethod: 'FIXED_AMOUNT',
+      defaultValue: 1600,
+      percentageValue: 0,
+      sequence: 3,
+      isTaxable: true,
+      isRecurring: true,
+      glAccountCode: '5060'
+    },
+    {
+      code: 'SPECIAL_ALLOWANCE',
+      name: 'Special Allowance',
+      description: 'Supplementary allowance',
+      componentType: 'EARNING',
+      calculationMethod: 'FIXED_AMOUNT',
+      defaultValue: 0,
+      percentageValue: 0,
+      sequence: 4,
+      isTaxable: true,
+      isRecurring: true,
+      glAccountCode: '5060'
+    },
+    {
+      code: 'PF_EMPLOYEE',
+      name: 'Provident Fund (Employee)',
+      description: 'Employee statutory EPF contribution (12% of Basic)',
+      componentType: 'DEDUCTION',
+      calculationMethod: 'PERCENTAGE_OF_BASIC',
+      calculationBase: 'BASIC',
+      percentageValue: 12.00,
+      defaultValue: 0,
+      sequence: 10,
+      isTaxable: false,
+      isRecurring: true,
+      glAccountCode: '2020'
+    },
+    {
+      code: 'ESI_EMPLOYEE',
+      name: 'ESI (Employee)',
+      description: 'Employee statutory ESIC contribution (0.75% of Gross)',
+      componentType: 'DEDUCTION',
+      calculationMethod: 'PERCENTAGE_OF_GROSS',
+      calculationBase: 'GROSS',
+      percentageValue: 0.75,
+      defaultValue: 0,
+      sequence: 11,
+      isTaxable: false,
+      isRecurring: true,
+      glAccountCode: '2020'
+    },
+    {
+      code: 'TDS',
+      name: 'Income Tax Deduction (TDS)',
+      description: 'Monthly tax deducted at source',
+      componentType: 'DEDUCTION',
+      calculationMethod: 'MANUAL_AMOUNT',
+      defaultValue: 0,
+      percentageValue: 0,
+      sequence: 12,
+      isTaxable: false,
+      isRecurring: true,
+      glAccountCode: '2020'
+    },
+    {
+      code: 'ADVANCE_RECOVERY',
+      name: 'Employee Advance Recovery',
+      description: 'Recovery deduction against disbursed advance loan',
+      componentType: 'DEDUCTION',
+      calculationMethod: 'MANUAL_AMOUNT',
+      defaultValue: 0,
+      percentageValue: 0,
+      sequence: 13,
+      isTaxable: false,
+      isRecurring: true,
+      glAccountCode: '1040'
+    },
+    {
+      code: 'PF_EMPLOYER',
+      name: 'Provident Fund (Employer)',
+      description: 'Employer statutory EPF contribution (12% of Basic)',
+      componentType: 'EMPLOYER_CONTRIBUTION',
+      calculationMethod: 'PERCENTAGE_OF_BASIC',
+      calculationBase: 'BASIC',
+      percentageValue: 12.00,
+      defaultValue: 0,
+      sequence: 20,
+      isTaxable: false,
+      isRecurring: true,
+      glAccountCode: '5060'
+    }
+  ];
+
+  for (const comp of defaultComponents) {
+    await prisma.salaryComponent.upsert({
+      where: { code: comp.code },
+      update: {},
+      create: comp
+    });
+    await delay(50);
+  }
 
   console.log('Seeding finished.');
   console.log('Admin user: admin@estatesync.local / password123');

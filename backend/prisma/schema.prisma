@@ -344,6 +344,7 @@ model Employee {
   exitReason         String?
   userId             String?     @unique
   user               User?       @relation("UserEmployee", fields: [userId], references: [id], onDelete: SetNull)
+  salaryAssignments  EmployeeSalaryAssignment[]
   createdBy          String?
   updatedBy          String?
   archivedAt         DateTime?
@@ -359,6 +360,114 @@ model Employee {
   @@index([department])
   @@index([userId])
 }
+
+// -------------------------------------------------------------
+// Salary Component Master (Phase 2)
+// Configurable earning, deduction, employer contribution, and reimbursement rules
+// -------------------------------------------------------------
+model SalaryComponent {
+  id                 String                @id @default(uuid())
+  code               String                @unique // BASIC, HRA, CONVEYANCE, SPECIAL_ALLOWANCE, PF_EMPLOYEE, ESI_EMPLOYEE, TDS, ADVANCE_RECOVERY, PF_EMPLOYER, etc.
+  name               String                // Basic Salary, House Rent Allowance, Provident Fund, etc.
+  description        String?
+  componentType      String                // EARNING, DEDUCTION, EMPLOYER_CONTRIBUTION, REIMBURSEMENT
+  calculationMethod  String                // FIXED_AMOUNT, PERCENTAGE_OF_BASIC, PERCENTAGE_OF_GROSS, PERCENTAGE_OF_COMPONENT, MANUAL_AMOUNT
+  calculationBase    String?               // Reference component code or base concept ('BASIC', 'GROSS')
+  defaultValue       Decimal               @db.Decimal(15, 2) @default(0)
+  percentageValue    Decimal               @db.Decimal(5, 2) @default(0) // e.g. 50.00 for 50%
+  sequence           Int                   @default(1)
+  isTaxable          Boolean               @default(true)
+  isRecurring        Boolean               @default(true)
+  isActive           Boolean               @default(true)
+  glAccountCode      String?               // e.g. "5060", "2020", "1040"
+  structureLines     SalaryStructureLine[]
+  createdBy          String?
+  updatedBy          String?
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+
+  @@index([code])
+  @@index([componentType])
+  @@index([isActive])
+}
+
+// -------------------------------------------------------------
+// Salary Structure Master (Phase 2)
+// Reusable, versioned compensation package templates
+// -------------------------------------------------------------
+model SalaryStructure {
+  id                 String                    @id @default(uuid())
+  code               String                    @unique // e.g. "STR-SALES-STD", "STR-MGMT-EXEC", "STR-GUARD-V1"
+  name               String                    // Sales Standard Structure, Executive Structure
+  description        String?
+  currency           String                    @default("INR")
+  status             String                    @default("ACTIVE") // ACTIVE, INACTIVE, ARCHIVED
+  version            Int                       @default(1)
+  effectiveFrom      DateTime                  @default(now())
+  effectiveTo        DateTime?
+  lines              SalaryStructureLine[]
+  assignments        EmployeeSalaryAssignment[]
+  createdBy          String?
+  updatedBy          String?
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
+
+  @@index([code])
+  @@index([status])
+}
+
+// -------------------------------------------------------------
+// Salary Structure Line Items (Phase 2)
+// Itemized components configured for a specific structure
+// -------------------------------------------------------------
+model SalaryStructureLine {
+  id                 String          @id @default(uuid())
+  structureId        String
+  structure          SalaryStructure @relation(fields: [structureId], references: [id], onDelete: Cascade)
+  componentId        String
+  component          SalaryComponent @relation(fields: [componentId], references: [id], onDelete: Restrict)
+  calculationMethod  String          // FIXED_AMOUNT, PERCENTAGE_OF_BASIC, etc.
+  value              Decimal         @db.Decimal(15, 2) @default(0)
+  percentage         Decimal         @db.Decimal(5, 2) @default(0)
+  calculationBase    String?
+  sequence           Int             @default(1)
+  isMandatory        Boolean         @default(true)
+  isActive           Boolean         @default(true)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@unique([structureId, componentId])
+  @@index([structureId])
+  @@index([componentId])
+}
+
+// -------------------------------------------------------------
+// Effective-Dated Employee Salary Assignments (Phase 2)
+// Preserves immutable compensation history with zero overlap
+// -------------------------------------------------------------
+model EmployeeSalaryAssignment {
+  id                 String          @id @default(uuid())
+  employeeId         String
+  employee           Employee        @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  salaryStructureId  String
+  salaryStructure    SalaryStructure @relation(fields: [salaryStructureId], references: [id], onDelete: Restrict)
+  baseGross          Decimal         @db.Decimal(15, 2) @default(0) // Baseline monthly Gross / CTC reference
+  effectiveFrom      DateTime        // Inclusive start date
+  effectiveTo        DateTime?       // Inclusive end date (null = currently active)
+  reason             String?         // "Annual Increment", "Initial Offer", "Promotion"
+  notes              String?
+  status             String          @default("ACTIVE") // ACTIVE, SUPERSEDED, CANCELLED
+  approvedBy         String?
+  createdBy          String?
+  updatedBy          String?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@index([employeeId, status])
+  @@index([employeeId, effectiveFrom])
+  @@index([salaryStructureId])
+}
+
 
 
 
