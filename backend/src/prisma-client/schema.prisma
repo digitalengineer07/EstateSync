@@ -345,6 +345,9 @@ model Employee {
   userId             String?     @unique
   user               User?       @relation("UserEmployee", fields: [userId], references: [id], onDelete: SetNull)
   salaryAssignments  EmployeeSalaryAssignment[]
+  payrollItems       PayrollItem[]
+  payrollAdjustments PayrollAdjustment[]
+  payrollExceptions  PayrollException[]
   createdBy          String?
   updatedBy          String?
   archivedAt         DateTime?
@@ -466,4 +469,185 @@ model EmployeeSalaryAssignment {
   @@index([employeeId, status])
   @@index([employeeId, effectiveFrom])
   @@index([salaryStructureId])
+}
+
+// =============================================================
+// PHASE 3 — MONTHLY PAYROLL CALCULATION ENGINE MODELS
+// =============================================================
+
+// -------------------------------------------------------------
+// 1. Monthly Payroll Period (Phase 3)
+// Enforces single unique period per calendar year + month
+// -------------------------------------------------------------
+model PayrollPeriod {
+  id                 String        @id @default(uuid())
+  year               Int           // e.g. 2026
+  month              Int           // 1 to 12
+  periodStart        DateTime      // e.g. 2026-08-01T00:00:00.000Z
+  periodEnd          DateTime      // e.g. 2026-08-31T23:59:59.999Z
+  status             String        @default("DRAFT") // DRAFT, OPEN, PROCESSING, CALCULATED, PENDING_APPROVAL, APPROVED, LOCKED, CLOSED, CANCELLED
+  runs               PayrollRun[]
+  createdBy          String?
+  approvedBy         String?
+  lockedBy           String?
+  lockedAt           DateTime?
+  updatedBy          String?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  @@unique([year, month])
+  @@index([year, month, status])
+  @@index([status])
+}
+
+// -------------------------------------------------------------
+// 2. Payroll Calculation Run (Phase 3)
+// Batch run container for calculating a payroll period
+// -------------------------------------------------------------
+model PayrollRun {
+  id                     String              @id @default(uuid())
+  payrollPeriodId        String
+  payrollPeriod          PayrollPeriod       @relation(fields: [payrollPeriodId], references: [id], onDelete: Restrict)
+  runNumber              Int                 @default(1)
+  status                 String              @default("DRAFT") // DRAFT, PROCESSING, CALCULATED, PENDING_APPROVAL, APPROVED, LOCKED, CANCELLED
+  totalEmployees         Int                 @default(0)
+  totalGross             Decimal             @db.Decimal(15, 2) @default(0)
+  totalDeductions        Decimal             @db.Decimal(15, 2) @default(0)
+  totalNet               Decimal             @db.Decimal(15, 2) @default(0)
+  totalEmployerCost      Decimal             @db.Decimal(15, 2) @default(0)
+  calculationStartedAt   DateTime?
+  calculationCompletedAt DateTime?
+  initiatedBy            String?
+  approvedBy             String?
+  approvedAt             DateTime?
+  lockedBy               String?
+  lockedAt               DateTime?
+  items                  PayrollItem[]
+  adjustments            PayrollAdjustment[]
+  exceptions             PayrollException[]
+  createdBy              String?
+  updatedBy              String?
+  createdAt              DateTime            @default(now())
+  updatedAt              DateTime            @updatedAt
+
+  @@unique([payrollPeriodId, runNumber])
+  @@index([payrollPeriodId, status])
+  @@index([status])
+}
+
+// -------------------------------------------------------------
+// 3. Employee Payroll Item (Phase 3)
+// Calculated monthly compensation record per employee
+// -------------------------------------------------------------
+model PayrollItem {
+  id                    String              @id @default(uuid())
+  payrollRunId          String
+  payrollRun            PayrollRun          @relation(fields: [payrollRunId], references: [id], onDelete: Cascade)
+  employeeId            String
+  employee              Employee            @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  salaryAssignmentId    String?             // Reference to the effective-dated assignment snapshot
+  employeeCodeSnapshot  String              // e.g. "EMP-000001"
+  employeeNameSnapshot  String
+  departmentSnapshot    String?
+  designationSnapshot   String?
+  structureCodeSnapshot String?             // e.g. "STR-SALES-STD"
+  grossEarnings         Decimal             @db.Decimal(15, 2) @default(0)
+  totalDeductions       Decimal             @db.Decimal(15, 2) @default(0)
+  employerCost          Decimal             @db.Decimal(15, 2) @default(0)
+  reimbursements        Decimal             @db.Decimal(15, 2) @default(0)
+  adjustmentsCredit     Decimal             @db.Decimal(15, 2) @default(0)
+  adjustmentsDebit      Decimal             @db.Decimal(15, 2) @default(0)
+  netPayable            Decimal             @db.Decimal(15, 2) @default(0)
+  currency              String              @default("INR")
+  status                String              @default("CALCULATED") // CALCULATED, BLOCKED, APPROVED, CANCELLED
+  lines                 PayrollLine[]
+  exceptions            PayrollException[]
+  calculatedAt          DateTime            @default(now())
+  approvedAt            DateTime?
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  @@unique([payrollRunId, employeeId])
+  @@index([payrollRunId, status])
+  @@index([employeeId])
+}
+
+// -------------------------------------------------------------
+// 4. Payroll Line Snapshot (Phase 3)
+// Immutable snapshot of each calculated earning/deduction line
+// -------------------------------------------------------------
+model PayrollLine {
+  id                    String          @id @default(uuid())
+  payrollItemId         String
+  payrollItem           PayrollItem     @relation(fields: [payrollItemId], references: [id], onDelete: Cascade)
+  componentId           String?
+  componentCode         String          // e.g. "BASIC", "HRA", "PF_EMPLOYEE"
+  componentName         String
+  componentType         String          // EARNING, DEDUCTION, EMPLOYER_CONTRIBUTION, REIMBURSEMENT
+  calculationMethod     String          // FIXED_AMOUNT, PERCENTAGE_OF_BASIC, etc.
+  calculationBase       String?
+  sequence              Int             @default(1)
+  rate                  Decimal         @db.Decimal(15, 2) @default(0)
+  percentage            Decimal         @db.Decimal(5, 2) @default(0)
+  amount                Decimal         @db.Decimal(15, 2) @default(0)
+  source                String          @default("SALARY_STRUCTURE") // SALARY_STRUCTURE, MANUAL_ADJUSTMENT, BONUS, REIMBURSEMENT
+  glAccountCodeSnapshot String?         // e.g. "5060", "2020", "1040"
+  narration             String?
+  createdAt             DateTime        @default(now())
+
+  @@index([payrollItemId])
+  @@index([componentCode])
+  @@index([componentType])
+}
+
+// -------------------------------------------------------------
+// 5. Payroll Adjustment (Phase 3)
+// Ad-hoc additions/deductions applied to a payroll run
+// -------------------------------------------------------------
+model PayrollAdjustment {
+  id                 String          @id @default(uuid())
+  payrollRunId       String
+  payrollRun         PayrollRun      @relation(fields: [payrollRunId], references: [id], onDelete: Cascade)
+  employeeId         String
+  employee           Employee        @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  adjustmentType     String          // CREDIT (Increases Net), DEBIT (Decreases Net)
+  category           String          // BONUS, INCENTIVE, REIMBURSEMENT, ADVANCE_RECOVERY, ARREARS, OTHER
+  amount             Decimal         @db.Decimal(15, 2)
+  reason             String
+  notes              String?
+  status             String          @default("APPROVED") // PENDING, APPROVED, REJECTED
+  createdBy          String
+  approvedBy         String?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@index([payrollRunId, employeeId])
+  @@index([employeeId])
+}
+
+// -------------------------------------------------------------
+// 6. Payroll Exception (Phase 3)
+// Anomaly log for calculation errors or rule violations
+// -------------------------------------------------------------
+model PayrollException {
+  id                 String          @id @default(uuid())
+  payrollRunId       String
+  payrollRun         PayrollRun      @relation(fields: [payrollRunId], references: [id], onDelete: Cascade)
+  payrollItemId      String?
+  payrollItem        PayrollItem?    @relation(fields: [payrollItemId], references: [id], onDelete: SetNull)
+  employeeId         String?
+  employee           Employee?       @relation(fields: [employeeId], references: [id], onDelete: SetNull)
+  code               String          // NO_SALARY_ASSIGNMENT, MISSING_COMPONENT, INVALID_COMPONENT_RULE, CIRCULAR_COMPONENT_DEPENDENCY, NEGATIVE_NET_PAY, MISSING_REQUIRED_DATA, INVALID_EMPLOYEE_STATUS, CALCULATION_ERROR
+  severity           String          // WARNING, BLOCKING
+  message            String
+  context            Json?
+  isResolved         Boolean         @default(false)
+  resolvedBy         String?
+  resolvedAt         DateTime?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@index([payrollRunId, severity])
+  @@index([employeeId])
+  @@index([isResolved])
 }

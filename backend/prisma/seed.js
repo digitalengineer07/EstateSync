@@ -33,7 +33,11 @@ async function main() {
     'employee.view', 'employee.create', 'employee.update', 'employee.archive',
     'payroll.component.view', 'payroll.component.manage',
     'payroll.structure.view', 'payroll.structure.create', 'payroll.structure.update', 'payroll.structure.archive',
-    'payroll.assignment.view', 'payroll.assignment.create', 'payroll.assignment.update', 'payroll.assignment.history'
+    'payroll.assignment.view', 'payroll.assignment.create', 'payroll.assignment.update', 'payroll.assignment.history',
+    'payroll.period.view', 'payroll.period.manage',
+    'payroll.run.create', 'payroll.run.calculate', 'payroll.run.view',
+    'payroll.item.view', 'payroll.item.adjust',
+    'payroll.approve', 'payroll.lock'
   ];
   
   const createdPerms = {};
@@ -94,12 +98,13 @@ async function main() {
     }
   }
 
-  // Manager gets team perms, approval perms, employee.view, structure.view, assignment.view
+  // Manager gets team perms, approval perms, employee/structure/assignment view + payroll run view
   const managerPerms = [
     ...salesPerms,
     'expense.view_team', 'fund.approve', 'fund.reject', 'report.view_team',
     'customer.view_all', 'employee.view',
-    'payroll.structure.view', 'payroll.assignment.view'
+    'payroll.structure.view', 'payroll.assignment.view',
+    'payroll.period.view', 'payroll.run.view', 'payroll.item.view'
   ];
   for (const permCode of managerPerms) {
     if (createdPerms[permCode]) {
@@ -150,7 +155,11 @@ async function main() {
     'employee.view', 'employee.create', 'employee.update',
     'payroll.component.view', 'payroll.component.manage',
     'payroll.structure.view', 'payroll.structure.create', 'payroll.structure.update',
-    'payroll.assignment.view', 'payroll.assignment.create', 'payroll.assignment.update', 'payroll.assignment.history'
+    'payroll.assignment.view', 'payroll.assignment.create', 'payroll.assignment.update', 'payroll.assignment.history',
+    'payroll.period.view', 'payroll.period.manage',
+    'payroll.run.create', 'payroll.run.calculate', 'payroll.run.view',
+    'payroll.item.view', 'payroll.item.adjust',
+    'payroll.approve'
   ];
   for (const permCode of accountingPerms) {
     if (createdPerms[permCode]) {

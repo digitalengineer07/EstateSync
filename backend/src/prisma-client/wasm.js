@@ -465,6 +465,121 @@ exports.Prisma.EmployeeSalaryAssignmentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PayrollPeriodScalarFieldEnum = {
+  id: 'id',
+  year: 'year',
+  month: 'month',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  status: 'status',
+  createdBy: 'createdBy',
+  approvedBy: 'approvedBy',
+  lockedBy: 'lockedBy',
+  lockedAt: 'lockedAt',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayrollRunScalarFieldEnum = {
+  id: 'id',
+  payrollPeriodId: 'payrollPeriodId',
+  runNumber: 'runNumber',
+  status: 'status',
+  totalEmployees: 'totalEmployees',
+  totalGross: 'totalGross',
+  totalDeductions: 'totalDeductions',
+  totalNet: 'totalNet',
+  totalEmployerCost: 'totalEmployerCost',
+  calculationStartedAt: 'calculationStartedAt',
+  calculationCompletedAt: 'calculationCompletedAt',
+  initiatedBy: 'initiatedBy',
+  approvedBy: 'approvedBy',
+  approvedAt: 'approvedAt',
+  lockedBy: 'lockedBy',
+  lockedAt: 'lockedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayrollItemScalarFieldEnum = {
+  id: 'id',
+  payrollRunId: 'payrollRunId',
+  employeeId: 'employeeId',
+  salaryAssignmentId: 'salaryAssignmentId',
+  employeeCodeSnapshot: 'employeeCodeSnapshot',
+  employeeNameSnapshot: 'employeeNameSnapshot',
+  departmentSnapshot: 'departmentSnapshot',
+  designationSnapshot: 'designationSnapshot',
+  structureCodeSnapshot: 'structureCodeSnapshot',
+  grossEarnings: 'grossEarnings',
+  totalDeductions: 'totalDeductions',
+  employerCost: 'employerCost',
+  reimbursements: 'reimbursements',
+  adjustmentsCredit: 'adjustmentsCredit',
+  adjustmentsDebit: 'adjustmentsDebit',
+  netPayable: 'netPayable',
+  currency: 'currency',
+  status: 'status',
+  calculatedAt: 'calculatedAt',
+  approvedAt: 'approvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayrollLineScalarFieldEnum = {
+  id: 'id',
+  payrollItemId: 'payrollItemId',
+  componentId: 'componentId',
+  componentCode: 'componentCode',
+  componentName: 'componentName',
+  componentType: 'componentType',
+  calculationMethod: 'calculationMethod',
+  calculationBase: 'calculationBase',
+  sequence: 'sequence',
+  rate: 'rate',
+  percentage: 'percentage',
+  amount: 'amount',
+  source: 'source',
+  glAccountCodeSnapshot: 'glAccountCodeSnapshot',
+  narration: 'narration',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PayrollAdjustmentScalarFieldEnum = {
+  id: 'id',
+  payrollRunId: 'payrollRunId',
+  employeeId: 'employeeId',
+  adjustmentType: 'adjustmentType',
+  category: 'category',
+  amount: 'amount',
+  reason: 'reason',
+  notes: 'notes',
+  status: 'status',
+  createdBy: 'createdBy',
+  approvedBy: 'approvedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayrollExceptionScalarFieldEnum = {
+  id: 'id',
+  payrollRunId: 'payrollRunId',
+  payrollItemId: 'payrollItemId',
+  employeeId: 'employeeId',
+  code: 'code',
+  severity: 'severity',
+  message: 'message',
+  context: 'context',
+  isResolved: 'isResolved',
+  resolvedBy: 'resolvedBy',
+  resolvedAt: 'resolvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -519,7 +634,13 @@ exports.Prisma.ModelName = {
   SalaryComponent: 'SalaryComponent',
   SalaryStructure: 'SalaryStructure',
   SalaryStructureLine: 'SalaryStructureLine',
-  EmployeeSalaryAssignment: 'EmployeeSalaryAssignment'
+  EmployeeSalaryAssignment: 'EmployeeSalaryAssignment',
+  PayrollPeriod: 'PayrollPeriod',
+  PayrollRun: 'PayrollRun',
+  PayrollItem: 'PayrollItem',
+  PayrollLine: 'PayrollLine',
+  PayrollAdjustment: 'PayrollAdjustment',
+  PayrollException: 'PayrollException'
 };
 
 /**
