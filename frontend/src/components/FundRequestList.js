@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useSWR from "swr";
+import { fetcher } from "@/utils/fetcher";
 import { CheckCircle2, XCircle, Clock, RefreshCw } from "lucide-react";
 import { API_URL } from "@/config/api";
 
 // type can be 'outgoing', 'incoming', or 'all'
 export default function FundRequestList({ type = "outgoing", embedded = false, showHeader = true }) {
-  const [requests, setRequests] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [processingId, setProcessingId] = useState(null);
   const [overrideModes, setOverrideModes] = useState({});
   const [actionError, setActionError] = useState(null);
@@ -19,34 +19,16 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
     setOverrideModes(prev => ({ ...prev, [id]: mode }));
   };
 
-  const fetchRequests = async () => {
-    setLoading(true);
-    setActionError(null);
-    try {
-      const token = localStorage.getItem("accessToken");
-      let endpoint = `${API_URL}/api/v1/fund-requests/my`;
-      if (type === "incoming") endpoint = `${API_URL}/api/v1/fund-requests/incoming`;
-      if (type === "all") endpoint = `${API_URL}/api/v1/fund-requests/all`;
+  let endpoint = `/api/v1/fund-requests/my`;
+  if (type === "incoming") endpoint = `/api/v1/fund-requests/incoming`;
+  if (type === "all") endpoint = `/api/v1/fund-requests/all`;
 
-      const res = await fetch(endpoint, {
-        headers: { "Authorization": `Bearer ${token}` }
-      });
-      const data = await res.json();
-      if (data.success) {
-        setRequests(data.requests || []);
-      } else {
-        setActionError(data.message || "Failed to fetch fund requests.");
-      }
-    } catch (error) {
-      console.error("Failed to fetch requests", error);
-      setActionError("Network error loading requests.");
-    }
-    setLoading(false);
-  };
+  const { data, error, isLoading, mutate } = useSWR(endpoint, fetcher, { 
+    refreshInterval: 10000,
+    revalidateOnFocus: true
+  });
 
-  useEffect(() => {
-    fetchRequests();
-  }, [type]);
+  const requests = data?.requests || [];
 
   const handleAction = async (id, action) => {
     setActionError(null);
@@ -72,13 +54,13 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
         },
         body: JSON.stringify(bodyData)
       });
-      const data = await res.json();
+      const responseData = await res.json();
       
-      if (data.success) {
+      if (responseData.success) {
         setActionSuccess(`Request ${action === 'approve' ? 'approved and funds allocated' : 'rejected'} successfully!`);
-        fetchRequests();
+        mutate();
       } else {
-        setActionError(data.message || `Failed to ${action} request.`);
+        setActionError(responseData.message || `Failed to ${action} request.`);
       }
     } catch (error) {
       setActionError("Network error occurred while processing action.");
@@ -86,7 +68,7 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
     setProcessingId(null);
   };
 
-  if (loading) {
+  if (isLoading && !data) {
     return (
       <div className={embedded ? "p-4 text-slate-500 text-sm" : "bg-white shadow rounded-lg p-6 mt-8"}>
         <div className="flex items-center gap-2 text-slate-500 text-sm">
@@ -110,12 +92,18 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
             </p>
           </div>
           <button 
-            onClick={fetchRequests} 
+            onClick={() => mutate()} 
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 rounded-md transition-colors"
           >
-            <RefreshCw className="w-3.5 h-3.5" />
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
             <span>Refresh</span>
           </button>
+        </div>
+      )}
+
+      {error && data && (
+        <div className="p-2 mb-4 bg-amber-50 text-amber-800 border border-amber-200 rounded-md text-xs flex items-center justify-between">
+          <span>⚠️ Disconnected - Retrying...</span>
         </div>
       )}
 

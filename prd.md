@@ -223,6 +223,7 @@ PENDING → INSUFFICIENT_MANAGER_FUNDS → ADMIN_FUND_REQUEST → ADMIN_APPROVED
 
 ### 5.1 Fund Request Fields
 `request_id`, `requester_id`, `manager_id`, `amount`, `fund_mode` (`LIQUID` or `CASH`), `reason`, `status`, `created_at`, `approved_at`, `rejected_at`, `approved_by`, `rejected_by`, `comments`. Admin-directed requests additionally carry `requested_from = ADMIN`.
+*Note: Approving managers or admins have the authority to override the requested `fund_mode` (e.g., change from LIQUID to CASH) at the time of approval, which dictates which wallet sub-balance is used.*
 
 `parent_request_id` links a manager's escalated request to Admin back to the original employee request, preserving the full chain (e.g. Sales Request #100 → Manager Request #101 → Admin).
 
@@ -460,6 +461,7 @@ Accounting view:
 | Accounting integrity | Every accounting entry maintains debit = credit |
 | Idempotency | Critical financial operations (allocation, transfer, expense posting) support idempotency to prevent duplicate processing on retry |
 | Access control | Role-based, permission-code driven, enforced server-side regardless of frontend display |
+| Real-time Synchronization | Dashboard data must sync automatically in the background using mechanisms like SWR to guarantee tabs remain fresh without manual refresh. |
 
 ## 17. Definition of Done (MVP)
 
@@ -495,6 +497,8 @@ Accounting view:
 - [ ] Customer and property payments are immutable, idempotent, and generate audit + journal entries like all other financial operations
 - [ ] Accounting can record customer payments and land-owner payments directly (write authority, not read-only)
 - [ ] Every ledger row displays a CREDIT or DEBIT tag based on transaction type and wallet perspective (§4.4)
+- [ ] Dashboards implement real-time UI synchronization using polling or SWR.
+- [ ] Managers/Admins can override `fundMode` when approving fund requests.
 
 ## 18. Core System Flow (Summary)
 

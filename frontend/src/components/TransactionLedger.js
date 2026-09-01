@@ -1,32 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import useSWR from "swr";
+import { fetcher } from "@/utils/fetcher";
 import { API_URL } from "@/config/api";
+import { RefreshCw } from "lucide-react";
 
 export default function TransactionLedger({ embedded = false, showHeader = true }) {
-  const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data, error, isLoading, mutate } = useSWR(`/api/v1/transactions/all`, fetcher, {
+    refreshInterval: 10000,
+    revalidateOnFocus: true
+  });
 
-  const fetchTransactions = async () => {
-    setLoading(true);
-    try {
-      const token = localStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/transactions/all`, {
-        headers: { "Authorization": `Bearer ${token}` }
-      });
-      const data = await res.json();
-      if (data.success) {
-        setTransactions(data.transactions);
-      }
-    } catch (error) {
-      console.error("Failed to fetch transactions", error);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchTransactions();
-  }, []);
+  const transactions = data?.transactions || [];
 
   const getEntryBadge = (type) => {
     switch (type) {
@@ -59,7 +44,7 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
     }
   };
 
-  if (loading) return <div className="p-4 text-gray-500 text-sm">Loading ledger...</div>;
+  if (isLoading && !data) return <div className="p-4 text-gray-500 text-sm flex items-center gap-2"><RefreshCw className="w-4 h-4 animate-spin" /> Loading ledger...</div>;
 
   return (
     <div className={embedded ? "" : "bg-white shadow rounded-lg p-6 mt-8"}>
@@ -69,9 +54,16 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
             <h3 className="text-xl font-bold text-gray-800">Global Transaction Ledger</h3>
             <p className="text-xs text-gray-500 mt-0.5">Immutable audit record with Credit/Debit classification (PRD §4.4)</p>
           </div>
-          <button onClick={fetchTransactions} className="text-sm text-blue-600 hover:underline">
+          <button onClick={() => mutate()} className="inline-flex items-center gap-1.5 text-sm text-blue-600 hover:underline">
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
             Refresh Ledger
           </button>
+        </div>
+      )}
+
+      {error && data && (
+        <div className="p-2 mb-4 bg-amber-50 text-amber-800 border border-amber-200 rounded-md text-xs flex items-center justify-between">
+          <span>⚠️ Disconnected - Retrying...</span>
         </div>
       )}
 

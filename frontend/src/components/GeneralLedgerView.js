@@ -1,49 +1,28 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useSWR from "swr";
+import { fetcher } from "@/utils/fetcher";
 import { API_URL } from "@/config/api";
 import { formatINR } from "@/utils/formatters";
+import { RefreshCw } from "lucide-react";
 
 export default function GeneralLedgerView() {
   const [activeTab, setActiveTab] = useState("journals"); // "journals" or "accounts"
-  const [journals, setJournals] = useState([]);
-  const [accounts, setAccounts] = useState([]);
-  const [meta, setMeta] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const fetchData = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const token = localStorage.getItem("accessToken");
-      const headers = { "Authorization": `Bearer ${token}` };
+  const { data: jData, error: jError, isLoading: jLoading, mutate: jMutate } = useSWR(`/api/v1/journals`, fetcher, { refreshInterval: 30000, revalidateOnFocus: true });
+  const { data: aData, error: aError, isLoading: aLoading, mutate: aMutate } = useSWR(`/api/v1/accounts`, fetcher, { refreshInterval: 30000, revalidateOnFocus: true });
 
-      const [journalsRes, accountsRes] = await Promise.all([
-        fetch(`${API_URL}/api/v1/journals`, { headers }),
-        fetch(`${API_URL}/api/v1/accounts`, { headers })
-      ]);
-
-      const jData = await journalsRes.json();
-      const aData = await accountsRes.json();
-
-      if (jData.success) {
-        setJournals(jData.journals || []);
-        setMeta(jData.meta || null);
-      }
-      if (aData.success) {
-        setAccounts(aData.accounts || []);
-      }
-    } catch (err) {
-      console.error("Failed to load General Ledger data", err);
-      setError("Network error loading double-entry ledger.");
-    }
-    setLoading(false);
+  const loading = jLoading || aLoading;
+  const error = jError || aError;
+  const journals = jData?.journals || [];
+  const meta = jData?.meta || null;
+  const accounts = aData?.accounts || [];
+  
+  const refreshAll = () => {
+    jMutate();
+    aMutate();
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <div className="bg-white shadow rounded-lg p-6 mt-8 border border-gray-100">
@@ -91,21 +70,28 @@ export default function GeneralLedgerView() {
           </div>
 
           <button
-            onClick={fetchData}
-            className="px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 rounded-md border border-indigo-200"
+            onClick={refreshAll}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 rounded-md border border-indigo-200"
           >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             Refresh
           </button>
         </div>
       </div>
 
-      {error && (
-        <div className="p-4 mb-4 bg-red-50 text-red-900 border border-red-200 rounded-md text-sm">
-          {error}
+      {error && jData && aData && (
+        <div className="p-2 mb-4 bg-amber-50 text-amber-800 border border-amber-200 rounded-md text-xs flex items-center justify-between">
+          <span>⚠️ Disconnected - Retrying...</span>
         </div>
       )}
 
-      {loading ? (
+      {error && (!jData || !aData) && (
+        <div className="p-4 mb-4 bg-red-50 text-red-900 border border-red-200 rounded-md text-sm">
+          Network error loading double-entry ledger.
+        </div>
+      )}
+
+      {loading && !jData && !aData ? (
         <div className="animate-pulse py-8 text-center text-gray-400 text-sm">
           Loading general ledger entries...
         </div>

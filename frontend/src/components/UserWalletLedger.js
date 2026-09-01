@@ -1,38 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useSWR from "swr";
+import { fetcher } from "@/utils/fetcher";
 import { API_URL } from "@/config/api";
+import { RefreshCw } from "lucide-react";
 
 export default function UserWalletLedger() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [error, setError] = useState(null);
+  const { data, error, isLoading, mutate } = useSWR(`/api/v1/users/all`, fetcher, {
+    refreshInterval: 10000,
+    revalidateOnFocus: true
+  });
 
-  const fetchWallets = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const token = localStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/users/all`, {
-        headers: { "Authorization": `Bearer ${token}` }
-      });
-      const data = await res.json();
-      if (data.success) {
-        setUsers(data.users || []);
-      } else {
-        setError(data.message || "Failed to load user wallets.");
-      }
-    } catch (err) {
-      console.error("Failed to fetch user wallets", err);
-      setError("Network error loading wallet data.");
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchWallets();
-  }, []);
+  const users = data?.users || [];
 
   const filteredUsers = users.filter((u) => {
     const q = search.toLowerCase();
@@ -47,7 +28,7 @@ export default function UserWalletLedger() {
   const totalBalanceSum = users.reduce((acc, u) => acc + parseFloat(u.wallet?.availableBalanceLiquid || 0) + parseFloat(u.wallet?.availableBalanceCash || 0), 0);
   const totalSpentSum = users.reduce((acc, u) => acc + parseFloat(u.wallet?.totalSpentLiquid || 0) + parseFloat(u.wallet?.totalSpentCash || 0), 0);
 
-  if (loading) {
+  if (isLoading && !data) {
     return (
       <div className="bg-white shadow rounded-lg p-6 mt-8 animate-pulse">
         <div className="h-6 bg-gray-200 rounded w-1/4 mb-4"></div>
@@ -77,15 +58,22 @@ export default function UserWalletLedger() {
             className="px-3.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 placeholder-gray-400 bg-white"
           />
           <button
-            onClick={fetchWallets}
-            className="px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 rounded-md border border-indigo-200 transition-colors"
+            onClick={() => mutate()}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 rounded-md border border-indigo-200 transition-colors"
           >
-            Refresh
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
+            <span>Refresh</span>
           </button>
         </div>
       </div>
 
-      {error && (
+      {error && data && (
+        <div className="p-2 mb-4 bg-amber-50 text-amber-800 border border-amber-200 rounded-md text-xs flex items-center justify-between">
+          <span>⚠️ Disconnected - Retrying...</span>
+        </div>
+      )}
+
+      {error && !data && (
         <div className="p-4 mb-4 bg-red-50 text-red-900 border border-red-200 rounded-md text-sm">
           {error}
         </div>

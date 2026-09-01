@@ -1,41 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useSWR from "swr";
+import { fetcher } from "@/utils/fetcher";
 import { API_URL } from "@/config/api";
+import { RefreshCw } from "lucide-react";
 
 export default function AuditLogViewer() {
-  const [logs, setLogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [filterAction, setFilterAction] = useState("");
 
-  const fetchLogs = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const token = localStorage.getItem("accessToken");
-      let url = `${API_URL}/api/v1/audit?limit=100`;
-      if (filterAction) url += `&action=${filterAction}`;
+  let url = `/api/v1/audit?limit=100`;
+  if (filterAction) url += `&action=${filterAction}`;
 
-      const res = await fetch(url, {
-        headers: { "Authorization": `Bearer ${token}` }
-      });
-      const data = await res.json();
-      if (data.success) {
-        setLogs(data.logs || []);
-      } else {
-        setError(data.message || "Failed to load audit trail.");
-      }
-    } catch (err) {
-      console.error("Failed to fetch audit logs", err);
-      setError("Network error loading audit trail.");
-    }
-    setLoading(false);
-  };
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher, {
+    refreshInterval: 10000,
+    revalidateOnFocus: true
+  });
 
-  useEffect(() => {
-    fetchLogs();
-  }, [filterAction]);
+  const logs = data?.logs || [];
 
   const getActionBadge = (action) => {
     switch (action) {
@@ -94,21 +76,28 @@ export default function AuditLogViewer() {
           </select>
 
           <button
-            onClick={fetchLogs}
-            className="px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 rounded-md border border-indigo-200"
+            onClick={() => mutate()}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 rounded-md border border-indigo-200"
           >
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
             Refresh
           </button>
         </div>
       </div>
 
-      {error && (
+      {error && data && (
+        <div className="p-2 mb-4 bg-amber-50 text-amber-800 border border-amber-200 rounded-md text-xs flex items-center justify-between">
+          <span>⚠️ Disconnected - Retrying...</span>
+        </div>
+      )}
+
+      {error && !data && (
         <div className="p-4 mb-4 bg-red-50 text-red-900 border border-red-200 rounded-md text-sm">
           {error}
         </div>
       )}
 
-      {loading ? (
+      {isLoading && !data ? (
         <div className="animate-pulse py-8 text-center text-gray-400 text-sm">
           Loading audit trail records...
         </div>

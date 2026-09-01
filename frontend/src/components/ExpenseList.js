@@ -1,14 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import useSWR from "swr";
+import { fetcher } from "@/utils/fetcher";
+import { RefreshCw } from "lucide-react";
 import { API_URL } from "@/config/api";
 import { formatINR } from "@/utils/formatters";
 
 // type can be 'my', 'team', or 'all'
 export default function ExpenseList({ type = "my" }) {
-  const [expenses, setExpenses] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [actionError, setActionError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
   const [currentUserRole, setCurrentUserRole] = useState("");
   
@@ -27,41 +28,23 @@ export default function ExpenseList({ type = "my" }) {
     }
   }, []);
 
-  const fetchExpenses = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const token = localStorage.getItem("accessToken");
-      let endpoint = `${API_URL}/api/v1/expenses/my`;
-      if (type === "team") endpoint = `${API_URL}/api/v1/expenses/team`;
-      if (type === "all") endpoint = `${API_URL}/api/v1/expenses/all`;
+  let endpoint = `/api/v1/expenses/my`;
+  if (type === "team") endpoint = `/api/v1/expenses/team`;
+  if (type === "all") endpoint = `/api/v1/expenses/all`;
 
-      const res = await fetch(endpoint, {
-        headers: { "Authorization": `Bearer ${token}` }
-      });
-      const data = await res.json();
-      if (data.success) {
-        setExpenses(data.expenses || []);
-      } else {
-        setError(data.message || "Failed to load expenses.");
-      }
-    } catch (err) {
-      console.error("Failed to fetch expenses", err);
-      setError("Network error loading expenses.");
-    }
-    setLoading(false);
-  };
+  const { data, error: fetchError, isLoading, mutate } = useSWR(endpoint, fetcher, { 
+    refreshInterval: 10000,
+    revalidateOnFocus: true
+  });
 
-  useEffect(() => {
-    fetchExpenses();
-  }, [type]);
+  const expenses = data?.expenses || [];
 
   const handleReverseExpense = async (e) => {
     e.preventDefault();
     if (!selectedExpense) return;
 
     setReversing(true);
-    setError(null);
+    setActionError(null);
     setSuccessMsg(null);
 
     try {
@@ -75,18 +58,18 @@ export default function ExpenseList({ type = "my" }) {
         body: JSON.stringify({ reason: reversalReason || "Administrative correction & wallet balance restored" })
       });
 
-      const data = await res.json();
-      if (data.success) {
-        setSuccessMsg(data.message || "Expense reversed and balance restored.");
+      const responseData = await res.json();
+      if (responseData.success) {
+        setSuccessMsg(responseData.message || "Expense reversed and balance restored.");
         setSelectedExpense(null);
         setReversalReason("");
-        fetchExpenses();
+        mutate();
       } else {
-        setError(data.message || "Failed to reverse expense.");
+        setActionError(responseData.message || "Failed to reverse expense.");
       }
     } catch (err) {
       console.error("Reversal Error:", err);
-      setError("Network error attempting to reverse expense.");
+      setActionError("Network error attempting to reverse expense.");
     }
     setReversing(false);
   };
@@ -97,7 +80,7 @@ export default function ExpenseList({ type = "my" }) {
 
   const canReverse = ["ADMIN", "ACCOUNTING"].includes(currentUserRole);
 
-  if (loading) {
+  if (isLoading && !data) {
     return (
       <div className="bg-white shadow rounded-lg p-6 mt-8">
         <div className="animate-pulse flex space-x-4">
@@ -140,13 +123,20 @@ export default function ExpenseList({ type = "my" }) {
             </span>
           </div>
           <button
-            onClick={fetchExpenses}
-            className="px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 rounded-md border border-indigo-200 transition-colors"
+            onClick={() => mutate()}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 rounded-md border border-indigo-200 transition-colors"
           >
-            Refresh
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
+            <span>Refresh</span>
           </button>
         </div>
       </div>
+
+      {fetchError && data && (
+        <div className="p-2 mb-4 bg-amber-50 text-amber-800 border border-amber-200 rounded-md text-xs flex items-center justify-between">
+          <span>⚠️ Disconnected - Retrying...</span>
+        </div>
+      )}
 
       {successMsg && (
         <div className="p-4 mb-4 bg-emerald-50 text-emerald-900 border border-emerald-200 rounded-md text-sm">
@@ -154,9 +144,9 @@ export default function ExpenseList({ type = "my" }) {
         </div>
       )}
 
-      {error && (
+      {actionError && (
         <div className="p-4 mb-4 bg-red-50 text-red-900 border border-red-200 rounded-md text-sm">
-          {error}
+          {actionError}
         </div>
       )}
 

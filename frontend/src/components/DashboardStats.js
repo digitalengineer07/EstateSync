@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import useSWR from "swr";
+import { fetcher } from "@/utils/fetcher";
 import { 
   Landmark, 
   CreditCard, 
@@ -12,36 +13,13 @@ import {
   CheckCircle2,
   Coins
 } from "lucide-react";
-import { API_URL } from "@/config/api";
-
 export default function DashboardStats({ type }) {
-  const [stats, setStats] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { data, error, isLoading } = useSWR(`/api/v1/dashboard/${type}`, fetcher, { 
+    refreshInterval: 10000,
+    revalidateOnFocus: true
+  });
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      setLoading(true);
-      try {
-        const token = localStorage.getItem("accessToken");
-        const res = await fetch(`${API_URL}/api/v1/dashboard/${type}`, {
-          headers: { "Authorization": `Bearer ${token}` }
-        });
-        const data = await res.json();
-        if (data.success) {
-          setStats(data.stats);
-        } else {
-          console.error("Failed to load stats:", data.message);
-        }
-      } catch (error) {
-        console.error("Network error fetching stats", error);
-      }
-      setLoading(false);
-    };
-
-    fetchStats();
-  }, [type]);
-
-  if (loading || !stats) {
+  if (isLoading || !data) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-pulse">
         <div className="bg-white rounded-xl h-28 border border-slate-200"></div>
@@ -55,6 +33,8 @@ export default function DashboardStats({ type }) {
   const formatCurrency = (val) => {
     return `₹${parseFloat(val || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
   };
+
+  const stats = data?.stats || {};
 
   if (type === 'accounting' || type === 'admin') {
     return (

@@ -42,6 +42,7 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 | Admin can view all transactions and wallets | ✅ **Implemented** | `TransactionLedger` and `DashboardStats` provide real-time org-wide visibility. |
 | Accounting can view all financial transactions, total funds, allocated funds, expenses, and every user's wallet | ✅ **Implemented** | Built in `accounting/page.js` with `UserWalletLedger` displaying Liquid/Cash combinations. |
 | Live Dashboard Statistics | ✅ **Implemented** | `dashboardController.js` serves live aggregates distinctively for Liquid and Cash across all views. |
+| Real-time Dashboard Polling | ✅ **Implemented** | Refactored components (`DashboardStats`, `FundRequestList`, `ExpenseList`, `TransactionLedger`, `UserWalletLedger`, `GeneralLedgerView`, `AuditLogViewer`) to use `useSWR` for real-time state synchronization, optimistic UI updates, and background refreshing. |
 
 ## 6. Ledger & Accounting Integrity
 | Feature | Status | Notes |
@@ -79,8 +80,8 @@ Based on the [Product Requirements Document (PRD)](./prd.md), here is the compre
 
 ---
 
-## 🎉 Overall EstateSync Platform Status (PRD v1.2 Core MVP Complete): ~90% Implemented
-While all core MVP features defined across PRD §1 through §20 (including Double-Entry Financial Engine, Idempotency Middleware, RBAC Security Boundaries, Customer Sales Collections, Property Land Acquisitions, and Next.js Dashboards) are 100% implemented and verified, some advanced modules listed in the API Structure (§13) and Open Items (§21) are still pending.
+## 🎉 Overall EstateSync Platform Status (PRD v1.2 Core MVP Complete): ~95% Implemented
+While all core MVP features defined across PRD §1 through §20 (including Double-Entry Financial Engine, Idempotency Middleware, RBAC Security Boundaries, Customer Sales Collections, Property Land Acquisitions, Next.js Dashboards, and Real-time SWR Polling) are 100% implemented and verified, some advanced modules listed in the API Structure (§13) and Open Items (§21) are still pending.
 
 ---
 
@@ -360,6 +361,8 @@ model AuditLog {
 | **DirectFundAllocationForm**| `/components/DirectFundAllocationForm.js` | Admin tool to push funds directly into manager/user wallets with real-time balance update. |
 | **UserWalletLedger** | `/components/UserWalletLedger.js` | Comprehensive audit table of all users, roles, available balances, and spent amounts. |
 | **DashboardStats** | `/components/DashboardStats.js` | Live statistics badges tailored to Admin, Accounting, Manager, and Wallet views. |
+
+All data tables and statistics widgets are powered by `useSWR` to automatically pause fetching when tabs are hidden, and re-fetch instantly on tab focus, guaranteeing real-time accuracy across multiple tabs without flashing skeletons or Websocket overhead.
 
 ---
 
