@@ -29,7 +29,8 @@ async function main() {
     'customer.create', 'customer.view', 'customer.view_all', 'customer.edit',
     'customer.payment.record', 'customer.payment.view',
     'property.create', 'property.view_all', 'property.edit',
-    'property.payment.record', 'property.payment.view'
+    'property.payment.record', 'property.payment.view',
+    'employee.view', 'employee.create', 'employee.update', 'employee.archive'
   ];
   
   const createdPerms = {};
@@ -90,8 +91,8 @@ async function main() {
     }
   }
 
-  // Manager gets team perms and approval perms
-  const managerPerms = [...salesPerms, 'expense.view_team', 'fund.approve', 'fund.reject', 'report.view_team', 'customer.view_all'];
+  // Manager gets team perms, approval perms, and employee.view
+  const managerPerms = [...salesPerms, 'expense.view_team', 'fund.approve', 'fund.reject', 'report.view_team', 'customer.view_all', 'employee.view'];
   for (const permCode of managerPerms) {
     if (createdPerms[permCode]) { // only if it exists in seed
       await prisma.rolePermission.upsert({
@@ -131,13 +132,14 @@ async function main() {
     }
   }
 
-  // Accounting gets base employee perms + global view, expense approval/reversal, customer payment & property acquisition authority
+  // Accounting gets base employee perms + global view, expense approval/reversal, customer payment & property acquisition authority + employee management
   const accountingPerms = [
     ...baseEmployeePerms,
     'wallet.view_all', 'expense.view_all', 'expense.approve', 'expense.reverse',
     'transaction.view_all', 'accounting.view', 'report.view',
     'customer.view_all', 'customer.payment.record', 'customer.payment.view',
-    'property.create', 'property.view_all', 'property.edit', 'property.payment.record', 'property.payment.view'
+    'property.create', 'property.view_all', 'property.edit', 'property.payment.record', 'property.payment.view',
+    'employee.view', 'employee.create', 'employee.update'
   ];
   for (const permCode of accountingPerms) {
     if (createdPerms[permCode]) {

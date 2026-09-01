@@ -103,6 +103,11 @@ export type PropertyAcquisition = $Result.DefaultSelection<Prisma.$PropertyAcqui
  * 
  */
 export type PropertyPayment = $Result.DefaultSelection<Prisma.$PropertyPaymentPayload>
+/**
+ * Model Employee
+ * 
+ */
+export type Employee = $Result.DefaultSelection<Prisma.$EmployeePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -406,6 +411,16 @@ export class PrismaClient<
     * ```
     */
   get propertyPayment(): Prisma.PropertyPaymentDelegate<ExtArgs>;
+
+  /**
+   * `prisma.employee`: Exposes CRUD operations for the **Employee** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Employees
+    * const employees = await prisma.employee.findMany()
+    * ```
+    */
+  get employee(): Prisma.EmployeeDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -864,7 +879,8 @@ export namespace Prisma {
     Customer: 'Customer',
     CustomerPayment: 'CustomerPayment',
     PropertyAcquisition: 'PropertyAcquisition',
-    PropertyPayment: 'PropertyPayment'
+    PropertyPayment: 'PropertyPayment',
+    Employee: 'Employee'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -880,7 +896,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "role" | "permission" | "rolePermission" | "wallet" | "walletTransaction" | "fundRequest" | "expense" | "expenseCategory" | "idempotencyKey" | "account" | "journalEntry" | "journalLine" | "auditLog" | "customer" | "customerPayment" | "propertyAcquisition" | "propertyPayment"
+      modelProps: "user" | "role" | "permission" | "rolePermission" | "wallet" | "walletTransaction" | "fundRequest" | "expense" | "expenseCategory" | "idempotencyKey" | "account" | "journalEntry" | "journalLine" | "auditLog" | "customer" | "customerPayment" | "propertyAcquisition" | "propertyPayment" | "employee"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2144,6 +2160,76 @@ export namespace Prisma {
           }
         }
       }
+      Employee: {
+        payload: Prisma.$EmployeePayload<ExtArgs>
+        fields: Prisma.EmployeeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmployeeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmployeeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>
+          }
+          findFirst: {
+            args: Prisma.EmployeeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmployeeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>
+          }
+          findMany: {
+            args: Prisma.EmployeeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>[]
+          }
+          create: {
+            args: Prisma.EmployeeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>
+          }
+          createMany: {
+            args: Prisma.EmployeeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmployeeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>[]
+          }
+          delete: {
+            args: Prisma.EmployeeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>
+          }
+          update: {
+            args: Prisma.EmployeeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>
+          }
+          deleteMany: {
+            args: Prisma.EmployeeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmployeeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.EmployeeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeePayload>
+          }
+          aggregate: {
+            args: Prisma.EmployeeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmployee>
+          }
+          groupBy: {
+            args: Prisma.EmployeeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmployeeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmployeeCountArgs<ExtArgs>
+            result: $Utils.Optional<EmployeeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2701,6 +2787,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type EmployeeCountOutputType
+   */
+
+  export type EmployeeCountOutputType = {
+    subordinates: number
+  }
+
+  export type EmployeeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subordinates?: boolean | EmployeeCountOutputTypeCountSubordinatesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EmployeeCountOutputType without action
+   */
+  export type EmployeeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeCountOutputType
+     */
+    select?: EmployeeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EmployeeCountOutputType without action
+   */
+  export type EmployeeCountOutputTypeCountSubordinatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmployeeWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -2894,6 +3011,7 @@ export namespace Prisma {
     recordedPayments?: boolean | User$recordedPaymentsArgs<ExtArgs>
     createdProperties?: boolean | User$createdPropertiesArgs<ExtArgs>
     recordedPropertyPayments?: boolean | User$recordedPropertyPaymentsArgs<ExtArgs>
+    employee?: boolean | User$employeeArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2929,6 +3047,7 @@ export namespace Prisma {
     recordedPayments?: boolean | User$recordedPaymentsArgs<ExtArgs>
     createdProperties?: boolean | User$createdPropertiesArgs<ExtArgs>
     recordedPropertyPayments?: boolean | User$recordedPropertyPaymentsArgs<ExtArgs>
+    employee?: boolean | User$employeeArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2948,6 +3067,7 @@ export namespace Prisma {
       recordedPayments: Prisma.$CustomerPaymentPayload<ExtArgs>[]
       createdProperties: Prisma.$PropertyAcquisitionPayload<ExtArgs>[]
       recordedPropertyPayments: Prisma.$PropertyPaymentPayload<ExtArgs>[]
+      employee: Prisma.$EmployeePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3331,6 +3451,7 @@ export namespace Prisma {
     recordedPayments<T extends User$recordedPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$recordedPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPaymentPayload<ExtArgs>, T, "findMany"> | Null>
     createdProperties<T extends User$createdPropertiesArgs<ExtArgs> = {}>(args?: Subset<T, User$createdPropertiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyAcquisitionPayload<ExtArgs>, T, "findMany"> | Null>
     recordedPropertyPayments<T extends User$recordedPropertyPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$recordedPropertyPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPaymentPayload<ExtArgs>, T, "findMany"> | Null>
+    employee<T extends User$employeeArgs<ExtArgs> = {}>(args?: Subset<T, User$employeeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3857,6 +3978,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PropertyPaymentScalarFieldEnum | PropertyPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * User.employee
+   */
+  export type User$employeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    where?: EmployeeWhereInput
   }
 
   /**
@@ -21634,6 +21770,1253 @@ export namespace Prisma {
 
 
   /**
+   * Model Employee
+   */
+
+  export type AggregateEmployee = {
+    _count: EmployeeCountAggregateOutputType | null
+    _min: EmployeeMinAggregateOutputType | null
+    _max: EmployeeMaxAggregateOutputType | null
+  }
+
+  export type EmployeeMinAggregateOutputType = {
+    id: string | null
+    employeeCode: string | null
+    fullName: string | null
+    displayName: string | null
+    photo: string | null
+    mobile: string | null
+    alternatePhone: string | null
+    email: string | null
+    address: string | null
+    department: string | null
+    designation: string | null
+    employmentType: string | null
+    joiningDate: Date | null
+    confirmationDate: Date | null
+    reportingManagerId: string | null
+    workLocation: string | null
+    status: string | null
+    exitDate: Date | null
+    exitReason: string | null
+    userId: string | null
+    createdBy: string | null
+    updatedBy: string | null
+    archivedAt: Date | null
+    archivedBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EmployeeMaxAggregateOutputType = {
+    id: string | null
+    employeeCode: string | null
+    fullName: string | null
+    displayName: string | null
+    photo: string | null
+    mobile: string | null
+    alternatePhone: string | null
+    email: string | null
+    address: string | null
+    department: string | null
+    designation: string | null
+    employmentType: string | null
+    joiningDate: Date | null
+    confirmationDate: Date | null
+    reportingManagerId: string | null
+    workLocation: string | null
+    status: string | null
+    exitDate: Date | null
+    exitReason: string | null
+    userId: string | null
+    createdBy: string | null
+    updatedBy: string | null
+    archivedAt: Date | null
+    archivedBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EmployeeCountAggregateOutputType = {
+    id: number
+    employeeCode: number
+    fullName: number
+    displayName: number
+    photo: number
+    mobile: number
+    alternatePhone: number
+    email: number
+    address: number
+    department: number
+    designation: number
+    employmentType: number
+    joiningDate: number
+    confirmationDate: number
+    reportingManagerId: number
+    workLocation: number
+    status: number
+    exitDate: number
+    exitReason: number
+    userId: number
+    createdBy: number
+    updatedBy: number
+    archivedAt: number
+    archivedBy: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EmployeeMinAggregateInputType = {
+    id?: true
+    employeeCode?: true
+    fullName?: true
+    displayName?: true
+    photo?: true
+    mobile?: true
+    alternatePhone?: true
+    email?: true
+    address?: true
+    department?: true
+    designation?: true
+    employmentType?: true
+    joiningDate?: true
+    confirmationDate?: true
+    reportingManagerId?: true
+    workLocation?: true
+    status?: true
+    exitDate?: true
+    exitReason?: true
+    userId?: true
+    createdBy?: true
+    updatedBy?: true
+    archivedAt?: true
+    archivedBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EmployeeMaxAggregateInputType = {
+    id?: true
+    employeeCode?: true
+    fullName?: true
+    displayName?: true
+    photo?: true
+    mobile?: true
+    alternatePhone?: true
+    email?: true
+    address?: true
+    department?: true
+    designation?: true
+    employmentType?: true
+    joiningDate?: true
+    confirmationDate?: true
+    reportingManagerId?: true
+    workLocation?: true
+    status?: true
+    exitDate?: true
+    exitReason?: true
+    userId?: true
+    createdBy?: true
+    updatedBy?: true
+    archivedAt?: true
+    archivedBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EmployeeCountAggregateInputType = {
+    id?: true
+    employeeCode?: true
+    fullName?: true
+    displayName?: true
+    photo?: true
+    mobile?: true
+    alternatePhone?: true
+    email?: true
+    address?: true
+    department?: true
+    designation?: true
+    employmentType?: true
+    joiningDate?: true
+    confirmationDate?: true
+    reportingManagerId?: true
+    workLocation?: true
+    status?: true
+    exitDate?: true
+    exitReason?: true
+    userId?: true
+    createdBy?: true
+    updatedBy?: true
+    archivedAt?: true
+    archivedBy?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EmployeeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Employee to aggregate.
+     */
+    where?: EmployeeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Employees to fetch.
+     */
+    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmployeeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Employees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Employees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Employees
+    **/
+    _count?: true | EmployeeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmployeeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmployeeMaxAggregateInputType
+  }
+
+  export type GetEmployeeAggregateType<T extends EmployeeAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmployee]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmployee[P]>
+      : GetScalarType<T[P], AggregateEmployee[P]>
+  }
+
+
+
+
+  export type EmployeeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmployeeWhereInput
+    orderBy?: EmployeeOrderByWithAggregationInput | EmployeeOrderByWithAggregationInput[]
+    by: EmployeeScalarFieldEnum[] | EmployeeScalarFieldEnum
+    having?: EmployeeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmployeeCountAggregateInputType | true
+    _min?: EmployeeMinAggregateInputType
+    _max?: EmployeeMaxAggregateInputType
+  }
+
+  export type EmployeeGroupByOutputType = {
+    id: string
+    employeeCode: string
+    fullName: string
+    displayName: string | null
+    photo: string | null
+    mobile: string
+    alternatePhone: string | null
+    email: string | null
+    address: string | null
+    department: string
+    designation: string
+    employmentType: string
+    joiningDate: Date
+    confirmationDate: Date | null
+    reportingManagerId: string | null
+    workLocation: string | null
+    status: string
+    exitDate: Date | null
+    exitReason: string | null
+    userId: string | null
+    createdBy: string | null
+    updatedBy: string | null
+    archivedAt: Date | null
+    archivedBy: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: EmployeeCountAggregateOutputType | null
+    _min: EmployeeMinAggregateOutputType | null
+    _max: EmployeeMaxAggregateOutputType | null
+  }
+
+  type GetEmployeeGroupByPayload<T extends EmployeeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmployeeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmployeeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmployeeGroupByOutputType[P]>
+            : GetScalarType<T[P], EmployeeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmployeeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeCode?: boolean
+    fullName?: boolean
+    displayName?: boolean
+    photo?: boolean
+    mobile?: boolean
+    alternatePhone?: boolean
+    email?: boolean
+    address?: boolean
+    department?: boolean
+    designation?: boolean
+    employmentType?: boolean
+    joiningDate?: boolean
+    confirmationDate?: boolean
+    reportingManagerId?: boolean
+    workLocation?: boolean
+    status?: boolean
+    exitDate?: boolean
+    exitReason?: boolean
+    userId?: boolean
+    createdBy?: boolean
+    updatedBy?: boolean
+    archivedAt?: boolean
+    archivedBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reportingManager?: boolean | Employee$reportingManagerArgs<ExtArgs>
+    subordinates?: boolean | Employee$subordinatesArgs<ExtArgs>
+    user?: boolean | Employee$userArgs<ExtArgs>
+    _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employee"]>
+
+  export type EmployeeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employeeCode?: boolean
+    fullName?: boolean
+    displayName?: boolean
+    photo?: boolean
+    mobile?: boolean
+    alternatePhone?: boolean
+    email?: boolean
+    address?: boolean
+    department?: boolean
+    designation?: boolean
+    employmentType?: boolean
+    joiningDate?: boolean
+    confirmationDate?: boolean
+    reportingManagerId?: boolean
+    workLocation?: boolean
+    status?: boolean
+    exitDate?: boolean
+    exitReason?: boolean
+    userId?: boolean
+    createdBy?: boolean
+    updatedBy?: boolean
+    archivedAt?: boolean
+    archivedBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reportingManager?: boolean | Employee$reportingManagerArgs<ExtArgs>
+    user?: boolean | Employee$userArgs<ExtArgs>
+  }, ExtArgs["result"]["employee"]>
+
+  export type EmployeeSelectScalar = {
+    id?: boolean
+    employeeCode?: boolean
+    fullName?: boolean
+    displayName?: boolean
+    photo?: boolean
+    mobile?: boolean
+    alternatePhone?: boolean
+    email?: boolean
+    address?: boolean
+    department?: boolean
+    designation?: boolean
+    employmentType?: boolean
+    joiningDate?: boolean
+    confirmationDate?: boolean
+    reportingManagerId?: boolean
+    workLocation?: boolean
+    status?: boolean
+    exitDate?: boolean
+    exitReason?: boolean
+    userId?: boolean
+    createdBy?: boolean
+    updatedBy?: boolean
+    archivedAt?: boolean
+    archivedBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EmployeeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reportingManager?: boolean | Employee$reportingManagerArgs<ExtArgs>
+    subordinates?: boolean | Employee$subordinatesArgs<ExtArgs>
+    user?: boolean | Employee$userArgs<ExtArgs>
+    _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reportingManager?: boolean | Employee$reportingManagerArgs<ExtArgs>
+    user?: boolean | Employee$userArgs<ExtArgs>
+  }
+
+  export type $EmployeePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Employee"
+    objects: {
+      reportingManager: Prisma.$EmployeePayload<ExtArgs> | null
+      subordinates: Prisma.$EmployeePayload<ExtArgs>[]
+      user: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      employeeCode: string
+      fullName: string
+      displayName: string | null
+      photo: string | null
+      mobile: string
+      alternatePhone: string | null
+      email: string | null
+      address: string | null
+      department: string
+      designation: string
+      employmentType: string
+      joiningDate: Date
+      confirmationDate: Date | null
+      reportingManagerId: string | null
+      workLocation: string | null
+      status: string
+      exitDate: Date | null
+      exitReason: string | null
+      userId: string | null
+      createdBy: string | null
+      updatedBy: string | null
+      archivedAt: Date | null
+      archivedBy: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["employee"]>
+    composites: {}
+  }
+
+  type EmployeeGetPayload<S extends boolean | null | undefined | EmployeeDefaultArgs> = $Result.GetResult<Prisma.$EmployeePayload, S>
+
+  type EmployeeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<EmployeeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: EmployeeCountAggregateInputType | true
+    }
+
+  export interface EmployeeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Employee'], meta: { name: 'Employee' } }
+    /**
+     * Find zero or one Employee that matches the filter.
+     * @param {EmployeeFindUniqueArgs} args - Arguments to find a Employee
+     * @example
+     * // Get one Employee
+     * const employee = await prisma.employee.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmployeeFindUniqueArgs>(args: SelectSubset<T, EmployeeFindUniqueArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Employee that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {EmployeeFindUniqueOrThrowArgs} args - Arguments to find a Employee
+     * @example
+     * // Get one Employee
+     * const employee = await prisma.employee.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmployeeFindUniqueOrThrowArgs>(args: SelectSubset<T, EmployeeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Employee that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeFindFirstArgs} args - Arguments to find a Employee
+     * @example
+     * // Get one Employee
+     * const employee = await prisma.employee.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmployeeFindFirstArgs>(args?: SelectSubset<T, EmployeeFindFirstArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Employee that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeFindFirstOrThrowArgs} args - Arguments to find a Employee
+     * @example
+     * // Get one Employee
+     * const employee = await prisma.employee.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmployeeFindFirstOrThrowArgs>(args?: SelectSubset<T, EmployeeFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Employees that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Employees
+     * const employees = await prisma.employee.findMany()
+     * 
+     * // Get first 10 Employees
+     * const employees = await prisma.employee.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const employeeWithIdOnly = await prisma.employee.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EmployeeFindManyArgs>(args?: SelectSubset<T, EmployeeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Employee.
+     * @param {EmployeeCreateArgs} args - Arguments to create a Employee.
+     * @example
+     * // Create one Employee
+     * const Employee = await prisma.employee.create({
+     *   data: {
+     *     // ... data to create a Employee
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmployeeCreateArgs>(args: SelectSubset<T, EmployeeCreateArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Employees.
+     * @param {EmployeeCreateManyArgs} args - Arguments to create many Employees.
+     * @example
+     * // Create many Employees
+     * const employee = await prisma.employee.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmployeeCreateManyArgs>(args?: SelectSubset<T, EmployeeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Employees and returns the data saved in the database.
+     * @param {EmployeeCreateManyAndReturnArgs} args - Arguments to create many Employees.
+     * @example
+     * // Create many Employees
+     * const employee = await prisma.employee.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Employees and only return the `id`
+     * const employeeWithIdOnly = await prisma.employee.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmployeeCreateManyAndReturnArgs>(args?: SelectSubset<T, EmployeeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Employee.
+     * @param {EmployeeDeleteArgs} args - Arguments to delete one Employee.
+     * @example
+     * // Delete one Employee
+     * const Employee = await prisma.employee.delete({
+     *   where: {
+     *     // ... filter to delete one Employee
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmployeeDeleteArgs>(args: SelectSubset<T, EmployeeDeleteArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Employee.
+     * @param {EmployeeUpdateArgs} args - Arguments to update one Employee.
+     * @example
+     * // Update one Employee
+     * const employee = await prisma.employee.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmployeeUpdateArgs>(args: SelectSubset<T, EmployeeUpdateArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Employees.
+     * @param {EmployeeDeleteManyArgs} args - Arguments to filter Employees to delete.
+     * @example
+     * // Delete a few Employees
+     * const { count } = await prisma.employee.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmployeeDeleteManyArgs>(args?: SelectSubset<T, EmployeeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Employees.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Employees
+     * const employee = await prisma.employee.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmployeeUpdateManyArgs>(args: SelectSubset<T, EmployeeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Employee.
+     * @param {EmployeeUpsertArgs} args - Arguments to update or create a Employee.
+     * @example
+     * // Update or create a Employee
+     * const employee = await prisma.employee.upsert({
+     *   create: {
+     *     // ... data to create a Employee
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Employee we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmployeeUpsertArgs>(args: SelectSubset<T, EmployeeUpsertArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Employees.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeCountArgs} args - Arguments to filter Employees to count.
+     * @example
+     * // Count the number of Employees
+     * const count = await prisma.employee.count({
+     *   where: {
+     *     // ... the filter for the Employees we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmployeeCountArgs>(
+      args?: Subset<T, EmployeeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmployeeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Employee.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmployeeAggregateArgs>(args: Subset<T, EmployeeAggregateArgs>): Prisma.PrismaPromise<GetEmployeeAggregateType<T>>
+
+    /**
+     * Group by Employee.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmployeeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmployeeGroupByArgs['orderBy'] }
+        : { orderBy?: EmployeeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmployeeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmployeeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Employee model
+   */
+  readonly fields: EmployeeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Employee.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    reportingManager<T extends Employee$reportingManagerArgs<ExtArgs> = {}>(args?: Subset<T, Employee$reportingManagerArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    subordinates<T extends Employee$subordinatesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$subordinatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany"> | Null>
+    user<T extends Employee$userArgs<ExtArgs> = {}>(args?: Subset<T, Employee$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Employee model
+   */ 
+  interface EmployeeFieldRefs {
+    readonly id: FieldRef<"Employee", 'String'>
+    readonly employeeCode: FieldRef<"Employee", 'String'>
+    readonly fullName: FieldRef<"Employee", 'String'>
+    readonly displayName: FieldRef<"Employee", 'String'>
+    readonly photo: FieldRef<"Employee", 'String'>
+    readonly mobile: FieldRef<"Employee", 'String'>
+    readonly alternatePhone: FieldRef<"Employee", 'String'>
+    readonly email: FieldRef<"Employee", 'String'>
+    readonly address: FieldRef<"Employee", 'String'>
+    readonly department: FieldRef<"Employee", 'String'>
+    readonly designation: FieldRef<"Employee", 'String'>
+    readonly employmentType: FieldRef<"Employee", 'String'>
+    readonly joiningDate: FieldRef<"Employee", 'DateTime'>
+    readonly confirmationDate: FieldRef<"Employee", 'DateTime'>
+    readonly reportingManagerId: FieldRef<"Employee", 'String'>
+    readonly workLocation: FieldRef<"Employee", 'String'>
+    readonly status: FieldRef<"Employee", 'String'>
+    readonly exitDate: FieldRef<"Employee", 'DateTime'>
+    readonly exitReason: FieldRef<"Employee", 'String'>
+    readonly userId: FieldRef<"Employee", 'String'>
+    readonly createdBy: FieldRef<"Employee", 'String'>
+    readonly updatedBy: FieldRef<"Employee", 'String'>
+    readonly archivedAt: FieldRef<"Employee", 'DateTime'>
+    readonly archivedBy: FieldRef<"Employee", 'String'>
+    readonly createdAt: FieldRef<"Employee", 'DateTime'>
+    readonly updatedAt: FieldRef<"Employee", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Employee findUnique
+   */
+  export type EmployeeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    /**
+     * Filter, which Employee to fetch.
+     */
+    where: EmployeeWhereUniqueInput
+  }
+
+  /**
+   * Employee findUniqueOrThrow
+   */
+  export type EmployeeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    /**
+     * Filter, which Employee to fetch.
+     */
+    where: EmployeeWhereUniqueInput
+  }
+
+  /**
+   * Employee findFirst
+   */
+  export type EmployeeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    /**
+     * Filter, which Employee to fetch.
+     */
+    where?: EmployeeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Employees to fetch.
+     */
+    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Employees.
+     */
+    cursor?: EmployeeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Employees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Employees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Employees.
+     */
+    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
+  }
+
+  /**
+   * Employee findFirstOrThrow
+   */
+  export type EmployeeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    /**
+     * Filter, which Employee to fetch.
+     */
+    where?: EmployeeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Employees to fetch.
+     */
+    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Employees.
+     */
+    cursor?: EmployeeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Employees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Employees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Employees.
+     */
+    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
+  }
+
+  /**
+   * Employee findMany
+   */
+  export type EmployeeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    /**
+     * Filter, which Employees to fetch.
+     */
+    where?: EmployeeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Employees to fetch.
+     */
+    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Employees.
+     */
+    cursor?: EmployeeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Employees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Employees.
+     */
+    skip?: number
+    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
+  }
+
+  /**
+   * Employee create
+   */
+  export type EmployeeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Employee.
+     */
+    data: XOR<EmployeeCreateInput, EmployeeUncheckedCreateInput>
+  }
+
+  /**
+   * Employee createMany
+   */
+  export type EmployeeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Employees.
+     */
+    data: EmployeeCreateManyInput | EmployeeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Employee createManyAndReturn
+   */
+  export type EmployeeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Employees.
+     */
+    data: EmployeeCreateManyInput | EmployeeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Employee update
+   */
+  export type EmployeeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Employee.
+     */
+    data: XOR<EmployeeUpdateInput, EmployeeUncheckedUpdateInput>
+    /**
+     * Choose, which Employee to update.
+     */
+    where: EmployeeWhereUniqueInput
+  }
+
+  /**
+   * Employee updateMany
+   */
+  export type EmployeeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Employees.
+     */
+    data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyInput>
+    /**
+     * Filter which Employees to update
+     */
+    where?: EmployeeWhereInput
+  }
+
+  /**
+   * Employee upsert
+   */
+  export type EmployeeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Employee to update in case it exists.
+     */
+    where: EmployeeWhereUniqueInput
+    /**
+     * In case the Employee found by the `where` argument doesn't exist, create a new Employee with this data.
+     */
+    create: XOR<EmployeeCreateInput, EmployeeUncheckedCreateInput>
+    /**
+     * In case the Employee was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmployeeUpdateInput, EmployeeUncheckedUpdateInput>
+  }
+
+  /**
+   * Employee delete
+   */
+  export type EmployeeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    /**
+     * Filter which Employee to delete.
+     */
+    where: EmployeeWhereUniqueInput
+  }
+
+  /**
+   * Employee deleteMany
+   */
+  export type EmployeeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Employees to delete
+     */
+    where?: EmployeeWhereInput
+  }
+
+  /**
+   * Employee.reportingManager
+   */
+  export type Employee$reportingManagerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    where?: EmployeeWhereInput
+  }
+
+  /**
+   * Employee.subordinates
+   */
+  export type Employee$subordinatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    where?: EmployeeWhereInput
+    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
+    cursor?: EmployeeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
+  }
+
+  /**
+   * Employee.user
+   */
+  export type Employee$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Employee without action
+   */
+  export type EmployeeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -21946,6 +23329,38 @@ export namespace Prisma {
   export type PropertyPaymentScalarFieldEnum = (typeof PropertyPaymentScalarFieldEnum)[keyof typeof PropertyPaymentScalarFieldEnum]
 
 
+  export const EmployeeScalarFieldEnum: {
+    id: 'id',
+    employeeCode: 'employeeCode',
+    fullName: 'fullName',
+    displayName: 'displayName',
+    photo: 'photo',
+    mobile: 'mobile',
+    alternatePhone: 'alternatePhone',
+    email: 'email',
+    address: 'address',
+    department: 'department',
+    designation: 'designation',
+    employmentType: 'employmentType',
+    joiningDate: 'joiningDate',
+    confirmationDate: 'confirmationDate',
+    reportingManagerId: 'reportingManagerId',
+    workLocation: 'workLocation',
+    status: 'status',
+    exitDate: 'exitDate',
+    exitReason: 'exitReason',
+    userId: 'userId',
+    createdBy: 'createdBy',
+    updatedBy: 'updatedBy',
+    archivedAt: 'archivedAt',
+    archivedBy: 'archivedBy',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EmployeeScalarFieldEnum = (typeof EmployeeScalarFieldEnum)[keyof typeof EmployeeScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -22100,6 +23515,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentListRelationFilter
     createdProperties?: PropertyAcquisitionListRelationFilter
     recordedPropertyPayments?: PropertyPaymentListRelationFilter
+    employee?: XOR<EmployeeNullableRelationFilter, EmployeeWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -22120,6 +23536,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentOrderByRelationAggregateInput
     createdProperties?: PropertyAcquisitionOrderByRelationAggregateInput
     recordedPropertyPayments?: PropertyPaymentOrderByRelationAggregateInput
+    employee?: EmployeeOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -22143,6 +23560,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentListRelationFilter
     createdProperties?: PropertyAcquisitionListRelationFilter
     recordedPropertyPayments?: PropertyPaymentListRelationFilter
+    employee?: XOR<EmployeeNullableRelationFilter, EmployeeWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -23667,6 +25085,172 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"PropertyPayment"> | Date | string
   }
 
+  export type EmployeeWhereInput = {
+    AND?: EmployeeWhereInput | EmployeeWhereInput[]
+    OR?: EmployeeWhereInput[]
+    NOT?: EmployeeWhereInput | EmployeeWhereInput[]
+    id?: StringFilter<"Employee"> | string
+    employeeCode?: StringFilter<"Employee"> | string
+    fullName?: StringFilter<"Employee"> | string
+    displayName?: StringNullableFilter<"Employee"> | string | null
+    photo?: StringNullableFilter<"Employee"> | string | null
+    mobile?: StringFilter<"Employee"> | string
+    alternatePhone?: StringNullableFilter<"Employee"> | string | null
+    email?: StringNullableFilter<"Employee"> | string | null
+    address?: StringNullableFilter<"Employee"> | string | null
+    department?: StringFilter<"Employee"> | string
+    designation?: StringFilter<"Employee"> | string
+    employmentType?: StringFilter<"Employee"> | string
+    joiningDate?: DateTimeFilter<"Employee"> | Date | string
+    confirmationDate?: DateTimeNullableFilter<"Employee"> | Date | string | null
+    reportingManagerId?: StringNullableFilter<"Employee"> | string | null
+    workLocation?: StringNullableFilter<"Employee"> | string | null
+    status?: StringFilter<"Employee"> | string
+    exitDate?: DateTimeNullableFilter<"Employee"> | Date | string | null
+    exitReason?: StringNullableFilter<"Employee"> | string | null
+    userId?: StringNullableFilter<"Employee"> | string | null
+    createdBy?: StringNullableFilter<"Employee"> | string | null
+    updatedBy?: StringNullableFilter<"Employee"> | string | null
+    archivedAt?: DateTimeNullableFilter<"Employee"> | Date | string | null
+    archivedBy?: StringNullableFilter<"Employee"> | string | null
+    createdAt?: DateTimeFilter<"Employee"> | Date | string
+    updatedAt?: DateTimeFilter<"Employee"> | Date | string
+    reportingManager?: XOR<EmployeeNullableRelationFilter, EmployeeWhereInput> | null
+    subordinates?: EmployeeListRelationFilter
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }
+
+  export type EmployeeOrderByWithRelationInput = {
+    id?: SortOrder
+    employeeCode?: SortOrder
+    fullName?: SortOrder
+    displayName?: SortOrderInput | SortOrder
+    photo?: SortOrderInput | SortOrder
+    mobile?: SortOrder
+    alternatePhone?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    department?: SortOrder
+    designation?: SortOrder
+    employmentType?: SortOrder
+    joiningDate?: SortOrder
+    confirmationDate?: SortOrderInput | SortOrder
+    reportingManagerId?: SortOrderInput | SortOrder
+    workLocation?: SortOrderInput | SortOrder
+    status?: SortOrder
+    exitDate?: SortOrderInput | SortOrder
+    exitReason?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    updatedBy?: SortOrderInput | SortOrder
+    archivedAt?: SortOrderInput | SortOrder
+    archivedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    reportingManager?: EmployeeOrderByWithRelationInput
+    subordinates?: EmployeeOrderByRelationAggregateInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    employeeCode?: string
+    mobile?: string
+    email?: string
+    userId?: string
+    AND?: EmployeeWhereInput | EmployeeWhereInput[]
+    OR?: EmployeeWhereInput[]
+    NOT?: EmployeeWhereInput | EmployeeWhereInput[]
+    fullName?: StringFilter<"Employee"> | string
+    displayName?: StringNullableFilter<"Employee"> | string | null
+    photo?: StringNullableFilter<"Employee"> | string | null
+    alternatePhone?: StringNullableFilter<"Employee"> | string | null
+    address?: StringNullableFilter<"Employee"> | string | null
+    department?: StringFilter<"Employee"> | string
+    designation?: StringFilter<"Employee"> | string
+    employmentType?: StringFilter<"Employee"> | string
+    joiningDate?: DateTimeFilter<"Employee"> | Date | string
+    confirmationDate?: DateTimeNullableFilter<"Employee"> | Date | string | null
+    reportingManagerId?: StringNullableFilter<"Employee"> | string | null
+    workLocation?: StringNullableFilter<"Employee"> | string | null
+    status?: StringFilter<"Employee"> | string
+    exitDate?: DateTimeNullableFilter<"Employee"> | Date | string | null
+    exitReason?: StringNullableFilter<"Employee"> | string | null
+    createdBy?: StringNullableFilter<"Employee"> | string | null
+    updatedBy?: StringNullableFilter<"Employee"> | string | null
+    archivedAt?: DateTimeNullableFilter<"Employee"> | Date | string | null
+    archivedBy?: StringNullableFilter<"Employee"> | string | null
+    createdAt?: DateTimeFilter<"Employee"> | Date | string
+    updatedAt?: DateTimeFilter<"Employee"> | Date | string
+    reportingManager?: XOR<EmployeeNullableRelationFilter, EmployeeWhereInput> | null
+    subordinates?: EmployeeListRelationFilter
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }, "id" | "employeeCode" | "mobile" | "email" | "userId">
+
+  export type EmployeeOrderByWithAggregationInput = {
+    id?: SortOrder
+    employeeCode?: SortOrder
+    fullName?: SortOrder
+    displayName?: SortOrderInput | SortOrder
+    photo?: SortOrderInput | SortOrder
+    mobile?: SortOrder
+    alternatePhone?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    department?: SortOrder
+    designation?: SortOrder
+    employmentType?: SortOrder
+    joiningDate?: SortOrder
+    confirmationDate?: SortOrderInput | SortOrder
+    reportingManagerId?: SortOrderInput | SortOrder
+    workLocation?: SortOrderInput | SortOrder
+    status?: SortOrder
+    exitDate?: SortOrderInput | SortOrder
+    exitReason?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    updatedBy?: SortOrderInput | SortOrder
+    archivedAt?: SortOrderInput | SortOrder
+    archivedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EmployeeCountOrderByAggregateInput
+    _max?: EmployeeMaxOrderByAggregateInput
+    _min?: EmployeeMinOrderByAggregateInput
+  }
+
+  export type EmployeeScalarWhereWithAggregatesInput = {
+    AND?: EmployeeScalarWhereWithAggregatesInput | EmployeeScalarWhereWithAggregatesInput[]
+    OR?: EmployeeScalarWhereWithAggregatesInput[]
+    NOT?: EmployeeScalarWhereWithAggregatesInput | EmployeeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Employee"> | string
+    employeeCode?: StringWithAggregatesFilter<"Employee"> | string
+    fullName?: StringWithAggregatesFilter<"Employee"> | string
+    displayName?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    photo?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    mobile?: StringWithAggregatesFilter<"Employee"> | string
+    alternatePhone?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    email?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    address?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    department?: StringWithAggregatesFilter<"Employee"> | string
+    designation?: StringWithAggregatesFilter<"Employee"> | string
+    employmentType?: StringWithAggregatesFilter<"Employee"> | string
+    joiningDate?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
+    confirmationDate?: DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
+    reportingManagerId?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    workLocation?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    status?: StringWithAggregatesFilter<"Employee"> | string
+    exitDate?: DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
+    exitReason?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    userId?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    createdBy?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    updatedBy?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    archivedAt?: DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
+    archivedBy?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -23684,6 +25268,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -23703,6 +25288,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -23722,6 +25308,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -23741,6 +25328,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -25446,6 +27034,211 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type EmployeeCreateInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reportingManager?: EmployeeCreateNestedOneWithoutSubordinatesInput
+    subordinates?: EmployeeCreateNestedManyWithoutReportingManagerInput
+    user?: UserCreateNestedOneWithoutEmployeeInput
+  }
+
+  export type EmployeeUncheckedCreateInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    reportingManagerId?: string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    userId?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subordinates?: EmployeeUncheckedCreateNestedManyWithoutReportingManagerInput
+  }
+
+  export type EmployeeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reportingManager?: EmployeeUpdateOneWithoutSubordinatesNestedInput
+    subordinates?: EmployeeUpdateManyWithoutReportingManagerNestedInput
+    user?: UserUpdateOneWithoutEmployeeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reportingManagerId?: NullableStringFieldUpdateOperationsInput | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subordinates?: EmployeeUncheckedUpdateManyWithoutReportingManagerNestedInput
+  }
+
+  export type EmployeeCreateManyInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    reportingManagerId?: string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    userId?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EmployeeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reportingManagerId?: NullableStringFieldUpdateOperationsInput | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -25522,6 +27315,11 @@ export namespace Prisma {
     every?: PropertyPaymentWhereInput
     some?: PropertyPaymentWhereInput
     none?: PropertyPaymentWhereInput
+  }
+
+  export type EmployeeNullableRelationFilter = {
+    is?: EmployeeWhereInput | null
+    isNot?: EmployeeWhereInput | null
   }
 
   export type FundRequestOrderByRelationAggregateInput = {
@@ -26762,6 +28560,103 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
+  export type EmployeeListRelationFilter = {
+    every?: EmployeeWhereInput
+    some?: EmployeeWhereInput
+    none?: EmployeeWhereInput
+  }
+
+  export type EmployeeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EmployeeCountOrderByAggregateInput = {
+    id?: SortOrder
+    employeeCode?: SortOrder
+    fullName?: SortOrder
+    displayName?: SortOrder
+    photo?: SortOrder
+    mobile?: SortOrder
+    alternatePhone?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    department?: SortOrder
+    designation?: SortOrder
+    employmentType?: SortOrder
+    joiningDate?: SortOrder
+    confirmationDate?: SortOrder
+    reportingManagerId?: SortOrder
+    workLocation?: SortOrder
+    status?: SortOrder
+    exitDate?: SortOrder
+    exitReason?: SortOrder
+    userId?: SortOrder
+    createdBy?: SortOrder
+    updatedBy?: SortOrder
+    archivedAt?: SortOrder
+    archivedBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EmployeeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    employeeCode?: SortOrder
+    fullName?: SortOrder
+    displayName?: SortOrder
+    photo?: SortOrder
+    mobile?: SortOrder
+    alternatePhone?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    department?: SortOrder
+    designation?: SortOrder
+    employmentType?: SortOrder
+    joiningDate?: SortOrder
+    confirmationDate?: SortOrder
+    reportingManagerId?: SortOrder
+    workLocation?: SortOrder
+    status?: SortOrder
+    exitDate?: SortOrder
+    exitReason?: SortOrder
+    userId?: SortOrder
+    createdBy?: SortOrder
+    updatedBy?: SortOrder
+    archivedAt?: SortOrder
+    archivedBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EmployeeMinOrderByAggregateInput = {
+    id?: SortOrder
+    employeeCode?: SortOrder
+    fullName?: SortOrder
+    displayName?: SortOrder
+    photo?: SortOrder
+    mobile?: SortOrder
+    alternatePhone?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    department?: SortOrder
+    designation?: SortOrder
+    employmentType?: SortOrder
+    joiningDate?: SortOrder
+    confirmationDate?: SortOrder
+    reportingManagerId?: SortOrder
+    workLocation?: SortOrder
+    status?: SortOrder
+    exitDate?: SortOrder
+    exitReason?: SortOrder
+    userId?: SortOrder
+    createdBy?: SortOrder
+    updatedBy?: SortOrder
+    archivedAt?: SortOrder
+    archivedBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type RoleCreateNestedOneWithoutUsersInput = {
     create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
     connectOrCreate?: RoleCreateOrConnectWithoutUsersInput
@@ -26830,6 +28725,12 @@ export namespace Prisma {
     connect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
   }
 
+  export type EmployeeCreateNestedOneWithoutUserInput = {
+    create?: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutUserInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
   export type WalletUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput
@@ -26890,6 +28791,12 @@ export namespace Prisma {
     connectOrCreate?: PropertyPaymentCreateOrConnectWithoutPaidByInput | PropertyPaymentCreateOrConnectWithoutPaidByInput[]
     createMany?: PropertyPaymentCreateManyPaidByInputEnvelope
     connect?: PropertyPaymentWhereUniqueInput | PropertyPaymentWhereUniqueInput[]
+  }
+
+  export type EmployeeUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutUserInput
+    connect?: EmployeeWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -27030,6 +28937,16 @@ export namespace Prisma {
     deleteMany?: PropertyPaymentScalarWhereInput | PropertyPaymentScalarWhereInput[]
   }
 
+  export type EmployeeUpdateOneWithoutUserNestedInput = {
+    create?: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutUserInput
+    upsert?: EmployeeUpsertWithoutUserInput
+    disconnect?: EmployeeWhereInput | boolean
+    delete?: EmployeeWhereInput | boolean
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutUserInput, EmployeeUpdateWithoutUserInput>, EmployeeUncheckedUpdateWithoutUserInput>
+  }
+
   export type WalletUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput
@@ -27150,6 +29067,16 @@ export namespace Prisma {
     update?: PropertyPaymentUpdateWithWhereUniqueWithoutPaidByInput | PropertyPaymentUpdateWithWhereUniqueWithoutPaidByInput[]
     updateMany?: PropertyPaymentUpdateManyWithWhereWithoutPaidByInput | PropertyPaymentUpdateManyWithWhereWithoutPaidByInput[]
     deleteMany?: PropertyPaymentScalarWhereInput | PropertyPaymentScalarWhereInput[]
+  }
+
+  export type EmployeeUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutUserInput
+    upsert?: EmployeeUpsertWithoutUserInput
+    disconnect?: EmployeeWhereInput | boolean
+    delete?: EmployeeWhereInput | boolean
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutUserInput, EmployeeUpdateWithoutUserInput>, EmployeeUncheckedUpdateWithoutUserInput>
   }
 
   export type UserCreateNestedManyWithoutRoleInput = {
@@ -27976,6 +29903,80 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRecordedPropertyPaymentsInput, UserUpdateWithoutRecordedPropertyPaymentsInput>, UserUncheckedUpdateWithoutRecordedPropertyPaymentsInput>
   }
 
+  export type EmployeeCreateNestedOneWithoutSubordinatesInput = {
+    create?: XOR<EmployeeCreateWithoutSubordinatesInput, EmployeeUncheckedCreateWithoutSubordinatesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutSubordinatesInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
+  export type EmployeeCreateNestedManyWithoutReportingManagerInput = {
+    create?: XOR<EmployeeCreateWithoutReportingManagerInput, EmployeeUncheckedCreateWithoutReportingManagerInput> | EmployeeCreateWithoutReportingManagerInput[] | EmployeeUncheckedCreateWithoutReportingManagerInput[]
+    connectOrCreate?: EmployeeCreateOrConnectWithoutReportingManagerInput | EmployeeCreateOrConnectWithoutReportingManagerInput[]
+    createMany?: EmployeeCreateManyReportingManagerInputEnvelope
+    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedOneWithoutEmployeeInput = {
+    create?: XOR<UserCreateWithoutEmployeeInput, UserUncheckedCreateWithoutEmployeeInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEmployeeInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EmployeeUncheckedCreateNestedManyWithoutReportingManagerInput = {
+    create?: XOR<EmployeeCreateWithoutReportingManagerInput, EmployeeUncheckedCreateWithoutReportingManagerInput> | EmployeeCreateWithoutReportingManagerInput[] | EmployeeUncheckedCreateWithoutReportingManagerInput[]
+    connectOrCreate?: EmployeeCreateOrConnectWithoutReportingManagerInput | EmployeeCreateOrConnectWithoutReportingManagerInput[]
+    createMany?: EmployeeCreateManyReportingManagerInputEnvelope
+    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  }
+
+  export type EmployeeUpdateOneWithoutSubordinatesNestedInput = {
+    create?: XOR<EmployeeCreateWithoutSubordinatesInput, EmployeeUncheckedCreateWithoutSubordinatesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutSubordinatesInput
+    upsert?: EmployeeUpsertWithoutSubordinatesInput
+    disconnect?: EmployeeWhereInput | boolean
+    delete?: EmployeeWhereInput | boolean
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutSubordinatesInput, EmployeeUpdateWithoutSubordinatesInput>, EmployeeUncheckedUpdateWithoutSubordinatesInput>
+  }
+
+  export type EmployeeUpdateManyWithoutReportingManagerNestedInput = {
+    create?: XOR<EmployeeCreateWithoutReportingManagerInput, EmployeeUncheckedCreateWithoutReportingManagerInput> | EmployeeCreateWithoutReportingManagerInput[] | EmployeeUncheckedCreateWithoutReportingManagerInput[]
+    connectOrCreate?: EmployeeCreateOrConnectWithoutReportingManagerInput | EmployeeCreateOrConnectWithoutReportingManagerInput[]
+    upsert?: EmployeeUpsertWithWhereUniqueWithoutReportingManagerInput | EmployeeUpsertWithWhereUniqueWithoutReportingManagerInput[]
+    createMany?: EmployeeCreateManyReportingManagerInputEnvelope
+    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+    update?: EmployeeUpdateWithWhereUniqueWithoutReportingManagerInput | EmployeeUpdateWithWhereUniqueWithoutReportingManagerInput[]
+    updateMany?: EmployeeUpdateManyWithWhereWithoutReportingManagerInput | EmployeeUpdateManyWithWhereWithoutReportingManagerInput[]
+    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  }
+
+  export type UserUpdateOneWithoutEmployeeNestedInput = {
+    create?: XOR<UserCreateWithoutEmployeeInput, UserUncheckedCreateWithoutEmployeeInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEmployeeInput
+    upsert?: UserUpsertWithoutEmployeeInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEmployeeInput, UserUpdateWithoutEmployeeInput>, UserUncheckedUpdateWithoutEmployeeInput>
+  }
+
+  export type EmployeeUncheckedUpdateManyWithoutReportingManagerNestedInput = {
+    create?: XOR<EmployeeCreateWithoutReportingManagerInput, EmployeeUncheckedCreateWithoutReportingManagerInput> | EmployeeCreateWithoutReportingManagerInput[] | EmployeeUncheckedCreateWithoutReportingManagerInput[]
+    connectOrCreate?: EmployeeCreateOrConnectWithoutReportingManagerInput | EmployeeCreateOrConnectWithoutReportingManagerInput[]
+    upsert?: EmployeeUpsertWithWhereUniqueWithoutReportingManagerInput | EmployeeUpsertWithWhereUniqueWithoutReportingManagerInput[]
+    createMany?: EmployeeCreateManyReportingManagerInputEnvelope
+    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+    update?: EmployeeUpdateWithWhereUniqueWithoutReportingManagerInput | EmployeeUpdateWithWhereUniqueWithoutReportingManagerInput[]
+    updateMany?: EmployeeUpdateManyWithWhereWithoutReportingManagerInput | EmployeeUpdateManyWithWhereWithoutReportingManagerInput[]
+    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -28679,6 +30680,69 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EmployeeCreateWithoutUserInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reportingManager?: EmployeeCreateNestedOneWithoutSubordinatesInput
+    subordinates?: EmployeeCreateNestedManyWithoutReportingManagerInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutUserInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    reportingManagerId?: string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subordinates?: EmployeeUncheckedCreateNestedManyWithoutReportingManagerInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutUserInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput>
+  }
+
   export type RoleUpsertWithoutUsersInput = {
     update: XOR<RoleUpdateWithoutUsersInput, RoleUncheckedUpdateWithoutUsersInput>
     create: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
@@ -29036,6 +31100,75 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PropertyPayment"> | Date | string
   }
 
+  export type EmployeeUpsertWithoutUserInput = {
+    update: XOR<EmployeeUpdateWithoutUserInput, EmployeeUncheckedUpdateWithoutUserInput>
+    create: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutUserInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutUserInput, EmployeeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type EmployeeUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reportingManager?: EmployeeUpdateOneWithoutSubordinatesNestedInput
+    subordinates?: EmployeeUpdateManyWithoutReportingManagerNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reportingManagerId?: NullableStringFieldUpdateOperationsInput | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subordinates?: EmployeeUncheckedUpdateManyWithoutReportingManagerNestedInput
+  }
+
   export type UserCreateWithoutRoleInput = {
     id?: string
     email: string
@@ -29052,6 +31185,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRoleInput = {
@@ -29070,6 +31204,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRoleInput = {
@@ -29303,6 +31438,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWalletInput = {
@@ -29321,6 +31457,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWalletInput = {
@@ -29477,6 +31614,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletInput = {
@@ -29495,6 +31633,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type WalletTransactionUpsertWithWhereUniqueWithoutSourceWalletInput = {
@@ -29731,6 +31870,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFundRequestsInput = {
@@ -29749,6 +31889,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFundRequestsInput = {
@@ -29772,6 +31913,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutManagedRequestsInput = {
@@ -29790,6 +31932,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutManagedRequestsInput = {
@@ -29915,6 +32058,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFundRequestsInput = {
@@ -29933,6 +32077,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutManagedRequestsInput = {
@@ -29962,6 +32107,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutManagedRequestsInput = {
@@ -29980,6 +32126,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type FundRequestUpsertWithoutChildRequestsInput = {
@@ -30063,6 +32210,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutExpensesInput = {
@@ -30081,6 +32229,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutExpensesInput = {
@@ -30167,6 +32316,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExpensesInput = {
@@ -30185,6 +32335,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type WalletUpsertWithoutExpensesInput = {
@@ -30545,6 +32696,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -30563,6 +32715,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -30597,6 +32750,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -30615,6 +32769,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutCustomersInput = {
@@ -30633,6 +32788,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCustomersInput = {
@@ -30651,6 +32807,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCustomersInput = {
@@ -30721,6 +32878,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomersInput = {
@@ -30739,6 +32897,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type CustomerPaymentUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -30854,6 +33013,7 @@ export namespace Prisma {
     customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
     createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRecordedPaymentsInput = {
@@ -30872,6 +33032,7 @@ export namespace Prisma {
     customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
     createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
     recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRecordedPaymentsInput = {
@@ -30993,6 +33154,7 @@ export namespace Prisma {
     customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
     createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRecordedPaymentsInput = {
@@ -31011,6 +33173,7 @@ export namespace Prisma {
     customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
     createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutCreatedPropertiesInput = {
@@ -31029,6 +33192,7 @@ export namespace Prisma {
     customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
     recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCreatedPropertiesInput = {
@@ -31047,6 +33211,7 @@ export namespace Prisma {
     customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
     recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
+    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCreatedPropertiesInput = {
@@ -31117,6 +33282,7 @@ export namespace Prisma {
     customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedPropertiesInput = {
@@ -31135,6 +33301,7 @@ export namespace Prisma {
     customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type PropertyPaymentUpsertWithWhereUniqueWithoutPropertyInput = {
@@ -31214,6 +33381,7 @@ export namespace Prisma {
     customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
+    employee?: EmployeeCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRecordedPropertyPaymentsInput = {
@@ -31232,6 +33400,7 @@ export namespace Prisma {
     customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
     recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
+    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRecordedPropertyPaymentsInput = {
@@ -31317,6 +33486,7 @@ export namespace Prisma {
     customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
+    employee?: EmployeeUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRecordedPropertyPaymentsInput = {
@@ -31335,6 +33505,347 @@ export namespace Prisma {
     customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
+    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type EmployeeCreateWithoutSubordinatesInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reportingManager?: EmployeeCreateNestedOneWithoutSubordinatesInput
+    user?: UserCreateNestedOneWithoutEmployeeInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    reportingManagerId?: string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    userId?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EmployeeCreateOrConnectWithoutSubordinatesInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutSubordinatesInput, EmployeeUncheckedCreateWithoutSubordinatesInput>
+  }
+
+  export type EmployeeCreateWithoutReportingManagerInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subordinates?: EmployeeCreateNestedManyWithoutReportingManagerInput
+    user?: UserCreateNestedOneWithoutEmployeeInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutReportingManagerInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    userId?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subordinates?: EmployeeUncheckedCreateNestedManyWithoutReportingManagerInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutReportingManagerInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutReportingManagerInput, EmployeeUncheckedCreateWithoutReportingManagerInput>
+  }
+
+  export type EmployeeCreateManyReportingManagerInputEnvelope = {
+    data: EmployeeCreateManyReportingManagerInput | EmployeeCreateManyReportingManagerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutEmployeeInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role: RoleCreateNestedOneWithoutUsersInput
+    wallet?: WalletCreateNestedOneWithoutUserInput
+    fundRequests?: FundRequestCreateNestedManyWithoutRequesterInput
+    managedRequests?: FundRequestCreateNestedManyWithoutManagerInput
+    expenses?: ExpenseCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    customers?: CustomerCreateNestedManyWithoutSalesOwnerInput
+    recordedPayments?: CustomerPaymentCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentCreateNestedManyWithoutPaidByInput
+  }
+
+  export type UserUncheckedCreateWithoutEmployeeInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    roleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    fundRequests?: FundRequestUncheckedCreateNestedManyWithoutRequesterInput
+    managedRequests?: FundRequestUncheckedCreateNestedManyWithoutManagerInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutSalesOwnerInput
+    recordedPayments?: CustomerPaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdProperties?: PropertyAcquisitionUncheckedCreateNestedManyWithoutCreatedByInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedCreateNestedManyWithoutPaidByInput
+  }
+
+  export type UserCreateOrConnectWithoutEmployeeInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutEmployeeInput, UserUncheckedCreateWithoutEmployeeInput>
+  }
+
+  export type EmployeeUpsertWithoutSubordinatesInput = {
+    update: XOR<EmployeeUpdateWithoutSubordinatesInput, EmployeeUncheckedUpdateWithoutSubordinatesInput>
+    create: XOR<EmployeeCreateWithoutSubordinatesInput, EmployeeUncheckedCreateWithoutSubordinatesInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutSubordinatesInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutSubordinatesInput, EmployeeUncheckedUpdateWithoutSubordinatesInput>
+  }
+
+  export type EmployeeUpdateWithoutSubordinatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reportingManager?: EmployeeUpdateOneWithoutSubordinatesNestedInput
+    user?: UserUpdateOneWithoutEmployeeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reportingManagerId?: NullableStringFieldUpdateOperationsInput | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmployeeUpsertWithWhereUniqueWithoutReportingManagerInput = {
+    where: EmployeeWhereUniqueInput
+    update: XOR<EmployeeUpdateWithoutReportingManagerInput, EmployeeUncheckedUpdateWithoutReportingManagerInput>
+    create: XOR<EmployeeCreateWithoutReportingManagerInput, EmployeeUncheckedCreateWithoutReportingManagerInput>
+  }
+
+  export type EmployeeUpdateWithWhereUniqueWithoutReportingManagerInput = {
+    where: EmployeeWhereUniqueInput
+    data: XOR<EmployeeUpdateWithoutReportingManagerInput, EmployeeUncheckedUpdateWithoutReportingManagerInput>
+  }
+
+  export type EmployeeUpdateManyWithWhereWithoutReportingManagerInput = {
+    where: EmployeeScalarWhereInput
+    data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyWithoutReportingManagerInput>
+  }
+
+  export type EmployeeScalarWhereInput = {
+    AND?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+    OR?: EmployeeScalarWhereInput[]
+    NOT?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+    id?: StringFilter<"Employee"> | string
+    employeeCode?: StringFilter<"Employee"> | string
+    fullName?: StringFilter<"Employee"> | string
+    displayName?: StringNullableFilter<"Employee"> | string | null
+    photo?: StringNullableFilter<"Employee"> | string | null
+    mobile?: StringFilter<"Employee"> | string
+    alternatePhone?: StringNullableFilter<"Employee"> | string | null
+    email?: StringNullableFilter<"Employee"> | string | null
+    address?: StringNullableFilter<"Employee"> | string | null
+    department?: StringFilter<"Employee"> | string
+    designation?: StringFilter<"Employee"> | string
+    employmentType?: StringFilter<"Employee"> | string
+    joiningDate?: DateTimeFilter<"Employee"> | Date | string
+    confirmationDate?: DateTimeNullableFilter<"Employee"> | Date | string | null
+    reportingManagerId?: StringNullableFilter<"Employee"> | string | null
+    workLocation?: StringNullableFilter<"Employee"> | string | null
+    status?: StringFilter<"Employee"> | string
+    exitDate?: DateTimeNullableFilter<"Employee"> | Date | string | null
+    exitReason?: StringNullableFilter<"Employee"> | string | null
+    userId?: StringNullableFilter<"Employee"> | string | null
+    createdBy?: StringNullableFilter<"Employee"> | string | null
+    updatedBy?: StringNullableFilter<"Employee"> | string | null
+    archivedAt?: DateTimeNullableFilter<"Employee"> | Date | string | null
+    archivedBy?: StringNullableFilter<"Employee"> | string | null
+    createdAt?: DateTimeFilter<"Employee"> | Date | string
+    updatedAt?: DateTimeFilter<"Employee"> | Date | string
+  }
+
+  export type UserUpsertWithoutEmployeeInput = {
+    update: XOR<UserUpdateWithoutEmployeeInput, UserUncheckedUpdateWithoutEmployeeInput>
+    create: XOR<UserCreateWithoutEmployeeInput, UserUncheckedCreateWithoutEmployeeInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutEmployeeInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutEmployeeInput, UserUncheckedUpdateWithoutEmployeeInput>
+  }
+
+  export type UserUpdateWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: RoleUpdateOneRequiredWithoutUsersNestedInput
+    wallet?: WalletUpdateOneWithoutUserNestedInput
+    fundRequests?: FundRequestUpdateManyWithoutRequesterNestedInput
+    managedRequests?: FundRequestUpdateManyWithoutManagerNestedInput
+    expenses?: ExpenseUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    customers?: CustomerUpdateManyWithoutSalesOwnerNestedInput
+    recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    fundRequests?: FundRequestUncheckedUpdateManyWithoutRequesterNestedInput
+    managedRequests?: FundRequestUncheckedUpdateManyWithoutManagerNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutSalesOwnerNestedInput
+    recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
+    recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
   }
 
   export type FundRequestCreateManyRequesterInput = {
@@ -31970,6 +34481,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleInput = {
@@ -31988,6 +34500,7 @@ export namespace Prisma {
     recordedPayments?: CustomerPaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
+    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -32525,6 +35038,120 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type EmployeeCreateManyReportingManagerInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    userId?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EmployeeUpdateWithoutReportingManagerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subordinates?: EmployeeUpdateManyWithoutReportingManagerNestedInput
+    user?: UserUpdateOneWithoutEmployeeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutReportingManagerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subordinates?: EmployeeUncheckedUpdateManyWithoutReportingManagerNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateManyWithoutReportingManagerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -32570,6 +35197,10 @@ export namespace Prisma {
      * @deprecated Use PropertyAcquisitionCountOutputTypeDefaultArgs instead
      */
     export type PropertyAcquisitionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PropertyAcquisitionCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use EmployeeCountOutputTypeDefaultArgs instead
+     */
+    export type EmployeeCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EmployeeCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
@@ -32642,6 +35273,10 @@ export namespace Prisma {
      * @deprecated Use PropertyPaymentDefaultArgs instead
      */
     export type PropertyPaymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PropertyPaymentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use EmployeeDefaultArgs instead
+     */
+    export type EmployeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EmployeeDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

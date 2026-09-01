@@ -367,6 +367,35 @@ exports.Prisma.PropertyPaymentScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.EmployeeScalarFieldEnum = {
+  id: 'id',
+  employeeCode: 'employeeCode',
+  fullName: 'fullName',
+  displayName: 'displayName',
+  photo: 'photo',
+  mobile: 'mobile',
+  alternatePhone: 'alternatePhone',
+  email: 'email',
+  address: 'address',
+  department: 'department',
+  designation: 'designation',
+  employmentType: 'employmentType',
+  joiningDate: 'joiningDate',
+  confirmationDate: 'confirmationDate',
+  reportingManagerId: 'reportingManagerId',
+  workLocation: 'workLocation',
+  status: 'status',
+  exitDate: 'exitDate',
+  exitReason: 'exitReason',
+  userId: 'userId',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  archivedAt: 'archivedAt',
+  archivedBy: 'archivedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -416,7 +445,8 @@ exports.Prisma.ModelName = {
   Customer: 'Customer',
   CustomerPayment: 'CustomerPayment',
   PropertyAcquisition: 'PropertyAcquisition',
-  PropertyPayment: 'PropertyPayment'
+  PropertyPayment: 'PropertyPayment',
+  Employee: 'Employee'
 };
 
 /**

@@ -54,6 +54,7 @@ const auditRoutes = require('./routes/auditRoutes');
 const customerRoutes = require('./routes/customerRoutes');
 const propertyRoutes = require('./routes/propertyRoutes');
 const treasuryRoutes = require('./routes/treasuryRoutes');
+const employeeRoutes = require('./routes/employeeRoutes');
 
 // Mount Routes
 app.use('/api/v1/auth', authRoutes);
@@ -68,6 +69,7 @@ app.use('/api/v1/audit', auditRoutes);
 app.use('/api/v1/customers', customerRoutes);
 app.use('/api/v1/properties', propertyRoutes);
 app.use('/api/v1/treasury', treasuryRoutes);
+app.use('/api/v1/employees', employeeRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {

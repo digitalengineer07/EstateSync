@@ -27,6 +27,7 @@ model User {
   recordedPayments CustomerPayment[] @relation("RecordedCustomerPayments")
   createdProperties PropertyAcquisition[] @relation("CreatedProperties")
   recordedPropertyPayments PropertyPayment[] @relation("RecordedPropertyPayments")
+  employee        Employee?        @relation("UserEmployee")
 }
 
 model Role {
@@ -314,5 +315,50 @@ model PropertyPayment {
   status             String              @default("RECORDED") // RECORDED, REVERSED
   createdAt          DateTime            @default(now())
 }
+
+// -------------------------------------------------------------
+// Employee Master & Staff Governance Model (Phase 1)
+// Non-login staff supported (userId: null); Login-linked staff (userId: unique)
+// -------------------------------------------------------------
+model Employee {
+  id                 String      @id @default(uuid())
+  employeeCode       String      @unique // e.g. "EMP-000001"
+  fullName           String
+  displayName        String?
+  photo              String?
+  mobile             String      @unique
+  alternatePhone     String?
+  email              String?     @unique
+  address            String?
+  department         String      // Sales, Accounting, Management, Marketing, Operations, Security, General
+  designation        String      // Accountant, Sales Rep, Guard, Driver, Operator, etc.
+  employmentType     String      @default("FULL_TIME") // FULL_TIME, PART_TIME, CONTRACT, PROBATION, INTERN
+  joiningDate        DateTime
+  confirmationDate   DateTime?
+  reportingManagerId String?
+  reportingManager   Employee?   @relation("ManagerSubordinates", fields: [reportingManagerId], references: [id], onDelete: SetNull)
+  subordinates       Employee[]  @relation("ManagerSubordinates")
+  workLocation       String?     @default("Head Office")
+  status             String      @default("ACTIVE") // ACTIVE, INACTIVE, ARCHIVED, ON_LEAVE, RESIGNED, TERMINATED
+  exitDate           DateTime?
+  exitReason         String?
+  userId             String?     @unique
+  user               User?       @relation("UserEmployee", fields: [userId], references: [id], onDelete: SetNull)
+  createdBy          String?
+  updatedBy          String?
+  archivedAt         DateTime?
+  archivedBy         String?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  @@index([employeeCode])
+  @@index([fullName])
+  @@index([mobile])
+  @@index([email])
+  @@index([status])
+  @@index([department])
+  @@index([userId])
+}
+
 
 
