@@ -175,16 +175,18 @@ model Account {
 }
 
 model JournalEntry {
-  id            String        @id @default(uuid())
-  entryNumber   String        @unique // e.g. "JE-2026-0001"
-  date          DateTime      @default(now())
-  referenceType String?       // WALLET_TRANSACTION, EXPENSE, REVERSAL, DIRECT_ALLOCATION
-  referenceId   String?
-  description   String
-  status        String        @default("POSTED") // POSTED, REVERSED
-  createdBy     String
-  lines         JournalLine[]
-  createdAt     DateTime      @default(now())
+  id                    String                    @id @default(uuid())
+  entryNumber           String                    @unique // e.g. "JE-2026-0001"
+  date                  DateTime                  @default(now())
+  referenceType         String?                   // WALLET_TRANSACTION, EXPENSE, REVERSAL, DIRECT_ALLOCATION, PAYROLL, PAYROLL_REVERSAL
+  referenceId           String?
+  description           String
+  status                String                    @default("POSTED") // POSTED, REVERSED
+  createdBy             String
+  lines                 JournalLine[]
+  payrollPosting        PayrollAccountingPosting? @relation("OriginalPostingJournal")
+  reversalPayrollPosting PayrollAccountingPosting? @relation("ReversalPostingJournal")
+  createdAt             DateTime                  @default(now())
 }
 
 model JournalLine {
@@ -525,6 +527,7 @@ model PayrollRun {
   items                  PayrollItem[]
   adjustments            PayrollAdjustment[]
   exceptions             PayrollException[]
+  accountingPosting      PayrollAccountingPosting?
   createdBy              String?
   updatedBy              String?
   createdAt              DateTime            @default(now())
@@ -650,6 +653,35 @@ model PayrollException {
   @@index([payrollRunId, severity])
   @@index([employeeId])
   @@index([isResolved])
+}
+
+// -------------------------------------------------------------
+// 7. Payroll Accounting Posting (Phase 4)
+// Immutable reconciliation record linking PayrollRun to JournalEntry
+// -------------------------------------------------------------
+model PayrollAccountingPosting {
+  id                     String        @id @default(uuid())
+  payrollRunId           String        @unique
+  payrollRun             PayrollRun    @relation(fields: [payrollRunId], references: [id], onDelete: Restrict)
+  journalEntryId         String        @unique
+  journalEntry           JournalEntry  @relation("OriginalPostingJournal", fields: [journalEntryId], references: [id], onDelete: Restrict)
+  reversalJournalEntryId String?       @unique
+  reversalJournalEntry   JournalEntry? @relation("ReversalPostingJournal", fields: [reversalJournalEntryId], references: [id], onDelete: Restrict)
+  status                 String        @default("POSTED") // POSTED, REVERSED
+  postedGross            Decimal       @db.Decimal(15, 2)
+  postedDeductions       Decimal       @db.Decimal(15, 2)
+  postedNet              Decimal       @db.Decimal(15, 2)
+  postedEmployerCost     Decimal       @db.Decimal(15, 2)
+  totalDebit             Decimal       @db.Decimal(15, 2)
+  totalCredit            Decimal       @db.Decimal(15, 2)
+  postedBy               String
+  postedAt               DateTime      @default(now())
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+
+  @@index([payrollRunId])
+  @@index([journalEntryId])
+  @@index([status])
 }
 
 

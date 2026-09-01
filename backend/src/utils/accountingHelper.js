@@ -13,7 +13,14 @@ const STANDARD_ACCOUNTS = [
   { code: '5020', name: 'Marketing & Promotions', type: 'EXPENSE', description: 'Lead generation, print collateral, digital ads' },
   { code: '5030', name: 'Client Entertainment & Hospitality', type: 'EXPENSE', description: 'Customer meetings, food, refreshments' },
   { code: '5040', name: 'Office Supplies & Utilities', type: 'EXPENSE', description: 'Stationery, telecom, petty equipment' },
-  { code: '5050', name: 'General & Miscellaneous Operations', type: 'EXPENSE', description: 'General operational overheads' }
+  { code: '5050', name: 'General & Miscellaneous Operations', type: 'EXPENSE', description: 'General operational overheads' },
+  { code: '5060', name: 'Salaries & Wages Expense', type: 'EXPENSE', description: 'Employee regular salaries, allowances, and monthly wage expenses' },
+  { code: '5070', name: 'Employer Statutory Contribution Expense', type: 'EXPENSE', description: 'Company statutory contributions (Employer EPF, Employer ESIC)' },
+  { code: '2010', name: 'Net Salaries Payable', type: 'LIABILITY', description: 'Accrued net salary obligations payable to staff' },
+  { code: '2020', name: 'Employee Statutory Payable (PF/ESI)', type: 'LIABILITY', description: 'Statutory deductions held for remittance (Employee EPF, Employee ESIC)' },
+  { code: '2025', name: 'Employer Statutory Contribution Payable', type: 'LIABILITY', description: 'Employer statutory contributions held for remittance (Employer EPF/ESIC)' },
+  { code: '2030', name: 'TDS (Income Tax) Payable', type: 'LIABILITY', description: 'Tax deducted at source from payroll held for remittance to tax authority' },
+  { code: '1040', name: 'Employee Advance & Loan Asset', type: 'ASSET', description: 'Outstanding salary advances and recoverable staff loans' }
 ];
 
 let accountsInitialized = false;

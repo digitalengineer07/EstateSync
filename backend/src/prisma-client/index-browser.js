@@ -580,6 +580,24 @@ exports.Prisma.PayrollExceptionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PayrollAccountingPostingScalarFieldEnum = {
+  id: 'id',
+  payrollRunId: 'payrollRunId',
+  journalEntryId: 'journalEntryId',
+  reversalJournalEntryId: 'reversalJournalEntryId',
+  status: 'status',
+  postedGross: 'postedGross',
+  postedDeductions: 'postedDeductions',
+  postedNet: 'postedNet',
+  postedEmployerCost: 'postedEmployerCost',
+  totalDebit: 'totalDebit',
+  totalCredit: 'totalCredit',
+  postedBy: 'postedBy',
+  postedAt: 'postedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -640,7 +658,8 @@ exports.Prisma.ModelName = {
   PayrollItem: 'PayrollItem',
   PayrollLine: 'PayrollLine',
   PayrollAdjustment: 'PayrollAdjustment',
-  PayrollException: 'PayrollException'
+  PayrollException: 'PayrollException',
+  PayrollAccountingPosting: 'PayrollAccountingPosting'
 };
 
 /**

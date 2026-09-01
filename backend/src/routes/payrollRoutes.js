@@ -6,8 +6,10 @@ const salaryAssignmentController = require('../controller/salaryAssignmentContro
 const payrollPeriodController = require('../controller/payrollPeriodController');
 const payrollRunController = require('../controller/payrollRunController');
 const payrollAdjustmentController = require('../controller/payrollAdjustmentController');
+const payrollAccountingController = require('../controller/payrollAccountingController');
 const { verifyJWT } = require('../middleware/authMiddleware');
 const { checkPermission } = require('../middleware/permissionMiddleware');
+const idempotencyMiddleware = require('../middleware/idempotencyMiddleware');
 
 // All Payroll configuration and processing routes require valid JWT authentication
 router.use(verifyJWT);
@@ -180,10 +182,33 @@ router.post(
   payrollAdjustmentController.createAdjustment
 );
 
+// -------------------------------------------------------------
+// 7. General Ledger Accounting Posting Routes (Phase 4)
+// -------------------------------------------------------------
 router.get(
-  '/runs/:id/adjustments',
-  checkPermission('payroll.run.view'),
-  payrollAdjustmentController.getRunAdjustments
+  '/runs/:id/posting-preview',
+  checkPermission('payroll.accounting.view'),
+  payrollAccountingController.getPostingPreview
+);
+
+router.post(
+  '/runs/:id/post-to-ledger',
+  checkPermission('payroll.accounting.post'),
+  idempotencyMiddleware,
+  payrollAccountingController.postToLedger
+);
+
+router.post(
+  '/runs/:id/reverse-ledger-posting',
+  checkPermission('payroll.accounting.reverse'),
+  idempotencyMiddleware,
+  payrollAccountingController.reversePosting
+);
+
+router.get(
+  '/runs/:id/accounting-posting',
+  checkPermission('payroll.accounting.view'),
+  payrollAccountingController.getAccountingPosting
 );
 
 module.exports = router;

@@ -37,7 +37,8 @@ async function main() {
     'payroll.period.view', 'payroll.period.manage',
     'payroll.run.create', 'payroll.run.calculate', 'payroll.run.view',
     'payroll.item.view', 'payroll.item.adjust',
-    'payroll.approve', 'payroll.lock'
+    'payroll.approve', 'payroll.lock',
+    'payroll.accounting.view', 'payroll.accounting.post', 'payroll.accounting.reverse'
   ];
   
   const createdPerms = {};
@@ -104,7 +105,8 @@ async function main() {
     'expense.view_team', 'fund.approve', 'fund.reject', 'report.view_team',
     'customer.view_all', 'employee.view',
     'payroll.structure.view', 'payroll.assignment.view',
-    'payroll.period.view', 'payroll.run.view', 'payroll.item.view'
+    'payroll.period.view', 'payroll.run.view', 'payroll.item.view',
+    'payroll.accounting.view'
   ];
   for (const permCode of managerPerms) {
     if (createdPerms[permCode]) {
@@ -159,7 +161,8 @@ async function main() {
     'payroll.period.view', 'payroll.period.manage',
     'payroll.run.create', 'payroll.run.calculate', 'payroll.run.view',
     'payroll.item.view', 'payroll.item.adjust',
-    'payroll.approve'
+    'payroll.approve',
+    'payroll.accounting.view', 'payroll.accounting.post'
   ];
   for (const permCode of accountingPerms) {
     if (createdPerms[permCode]) {
@@ -387,7 +390,7 @@ async function main() {
       sequence: 12,
       isTaxable: false,
       isRecurring: true,
-      glAccountCode: '2020'
+      glAccountCode: '2030'
     },
     {
       code: 'ADVANCE_RECOVERY',
@@ -414,7 +417,7 @@ async function main() {
       sequence: 20,
       isTaxable: false,
       isRecurring: true,
-      glAccountCode: '5060'
+      glAccountCode: '5070'
     }
   ];
 
@@ -426,6 +429,10 @@ async function main() {
     });
     await delay(50);
   }
+
+  // 5. Seed Standard Chart of Accounts (including Payroll GLs)
+  const { ensureStandardAccounts } = require('../src/utils/accountingHelper');
+  await ensureStandardAccounts(prisma);
 
   console.log('Seeding finished.');
   console.log('Admin user: admin@estatesync.local / password123');
