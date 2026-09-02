@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { mutate } from "swr";
 import { X, IndianRupee, Landmark, Send, AlertCircle, CheckCircle2, ShieldAlert } from "lucide-react";
-import { paySalary } from "@/services/employeeService";
+import { paySalary } from "@/services/salaryService";
 
 export default function PaySalaryModal({ isOpen, onClose, employee, onPaid }) {
   const currentMonth = new Date().toISOString().slice(0, 7); // e.g. "2026-09"
@@ -49,6 +50,8 @@ export default function PaySalaryModal({ isOpen, onClose, employee, onPaid }) {
       });
 
       if (res.success) {
+        // Instantly revalidate dashboard stats, treasury liquidity, and wallet balances
+        mutate((key) => typeof key === "string" && (key.includes("/api/v1/dashboard") || key.includes("/api/v1/wallets")), undefined, { revalidate: true });
         if (onPaid) onPaid(res.data);
         onClose();
       } else {
@@ -167,13 +170,22 @@ export default function PaySalaryModal({ isOpen, onClose, employee, onPaid }) {
                 onChange={(e) => setPaymentMode(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition font-medium"
               >
-                <option value="NEFT">NEFT Direct</option>
+                <option value="NEFT">NEFT Direct Bank</option>
                 <option value="RTGS">RTGS Bank Transfer</option>
                 <option value="IMPS">IMPS Immediate Payment</option>
                 <option value="UPI">UPI Transfer</option>
                 <option value="CHEQUE">Bank Cheque</option>
                 <option value="CASH">Cash Voucher</option>
               </select>
+              {paymentMode === "CASH" ? (
+                <p className="text-[11px] text-amber-600 mt-1.5 font-medium flex items-center gap-1">
+                  <span>💵 Payout will deduct from Corporate Treasury <b>Cash in Hand</b> balance.</span>
+                </p>
+              ) : (
+                <p className="text-[11px] text-emerald-600 mt-1.5 font-medium flex items-center gap-1">
+                  <span>🏦 Payout will deduct from Corporate Treasury <b>Bank / Liquid</b> balance.</span>
+                </p>
+              )}
             </div>
 
             {/* Reference No / UTR */}
