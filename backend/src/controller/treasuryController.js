@@ -2,7 +2,7 @@ const prisma = require('../config/db');
 const { postCapitalInfusionJournal } = require('../utils/accountingHelper');
 const { logAudit } = require('../utils/auditLogger');
 const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
-const { checkDuplicateReferenceNo } = require('../utils/referenceValidator');
+const { checkDuplicateReferenceNo, registerBankReference } = require('../utils/referenceValidator');
 
 /**
  * Record Bank Statement Transaction / Capital Infusion into Main Organization Treasury
@@ -91,6 +91,19 @@ exports.recordBankInflow = async (req, res) => {
           status: 'COMPLETED'
         }
       });
+
+      if (referenceNo) {
+        await registerBankReference(tx, {
+          referenceNo,
+          module: 'TREASURY_INFLOW',
+          sourceTable: 'WalletTransaction',
+          sourceRecordId: walletTxn.id,
+          amount: parsedAmount,
+          bankName,
+          paymentMode: paymentMode.toUpperCase(),
+          recordedBy: req.user?.email || 'Accountant'
+        });
+      }
 
       // 4. Generate Balanced Double-Entry General Ledger Voucher (Dr: 1010 | Cr: 3010/3020/4020)
       const journalEntry = await postCapitalInfusionJournal(tx, {

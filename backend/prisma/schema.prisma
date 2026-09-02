@@ -183,11 +183,16 @@ model JournalEntry {
   description           String
   status                String                    @default("POSTED") // POSTED, REVERSED
   createdBy             String
+  accountingPeriodId    String?
+  accountingPeriod      AccountingPeriod?         @relation(fields: [accountingPeriodId], references: [id], onDelete: Restrict)
   lines                 JournalLine[]
   payrollPosting        PayrollAccountingPosting? @relation("OriginalPostingJournal")
   reversalPayrollPosting PayrollAccountingPosting? @relation("ReversalPostingJournal")
   salaryPayment         SalaryPayment?
   createdAt             DateTime                  @default(now())
+
+  @@index([accountingPeriodId])
+  @@index([date])
 }
 
 model JournalLine {
@@ -757,6 +762,57 @@ model SalaryPayment {
   @@index([employeeId])
   @@index([status])
   @@index([referenceNo])
+}
+
+// -------------------------------------------------------------
+// Global Bank Transaction Reference Registry (Phase 6A)
+// Centralized, concurrency-safe external reference uniqueness
+// -------------------------------------------------------------
+model GlobalBankReference {
+  id              String    @id @default(uuid())
+  referenceNo     String    @unique // Normalized: UPPERCASE + TRIMMED
+  module          String    // "CUSTOMER_PAYMENT", "PROPERTY_PAYMENT", "SALARY_PAYMENT", "TREASURY_INFLOW", "CUSTOMER_REFUND"
+  sourceTable     String    // "CustomerPayment", "PropertyPayment", "SalaryPayment", "WalletTransaction"
+  sourceRecordId  String
+  amount          Decimal   @db.Decimal(15, 2)
+  bankName        String?
+  paymentMode     String    // "NEFT", "RTGS", "IMPS", "UPI", "CHEQUE", "DD", "CASH"
+  status          String    @default("ACTIVE") // "ACTIVE", "REVERSED"
+  recordedBy      String
+  reversalReason  String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([referenceNo])
+  @@index([module])
+  @@index([sourceRecordId])
+  @@index([status])
+}
+
+// -------------------------------------------------------------
+// Enterprise Accounting Period Governance Model (Phase 6B)
+// Fiscal calendar locking & closed-period posting protection
+// -------------------------------------------------------------
+model AccountingPeriod {
+  id              String         @id @default(uuid())
+  fiscalYear      Int            // e.g., 2026
+  month           Int            // 1 to 12
+  periodName      String         @unique // e.g., "2026-08"
+  startDate       DateTime       @db.Date
+  endDate         DateTime       @db.Date
+  status          String         @default("OPEN") // "OPEN", "CLOSED"
+  closedAt        DateTime?
+  closedBy        String?
+  reopenedAt      DateTime?
+  reopenedBy      String?
+  reopenReason    String?
+  journalEntries  JournalEntry[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@unique([fiscalYear, month])
+  @@index([status])
+  @@index([startDate, endDate])
 }
 
 

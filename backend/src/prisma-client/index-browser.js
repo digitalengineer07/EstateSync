@@ -255,6 +255,7 @@ exports.Prisma.JournalEntryScalarFieldEnum = {
   description: 'description',
   status: 'status',
   createdBy: 'createdBy',
+  accountingPeriodId: 'accountingPeriodId',
   createdAt: 'createdAt'
 };
 
@@ -644,6 +645,39 @@ exports.Prisma.SalaryPaymentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.GlobalBankReferenceScalarFieldEnum = {
+  id: 'id',
+  referenceNo: 'referenceNo',
+  module: 'module',
+  sourceTable: 'sourceTable',
+  sourceRecordId: 'sourceRecordId',
+  amount: 'amount',
+  bankName: 'bankName',
+  paymentMode: 'paymentMode',
+  status: 'status',
+  recordedBy: 'recordedBy',
+  reversalReason: 'reversalReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AccountingPeriodScalarFieldEnum = {
+  id: 'id',
+  fiscalYear: 'fiscalYear',
+  month: 'month',
+  periodName: 'periodName',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  closedAt: 'closedAt',
+  closedBy: 'closedBy',
+  reopenedAt: 'reopenedAt',
+  reopenedBy: 'reopenedBy',
+  reopenReason: 'reopenReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -707,7 +741,9 @@ exports.Prisma.ModelName = {
   PayrollException: 'PayrollException',
   PayrollAccountingPosting: 'PayrollAccountingPosting',
   SalaryPaymentBatch: 'SalaryPaymentBatch',
-  SalaryPayment: 'SalaryPayment'
+  SalaryPayment: 'SalaryPayment',
+  GlobalBankReference: 'GlobalBankReference',
+  AccountingPeriod: 'AccountingPeriod'
 };
 
 /**

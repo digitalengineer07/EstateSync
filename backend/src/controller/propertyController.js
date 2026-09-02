@@ -1,7 +1,7 @@
 const prisma = require('../config/db');
 const { logAudit } = require('../utils/auditLogger');
 const { postPropertyPaymentJournal } = require('../utils/accountingHelper');
-const { checkDuplicateReferenceNo } = require('../utils/referenceValidator');
+const { checkDuplicateReferenceNo, registerBankReference } = require('../utils/referenceValidator');
 const { cleanPlotNumber, cleanKhataNumber, normalizeForComparison } = require('../utils/identifierHelper');
 
 // 1. Create a new Land/Property Acquisition record (Admin / Accounting only)
@@ -364,6 +364,18 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
           status: 'RECORDED'
         }
       });
+
+      if (referenceNo) {
+        await registerBankReference(tx, {
+          referenceNo,
+          module: 'PROPERTY_PAYMENT',
+          sourceTable: 'PropertyPayment',
+          sourceRecordId: payment.id,
+          amount: payAmount,
+          paymentMode: paymentMode.toUpperCase(),
+          recordedBy: req.user?.email || 'SYSTEM'
+        });
+      }
 
       // 2. Deduct from Organization Treasury Wallet (PRD §20.3)
       const updatedOrgWallet = await tx.wallet.update({

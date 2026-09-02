@@ -55,16 +55,48 @@ ensureStandardAccounts().catch(console.error);
 /**
  * Post an atomic Double-Entry Journal Entry
  * Invariant: Sum of Debits MUST equal Sum of Credits.
+ * Enforces: Accounting Period MUST be OPEN.
  */
 async function postJournalEntry(tx, {
   description,
   referenceType,
   referenceId,
   createdBy,
+  postingDate, // Optional: defaults to new Date()
   lines // [{ accountCode, debit, credit, description }]
 }) {
   if (!lines || lines.length < 2) {
     throw new Error('Journal entry requires at least two lines (Double-Entry Bookkeeping)');
+  }
+
+  const effectiveDate = postingDate ? new Date(postingDate) : new Date();
+
+  // 1. Fiscal Accounting Period Validation Gate (Phase 6B)
+  let period = await tx.accountingPeriod.findFirst({
+    where: {
+      startDate: { lte: effectiveDate },
+      endDate: { gte: effectiveDate }
+    }
+  });
+
+  if (!period) {
+    const { ensureAccountingPeriods } = require('../services/accountingPeriodService');
+    const y = effectiveDate.getFullYear();
+    await ensureAccountingPeriods(tx, { startYear: y - 1, endYear: y + 1 });
+    period = await tx.accountingPeriod.findFirst({
+      where: {
+        startDate: { lte: effectiveDate },
+        endDate: { gte: effectiveDate }
+      }
+    });
+  }
+
+  if (period && period.status !== 'OPEN') {
+    throw {
+      status: 400,
+      code: 'ACCOUNTING_PERIOD_CLOSED',
+      message: `Cannot post journal entry: Accounting Period "${period.periodName}" is CLOSED. Postings to closed periods are strictly prohibited.`
+    };
   }
 
   let totalDebit = 0;
@@ -96,7 +128,7 @@ async function postJournalEntry(tx, {
   const accountMap = new Map(accounts.map(a => [a.code, a.id]));
 
   // Generate sequential unique entry number for today
-  const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  const dateStr = effectiveDate.toISOString().slice(0, 10).replace(/-/g, '');
   const todayPrefix = `JE-${dateStr}-`;
   const latestEntry = await tx.journalEntry.findFirst({
     where: { entryNumber: { startsWith: todayPrefix } },
@@ -123,6 +155,8 @@ async function postJournalEntry(tx, {
   const entry = await tx.journalEntry.create({
     data: {
       entryNumber,
+      date: effectiveDate,
+      accountingPeriodId: period?.id || null,
       description,
       referenceType,
       referenceId: referenceId ? String(referenceId) : null,

@@ -173,6 +173,16 @@ export type SalaryPaymentBatch = $Result.DefaultSelection<Prisma.$SalaryPaymentB
  * 
  */
 export type SalaryPayment = $Result.DefaultSelection<Prisma.$SalaryPaymentPayload>
+/**
+ * Model GlobalBankReference
+ * 
+ */
+export type GlobalBankReference = $Result.DefaultSelection<Prisma.$GlobalBankReferencePayload>
+/**
+ * Model AccountingPeriod
+ * 
+ */
+export type AccountingPeriod = $Result.DefaultSelection<Prisma.$AccountingPeriodPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -616,6 +626,26 @@ export class PrismaClient<
     * ```
     */
   get salaryPayment(): Prisma.SalaryPaymentDelegate<ExtArgs>;
+
+  /**
+   * `prisma.globalBankReference`: Exposes CRUD operations for the **GlobalBankReference** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GlobalBankReferences
+    * const globalBankReferences = await prisma.globalBankReference.findMany()
+    * ```
+    */
+  get globalBankReference(): Prisma.GlobalBankReferenceDelegate<ExtArgs>;
+
+  /**
+   * `prisma.accountingPeriod`: Exposes CRUD operations for the **AccountingPeriod** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AccountingPeriods
+    * const accountingPeriods = await prisma.accountingPeriod.findMany()
+    * ```
+    */
+  get accountingPeriod(): Prisma.AccountingPeriodDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1088,7 +1118,9 @@ export namespace Prisma {
     PayrollException: 'PayrollException',
     PayrollAccountingPosting: 'PayrollAccountingPosting',
     SalaryPaymentBatch: 'SalaryPaymentBatch',
-    SalaryPayment: 'SalaryPayment'
+    SalaryPayment: 'SalaryPayment',
+    GlobalBankReference: 'GlobalBankReference',
+    AccountingPeriod: 'AccountingPeriod'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1104,7 +1136,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "role" | "permission" | "rolePermission" | "wallet" | "walletTransaction" | "fundRequest" | "expense" | "expenseCategory" | "idempotencyKey" | "account" | "journalEntry" | "journalLine" | "auditLog" | "customer" | "customerPayment" | "propertyAcquisition" | "propertyPayment" | "employee" | "salaryComponent" | "salaryStructure" | "salaryStructureLine" | "employeeSalaryAssignment" | "payrollPeriod" | "payrollRun" | "payrollItem" | "payrollLine" | "payrollAdjustment" | "payrollException" | "payrollAccountingPosting" | "salaryPaymentBatch" | "salaryPayment"
+      modelProps: "user" | "role" | "permission" | "rolePermission" | "wallet" | "walletTransaction" | "fundRequest" | "expense" | "expenseCategory" | "idempotencyKey" | "account" | "journalEntry" | "journalLine" | "auditLog" | "customer" | "customerPayment" | "propertyAcquisition" | "propertyPayment" | "employee" | "salaryComponent" | "salaryStructure" | "salaryStructureLine" | "employeeSalaryAssignment" | "payrollPeriod" | "payrollRun" | "payrollItem" | "payrollLine" | "payrollAdjustment" | "payrollException" | "payrollAccountingPosting" | "salaryPaymentBatch" | "salaryPayment" | "globalBankReference" | "accountingPeriod"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3348,6 +3380,146 @@ export namespace Prisma {
           }
         }
       }
+      GlobalBankReference: {
+        payload: Prisma.$GlobalBankReferencePayload<ExtArgs>
+        fields: Prisma.GlobalBankReferenceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GlobalBankReferenceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GlobalBankReferencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GlobalBankReferenceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GlobalBankReferencePayload>
+          }
+          findFirst: {
+            args: Prisma.GlobalBankReferenceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GlobalBankReferencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GlobalBankReferenceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GlobalBankReferencePayload>
+          }
+          findMany: {
+            args: Prisma.GlobalBankReferenceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GlobalBankReferencePayload>[]
+          }
+          create: {
+            args: Prisma.GlobalBankReferenceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GlobalBankReferencePayload>
+          }
+          createMany: {
+            args: Prisma.GlobalBankReferenceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GlobalBankReferenceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GlobalBankReferencePayload>[]
+          }
+          delete: {
+            args: Prisma.GlobalBankReferenceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GlobalBankReferencePayload>
+          }
+          update: {
+            args: Prisma.GlobalBankReferenceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GlobalBankReferencePayload>
+          }
+          deleteMany: {
+            args: Prisma.GlobalBankReferenceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GlobalBankReferenceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.GlobalBankReferenceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GlobalBankReferencePayload>
+          }
+          aggregate: {
+            args: Prisma.GlobalBankReferenceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGlobalBankReference>
+          }
+          groupBy: {
+            args: Prisma.GlobalBankReferenceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GlobalBankReferenceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GlobalBankReferenceCountArgs<ExtArgs>
+            result: $Utils.Optional<GlobalBankReferenceCountAggregateOutputType> | number
+          }
+        }
+      }
+      AccountingPeriod: {
+        payload: Prisma.$AccountingPeriodPayload<ExtArgs>
+        fields: Prisma.AccountingPeriodFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AccountingPeriodFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AccountingPeriodFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>
+          }
+          findFirst: {
+            args: Prisma.AccountingPeriodFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AccountingPeriodFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>
+          }
+          findMany: {
+            args: Prisma.AccountingPeriodFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>[]
+          }
+          create: {
+            args: Prisma.AccountingPeriodCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>
+          }
+          createMany: {
+            args: Prisma.AccountingPeriodCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AccountingPeriodCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>[]
+          }
+          delete: {
+            args: Prisma.AccountingPeriodDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>
+          }
+          update: {
+            args: Prisma.AccountingPeriodUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>
+          }
+          deleteMany: {
+            args: Prisma.AccountingPeriodDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AccountingPeriodUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AccountingPeriodUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>
+          }
+          aggregate: {
+            args: Prisma.AccountingPeriodAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAccountingPeriod>
+          }
+          groupBy: {
+            args: Prisma.AccountingPeriodGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AccountingPeriodGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AccountingPeriodCountArgs<ExtArgs>
+            result: $Utils.Optional<AccountingPeriodCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4226,6 +4398,37 @@ export namespace Prisma {
    */
   export type SalaryPaymentBatchCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SalaryPaymentWhereInput
+  }
+
+
+  /**
+   * Count Type AccountingPeriodCountOutputType
+   */
+
+  export type AccountingPeriodCountOutputType = {
+    journalEntries: number
+  }
+
+  export type AccountingPeriodCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    journalEntries?: boolean | AccountingPeriodCountOutputTypeCountJournalEntriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AccountingPeriodCountOutputType without action
+   */
+  export type AccountingPeriodCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriodCountOutputType
+     */
+    select?: AccountingPeriodCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AccountingPeriodCountOutputType without action
+   */
+  export type AccountingPeriodCountOutputTypeCountJournalEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryWhereInput
   }
 
 
@@ -15575,6 +15778,7 @@ export namespace Prisma {
     description: string | null
     status: string | null
     createdBy: string | null
+    accountingPeriodId: string | null
     createdAt: Date | null
   }
 
@@ -15587,6 +15791,7 @@ export namespace Prisma {
     description: string | null
     status: string | null
     createdBy: string | null
+    accountingPeriodId: string | null
     createdAt: Date | null
   }
 
@@ -15599,6 +15804,7 @@ export namespace Prisma {
     description: number
     status: number
     createdBy: number
+    accountingPeriodId: number
     createdAt: number
     _all: number
   }
@@ -15613,6 +15819,7 @@ export namespace Prisma {
     description?: true
     status?: true
     createdBy?: true
+    accountingPeriodId?: true
     createdAt?: true
   }
 
@@ -15625,6 +15832,7 @@ export namespace Prisma {
     description?: true
     status?: true
     createdBy?: true
+    accountingPeriodId?: true
     createdAt?: true
   }
 
@@ -15637,6 +15845,7 @@ export namespace Prisma {
     description?: true
     status?: true
     createdBy?: true
+    accountingPeriodId?: true
     createdAt?: true
     _all?: true
   }
@@ -15722,6 +15931,7 @@ export namespace Prisma {
     description: string
     status: string
     createdBy: string
+    accountingPeriodId: string | null
     createdAt: Date
     _count: JournalEntryCountAggregateOutputType | null
     _min: JournalEntryMinAggregateOutputType | null
@@ -15751,7 +15961,9 @@ export namespace Prisma {
     description?: boolean
     status?: boolean
     createdBy?: boolean
+    accountingPeriodId?: boolean
     createdAt?: boolean
+    accountingPeriod?: boolean | JournalEntry$accountingPeriodArgs<ExtArgs>
     lines?: boolean | JournalEntry$linesArgs<ExtArgs>
     payrollPosting?: boolean | JournalEntry$payrollPostingArgs<ExtArgs>
     reversalPayrollPosting?: boolean | JournalEntry$reversalPayrollPostingArgs<ExtArgs>
@@ -15768,7 +15980,9 @@ export namespace Prisma {
     description?: boolean
     status?: boolean
     createdBy?: boolean
+    accountingPeriodId?: boolean
     createdAt?: boolean
+    accountingPeriod?: boolean | JournalEntry$accountingPeriodArgs<ExtArgs>
   }, ExtArgs["result"]["journalEntry"]>
 
   export type JournalEntrySelectScalar = {
@@ -15780,21 +15994,26 @@ export namespace Prisma {
     description?: boolean
     status?: boolean
     createdBy?: boolean
+    accountingPeriodId?: boolean
     createdAt?: boolean
   }
 
   export type JournalEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    accountingPeriod?: boolean | JournalEntry$accountingPeriodArgs<ExtArgs>
     lines?: boolean | JournalEntry$linesArgs<ExtArgs>
     payrollPosting?: boolean | JournalEntry$payrollPostingArgs<ExtArgs>
     reversalPayrollPosting?: boolean | JournalEntry$reversalPayrollPostingArgs<ExtArgs>
     salaryPayment?: boolean | JournalEntry$salaryPaymentArgs<ExtArgs>
     _count?: boolean | JournalEntryCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type JournalEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type JournalEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    accountingPeriod?: boolean | JournalEntry$accountingPeriodArgs<ExtArgs>
+  }
 
   export type $JournalEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "JournalEntry"
     objects: {
+      accountingPeriod: Prisma.$AccountingPeriodPayload<ExtArgs> | null
       lines: Prisma.$JournalLinePayload<ExtArgs>[]
       payrollPosting: Prisma.$PayrollAccountingPostingPayload<ExtArgs> | null
       reversalPayrollPosting: Prisma.$PayrollAccountingPostingPayload<ExtArgs> | null
@@ -15809,6 +16028,7 @@ export namespace Prisma {
       description: string
       status: string
       createdBy: string
+      accountingPeriodId: string | null
       createdAt: Date
     }, ExtArgs["result"]["journalEntry"]>
     composites: {}
@@ -16174,6 +16394,7 @@ export namespace Prisma {
    */
   export interface Prisma__JournalEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    accountingPeriod<T extends JournalEntry$accountingPeriodArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$accountingPeriodArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     lines<T extends JournalEntry$linesArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$linesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalLinePayload<ExtArgs>, T, "findMany"> | Null>
     payrollPosting<T extends JournalEntry$payrollPostingArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$payrollPostingArgs<ExtArgs>>): Prisma__PayrollAccountingPostingClient<$Result.GetResult<Prisma.$PayrollAccountingPostingPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     reversalPayrollPosting<T extends JournalEntry$reversalPayrollPostingArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$reversalPayrollPostingArgs<ExtArgs>>): Prisma__PayrollAccountingPostingClient<$Result.GetResult<Prisma.$PayrollAccountingPostingPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
@@ -16215,6 +16436,7 @@ export namespace Prisma {
     readonly description: FieldRef<"JournalEntry", 'String'>
     readonly status: FieldRef<"JournalEntry", 'String'>
     readonly createdBy: FieldRef<"JournalEntry", 'String'>
+    readonly accountingPeriodId: FieldRef<"JournalEntry", 'String'>
     readonly createdAt: FieldRef<"JournalEntry", 'DateTime'>
   }
     
@@ -16437,6 +16659,10 @@ export namespace Prisma {
      */
     data: JournalEntryCreateManyInput | JournalEntryCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -16527,6 +16753,21 @@ export namespace Prisma {
      * Filter which JournalEntries to delete
      */
     where?: JournalEntryWhereInput
+  }
+
+  /**
+   * JournalEntry.accountingPeriod
+   */
+  export type JournalEntry$accountingPeriodArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    where?: AccountingPeriodWhereInput
   }
 
   /**
@@ -39424,6 +39665,2108 @@ export namespace Prisma {
 
 
   /**
+   * Model GlobalBankReference
+   */
+
+  export type AggregateGlobalBankReference = {
+    _count: GlobalBankReferenceCountAggregateOutputType | null
+    _avg: GlobalBankReferenceAvgAggregateOutputType | null
+    _sum: GlobalBankReferenceSumAggregateOutputType | null
+    _min: GlobalBankReferenceMinAggregateOutputType | null
+    _max: GlobalBankReferenceMaxAggregateOutputType | null
+  }
+
+  export type GlobalBankReferenceAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type GlobalBankReferenceSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type GlobalBankReferenceMinAggregateOutputType = {
+    id: string | null
+    referenceNo: string | null
+    module: string | null
+    sourceTable: string | null
+    sourceRecordId: string | null
+    amount: Decimal | null
+    bankName: string | null
+    paymentMode: string | null
+    status: string | null
+    recordedBy: string | null
+    reversalReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type GlobalBankReferenceMaxAggregateOutputType = {
+    id: string | null
+    referenceNo: string | null
+    module: string | null
+    sourceTable: string | null
+    sourceRecordId: string | null
+    amount: Decimal | null
+    bankName: string | null
+    paymentMode: string | null
+    status: string | null
+    recordedBy: string | null
+    reversalReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type GlobalBankReferenceCountAggregateOutputType = {
+    id: number
+    referenceNo: number
+    module: number
+    sourceTable: number
+    sourceRecordId: number
+    amount: number
+    bankName: number
+    paymentMode: number
+    status: number
+    recordedBy: number
+    reversalReason: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type GlobalBankReferenceAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type GlobalBankReferenceSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type GlobalBankReferenceMinAggregateInputType = {
+    id?: true
+    referenceNo?: true
+    module?: true
+    sourceTable?: true
+    sourceRecordId?: true
+    amount?: true
+    bankName?: true
+    paymentMode?: true
+    status?: true
+    recordedBy?: true
+    reversalReason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type GlobalBankReferenceMaxAggregateInputType = {
+    id?: true
+    referenceNo?: true
+    module?: true
+    sourceTable?: true
+    sourceRecordId?: true
+    amount?: true
+    bankName?: true
+    paymentMode?: true
+    status?: true
+    recordedBy?: true
+    reversalReason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type GlobalBankReferenceCountAggregateInputType = {
+    id?: true
+    referenceNo?: true
+    module?: true
+    sourceTable?: true
+    sourceRecordId?: true
+    amount?: true
+    bankName?: true
+    paymentMode?: true
+    status?: true
+    recordedBy?: true
+    reversalReason?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type GlobalBankReferenceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GlobalBankReference to aggregate.
+     */
+    where?: GlobalBankReferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GlobalBankReferences to fetch.
+     */
+    orderBy?: GlobalBankReferenceOrderByWithRelationInput | GlobalBankReferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GlobalBankReferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GlobalBankReferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GlobalBankReferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GlobalBankReferences
+    **/
+    _count?: true | GlobalBankReferenceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GlobalBankReferenceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GlobalBankReferenceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GlobalBankReferenceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GlobalBankReferenceMaxAggregateInputType
+  }
+
+  export type GetGlobalBankReferenceAggregateType<T extends GlobalBankReferenceAggregateArgs> = {
+        [P in keyof T & keyof AggregateGlobalBankReference]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGlobalBankReference[P]>
+      : GetScalarType<T[P], AggregateGlobalBankReference[P]>
+  }
+
+
+
+
+  export type GlobalBankReferenceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GlobalBankReferenceWhereInput
+    orderBy?: GlobalBankReferenceOrderByWithAggregationInput | GlobalBankReferenceOrderByWithAggregationInput[]
+    by: GlobalBankReferenceScalarFieldEnum[] | GlobalBankReferenceScalarFieldEnum
+    having?: GlobalBankReferenceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GlobalBankReferenceCountAggregateInputType | true
+    _avg?: GlobalBankReferenceAvgAggregateInputType
+    _sum?: GlobalBankReferenceSumAggregateInputType
+    _min?: GlobalBankReferenceMinAggregateInputType
+    _max?: GlobalBankReferenceMaxAggregateInputType
+  }
+
+  export type GlobalBankReferenceGroupByOutputType = {
+    id: string
+    referenceNo: string
+    module: string
+    sourceTable: string
+    sourceRecordId: string
+    amount: Decimal
+    bankName: string | null
+    paymentMode: string
+    status: string
+    recordedBy: string
+    reversalReason: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: GlobalBankReferenceCountAggregateOutputType | null
+    _avg: GlobalBankReferenceAvgAggregateOutputType | null
+    _sum: GlobalBankReferenceSumAggregateOutputType | null
+    _min: GlobalBankReferenceMinAggregateOutputType | null
+    _max: GlobalBankReferenceMaxAggregateOutputType | null
+  }
+
+  type GetGlobalBankReferenceGroupByPayload<T extends GlobalBankReferenceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GlobalBankReferenceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GlobalBankReferenceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GlobalBankReferenceGroupByOutputType[P]>
+            : GetScalarType<T[P], GlobalBankReferenceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GlobalBankReferenceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    referenceNo?: boolean
+    module?: boolean
+    sourceTable?: boolean
+    sourceRecordId?: boolean
+    amount?: boolean
+    bankName?: boolean
+    paymentMode?: boolean
+    status?: boolean
+    recordedBy?: boolean
+    reversalReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["globalBankReference"]>
+
+  export type GlobalBankReferenceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    referenceNo?: boolean
+    module?: boolean
+    sourceTable?: boolean
+    sourceRecordId?: boolean
+    amount?: boolean
+    bankName?: boolean
+    paymentMode?: boolean
+    status?: boolean
+    recordedBy?: boolean
+    reversalReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["globalBankReference"]>
+
+  export type GlobalBankReferenceSelectScalar = {
+    id?: boolean
+    referenceNo?: boolean
+    module?: boolean
+    sourceTable?: boolean
+    sourceRecordId?: boolean
+    amount?: boolean
+    bankName?: boolean
+    paymentMode?: boolean
+    status?: boolean
+    recordedBy?: boolean
+    reversalReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $GlobalBankReferencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GlobalBankReference"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      referenceNo: string
+      module: string
+      sourceTable: string
+      sourceRecordId: string
+      amount: Prisma.Decimal
+      bankName: string | null
+      paymentMode: string
+      status: string
+      recordedBy: string
+      reversalReason: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["globalBankReference"]>
+    composites: {}
+  }
+
+  type GlobalBankReferenceGetPayload<S extends boolean | null | undefined | GlobalBankReferenceDefaultArgs> = $Result.GetResult<Prisma.$GlobalBankReferencePayload, S>
+
+  type GlobalBankReferenceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<GlobalBankReferenceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: GlobalBankReferenceCountAggregateInputType | true
+    }
+
+  export interface GlobalBankReferenceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GlobalBankReference'], meta: { name: 'GlobalBankReference' } }
+    /**
+     * Find zero or one GlobalBankReference that matches the filter.
+     * @param {GlobalBankReferenceFindUniqueArgs} args - Arguments to find a GlobalBankReference
+     * @example
+     * // Get one GlobalBankReference
+     * const globalBankReference = await prisma.globalBankReference.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GlobalBankReferenceFindUniqueArgs>(args: SelectSubset<T, GlobalBankReferenceFindUniqueArgs<ExtArgs>>): Prisma__GlobalBankReferenceClient<$Result.GetResult<Prisma.$GlobalBankReferencePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one GlobalBankReference that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {GlobalBankReferenceFindUniqueOrThrowArgs} args - Arguments to find a GlobalBankReference
+     * @example
+     * // Get one GlobalBankReference
+     * const globalBankReference = await prisma.globalBankReference.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GlobalBankReferenceFindUniqueOrThrowArgs>(args: SelectSubset<T, GlobalBankReferenceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GlobalBankReferenceClient<$Result.GetResult<Prisma.$GlobalBankReferencePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first GlobalBankReference that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GlobalBankReferenceFindFirstArgs} args - Arguments to find a GlobalBankReference
+     * @example
+     * // Get one GlobalBankReference
+     * const globalBankReference = await prisma.globalBankReference.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GlobalBankReferenceFindFirstArgs>(args?: SelectSubset<T, GlobalBankReferenceFindFirstArgs<ExtArgs>>): Prisma__GlobalBankReferenceClient<$Result.GetResult<Prisma.$GlobalBankReferencePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first GlobalBankReference that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GlobalBankReferenceFindFirstOrThrowArgs} args - Arguments to find a GlobalBankReference
+     * @example
+     * // Get one GlobalBankReference
+     * const globalBankReference = await prisma.globalBankReference.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GlobalBankReferenceFindFirstOrThrowArgs>(args?: SelectSubset<T, GlobalBankReferenceFindFirstOrThrowArgs<ExtArgs>>): Prisma__GlobalBankReferenceClient<$Result.GetResult<Prisma.$GlobalBankReferencePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more GlobalBankReferences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GlobalBankReferenceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GlobalBankReferences
+     * const globalBankReferences = await prisma.globalBankReference.findMany()
+     * 
+     * // Get first 10 GlobalBankReferences
+     * const globalBankReferences = await prisma.globalBankReference.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const globalBankReferenceWithIdOnly = await prisma.globalBankReference.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GlobalBankReferenceFindManyArgs>(args?: SelectSubset<T, GlobalBankReferenceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GlobalBankReferencePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a GlobalBankReference.
+     * @param {GlobalBankReferenceCreateArgs} args - Arguments to create a GlobalBankReference.
+     * @example
+     * // Create one GlobalBankReference
+     * const GlobalBankReference = await prisma.globalBankReference.create({
+     *   data: {
+     *     // ... data to create a GlobalBankReference
+     *   }
+     * })
+     * 
+     */
+    create<T extends GlobalBankReferenceCreateArgs>(args: SelectSubset<T, GlobalBankReferenceCreateArgs<ExtArgs>>): Prisma__GlobalBankReferenceClient<$Result.GetResult<Prisma.$GlobalBankReferencePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many GlobalBankReferences.
+     * @param {GlobalBankReferenceCreateManyArgs} args - Arguments to create many GlobalBankReferences.
+     * @example
+     * // Create many GlobalBankReferences
+     * const globalBankReference = await prisma.globalBankReference.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GlobalBankReferenceCreateManyArgs>(args?: SelectSubset<T, GlobalBankReferenceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GlobalBankReferences and returns the data saved in the database.
+     * @param {GlobalBankReferenceCreateManyAndReturnArgs} args - Arguments to create many GlobalBankReferences.
+     * @example
+     * // Create many GlobalBankReferences
+     * const globalBankReference = await prisma.globalBankReference.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GlobalBankReferences and only return the `id`
+     * const globalBankReferenceWithIdOnly = await prisma.globalBankReference.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GlobalBankReferenceCreateManyAndReturnArgs>(args?: SelectSubset<T, GlobalBankReferenceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GlobalBankReferencePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a GlobalBankReference.
+     * @param {GlobalBankReferenceDeleteArgs} args - Arguments to delete one GlobalBankReference.
+     * @example
+     * // Delete one GlobalBankReference
+     * const GlobalBankReference = await prisma.globalBankReference.delete({
+     *   where: {
+     *     // ... filter to delete one GlobalBankReference
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GlobalBankReferenceDeleteArgs>(args: SelectSubset<T, GlobalBankReferenceDeleteArgs<ExtArgs>>): Prisma__GlobalBankReferenceClient<$Result.GetResult<Prisma.$GlobalBankReferencePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one GlobalBankReference.
+     * @param {GlobalBankReferenceUpdateArgs} args - Arguments to update one GlobalBankReference.
+     * @example
+     * // Update one GlobalBankReference
+     * const globalBankReference = await prisma.globalBankReference.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GlobalBankReferenceUpdateArgs>(args: SelectSubset<T, GlobalBankReferenceUpdateArgs<ExtArgs>>): Prisma__GlobalBankReferenceClient<$Result.GetResult<Prisma.$GlobalBankReferencePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more GlobalBankReferences.
+     * @param {GlobalBankReferenceDeleteManyArgs} args - Arguments to filter GlobalBankReferences to delete.
+     * @example
+     * // Delete a few GlobalBankReferences
+     * const { count } = await prisma.globalBankReference.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GlobalBankReferenceDeleteManyArgs>(args?: SelectSubset<T, GlobalBankReferenceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GlobalBankReferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GlobalBankReferenceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GlobalBankReferences
+     * const globalBankReference = await prisma.globalBankReference.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GlobalBankReferenceUpdateManyArgs>(args: SelectSubset<T, GlobalBankReferenceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one GlobalBankReference.
+     * @param {GlobalBankReferenceUpsertArgs} args - Arguments to update or create a GlobalBankReference.
+     * @example
+     * // Update or create a GlobalBankReference
+     * const globalBankReference = await prisma.globalBankReference.upsert({
+     *   create: {
+     *     // ... data to create a GlobalBankReference
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GlobalBankReference we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GlobalBankReferenceUpsertArgs>(args: SelectSubset<T, GlobalBankReferenceUpsertArgs<ExtArgs>>): Prisma__GlobalBankReferenceClient<$Result.GetResult<Prisma.$GlobalBankReferencePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of GlobalBankReferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GlobalBankReferenceCountArgs} args - Arguments to filter GlobalBankReferences to count.
+     * @example
+     * // Count the number of GlobalBankReferences
+     * const count = await prisma.globalBankReference.count({
+     *   where: {
+     *     // ... the filter for the GlobalBankReferences we want to count
+     *   }
+     * })
+    **/
+    count<T extends GlobalBankReferenceCountArgs>(
+      args?: Subset<T, GlobalBankReferenceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GlobalBankReferenceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GlobalBankReference.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GlobalBankReferenceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GlobalBankReferenceAggregateArgs>(args: Subset<T, GlobalBankReferenceAggregateArgs>): Prisma.PrismaPromise<GetGlobalBankReferenceAggregateType<T>>
+
+    /**
+     * Group by GlobalBankReference.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GlobalBankReferenceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GlobalBankReferenceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GlobalBankReferenceGroupByArgs['orderBy'] }
+        : { orderBy?: GlobalBankReferenceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GlobalBankReferenceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGlobalBankReferenceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GlobalBankReference model
+   */
+  readonly fields: GlobalBankReferenceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GlobalBankReference.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GlobalBankReferenceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GlobalBankReference model
+   */ 
+  interface GlobalBankReferenceFieldRefs {
+    readonly id: FieldRef<"GlobalBankReference", 'String'>
+    readonly referenceNo: FieldRef<"GlobalBankReference", 'String'>
+    readonly module: FieldRef<"GlobalBankReference", 'String'>
+    readonly sourceTable: FieldRef<"GlobalBankReference", 'String'>
+    readonly sourceRecordId: FieldRef<"GlobalBankReference", 'String'>
+    readonly amount: FieldRef<"GlobalBankReference", 'Decimal'>
+    readonly bankName: FieldRef<"GlobalBankReference", 'String'>
+    readonly paymentMode: FieldRef<"GlobalBankReference", 'String'>
+    readonly status: FieldRef<"GlobalBankReference", 'String'>
+    readonly recordedBy: FieldRef<"GlobalBankReference", 'String'>
+    readonly reversalReason: FieldRef<"GlobalBankReference", 'String'>
+    readonly createdAt: FieldRef<"GlobalBankReference", 'DateTime'>
+    readonly updatedAt: FieldRef<"GlobalBankReference", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GlobalBankReference findUnique
+   */
+  export type GlobalBankReferenceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GlobalBankReference
+     */
+    select?: GlobalBankReferenceSelect<ExtArgs> | null
+    /**
+     * Filter, which GlobalBankReference to fetch.
+     */
+    where: GlobalBankReferenceWhereUniqueInput
+  }
+
+  /**
+   * GlobalBankReference findUniqueOrThrow
+   */
+  export type GlobalBankReferenceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GlobalBankReference
+     */
+    select?: GlobalBankReferenceSelect<ExtArgs> | null
+    /**
+     * Filter, which GlobalBankReference to fetch.
+     */
+    where: GlobalBankReferenceWhereUniqueInput
+  }
+
+  /**
+   * GlobalBankReference findFirst
+   */
+  export type GlobalBankReferenceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GlobalBankReference
+     */
+    select?: GlobalBankReferenceSelect<ExtArgs> | null
+    /**
+     * Filter, which GlobalBankReference to fetch.
+     */
+    where?: GlobalBankReferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GlobalBankReferences to fetch.
+     */
+    orderBy?: GlobalBankReferenceOrderByWithRelationInput | GlobalBankReferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GlobalBankReferences.
+     */
+    cursor?: GlobalBankReferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GlobalBankReferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GlobalBankReferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GlobalBankReferences.
+     */
+    distinct?: GlobalBankReferenceScalarFieldEnum | GlobalBankReferenceScalarFieldEnum[]
+  }
+
+  /**
+   * GlobalBankReference findFirstOrThrow
+   */
+  export type GlobalBankReferenceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GlobalBankReference
+     */
+    select?: GlobalBankReferenceSelect<ExtArgs> | null
+    /**
+     * Filter, which GlobalBankReference to fetch.
+     */
+    where?: GlobalBankReferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GlobalBankReferences to fetch.
+     */
+    orderBy?: GlobalBankReferenceOrderByWithRelationInput | GlobalBankReferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GlobalBankReferences.
+     */
+    cursor?: GlobalBankReferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GlobalBankReferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GlobalBankReferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GlobalBankReferences.
+     */
+    distinct?: GlobalBankReferenceScalarFieldEnum | GlobalBankReferenceScalarFieldEnum[]
+  }
+
+  /**
+   * GlobalBankReference findMany
+   */
+  export type GlobalBankReferenceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GlobalBankReference
+     */
+    select?: GlobalBankReferenceSelect<ExtArgs> | null
+    /**
+     * Filter, which GlobalBankReferences to fetch.
+     */
+    where?: GlobalBankReferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GlobalBankReferences to fetch.
+     */
+    orderBy?: GlobalBankReferenceOrderByWithRelationInput | GlobalBankReferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GlobalBankReferences.
+     */
+    cursor?: GlobalBankReferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GlobalBankReferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GlobalBankReferences.
+     */
+    skip?: number
+    distinct?: GlobalBankReferenceScalarFieldEnum | GlobalBankReferenceScalarFieldEnum[]
+  }
+
+  /**
+   * GlobalBankReference create
+   */
+  export type GlobalBankReferenceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GlobalBankReference
+     */
+    select?: GlobalBankReferenceSelect<ExtArgs> | null
+    /**
+     * The data needed to create a GlobalBankReference.
+     */
+    data: XOR<GlobalBankReferenceCreateInput, GlobalBankReferenceUncheckedCreateInput>
+  }
+
+  /**
+   * GlobalBankReference createMany
+   */
+  export type GlobalBankReferenceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GlobalBankReferences.
+     */
+    data: GlobalBankReferenceCreateManyInput | GlobalBankReferenceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GlobalBankReference createManyAndReturn
+   */
+  export type GlobalBankReferenceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GlobalBankReference
+     */
+    select?: GlobalBankReferenceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many GlobalBankReferences.
+     */
+    data: GlobalBankReferenceCreateManyInput | GlobalBankReferenceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GlobalBankReference update
+   */
+  export type GlobalBankReferenceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GlobalBankReference
+     */
+    select?: GlobalBankReferenceSelect<ExtArgs> | null
+    /**
+     * The data needed to update a GlobalBankReference.
+     */
+    data: XOR<GlobalBankReferenceUpdateInput, GlobalBankReferenceUncheckedUpdateInput>
+    /**
+     * Choose, which GlobalBankReference to update.
+     */
+    where: GlobalBankReferenceWhereUniqueInput
+  }
+
+  /**
+   * GlobalBankReference updateMany
+   */
+  export type GlobalBankReferenceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GlobalBankReferences.
+     */
+    data: XOR<GlobalBankReferenceUpdateManyMutationInput, GlobalBankReferenceUncheckedUpdateManyInput>
+    /**
+     * Filter which GlobalBankReferences to update
+     */
+    where?: GlobalBankReferenceWhereInput
+  }
+
+  /**
+   * GlobalBankReference upsert
+   */
+  export type GlobalBankReferenceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GlobalBankReference
+     */
+    select?: GlobalBankReferenceSelect<ExtArgs> | null
+    /**
+     * The filter to search for the GlobalBankReference to update in case it exists.
+     */
+    where: GlobalBankReferenceWhereUniqueInput
+    /**
+     * In case the GlobalBankReference found by the `where` argument doesn't exist, create a new GlobalBankReference with this data.
+     */
+    create: XOR<GlobalBankReferenceCreateInput, GlobalBankReferenceUncheckedCreateInput>
+    /**
+     * In case the GlobalBankReference was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GlobalBankReferenceUpdateInput, GlobalBankReferenceUncheckedUpdateInput>
+  }
+
+  /**
+   * GlobalBankReference delete
+   */
+  export type GlobalBankReferenceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GlobalBankReference
+     */
+    select?: GlobalBankReferenceSelect<ExtArgs> | null
+    /**
+     * Filter which GlobalBankReference to delete.
+     */
+    where: GlobalBankReferenceWhereUniqueInput
+  }
+
+  /**
+   * GlobalBankReference deleteMany
+   */
+  export type GlobalBankReferenceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GlobalBankReferences to delete
+     */
+    where?: GlobalBankReferenceWhereInput
+  }
+
+  /**
+   * GlobalBankReference without action
+   */
+  export type GlobalBankReferenceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GlobalBankReference
+     */
+    select?: GlobalBankReferenceSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AccountingPeriod
+   */
+
+  export type AggregateAccountingPeriod = {
+    _count: AccountingPeriodCountAggregateOutputType | null
+    _avg: AccountingPeriodAvgAggregateOutputType | null
+    _sum: AccountingPeriodSumAggregateOutputType | null
+    _min: AccountingPeriodMinAggregateOutputType | null
+    _max: AccountingPeriodMaxAggregateOutputType | null
+  }
+
+  export type AccountingPeriodAvgAggregateOutputType = {
+    fiscalYear: number | null
+    month: number | null
+  }
+
+  export type AccountingPeriodSumAggregateOutputType = {
+    fiscalYear: number | null
+    month: number | null
+  }
+
+  export type AccountingPeriodMinAggregateOutputType = {
+    id: string | null
+    fiscalYear: number | null
+    month: number | null
+    periodName: string | null
+    startDate: Date | null
+    endDate: Date | null
+    status: string | null
+    closedAt: Date | null
+    closedBy: string | null
+    reopenedAt: Date | null
+    reopenedBy: string | null
+    reopenReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AccountingPeriodMaxAggregateOutputType = {
+    id: string | null
+    fiscalYear: number | null
+    month: number | null
+    periodName: string | null
+    startDate: Date | null
+    endDate: Date | null
+    status: string | null
+    closedAt: Date | null
+    closedBy: string | null
+    reopenedAt: Date | null
+    reopenedBy: string | null
+    reopenReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AccountingPeriodCountAggregateOutputType = {
+    id: number
+    fiscalYear: number
+    month: number
+    periodName: number
+    startDate: number
+    endDate: number
+    status: number
+    closedAt: number
+    closedBy: number
+    reopenedAt: number
+    reopenedBy: number
+    reopenReason: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AccountingPeriodAvgAggregateInputType = {
+    fiscalYear?: true
+    month?: true
+  }
+
+  export type AccountingPeriodSumAggregateInputType = {
+    fiscalYear?: true
+    month?: true
+  }
+
+  export type AccountingPeriodMinAggregateInputType = {
+    id?: true
+    fiscalYear?: true
+    month?: true
+    periodName?: true
+    startDate?: true
+    endDate?: true
+    status?: true
+    closedAt?: true
+    closedBy?: true
+    reopenedAt?: true
+    reopenedBy?: true
+    reopenReason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AccountingPeriodMaxAggregateInputType = {
+    id?: true
+    fiscalYear?: true
+    month?: true
+    periodName?: true
+    startDate?: true
+    endDate?: true
+    status?: true
+    closedAt?: true
+    closedBy?: true
+    reopenedAt?: true
+    reopenedBy?: true
+    reopenReason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AccountingPeriodCountAggregateInputType = {
+    id?: true
+    fiscalYear?: true
+    month?: true
+    periodName?: true
+    startDate?: true
+    endDate?: true
+    status?: true
+    closedAt?: true
+    closedBy?: true
+    reopenedAt?: true
+    reopenedBy?: true
+    reopenReason?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AccountingPeriodAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AccountingPeriod to aggregate.
+     */
+    where?: AccountingPeriodWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountingPeriods to fetch.
+     */
+    orderBy?: AccountingPeriodOrderByWithRelationInput | AccountingPeriodOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AccountingPeriodWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountingPeriods from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountingPeriods.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AccountingPeriods
+    **/
+    _count?: true | AccountingPeriodCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AccountingPeriodAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AccountingPeriodSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AccountingPeriodMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AccountingPeriodMaxAggregateInputType
+  }
+
+  export type GetAccountingPeriodAggregateType<T extends AccountingPeriodAggregateArgs> = {
+        [P in keyof T & keyof AggregateAccountingPeriod]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAccountingPeriod[P]>
+      : GetScalarType<T[P], AggregateAccountingPeriod[P]>
+  }
+
+
+
+
+  export type AccountingPeriodGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountingPeriodWhereInput
+    orderBy?: AccountingPeriodOrderByWithAggregationInput | AccountingPeriodOrderByWithAggregationInput[]
+    by: AccountingPeriodScalarFieldEnum[] | AccountingPeriodScalarFieldEnum
+    having?: AccountingPeriodScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AccountingPeriodCountAggregateInputType | true
+    _avg?: AccountingPeriodAvgAggregateInputType
+    _sum?: AccountingPeriodSumAggregateInputType
+    _min?: AccountingPeriodMinAggregateInputType
+    _max?: AccountingPeriodMaxAggregateInputType
+  }
+
+  export type AccountingPeriodGroupByOutputType = {
+    id: string
+    fiscalYear: number
+    month: number
+    periodName: string
+    startDate: Date
+    endDate: Date
+    status: string
+    closedAt: Date | null
+    closedBy: string | null
+    reopenedAt: Date | null
+    reopenedBy: string | null
+    reopenReason: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: AccountingPeriodCountAggregateOutputType | null
+    _avg: AccountingPeriodAvgAggregateOutputType | null
+    _sum: AccountingPeriodSumAggregateOutputType | null
+    _min: AccountingPeriodMinAggregateOutputType | null
+    _max: AccountingPeriodMaxAggregateOutputType | null
+  }
+
+  type GetAccountingPeriodGroupByPayload<T extends AccountingPeriodGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AccountingPeriodGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AccountingPeriodGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AccountingPeriodGroupByOutputType[P]>
+            : GetScalarType<T[P], AccountingPeriodGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AccountingPeriodSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fiscalYear?: boolean
+    month?: boolean
+    periodName?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    status?: boolean
+    closedAt?: boolean
+    closedBy?: boolean
+    reopenedAt?: boolean
+    reopenedBy?: boolean
+    reopenReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    journalEntries?: boolean | AccountingPeriod$journalEntriesArgs<ExtArgs>
+    _count?: boolean | AccountingPeriodCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["accountingPeriod"]>
+
+  export type AccountingPeriodSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fiscalYear?: boolean
+    month?: boolean
+    periodName?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    status?: boolean
+    closedAt?: boolean
+    closedBy?: boolean
+    reopenedAt?: boolean
+    reopenedBy?: boolean
+    reopenReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["accountingPeriod"]>
+
+  export type AccountingPeriodSelectScalar = {
+    id?: boolean
+    fiscalYear?: boolean
+    month?: boolean
+    periodName?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    status?: boolean
+    closedAt?: boolean
+    closedBy?: boolean
+    reopenedAt?: boolean
+    reopenedBy?: boolean
+    reopenReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AccountingPeriodInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    journalEntries?: boolean | AccountingPeriod$journalEntriesArgs<ExtArgs>
+    _count?: boolean | AccountingPeriodCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AccountingPeriodIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $AccountingPeriodPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AccountingPeriod"
+    objects: {
+      journalEntries: Prisma.$JournalEntryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      fiscalYear: number
+      month: number
+      periodName: string
+      startDate: Date
+      endDate: Date
+      status: string
+      closedAt: Date | null
+      closedBy: string | null
+      reopenedAt: Date | null
+      reopenedBy: string | null
+      reopenReason: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["accountingPeriod"]>
+    composites: {}
+  }
+
+  type AccountingPeriodGetPayload<S extends boolean | null | undefined | AccountingPeriodDefaultArgs> = $Result.GetResult<Prisma.$AccountingPeriodPayload, S>
+
+  type AccountingPeriodCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AccountingPeriodFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AccountingPeriodCountAggregateInputType | true
+    }
+
+  export interface AccountingPeriodDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AccountingPeriod'], meta: { name: 'AccountingPeriod' } }
+    /**
+     * Find zero or one AccountingPeriod that matches the filter.
+     * @param {AccountingPeriodFindUniqueArgs} args - Arguments to find a AccountingPeriod
+     * @example
+     * // Get one AccountingPeriod
+     * const accountingPeriod = await prisma.accountingPeriod.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AccountingPeriodFindUniqueArgs>(args: SelectSubset<T, AccountingPeriodFindUniqueArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AccountingPeriod that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AccountingPeriodFindUniqueOrThrowArgs} args - Arguments to find a AccountingPeriod
+     * @example
+     * // Get one AccountingPeriod
+     * const accountingPeriod = await prisma.accountingPeriod.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AccountingPeriodFindUniqueOrThrowArgs>(args: SelectSubset<T, AccountingPeriodFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AccountingPeriod that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodFindFirstArgs} args - Arguments to find a AccountingPeriod
+     * @example
+     * // Get one AccountingPeriod
+     * const accountingPeriod = await prisma.accountingPeriod.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AccountingPeriodFindFirstArgs>(args?: SelectSubset<T, AccountingPeriodFindFirstArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AccountingPeriod that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodFindFirstOrThrowArgs} args - Arguments to find a AccountingPeriod
+     * @example
+     * // Get one AccountingPeriod
+     * const accountingPeriod = await prisma.accountingPeriod.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AccountingPeriodFindFirstOrThrowArgs>(args?: SelectSubset<T, AccountingPeriodFindFirstOrThrowArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AccountingPeriods that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AccountingPeriods
+     * const accountingPeriods = await prisma.accountingPeriod.findMany()
+     * 
+     * // Get first 10 AccountingPeriods
+     * const accountingPeriods = await prisma.accountingPeriod.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const accountingPeriodWithIdOnly = await prisma.accountingPeriod.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AccountingPeriodFindManyArgs>(args?: SelectSubset<T, AccountingPeriodFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AccountingPeriod.
+     * @param {AccountingPeriodCreateArgs} args - Arguments to create a AccountingPeriod.
+     * @example
+     * // Create one AccountingPeriod
+     * const AccountingPeriod = await prisma.accountingPeriod.create({
+     *   data: {
+     *     // ... data to create a AccountingPeriod
+     *   }
+     * })
+     * 
+     */
+    create<T extends AccountingPeriodCreateArgs>(args: SelectSubset<T, AccountingPeriodCreateArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AccountingPeriods.
+     * @param {AccountingPeriodCreateManyArgs} args - Arguments to create many AccountingPeriods.
+     * @example
+     * // Create many AccountingPeriods
+     * const accountingPeriod = await prisma.accountingPeriod.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AccountingPeriodCreateManyArgs>(args?: SelectSubset<T, AccountingPeriodCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AccountingPeriods and returns the data saved in the database.
+     * @param {AccountingPeriodCreateManyAndReturnArgs} args - Arguments to create many AccountingPeriods.
+     * @example
+     * // Create many AccountingPeriods
+     * const accountingPeriod = await prisma.accountingPeriod.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AccountingPeriods and only return the `id`
+     * const accountingPeriodWithIdOnly = await prisma.accountingPeriod.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AccountingPeriodCreateManyAndReturnArgs>(args?: SelectSubset<T, AccountingPeriodCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AccountingPeriod.
+     * @param {AccountingPeriodDeleteArgs} args - Arguments to delete one AccountingPeriod.
+     * @example
+     * // Delete one AccountingPeriod
+     * const AccountingPeriod = await prisma.accountingPeriod.delete({
+     *   where: {
+     *     // ... filter to delete one AccountingPeriod
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AccountingPeriodDeleteArgs>(args: SelectSubset<T, AccountingPeriodDeleteArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AccountingPeriod.
+     * @param {AccountingPeriodUpdateArgs} args - Arguments to update one AccountingPeriod.
+     * @example
+     * // Update one AccountingPeriod
+     * const accountingPeriod = await prisma.accountingPeriod.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AccountingPeriodUpdateArgs>(args: SelectSubset<T, AccountingPeriodUpdateArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AccountingPeriods.
+     * @param {AccountingPeriodDeleteManyArgs} args - Arguments to filter AccountingPeriods to delete.
+     * @example
+     * // Delete a few AccountingPeriods
+     * const { count } = await prisma.accountingPeriod.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AccountingPeriodDeleteManyArgs>(args?: SelectSubset<T, AccountingPeriodDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AccountingPeriods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AccountingPeriods
+     * const accountingPeriod = await prisma.accountingPeriod.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AccountingPeriodUpdateManyArgs>(args: SelectSubset<T, AccountingPeriodUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AccountingPeriod.
+     * @param {AccountingPeriodUpsertArgs} args - Arguments to update or create a AccountingPeriod.
+     * @example
+     * // Update or create a AccountingPeriod
+     * const accountingPeriod = await prisma.accountingPeriod.upsert({
+     *   create: {
+     *     // ... data to create a AccountingPeriod
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AccountingPeriod we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AccountingPeriodUpsertArgs>(args: SelectSubset<T, AccountingPeriodUpsertArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AccountingPeriods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodCountArgs} args - Arguments to filter AccountingPeriods to count.
+     * @example
+     * // Count the number of AccountingPeriods
+     * const count = await prisma.accountingPeriod.count({
+     *   where: {
+     *     // ... the filter for the AccountingPeriods we want to count
+     *   }
+     * })
+    **/
+    count<T extends AccountingPeriodCountArgs>(
+      args?: Subset<T, AccountingPeriodCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AccountingPeriodCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AccountingPeriod.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AccountingPeriodAggregateArgs>(args: Subset<T, AccountingPeriodAggregateArgs>): Prisma.PrismaPromise<GetAccountingPeriodAggregateType<T>>
+
+    /**
+     * Group by AccountingPeriod.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AccountingPeriodGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AccountingPeriodGroupByArgs['orderBy'] }
+        : { orderBy?: AccountingPeriodGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AccountingPeriodGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAccountingPeriodGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AccountingPeriod model
+   */
+  readonly fields: AccountingPeriodFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AccountingPeriod.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AccountingPeriodClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    journalEntries<T extends AccountingPeriod$journalEntriesArgs<ExtArgs> = {}>(args?: Subset<T, AccountingPeriod$journalEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AccountingPeriod model
+   */ 
+  interface AccountingPeriodFieldRefs {
+    readonly id: FieldRef<"AccountingPeriod", 'String'>
+    readonly fiscalYear: FieldRef<"AccountingPeriod", 'Int'>
+    readonly month: FieldRef<"AccountingPeriod", 'Int'>
+    readonly periodName: FieldRef<"AccountingPeriod", 'String'>
+    readonly startDate: FieldRef<"AccountingPeriod", 'DateTime'>
+    readonly endDate: FieldRef<"AccountingPeriod", 'DateTime'>
+    readonly status: FieldRef<"AccountingPeriod", 'String'>
+    readonly closedAt: FieldRef<"AccountingPeriod", 'DateTime'>
+    readonly closedBy: FieldRef<"AccountingPeriod", 'String'>
+    readonly reopenedAt: FieldRef<"AccountingPeriod", 'DateTime'>
+    readonly reopenedBy: FieldRef<"AccountingPeriod", 'String'>
+    readonly reopenReason: FieldRef<"AccountingPeriod", 'String'>
+    readonly createdAt: FieldRef<"AccountingPeriod", 'DateTime'>
+    readonly updatedAt: FieldRef<"AccountingPeriod", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AccountingPeriod findUnique
+   */
+  export type AccountingPeriodFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountingPeriod to fetch.
+     */
+    where: AccountingPeriodWhereUniqueInput
+  }
+
+  /**
+   * AccountingPeriod findUniqueOrThrow
+   */
+  export type AccountingPeriodFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountingPeriod to fetch.
+     */
+    where: AccountingPeriodWhereUniqueInput
+  }
+
+  /**
+   * AccountingPeriod findFirst
+   */
+  export type AccountingPeriodFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountingPeriod to fetch.
+     */
+    where?: AccountingPeriodWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountingPeriods to fetch.
+     */
+    orderBy?: AccountingPeriodOrderByWithRelationInput | AccountingPeriodOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AccountingPeriods.
+     */
+    cursor?: AccountingPeriodWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountingPeriods from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountingPeriods.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AccountingPeriods.
+     */
+    distinct?: AccountingPeriodScalarFieldEnum | AccountingPeriodScalarFieldEnum[]
+  }
+
+  /**
+   * AccountingPeriod findFirstOrThrow
+   */
+  export type AccountingPeriodFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountingPeriod to fetch.
+     */
+    where?: AccountingPeriodWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountingPeriods to fetch.
+     */
+    orderBy?: AccountingPeriodOrderByWithRelationInput | AccountingPeriodOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AccountingPeriods.
+     */
+    cursor?: AccountingPeriodWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountingPeriods from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountingPeriods.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AccountingPeriods.
+     */
+    distinct?: AccountingPeriodScalarFieldEnum | AccountingPeriodScalarFieldEnum[]
+  }
+
+  /**
+   * AccountingPeriod findMany
+   */
+  export type AccountingPeriodFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountingPeriods to fetch.
+     */
+    where?: AccountingPeriodWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountingPeriods to fetch.
+     */
+    orderBy?: AccountingPeriodOrderByWithRelationInput | AccountingPeriodOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AccountingPeriods.
+     */
+    cursor?: AccountingPeriodWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountingPeriods from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountingPeriods.
+     */
+    skip?: number
+    distinct?: AccountingPeriodScalarFieldEnum | AccountingPeriodScalarFieldEnum[]
+  }
+
+  /**
+   * AccountingPeriod create
+   */
+  export type AccountingPeriodCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AccountingPeriod.
+     */
+    data: XOR<AccountingPeriodCreateInput, AccountingPeriodUncheckedCreateInput>
+  }
+
+  /**
+   * AccountingPeriod createMany
+   */
+  export type AccountingPeriodCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AccountingPeriods.
+     */
+    data: AccountingPeriodCreateManyInput | AccountingPeriodCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AccountingPeriod createManyAndReturn
+   */
+  export type AccountingPeriodCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AccountingPeriods.
+     */
+    data: AccountingPeriodCreateManyInput | AccountingPeriodCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AccountingPeriod update
+   */
+  export type AccountingPeriodUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AccountingPeriod.
+     */
+    data: XOR<AccountingPeriodUpdateInput, AccountingPeriodUncheckedUpdateInput>
+    /**
+     * Choose, which AccountingPeriod to update.
+     */
+    where: AccountingPeriodWhereUniqueInput
+  }
+
+  /**
+   * AccountingPeriod updateMany
+   */
+  export type AccountingPeriodUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AccountingPeriods.
+     */
+    data: XOR<AccountingPeriodUpdateManyMutationInput, AccountingPeriodUncheckedUpdateManyInput>
+    /**
+     * Filter which AccountingPeriods to update
+     */
+    where?: AccountingPeriodWhereInput
+  }
+
+  /**
+   * AccountingPeriod upsert
+   */
+  export type AccountingPeriodUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AccountingPeriod to update in case it exists.
+     */
+    where: AccountingPeriodWhereUniqueInput
+    /**
+     * In case the AccountingPeriod found by the `where` argument doesn't exist, create a new AccountingPeriod with this data.
+     */
+    create: XOR<AccountingPeriodCreateInput, AccountingPeriodUncheckedCreateInput>
+    /**
+     * In case the AccountingPeriod was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AccountingPeriodUpdateInput, AccountingPeriodUncheckedUpdateInput>
+  }
+
+  /**
+   * AccountingPeriod delete
+   */
+  export type AccountingPeriodDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * Filter which AccountingPeriod to delete.
+     */
+    where: AccountingPeriodWhereUniqueInput
+  }
+
+  /**
+   * AccountingPeriod deleteMany
+   */
+  export type AccountingPeriodDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AccountingPeriods to delete
+     */
+    where?: AccountingPeriodWhereInput
+  }
+
+  /**
+   * AccountingPeriod.journalEntries
+   */
+  export type AccountingPeriod$journalEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    where?: JournalEntryWhereInput
+    orderBy?: JournalEntryOrderByWithRelationInput | JournalEntryOrderByWithRelationInput[]
+    cursor?: JournalEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JournalEntryScalarFieldEnum | JournalEntryScalarFieldEnum[]
+  }
+
+  /**
+   * AccountingPeriod without action
+   */
+  export type AccountingPeriodDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -39603,6 +41946,7 @@ export namespace Prisma {
     description: 'description',
     status: 'status',
     createdBy: 'createdBy',
+    accountingPeriodId: 'accountingPeriodId',
     createdAt: 'createdAt'
   };
 
@@ -40053,6 +42397,45 @@ export namespace Prisma {
   };
 
   export type SalaryPaymentScalarFieldEnum = (typeof SalaryPaymentScalarFieldEnum)[keyof typeof SalaryPaymentScalarFieldEnum]
+
+
+  export const GlobalBankReferenceScalarFieldEnum: {
+    id: 'id',
+    referenceNo: 'referenceNo',
+    module: 'module',
+    sourceTable: 'sourceTable',
+    sourceRecordId: 'sourceRecordId',
+    amount: 'amount',
+    bankName: 'bankName',
+    paymentMode: 'paymentMode',
+    status: 'status',
+    recordedBy: 'recordedBy',
+    reversalReason: 'reversalReason',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type GlobalBankReferenceScalarFieldEnum = (typeof GlobalBankReferenceScalarFieldEnum)[keyof typeof GlobalBankReferenceScalarFieldEnum]
+
+
+  export const AccountingPeriodScalarFieldEnum: {
+    id: 'id',
+    fiscalYear: 'fiscalYear',
+    month: 'month',
+    periodName: 'periodName',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    status: 'status',
+    closedAt: 'closedAt',
+    closedBy: 'closedBy',
+    reopenedAt: 'reopenedAt',
+    reopenedBy: 'reopenedBy',
+    reopenReason: 'reopenReason',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AccountingPeriodScalarFieldEnum = (typeof AccountingPeriodScalarFieldEnum)[keyof typeof AccountingPeriodScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -41063,7 +43446,9 @@ export namespace Prisma {
     description?: StringFilter<"JournalEntry"> | string
     status?: StringFilter<"JournalEntry"> | string
     createdBy?: StringFilter<"JournalEntry"> | string
+    accountingPeriodId?: StringNullableFilter<"JournalEntry"> | string | null
     createdAt?: DateTimeFilter<"JournalEntry"> | Date | string
+    accountingPeriod?: XOR<AccountingPeriodNullableRelationFilter, AccountingPeriodWhereInput> | null
     lines?: JournalLineListRelationFilter
     payrollPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
     reversalPayrollPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
@@ -41079,7 +43464,9 @@ export namespace Prisma {
     description?: SortOrder
     status?: SortOrder
     createdBy?: SortOrder
+    accountingPeriodId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    accountingPeriod?: AccountingPeriodOrderByWithRelationInput
     lines?: JournalLineOrderByRelationAggregateInput
     payrollPosting?: PayrollAccountingPostingOrderByWithRelationInput
     reversalPayrollPosting?: PayrollAccountingPostingOrderByWithRelationInput
@@ -41098,7 +43485,9 @@ export namespace Prisma {
     description?: StringFilter<"JournalEntry"> | string
     status?: StringFilter<"JournalEntry"> | string
     createdBy?: StringFilter<"JournalEntry"> | string
+    accountingPeriodId?: StringNullableFilter<"JournalEntry"> | string | null
     createdAt?: DateTimeFilter<"JournalEntry"> | Date | string
+    accountingPeriod?: XOR<AccountingPeriodNullableRelationFilter, AccountingPeriodWhereInput> | null
     lines?: JournalLineListRelationFilter
     payrollPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
     reversalPayrollPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
@@ -41114,6 +43503,7 @@ export namespace Prisma {
     description?: SortOrder
     status?: SortOrder
     createdBy?: SortOrder
+    accountingPeriodId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: JournalEntryCountOrderByAggregateInput
     _max?: JournalEntryMaxOrderByAggregateInput
@@ -41132,6 +43522,7 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"JournalEntry"> | string
     status?: StringWithAggregatesFilter<"JournalEntry"> | string
     createdBy?: StringWithAggregatesFilter<"JournalEntry"> | string
+    accountingPeriodId?: StringNullableWithAggregatesFilter<"JournalEntry"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"JournalEntry"> | Date | string
   }
 
@@ -43508,6 +45899,203 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"SalaryPayment"> | Date | string
   }
 
+  export type GlobalBankReferenceWhereInput = {
+    AND?: GlobalBankReferenceWhereInput | GlobalBankReferenceWhereInput[]
+    OR?: GlobalBankReferenceWhereInput[]
+    NOT?: GlobalBankReferenceWhereInput | GlobalBankReferenceWhereInput[]
+    id?: StringFilter<"GlobalBankReference"> | string
+    referenceNo?: StringFilter<"GlobalBankReference"> | string
+    module?: StringFilter<"GlobalBankReference"> | string
+    sourceTable?: StringFilter<"GlobalBankReference"> | string
+    sourceRecordId?: StringFilter<"GlobalBankReference"> | string
+    amount?: DecimalFilter<"GlobalBankReference"> | Decimal | DecimalJsLike | number | string
+    bankName?: StringNullableFilter<"GlobalBankReference"> | string | null
+    paymentMode?: StringFilter<"GlobalBankReference"> | string
+    status?: StringFilter<"GlobalBankReference"> | string
+    recordedBy?: StringFilter<"GlobalBankReference"> | string
+    reversalReason?: StringNullableFilter<"GlobalBankReference"> | string | null
+    createdAt?: DateTimeFilter<"GlobalBankReference"> | Date | string
+    updatedAt?: DateTimeFilter<"GlobalBankReference"> | Date | string
+  }
+
+  export type GlobalBankReferenceOrderByWithRelationInput = {
+    id?: SortOrder
+    referenceNo?: SortOrder
+    module?: SortOrder
+    sourceTable?: SortOrder
+    sourceRecordId?: SortOrder
+    amount?: SortOrder
+    bankName?: SortOrderInput | SortOrder
+    paymentMode?: SortOrder
+    status?: SortOrder
+    recordedBy?: SortOrder
+    reversalReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GlobalBankReferenceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    referenceNo?: string
+    AND?: GlobalBankReferenceWhereInput | GlobalBankReferenceWhereInput[]
+    OR?: GlobalBankReferenceWhereInput[]
+    NOT?: GlobalBankReferenceWhereInput | GlobalBankReferenceWhereInput[]
+    module?: StringFilter<"GlobalBankReference"> | string
+    sourceTable?: StringFilter<"GlobalBankReference"> | string
+    sourceRecordId?: StringFilter<"GlobalBankReference"> | string
+    amount?: DecimalFilter<"GlobalBankReference"> | Decimal | DecimalJsLike | number | string
+    bankName?: StringNullableFilter<"GlobalBankReference"> | string | null
+    paymentMode?: StringFilter<"GlobalBankReference"> | string
+    status?: StringFilter<"GlobalBankReference"> | string
+    recordedBy?: StringFilter<"GlobalBankReference"> | string
+    reversalReason?: StringNullableFilter<"GlobalBankReference"> | string | null
+    createdAt?: DateTimeFilter<"GlobalBankReference"> | Date | string
+    updatedAt?: DateTimeFilter<"GlobalBankReference"> | Date | string
+  }, "id" | "referenceNo">
+
+  export type GlobalBankReferenceOrderByWithAggregationInput = {
+    id?: SortOrder
+    referenceNo?: SortOrder
+    module?: SortOrder
+    sourceTable?: SortOrder
+    sourceRecordId?: SortOrder
+    amount?: SortOrder
+    bankName?: SortOrderInput | SortOrder
+    paymentMode?: SortOrder
+    status?: SortOrder
+    recordedBy?: SortOrder
+    reversalReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: GlobalBankReferenceCountOrderByAggregateInput
+    _avg?: GlobalBankReferenceAvgOrderByAggregateInput
+    _max?: GlobalBankReferenceMaxOrderByAggregateInput
+    _min?: GlobalBankReferenceMinOrderByAggregateInput
+    _sum?: GlobalBankReferenceSumOrderByAggregateInput
+  }
+
+  export type GlobalBankReferenceScalarWhereWithAggregatesInput = {
+    AND?: GlobalBankReferenceScalarWhereWithAggregatesInput | GlobalBankReferenceScalarWhereWithAggregatesInput[]
+    OR?: GlobalBankReferenceScalarWhereWithAggregatesInput[]
+    NOT?: GlobalBankReferenceScalarWhereWithAggregatesInput | GlobalBankReferenceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GlobalBankReference"> | string
+    referenceNo?: StringWithAggregatesFilter<"GlobalBankReference"> | string
+    module?: StringWithAggregatesFilter<"GlobalBankReference"> | string
+    sourceTable?: StringWithAggregatesFilter<"GlobalBankReference"> | string
+    sourceRecordId?: StringWithAggregatesFilter<"GlobalBankReference"> | string
+    amount?: DecimalWithAggregatesFilter<"GlobalBankReference"> | Decimal | DecimalJsLike | number | string
+    bankName?: StringNullableWithAggregatesFilter<"GlobalBankReference"> | string | null
+    paymentMode?: StringWithAggregatesFilter<"GlobalBankReference"> | string
+    status?: StringWithAggregatesFilter<"GlobalBankReference"> | string
+    recordedBy?: StringWithAggregatesFilter<"GlobalBankReference"> | string
+    reversalReason?: StringNullableWithAggregatesFilter<"GlobalBankReference"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"GlobalBankReference"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"GlobalBankReference"> | Date | string
+  }
+
+  export type AccountingPeriodWhereInput = {
+    AND?: AccountingPeriodWhereInput | AccountingPeriodWhereInput[]
+    OR?: AccountingPeriodWhereInput[]
+    NOT?: AccountingPeriodWhereInput | AccountingPeriodWhereInput[]
+    id?: StringFilter<"AccountingPeriod"> | string
+    fiscalYear?: IntFilter<"AccountingPeriod"> | number
+    month?: IntFilter<"AccountingPeriod"> | number
+    periodName?: StringFilter<"AccountingPeriod"> | string
+    startDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    endDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    status?: StringFilter<"AccountingPeriod"> | string
+    closedAt?: DateTimeNullableFilter<"AccountingPeriod"> | Date | string | null
+    closedBy?: StringNullableFilter<"AccountingPeriod"> | string | null
+    reopenedAt?: DateTimeNullableFilter<"AccountingPeriod"> | Date | string | null
+    reopenedBy?: StringNullableFilter<"AccountingPeriod"> | string | null
+    reopenReason?: StringNullableFilter<"AccountingPeriod"> | string | null
+    createdAt?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    updatedAt?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    journalEntries?: JournalEntryListRelationFilter
+  }
+
+  export type AccountingPeriodOrderByWithRelationInput = {
+    id?: SortOrder
+    fiscalYear?: SortOrder
+    month?: SortOrder
+    periodName?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    closedAt?: SortOrderInput | SortOrder
+    closedBy?: SortOrderInput | SortOrder
+    reopenedAt?: SortOrderInput | SortOrder
+    reopenedBy?: SortOrderInput | SortOrder
+    reopenReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    journalEntries?: JournalEntryOrderByRelationAggregateInput
+  }
+
+  export type AccountingPeriodWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    periodName?: string
+    fiscalYear_month?: AccountingPeriodFiscalYearMonthCompoundUniqueInput
+    AND?: AccountingPeriodWhereInput | AccountingPeriodWhereInput[]
+    OR?: AccountingPeriodWhereInput[]
+    NOT?: AccountingPeriodWhereInput | AccountingPeriodWhereInput[]
+    fiscalYear?: IntFilter<"AccountingPeriod"> | number
+    month?: IntFilter<"AccountingPeriod"> | number
+    startDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    endDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    status?: StringFilter<"AccountingPeriod"> | string
+    closedAt?: DateTimeNullableFilter<"AccountingPeriod"> | Date | string | null
+    closedBy?: StringNullableFilter<"AccountingPeriod"> | string | null
+    reopenedAt?: DateTimeNullableFilter<"AccountingPeriod"> | Date | string | null
+    reopenedBy?: StringNullableFilter<"AccountingPeriod"> | string | null
+    reopenReason?: StringNullableFilter<"AccountingPeriod"> | string | null
+    createdAt?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    updatedAt?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    journalEntries?: JournalEntryListRelationFilter
+  }, "id" | "periodName" | "fiscalYear_month">
+
+  export type AccountingPeriodOrderByWithAggregationInput = {
+    id?: SortOrder
+    fiscalYear?: SortOrder
+    month?: SortOrder
+    periodName?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    closedAt?: SortOrderInput | SortOrder
+    closedBy?: SortOrderInput | SortOrder
+    reopenedAt?: SortOrderInput | SortOrder
+    reopenedBy?: SortOrderInput | SortOrder
+    reopenReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AccountingPeriodCountOrderByAggregateInput
+    _avg?: AccountingPeriodAvgOrderByAggregateInput
+    _max?: AccountingPeriodMaxOrderByAggregateInput
+    _min?: AccountingPeriodMinOrderByAggregateInput
+    _sum?: AccountingPeriodSumOrderByAggregateInput
+  }
+
+  export type AccountingPeriodScalarWhereWithAggregatesInput = {
+    AND?: AccountingPeriodScalarWhereWithAggregatesInput | AccountingPeriodScalarWhereWithAggregatesInput[]
+    OR?: AccountingPeriodScalarWhereWithAggregatesInput[]
+    NOT?: AccountingPeriodScalarWhereWithAggregatesInput | AccountingPeriodScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AccountingPeriod"> | string
+    fiscalYear?: IntWithAggregatesFilter<"AccountingPeriod"> | number
+    month?: IntWithAggregatesFilter<"AccountingPeriod"> | number
+    periodName?: StringWithAggregatesFilter<"AccountingPeriod"> | string
+    startDate?: DateTimeWithAggregatesFilter<"AccountingPeriod"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"AccountingPeriod"> | Date | string
+    status?: StringWithAggregatesFilter<"AccountingPeriod"> | string
+    closedAt?: DateTimeNullableWithAggregatesFilter<"AccountingPeriod"> | Date | string | null
+    closedBy?: StringNullableWithAggregatesFilter<"AccountingPeriod"> | string | null
+    reopenedAt?: DateTimeNullableWithAggregatesFilter<"AccountingPeriod"> | Date | string | null
+    reopenedBy?: StringNullableWithAggregatesFilter<"AccountingPeriod"> | string | null
+    reopenReason?: StringNullableWithAggregatesFilter<"AccountingPeriod"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AccountingPeriod"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AccountingPeriod"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -44451,6 +47039,7 @@ export namespace Prisma {
     status?: string
     createdBy: string
     createdAt?: Date | string
+    accountingPeriod?: AccountingPeriodCreateNestedOneWithoutJournalEntriesInput
     lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
@@ -44466,6 +47055,7 @@ export namespace Prisma {
     description: string
     status?: string
     createdBy: string
+    accountingPeriodId?: string | null
     createdAt?: Date | string
     lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
@@ -44483,6 +47073,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountingPeriod?: AccountingPeriodUpdateOneWithoutJournalEntriesNestedInput
     lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
@@ -44498,6 +47089,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
@@ -44514,6 +47106,7 @@ export namespace Prisma {
     description: string
     status?: string
     createdBy: string
+    accountingPeriodId?: string | null
     createdAt?: Date | string
   }
 
@@ -44538,6 +47131,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -47298,6 +49892,241 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type GlobalBankReferenceCreateInput = {
+    id?: string
+    referenceNo: string
+    module: string
+    sourceTable: string
+    sourceRecordId: string
+    amount: Decimal | DecimalJsLike | number | string
+    bankName?: string | null
+    paymentMode: string
+    status?: string
+    recordedBy: string
+    reversalReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GlobalBankReferenceUncheckedCreateInput = {
+    id?: string
+    referenceNo: string
+    module: string
+    sourceTable: string
+    sourceRecordId: string
+    amount: Decimal | DecimalJsLike | number | string
+    bankName?: string | null
+    paymentMode: string
+    status?: string
+    recordedBy: string
+    reversalReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GlobalBankReferenceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    referenceNo?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    sourceTable?: StringFieldUpdateOperationsInput | string
+    sourceRecordId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    recordedBy?: StringFieldUpdateOperationsInput | string
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GlobalBankReferenceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    referenceNo?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    sourceTable?: StringFieldUpdateOperationsInput | string
+    sourceRecordId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    recordedBy?: StringFieldUpdateOperationsInput | string
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GlobalBankReferenceCreateManyInput = {
+    id?: string
+    referenceNo: string
+    module: string
+    sourceTable: string
+    sourceRecordId: string
+    amount: Decimal | DecimalJsLike | number | string
+    bankName?: string | null
+    paymentMode: string
+    status?: string
+    recordedBy: string
+    reversalReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GlobalBankReferenceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    referenceNo?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    sourceTable?: StringFieldUpdateOperationsInput | string
+    sourceRecordId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    recordedBy?: StringFieldUpdateOperationsInput | string
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GlobalBankReferenceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    referenceNo?: StringFieldUpdateOperationsInput | string
+    module?: StringFieldUpdateOperationsInput | string
+    sourceTable?: StringFieldUpdateOperationsInput | string
+    sourceRecordId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    recordedBy?: StringFieldUpdateOperationsInput | string
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountingPeriodCreateInput = {
+    id?: string
+    fiscalYear: number
+    month: number
+    periodName: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: string
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    reopenedAt?: Date | string | null
+    reopenedBy?: string | null
+    reopenReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    journalEntries?: JournalEntryCreateNestedManyWithoutAccountingPeriodInput
+  }
+
+  export type AccountingPeriodUncheckedCreateInput = {
+    id?: string
+    fiscalYear: number
+    month: number
+    periodName: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: string
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    reopenedAt?: Date | string | null
+    reopenedBy?: string | null
+    reopenReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutAccountingPeriodInput
+  }
+
+  export type AccountingPeriodUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fiscalYear?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    periodName?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reopenedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reopenedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reopenReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    journalEntries?: JournalEntryUpdateManyWithoutAccountingPeriodNestedInput
+  }
+
+  export type AccountingPeriodUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fiscalYear?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    periodName?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reopenedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reopenedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reopenReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutAccountingPeriodNestedInput
+  }
+
+  export type AccountingPeriodCreateManyInput = {
+    id?: string
+    fiscalYear: number
+    month: number
+    periodName: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: string
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    reopenedAt?: Date | string | null
+    reopenedBy?: string | null
+    reopenReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AccountingPeriodUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fiscalYear?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    periodName?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reopenedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reopenedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reopenReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountingPeriodUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fiscalYear?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    periodName?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reopenedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reopenedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reopenReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -48095,6 +50924,11 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type AccountingPeriodNullableRelationFilter = {
+    is?: AccountingPeriodWhereInput | null
+    isNot?: AccountingPeriodWhereInput | null
+  }
+
   export type PayrollAccountingPostingNullableRelationFilter = {
     is?: PayrollAccountingPostingWhereInput | null
     isNot?: PayrollAccountingPostingWhereInput | null
@@ -48114,6 +50948,7 @@ export namespace Prisma {
     description?: SortOrder
     status?: SortOrder
     createdBy?: SortOrder
+    accountingPeriodId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -48126,6 +50961,7 @@ export namespace Prisma {
     description?: SortOrder
     status?: SortOrder
     createdBy?: SortOrder
+    accountingPeriodId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -48138,6 +50974,7 @@ export namespace Prisma {
     description?: SortOrder
     status?: SortOrder
     createdBy?: SortOrder
+    accountingPeriodId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -49782,6 +52619,138 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
+  export type GlobalBankReferenceCountOrderByAggregateInput = {
+    id?: SortOrder
+    referenceNo?: SortOrder
+    module?: SortOrder
+    sourceTable?: SortOrder
+    sourceRecordId?: SortOrder
+    amount?: SortOrder
+    bankName?: SortOrder
+    paymentMode?: SortOrder
+    status?: SortOrder
+    recordedBy?: SortOrder
+    reversalReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GlobalBankReferenceAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type GlobalBankReferenceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    referenceNo?: SortOrder
+    module?: SortOrder
+    sourceTable?: SortOrder
+    sourceRecordId?: SortOrder
+    amount?: SortOrder
+    bankName?: SortOrder
+    paymentMode?: SortOrder
+    status?: SortOrder
+    recordedBy?: SortOrder
+    reversalReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GlobalBankReferenceMinOrderByAggregateInput = {
+    id?: SortOrder
+    referenceNo?: SortOrder
+    module?: SortOrder
+    sourceTable?: SortOrder
+    sourceRecordId?: SortOrder
+    amount?: SortOrder
+    bankName?: SortOrder
+    paymentMode?: SortOrder
+    status?: SortOrder
+    recordedBy?: SortOrder
+    reversalReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GlobalBankReferenceSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type JournalEntryListRelationFilter = {
+    every?: JournalEntryWhereInput
+    some?: JournalEntryWhereInput
+    none?: JournalEntryWhereInput
+  }
+
+  export type JournalEntryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AccountingPeriodFiscalYearMonthCompoundUniqueInput = {
+    fiscalYear: number
+    month: number
+  }
+
+  export type AccountingPeriodCountOrderByAggregateInput = {
+    id?: SortOrder
+    fiscalYear?: SortOrder
+    month?: SortOrder
+    periodName?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    closedAt?: SortOrder
+    closedBy?: SortOrder
+    reopenedAt?: SortOrder
+    reopenedBy?: SortOrder
+    reopenReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AccountingPeriodAvgOrderByAggregateInput = {
+    fiscalYear?: SortOrder
+    month?: SortOrder
+  }
+
+  export type AccountingPeriodMaxOrderByAggregateInput = {
+    id?: SortOrder
+    fiscalYear?: SortOrder
+    month?: SortOrder
+    periodName?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    closedAt?: SortOrder
+    closedBy?: SortOrder
+    reopenedAt?: SortOrder
+    reopenedBy?: SortOrder
+    reopenReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AccountingPeriodMinOrderByAggregateInput = {
+    id?: SortOrder
+    fiscalYear?: SortOrder
+    month?: SortOrder
+    periodName?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    closedAt?: SortOrder
+    closedBy?: SortOrder
+    reopenedAt?: SortOrder
+    reopenedBy?: SortOrder
+    reopenReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AccountingPeriodSumOrderByAggregateInput = {
+    fiscalYear?: SortOrder
+    month?: SortOrder
+  }
+
   export type RoleCreateNestedOneWithoutUsersInput = {
     create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
     connectOrCreate?: RoleCreateOrConnectWithoutUsersInput
@@ -50766,6 +53735,12 @@ export namespace Prisma {
     deleteMany?: JournalLineScalarWhereInput | JournalLineScalarWhereInput[]
   }
 
+  export type AccountingPeriodCreateNestedOneWithoutJournalEntriesInput = {
+    create?: XOR<AccountingPeriodCreateWithoutJournalEntriesInput, AccountingPeriodUncheckedCreateWithoutJournalEntriesInput>
+    connectOrCreate?: AccountingPeriodCreateOrConnectWithoutJournalEntriesInput
+    connect?: AccountingPeriodWhereUniqueInput
+  }
+
   export type JournalLineCreateNestedManyWithoutJournalEntryInput = {
     create?: XOR<JournalLineCreateWithoutJournalEntryInput, JournalLineUncheckedCreateWithoutJournalEntryInput> | JournalLineCreateWithoutJournalEntryInput[] | JournalLineUncheckedCreateWithoutJournalEntryInput[]
     connectOrCreate?: JournalLineCreateOrConnectWithoutJournalEntryInput | JournalLineCreateOrConnectWithoutJournalEntryInput[]
@@ -50814,6 +53789,16 @@ export namespace Prisma {
     create?: XOR<SalaryPaymentCreateWithoutJournalEntryInput, SalaryPaymentUncheckedCreateWithoutJournalEntryInput>
     connectOrCreate?: SalaryPaymentCreateOrConnectWithoutJournalEntryInput
     connect?: SalaryPaymentWhereUniqueInput
+  }
+
+  export type AccountingPeriodUpdateOneWithoutJournalEntriesNestedInput = {
+    create?: XOR<AccountingPeriodCreateWithoutJournalEntriesInput, AccountingPeriodUncheckedCreateWithoutJournalEntriesInput>
+    connectOrCreate?: AccountingPeriodCreateOrConnectWithoutJournalEntriesInput
+    upsert?: AccountingPeriodUpsertWithoutJournalEntriesInput
+    disconnect?: AccountingPeriodWhereInput | boolean
+    delete?: AccountingPeriodWhereInput | boolean
+    connect?: AccountingPeriodWhereUniqueInput
+    update?: XOR<XOR<AccountingPeriodUpdateToOneWithWhereWithoutJournalEntriesInput, AccountingPeriodUpdateWithoutJournalEntriesInput>, AccountingPeriodUncheckedUpdateWithoutJournalEntriesInput>
   }
 
   export type JournalLineUpdateManyWithoutJournalEntryNestedInput = {
@@ -52306,6 +55291,48 @@ export namespace Prisma {
     delete?: JournalEntryWhereInput | boolean
     connect?: JournalEntryWhereUniqueInput
     update?: XOR<XOR<JournalEntryUpdateToOneWithWhereWithoutSalaryPaymentInput, JournalEntryUpdateWithoutSalaryPaymentInput>, JournalEntryUncheckedUpdateWithoutSalaryPaymentInput>
+  }
+
+  export type JournalEntryCreateNestedManyWithoutAccountingPeriodInput = {
+    create?: XOR<JournalEntryCreateWithoutAccountingPeriodInput, JournalEntryUncheckedCreateWithoutAccountingPeriodInput> | JournalEntryCreateWithoutAccountingPeriodInput[] | JournalEntryUncheckedCreateWithoutAccountingPeriodInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutAccountingPeriodInput | JournalEntryCreateOrConnectWithoutAccountingPeriodInput[]
+    createMany?: JournalEntryCreateManyAccountingPeriodInputEnvelope
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+  }
+
+  export type JournalEntryUncheckedCreateNestedManyWithoutAccountingPeriodInput = {
+    create?: XOR<JournalEntryCreateWithoutAccountingPeriodInput, JournalEntryUncheckedCreateWithoutAccountingPeriodInput> | JournalEntryCreateWithoutAccountingPeriodInput[] | JournalEntryUncheckedCreateWithoutAccountingPeriodInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutAccountingPeriodInput | JournalEntryCreateOrConnectWithoutAccountingPeriodInput[]
+    createMany?: JournalEntryCreateManyAccountingPeriodInputEnvelope
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+  }
+
+  export type JournalEntryUpdateManyWithoutAccountingPeriodNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutAccountingPeriodInput, JournalEntryUncheckedCreateWithoutAccountingPeriodInput> | JournalEntryCreateWithoutAccountingPeriodInput[] | JournalEntryUncheckedCreateWithoutAccountingPeriodInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutAccountingPeriodInput | JournalEntryCreateOrConnectWithoutAccountingPeriodInput[]
+    upsert?: JournalEntryUpsertWithWhereUniqueWithoutAccountingPeriodInput | JournalEntryUpsertWithWhereUniqueWithoutAccountingPeriodInput[]
+    createMany?: JournalEntryCreateManyAccountingPeriodInputEnvelope
+    set?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    disconnect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    delete?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    update?: JournalEntryUpdateWithWhereUniqueWithoutAccountingPeriodInput | JournalEntryUpdateWithWhereUniqueWithoutAccountingPeriodInput[]
+    updateMany?: JournalEntryUpdateManyWithWhereWithoutAccountingPeriodInput | JournalEntryUpdateManyWithWhereWithoutAccountingPeriodInput[]
+    deleteMany?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+  }
+
+  export type JournalEntryUncheckedUpdateManyWithoutAccountingPeriodNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutAccountingPeriodInput, JournalEntryUncheckedCreateWithoutAccountingPeriodInput> | JournalEntryCreateWithoutAccountingPeriodInput[] | JournalEntryUncheckedCreateWithoutAccountingPeriodInput[]
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutAccountingPeriodInput | JournalEntryCreateOrConnectWithoutAccountingPeriodInput[]
+    upsert?: JournalEntryUpsertWithWhereUniqueWithoutAccountingPeriodInput | JournalEntryUpsertWithWhereUniqueWithoutAccountingPeriodInput[]
+    createMany?: JournalEntryCreateManyAccountingPeriodInputEnvelope
+    set?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    disconnect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    delete?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    connect?: JournalEntryWhereUniqueInput | JournalEntryWhereUniqueInput[]
+    update?: JournalEntryUpdateWithWhereUniqueWithoutAccountingPeriodInput | JournalEntryUpdateWithWhereUniqueWithoutAccountingPeriodInput[]
+    updateMany?: JournalEntryUpdateManyWithWhereWithoutAccountingPeriodInput | JournalEntryUpdateManyWithWhereWithoutAccountingPeriodInput[]
+    deleteMany?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -54882,6 +57909,45 @@ export namespace Prisma {
     description?: StringNullableFilter<"JournalLine"> | string | null
   }
 
+  export type AccountingPeriodCreateWithoutJournalEntriesInput = {
+    id?: string
+    fiscalYear: number
+    month: number
+    periodName: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: string
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    reopenedAt?: Date | string | null
+    reopenedBy?: string | null
+    reopenReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AccountingPeriodUncheckedCreateWithoutJournalEntriesInput = {
+    id?: string
+    fiscalYear: number
+    month: number
+    periodName: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: string
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    reopenedAt?: Date | string | null
+    reopenedBy?: string | null
+    reopenReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AccountingPeriodCreateOrConnectWithoutJournalEntriesInput = {
+    where: AccountingPeriodWhereUniqueInput
+    create: XOR<AccountingPeriodCreateWithoutJournalEntriesInput, AccountingPeriodUncheckedCreateWithoutJournalEntriesInput>
+  }
+
   export type JournalLineCreateWithoutJournalEntryInput = {
     id?: string
     debit?: Decimal | DecimalJsLike | number | string
@@ -55043,6 +58109,51 @@ export namespace Prisma {
   export type SalaryPaymentCreateOrConnectWithoutJournalEntryInput = {
     where: SalaryPaymentWhereUniqueInput
     create: XOR<SalaryPaymentCreateWithoutJournalEntryInput, SalaryPaymentUncheckedCreateWithoutJournalEntryInput>
+  }
+
+  export type AccountingPeriodUpsertWithoutJournalEntriesInput = {
+    update: XOR<AccountingPeriodUpdateWithoutJournalEntriesInput, AccountingPeriodUncheckedUpdateWithoutJournalEntriesInput>
+    create: XOR<AccountingPeriodCreateWithoutJournalEntriesInput, AccountingPeriodUncheckedCreateWithoutJournalEntriesInput>
+    where?: AccountingPeriodWhereInput
+  }
+
+  export type AccountingPeriodUpdateToOneWithWhereWithoutJournalEntriesInput = {
+    where?: AccountingPeriodWhereInput
+    data: XOR<AccountingPeriodUpdateWithoutJournalEntriesInput, AccountingPeriodUncheckedUpdateWithoutJournalEntriesInput>
+  }
+
+  export type AccountingPeriodUpdateWithoutJournalEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fiscalYear?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    periodName?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reopenedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reopenedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reopenReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountingPeriodUncheckedUpdateWithoutJournalEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fiscalYear?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    periodName?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reopenedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reopenedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reopenReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type JournalLineUpsertWithWhereUniqueWithoutJournalEntryInput = {
@@ -55226,6 +58337,7 @@ export namespace Prisma {
     status?: string
     createdBy: string
     createdAt?: Date | string
+    accountingPeriod?: AccountingPeriodCreateNestedOneWithoutJournalEntriesInput
     payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
     salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
@@ -55240,6 +58352,7 @@ export namespace Prisma {
     description: string
     status?: string
     createdBy: string
+    accountingPeriodId?: string | null
     createdAt?: Date | string
     payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
@@ -55297,6 +58410,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountingPeriod?: AccountingPeriodUpdateOneWithoutJournalEntriesNestedInput
     payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
@@ -55311,6 +58425,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
@@ -59603,6 +62718,7 @@ export namespace Prisma {
     status?: string
     createdBy: string
     createdAt?: Date | string
+    accountingPeriod?: AccountingPeriodCreateNestedOneWithoutJournalEntriesInput
     lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
     salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
@@ -59617,6 +62733,7 @@ export namespace Prisma {
     description: string
     status?: string
     createdBy: string
+    accountingPeriodId?: string | null
     createdAt?: Date | string
     lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
@@ -59638,6 +62755,7 @@ export namespace Prisma {
     status?: string
     createdBy: string
     createdAt?: Date | string
+    accountingPeriod?: AccountingPeriodCreateNestedOneWithoutJournalEntriesInput
     lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
     salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
@@ -59652,6 +62770,7 @@ export namespace Prisma {
     description: string
     status?: string
     createdBy: string
+    accountingPeriodId?: string | null
     createdAt?: Date | string
     lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
@@ -59751,6 +62870,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountingPeriod?: AccountingPeriodUpdateOneWithoutJournalEntriesNestedInput
     lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
@@ -59765,6 +62885,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
@@ -59792,6 +62913,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountingPeriod?: AccountingPeriodUpdateOneWithoutJournalEntriesNestedInput
     lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
@@ -59806,6 +62928,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
@@ -60264,6 +63387,7 @@ export namespace Prisma {
     status?: string
     createdBy: string
     createdAt?: Date | string
+    accountingPeriod?: AccountingPeriodCreateNestedOneWithoutJournalEntriesInput
     lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
@@ -60278,6 +63402,7 @@ export namespace Prisma {
     description: string
     status?: string
     createdBy: string
+    accountingPeriodId?: string | null
     createdAt?: Date | string
     lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
@@ -60568,6 +63693,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountingPeriod?: AccountingPeriodUpdateOneWithoutJournalEntriesNestedInput
     lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
@@ -60582,10 +63708,85 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
+  }
+
+  export type JournalEntryCreateWithoutAccountingPeriodInput = {
+    id?: string
+    entryNumber: string
+    date?: Date | string
+    referenceType?: string | null
+    referenceId?: string | null
+    description: string
+    status?: string
+    createdBy: string
+    createdAt?: Date | string
+    lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
+    payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
+    reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
+    salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
+  }
+
+  export type JournalEntryUncheckedCreateWithoutAccountingPeriodInput = {
+    id?: string
+    entryNumber: string
+    date?: Date | string
+    referenceType?: string | null
+    referenceId?: string | null
+    description: string
+    status?: string
+    createdBy: string
+    createdAt?: Date | string
+    lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
+    payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
+    reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
+    salaryPayment?: SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput
+  }
+
+  export type JournalEntryCreateOrConnectWithoutAccountingPeriodInput = {
+    where: JournalEntryWhereUniqueInput
+    create: XOR<JournalEntryCreateWithoutAccountingPeriodInput, JournalEntryUncheckedCreateWithoutAccountingPeriodInput>
+  }
+
+  export type JournalEntryCreateManyAccountingPeriodInputEnvelope = {
+    data: JournalEntryCreateManyAccountingPeriodInput | JournalEntryCreateManyAccountingPeriodInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type JournalEntryUpsertWithWhereUniqueWithoutAccountingPeriodInput = {
+    where: JournalEntryWhereUniqueInput
+    update: XOR<JournalEntryUpdateWithoutAccountingPeriodInput, JournalEntryUncheckedUpdateWithoutAccountingPeriodInput>
+    create: XOR<JournalEntryCreateWithoutAccountingPeriodInput, JournalEntryUncheckedCreateWithoutAccountingPeriodInput>
+  }
+
+  export type JournalEntryUpdateWithWhereUniqueWithoutAccountingPeriodInput = {
+    where: JournalEntryWhereUniqueInput
+    data: XOR<JournalEntryUpdateWithoutAccountingPeriodInput, JournalEntryUncheckedUpdateWithoutAccountingPeriodInput>
+  }
+
+  export type JournalEntryUpdateManyWithWhereWithoutAccountingPeriodInput = {
+    where: JournalEntryScalarWhereInput
+    data: XOR<JournalEntryUpdateManyMutationInput, JournalEntryUncheckedUpdateManyWithoutAccountingPeriodInput>
+  }
+
+  export type JournalEntryScalarWhereInput = {
+    AND?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+    OR?: JournalEntryScalarWhereInput[]
+    NOT?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
+    id?: StringFilter<"JournalEntry"> | string
+    entryNumber?: StringFilter<"JournalEntry"> | string
+    date?: DateTimeFilter<"JournalEntry"> | Date | string
+    referenceType?: StringNullableFilter<"JournalEntry"> | string | null
+    referenceId?: StringNullableFilter<"JournalEntry"> | string | null
+    description?: StringFilter<"JournalEntry"> | string
+    status?: StringFilter<"JournalEntry"> | string
+    createdBy?: StringFilter<"JournalEntry"> | string
+    accountingPeriodId?: StringNullableFilter<"JournalEntry"> | string | null
+    createdAt?: DateTimeFilter<"JournalEntry"> | Date | string
   }
 
   export type FundRequestCreateManyRequesterInput = {
@@ -63320,6 +66521,62 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type JournalEntryCreateManyAccountingPeriodInput = {
+    id?: string
+    entryNumber: string
+    date?: Date | string
+    referenceType?: string | null
+    referenceId?: string | null
+    description: string
+    status?: string
+    createdBy: string
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryUpdateWithoutAccountingPeriodInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
+    payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
+    reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
+  }
+
+  export type JournalEntryUncheckedUpdateWithoutAccountingPeriodInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
+    payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
+    reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
+  }
+
+  export type JournalEntryUncheckedUpdateManyWithoutAccountingPeriodInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -63393,6 +66650,10 @@ export namespace Prisma {
      * @deprecated Use SalaryPaymentBatchCountOutputTypeDefaultArgs instead
      */
     export type SalaryPaymentBatchCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SalaryPaymentBatchCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AccountingPeriodCountOutputTypeDefaultArgs instead
+     */
+    export type AccountingPeriodCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AccountingPeriodCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
@@ -63521,6 +66782,14 @@ export namespace Prisma {
      * @deprecated Use SalaryPaymentDefaultArgs instead
      */
     export type SalaryPaymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SalaryPaymentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use GlobalBankReferenceDefaultArgs instead
+     */
+    export type GlobalBankReferenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GlobalBankReferenceDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AccountingPeriodDefaultArgs instead
+     */
+    export type AccountingPeriodArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AccountingPeriodDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

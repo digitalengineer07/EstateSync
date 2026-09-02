@@ -2,7 +2,7 @@ const prisma = require('../config/db');
 const { logAudit } = require('../utils/auditLogger');
 const { postCustomerPaymentJournal, postCustomerRefundJournal } = require('../utils/accountingHelper');
 const { getPrimaryTreasuryWallet } = require('../utils/treasuryHelper');
-const { checkDuplicateReferenceNo } = require('../utils/referenceValidator');
+const { checkDuplicateReferenceNo, registerBankReference } = require('../utils/referenceValidator');
 const { cleanPlotNumber, cleanKhataNumber, normalizeForComparison } = require('../utils/identifierHelper');
 
 // 1. Create a new Customer profile with commercial terms
@@ -536,6 +536,18 @@ exports.settleCustomerCancellationRefund = async (req, res) => {
             status: 'REFUND_DISBURSED'
           }
         });
+
+        if (referenceNo) {
+          await registerBankReference(tx, {
+            referenceNo,
+            module: 'CUSTOMER_REFUND',
+            sourceTable: 'Customer',
+            sourceRecordId: customer.id,
+            amount: refundAmount,
+            paymentMode: refundMode || 'DIRECT',
+            recordedBy: req.user?.email || 'SYSTEM'
+          });
+        }
       }
 
       // 5. Update Customer with settlement fields
@@ -687,6 +699,18 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
           status: 'RECORDED'
         }
       });
+
+      if (cleanRef) {
+        await registerBankReference(tx, {
+          referenceNo: cleanRef,
+          module: 'CUSTOMER_PAYMENT',
+          sourceTable: 'CustomerPayment',
+          sourceRecordId: payment.id,
+          amount: payAmount,
+          paymentMode: paymentMode.toUpperCase(),
+          recordedBy: req.user?.email || 'SYSTEM'
+        });
+      }
 
       // 2. Increment Organization Wallet available balance & treasury funds (PRD §19.4)
       const updatedOrgWallet = await tx.wallet.update({

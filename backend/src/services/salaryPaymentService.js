@@ -6,7 +6,11 @@ const {
   postSalaryPaymentSettlementJournal,
   postSalaryPaymentReversalJournal
 } = require('../utils/accountingHelper');
-const { checkDuplicateReferenceNo } = require('../utils/referenceValidator');
+const {
+  checkDuplicateReferenceNo,
+  registerBankReference,
+  markReferenceReversed
+} = require('../utils/referenceValidator');
 
 // Canonical tolerance for financial precision
 const FINANCIAL_TOLERANCE = 0.009;
@@ -770,17 +774,23 @@ async function settleSalaryPayment({
       };
     }
 
-    // 5. Reference / UTR Duplicate Validation
+    // 5. Reference / UTR Duplicate Validation & Global Registry Registration
     const cleanRef = (referenceNo || payment.referenceNo || '').trim();
     const effectivePaymentMode = (paymentMode || payment.paymentMode || 'BANK_TRANSFER').toUpperCase();
     const fMode = effectivePaymentMode === 'CASH' ? 'CASH' : 'LIQUID';
 
     if (cleanRef) {
-      // Check duplicate across existing systems
-      const dupError = await checkDuplicateReferenceNo(tx, cleanRef);
-      if (dupError) {
-        throw { status: 400, code: 'DUPLICATE_REFERENCE_NO', message: dupError };
-      }
+      // Register in centralized GlobalBankReference registry atomically with concurrency lock
+      await registerBankReference(tx, {
+        referenceNo: cleanRef,
+        module: 'SALARY_PAYMENT',
+        sourceTable: 'SalaryPayment',
+        sourceRecordId: payment.id,
+        amount: payAmount,
+        bankName: payment.bankName,
+        paymentMode: effectivePaymentMode,
+        recordedBy: actorEmail
+      });
     }
 
     // 6. Source Account Validation & Treasury Wallet Lock
@@ -1108,7 +1118,15 @@ async function reverseSalaryPaymentSettlement({
       reason
     });
 
-    // 6. Update SalaryPayment to REVERSED
+    // 6. Update SalaryPayment to REVERSED & Mark Reference Reversed in Registry
+    if (payment.referenceNo) {
+      await markReferenceReversed(tx, {
+        referenceNo: payment.referenceNo,
+        sourceRecordId: payment.id,
+        reason
+      });
+    }
+
     const reversedPayment = await tx.salaryPayment.update({
       where: { id: payment.id },
       data: {
