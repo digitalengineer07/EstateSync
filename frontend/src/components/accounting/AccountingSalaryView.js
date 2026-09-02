@@ -61,6 +61,9 @@ export default function AccountingSalaryView() {
 
   useEffect(() => {
     fetchData();
+    const handleRefresh = () => fetchData();
+    window.addEventListener("estatesync:data-refresh", handleRefresh);
+    return () => window.removeEventListener("estatesync:data-refresh", handleRefresh);
   }, [fetchData]);
 
   const handlePaySuccess = (payoutData) => {

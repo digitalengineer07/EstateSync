@@ -88,6 +88,9 @@ export default function EmployeeList() {
 
   useEffect(() => {
     fetchEmployeeData();
+    const handleRefresh = () => fetchEmployeeData();
+    window.addEventListener("estatesync:data-refresh", handleRefresh);
+    return () => window.removeEventListener("estatesync:data-refresh", handleRefresh);
   }, [fetchEmployeeData]);
 
   // Derived Metrics from live list

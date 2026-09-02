@@ -39,6 +39,9 @@ export default function EditSalaryModal({ isOpen, onClose, employee, onUpdated }
       });
 
       if (res.success) {
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new Event("estatesync:data-refresh"));
+        }
         if (onUpdated) {
           onUpdated({
             ...employee,

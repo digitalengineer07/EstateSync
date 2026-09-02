@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { 
@@ -14,10 +15,18 @@ import {
   Coins
 } from "lucide-react";
 export default function DashboardStats({ type }) {
-  const { data, error, isLoading } = useSWR(`/api/v1/dashboard/${type}`, fetcher, { 
+  const { data, error, isLoading, mutate } = useSWR(`/api/v1/dashboard/${type}`, fetcher, { 
     refreshInterval: 10000,
     revalidateOnFocus: true
   });
+
+  useEffect(() => {
+    const handleRefresh = () => {
+      mutate();
+    };
+    window.addEventListener("estatesync:data-refresh", handleRefresh);
+    return () => window.removeEventListener("estatesync:data-refresh", handleRefresh);
+  }, [mutate]);
 
   if (isLoading || !data) {
     return (

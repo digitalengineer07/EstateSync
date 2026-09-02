@@ -51,7 +51,13 @@ export default function PaySalaryModal({ isOpen, onClose, employee, onPaid }) {
 
       if (res.success) {
         // Instantly revalidate dashboard stats, treasury liquidity, and wallet balances
-        mutate((key) => typeof key === "string" && (key.includes("/api/v1/dashboard") || key.includes("/api/v1/wallets")), undefined, { revalidate: true });
+        mutate("/api/v1/dashboard/admin");
+        mutate("/api/v1/dashboard/accounting");
+        mutate("/api/v1/dashboard/manager");
+        mutate("/api/v1/wallets");
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new Event("estatesync:data-refresh"));
+        }
         if (onPaid) onPaid(res.data);
         onClose();
       } else {
