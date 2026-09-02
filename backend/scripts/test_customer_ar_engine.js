@@ -391,6 +391,7 @@ async function runCustomerAREngineTests() {
   console.log('✅ Cleanup complete.');
 
   console.log('\n=== ALL PHASE 7 CUSTOMER AR & SUB-LEDGER TESTS PASSED (15/15)! ===\n');
+  process.exit(0);
 }
 
 runCustomerAREngineTests().catch(err => {

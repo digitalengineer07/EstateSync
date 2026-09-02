@@ -487,6 +487,7 @@ async function main() {
     await prisma.journalEntry.deleteMany({ where: { description: { contains: testSuffix } } });
     await prisma.globalBankReference.deleteMany({ where: { referenceNo: { contains: testSuffix } } });
     console.log('✅ Cleanup complete.');
+    process.exit(0);
   }
 }
 

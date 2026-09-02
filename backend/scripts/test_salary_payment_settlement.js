@@ -718,6 +718,7 @@ async function main() {
       await prisma.salaryStructure.deleteMany({ where: { id: structId } });
     }
     console.log('✅ Cleanup complete.');
+    process.exit(0);
   }
 }
 

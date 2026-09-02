@@ -493,6 +493,7 @@ async function main() {
     if (server) {
       server.close();
     }
+    process.exit(0);
   }
 }
 
