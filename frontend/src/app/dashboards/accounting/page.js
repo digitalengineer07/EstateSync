@@ -11,7 +11,7 @@ import CustomerPortfolioList from "@/components/CustomerPortfolioList";
 import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
 import TreasuryInflowList from "@/components/TreasuryInflowList";
 import Link from "next/link";
-import { Users, MapPin, Scale, Wallet, Receipt, ArrowLeftRight, ShieldCheck, Landmark, FileSpreadsheet, ArrowRight, ArrowUpRight } from "lucide-react";
+import { Users, MapPin, Scale, Wallet, Receipt, ArrowLeftRight, ShieldCheck, Landmark } from "lucide-react";
 
 export default function AccountingDashboard() {
   const [activeTab, setActiveTab] = useState("treasury");
@@ -22,7 +22,6 @@ export default function AccountingDashboard() {
     { id: "collections", label: "Customer Collections", icon: Users, badge: "PRD §19" },
     { id: "properties", label: "Land Acquisitions", icon: MapPin, badge: "PRD §20" },
     { id: "ledger", label: "General Ledger", icon: Scale, badge: "Dr = Cr" },
-    { id: "payroll", label: "Payroll & Salaries", icon: FileSpreadsheet, badge: "Phases 1-5B" },
     { id: "wallets", label: "Wallets & Expenses", icon: Wallet, badge: "Corporate" },
   ];
 
@@ -87,83 +86,6 @@ export default function AccountingDashboard() {
 
         {activeTab === "ledger" && (
           <GeneralLedgerView />
-        )}
-
-        {activeTab === "payroll" && (
-          <div className="space-y-6">
-            <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-lg font-bold text-slate-900">Payroll & Salary Accounting Hub</h3>
-                    <span className="px-2 py-0.5 text-[11px] font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                      General Ledger & Treasury
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-500 mt-0.5">
-                    Monthly accrual journal postings, double-entry balance validation, and corporate treasury salary settlements.
-                  </p>
-                </div>
-                <Link
-                  href="/dashboards/payroll"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-xs font-semibold text-white shadow-xs transition self-start sm:self-auto"
-                >
-                  <span>Open Full Payroll Hub</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
-                <div className="p-5 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-900 flex items-center gap-2">
-                        <Scale className="w-4 h-4 text-indigo-600" />
-                        Monthly Payroll Runs & GL Accruals
-                      </span>
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">Phase 4</span>
-                    </div>
-                    <p className="text-xs text-slate-500 mt-2">
-                      Review locked monthly payroll runs, inspect double-entry Dr/Cr balance previews, and execute atomic General Ledger postings.
-                    </p>
-                  </div>
-                  <div className="mt-4 pt-4 border-t border-slate-200/60">
-                    <Link
-                      href="/dashboards/payroll"
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800"
-                    >
-                      <span>Manage Payroll Runs</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="p-5 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-900 flex items-center gap-2">
-                        <Landmark className="w-4 h-4 text-emerald-600" />
-                        Treasury Disbursements & Settlements
-                      </span>
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Phase 5</span>
-                    </div>
-                    <p className="text-xs text-slate-500 mt-2">
-                      Disburse approved salary batches from Corporate Treasury, register external UTR references, and manage reversals.
-                    </p>
-                  </div>
-                  <div className="mt-4 pt-4 border-t border-slate-200/60">
-                    <Link
-                      href="/dashboards/payroll"
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 hover:text-emerald-800"
-                    >
-                      <span>Manage Salary Disbursements</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         )}
 
         {activeTab === "wallets" && (

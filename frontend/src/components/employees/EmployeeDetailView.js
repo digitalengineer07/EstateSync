@@ -9,7 +9,6 @@ import { getEmployeeById } from "@/services/employeeService";
 import EmployeeModal from "./EmployeeModal";
 import EmployeeArchiveModal from "./EmployeeArchiveModal";
 import EmployeeLinkUserModal from "./EmployeeLinkUserModal";
-import EmployeeSalaryTab from "./EmployeeSalaryTab";
 import {
   Users,
   ArrowLeft,
@@ -29,8 +28,7 @@ import {
   AlertTriangle,
   CheckCircle2,
   RefreshCw,
-  Clock,
-  FileSpreadsheet
+  Clock
 } from "lucide-react";
 
 export default function EmployeeDetailView({ id }) {
@@ -40,7 +38,7 @@ export default function EmployeeDetailView({ id }) {
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState("overview"); // "overview", "salary", or "account"
+  const [activeTab, setActiveTab] = useState("overview"); // "overview" or "account"
   const [successMsg, setSuccessMsg] = useState(null);
 
   // Modals state
@@ -232,17 +230,6 @@ export default function EmployeeDetailView({ id }) {
             Employment Overview
           </button>
           <button
-            onClick={() => setActiveTab("salary")}
-            className={`px-3 py-1.5 rounded-lg transition whitespace-nowrap flex items-center gap-1.5 ${
-              activeTab === "salary"
-                ? "bg-slate-900 text-white shadow-xs"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-            }`}
-          >
-            <FileSpreadsheet className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Salary & Compensation</span>
-          </button>
-          <button
             onClick={() => setActiveTab("account")}
             className={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${
               activeTab === "account"
@@ -354,12 +341,7 @@ export default function EmployeeDetailView({ id }) {
         </div>
       )}
 
-      {/* Tab 2: Salary & Compensation */}
-      {activeTab === "salary" && (
-        <EmployeeSalaryTab employee={employee} />
-      )}
-
-      {/* Tab 3: User Account & Wallet */}
+      {/* Tab 2: User Account & Wallet */}
       {activeTab === "account" && (
         <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 space-y-4">
           <h3 className="text-sm font-bold text-slate-900 pb-3 border-b border-slate-100 flex items-center gap-2">

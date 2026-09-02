@@ -11,7 +11,7 @@ import AuditLogViewer from "@/components/AuditLogViewer";
 import CustomerPortfolioList from "@/components/CustomerPortfolioList";
 import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
 import Link from "next/link";
-import { ShieldCheck, FileText, ArrowLeftRight, Users, FileSpreadsheet, Landmark } from "lucide-react";
+import { ShieldCheck, FileText, ArrowLeftRight, Users } from "lucide-react";
 
 export default function AdminDashboard() {
   const [activeLedgerTab, setActiveLedgerTab] = useState("requests"); // "requests" or "transactions"
@@ -45,70 +45,41 @@ export default function AdminDashboard() {
         <UserRegistrationForm />
       </div>
 
-      {/* Staff & Payroll Oversight Navigation Card */}
+      {/* Staff & Workforce Directory Navigation Card */}
       <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-lg font-bold text-slate-900">Staff & Payroll Oversight</h3>
-              <span className="px-2 py-0.5 text-[11px] font-semibold rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
-                Phases 1–5B
+              <h3 className="text-lg font-bold text-slate-900">Staff & Workforce Directory</h3>
+              <span className="px-2 py-0.5 text-[11px] font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                Active Staff
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              Employee master profiles, salary structures, monthly payroll runs, and treasury settlements.
+              Employee master records, staff governance, department allocations, and user login bindings.
             </p>
           </div>
           <div className="flex items-center gap-2">
             <Link
               href="/dashboards/employees"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-xs font-semibold text-slate-700 transition"
-            >
-              <Users className="w-3.5 h-3.5 text-slate-500" />
-              Employee Directory
-            </Link>
-            <Link
-              href="/dashboards/payroll"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-xs font-semibold text-white shadow-xs transition"
             >
-              <FileSpreadsheet className="w-3.5 h-3.5" />
-              Payroll Hub
+              <Users className="w-3.5 h-3.5" />
+              Employee Master
             </Link>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+        <div className="pt-4">
           <Link
             href="/dashboards/employees"
-            className="p-4 rounded-lg bg-slate-50 hover:bg-indigo-50/50 border border-slate-200/80 hover:border-indigo-200 transition group"
+            className="p-4 rounded-lg bg-slate-50 hover:bg-indigo-50/50 border border-slate-200/80 hover:border-indigo-200 transition group block"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-700 group-hover:text-indigo-900">Employee Master</span>
+              <span className="text-xs font-bold text-slate-700 group-hover:text-indigo-900">Employee Master Directory</span>
               <Users className="w-4 h-4 text-slate-400 group-hover:text-indigo-600" />
             </div>
-            <p className="text-[11px] text-slate-500 mt-1">Staff directory, designations, and user login bindings.</p>
-          </Link>
-
-          <Link
-            href="/dashboards/payroll"
-            className="p-4 rounded-lg bg-slate-50 hover:bg-indigo-50/50 border border-slate-200/80 hover:border-indigo-200 transition group"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-700 group-hover:text-indigo-900">Payroll Engine</span>
-              <FileSpreadsheet className="w-4 h-4 text-slate-400 group-hover:text-indigo-600" />
-            </div>
-            <p className="text-[11px] text-slate-500 mt-1">Monthly calculations, exception review, and approvals.</p>
-          </Link>
-
-          <Link
-            href="/dashboards/payroll"
-            className="p-4 rounded-lg bg-slate-50 hover:bg-indigo-50/50 border border-slate-200/80 hover:border-indigo-200 transition group"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-700 group-hover:text-indigo-900">GL Accrual & Payouts</span>
-              <Landmark className="w-4 h-4 text-slate-400 group-hover:text-indigo-600" />
-            </div>
-            <p className="text-[11px] text-slate-500 mt-1">Double-entry ledger posting and treasury disbursements.</p>
+            <p className="text-[11px] text-slate-500 mt-1">Manage staff directory, employment status, designations, work locations, and system login bindings.</p>
           </Link>
         </div>
       </div>

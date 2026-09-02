@@ -170,7 +170,7 @@ export default function EmployeeList() {
             <UserCheck className="w-4 h-4 text-emerald-500" />
           </div>
           <div className="text-2xl font-bold text-slate-900 mt-2">{loading ? "--" : activeCount}</div>
-          <p className="text-[11px] text-slate-400 mt-1">Payroll calculation eligible</p>
+          <p className="text-[11px] text-slate-400 mt-1">Active staff members</p>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">

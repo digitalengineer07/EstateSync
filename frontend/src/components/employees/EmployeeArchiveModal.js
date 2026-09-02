@@ -85,7 +85,7 @@ export default function EmployeeArchiveModal({
           <div className="p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-800 flex items-start gap-2">
             <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
             <span>
-              Archiving sets employee status to inactive. The employee will no longer be included in monthly payroll calculations.
+              Archiving sets employee status to inactive. The employee will be deactivated from active staff directory.
             </span>
           </div>
 

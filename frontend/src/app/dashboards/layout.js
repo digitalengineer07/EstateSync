@@ -3,7 +3,7 @@
 import { useAuth } from "@/context/AuthContext";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { Building2, ShieldCheck, Layers, Landmark, Wallet, LogOut, Users, FileSpreadsheet } from "lucide-react";
+import { Building2, ShieldCheck, Layers, Landmark, Wallet, LogOut, Users } from "lucide-react";
 import { hasPermission, hasAnyPermission } from "@/utils/permissions";
 
 export default function DashboardsLayout({ children }) {
@@ -50,19 +50,6 @@ export default function DashboardsLayout({ children }) {
       path: "/dashboards/employees", 
       visible: hasPermission(user, "employee.view"), 
       icon: Users 
-    },
-    { 
-      name: "Payroll", 
-      path: "/dashboards/payroll", 
-      visible: hasAnyPermission(user, [
-        "payroll.period.view",
-        "payroll.run.view",
-        "payroll.structure.view",
-        "payroll.component.view",
-        "payroll.accounting.view",
-        "payroll.item.view"
-      ]), 
-      icon: FileSpreadsheet 
     },
     { 
       name: "My Wallet & Expenses", 

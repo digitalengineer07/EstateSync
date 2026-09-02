@@ -5,23 +5,23 @@ const { logAudit } = require('../utils/auditLogger');
  * Generate next sequential Employee Code (e.g. EMP-000001, EMP-000002)
  */
 async function generateNextEmployeeCode(tx = prisma) {
-  const latestEmployee = await tx.employee.findFirst({
+  const employees = await tx.employee.findMany({
     where: { employeeCode: { startsWith: 'EMP-' } },
-    orderBy: { employeeCode: 'desc' }
+    select: { employeeCode: true }
   });
 
-  let nextSeq = 1;
-  if (latestEmployee && latestEmployee.employeeCode) {
-    const parts = latestEmployee.employeeCode.split('-');
+  let maxSeq = 0;
+  for (const emp of employees) {
+    const parts = emp.employeeCode.split('-');
     if (parts.length >= 2) {
       const parsed = parseInt(parts[1], 10);
-      if (!isNaN(parsed)) {
-        nextSeq = parsed + 1;
+      if (!isNaN(parsed) && parsed > maxSeq) {
+        maxSeq = parsed;
       }
     }
   }
 
-  return `EMP-${String(nextSeq).padStart(6, '0')}`;
+  return `EMP-${String(maxSeq + 1).padStart(6, '0')}`;
 }
 
 /**
@@ -181,7 +181,7 @@ exports.createEmployee = async (req, res) => {
       });
 
       return newEmployee;
-    });
+    }, { timeout: 15000, maxWait: 10000 });
 
     return res.status(201).json({
       success: true,

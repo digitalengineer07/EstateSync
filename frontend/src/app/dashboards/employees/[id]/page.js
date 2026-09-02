@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import EmployeeDetailView from "@/components/payroll/EmployeeDetailView";
+import EmployeeDetailView from "@/components/employees/EmployeeDetailView";
 
 export default function EmployeeDetailPage() {
   const params = useParams();

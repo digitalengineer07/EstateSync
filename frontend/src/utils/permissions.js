@@ -6,7 +6,7 @@
 /**
  * Check if the user possesses a specific backend permission.
  * @param {Object} user - The AuthContext user object (containing role and permissions array)
- * @param {string} permissionCode - The exact backend permission code (e.g., 'payroll.run.calculate')
+ * @param {string} permissionCode - The exact backend permission code (e.g., 'employee.create')
  * @returns {boolean}
  */
 export function hasPermission(user, permissionCode) {

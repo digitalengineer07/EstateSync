@@ -55,7 +55,6 @@ const customerRoutes = require('./routes/customerRoutes');
 const propertyRoutes = require('./routes/propertyRoutes');
 const treasuryRoutes = require('./routes/treasuryRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
-const payrollRoutes = require('./routes/payrollRoutes');
 const accountingPeriodRoutes = require('./routes/accountingPeriodRoutes');
 const customerBillingRoutes = require('./routes/customerBillingRoutes');
 
@@ -73,7 +72,6 @@ app.use('/api/v1/customers', customerRoutes);
 app.use('/api/v1/properties', propertyRoutes);
 app.use('/api/v1/treasury', treasuryRoutes);
 app.use('/api/v1/employees', employeeRoutes);
-app.use('/api/v1/payroll', payrollRoutes);
 app.use('/api/v1/accounting/periods', accountingPeriodRoutes);
 app.use('/api/v1/billing', customerBillingRoutes);
 
