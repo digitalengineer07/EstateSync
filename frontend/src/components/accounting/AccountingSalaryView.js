@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { getEmployees, getSalarySummary } from "@/services/employeeService";
+import { getEmployees } from "@/services/employeeService";
+import { getSalarySummary } from "@/services/salaryService";
 import PaySalaryModal from "@/components/employees/PaySalaryModal";
+import EditSalaryModal from "@/components/employees/EditSalaryModal";
+import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import {
   IndianRupee,
@@ -14,10 +17,14 @@ import {
   RefreshCw,
   Landmark,
   ShieldCheck,
-  AlertCircle
+  AlertCircle,
+  Edit3
 } from "lucide-react";
 
 export default function AccountingSalaryView() {
+  const { user } = useAuth();
+  const canEditSalary = user?.role === "ADMIN";
+
   const currentMonth = new Date().toISOString().slice(0, 7);
 
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
@@ -27,6 +34,7 @@ export default function AccountingSalaryView() {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [employeeToPay, setEmployeeToPay] = useState(null);
+  const [employeeToEditSalary, setEmployeeToEditSalary] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
 
   const fetchData = useCallback(async () => {
@@ -270,10 +278,29 @@ export default function AccountingSalaryView() {
                       {/* Monthly Base Salary */}
                       <td className="px-5 py-3.5 whitespace-nowrap">
                         {hasSalary ? (
-                          <span className="font-bold text-slate-900 text-sm">
-                            ₹{parseFloat(emp.baseSalary).toLocaleString("en-IN")}
-                            <span className="text-[10px] text-slate-400 font-normal ml-1">/ mo</span>
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-slate-900 text-sm">
+                              ₹{parseFloat(emp.baseSalary).toLocaleString("en-IN")}
+                              <span className="text-[10px] text-slate-400 font-normal ml-1">/ mo</span>
+                            </span>
+                            {canEditSalary && (
+                              <button
+                                onClick={() => setEmployeeToEditSalary(emp)}
+                                className="text-[11px] text-indigo-600 hover:text-indigo-800 font-semibold underline"
+                                title="Edit Base Salary"
+                              >
+                                Edit
+                              </button>
+                            )}
+                          </div>
+                        ) : canEditSalary ? (
+                          <button
+                            onClick={() => setEmployeeToEditSalary(emp)}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold border border-indigo-200 transition shadow-xs"
+                          >
+                            <IndianRupee className="w-3 h-3" />
+                            <span>+ Add Salary</span>
+                          </button>
                         ) : (
                           <span className="text-slate-400 italic">Not set by Admin</span>
                         )}
@@ -302,6 +329,17 @@ export default function AccountingSalaryView() {
                           >
                             View
                           </Link>
+
+                          {canEditSalary && (
+                            <button
+                              onClick={() => setEmployeeToEditSalary(emp)}
+                              className="p-1.5 rounded-lg border border-indigo-200 hover:bg-indigo-50 text-indigo-600 transition"
+                              title="Configure Salary & Banking"
+                            >
+                              <Edit3 className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+
                           <button
                             onClick={() => setEmployeeToPay(emp)}
                             disabled={!hasSalary}
@@ -329,6 +367,20 @@ export default function AccountingSalaryView() {
           onClose={() => setEmployeeToPay(null)}
           employee={employeeToPay}
           onPaid={handlePaySuccess}
+        />
+      )}
+
+      {/* Edit Salary Modal (Admin Only) */}
+      {employeeToEditSalary && (
+        <EditSalaryModal
+          isOpen={Boolean(employeeToEditSalary)}
+          onClose={() => setEmployeeToEditSalary(null)}
+          employee={employeeToEditSalary}
+          onUpdated={(updatedEmp) => {
+            setSuccessMsg(`Salary for ${updatedEmp.fullName} updated to ₹${Number(updatedEmp.baseSalary).toLocaleString("en-IN")}`);
+            setTimeout(() => setSuccessMsg(null), 5000);
+            fetchData();
+          }}
         />
       )}
     </div>
