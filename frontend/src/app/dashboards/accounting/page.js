@@ -30,24 +30,24 @@ export default function AccountingDashboard() {
   return (
     <div className="space-y-6">
       {/* Top Header & Navigation Bar */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 bg-gradient-to-r from-slate-50/80 via-white to-indigo-50/20 p-5 rounded-2xl border border-slate-200/80 shadow-2xs">
         <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
               Accounting & Financial Hub
             </h1>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               Full Audit Authority
             </span>
           </div>
-          <p className="text-slate-500 text-xs sm:text-sm mt-1">
+          <p className="text-slate-500 text-xs sm:text-sm mt-1.5 font-medium">
             Corporate treasury inflows, customer collections, land acquisitions, balanced double-entry ledger, and expense governance.
           </p>
         </div>
 
         {/* Top-Right Tab Navigation Pills */}
-        <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-xs overflow-x-auto self-start lg:self-auto">
+        <div className="flex items-center gap-1 bg-white/90 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200/90 shadow-xs overflow-x-auto self-start lg:self-auto">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             const Icon = tab.icon;
@@ -55,10 +55,10 @@ export default function AccountingDashboard() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 whitespace-nowrap ${
+                className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap active:scale-95 ${
                   isActive
-                    ? "bg-slate-900 text-white shadow-xs"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                    ? "bg-slate-900 text-white shadow-sm ring-1 ring-slate-800"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/70"
                 }`}
               >
                 <Icon className={`w-3.5 h-3.5 ${isActive ? "text-indigo-400" : "text-slate-400"}`} />
