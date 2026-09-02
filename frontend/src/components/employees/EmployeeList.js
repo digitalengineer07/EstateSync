@@ -7,7 +7,8 @@ import { hasPermission } from "@/utils/permissions";
 import { getEmployees } from "@/services/employeeService";
 import EmployeeModal from "./EmployeeModal";
 import EmployeeArchiveModal from "./EmployeeArchiveModal";
-import EmployeeLinkUserModal from "./EmployeeLinkUserModal";
+import EditSalaryModal from "./EditSalaryModal";
+import PaySalaryModal from "./PaySalaryModal";
 import {
   Users,
   Search,
@@ -26,7 +27,9 @@ import {
   Calendar,
   Phone,
   Mail,
-  Briefcase
+  Briefcase,
+  IndianRupee,
+  Send
 } from "lucide-react";
 
 export default function EmployeeList() {
@@ -48,6 +51,8 @@ export default function EmployeeList() {
   const [employeeToEdit, setEmployeeToEdit] = useState(null);
   const [employeeToArchive, setEmployeeToArchive] = useState(null);
   const [employeeToLink, setEmployeeToLink] = useState(null);
+  const [employeeToEditSalary, setEmployeeToEditSalary] = useState(null);
+  const [employeeToPaySalary, setEmployeeToPaySalary] = useState(null);
 
   const canCreate = hasPermission(user, "employee.create");
   const canUpdate = hasPermission(user, "employee.update");
@@ -86,6 +91,9 @@ export default function EmployeeList() {
   const activeCount = employees.filter((e) => e.status === "ACTIVE").length;
   const archivedCount = employees.filter((e) => ["ARCHIVED", "RESIGNED", "TERMINATED"].includes(e.status)).length;
   const linkedCount = employees.filter((e) => Boolean(e.userId)).length;
+  const totalMonthlyPayroll = employees
+    .filter((e) => e.status === "ACTIVE")
+    .reduce((sum, e) => sum + (parseFloat(e.baseSalary) || 0), 0);
 
   // Extract unique departments for filter dropdown
   const departmentsList = Array.from(
@@ -184,11 +192,11 @@ export default function EmployeeList() {
 
         <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Separated / Archived</span>
-            <UserX className="w-4 h-4 text-rose-500" />
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Monthly Payroll</span>
+            <IndianRupee className="w-4 h-4 text-amber-500" />
           </div>
-          <div className="text-2xl font-bold text-slate-900 mt-2">{loading ? "--" : archivedCount}</div>
-          <p className="text-[11px] text-slate-400 mt-1">Resigned / Terminated</p>
+          <div className="text-2xl font-bold text-slate-900 mt-2">{loading ? "--" : `₹${Math.round(totalMonthlyPayroll).toLocaleString("en-IN")}`}</div>
+          <p className="text-[11px] text-slate-400 mt-1">Total active base salary</p>
         </div>
       </div>
 
@@ -296,6 +304,7 @@ export default function EmployeeList() {
                     <th scope="col" className="px-5 py-3">Designation & Dept</th>
                     <th scope="col" className="px-5 py-3">Contact</th>
                     <th scope="col" className="px-5 py-3">Employment</th>
+                    {canViewSalary && <th scope="col" className="px-5 py-3">Monthly Salary</th>}
                     <th scope="col" className="px-5 py-3">System Login</th>
                     <th scope="col" className="px-5 py-3">Status</th>
                     <th scope="col" className="px-5 py-3 text-right">Actions</th>
@@ -352,23 +361,32 @@ export default function EmployeeList() {
                         </td>
 
                         {/* Employment Type & Joining */}
-                        <td className="px-5 py-3.5">
-                          <span className="px-2 py-0.5 text-[10px] font-semibold rounded bg-slate-100 text-slate-600 border border-slate-200">
+                        <td className="px-5 py-3.5 whitespace-nowrap">
+                          <span className="font-semibold text-slate-800 block">
                             {emp.employmentType?.replace("_", " ") || "FULL TIME"}
                           </span>
-                          <div className="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
-                            <Calendar className="w-3 h-3 text-slate-400" />
-                            <span>
-                              {emp.joiningDate
-                                ? new Date(emp.joiningDate).toLocaleDateString("en-IN", {
-                                    day: "2-digit",
-                                    month: "short",
-                                    year: "numeric"
-                                  })
-                                : "--"}
-                            </span>
-                          </div>
+                          <span className="text-[11px] text-slate-400 mt-0.5 block">
+                            Joined {emp.joiningDate ? new Date(emp.joiningDate).toLocaleDateString("en-IN", { month: "short", year: "numeric" }) : "--"}
+                          </span>
                         </td>
+
+                        {/* Monthly Base Salary */}
+                        {canViewSalary && (
+                          <td className="px-5 py-3.5 whitespace-nowrap">
+                            <div className="font-bold text-slate-900">
+                              {emp.baseSalary && parseFloat(emp.baseSalary) > 0 ? (
+                                `₹${parseFloat(emp.baseSalary).toLocaleString("en-IN")}`
+                              ) : (
+                                <span className="text-slate-400 font-normal">Not configured</span>
+                              )}
+                            </div>
+                            {emp.bankName && (
+                              <div className="text-[10px] text-slate-400 mt-0.5">
+                                {emp.bankName} {emp.bankAccountNo ? `(${emp.bankAccountNo})` : ""}
+                              </div>
+                            )}
+                          </td>
+                        )}
 
                         {/* Linked Login */}
                         <td className="px-5 py-3.5">
@@ -409,6 +427,27 @@ export default function EmployeeList() {
                             >
                               <Eye className="w-3.5 h-3.5" />
                             </Link>
+
+                            {canPaySalary && emp.status === "ACTIVE" && (
+                              <button
+                                onClick={() => setEmployeeToPaySalary(emp)}
+                                disabled={!emp.baseSalary || parseFloat(emp.baseSalary) <= 0}
+                                className="p-1.5 rounded-lg border border-emerald-200 hover:bg-emerald-50 text-emerald-600 transition disabled:opacity-40 disabled:hover:bg-transparent"
+                                title="Disburse Monthly Salary"
+                              >
+                                <Send className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+
+                            {canEditSalary && (
+                              <button
+                                onClick={() => setEmployeeToEditSalary(emp)}
+                                className="p-1.5 rounded-lg border border-indigo-200 hover:bg-indigo-50 text-indigo-600 transition"
+                                title="Configure Salary & Banking"
+                              >
+                                <IndianRupee className="w-3.5 h-3.5" />
+                              </button>
+                            )}
 
                             {canUpdate && (
                               <button
@@ -563,6 +602,26 @@ export default function EmployeeList() {
         employee={employeeToLink}
         onSuccess={() => handleActionSuccess("User login credentials updated.")}
       />
+
+      {/* Edit Salary Modal (Admin Only) */}
+      {employeeToEditSalary && (
+        <EditSalaryModal
+          isOpen={Boolean(employeeToEditSalary)}
+          onClose={() => setEmployeeToEditSalary(null)}
+          employee={employeeToEditSalary}
+          onUpdated={() => handleActionSuccess("Salary & banking configuration updated successfully.")}
+        />
+      )}
+
+      {/* Pay Salary Modal (Admin & Accounting) */}
+      {employeeToPaySalary && (
+        <PaySalaryModal
+          isOpen={Boolean(employeeToPaySalary)}
+          onClose={() => setEmployeeToPaySalary(null)}
+          employee={employeeToPaySalary}
+          onPaid={(payout) => handleActionSuccess(`Salary of ₹${payout.amount.toLocaleString("en-IN")} disbursed successfully!`)}
+        />
+      )}
     </div>
   );
 }

@@ -3,11 +3,19 @@ const router = express.Router();
 const employeeController = require('../controller/employeeController');
 const { verifyJWT } = require('../middleware/authMiddleware');
 const { checkPermission } = require('../middleware/permissionMiddleware');
+const idempotencyMiddleware = require('../middleware/idempotencyMiddleware');
 
 // All Employee routes require valid authentication
 router.use(verifyJWT);
 
-// 1. Employee Management Routes
+// 1. Monthly Salary Summary (Must be mounted before /:id)
+router.get(
+  '/salary/summary',
+  checkPermission(['accounting.view', 'user.manage']),
+  employeeController.getSalarySummary
+);
+
+// 2. Employee Management Routes
 router.post(
   '/',
   checkPermission('employee.create'),
@@ -38,7 +46,7 @@ router.post(
   employeeController.archiveEmployee
 );
 
-// 2. User Account Linking Routes
+// 3. User Account Linking Routes
 router.post(
   '/:id/link-user',
   checkPermission('employee.update'),
@@ -49,6 +57,26 @@ router.post(
   '/:id/unlink-user',
   checkPermission('employee.update'),
   employeeController.unlinkUser
+);
+
+// 4. Simple Salary Configuration & Disbursal Routes
+router.put(
+  '/:id/salary',
+  checkPermission('user.manage'),
+  employeeController.updateSalaryConfig
+);
+
+router.post(
+  '/:id/pay-salary',
+  checkPermission(['user.manage', 'expense.approve', 'customer.payment.record']),
+  idempotencyMiddleware,
+  employeeController.paySalary
+);
+
+router.get(
+  '/:id/salary-payments',
+  checkPermission(['employee.view', 'accounting.view', 'user.manage']),
+  employeeController.getSalaryPayments
 );
 
 module.exports = router;

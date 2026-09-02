@@ -5,10 +5,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { hasPermission } from "@/utils/permissions";
-import { getEmployeeById } from "@/services/employeeService";
+import { getEmployeeById, getSalaryPayments } from "@/services/employeeService";
 import EmployeeModal from "./EmployeeModal";
 import EmployeeArchiveModal from "./EmployeeArchiveModal";
 import EmployeeLinkUserModal from "./EmployeeLinkUserModal";
+import EditSalaryModal from "./EditSalaryModal";
+import PaySalaryModal from "./PaySalaryModal";
 import {
   Users,
   ArrowLeft,
@@ -28,6 +30,9 @@ import {
   AlertTriangle,
   CheckCircle2,
   RefreshCw,
+  IndianRupee,
+  Landmark,
+  Send,
   Clock
 } from "lucide-react";
 
@@ -48,6 +53,35 @@ export default function EmployeeDetailView({ id }) {
 
   const canUpdate = hasPermission(user, "employee.update");
   const canArchive = hasPermission(user, "employee.archive");
+  const canViewSalary = ["ADMIN", "ACCOUNTING", "MANAGER"].includes(user?.role);
+  const canEditSalary = user?.role === "ADMIN";
+  const canPaySalary = ["ADMIN", "ACCOUNTING"].includes(user?.role);
+
+  const [isSalaryEditOpen, setIsSalaryEditOpen] = useState(false);
+  const [isPaySalaryOpen, setIsPaySalaryOpen] = useState(false);
+  const [salaryPayments, setSalaryPayments] = useState([]);
+  const [loadingPayments, setLoadingPayments] = useState(false);
+
+  const fetchSalaryHistory = useCallback(async () => {
+    if (!id || !canViewSalary) return;
+    setLoadingPayments(true);
+    try {
+      const res = await getSalaryPayments(id);
+      if (res.success) {
+        setSalaryPayments(res.payments || []);
+      }
+    } catch (err) {
+      console.error("Failed to load salary payments:", err);
+    } finally {
+      setLoadingPayments(false);
+    }
+  }, [id, canViewSalary]);
+
+  useEffect(() => {
+    if (activeTab === "salary") {
+      fetchSalaryHistory();
+    }
+  }, [activeTab, fetchSalaryHistory]);
 
   const fetchProfile = useCallback(async () => {
     if (!id) return;
@@ -239,6 +273,19 @@ export default function EmployeeDetailView({ id }) {
           >
             System Login Account
           </button>
+          {canViewSalary && (
+            <button
+              onClick={() => setActiveTab("salary")}
+              className={`px-3 py-1.5 rounded-lg transition whitespace-nowrap flex items-center gap-1.5 ${
+                activeTab === "salary"
+                  ? "bg-indigo-600 text-white shadow-xs"
+                  : "text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/50"
+              }`}
+            >
+              <IndianRupee className="w-3.5 h-3.5" />
+              <span>Salary & Payouts</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -411,6 +458,197 @@ export default function EmployeeDetailView({ id }) {
         </div>
       )}
 
+      {/* Tab 3: Salary & Treasury Disbursements */}
+      {activeTab === "salary" && canViewSalary && (
+        <div className="space-y-6">
+          {/* Top Row: Salary & Banking Overview */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Card 1: Monthly Base Compensation */}
+            <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    Monthly Base Salary
+                  </span>
+                  <div className="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+                    <IndianRupee className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="text-3xl font-black text-slate-900 mt-3 font-sans">
+                  ₹{Number(employee.baseSalary || 0).toLocaleString("en-IN")}
+                  <span className="text-xs font-medium text-slate-400 ml-1.5 font-normal">/ month</span>
+                </div>
+                <p className="text-xs text-slate-500 mt-2">
+                  Configured baseline monthly compensation.
+                </p>
+              </div>
+
+              {canEditSalary && (
+                <div className="pt-4 mt-4 border-t border-slate-100">
+                  <button
+                    onClick={() => setIsSalaryEditOpen(true)}
+                    className="w-full py-2 px-3 rounded-lg border border-slate-200 hover:bg-slate-50 text-xs font-semibold text-slate-700 transition flex items-center justify-center gap-1.5"
+                  >
+                    <Edit3 className="w-3.5 h-3.5 text-slate-500" />
+                    <span>Edit Salary & Banking Details</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Card 2: Beneficiary Banking Information */}
+            <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 space-y-3">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  Beneficiary Account
+                </span>
+                <Landmark className="w-4 h-4 text-slate-400" />
+              </div>
+
+              <div className="space-y-2 text-xs">
+                <div className="flex items-center justify-between py-1 border-b border-slate-50">
+                  <span className="text-slate-400">Bank Name</span>
+                  <span className="font-semibold text-slate-800">{employee.bankName || "Not configured"}</span>
+                </div>
+                <div className="flex items-center justify-between py-1 border-b border-slate-50">
+                  <span className="text-slate-400">Account Number</span>
+                  <span className="font-mono font-semibold text-slate-800">{employee.bankAccountNo || "—"}</span>
+                </div>
+                <div className="flex items-center justify-between py-1 border-b border-slate-50">
+                  <span className="text-slate-400">IFSC Code</span>
+                  <span className="font-mono font-semibold text-slate-800">{employee.ifscCode || "—"}</span>
+                </div>
+                <div className="flex items-center justify-between py-1">
+                  <span className="text-slate-400">UPI ID</span>
+                  <span className="font-mono font-semibold text-slate-800">{employee.upiId || "—"}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3: Treasury Payout Action */}
+            <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    Corporate Treasury
+                  </span>
+                  <div className="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+                    <Send className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="text-sm font-bold text-slate-900 mt-3">
+                  Direct Salary Payout
+                </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  Disburse monthly salary directly from Primary Corporate Treasury Wallet (`1010`) with automated General Ledger double-entry posting.
+                </p>
+              </div>
+
+              <div className="pt-4 mt-4 border-t border-slate-100">
+                {canPaySalary ? (
+                  <button
+                    onClick={() => setIsPaySalaryOpen(true)}
+                    disabled={!employee.baseSalary || employee.baseSalary <= 0 || employee.status !== "ACTIVE"}
+                    className="w-full py-2.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-xs font-semibold text-white shadow-xs transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    <span>Pay Monthly Salary</span>
+                  </button>
+                ) : (
+                  <div className="text-[11px] text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-200/60 text-center font-medium">
+                    Read-Only View • Payout authorization held by Admin & Accounting
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Table: Disbursement History */}
+          <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div>
+                <h4 className="text-sm font-bold text-slate-900">Salary Disbursement History</h4>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Chronological record of corporate treasury salary outflows for this employee
+                </p>
+              </div>
+              <button
+                onClick={fetchSalaryHistory}
+                disabled={loadingPayments}
+                className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-600 transition"
+                title="Refresh history"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${loadingPayments ? "animate-spin" : ""}`} />
+              </button>
+            </div>
+
+            {loadingPayments ? (
+              <div className="p-8 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-2">
+                <RefreshCw className="w-5 h-5 animate-spin text-indigo-600" />
+                <span>Loading salary history...</span>
+              </div>
+            ) : salaryPayments.length === 0 ? (
+              <div className="p-8 text-center space-y-2">
+                <IndianRupee className="w-8 h-8 text-slate-300 mx-auto" />
+                <div className="text-xs font-bold text-slate-800">No Salary Disbursements Recorded</div>
+                <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                  No monthly salary payments have been disbursed from Treasury to this employee yet.
+                </p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-50/80 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-100">
+                    <tr>
+                      <th className="px-4 py-2.5">Payment #</th>
+                      <th className="px-4 py-2.5">Month</th>
+                      <th className="px-4 py-2.5">Amount</th>
+                      <th className="px-4 py-2.5">Mode</th>
+                      <th className="px-4 py-2.5">Reference / UTR</th>
+                      <th className="px-4 py-2.5">Disbursed On</th>
+                      <th className="px-4 py-2.5">Disbursed By</th>
+                      <th className="px-4 py-2.5">GL Journal</th>
+                      <th className="px-4 py-2.5 text-right">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {salaryPayments.map((pay) => (
+                      <tr key={pay.id} className="hover:bg-slate-50/80 transition-colors">
+                        <td className="px-4 py-3 font-mono font-bold text-slate-900">{pay.paymentNumber}</td>
+                        <td className="px-4 py-3 font-semibold text-slate-800">{pay.month}</td>
+                        <td className="px-4 py-3 font-bold text-slate-900">
+                          ₹{Number(pay.amount).toLocaleString("en-IN")}
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                            {pay.paymentMode}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 font-mono text-slate-600">{pay.referenceNo || "—"}</td>
+                        <td className="px-4 py-3 text-slate-500">
+                          {new Date(pay.paidAt).toLocaleDateString("en-IN", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric"
+                          })}
+                        </td>
+                        <td className="px-4 py-3 text-slate-600">{pay.paidBy}</td>
+                        <td className="px-4 py-3 font-mono text-indigo-600 font-semibold">{pay.journalNumber || "—"}</td>
+                        <td className="px-4 py-3 text-right">
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            {pay.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Modals */}
       <EmployeeModal
         isOpen={isEditOpen}
@@ -432,6 +670,33 @@ export default function EmployeeDetailView({ id }) {
         employee={employee}
         onSuccess={() => handleActionSuccess("User login credentials updated.")}
       />
+
+      {/* Edit Salary Modal (Admin Only) */}
+      {isSalaryEditOpen && (
+        <EditSalaryModal
+          isOpen={isSalaryEditOpen}
+          onClose={() => setIsSalaryEditOpen(false)}
+          employee={employee}
+          onUpdated={(updatedEmp) => {
+            setEmployee(updatedEmp);
+            handleActionSuccess("Salary & banking details updated successfully.");
+          }}
+        />
+      )}
+
+      {/* Pay Salary Modal (Admin & Accounting) */}
+      {isPaySalaryOpen && (
+        <PaySalaryModal
+          isOpen={isPaySalaryOpen}
+          onClose={() => setIsPaySalaryOpen(false)}
+          employee={employee}
+          onPaid={(payoutData) => {
+            handleActionSuccess(`Salary of ₹${payoutData.amount.toLocaleString("en-IN")} disbursed successfully!`);
+            fetchSalaryHistory();
+            fetchProfile();
+          }}
+        />
+      )}
     </div>
   );
 }

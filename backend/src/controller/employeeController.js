@@ -1,5 +1,6 @@
 const prisma = require('../config/db');
 const { logAudit } = require('../utils/auditLogger');
+const salaryService = require('../services/salaryService');
 
 /**
  * Generate next sequential Employee Code (e.g. EMP-000001, EMP-000002)
@@ -183,6 +184,27 @@ exports.createEmployee = async (req, res) => {
       return newEmployee;
     }, { timeout: 15000, maxWait: 10000 });
 
+    // Attach salary info if provided by Admin
+    if (req.user?.role === 'ADMIN' && (req.body.baseSalary !== undefined || req.body.bankName)) {
+      const numSal = parseFloat(req.body.baseSalary || 0);
+      await prisma.$executeRawUnsafe(`
+        UPDATE "Employee"
+        SET 
+          "baseSalary" = $1,
+          "bankName" = $2,
+          "bankAccountNo" = $3,
+          "ifscCode" = $4,
+          "upiId" = $5,
+          "paymentMethod" = $6
+        WHERE "id" = $7
+      `, isNaN(numSal) ? 0 : numSal, req.body.bankName || null, req.body.bankAccountNo || null, req.body.ifscCode ? req.body.ifscCode.trim().toUpperCase() : null, req.body.upiId || null, req.body.paymentMethod || 'BANK_TRANSFER', result.id);
+      result.baseSalary = isNaN(numSal) ? 0 : numSal;
+      result.bankName = req.body.bankName || null;
+      result.bankAccountNo = req.body.bankAccountNo || null;
+      result.ifscCode = req.body.ifscCode || null;
+      result.upiId = req.body.upiId || null;
+    }
+
     return res.status(201).json({
       success: true,
       message: `Employee ${result.fullName} (${result.employeeCode}) registered successfully.`,
@@ -288,6 +310,37 @@ exports.getEmployees = async (req, res) => {
       })
     ]);
 
+    // Enhance employees with salary details for authorized roles (ADMIN, ACCOUNTING, MANAGER)
+    const canViewSalary = ['ADMIN', 'ACCOUNTING', 'MANAGER'].includes(req.user?.role);
+    if (canViewSalary && employees.length > 0) {
+      const empIds = employees.map(e => e.id);
+      const salaryRows = await prisma.$queryRawUnsafe(`
+        SELECT "id", "baseSalary", "bankName", "bankAccountNo", "ifscCode", "upiId", "paymentMethod"
+        FROM "Employee"
+        WHERE "id" = ANY($1)
+      `, empIds);
+      const salMap = {};
+      salaryRows.forEach(r => { salMap[r.id] = r; });
+
+      employees.forEach(emp => {
+        const s = salMap[emp.id];
+        if (s) {
+          emp.baseSalary = parseFloat(s.baseSalary || 0);
+          emp.bankName = s.bankName;
+          emp.ifscCode = s.ifscCode;
+          emp.upiId = s.upiId;
+          emp.paymentMethod = s.paymentMethod;
+          if (req.user?.role === 'ADMIN') {
+            emp.bankAccountNo = s.bankAccountNo;
+          } else if (s.bankAccountNo) {
+            emp.bankAccountNo = s.bankAccountNo.length > 4 ? '•••• ' + s.bankAccountNo.slice(-4) : '••••';
+          }
+        } else {
+          emp.baseSalary = 0;
+        }
+      });
+    }
+
     return res.json({
       success: true,
       employees,
@@ -360,6 +413,31 @@ exports.getEmployeeById = async (req, res) => {
 
     if (!employee) {
       return res.status(404).json({ success: false, message: 'Employee record not found' });
+    }
+
+    // Enhance profile with salary details for authorized roles
+    const canViewSalary = ['ADMIN', 'ACCOUNTING', 'MANAGER'].includes(req.user?.role);
+    if (canViewSalary) {
+      const salaryRows = await prisma.$queryRawUnsafe(`
+        SELECT "baseSalary", "bankName", "bankAccountNo", "ifscCode", "upiId", "paymentMethod"
+        FROM "Employee"
+        WHERE "id" = $1
+      `, employee.id);
+      if (salaryRows && salaryRows.length > 0) {
+        const s = salaryRows[0];
+        employee.baseSalary = parseFloat(s.baseSalary || 0);
+        employee.bankName = s.bankName;
+        employee.ifscCode = s.ifscCode;
+        employee.upiId = s.upiId;
+        employee.paymentMethod = s.paymentMethod;
+        if (req.user?.role === 'ADMIN') {
+          employee.bankAccountNo = s.bankAccountNo;
+        } else if (s.bankAccountNo) {
+          employee.bankAccountNo = s.bankAccountNo.length > 4 ? '•••• ' + s.bankAccountNo.slice(-4) : '••••';
+        }
+      } else {
+        employee.baseSalary = 0;
+      }
     }
 
     return res.json({ success: true, employee });
@@ -697,5 +775,108 @@ exports.unlinkUser = async (req, res) => {
   } catch (error) {
     console.error('Unlink User Error:', error);
     return res.status(500).json({ success: false, message: error.message || 'Server error unlinking user' });
+  }
+};
+
+/**
+ * 7. Update Employee Base Salary & Bank Configuration (Admin Only)
+ * PUT /api/v1/employees/:id/salary
+ */
+exports.updateSalaryConfig = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { baseSalary, bankName, bankAccountNo, ifscCode, upiId, paymentMethod } = req.body;
+
+    if (req.user?.role !== 'ADMIN') {
+      return res.status(403).json({ success: false, message: 'Forbidden: Only Administrators can configure employee salaries.' });
+    }
+
+    const result = await salaryService.updateEmployeeSalaryConfig({
+      employeeId: id,
+      baseSalary,
+      bankName,
+      bankAccountNo,
+      ifscCode,
+      upiId,
+      paymentMethod,
+      actor: req.user
+    });
+
+    return res.json(result);
+  } catch (error) {
+    if (error.status) return res.status(error.status).json({ success: false, message: error.message });
+    console.error('Update Salary Config Error:', error);
+    return res.status(500).json({ success: false, message: error.message || 'Server error updating salary configuration' });
+  }
+};
+
+/**
+ * 8. Disburse Monthly Salary from Corporate Treasury (Admin & Accounting)
+ * POST /api/v1/employees/:id/pay-salary
+ */
+exports.paySalary = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { month, amount, paymentMode, referenceNo, notes } = req.body;
+
+    if (req.user?.role !== 'ADMIN' && req.user?.role !== 'ACCOUNTING') {
+      return res.status(403).json({ success: false, message: 'Forbidden: Only Admin and Accounting can disburse employee salaries.' });
+    }
+
+    const result = await salaryService.disburseEmployeeSalary({
+      employeeId: id,
+      month,
+      amount,
+      paymentMode,
+      referenceNo,
+      notes,
+      actorUser: req.user
+    });
+
+    return res.status(201).json(result);
+  } catch (error) {
+    if (error.status) return res.status(error.status).json({ success: false, message: error.message });
+    console.error('Pay Salary Error:', error);
+    return res.status(500).json({ success: false, message: error.message || 'Server error disbursing salary' });
+  }
+};
+
+/**
+ * 9. Get Salary Payments History for an Employee (Admin, Accounting, Manager)
+ * GET /api/v1/employees/:id/salary-payments
+ */
+exports.getSalaryPayments = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const allowedRoles = ['ADMIN', 'ACCOUNTING', 'MANAGER'];
+    if (!allowedRoles.includes(req.user?.role)) {
+      return res.status(403).json({ success: false, message: 'Forbidden: You do not have permission to view salary records.' });
+    }
+
+    const payments = await salaryService.getEmployeeSalaryPayments(id);
+    return res.json({ success: true, payments });
+  } catch (error) {
+    console.error('Get Salary Payments Error:', error);
+    return res.status(500).json({ success: false, message: error.message || 'Server error fetching salary payments' });
+  }
+};
+
+/**
+ * 10. Get Monthly Salary Summary Dashboard Stats (Admin & Accounting)
+ * GET /api/v1/employees/salary/summary
+ */
+exports.getSalarySummary = async (req, res) => {
+  try {
+    const { month } = req.query;
+    const allowedRoles = ['ADMIN', 'ACCOUNTING'];
+    if (!allowedRoles.includes(req.user?.role)) {
+      return res.status(403).json({ success: false, message: 'Forbidden: Only Admin and Accounting can view enterprise salary summaries.' });
+    }
+
+    const summary = await salaryService.getSalarySummary(month);
+    return res.json({ success: true, summary });
+  } catch (error) {
+    console.error('Get Salary Summary Error:', error);
+    return res.status(500).json({ success: false, message: error.message || 'Server error fetching salary summary' });
   }
 };

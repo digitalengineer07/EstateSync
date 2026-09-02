@@ -10,8 +10,9 @@ import AuditLogViewer from "@/components/AuditLogViewer";
 import CustomerPortfolioList from "@/components/CustomerPortfolioList";
 import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
 import TreasuryInflowList from "@/components/TreasuryInflowList";
+import AccountingSalaryView from "@/components/accounting/AccountingSalaryView";
 import Link from "next/link";
-import { Users, MapPin, Scale, Wallet, Receipt, ArrowLeftRight, ShieldCheck, Landmark } from "lucide-react";
+import { Users, MapPin, Scale, Wallet, Receipt, ArrowLeftRight, ShieldCheck, Landmark, IndianRupee } from "lucide-react";
 
 export default function AccountingDashboard() {
   const [activeTab, setActiveTab] = useState("treasury");
@@ -21,6 +22,7 @@ export default function AccountingDashboard() {
     { id: "treasury", label: "Bank Inflow & Treasury", icon: Landmark, badge: "PRD §4.1" },
     { id: "collections", label: "Customer Collections", icon: Users, badge: "PRD §19" },
     { id: "properties", label: "Land Acquisitions", icon: MapPin, badge: "PRD §20" },
+    { id: "salaries", label: "Staff Salaries & Payouts", icon: IndianRupee, badge: "Treasury Sync" },
     { id: "ledger", label: "General Ledger", icon: Scale, badge: "Dr = Cr" },
     { id: "wallets", label: "Wallets & Expenses", icon: Wallet, badge: "Corporate" },
   ];
@@ -82,6 +84,10 @@ export default function AccountingDashboard() {
 
         {activeTab === "properties" && (
           <PropertyAcquisitionList userRole="ACCOUNTING" />
+        )}
+
+        {activeTab === "salaries" && (
+          <AccountingSalaryView />
         )}
 
         {activeTab === "ledger" && (
