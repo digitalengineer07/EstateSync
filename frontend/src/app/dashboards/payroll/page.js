@@ -38,17 +38,17 @@ export default function PayrollDashboardPage() {
       title: "Monthly Periods",
       desc: "Fiscal calendar periods and active monthly calculation windows.",
       icon: Calendar,
-      phase: "Phase 3 (F6)",
-      href: null,
-      active: false
+      phase: "Phase 3 Master",
+      href: "/dashboards/payroll/periods",
+      active: true
     },
     {
       title: "Calculation Engine & Runs",
       desc: "1-click batch calculation, exception flags, and run approvals.",
       icon: Calculator,
-      phase: "Phase 3 (F6)",
-      href: null,
-      active: false
+      phase: "Phase 3 Engine",
+      href: "/dashboards/payroll/runs",
+      active: true
     },
     {
       title: "GL Accrual Posting",
@@ -79,11 +79,11 @@ export default function PayrollDashboardPage() {
             </h1>
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
               <FileSpreadsheet className="w-3.5 h-3.5" />
-              Configuration & Engine
+              Calculation & Engine Ready
             </span>
           </div>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
-            Manage salary components, compensation blueprints, automated payroll runs, balanced GL accruals, and disbursements.
+            Manage salary structures, calendar periods, batch payroll runs, exception controls, and accounting approvals.
           </p>
         </div>
       </div>
