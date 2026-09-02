@@ -4,7 +4,7 @@ import { useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { API_URL } from "@/config/api";
-import { RefreshCw, Shield, Terminal, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { RefreshCw, Shield, Terminal, ArrowUpRight, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 
 export default function AuditLogViewer() {
   const [filterAction, setFilterAction] = useState("");
@@ -52,6 +52,8 @@ export default function AuditLogViewer() {
         return <span className="inline-flex items-center px-2.5 py-0.5 text-[11px] font-bold bg-indigo-50 text-indigo-700 rounded-md border border-indigo-200/90">EMPLOYEE_CREATE</span>;
       case "EMPLOYEE_UPDATE":
         return <span className="inline-flex items-center px-2.5 py-0.5 text-[11px] font-bold bg-cyan-50 text-cyan-700 rounded-md border border-cyan-200/90">EMPLOYEE_UPDATE</span>;
+      case "EMPLOYEE_SALARY_CONFIG_UPDATE":
+        return <span className="inline-flex items-center px-2.5 py-0.5 text-[11px] font-bold bg-amber-50 text-amber-700 rounded-md border border-amber-200/90">SALARY_CONFIG_UPDATE</span>;
       case "SALARY_PAYMENT_DISBURSED":
         return <span className="inline-flex items-center px-2.5 py-0.5 text-[11px] font-bold bg-emerald-50 text-emerald-700 rounded-md border border-emerald-200/90">SALARY_DISBURSED</span>;
       case "SALARY_STRUCTURE_UPDATED":
@@ -97,13 +99,48 @@ export default function AuditLogViewer() {
       );
     }
 
-    // Custom formatting for Employee Create / Update
-    if (log.action === "EMPLOYEE_CREATE" || log.action === "EMPLOYEE_UPDATE") {
+    // Custom formatting for Salary Configuration Updates
+    if (log.action === "EMPLOYEE_SALARY_CONFIG_UPDATE") {
+      const cleanEmpName = (payload.fullName || "").replace(/\s*\(\d+\)$/, "");
       return (
         <div className="flex flex-wrap items-center gap-1.5 max-w-lg">
-          {payload.fullName && (
+          {cleanEmpName && (
             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-slate-100 border border-slate-200/80 text-slate-900 text-xs font-semibold">
-              👤 {payload.fullName}
+              👤 {cleanEmpName}
+            </span>
+          )}
+          {payload.baseSalary && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-50 border border-emerald-200/90 text-emerald-800 text-xs font-bold font-sans">
+              Base: ₹{Number(payload.baseSalary).toLocaleString("en-IN")}
+            </span>
+          )}
+          {payload.bankName && (
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-700 text-[11px] font-medium">
+              🏦 {payload.bankName}
+            </span>
+          )}
+          {payload.ifscCode && (
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-500 text-[11px] font-mono">
+              IFSC: {payload.ifscCode}
+            </span>
+          )}
+          {payload.employeeCode && (
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-600 text-[11px] font-mono">
+              {payload.employeeCode}
+            </span>
+          )}
+        </div>
+      );
+    }
+
+    // Custom formatting for Employee Create / Update
+    if (log.action === "EMPLOYEE_CREATE" || log.action === "EMPLOYEE_UPDATE") {
+      const cleanEmpName = (payload.fullName || "").replace(/\s*\(\d+\)$/, "");
+      return (
+        <div className="flex flex-wrap items-center gap-1.5 max-w-lg">
+          {cleanEmpName && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-slate-100 border border-slate-200/80 text-slate-900 text-xs font-semibold">
+              👤 {cleanEmpName}
             </span>
           )}
           {payload.department && (
@@ -133,9 +170,10 @@ export default function AuditLogViewer() {
     // Custom formatting for User Login
     if (log.action === "USER_LOGIN" && payload.role) {
       return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-700 text-xs font-medium">
-          <span className="text-slate-400">role:</span>
-          <span className="font-bold text-slate-900">{payload.role}</span>
+        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-50/70 border border-blue-200/80 text-blue-900 text-xs font-semibold shadow-2xs">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
+          <span className="text-blue-500 font-medium text-[11px]">Role Authority:</span>
+          <span className="font-bold text-blue-950">{payload.role}</span>
         </span>
       );
     }
@@ -248,31 +286,43 @@ export default function AuditLogViewer() {
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-50/90 backdrop-blur-xs text-slate-600 font-bold uppercase tracking-wider text-[10px] border-b border-slate-200">
                 <tr>
-                  <th className="px-4 py-3 w-36 whitespace-nowrap">Timestamp</th>
-                  <th className="px-4 py-3 w-44 whitespace-nowrap">Actor / User</th>
-                  <th className="px-4 py-3 w-44 whitespace-nowrap">Action</th>
-                  <th className="px-4 py-3 w-24 whitespace-nowrap">Entity</th>
-                  <th className="px-4 py-3 min-w-[280px]">Details / Key Payload</th>
-                  <th className="px-4 py-3 text-right w-24 whitespace-nowrap">IP Address</th>
+                  <th className="px-5 py-3.5 w-40 whitespace-nowrap">Timestamp</th>
+                  <th className="px-5 py-3.5 w-48 whitespace-nowrap">Actor / User</th>
+                  <th className="px-5 py-3.5 w-48 whitespace-nowrap">Action</th>
+                  <th className="px-5 py-3.5 w-24 whitespace-nowrap">Entity</th>
+                  <th className="px-5 py-3.5 min-w-[320px]">
+                    <div className="flex items-center gap-2">
+                      <span>Action Details & Context</span>
+                      <span className="text-[9px] font-semibold text-slate-500 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded-full uppercase tracking-wider">
+                        Live Payload
+                      </span>
+                    </div>
+                  </th>
+                  <th className="px-5 py-3.5 text-right w-28 whitespace-nowrap">IP Address</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-800">
                 {paginatedLogs.map((log) => (
                   <tr key={log.id} className="hover:bg-slate-50/70 transition-colors">
-                    <td className="px-4 py-3 whitespace-nowrap align-top">
-                      <div className="font-semibold text-slate-900 text-xs">
-                        {new Date(log.createdAt).toLocaleDateString("en-IN", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric"
-                        })}
-                      </div>
-                      <div className="font-mono text-slate-400 text-[10.5px]">
-                        {new Date(log.createdAt).toLocaleTimeString("en-IN", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          second: "2-digit"
-                        })}
+                    <td className="px-5 py-3.5 whitespace-nowrap align-top">
+                      <div className="flex flex-col gap-1.5">
+                        <span className="font-semibold text-slate-900 text-xs tracking-tight">
+                          {new Date(log.createdAt).toLocaleDateString("en-IN", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric"
+                          })}
+                        </span>
+                        <span className="inline-flex items-center gap-1 font-mono text-slate-500 bg-slate-50 border border-slate-200/80 px-2 py-0.5 rounded-md text-[10.5px] w-fit shadow-2xs">
+                          <Clock className="w-3 h-3 text-slate-400 shrink-0" />
+                          <span>
+                            {new Date(log.createdAt).toLocaleTimeString("en-IN", {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              second: "2-digit"
+                            })}
+                          </span>
+                        </span>
                       </div>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap align-top">
