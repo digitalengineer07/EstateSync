@@ -115,26 +115,23 @@ export default function DashboardsLayout({ children }) {
 
             {/* Right: User Profile Chip & Logout */}
             <div className="flex items-center gap-2.5 self-end md:self-auto shrink-0">
-              <div className="flex items-center gap-2.5 bg-slate-50/80 px-3 py-1 rounded-xl border border-slate-200/80 text-xs shadow-2xs">
+              <div className="flex items-center gap-2.5 bg-slate-50/80 px-3 py-1.5 rounded-xl border border-slate-200/80 text-xs shadow-2xs">
                 <div className="w-6 h-6 rounded-lg bg-slate-900 text-white font-bold text-[11px] flex items-center justify-center shadow-2xs">
                   {user.name ? user.name.charAt(0).toUpperCase() : "U"}
                 </div>
-                <div className="text-left">
-                  <div className="font-bold text-slate-900 text-xs leading-none">{user.name}</div>
-                  <div className="text-[10px] text-slate-500 font-mono mt-0.5 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>{user.role}</span>
-                  </div>
+                <div className="flex items-center gap-1.5 font-bold text-slate-900 text-xs leading-none">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                  <span>{user.name || "System Admin"}</span>
                 </div>
               </div>
 
               <button
                 onClick={logout}
-                className="bg-white hover:bg-rose-50 text-slate-600 hover:text-rose-700 border border-slate-200 hover:border-rose-200 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 shadow-2xs active:scale-95"
+                className="bg-rose-50/90 hover:bg-rose-100 text-rose-600 hover:text-rose-700 border border-rose-200/90 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs active:scale-95"
                 title="Logout session"
               >
                 <span>Logout</span>
-                <LogOut className="w-3.5 h-3.5" />
+                <LogOut className="w-3.5 h-3.5 text-rose-600" />
               </button>
             </div>
 
