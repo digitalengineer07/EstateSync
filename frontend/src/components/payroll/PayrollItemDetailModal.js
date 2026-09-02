@@ -145,14 +145,16 @@ export default function PayrollItemDetailModal({
                       {earnings.map((line) => (
                         <tr key={line.id}>
                           <td className="px-4 py-2.5">
-                            <div className="font-bold text-slate-900">{line.componentNameSnapshot}</div>
-                            <div className="text-[10px] font-mono text-slate-400">{line.componentCodeSnapshot}</div>
+                            <div className="font-bold text-slate-900">{line.componentName || line.componentNameSnapshot}</div>
+                            <div className="text-[10px] font-mono text-slate-400">{line.componentCode || line.componentCodeSnapshot}</div>
                           </td>
                           <td className="px-4 py-2.5 text-slate-500 text-[11px]">
-                            {line.percentageSnapshot ? `${line.percentageSnapshot}%` : "Fixed / Direct"}
+                            {Number(line.percentage || line.percentageSnapshot) > 0
+                              ? `${line.percentage || line.percentageSnapshot}%`
+                              : "Fixed / Direct"}
                           </td>
                           <td className="px-4 py-2.5 font-mono font-bold text-slate-900 text-right">
-                            ₹{Number(line.calculatedAmount || 0).toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+                            ₹{Number(line.amount || line.calculatedAmount || 0).toLocaleString("en-IN", { minimumFractionDigits: 2 })}
                           </td>
                         </tr>
                       ))}
@@ -181,14 +183,16 @@ export default function PayrollItemDetailModal({
                       {deductions.map((line) => (
                         <tr key={line.id}>
                           <td className="px-4 py-2.5">
-                            <div className="font-bold text-slate-900">{line.componentNameSnapshot}</div>
-                            <div className="text-[10px] font-mono text-slate-400">{line.componentCodeSnapshot}</div>
+                            <div className="font-bold text-slate-900">{line.componentName || line.componentNameSnapshot}</div>
+                            <div className="text-[10px] font-mono text-slate-400">{line.componentCode || line.componentCodeSnapshot}</div>
                           </td>
                           <td className="px-4 py-2.5 text-slate-500 text-[11px]">
-                            {line.percentageSnapshot ? `${line.percentageSnapshot}%` : "Standard"}
+                            {Number(line.percentage || line.percentageSnapshot) > 0
+                              ? `${line.percentage || line.percentageSnapshot}%`
+                              : "Standard"}
                           </td>
                           <td className="px-4 py-2.5 font-mono font-bold text-rose-700 text-right">
-                            -₹{Number(line.calculatedAmount || 0).toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+                            -₹{Number(line.amount || line.calculatedAmount || 0).toLocaleString("en-IN", { minimumFractionDigits: 2 })}
                           </td>
                         </tr>
                       ))}
@@ -218,14 +222,16 @@ export default function PayrollItemDetailModal({
                         {employerContribs.map((line) => (
                           <tr key={line.id}>
                             <td className="px-4 py-2.5">
-                              <div className="font-bold text-slate-900">{line.componentNameSnapshot}</div>
-                              <div className="text-[10px] font-mono text-slate-400">{line.componentCodeSnapshot}</div>
+                              <div className="font-bold text-slate-900">{line.componentName || line.componentNameSnapshot}</div>
+                              <div className="text-[10px] font-mono text-slate-400">{line.componentCode || line.componentCodeSnapshot}</div>
                             </td>
                             <td className="px-4 py-2.5 text-slate-500 text-[11px]">
-                              {line.percentageSnapshot ? `${line.percentageSnapshot}%` : "Standard"}
+                              {Number(line.percentage || line.percentageSnapshot) > 0
+                                ? `${line.percentage || line.percentageSnapshot}%`
+                                : "Standard"}
                             </td>
                             <td className="px-4 py-2.5 font-mono font-bold text-indigo-900 text-right">
-                              ₹{Number(line.calculatedAmount || 0).toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+                              ₹{Number(line.amount || line.calculatedAmount || 0).toLocaleString("en-IN", { minimumFractionDigits: 2 })}
                             </td>
                           </tr>
                         ))}
