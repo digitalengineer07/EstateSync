@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createEmployee, updateEmployee } from "@/services/employeeService";
-import { X, UserPlus, Edit3, AlertTriangle, CheckCircle2, Loader2 } from "lucide-react";
+import { createEmployee, updateEmployee, updateSalaryConfig } from "@/services/employeeService";
+import { X, UserPlus, Edit3, AlertTriangle, CheckCircle2, Loader2, IndianRupee } from "lucide-react";
 
 export default function EmployeeModal({
   isOpen,
@@ -27,7 +27,12 @@ export default function EmployeeModal({
     joiningDate: new Date().toISOString().split("T")[0],
     confirmationDate: "",
     reportingManagerId: "",
-    workLocation: "Head Office"
+    workLocation: "Head Office",
+    baseSalary: "",
+    bankName: "",
+    bankAccountNo: "",
+    ifscCode: "",
+    upiId: ""
   });
 
   const [loading, setLoading] = useState(false);
@@ -53,7 +58,12 @@ export default function EmployeeModal({
           ? new Date(employeeToEdit.confirmationDate).toISOString().split("T")[0]
           : "",
         reportingManagerId: employeeToEdit.reportingManagerId || "",
-        workLocation: employeeToEdit.workLocation || "Head Office"
+        workLocation: employeeToEdit.workLocation || "Head Office",
+        baseSalary: employeeToEdit.baseSalary || "",
+        bankName: employeeToEdit.bankName || "",
+        bankAccountNo: employeeToEdit.bankAccountNo || "",
+        ifscCode: employeeToEdit.ifscCode || "",
+        upiId: employeeToEdit.upiId || ""
       });
     } else {
       setFormData({
@@ -70,7 +80,12 @@ export default function EmployeeModal({
         joiningDate: new Date().toISOString().split("T")[0],
         confirmationDate: "",
         reportingManagerId: "",
-        workLocation: "Head Office"
+        workLocation: "Head Office",
+        baseSalary: "",
+        bankName: "",
+        bankAccountNo: "",
+        ifscCode: "",
+        upiId: ""
       });
     }
     setError(null);
@@ -116,6 +131,15 @@ export default function EmployeeModal({
         // Exclude immutable code on update
         delete payload.employeeCode;
         result = await updateEmployee(employeeToEdit.id, payload);
+        if (formData.baseSalary !== undefined && formData.baseSalary !== "") {
+          await updateSalaryConfig(employeeToEdit.id, {
+            baseSalary: parseFloat(formData.baseSalary) || 0,
+            bankName: formData.bankName?.trim() || null,
+            bankAccountNo: formData.bankAccountNo?.trim() || null,
+            ifscCode: formData.ifscCode?.trim().toUpperCase() || null,
+            upiId: formData.upiId?.trim() || null
+          });
+        }
       } else {
         if (!payload.employeeCode) delete payload.employeeCode;
         result = await createEmployee(payload);
@@ -368,6 +392,73 @@ export default function EmployeeModal({
                       </option>
                     ))}
                 </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Compensation & Banking Details */}
+          <div className="space-y-3 pt-3 border-t border-slate-100">
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+              <IndianRupee className="w-3.5 h-3.5 text-indigo-600" />
+              <span>Compensation & Banking Details (Optional)</span>
+            </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  Monthly Base Salary (₹)
+                </label>
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 font-semibold text-xs">
+                    ₹
+                  </span>
+                  <input
+                    type="number"
+                    min="0"
+                    step="100"
+                    name="baseSalary"
+                    value={formData.baseSalary || ""}
+                    onChange={handleChange}
+                    placeholder="e.g. 50000"
+                    className="w-full text-xs pl-7 pr-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Bank Name</label>
+                <input
+                  type="text"
+                  name="bankName"
+                  value={formData.bankName || ""}
+                  onChange={handleChange}
+                  placeholder="e.g. HDFC Bank, SBI"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Account Number</label>
+                <input
+                  type="text"
+                  name="bankAccountNo"
+                  value={formData.bankAccountNo || ""}
+                  onChange={handleChange}
+                  placeholder="e.g. 50100234567890"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">IFSC Code</label>
+                <input
+                  type="text"
+                  name="ifscCode"
+                  value={formData.ifscCode || ""}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, ifscCode: e.target.value.toUpperCase() }))}
+                  placeholder="e.g. HDFC0001234"
+                  maxLength={11}
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 font-mono uppercase focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                />
               </div>
             </div>
           </div>

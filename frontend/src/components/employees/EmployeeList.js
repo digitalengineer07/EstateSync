@@ -373,17 +373,39 @@ export default function EmployeeList() {
                         {/* Monthly Base Salary */}
                         {canViewSalary && (
                           <td className="px-5 py-3.5 whitespace-nowrap">
-                            <div className="font-bold text-slate-900">
-                              {emp.baseSalary && parseFloat(emp.baseSalary) > 0 ? (
-                                `₹${parseFloat(emp.baseSalary).toLocaleString("en-IN")}`
-                              ) : (
-                                <span className="text-slate-400 font-normal">Not configured</span>
-                              )}
-                            </div>
-                            {emp.bankName && (
-                              <div className="text-[10px] text-slate-400 mt-0.5">
-                                {emp.bankName} {emp.bankAccountNo ? `(${emp.bankAccountNo})` : ""}
+                            {emp.baseSalary && parseFloat(emp.baseSalary) > 0 ? (
+                              <div>
+                                <div className="flex items-center gap-2">
+                                  <span className="font-bold text-slate-900 text-sm">
+                                    ₹{parseFloat(emp.baseSalary).toLocaleString("en-IN")}
+                                  </span>
+                                  {canEditSalary && (
+                                    <button
+                                      onClick={() => setEmployeeToEditSalary(emp)}
+                                      className="text-[10px] text-indigo-600 hover:text-indigo-800 font-semibold underline"
+                                      title="Edit Salary"
+                                    >
+                                      Edit
+                                    </button>
+                                  )}
+                                </div>
+                                {emp.bankName && (
+                                  <div className="text-[10px] text-slate-400 mt-0.5">
+                                    {emp.bankName} {emp.bankAccountNo ? `(${emp.bankAccountNo})` : ""}
+                                  </div>
+                                )}
                               </div>
+                            ) : canEditSalary ? (
+                              <button
+                                onClick={() => setEmployeeToEditSalary(emp)}
+                                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold border border-indigo-200 transition shadow-xs"
+                                title="Configure Salary & Banking"
+                              >
+                                <IndianRupee className="w-3 h-3" />
+                                <span>+ Add Salary</span>
+                              </button>
+                            ) : (
+                              <span className="text-slate-400 font-normal italic">Not configured</span>
                             )}
                           </td>
                         )}
