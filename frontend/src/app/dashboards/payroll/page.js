@@ -54,17 +54,17 @@ export default function PayrollDashboardPage() {
       title: "GL Accrual Posting",
       desc: "Double-entry Dr/Cr preview and automated ledger posting.",
       icon: Scale,
-      phase: "Phase 4 (F7)",
-      href: null,
-      active: false
+      phase: "Phase 4 Accrual",
+      href: "/dashboards/payroll/accounting",
+      active: true
     },
     {
       title: "Treasury Disbursements",
       desc: "Multi-employee batch reservation, UTR settlement, and reversals.",
       icon: Landmark,
-      phase: "Phase 5 (F8)",
-      href: null,
-      active: false
+      phase: "Phase 5 Treasury",
+      href: "/dashboards/payroll/disbursements",
+      active: true
     }
   ];
 

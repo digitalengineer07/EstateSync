@@ -13,6 +13,8 @@ import {
   lockRun
 } from "@/services/payrollService";
 import PayrollItemDetailModal from "./PayrollItemDetailModal";
+import PayrollAccountingSection from "./PayrollAccountingSection";
+import SalaryDisbursementsSection from "./SalaryDisbursementsSection";
 import {
   Calculator,
   ArrowLeft,
@@ -26,6 +28,7 @@ import {
   Check,
   ShieldCheck,
   Scale,
+  Landmark,
   Sparkles,
   Info,
   Search,
@@ -398,6 +401,28 @@ export default function PayrollRunDetailView({ id }) {
               </span>
             )}
           </button>
+          <button
+            onClick={() => setActiveTab("accounting")}
+            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
+              activeTab === "accounting"
+                ? "bg-slate-900 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+            }`}
+          >
+            <Scale className="w-3.5 h-3.5" />
+            <span>GL Accrual & Accounting</span>
+          </button>
+          <button
+            onClick={() => setActiveTab("disbursements")}
+            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
+              activeTab === "disbursements"
+                ? "bg-slate-900 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+            }`}
+          >
+            <Landmark className="w-3.5 h-3.5" />
+            <span>Treasury & Disbursements</span>
+          </button>
         </div>
       </div>
 
@@ -614,6 +639,16 @@ export default function PayrollRunDetailView({ id }) {
             </div>
           )}
         </div>
+      )}
+
+      {/* Tab 3: GL Accrual & Accounting Section */}
+      {activeTab === "accounting" && (
+        <PayrollAccountingSection run={run} onStatusChange={fetchRunData} />
+      )}
+
+      {/* Tab 4: Treasury & Disbursements Section */}
+      {activeTab === "disbursements" && (
+        <SalaryDisbursementsSection run={run} onStatusChange={fetchRunData} />
       )}
 
       {/* Item Detail Payslip Modal */}
