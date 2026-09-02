@@ -58,16 +58,16 @@ export default function DashboardStats({ type }) {
               </div>
             </div>
 
-            <div className="mt-3.5 space-y-2">
+            <div className="mt-3.5 space-y-2.5">
               <div className="flex items-baseline justify-between gap-2">
-                <span className="text-xs font-medium text-slate-500">Liquid:</span>
-                <span className="text-lg font-bold text-slate-900 tracking-tight font-sans">
+                <span className="text-xs font-semibold text-slate-500">Liquid:</span>
+                <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-sans">
                   {formatCurrency(stats.totalOrganizationalFundsLiquid)}
                 </span>
               </div>
               <div className="flex items-baseline justify-between gap-2 pt-1.5 border-t border-slate-100">
-                <span className="text-xs font-medium text-slate-500">Cash:</span>
-                <span className="text-base font-semibold text-slate-700 tracking-tight font-sans">
+                <span className="text-xs font-semibold text-slate-500">Cash:</span>
+                <span className="text-base sm:text-[17px] font-bold text-slate-700 tracking-tight font-sans">
                   {formatCurrency(stats.totalOrganizationalFundsCash)}
                 </span>
               </div>
@@ -90,7 +90,7 @@ export default function DashboardStats({ type }) {
             </div>
 
             <div className="mt-3.5">
-              <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-sans block">
+              <span className="text-2xl sm:text-[26px] font-bold text-slate-900 tracking-tight font-sans block">
                 {formatCurrency(stats.totalCustomerCollections || 0)}
               </span>
             </div>
@@ -98,7 +98,7 @@ export default function DashboardStats({ type }) {
 
           <div className="flex items-center justify-between text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100">
             <span>{stats.totalCustomers || 0} Clients</span>
-            <span className="text-rose-600 font-medium">{formatCurrency(stats.totalCustomerReceivables || 0)} due</span>
+            <span className="text-rose-600 font-semibold">{formatCurrency(stats.totalCustomerReceivables || 0)} due</span>
           </div>
         </div>
 
@@ -113,7 +113,7 @@ export default function DashboardStats({ type }) {
             </div>
 
             <div className="mt-3.5">
-              <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-sans block">
+              <span className="text-2xl sm:text-[26px] font-bold text-slate-900 tracking-tight font-sans block">
                 {formatCurrency(stats.totalLandValuation || 0)}
               </span>
             </div>
@@ -121,7 +121,7 @@ export default function DashboardStats({ type }) {
 
           <div className="flex items-center justify-between text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100">
             <span>{stats.totalProperties || 0} Parcels</span>
-            <span className="text-emerald-700 font-medium">{formatCurrency(stats.totalLandPayouts || 0)} paid</span>
+            <span className="text-emerald-700 font-semibold">{formatCurrency(stats.totalLandPayouts || 0)} paid</span>
           </div>
         </div>
 
@@ -136,7 +136,7 @@ export default function DashboardStats({ type }) {
             </div>
 
             <div className="mt-3.5">
-              <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-sans block">
+              <span className="text-2xl sm:text-[26px] font-bold text-slate-900 tracking-tight font-sans block">
                 {formatCurrency(stats.totalRecordedExpenses ?? stats.totalExpenses ?? 0)}
               </span>
             </div>
