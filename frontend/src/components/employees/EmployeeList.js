@@ -58,6 +58,9 @@ export default function EmployeeList() {
   const canCreate = hasPermission(user, "employee.create");
   const canUpdate = hasPermission(user, "employee.update");
   const canArchive = hasPermission(user, "employee.archive");
+  const canViewSalary = ["ADMIN", "ACCOUNTING", "MANAGER"].includes(user?.role);
+  const canEditSalary = user?.role === "ADMIN";
+  const canPaySalary = ["ADMIN", "ACCOUNTING"].includes(user?.role);
 
   const fetchEmployeeData = useCallback(async () => {
     setLoading(true);
