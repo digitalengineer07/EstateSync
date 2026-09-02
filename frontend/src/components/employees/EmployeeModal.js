@@ -353,7 +353,9 @@ export default function EmployeeModal({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Confirmation Date</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  Confirmation Date <span className="text-[10px] text-slate-400 font-normal">(Optional — Probation End)</span>
+                </label>
                 <input
                   type="date"
                   name="confirmationDate"
