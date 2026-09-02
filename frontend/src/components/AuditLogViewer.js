@@ -4,10 +4,12 @@ import { useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { API_URL } from "@/config/api";
-import { RefreshCw, Shield, Terminal, ArrowUpRight } from "lucide-react";
+import { RefreshCw, Shield, Terminal, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function AuditLogViewer() {
   const [filterAction, setFilterAction] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const PAGE_SIZE = 10;
 
   let url = `/api/v1/audit?limit=100`;
   if (filterAction) url += `&action=${filterAction}`;
@@ -18,6 +20,11 @@ export default function AuditLogViewer() {
   });
 
   const logs = data?.logs || [];
+  // Ensure newest activity is always at the top
+  const sortedLogs = [...logs].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const totalPages = Math.ceil(sortedLogs.length / PAGE_SIZE) || 1;
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const paginatedLogs = sortedLogs.slice(startIndex, startIndex + PAGE_SIZE);
 
   const getActionBadge = (action) => {
     switch (action) {
@@ -180,7 +187,10 @@ export default function AuditLogViewer() {
         <div className="flex items-center gap-2.5 self-start sm:self-auto">
           <select
             value={filterAction}
-            onChange={(e) => setFilterAction(e.target.value)}
+            onChange={(e) => {
+              setFilterAction(e.target.value);
+              setCurrentPage(1);
+            }}
             className="text-xs border border-slate-200 rounded-xl px-3 py-2 bg-slate-50/80 text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition font-medium"
           >
             <option value="">All Audit Actions ({logs.length})</option>
@@ -247,7 +257,7 @@ export default function AuditLogViewer() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-800">
-                {logs.map((log) => (
+                {paginatedLogs.map((log) => (
                   <tr key={log.id} className="hover:bg-slate-50/70 transition-colors">
                     <td className="px-4 py-3 whitespace-nowrap align-top">
                       <div className="font-semibold text-slate-900 text-xs">
@@ -300,6 +310,39 @@ export default function AuditLogViewer() {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Pagination Controls Bar */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-3.5 bg-slate-50/70 border-t border-slate-200/80">
+            <div className="text-xs text-slate-500 font-medium">
+              Showing <span className="font-semibold text-slate-900">{sortedLogs.length === 0 ? 0 : startIndex + 1}</span> to{" "}
+              <span className="font-semibold text-slate-900">{Math.min(startIndex + PAGE_SIZE, sortedLogs.length)}</span> of{" "}
+              <span className="font-semibold text-slate-900">{sortedLogs.length}</span> activities
+            </div>
+
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition active:scale-95 shadow-2xs"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+                <span>Previous</span>
+              </button>
+
+              <span className="text-xs font-medium text-slate-600 px-2.5">
+                Page <span className="font-bold text-slate-900">{currentPage}</span> of <span className="font-bold text-slate-900">{totalPages}</span>
+              </span>
+
+              <button
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage >= totalPages}
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition active:scale-95 shadow-2xs"
+              >
+                <span>Next</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
         </div>
       )}
