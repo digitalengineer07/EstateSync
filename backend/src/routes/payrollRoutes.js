@@ -7,6 +7,7 @@ const payrollPeriodController = require('../controller/payrollPeriodController')
 const payrollRunController = require('../controller/payrollRunController');
 const payrollAdjustmentController = require('../controller/payrollAdjustmentController');
 const payrollAccountingController = require('../controller/payrollAccountingController');
+const salaryPaymentController = require('../controller/salaryPaymentController');
 const { verifyJWT } = require('../middleware/authMiddleware');
 const { checkPermission } = require('../middleware/permissionMiddleware');
 const idempotencyMiddleware = require('../middleware/idempotencyMiddleware');
@@ -209,6 +210,76 @@ router.get(
   '/runs/:id/accounting-posting',
   checkPermission('payroll.accounting.view'),
   payrollAccountingController.getAccountingPosting
+);
+
+// -------------------------------------------------------------
+// 8. Salary Payment & Settlement Routes (Phase 5)
+// -------------------------------------------------------------
+router.get(
+  '/runs/:id/payment-summary',
+  checkPermission('payroll.item.view'),
+  salaryPaymentController.getPaymentSummary
+);
+
+router.get(
+  '/items/:id/payable-status',
+  checkPermission('payroll.item.view'),
+  salaryPaymentController.getEmployeePayableStatus
+);
+
+router.get(
+  '/payments/:id/preview',
+  checkPermission('payroll.item.view'),
+  salaryPaymentController.getSettlementPreview
+);
+
+router.post(
+  '/payments',
+  checkPermission('payroll.item.adjust'),
+  idempotencyMiddleware,
+  salaryPaymentController.createPayment
+);
+
+router.post(
+  '/payment-batches',
+  checkPermission('payroll.item.adjust'),
+  idempotencyMiddleware,
+  salaryPaymentController.createPaymentBatch
+);
+
+router.post(
+  '/payment-batches/:id/approve',
+  checkPermission('payroll.approve'),
+  idempotencyMiddleware,
+  salaryPaymentController.approvePaymentBatch
+);
+
+router.post(
+  '/payment-batches/:id/cancel',
+  checkPermission('payroll.approve'),
+  idempotencyMiddleware,
+  salaryPaymentController.cancelPaymentBatch
+);
+
+router.post(
+  '/payments/:id/settle',
+  checkPermission('payroll.approve'),
+  idempotencyMiddleware,
+  salaryPaymentController.settlePayment
+);
+
+router.post(
+  '/payment-batches/:id/settle',
+  checkPermission('payroll.approve'),
+  idempotencyMiddleware,
+  salaryPaymentController.settlePaymentBatch
+);
+
+router.post(
+  '/payments/:id/reverse',
+  checkPermission('payroll.accounting.reverse'),
+  idempotencyMiddleware,
+  salaryPaymentController.reversePayment
 );
 
 module.exports = router;

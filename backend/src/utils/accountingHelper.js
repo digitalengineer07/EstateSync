@@ -348,6 +348,59 @@ async function postCustomerRefundJournal(tx, {
   });
 }
 
+/**
+ * Double-Entry Post: Salary Payment Settlement
+ * Debit: Net Salaries Payable (2010) (Liability -)
+ * Credit: Corporate Bank / Primary Treasury (1010) or Cash / Manager Wallet (1020) (Asset -)
+ */
+async function postSalaryPaymentSettlementJournal(tx, {
+  amount,
+  employeeName,
+  employeeCode,
+  paymentNumber,
+  sourceAccountCode = '1010',
+  referenceId,
+  createdBy
+}) {
+  return await postJournalEntry(tx, {
+    description: `Salary Disbursement: ${paymentNumber} — ${employeeName || 'Staff'}${employeeCode ? ` (${employeeCode})` : ''}`,
+    referenceType: 'SALARY_PAYMENT',
+    referenceId,
+    createdBy,
+    lines: [
+      { accountCode: '2010', debit: amount, credit: 0, description: `Clear Net Salary Liability: ${employeeName || 'Staff'}` },
+      { accountCode: sourceAccountCode || '1010', debit: 0, credit: amount, description: `Disbursement Outflow: ${paymentNumber}` }
+    ]
+  });
+}
+
+/**
+ * Double-Entry Post: Salary Payment Reversal
+ * Debit: Corporate Bank / Primary Treasury (1010) or Cash (1020) (Asset + / Restored)
+ * Credit: Net Salaries Payable (2010) (Liability + / Reinstated)
+ */
+async function postSalaryPaymentReversalJournal(tx, {
+  amount,
+  employeeName,
+  employeeCode,
+  paymentNumber,
+  sourceAccountCode = '1010',
+  referenceId,
+  createdBy,
+  reason
+}) {
+  return await postJournalEntry(tx, {
+    description: `Salary Settlement Reversal: ${paymentNumber} — ${employeeName || 'Staff'} (${reason || 'Reversal'})`,
+    referenceType: 'SALARY_PAYMENT_REVERSAL',
+    referenceId,
+    createdBy,
+    lines: [
+      { accountCode: sourceAccountCode || '1010', debit: amount, credit: 0, description: `Restored Bank/Cash: Reversal of ${paymentNumber}` },
+      { accountCode: '2010', debit: 0, credit: amount, description: `Reinstated Net Salary Liability: ${employeeName || 'Staff'}` }
+    ]
+  });
+}
+
 module.exports = {
   ensureStandardAccounts,
   postJournalEntry,
@@ -357,7 +410,9 @@ module.exports = {
   postCustomerPaymentJournal,
   postCustomerRefundJournal,
   postPropertyPaymentJournal,
-  postCapitalInfusionJournal
+  postCapitalInfusionJournal,
+  postSalaryPaymentSettlementJournal,
+  postSalaryPaymentReversalJournal
 };
 
 

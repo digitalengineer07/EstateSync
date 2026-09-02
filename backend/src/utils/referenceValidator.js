@@ -79,6 +79,24 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo) {
     return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" is already recorded on a Corporate Treasury Bank Statement / Capital Infusion. Duplicate entries are prohibited.`;
   }
 
+  // 5. Check Salary Disbursements (SalaryPayment)
+  const existingSalaryPay = await tx.salaryPayment.findFirst({
+    where: {
+      referenceNo: { equals: cleanRef, mode: 'insensitive' },
+      status: { in: ['APPROVED', 'PROCESSING', 'SETTLED'] }
+    },
+    include: {
+      employee: { select: { fullName: true, employeeCode: true } }
+    }
+  });
+
+  if (existingSalaryPay) {
+    const empInfo = existingSalaryPay.employee
+      ? `employee "${existingSalaryPay.employee.fullName}" (${existingSalaryPay.employee.employeeCode})`
+      : 'a staff salary payment';
+    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" is already recorded on a salary disbursement for ${empInfo}. Duplicate entries are prohibited.`;
+  }
+
   return null;
 }
 

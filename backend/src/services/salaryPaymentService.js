@@ -1,5 +1,12 @@
 const prisma = require('../config/db');
 const { logAudit } = require('../utils/auditLogger');
+const { getPrimaryTreasuryAdmin, getPrimaryTreasuryWallet } = require('../utils/treasuryHelper');
+const {
+  ensureStandardAccounts,
+  postSalaryPaymentSettlementJournal,
+  postSalaryPaymentReversalJournal
+} = require('../utils/accountingHelper');
+const { checkDuplicateReferenceNo } = require('../utils/referenceValidator');
 
 // Canonical tolerance for financial precision
 const FINANCIAL_TOLERANCE = 0.009;
@@ -8,7 +15,7 @@ const FINANCIAL_TOLERANCE = 0.009;
 const ALLOWED_PAYMENT_TRANSITIONS = {
   'DRAFT': ['PENDING_APPROVAL', 'CANCELLED'],
   'PENDING_APPROVAL': ['APPROVED', 'DRAFT', 'CANCELLED'],
-  'APPROVED': ['PROCESSING', 'CANCELLED'],
+  'APPROVED': ['PROCESSING', 'SETTLED', 'CANCELLED'],
   'PROCESSING': ['SETTLED', 'FAILED'],
   'SETTLED': ['REVERSED'],
   'FAILED': [],
@@ -19,7 +26,7 @@ const ALLOWED_PAYMENT_TRANSITIONS = {
 const ALLOWED_BATCH_TRANSITIONS = {
   'DRAFT': ['PENDING_APPROVAL', 'CANCELLED'],
   'PENDING_APPROVAL': ['APPROVED', 'DRAFT', 'CANCELLED'],
-  'APPROVED': ['PROCESSING', 'CANCELLED'],
+  'APPROVED': ['PROCESSING', 'SETTLED', 'PARTIALLY_SETTLED', 'CANCELLED'],
   'PROCESSING': ['SETTLED', 'PARTIALLY_SETTLED', 'CANCELLED'],
   'SETTLED': [],
   'PARTIALLY_SETTLED': [],
@@ -463,6 +470,22 @@ async function approveSalaryPaymentBatch({
       throw { status: 404, code: 'BATCH_NOT_FOUND', message: 'Salary Payment Batch not found.' };
     }
 
+    // Segregation of Duties: Creator cannot approve their own batch
+    if (batch.submittedBy && actorEmail && batch.submittedBy.toLowerCase() === actorEmail.toLowerCase()) {
+      // Allow if actor is ADMIN
+      const actorUser = await tx.user.findUnique({
+        where: { email: actorEmail },
+        include: { role: true }
+      });
+      if (!actorUser || actorUser.role?.name !== 'ADMIN') {
+        throw {
+          status: 403,
+          code: 'SEGREGATION_OF_DUTIES_VIOLATION',
+          message: 'Segregation of Duties Violation: You cannot approve a payment batch that you submitted.'
+        };
+      }
+    }
+
     // Validate state transition
     if (!['DRAFT', 'PENDING_APPROVAL'].includes(batch.status)) {
       throw {
@@ -639,7 +662,579 @@ async function transitionPaymentStatus({
 }
 
 /**
- * 10. Get Complete Payment Summary for a Payroll Run (Read-Only Preview)
+ * 10. Phase 5B: Settle Single Salary Payment (Atomic Treasury Movement & GL Settlement)
+ */
+async function settleSalaryPayment({
+  paymentId,
+  paymentDate,
+  referenceNo,
+  paymentMode,
+  sourceAccountCode = '1010',
+  actorEmail,
+  actorId,
+  req
+}) {
+  return await prisma.$transaction(async (tx) => {
+    // 1. Lock SalaryPayment row
+    const lockedPayments = await tx.$queryRaw`
+      SELECT id, "paymentNumber", "payrollRunId", "payrollItemId", "employeeId", "salaryPaymentBatchId",
+             "amount", "paymentMode", "sourceAccountCode", "status", "journalEntryId", "walletTransactionId", "referenceNo"
+      FROM public."SalaryPayment"
+      WHERE id = ${paymentId}
+      FOR UPDATE
+    `;
+
+    if (!lockedPayments || lockedPayments.length === 0) {
+      throw { status: 404, code: 'PAYMENT_NOT_FOUND', message: 'Salary Payment not found.' };
+    }
+    const payment = lockedPayments[0];
+
+    // 2. Validate Payment Status Eligibility (APPROVED or PROCESSING only)
+    if (!['APPROVED', 'PROCESSING'].includes(payment.status)) {
+      throw {
+        status: 400,
+        code: 'INVALID_PAYMENT_STATUS_FOR_SETTLEMENT',
+        message: `Payment is in "${payment.status}" status. Only APPROVED or PROCESSING payments can be settled.`
+      };
+    }
+
+    // Guard: Prevent double-settlement
+    if (payment.journalEntryId || payment.status === 'SETTLED') {
+      throw {
+        status: 400,
+        code: 'PAYMENT_ALREADY_SETTLED',
+        message: `Payment ${payment.paymentNumber} has already been settled under journal ${payment.journalEntryId}.`
+      };
+    }
+
+    // 3. Lock PayrollItem & Validate Phase 4
+    const lockedItems = await tx.$queryRaw`
+      SELECT id, "payrollRunId", "employeeId", "netPayable", "employeeNameSnapshot", "employeeCodeSnapshot"
+      FROM public."PayrollItem"
+      WHERE id = ${payment.payrollItemId}
+      FOR UPDATE
+    `;
+
+    if (!lockedItems || lockedItems.length === 0) {
+      throw { status: 404, code: 'PAYROLL_ITEM_NOT_FOUND', message: 'Associated Payroll Item not found.' };
+    }
+    const item = lockedItems[0];
+
+    const run = await tx.payrollRun.findUnique({
+      where: { id: item.payrollRunId },
+      include: { accountingPosting: true }
+    });
+
+    if (!run || run.status !== 'LOCKED') {
+      throw {
+        status: 400,
+        code: 'PAYROLL_NOT_LOCKED',
+        message: `Associated Payroll Run is in "${run?.status || 'UNKNOWN'}" status. Settlement requires a LOCKED payroll run.`
+      };
+    }
+
+    if (!run.accountingPosting || run.accountingPosting.status !== 'POSTED') {
+      throw {
+        status: 400,
+        code: 'PAYROLL_NOT_POSTED_TO_GL',
+        message: 'Payroll Run has not been posted to General Ledger (Phase 4 accrual required before settlement).'
+      };
+    }
+
+    const payAmount = Math.round(Number(payment.amount) * 100) / 100;
+    const netPayable = Math.round(Number(item.netPayable) * 100) / 100;
+
+    // 4. Recalculate Live Capacity (Exclude current payment's reservation to avoid double counting)
+    const settledAgg = await tx.salaryPayment.aggregate({
+      where: { payrollItemId: item.id, status: 'SETTLED' },
+      _sum: { amount: true }
+    });
+    const settledSoFar = Math.round(Number(settledAgg._sum.amount || 0) * 100) / 100;
+
+    const otherReservedAgg = await tx.salaryPayment.aggregate({
+      where: {
+        payrollItemId: item.id,
+        status: { in: ['APPROVED', 'PROCESSING'] },
+        id: { not: payment.id }
+      },
+      _sum: { amount: true }
+    });
+    const otherReserved = Math.round(Number(otherReservedAgg._sum.amount || 0) * 100) / 100;
+
+    const availableCapacity = Math.round((netPayable - settledSoFar - otherReserved) * 100) / 100;
+    if (payAmount > availableCapacity + FINANCIAL_TOLERANCE) {
+      throw {
+        status: 400,
+        code: 'OVERPAYMENT_PROHIBITED',
+        message: `Settlement amount ₹${payAmount.toFixed(2)} exceeds available capacity ₹${availableCapacity.toFixed(2)} for employee ${item.employeeNameSnapshot}.`
+      };
+    }
+
+    // 5. Reference / UTR Duplicate Validation
+    const cleanRef = (referenceNo || payment.referenceNo || '').trim();
+    const effectivePaymentMode = (paymentMode || payment.paymentMode || 'BANK_TRANSFER').toUpperCase();
+    const fMode = effectivePaymentMode === 'CASH' ? 'CASH' : 'LIQUID';
+
+    if (cleanRef) {
+      // Check duplicate across existing systems
+      const dupError = await checkDuplicateReferenceNo(tx, cleanRef);
+      if (dupError) {
+        throw { status: 400, code: 'DUPLICATE_REFERENCE_NO', message: dupError };
+      }
+    }
+
+    // 6. Source Account Validation & Treasury Wallet Lock
+    const effectiveSourceCode = sourceAccountCode || payment.sourceAccountCode || '1010';
+    const sourceAccount = await tx.account.findUnique({ where: { code: effectiveSourceCode } });
+    if (!sourceAccount || sourceAccount.type !== 'ASSET') {
+      throw {
+        status: 400,
+        code: 'INVALID_SOURCE_ACCOUNT',
+        message: `Source account "${effectiveSourceCode}" must be a valid active ASSET account.`
+      };
+    }
+
+    const admin = await getPrimaryTreasuryAdmin(tx);
+    if (!admin) {
+      throw { status: 500, code: 'TREASURY_ADMIN_NOT_FOUND', message: 'No Master Admin Account found for Corporate Treasury.' };
+    }
+
+    const lockedWallets = await tx.$queryRaw`
+      SELECT id, "userId", "availableBalanceLiquid", "availableBalanceCash", "totalSpentLiquid", "totalSpentCash"
+      FROM public."Wallet"
+      WHERE "userId" = ${admin.id}
+      FOR UPDATE
+    `;
+
+    if (!lockedWallets || lockedWallets.length === 0) {
+      throw { status: 500, code: 'TREASURY_WALLET_NOT_FOUND', message: 'Corporate Treasury Wallet not initialized.' };
+    }
+    const treasuryWallet = lockedWallets[0];
+
+    const balanceField = fMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
+    const spentField = fMode === 'CASH' ? 'totalSpentCash' : 'totalSpentLiquid';
+    const currentBalance = Math.round(Number(treasuryWallet[balanceField]) * 100) / 100;
+
+    if (payAmount > currentBalance + FINANCIAL_TOLERANCE) {
+      throw {
+        status: 400,
+        code: 'INSUFFICIENT_TREASURY_FUNDS',
+        message: `Corporate Treasury has insufficient ${fMode} funds (Available: ₹${currentBalance.toFixed(2)}, Required: ₹${payAmount.toFixed(2)}).`
+      };
+    }
+
+    // 7. Deduct from Corporate Treasury Wallet
+    await tx.wallet.update({
+      where: { id: treasuryWallet.id },
+      data: {
+        [balanceField]: { decrement: payAmount },
+        [spentField]: { increment: payAmount }
+      }
+    });
+
+    // 8. Create WalletTransaction with COMPLETED status
+    const walletTx = await tx.walletTransaction.create({
+      data: {
+        type: 'SALARY_PAYMENT',
+        sourceWalletId: treasuryWallet.id,
+        destWalletId: null,
+        amount: payAmount,
+        fundMode: fMode,
+        referenceType: 'SALARY_PAYMENT',
+        referenceId: payment.id,
+        description: `Salary disbursement of ₹${payAmount.toLocaleString('en-IN')} to ${item.employeeNameSnapshot} (${item.employeeCodeSnapshot}) via ${effectivePaymentMode}`,
+        createdBy: actorId || 'SYSTEM',
+        status: 'COMPLETED'
+      }
+    });
+
+    // 9. Post Double-Entry Settlement Journal: Dr 2010 Net Salaries Payable, Cr Source Bank/Cash
+    const journal = await postSalaryPaymentSettlementJournal(tx, {
+      amount: payAmount,
+      employeeName: item.employeeNameSnapshot,
+      employeeCode: item.employeeCodeSnapshot,
+      paymentNumber: payment.paymentNumber,
+      sourceAccountCode: effectiveSourceCode,
+      referenceId: payment.id,
+      createdBy: actorEmail || 'SYSTEM'
+    });
+
+    // 10. Update SalaryPayment to SETTLED
+    const settledPayment = await tx.salaryPayment.update({
+      where: { id: payment.id },
+      data: {
+        status: 'SETTLED',
+        settledAt: paymentDate ? new Date(paymentDate) : new Date(),
+        settledBy: actorEmail || 'SYSTEM',
+        journalEntryId: journal.id,
+        walletTransactionId: walletTx.id,
+        paymentMode: effectivePaymentMode,
+        sourceAccountCode: effectiveSourceCode,
+        referenceNo: cleanRef || null,
+        updatedAt: new Date()
+      }
+    });
+
+    // 11. Update Parent Batch settlement status if present
+    if (payment.salaryPaymentBatchId) {
+      const siblingPayments = await tx.salaryPayment.findMany({
+        where: { salaryPaymentBatchId: payment.salaryPaymentBatchId }
+      });
+      const allSettled = siblingPayments.every(p => p.status === 'SETTLED');
+      const someSettled = siblingPayments.some(p => p.status === 'SETTLED');
+      const newBatchStatus = allSettled ? 'SETTLED' : (someSettled ? 'PARTIALLY_SETTLED' : 'PROCESSING');
+
+      await tx.salaryPaymentBatch.update({
+        where: { id: payment.salaryPaymentBatchId },
+        data: {
+          status: newBatchStatus,
+          settledBy: allSettled ? (actorEmail || 'SYSTEM') : undefined,
+          updatedAt: new Date()
+        }
+      });
+    }
+
+    // 12. Log Financial Audit Event
+    await logAudit({
+      actorId,
+      actorEmail,
+      action: 'SALARY_PAYMENT_SETTLE',
+      entityType: 'SALARY_PAYMENT',
+      entityId: payment.id,
+      newValues: {
+        paymentNumber: payment.paymentNumber,
+        payrollRunId: payment.payrollRunId,
+        employeeId: payment.employeeId,
+        amount: payAmount,
+        journalEntryId: journal.id,
+        journalEntryNumber: journal.entryNumber,
+        walletTransactionId: walletTx.id,
+        referenceNo: cleanRef || null,
+        fundMode: fMode
+      },
+      req,
+      tx
+    });
+
+    return {
+      success: true,
+      message: `Salary Payment ${payment.paymentNumber} settled successfully. Treasury deducted ₹${payAmount.toFixed(2)} and GL journal ${journal.entryNumber} posted.`,
+      payment: settledPayment,
+      journal,
+      walletTransaction: walletTx
+    };
+  }, { timeout: 30000, maxWait: 10000 });
+}
+
+/**
+ * 11. Phase 5B: Settle Salary Payment Batch (Processes All Approved Items in Deterministic Order)
+ */
+async function settleSalaryPaymentBatch({
+  batchId,
+  paymentDate,
+  actorEmail,
+  actorId,
+  req
+}) {
+  const batch = await prisma.salaryPaymentBatch.findUnique({
+    where: { id: batchId },
+    include: { payments: true }
+  });
+
+  if (!batch) {
+    throw { status: 404, code: 'BATCH_NOT_FOUND', message: 'Salary Payment Batch not found.' };
+  }
+
+  if (!['APPROVED', 'PROCESSING', 'PARTIALLY_SETTLED'].includes(batch.status)) {
+    throw {
+      status: 400,
+      code: 'INVALID_STATUS_FOR_SETTLEMENT',
+      message: `Cannot settle batch in "${batch.status}" status. Only APPROVED or PROCESSING batches can be settled.`
+    };
+  }
+
+  // Sort payment IDs deterministically to eliminate deadlocks
+  const sortedPayments = [...batch.payments].sort((a, b) => a.id.localeCompare(b.id));
+  const settlementResults = [];
+
+  for (const p of sortedPayments) {
+    if (['APPROVED', 'PROCESSING'].includes(p.status)) {
+      try {
+        const res = await settleSalaryPayment({
+          paymentId: p.id,
+          paymentDate,
+          actorEmail,
+          actorId,
+          req
+        });
+        settlementResults.push({ paymentId: p.id, status: 'SETTLED', result: res });
+      } catch (err) {
+        settlementResults.push({ paymentId: p.id, status: 'FAILED', error: err.message || err });
+      }
+    } else {
+      settlementResults.push({ paymentId: p.id, status: p.status, note: 'Skipped (Already settled or cancelled)' });
+    }
+  }
+
+  // Refresh batch state
+  const updatedBatch = await prisma.salaryPaymentBatch.findUnique({
+    where: { id: batchId },
+    include: { payments: true }
+  });
+
+  await logAudit({
+    actorId,
+    actorEmail,
+    action: 'SALARY_BATCH_SETTLE',
+    entityType: 'SALARY_PAYMENT_BATCH',
+    entityId: batch.id,
+    newValues: {
+      batchNumber: batch.batchNumber,
+      totalPayments: batch.payments.length,
+      settledCount: settlementResults.filter(r => r.status === 'SETTLED').length,
+      batchStatus: updatedBatch.status
+    },
+    req
+  });
+
+  return {
+    success: true,
+    message: `Salary Payment Batch ${batch.batchNumber} processed. Outcome: ${updatedBatch.status}`,
+    batch: updatedBatch,
+    results: settlementResults
+  };
+}
+
+/**
+ * 12. Phase 5B: Reverse Salary Payment Settlement (Admin Only Reversal)
+ */
+async function reverseSalaryPaymentSettlement({
+  paymentId,
+  reason,
+  actorEmail,
+  actorId,
+  req
+}) {
+  return await prisma.$transaction(async (tx) => {
+    // 1. Lock SalaryPayment
+    const lockedPayments = await tx.$queryRaw`
+      SELECT id, "paymentNumber", "payrollRunId", "payrollItemId", "employeeId", "salaryPaymentBatchId",
+             "amount", "paymentMode", "sourceAccountCode", "status", "journalEntryId", "walletTransactionId", "reversalReason"
+      FROM public."SalaryPayment"
+      WHERE id = ${paymentId}
+      FOR UPDATE
+    `;
+
+    if (!lockedPayments || lockedPayments.length === 0) {
+      throw { status: 404, code: 'PAYMENT_NOT_FOUND', message: 'Salary Payment not found.' };
+    }
+    const payment = lockedPayments[0];
+
+    if (payment.status !== 'SETTLED') {
+      throw {
+        status: 400,
+        code: 'INVALID_STATUS_FOR_REVERSAL',
+        message: `Payment is in "${payment.status}" status. Only SETTLED payments can be reversed.`
+      };
+    }
+
+    if (payment.reversalReason || payment.status === 'REVERSED') {
+      throw {
+        status: 400,
+        code: 'PAYMENT_ALREADY_REVERSED',
+        message: `Payment ${payment.paymentNumber} has already been reversed.`
+      };
+    }
+
+    // 2. Lock PayrollItem
+    const lockedItems = await tx.$queryRaw`
+      SELECT id, "payrollRunId", "employeeId", "netPayable", "employeeNameSnapshot", "employeeCodeSnapshot"
+      FROM public."PayrollItem"
+      WHERE id = ${payment.payrollItemId}
+      FOR UPDATE
+    `;
+    const item = lockedItems[0];
+
+    const payAmount = Math.round(Number(payment.amount) * 100) / 100;
+    const effectiveSourceCode = payment.sourceAccountCode || '1010';
+    const fMode = payment.paymentMode === 'CASH' ? 'CASH' : 'LIQUID';
+    const balanceField = fMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
+    const spentField = fMode === 'CASH' ? 'totalSpentCash' : 'totalSpentLiquid';
+
+    // 3. Lock Treasury Wallet & Restore Funds
+    const admin = await getPrimaryTreasuryAdmin(tx);
+    if (!admin) {
+      throw { status: 500, code: 'TREASURY_ADMIN_NOT_FOUND', message: 'No Master Admin Account found for Corporate Treasury.' };
+    }
+
+    const lockedWallets = await tx.$queryRaw`
+      SELECT id FROM public."Wallet" WHERE "userId" = ${admin.id} FOR UPDATE
+    `;
+    const treasuryWallet = lockedWallets[0];
+
+    await tx.wallet.update({
+      where: { id: treasuryWallet.id },
+      data: {
+        [balanceField]: { increment: payAmount },
+        [spentField]: { decrement: payAmount }
+      }
+    });
+
+    // 4. Create Reversal WalletTransaction
+    const revWalletTx = await tx.walletTransaction.create({
+      data: {
+        type: 'SALARY_PAYMENT_REVERSAL',
+        sourceWalletId: null,
+        destWalletId: treasuryWallet.id,
+        amount: payAmount,
+        fundMode: fMode,
+        referenceType: 'SALARY_PAYMENT_REVERSAL',
+        referenceId: payment.id,
+        description: `Reversal of salary settlement: ${payment.paymentNumber} — ${item.employeeNameSnapshot} (Reason: ${reason || 'Administrative Correction'})`,
+        createdBy: actorId || 'SYSTEM',
+        status: 'COMPLETED'
+      }
+    });
+
+    // 5. Post Reversal Double-Entry Journal: Dr Source Bank/Cash, Cr 2010 Net Salaries Payable
+    const revJournal = await postSalaryPaymentReversalJournal(tx, {
+      amount: payAmount,
+      employeeName: item.employeeNameSnapshot,
+      employeeCode: item.employeeCodeSnapshot,
+      paymentNumber: payment.paymentNumber,
+      sourceAccountCode: effectiveSourceCode,
+      referenceId: payment.id,
+      createdBy: actorEmail || 'SYSTEM',
+      reason
+    });
+
+    // 6. Update SalaryPayment to REVERSED
+    const reversedPayment = await tx.salaryPayment.update({
+      where: { id: payment.id },
+      data: {
+        status: 'REVERSED',
+        reversalReason: reason || 'Administrative Reversal',
+        updatedAt: new Date()
+      }
+    });
+
+    // 7. Update Parent Batch status if applicable
+    if (payment.salaryPaymentBatchId) {
+      const siblingPayments = await tx.salaryPayment.findMany({
+        where: { salaryPaymentBatchId: payment.salaryPaymentBatchId }
+      });
+      const someSettled = siblingPayments.some(p => p.status === 'SETTLED');
+      const allReversed = siblingPayments.every(p => p.status === 'REVERSED' || p.status === 'CANCELLED');
+      const newBatchStatus = allReversed ? 'CANCELLED' : (someSettled ? 'PARTIALLY_SETTLED' : 'APPROVED');
+
+      await tx.salaryPaymentBatch.update({
+        where: { id: payment.salaryPaymentBatchId },
+        data: {
+          status: newBatchStatus,
+          updatedAt: new Date()
+        }
+      });
+    }
+
+    // 8. Audit Log
+    await logAudit({
+      actorId,
+      actorEmail,
+      action: 'SALARY_PAYMENT_REVERSE',
+      entityType: 'SALARY_PAYMENT',
+      entityId: payment.id,
+      oldValues: { status: 'SETTLED', journalEntryId: payment.journalEntryId },
+      newValues: {
+        status: 'REVERSED',
+        reversalReason: reason,
+        reversalJournalId: revJournal.id,
+        reversalJournalNumber: revJournal.entryNumber,
+        reversalWalletTxId: revWalletTx.id
+      },
+      req,
+      tx
+    });
+
+    return {
+      success: true,
+      message: `Salary Payment ${payment.paymentNumber} reversed successfully. Treasury restored ₹${payAmount.toFixed(2)} and reversal journal ${revJournal.entryNumber} posted.`,
+      payment: reversedPayment,
+      reversalJournal: revJournal,
+      reversalWalletTransaction: revWalletTx
+    };
+  }, { timeout: 30000, maxWait: 10000 });
+}
+
+/**
+ * 13. Phase 5B: Read-Only Settlement Preview
+ */
+async function getPaymentSettlementPreview(paymentId) {
+  const payment = await prisma.salaryPayment.findUnique({
+    where: { id: paymentId },
+    include: {
+      payrollRun: {
+        include: {
+          payrollPeriod: true,
+          accountingPosting: true
+        }
+      },
+      payrollItem: true,
+      employee: true
+    }
+  });
+
+  if (!payment) {
+    throw { status: 404, code: 'PAYMENT_NOT_FOUND', message: 'Salary Payment not found.' };
+  }
+
+  const payableStatus = await getEmployeePayableStatus({ payrollItemId: payment.payrollItemId });
+  const admin = await getPrimaryTreasuryAdmin(prisma);
+  const wallet = admin?.wallet;
+
+  const fMode = payment.paymentMode === 'CASH' ? 'CASH' : 'LIQUID';
+  const treasuryBalance = fMode === 'CASH' ? Number(wallet?.availableBalanceCash || 0) : Number(wallet?.availableBalanceLiquid || 0);
+
+  const payAmount = Number(payment.amount);
+
+  return {
+    paymentId: payment.id,
+    paymentNumber: payment.paymentNumber,
+    status: payment.status,
+    amount: payAmount,
+    paymentMode: payment.paymentMode,
+    fundMode: fMode,
+    sourceAccountCode: payment.sourceAccountCode,
+    employee: {
+      id: payment.employee.id,
+      name: payment.employee.fullName,
+      code: payment.employee.employeeCode
+    },
+    payable: {
+      netPayable: payableStatus.netPayable,
+      settledAmount: payableStatus.settledAmount,
+      reservedAmount: payableStatus.reservedAmount,
+      availablePayable: payableStatus.availablePayable,
+      outstandingLiability: payableStatus.outstandingLiability
+    },
+    treasury: {
+      fundMode: fMode,
+      availableBalance: treasuryBalance,
+      isSufficient: treasuryBalance >= payAmount
+    },
+    proposedJournal: {
+      description: `Salary Disbursement: ${payment.paymentNumber} — ${payment.employee.fullName}`,
+      lines: [
+        { accountCode: '2010', accountName: 'Net Salaries Payable', debit: payAmount, credit: 0 },
+        { accountCode: payment.sourceAccountCode || '1010', accountName: 'Corporate Treasury / Bank', debit: 0, credit: payAmount }
+      ],
+      isBalanced: true
+    },
+    isEligibleForSettlement: ['APPROVED', 'PROCESSING'].includes(payment.status) && treasuryBalance >= payAmount && payment.payrollRun.status === 'LOCKED' && payment.payrollRun.accountingPosting?.status === 'POSTED'
+  };
+}
+
+/**
+ * 14. Get Complete Payment Summary for a Payroll Run (Read-Only Preview)
  */
 async function getPayrollPaymentSummary(payrollRunId) {
   const run = await prisma.payrollRun.findUnique({
@@ -735,6 +1330,10 @@ module.exports = {
   approveSalaryPaymentBatch,
   cancelSalaryPaymentBatch,
   transitionPaymentStatus,
+  settleSalaryPayment,
+  settleSalaryPaymentBatch,
+  reverseSalaryPaymentSettlement,
+  getPaymentSettlementPreview,
   getPayrollPaymentSummary,
   ALLOWED_PAYMENT_TRANSITIONS,
   ALLOWED_BATCH_TRANSITIONS
