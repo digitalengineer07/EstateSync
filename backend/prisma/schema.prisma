@@ -776,14 +776,13 @@ model GlobalBankReference {
   sourceRecordId  String
   amount          Decimal   @db.Decimal(15, 2)
   bankName        String?
-  paymentMode     String    // "NEFT", "RTGS", "IMPS", "UPI", "CHEQUE", "DD", "CASH"
+  paymentMode     String    // "NEFT", "RTGS", "IMPS", "UPI", "CHEQUE", "DD", "BANK_TRANSFER"
   status          String    @default("ACTIVE") // "ACTIVE", "REVERSED"
   recordedBy      String
   reversalReason  String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
-  @@index([referenceNo])
   @@index([module])
   @@index([sourceRecordId])
   @@index([status])
@@ -795,9 +794,10 @@ model GlobalBankReference {
 // -------------------------------------------------------------
 model AccountingPeriod {
   id              String         @id @default(uuid())
-  fiscalYear      Int            // e.g., 2026
+  fiscalYear      Int            // Indian FY (e.g., 2026 for FY 2026-27)
   month           Int            // 1 to 12
-  periodName      String         @unique // e.g., "2026-08"
+  periodName      String         @unique // e.g., "2026-04"
+  fiscalQuarter   String?        // "Q1", "Q2", "Q3", "Q4"
   startDate       DateTime       @db.Date
   endDate         DateTime       @db.Date
   status          String         @default("OPEN") // "OPEN", "CLOSED"

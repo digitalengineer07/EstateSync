@@ -91,6 +91,24 @@ async function postJournalEntry(tx, {
     });
   }
 
+  if (period) {
+    // 1b. Strict Concurrency Row-Level Lock (FOR UPDATE)
+    // Synchronizes with closeAccountingPeriod() to eliminate posting-vs-closing race conditions.
+    try {
+      const lockedPeriods = await tx.$queryRaw`
+        SELECT id, status, "periodName"
+        FROM public."AccountingPeriod"
+        WHERE id = ${period.id}
+        FOR UPDATE
+      `;
+      if (lockedPeriods && lockedPeriods.length > 0) {
+        period = lockedPeriods[0];
+      }
+    } catch (lockErr) {
+      console.warn('AccountingPeriod row lock query skipped:', lockErr.message);
+    }
+  }
+
   if (period && period.status !== 'OPEN') {
     throw {
       status: 400,

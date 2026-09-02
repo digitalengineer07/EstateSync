@@ -22,9 +22,10 @@ function normalizeReferenceNo(referenceNo) {
  *
  * @param {Object} tx - Prisma transaction or client
  * @param {string} referenceNo - The UTR / Cheque / Reference No to validate
+ * @param {string|null} excludeSourceRecordId - Optional ID to exclude (e.g. current in-flight transaction record)
  * @returns {Promise<string|null>} - Returns duplicate error message if duplicate found, null if clean
  */
-async function checkDuplicateReferenceNo(tx = prisma, referenceNo) {
+async function checkDuplicateReferenceNo(tx = prisma, referenceNo, excludeSourceRecordId = null) {
   const cleanRef = normalizeReferenceNo(referenceNo);
   if (!cleanRef) return null;
 
@@ -33,7 +34,7 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo) {
     where: { referenceNo: cleanRef }
   });
 
-  if (existingGlobal) {
+  if (existingGlobal && (!excludeSourceRecordId || existingGlobal.sourceRecordId !== String(excludeSourceRecordId))) {
     return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" is already recorded in ${existingGlobal.module} (Record: ${existingGlobal.sourceRecordId}, Status: ${existingGlobal.status}). Duplicate external banking entries are strictly prohibited.`;
   }
 
@@ -41,7 +42,8 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo) {
   const existingCustPay = await tx.customerPayment.findFirst({
     where: {
       referenceNo: { equals: cleanRef, mode: 'insensitive' },
-      status: { not: 'REVERSED' }
+      status: { not: 'REVERSED' },
+      id: excludeSourceRecordId ? { not: String(excludeSourceRecordId) } : undefined
     },
     include: {
       customer: { select: { customerName: true, plotNo: true } }
@@ -58,7 +60,8 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo) {
   // 3. Fallback: Check Customer Cancellation Settlement Records
   const existingRefundCust = await tx.customer.findFirst({
     where: {
-      refundReferenceNo: { equals: cleanRef, mode: 'insensitive' }
+      refundReferenceNo: { equals: cleanRef, mode: 'insensitive' },
+      id: excludeSourceRecordId ? { not: String(excludeSourceRecordId) } : undefined
     },
     select: { customerName: true, plotNo: true }
   });
@@ -71,7 +74,8 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo) {
   const existingPropPay = await tx.propertyPayment.findFirst({
     where: {
       referenceNo: { equals: cleanRef, mode: 'insensitive' },
-      status: { not: 'REVERSED' }
+      status: { not: 'REVERSED' },
+      id: excludeSourceRecordId ? { not: String(excludeSourceRecordId) } : undefined
     },
     include: {
       property: { select: { landOwnerName: true, plotNo: true, khataNo: true } }
@@ -92,7 +96,8 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo) {
         { type: 'CAPITAL_INFUSION', referenceId: { equals: cleanRef, mode: 'insensitive' } },
         { referenceType: 'BANK_STATEMENT', referenceId: { equals: cleanRef, mode: 'insensitive' } }
       ],
-      status: { not: 'REVERSED' }
+      status: { not: 'REVERSED' },
+      id: excludeSourceRecordId ? { not: String(excludeSourceRecordId) } : undefined
     }
   });
 
@@ -104,7 +109,8 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo) {
   const existingSalaryPay = await tx.salaryPayment.findFirst({
     where: {
       referenceNo: { equals: cleanRef, mode: 'insensitive' },
-      status: { in: ['APPROVED', 'PROCESSING', 'SETTLED'] }
+      status: { in: ['APPROVED', 'PROCESSING', 'SETTLED'] },
+      id: excludeSourceRecordId ? { not: String(excludeSourceRecordId) } : undefined
     },
     include: {
       employee: { select: { fullName: true, employeeCode: true } }
@@ -138,6 +144,12 @@ async function registerBankReference(tx, {
   const cleanRef = normalizeReferenceNo(referenceNo);
   if (!cleanRef) return null;
 
+  // Pure cash transactions without banking instruments bypass GlobalBankReference
+  const normMode = (paymentMode || '').toUpperCase();
+  if (normMode === 'CASH' && (cleanRef.startsWith('CSH-') || cleanRef.startsWith('CASH-') || cleanRef === 'CASH')) {
+    return null;
+  }
+
   // 1. Acquire PostgreSQL Advisory Transaction Lock on the Reference String
   // This serializes concurrent requests checking the same reference without deadlocks.
   try {
@@ -147,8 +159,8 @@ async function registerBankReference(tx, {
     console.warn('Advisory lock skipped:', lockErr.message);
   }
 
-  // 2. Check for duplicate reference
-  const dupError = await checkDuplicateReferenceNo(tx, cleanRef);
+  // 2. Check for duplicate reference (excluding the current in-flight record if it was already inserted in this tx)
+  const dupError = await checkDuplicateReferenceNo(tx, cleanRef, sourceRecordId);
   if (dupError) {
     throw {
       status: 400,
