@@ -50,6 +50,13 @@ exports.createEmployee = async (req, res) => {
       userId
     } = req.body;
 
+    if (req.user?.role === 'ACCOUNTING') {
+      return res.status(403).json({
+        success: false,
+        message: 'Forbidden: Accounting role cannot create new employees. Only Admin and Managers are authorized.'
+      });
+    }
+
     const trimmedName = fullName ? fullName.trim() : '';
     const trimmedMobile = mobile ? mobile.trim() : '';
     const trimmedEmail = email ? email.trim().toLowerCase() : null;

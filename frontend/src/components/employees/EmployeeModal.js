@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
 import { createEmployee, updateEmployee, updateSalaryConfig } from "@/services/employeeService";
 import { X, UserPlus, Edit3, AlertTriangle, CheckCircle2, Loader2, IndianRupee } from "lucide-react";
 
@@ -12,6 +13,8 @@ export default function EmployeeModal({
   onSuccess
 }) {
   const isEditing = Boolean(employeeToEdit);
+  const { user } = useAuth();
+  const isAdmin = user?.role === "ADMIN";
 
   const [formData, setFormData] = useState({
     employeeCode: "",
@@ -131,7 +134,7 @@ export default function EmployeeModal({
         // Exclude immutable code on update
         delete payload.employeeCode;
         result = await updateEmployee(employeeToEdit.id, payload);
-        if (formData.baseSalary !== undefined && formData.baseSalary !== "") {
+        if (isAdmin && formData.baseSalary !== undefined && formData.baseSalary !== "") {
           await updateSalaryConfig(employeeToEdit.id, {
             baseSalary: parseFloat(formData.baseSalary) || 0,
             bankName: formData.bankName?.trim() || null,
@@ -398,72 +401,74 @@ export default function EmployeeModal({
             </div>
           </div>
 
-          {/* Compensation & Banking Details */}
-          <div className="space-y-3 pt-3 border-t border-slate-100">
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-              <IndianRupee className="w-3.5 h-3.5 text-indigo-600" />
-              <span>Compensation & Banking Details (Optional)</span>
-            </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Monthly Base Salary (₹)
-                </label>
-                <div className="relative">
-                  <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 font-semibold text-xs">
-                    ₹
-                  </span>
+          {/* Compensation & Banking Details (Admin Only) */}
+          {isAdmin && (
+            <div className="space-y-3 pt-3 border-t border-slate-100">
+              <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                <IndianRupee className="w-3.5 h-3.5 text-indigo-600" />
+                <span>Compensation & Banking Details (Admin Only)</span>
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Monthly Base Salary (₹)
+                  </label>
+                  <div className="relative">
+                    <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 font-semibold text-xs">
+                      ₹
+                    </span>
+                    <input
+                      type="number"
+                      min="0"
+                      step="100"
+                      name="baseSalary"
+                      value={formData.baseSalary || ""}
+                      onChange={handleChange}
+                      placeholder="e.g. 50000"
+                      className="w-full text-xs pl-7 pr-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Bank Name</label>
                   <input
-                    type="number"
-                    min="0"
-                    step="100"
-                    name="baseSalary"
-                    value={formData.baseSalary || ""}
+                    type="text"
+                    name="bankName"
+                    value={formData.bankName || ""}
                     onChange={handleChange}
-                    placeholder="e.g. 50000"
-                    className="w-full text-xs pl-7 pr-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                    placeholder="e.g. HDFC Bank, SBI"
+                    className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Account Number</label>
+                  <input
+                    type="text"
+                    name="bankAccountNo"
+                    value={formData.bankAccountNo || ""}
+                    onChange={handleChange}
+                    placeholder="e.g. 50100234567890"
+                    className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">IFSC Code</label>
+                  <input
+                    type="text"
+                    name="ifscCode"
+                    value={formData.ifscCode || ""}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, ifscCode: e.target.value.toUpperCase() }))}
+                    placeholder="e.g. HDFC0001234"
+                    maxLength={11}
+                    className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 font-mono uppercase focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
                   />
                 </div>
               </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Bank Name</label>
-                <input
-                  type="text"
-                  name="bankName"
-                  value={formData.bankName || ""}
-                  onChange={handleChange}
-                  placeholder="e.g. HDFC Bank, SBI"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Account Number</label>
-                <input
-                  type="text"
-                  name="bankAccountNo"
-                  value={formData.bankAccountNo || ""}
-                  onChange={handleChange}
-                  placeholder="e.g. 50100234567890"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">IFSC Code</label>
-                <input
-                  type="text"
-                  name="ifscCode"
-                  value={formData.ifscCode || ""}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, ifscCode: e.target.value.toUpperCase() }))}
-                  placeholder="e.g. HDFC0001234"
-                  maxLength={11}
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 font-mono uppercase focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
-                />
-              </div>
             </div>
-          </div>
+          )}
         </form>
 
         {/* Modal Footer */}

@@ -55,9 +55,9 @@ export default function EmployeeList() {
   const [employeeToEditSalary, setEmployeeToEditSalary] = useState(null);
   const [employeeToPaySalary, setEmployeeToPaySalary] = useState(null);
 
-  const canCreate = hasPermission(user, "employee.create");
-  const canUpdate = hasPermission(user, "employee.update");
-  const canArchive = hasPermission(user, "employee.archive");
+  const canCreate = ["ADMIN", "MANAGER"].includes(user?.role) || (hasPermission(user, "employee.create") && user?.role !== "ACCOUNTING");
+  const canUpdate = ["ADMIN", "MANAGER", "ACCOUNTING"].includes(user?.role) || hasPermission(user, "employee.update");
+  const canArchive = ["ADMIN"].includes(user?.role) || hasPermission(user, "employee.archive");
   const canViewSalary = ["ADMIN", "ACCOUNTING", "MANAGER"].includes(user?.role);
   const canEditSalary = user?.role === "ADMIN";
   const canPaySalary = ["ADMIN", "ACCOUNTING"].includes(user?.role);
