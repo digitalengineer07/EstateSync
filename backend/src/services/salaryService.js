@@ -106,6 +106,10 @@ async function disburseEmployeeSalary({
   if (!/^\d{4}-\d{2}$/.test(targetMonth)) {
     throw { status: 400, message: 'Invalid month format. Please use YYYY-MM (e.g. 2026-09).' };
   }
+  const [year, m] = targetMonth.split('-').map(Number);
+  if (isNaN(year) || isNaN(m) || year < 2020 || year > 2050 || m < 1 || m > 12) {
+    throw { status: 400, message: 'Invalid payment month. Year must be between 2020 and 2050, and month between 01 and 12.' };
+  }
 
   // 1. Fetch Employee Details
   const employeeResult = await prisma.$queryRawUnsafe(`
@@ -125,16 +129,21 @@ async function disburseEmployeeSalary({
   }
 
   // Determine disbursement amount (use provided amount or default to employee baseSalary)
-  const finalAmount = amount !== undefined && amount !== null && amount !== '' 
+  const rawAmount = amount !== undefined && amount !== null && amount !== '' 
     ? parseFloat(amount) 
     : parseFloat(employee.baseSalary || 0);
 
-  if (isNaN(finalAmount) || finalAmount <= 0) {
-    throw { status: 400, message: 'Disbursement amount must be greater than 0. Please configure employee base salary first or provide an amount.' };
+  if (isNaN(rawAmount) || rawAmount < 1 || !isFinite(rawAmount)) {
+    throw { status: 400, message: 'Disbursement amount must be a valid positive number of at least ₹1. Please configure employee base salary first or provide a valid amount.' };
   }
+  const finalAmount = Math.round(rawAmount * 100) / 100;
 
   const cleanRef = referenceNo ? referenceNo.trim() : null;
   const isCash = (paymentMode || '').toUpperCase() === 'CASH';
+
+  if (!isCash && !cleanRef) {
+    throw { status: 400, message: 'Bank Reference / UTR number is strictly required for non-cash salary disbursements.' };
+  }
 
   // 2. Execute Atomic Disbursement Transaction
   const result = await prisma.$transaction(async (tx) => {
@@ -178,15 +187,24 @@ async function disburseEmployeeSalary({
     // D. Generate Next Sequential Payment Number
     const paymentNumber = await generateNextSalaryPaymentNumber(tx, targetMonth);
 
-    // E. Deduct from Corporate Treasury Wallet
-    await tx.wallet.update({
-      where: { id: treasuryWallet.id },
-      data: {
-        [balanceField]: { decrement: finalAmount },
-        [allocatedField]: { decrement: finalAmount },
-        [spentField]: { increment: finalAmount }
-      }
-    });
+    // E. Deduct from Corporate Treasury Wallet (Atomic Concurrency Guard)
+    const updatedWallets = await tx.$queryRawUnsafe(`
+      UPDATE "Wallet"
+      SET 
+        "${balanceField}" = "${balanceField}" - $1,
+        "${allocatedField}" = "${allocatedField}" - $1,
+        "${spentField}" = "${spentField}" + $1,
+        "updatedAt" = NOW()
+      WHERE "id" = $2 AND "${balanceField}" >= $1
+      RETURNING "id", "${balanceField}"
+    `, finalAmount, treasuryWallet.id);
+
+    if (!updatedWallets || updatedWallets.length === 0) {
+      throw {
+        status: 400,
+        message: `Insufficient Corporate Treasury Liquidity: Available ${isCash ? 'Cash' : 'Bank'} balance is insufficient for this payout.`
+      };
+    }
 
     // F. Create WalletTransaction Audit Outflow
     const walletTx = await tx.walletTransaction.create({

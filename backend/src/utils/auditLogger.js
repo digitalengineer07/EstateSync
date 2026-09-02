@@ -16,8 +16,8 @@ async function logAudit({
 }) {
   try {
     const db = tx || prisma;
-    const ip = req ? (req.headers['x-forwarded-for'] || req.socket?.remoteAddress || req.ip || '') : null;
-    const agent = req ? req.headers['user-agent'] || '' : null;
+    const ip = req?.headers ? (req.headers['x-forwarded-for'] || req.socket?.remoteAddress || req.ip || '') : (req?.ip || null);
+    const agent = req?.headers ? req.headers['user-agent'] || '' : null;
 
     return await db.auditLog.create({
       data: {
