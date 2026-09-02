@@ -316,6 +316,7 @@ exports.Prisma.CustomerScalarFieldEnum = {
   refundReferenceNo: 'refundReferenceNo',
   refundNotes: 'refundNotes',
   refundSettledById: 'refundSettledById',
+  paymentPlanId: 'paymentPlanId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -666,6 +667,7 @@ exports.Prisma.AccountingPeriodScalarFieldEnum = {
   fiscalYear: 'fiscalYear',
   month: 'month',
   periodName: 'periodName',
+  fiscalQuarter: 'fiscalQuarter',
   startDate: 'startDate',
   endDate: 'endDate',
   status: 'status',
@@ -676,6 +678,83 @@ exports.Prisma.AccountingPeriodScalarFieldEnum = {
   reopenReason: 'reopenReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PaymentPlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  projectLocation: 'projectLocation',
+  description: 'description',
+  status: 'status',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PaymentPlanMilestoneScalarFieldEnum = {
+  id: 'id',
+  planId: 'planId',
+  sequence: 'sequence',
+  name: 'name',
+  calculationType: 'calculationType',
+  percentage: 'percentage',
+  fixedAmount: 'fixedAmount',
+  dueDaysAfterTrigger: 'dueDaysAfterTrigger',
+  isTaxable: 'isTaxable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CustomerDemandNoteScalarFieldEnum = {
+  id: 'id',
+  demandNumber: 'demandNumber',
+  customerId: 'customerId',
+  milestoneId: 'milestoneId',
+  milestoneName: 'milestoneName',
+  sequence: 'sequence',
+  documentDate: 'documentDate',
+  dueDate: 'dueDate',
+  principalAmount: 'principalAmount',
+  taxAmount: 'taxAmount',
+  totalDemandAmount: 'totalDemandAmount',
+  allocatedAmount: 'allocatedAmount',
+  outstandingAmount: 'outstandingAmount',
+  status: 'status',
+  journalEntryId: 'journalEntryId',
+  issuedById: 'issuedById',
+  cancelledAt: 'cancelledAt',
+  cancelledReason: 'cancelledReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CustomerLedgerEntryScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  entryNumber: 'entryNumber',
+  postingDate: 'postingDate',
+  entryType: 'entryType',
+  referenceType: 'referenceType',
+  referenceId: 'referenceId',
+  debit: 'debit',
+  credit: 'credit',
+  runningBalance: 'runningBalance',
+  description: 'description',
+  journalEntryId: 'journalEntryId',
+  accountingPeriodId: 'accountingPeriodId',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PaymentAllocationScalarFieldEnum = {
+  id: 'id',
+  paymentId: 'paymentId',
+  demandNoteId: 'demandNoteId',
+  allocatedAmount: 'allocatedAmount',
+  allocationDate: 'allocationDate',
+  allocatedById: 'allocatedById',
+  status: 'status',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -743,7 +822,12 @@ exports.Prisma.ModelName = {
   SalaryPaymentBatch: 'SalaryPaymentBatch',
   SalaryPayment: 'SalaryPayment',
   GlobalBankReference: 'GlobalBankReference',
-  AccountingPeriod: 'AccountingPeriod'
+  AccountingPeriod: 'AccountingPeriod',
+  PaymentPlan: 'PaymentPlan',
+  PaymentPlanMilestone: 'PaymentPlanMilestone',
+  CustomerDemandNote: 'CustomerDemandNote',
+  CustomerLedgerEntry: 'CustomerLedgerEntry',
+  PaymentAllocation: 'PaymentAllocation'
 };
 
 /**

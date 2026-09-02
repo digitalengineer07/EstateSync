@@ -1,7 +1,6 @@
 generator client {
   provider   = "prisma-client-js"
   engineType = "binary"
-  output     = "../src/prisma-client"
 }
 
 datasource db {
@@ -189,6 +188,8 @@ model JournalEntry {
   payrollPosting        PayrollAccountingPosting? @relation("OriginalPostingJournal")
   reversalPayrollPosting PayrollAccountingPosting? @relation("ReversalPostingJournal")
   salaryPayment         SalaryPayment?
+  demandNotes           CustomerDemandNote[]
+  customerLedgerEntries CustomerLedgerEntry[]
   createdAt             DateTime                  @default(now())
 
   @@index([accountingPeriodId])
@@ -262,25 +263,30 @@ model Customer {
   refundReferenceNo  String?
   refundNotes        String?
   refundSettledById  String?
+  paymentPlanId      String?
+  paymentPlan        PaymentPlan?          @relation(fields: [paymentPlanId], references: [id])
   payments           CustomerPayment[]
-  createdAt          DateTime          @default(now())
-  updatedAt          DateTime          @updatedAt
+  demandNotes        CustomerDemandNote[]
+  ledgerEntries      CustomerLedgerEntry[]
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
 }
 
 model CustomerPayment {
-  id                 String    @id @default(uuid())
+  id                 String              @id @default(uuid())
   customerId         String
-  customer           Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  dateOfPayment      DateTime  @default(now())
-  amount             Decimal   @db.Decimal(15, 2)
-  paymentMode        String    // CASH, CHEQUE, NEFT, RTGS, UPI, DD
-  sourceAccount      String?   // Client bank/account description
-  destinationAccount String?   // Treasury collection bank account
-  referenceNo        String?   // UTR / Cheque / Transaction reference
+  customer           Customer            @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  dateOfPayment      DateTime            @default(now())
+  amount             Decimal             @db.Decimal(15, 2)
+  paymentMode        String              // CASH, CHEQUE, NEFT, RTGS, UPI, DD
+  sourceAccount      String?             // Client bank/account description
+  destinationAccount String?             // Treasury collection bank account
+  referenceNo        String?             // UTR / Cheque / Transaction reference
   recordedById       String
-  recordedBy         User      @relation("RecordedCustomerPayments", fields: [recordedById], references: [id])
-  status             String    @default("RECORDED") // RECORDED, REVERSED
-  createdAt          DateTime  @default(now())
+  recordedBy         User                @relation("RecordedCustomerPayments", fields: [recordedById], references: [id])
+  status             String              @default("RECORDED") // RECORDED, REVERSED
+  allocations        PaymentAllocation[]
+  createdAt          DateTime            @default(now())
 }
 
 // -------------------------------------------------------------
@@ -814,6 +820,113 @@ model AccountingPeriod {
   @@index([status])
   @@index([startDate, endDate])
 }
+
+// -------------------------------------------------------------
+// Customer Accounts Receivable & Milestone Billing Models (Phase 7)
+// -------------------------------------------------------------
+model PaymentPlan {
+  id              String                 @id @default(uuid())
+  name            String                 @unique // e.g. "STANDARD_PLOT_4_STAGE_V1"
+  projectLocation String?
+  description     String?
+  status          String                 @default("ACTIVE") // ACTIVE, INACTIVE
+  createdById     String?
+  milestones      PaymentPlanMilestone[]
+  customers       Customer[]
+  createdAt       DateTime               @default(now())
+  updatedAt       DateTime               @updatedAt
+}
+
+model PaymentPlanMilestone {
+  id                  String               @id @default(uuid())
+  planId              String
+  plan                PaymentPlan          @relation(fields: [planId], references: [id], onDelete: Cascade)
+  sequence            Int                  // 1, 2, 3...
+  name                String               // e.g. "Booking Advance", "Agreement Signing"
+  calculationType     String               @default("PERCENTAGE") // PERCENTAGE, FIXED_AMOUNT
+  percentage          Decimal?             @db.Decimal(5, 2)
+  fixedAmount         Decimal?             @db.Decimal(15, 2)
+  dueDaysAfterTrigger Int                  @default(15)
+  isTaxable           Boolean              @default(false)
+  demandNotes         CustomerDemandNote[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+
+  @@unique([planId, sequence])
+  @@index([planId])
+}
+
+model CustomerDemandNote {
+  id                  String                @id @default(uuid())
+  demandNumber        String                @unique // e.g. "DN-202609-0001"
+  customerId          String
+  customer            Customer              @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  milestoneId         String?
+  milestone           PaymentPlanMilestone? @relation(fields: [milestoneId], references: [id])
+  milestoneName       String
+  sequence            Int                   @default(1)
+  documentDate        DateTime              @default(now())
+  dueDate             DateTime
+  principalAmount     Decimal               @db.Decimal(15, 2)
+  taxAmount           Decimal               @db.Decimal(15, 2) @default(0)
+  totalDemandAmount   Decimal               @db.Decimal(15, 2)
+  allocatedAmount     Decimal               @db.Decimal(15, 2) @default(0)
+  outstandingAmount   Decimal               @db.Decimal(15, 2)
+  status              String                @default("ISSUED") // DRAFT, ISSUED, PARTIALLY_PAID, PAID, CANCELLED, CREDITED
+  journalEntryId      String?
+  journalEntry        JournalEntry?         @relation(fields: [journalEntryId], references: [id])
+  issuedById          String?
+  cancelledAt         DateTime?
+  cancelledReason     String?
+  allocations         PaymentAllocation[]
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+
+  @@index([customerId])
+  @@index([status])
+  @@index([dueDate])
+}
+
+model CustomerLedgerEntry {
+  id                  String        @id @default(uuid())
+  customerId          String
+  customer            Customer      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  entryNumber         String        @unique // e.g. "CLE-202609-0001"
+  postingDate         DateTime      @default(now())
+  entryType           String        // DEMAND_NOTE, PAYMENT_RECEIPT, CUSTOMER_ADVANCE, CREDIT_NOTE, DEBIT_NOTE, REFUND_DISBURSEMENT
+  referenceType       String        // CustomerDemandNote, CustomerPayment, CustomerCreditNote, CustomerRefund
+  referenceId         String
+  debit               Decimal       @db.Decimal(15, 2) @default(0)
+  credit              Decimal       @db.Decimal(15, 2) @default(0)
+  runningBalance      Decimal       @db.Decimal(15, 2)
+  description         String
+  journalEntryId      String?
+  journalEntry        JournalEntry? @relation(fields: [journalEntryId], references: [id])
+  accountingPeriodId  String?
+  createdById         String?
+  createdAt           DateTime      @default(now())
+
+  @@index([customerId, postingDate])
+  @@index([referenceType, referenceId])
+}
+
+model PaymentAllocation {
+  id                  String             @id @default(uuid())
+  paymentId           String
+  payment             CustomerPayment    @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  demandNoteId        String
+  demandNote          CustomerDemandNote @relation(fields: [demandNoteId], references: [id], onDelete: Cascade)
+  allocatedAmount     Decimal            @db.Decimal(15, 2)
+  allocationDate      DateTime           @default(now())
+  allocatedById       String?
+  status              String             @default("ACTIVE") // ACTIVE, REVERSED
+  createdAt           DateTime           @default(now())
+
+  @@unique([paymentId, demandNoteId])
+  @@index([paymentId])
+  @@index([demandNoteId])
+}
+
 
 
 

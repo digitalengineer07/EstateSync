@@ -183,6 +183,31 @@ export type GlobalBankReference = $Result.DefaultSelection<Prisma.$GlobalBankRef
  * 
  */
 export type AccountingPeriod = $Result.DefaultSelection<Prisma.$AccountingPeriodPayload>
+/**
+ * Model PaymentPlan
+ * 
+ */
+export type PaymentPlan = $Result.DefaultSelection<Prisma.$PaymentPlanPayload>
+/**
+ * Model PaymentPlanMilestone
+ * 
+ */
+export type PaymentPlanMilestone = $Result.DefaultSelection<Prisma.$PaymentPlanMilestonePayload>
+/**
+ * Model CustomerDemandNote
+ * 
+ */
+export type CustomerDemandNote = $Result.DefaultSelection<Prisma.$CustomerDemandNotePayload>
+/**
+ * Model CustomerLedgerEntry
+ * 
+ */
+export type CustomerLedgerEntry = $Result.DefaultSelection<Prisma.$CustomerLedgerEntryPayload>
+/**
+ * Model PaymentAllocation
+ * 
+ */
+export type PaymentAllocation = $Result.DefaultSelection<Prisma.$PaymentAllocationPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -646,6 +671,56 @@ export class PrismaClient<
     * ```
     */
   get accountingPeriod(): Prisma.AccountingPeriodDelegate<ExtArgs>;
+
+  /**
+   * `prisma.paymentPlan`: Exposes CRUD operations for the **PaymentPlan** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PaymentPlans
+    * const paymentPlans = await prisma.paymentPlan.findMany()
+    * ```
+    */
+  get paymentPlan(): Prisma.PaymentPlanDelegate<ExtArgs>;
+
+  /**
+   * `prisma.paymentPlanMilestone`: Exposes CRUD operations for the **PaymentPlanMilestone** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PaymentPlanMilestones
+    * const paymentPlanMilestones = await prisma.paymentPlanMilestone.findMany()
+    * ```
+    */
+  get paymentPlanMilestone(): Prisma.PaymentPlanMilestoneDelegate<ExtArgs>;
+
+  /**
+   * `prisma.customerDemandNote`: Exposes CRUD operations for the **CustomerDemandNote** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerDemandNotes
+    * const customerDemandNotes = await prisma.customerDemandNote.findMany()
+    * ```
+    */
+  get customerDemandNote(): Prisma.CustomerDemandNoteDelegate<ExtArgs>;
+
+  /**
+   * `prisma.customerLedgerEntry`: Exposes CRUD operations for the **CustomerLedgerEntry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerLedgerEntries
+    * const customerLedgerEntries = await prisma.customerLedgerEntry.findMany()
+    * ```
+    */
+  get customerLedgerEntry(): Prisma.CustomerLedgerEntryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.paymentAllocation`: Exposes CRUD operations for the **PaymentAllocation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PaymentAllocations
+    * const paymentAllocations = await prisma.paymentAllocation.findMany()
+    * ```
+    */
+  get paymentAllocation(): Prisma.PaymentAllocationDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1120,7 +1195,12 @@ export namespace Prisma {
     SalaryPaymentBatch: 'SalaryPaymentBatch',
     SalaryPayment: 'SalaryPayment',
     GlobalBankReference: 'GlobalBankReference',
-    AccountingPeriod: 'AccountingPeriod'
+    AccountingPeriod: 'AccountingPeriod',
+    PaymentPlan: 'PaymentPlan',
+    PaymentPlanMilestone: 'PaymentPlanMilestone',
+    CustomerDemandNote: 'CustomerDemandNote',
+    CustomerLedgerEntry: 'CustomerLedgerEntry',
+    PaymentAllocation: 'PaymentAllocation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1136,7 +1216,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "role" | "permission" | "rolePermission" | "wallet" | "walletTransaction" | "fundRequest" | "expense" | "expenseCategory" | "idempotencyKey" | "account" | "journalEntry" | "journalLine" | "auditLog" | "customer" | "customerPayment" | "propertyAcquisition" | "propertyPayment" | "employee" | "salaryComponent" | "salaryStructure" | "salaryStructureLine" | "employeeSalaryAssignment" | "payrollPeriod" | "payrollRun" | "payrollItem" | "payrollLine" | "payrollAdjustment" | "payrollException" | "payrollAccountingPosting" | "salaryPaymentBatch" | "salaryPayment" | "globalBankReference" | "accountingPeriod"
+      modelProps: "user" | "role" | "permission" | "rolePermission" | "wallet" | "walletTransaction" | "fundRequest" | "expense" | "expenseCategory" | "idempotencyKey" | "account" | "journalEntry" | "journalLine" | "auditLog" | "customer" | "customerPayment" | "propertyAcquisition" | "propertyPayment" | "employee" | "salaryComponent" | "salaryStructure" | "salaryStructureLine" | "employeeSalaryAssignment" | "payrollPeriod" | "payrollRun" | "payrollItem" | "payrollLine" | "payrollAdjustment" | "payrollException" | "payrollAccountingPosting" | "salaryPaymentBatch" | "salaryPayment" | "globalBankReference" | "accountingPeriod" | "paymentPlan" | "paymentPlanMilestone" | "customerDemandNote" | "customerLedgerEntry" | "paymentAllocation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3520,6 +3600,356 @@ export namespace Prisma {
           }
         }
       }
+      PaymentPlan: {
+        payload: Prisma.$PaymentPlanPayload<ExtArgs>
+        fields: Prisma.PaymentPlanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PaymentPlanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PaymentPlanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanPayload>
+          }
+          findFirst: {
+            args: Prisma.PaymentPlanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PaymentPlanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanPayload>
+          }
+          findMany: {
+            args: Prisma.PaymentPlanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanPayload>[]
+          }
+          create: {
+            args: Prisma.PaymentPlanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanPayload>
+          }
+          createMany: {
+            args: Prisma.PaymentPlanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PaymentPlanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanPayload>[]
+          }
+          delete: {
+            args: Prisma.PaymentPlanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanPayload>
+          }
+          update: {
+            args: Prisma.PaymentPlanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanPayload>
+          }
+          deleteMany: {
+            args: Prisma.PaymentPlanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PaymentPlanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PaymentPlanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanPayload>
+          }
+          aggregate: {
+            args: Prisma.PaymentPlanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePaymentPlan>
+          }
+          groupBy: {
+            args: Prisma.PaymentPlanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PaymentPlanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PaymentPlanCountArgs<ExtArgs>
+            result: $Utils.Optional<PaymentPlanCountAggregateOutputType> | number
+          }
+        }
+      }
+      PaymentPlanMilestone: {
+        payload: Prisma.$PaymentPlanMilestonePayload<ExtArgs>
+        fields: Prisma.PaymentPlanMilestoneFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PaymentPlanMilestoneFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanMilestonePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PaymentPlanMilestoneFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanMilestonePayload>
+          }
+          findFirst: {
+            args: Prisma.PaymentPlanMilestoneFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanMilestonePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PaymentPlanMilestoneFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanMilestonePayload>
+          }
+          findMany: {
+            args: Prisma.PaymentPlanMilestoneFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanMilestonePayload>[]
+          }
+          create: {
+            args: Prisma.PaymentPlanMilestoneCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanMilestonePayload>
+          }
+          createMany: {
+            args: Prisma.PaymentPlanMilestoneCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PaymentPlanMilestoneCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanMilestonePayload>[]
+          }
+          delete: {
+            args: Prisma.PaymentPlanMilestoneDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanMilestonePayload>
+          }
+          update: {
+            args: Prisma.PaymentPlanMilestoneUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanMilestonePayload>
+          }
+          deleteMany: {
+            args: Prisma.PaymentPlanMilestoneDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PaymentPlanMilestoneUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PaymentPlanMilestoneUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPlanMilestonePayload>
+          }
+          aggregate: {
+            args: Prisma.PaymentPlanMilestoneAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePaymentPlanMilestone>
+          }
+          groupBy: {
+            args: Prisma.PaymentPlanMilestoneGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PaymentPlanMilestoneGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PaymentPlanMilestoneCountArgs<ExtArgs>
+            result: $Utils.Optional<PaymentPlanMilestoneCountAggregateOutputType> | number
+          }
+        }
+      }
+      CustomerDemandNote: {
+        payload: Prisma.$CustomerDemandNotePayload<ExtArgs>
+        fields: Prisma.CustomerDemandNoteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomerDemandNoteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerDemandNotePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomerDemandNoteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerDemandNotePayload>
+          }
+          findFirst: {
+            args: Prisma.CustomerDemandNoteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerDemandNotePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomerDemandNoteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerDemandNotePayload>
+          }
+          findMany: {
+            args: Prisma.CustomerDemandNoteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerDemandNotePayload>[]
+          }
+          create: {
+            args: Prisma.CustomerDemandNoteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerDemandNotePayload>
+          }
+          createMany: {
+            args: Prisma.CustomerDemandNoteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomerDemandNoteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerDemandNotePayload>[]
+          }
+          delete: {
+            args: Prisma.CustomerDemandNoteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerDemandNotePayload>
+          }
+          update: {
+            args: Prisma.CustomerDemandNoteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerDemandNotePayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomerDemandNoteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomerDemandNoteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CustomerDemandNoteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerDemandNotePayload>
+          }
+          aggregate: {
+            args: Prisma.CustomerDemandNoteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomerDemandNote>
+          }
+          groupBy: {
+            args: Prisma.CustomerDemandNoteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomerDemandNoteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomerDemandNoteCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomerDemandNoteCountAggregateOutputType> | number
+          }
+        }
+      }
+      CustomerLedgerEntry: {
+        payload: Prisma.$CustomerLedgerEntryPayload<ExtArgs>
+        fields: Prisma.CustomerLedgerEntryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomerLedgerEntryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerEntryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomerLedgerEntryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerEntryPayload>
+          }
+          findFirst: {
+            args: Prisma.CustomerLedgerEntryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerEntryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomerLedgerEntryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerEntryPayload>
+          }
+          findMany: {
+            args: Prisma.CustomerLedgerEntryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerEntryPayload>[]
+          }
+          create: {
+            args: Prisma.CustomerLedgerEntryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerEntryPayload>
+          }
+          createMany: {
+            args: Prisma.CustomerLedgerEntryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomerLedgerEntryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerEntryPayload>[]
+          }
+          delete: {
+            args: Prisma.CustomerLedgerEntryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerEntryPayload>
+          }
+          update: {
+            args: Prisma.CustomerLedgerEntryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerEntryPayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomerLedgerEntryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomerLedgerEntryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CustomerLedgerEntryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerEntryPayload>
+          }
+          aggregate: {
+            args: Prisma.CustomerLedgerEntryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomerLedgerEntry>
+          }
+          groupBy: {
+            args: Prisma.CustomerLedgerEntryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomerLedgerEntryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomerLedgerEntryCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomerLedgerEntryCountAggregateOutputType> | number
+          }
+        }
+      }
+      PaymentAllocation: {
+        payload: Prisma.$PaymentAllocationPayload<ExtArgs>
+        fields: Prisma.PaymentAllocationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PaymentAllocationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentAllocationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PaymentAllocationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentAllocationPayload>
+          }
+          findFirst: {
+            args: Prisma.PaymentAllocationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentAllocationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PaymentAllocationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentAllocationPayload>
+          }
+          findMany: {
+            args: Prisma.PaymentAllocationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentAllocationPayload>[]
+          }
+          create: {
+            args: Prisma.PaymentAllocationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentAllocationPayload>
+          }
+          createMany: {
+            args: Prisma.PaymentAllocationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PaymentAllocationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentAllocationPayload>[]
+          }
+          delete: {
+            args: Prisma.PaymentAllocationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentAllocationPayload>
+          }
+          update: {
+            args: Prisma.PaymentAllocationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentAllocationPayload>
+          }
+          deleteMany: {
+            args: Prisma.PaymentAllocationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PaymentAllocationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PaymentAllocationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentAllocationPayload>
+          }
+          aggregate: {
+            args: Prisma.PaymentAllocationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePaymentAllocation>
+          }
+          groupBy: {
+            args: Prisma.PaymentAllocationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PaymentAllocationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PaymentAllocationCountArgs<ExtArgs>
+            result: $Utils.Optional<PaymentAllocationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3989,10 +4419,14 @@ export namespace Prisma {
 
   export type JournalEntryCountOutputType = {
     lines: number
+    demandNotes: number
+    customerLedgerEntries: number
   }
 
   export type JournalEntryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lines?: boolean | JournalEntryCountOutputTypeCountLinesArgs
+    demandNotes?: boolean | JournalEntryCountOutputTypeCountDemandNotesArgs
+    customerLedgerEntries?: boolean | JournalEntryCountOutputTypeCountCustomerLedgerEntriesArgs
   }
 
   // Custom InputTypes
@@ -4013,6 +4447,20 @@ export namespace Prisma {
     where?: JournalLineWhereInput
   }
 
+  /**
+   * JournalEntryCountOutputType without action
+   */
+  export type JournalEntryCountOutputTypeCountDemandNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerDemandNoteWhereInput
+  }
+
+  /**
+   * JournalEntryCountOutputType without action
+   */
+  export type JournalEntryCountOutputTypeCountCustomerLedgerEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerLedgerEntryWhereInput
+  }
+
 
   /**
    * Count Type CustomerCountOutputType
@@ -4020,10 +4468,14 @@ export namespace Prisma {
 
   export type CustomerCountOutputType = {
     payments: number
+    demandNotes: number
+    ledgerEntries: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payments?: boolean | CustomerCountOutputTypeCountPaymentsArgs
+    demandNotes?: boolean | CustomerCountOutputTypeCountDemandNotesArgs
+    ledgerEntries?: boolean | CustomerCountOutputTypeCountLedgerEntriesArgs
   }
 
   // Custom InputTypes
@@ -4042,6 +4494,51 @@ export namespace Prisma {
    */
   export type CustomerCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CustomerPaymentWhereInput
+  }
+
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountDemandNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerDemandNoteWhereInput
+  }
+
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountLedgerEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerLedgerEntryWhereInput
+  }
+
+
+  /**
+   * Count Type CustomerPaymentCountOutputType
+   */
+
+  export type CustomerPaymentCountOutputType = {
+    allocations: number
+  }
+
+  export type CustomerPaymentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    allocations?: boolean | CustomerPaymentCountOutputTypeCountAllocationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CustomerPaymentCountOutputType without action
+   */
+  export type CustomerPaymentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerPaymentCountOutputType
+     */
+    select?: CustomerPaymentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CustomerPaymentCountOutputType without action
+   */
+  export type CustomerPaymentCountOutputTypeCountAllocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentAllocationWhereInput
   }
 
 
@@ -4429,6 +4926,108 @@ export namespace Prisma {
    */
   export type AccountingPeriodCountOutputTypeCountJournalEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JournalEntryWhereInput
+  }
+
+
+  /**
+   * Count Type PaymentPlanCountOutputType
+   */
+
+  export type PaymentPlanCountOutputType = {
+    milestones: number
+    customers: number
+  }
+
+  export type PaymentPlanCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    milestones?: boolean | PaymentPlanCountOutputTypeCountMilestonesArgs
+    customers?: boolean | PaymentPlanCountOutputTypeCountCustomersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PaymentPlanCountOutputType without action
+   */
+  export type PaymentPlanCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanCountOutputType
+     */
+    select?: PaymentPlanCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PaymentPlanCountOutputType without action
+   */
+  export type PaymentPlanCountOutputTypeCountMilestonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentPlanMilestoneWhereInput
+  }
+
+  /**
+   * PaymentPlanCountOutputType without action
+   */
+  export type PaymentPlanCountOutputTypeCountCustomersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerWhereInput
+  }
+
+
+  /**
+   * Count Type PaymentPlanMilestoneCountOutputType
+   */
+
+  export type PaymentPlanMilestoneCountOutputType = {
+    demandNotes: number
+  }
+
+  export type PaymentPlanMilestoneCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    demandNotes?: boolean | PaymentPlanMilestoneCountOutputTypeCountDemandNotesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PaymentPlanMilestoneCountOutputType without action
+   */
+  export type PaymentPlanMilestoneCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestoneCountOutputType
+     */
+    select?: PaymentPlanMilestoneCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PaymentPlanMilestoneCountOutputType without action
+   */
+  export type PaymentPlanMilestoneCountOutputTypeCountDemandNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerDemandNoteWhereInput
+  }
+
+
+  /**
+   * Count Type CustomerDemandNoteCountOutputType
+   */
+
+  export type CustomerDemandNoteCountOutputType = {
+    allocations: number
+  }
+
+  export type CustomerDemandNoteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    allocations?: boolean | CustomerDemandNoteCountOutputTypeCountAllocationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CustomerDemandNoteCountOutputType without action
+   */
+  export type CustomerDemandNoteCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNoteCountOutputType
+     */
+    select?: CustomerDemandNoteCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CustomerDemandNoteCountOutputType without action
+   */
+  export type CustomerDemandNoteCountOutputTypeCountAllocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentAllocationWhereInput
   }
 
 
@@ -15968,6 +16567,8 @@ export namespace Prisma {
     payrollPosting?: boolean | JournalEntry$payrollPostingArgs<ExtArgs>
     reversalPayrollPosting?: boolean | JournalEntry$reversalPayrollPostingArgs<ExtArgs>
     salaryPayment?: boolean | JournalEntry$salaryPaymentArgs<ExtArgs>
+    demandNotes?: boolean | JournalEntry$demandNotesArgs<ExtArgs>
+    customerLedgerEntries?: boolean | JournalEntry$customerLedgerEntriesArgs<ExtArgs>
     _count?: boolean | JournalEntryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["journalEntry"]>
 
@@ -16004,6 +16605,8 @@ export namespace Prisma {
     payrollPosting?: boolean | JournalEntry$payrollPostingArgs<ExtArgs>
     reversalPayrollPosting?: boolean | JournalEntry$reversalPayrollPostingArgs<ExtArgs>
     salaryPayment?: boolean | JournalEntry$salaryPaymentArgs<ExtArgs>
+    demandNotes?: boolean | JournalEntry$demandNotesArgs<ExtArgs>
+    customerLedgerEntries?: boolean | JournalEntry$customerLedgerEntriesArgs<ExtArgs>
     _count?: boolean | JournalEntryCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type JournalEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16018,6 +16621,8 @@ export namespace Prisma {
       payrollPosting: Prisma.$PayrollAccountingPostingPayload<ExtArgs> | null
       reversalPayrollPosting: Prisma.$PayrollAccountingPostingPayload<ExtArgs> | null
       salaryPayment: Prisma.$SalaryPaymentPayload<ExtArgs> | null
+      demandNotes: Prisma.$CustomerDemandNotePayload<ExtArgs>[]
+      customerLedgerEntries: Prisma.$CustomerLedgerEntryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -16399,6 +17004,8 @@ export namespace Prisma {
     payrollPosting<T extends JournalEntry$payrollPostingArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$payrollPostingArgs<ExtArgs>>): Prisma__PayrollAccountingPostingClient<$Result.GetResult<Prisma.$PayrollAccountingPostingPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     reversalPayrollPosting<T extends JournalEntry$reversalPayrollPostingArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$reversalPayrollPostingArgs<ExtArgs>>): Prisma__PayrollAccountingPostingClient<$Result.GetResult<Prisma.$PayrollAccountingPostingPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     salaryPayment<T extends JournalEntry$salaryPaymentArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$salaryPaymentArgs<ExtArgs>>): Prisma__SalaryPaymentClient<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    demandNotes<T extends JournalEntry$demandNotesArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$demandNotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "findMany"> | Null>
+    customerLedgerEntries<T extends JournalEntry$customerLedgerEntriesArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$customerLedgerEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerLedgerEntryPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16833,6 +17440,46 @@ export namespace Prisma {
      */
     include?: SalaryPaymentInclude<ExtArgs> | null
     where?: SalaryPaymentWhereInput
+  }
+
+  /**
+   * JournalEntry.demandNotes
+   */
+  export type JournalEntry$demandNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+    where?: CustomerDemandNoteWhereInput
+    orderBy?: CustomerDemandNoteOrderByWithRelationInput | CustomerDemandNoteOrderByWithRelationInput[]
+    cursor?: CustomerDemandNoteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerDemandNoteScalarFieldEnum | CustomerDemandNoteScalarFieldEnum[]
+  }
+
+  /**
+   * JournalEntry.customerLedgerEntries
+   */
+  export type JournalEntry$customerLedgerEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryInclude<ExtArgs> | null
+    where?: CustomerLedgerEntryWhereInput
+    orderBy?: CustomerLedgerEntryOrderByWithRelationInput | CustomerLedgerEntryOrderByWithRelationInput[]
+    cursor?: CustomerLedgerEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerLedgerEntryScalarFieldEnum | CustomerLedgerEntryScalarFieldEnum[]
   }
 
   /**
@@ -18926,6 +19573,7 @@ export namespace Prisma {
     refundReferenceNo: string | null
     refundNotes: string | null
     refundSettledById: string | null
+    paymentPlanId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -18963,6 +19611,7 @@ export namespace Prisma {
     refundReferenceNo: string | null
     refundNotes: string | null
     refundSettledById: string | null
+    paymentPlanId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -19001,6 +19650,7 @@ export namespace Prisma {
     refundReferenceNo: number
     refundNotes: number
     refundSettledById: number
+    paymentPlanId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -19070,6 +19720,7 @@ export namespace Prisma {
     refundReferenceNo?: true
     refundNotes?: true
     refundSettledById?: true
+    paymentPlanId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -19107,6 +19758,7 @@ export namespace Prisma {
     refundReferenceNo?: true
     refundNotes?: true
     refundSettledById?: true
+    paymentPlanId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -19145,6 +19797,7 @@ export namespace Prisma {
     refundReferenceNo?: true
     refundNotes?: true
     refundSettledById?: true
+    paymentPlanId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -19270,6 +19923,7 @@ export namespace Prisma {
     refundReferenceNo: string | null
     refundNotes: string | null
     refundSettledById: string | null
+    paymentPlanId: string | null
     createdAt: Date
     updatedAt: Date
     _count: CustomerCountAggregateOutputType | null
@@ -19327,10 +19981,14 @@ export namespace Prisma {
     refundReferenceNo?: boolean
     refundNotes?: boolean
     refundSettledById?: boolean
+    paymentPlanId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     salesOwner?: boolean | UserDefaultArgs<ExtArgs>
+    paymentPlan?: boolean | Customer$paymentPlanArgs<ExtArgs>
     payments?: boolean | Customer$paymentsArgs<ExtArgs>
+    demandNotes?: boolean | Customer$demandNotesArgs<ExtArgs>
+    ledgerEntries?: boolean | Customer$ledgerEntriesArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
@@ -19368,9 +20026,11 @@ export namespace Prisma {
     refundReferenceNo?: boolean
     refundNotes?: boolean
     refundSettledById?: boolean
+    paymentPlanId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     salesOwner?: boolean | UserDefaultArgs<ExtArgs>
+    paymentPlan?: boolean | Customer$paymentPlanArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
   export type CustomerSelectScalar = {
@@ -19407,24 +20067,32 @@ export namespace Prisma {
     refundReferenceNo?: boolean
     refundNotes?: boolean
     refundSettledById?: boolean
+    paymentPlanId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
   export type CustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     salesOwner?: boolean | UserDefaultArgs<ExtArgs>
+    paymentPlan?: boolean | Customer$paymentPlanArgs<ExtArgs>
     payments?: boolean | Customer$paymentsArgs<ExtArgs>
+    demandNotes?: boolean | Customer$demandNotesArgs<ExtArgs>
+    ledgerEntries?: boolean | Customer$ledgerEntriesArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     salesOwner?: boolean | UserDefaultArgs<ExtArgs>
+    paymentPlan?: boolean | Customer$paymentPlanArgs<ExtArgs>
   }
 
   export type $CustomerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Customer"
     objects: {
       salesOwner: Prisma.$UserPayload<ExtArgs>
+      paymentPlan: Prisma.$PaymentPlanPayload<ExtArgs> | null
       payments: Prisma.$CustomerPaymentPayload<ExtArgs>[]
+      demandNotes: Prisma.$CustomerDemandNotePayload<ExtArgs>[]
+      ledgerEntries: Prisma.$CustomerLedgerEntryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -19460,6 +20128,7 @@ export namespace Prisma {
       refundReferenceNo: string | null
       refundNotes: string | null
       refundSettledById: string | null
+      paymentPlanId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["customer"]>
@@ -19827,7 +20496,10 @@ export namespace Prisma {
   export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     salesOwner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    paymentPlan<T extends Customer$paymentPlanArgs<ExtArgs> = {}>(args?: Subset<T, Customer$paymentPlanArgs<ExtArgs>>): Prisma__PaymentPlanClient<$Result.GetResult<Prisma.$PaymentPlanPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     payments<T extends Customer$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPaymentPayload<ExtArgs>, T, "findMany"> | Null>
+    demandNotes<T extends Customer$demandNotesArgs<ExtArgs> = {}>(args?: Subset<T, Customer$demandNotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "findMany"> | Null>
+    ledgerEntries<T extends Customer$ledgerEntriesArgs<ExtArgs> = {}>(args?: Subset<T, Customer$ledgerEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerLedgerEntryPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19890,6 +20562,7 @@ export namespace Prisma {
     readonly refundReferenceNo: FieldRef<"Customer", 'String'>
     readonly refundNotes: FieldRef<"Customer", 'String'>
     readonly refundSettledById: FieldRef<"Customer", 'String'>
+    readonly paymentPlanId: FieldRef<"Customer", 'String'>
     readonly createdAt: FieldRef<"Customer", 'DateTime'>
     readonly updatedAt: FieldRef<"Customer", 'DateTime'>
   }
@@ -20210,6 +20883,21 @@ export namespace Prisma {
   }
 
   /**
+   * Customer.paymentPlan
+   */
+  export type Customer$paymentPlanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlan
+     */
+    select?: PaymentPlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanInclude<ExtArgs> | null
+    where?: PaymentPlanWhereInput
+  }
+
+  /**
    * Customer.payments
    */
   export type Customer$paymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -20227,6 +20915,46 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CustomerPaymentScalarFieldEnum | CustomerPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * Customer.demandNotes
+   */
+  export type Customer$demandNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+    where?: CustomerDemandNoteWhereInput
+    orderBy?: CustomerDemandNoteOrderByWithRelationInput | CustomerDemandNoteOrderByWithRelationInput[]
+    cursor?: CustomerDemandNoteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerDemandNoteScalarFieldEnum | CustomerDemandNoteScalarFieldEnum[]
+  }
+
+  /**
+   * Customer.ledgerEntries
+   */
+  export type Customer$ledgerEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryInclude<ExtArgs> | null
+    where?: CustomerLedgerEntryWhereInput
+    orderBy?: CustomerLedgerEntryOrderByWithRelationInput | CustomerLedgerEntryOrderByWithRelationInput[]
+    cursor?: CustomerLedgerEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerLedgerEntryScalarFieldEnum | CustomerLedgerEntryScalarFieldEnum[]
   }
 
   /**
@@ -20492,6 +21220,8 @@ export namespace Prisma {
     createdAt?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     recordedBy?: boolean | UserDefaultArgs<ExtArgs>
+    allocations?: boolean | CustomerPayment$allocationsArgs<ExtArgs>
+    _count?: boolean | CustomerPaymentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customerPayment"]>
 
   export type CustomerPaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -20527,6 +21257,8 @@ export namespace Prisma {
   export type CustomerPaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     recordedBy?: boolean | UserDefaultArgs<ExtArgs>
+    allocations?: boolean | CustomerPayment$allocationsArgs<ExtArgs>
+    _count?: boolean | CustomerPaymentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerPaymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -20538,6 +21270,7 @@ export namespace Prisma {
     objects: {
       customer: Prisma.$CustomerPayload<ExtArgs>
       recordedBy: Prisma.$UserPayload<ExtArgs>
+      allocations: Prisma.$PaymentAllocationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -20917,6 +21650,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     recordedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    allocations<T extends CustomerPayment$allocationsArgs<ExtArgs> = {}>(args?: Subset<T, CustomerPayment$allocationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21272,6 +22006,26 @@ export namespace Prisma {
      * Filter which CustomerPayments to delete
      */
     where?: CustomerPaymentWhereInput
+  }
+
+  /**
+   * CustomerPayment.allocations
+   */
+  export type CustomerPayment$allocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+    where?: PaymentAllocationWhereInput
+    orderBy?: PaymentAllocationOrderByWithRelationInput | PaymentAllocationOrderByWithRelationInput[]
+    cursor?: PaymentAllocationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PaymentAllocationScalarFieldEnum | PaymentAllocationScalarFieldEnum[]
   }
 
   /**
@@ -40699,6 +41453,7 @@ export namespace Prisma {
     fiscalYear: number | null
     month: number | null
     periodName: string | null
+    fiscalQuarter: string | null
     startDate: Date | null
     endDate: Date | null
     status: string | null
@@ -40716,6 +41471,7 @@ export namespace Prisma {
     fiscalYear: number | null
     month: number | null
     periodName: string | null
+    fiscalQuarter: string | null
     startDate: Date | null
     endDate: Date | null
     status: string | null
@@ -40733,6 +41489,7 @@ export namespace Prisma {
     fiscalYear: number
     month: number
     periodName: number
+    fiscalQuarter: number
     startDate: number
     endDate: number
     status: number
@@ -40762,6 +41519,7 @@ export namespace Prisma {
     fiscalYear?: true
     month?: true
     periodName?: true
+    fiscalQuarter?: true
     startDate?: true
     endDate?: true
     status?: true
@@ -40779,6 +41537,7 @@ export namespace Prisma {
     fiscalYear?: true
     month?: true
     periodName?: true
+    fiscalQuarter?: true
     startDate?: true
     endDate?: true
     status?: true
@@ -40796,6 +41555,7 @@ export namespace Prisma {
     fiscalYear?: true
     month?: true
     periodName?: true
+    fiscalQuarter?: true
     startDate?: true
     endDate?: true
     status?: true
@@ -40900,6 +41660,7 @@ export namespace Prisma {
     fiscalYear: number
     month: number
     periodName: string
+    fiscalQuarter: string | null
     startDate: Date
     endDate: Date
     status: string
@@ -40936,6 +41697,7 @@ export namespace Prisma {
     fiscalYear?: boolean
     month?: boolean
     periodName?: boolean
+    fiscalQuarter?: boolean
     startDate?: boolean
     endDate?: boolean
     status?: boolean
@@ -40955,6 +41717,7 @@ export namespace Prisma {
     fiscalYear?: boolean
     month?: boolean
     periodName?: boolean
+    fiscalQuarter?: boolean
     startDate?: boolean
     endDate?: boolean
     status?: boolean
@@ -40972,6 +41735,7 @@ export namespace Prisma {
     fiscalYear?: boolean
     month?: boolean
     periodName?: boolean
+    fiscalQuarter?: boolean
     startDate?: boolean
     endDate?: boolean
     status?: boolean
@@ -41000,6 +41764,7 @@ export namespace Prisma {
       fiscalYear: number
       month: number
       periodName: string
+      fiscalQuarter: string | null
       startDate: Date
       endDate: Date
       status: string
@@ -41408,6 +42173,7 @@ export namespace Prisma {
     readonly fiscalYear: FieldRef<"AccountingPeriod", 'Int'>
     readonly month: FieldRef<"AccountingPeriod", 'Int'>
     readonly periodName: FieldRef<"AccountingPeriod", 'String'>
+    readonly fiscalQuarter: FieldRef<"AccountingPeriod", 'String'>
     readonly startDate: FieldRef<"AccountingPeriod", 'DateTime'>
     readonly endDate: FieldRef<"AccountingPeriod", 'DateTime'>
     readonly status: FieldRef<"AccountingPeriod", 'String'>
@@ -41767,6 +42533,5451 @@ export namespace Prisma {
 
 
   /**
+   * Model PaymentPlan
+   */
+
+  export type AggregatePaymentPlan = {
+    _count: PaymentPlanCountAggregateOutputType | null
+    _min: PaymentPlanMinAggregateOutputType | null
+    _max: PaymentPlanMaxAggregateOutputType | null
+  }
+
+  export type PaymentPlanMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    projectLocation: string | null
+    description: string | null
+    status: string | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PaymentPlanMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    projectLocation: string | null
+    description: string | null
+    status: string | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PaymentPlanCountAggregateOutputType = {
+    id: number
+    name: number
+    projectLocation: number
+    description: number
+    status: number
+    createdById: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PaymentPlanMinAggregateInputType = {
+    id?: true
+    name?: true
+    projectLocation?: true
+    description?: true
+    status?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PaymentPlanMaxAggregateInputType = {
+    id?: true
+    name?: true
+    projectLocation?: true
+    description?: true
+    status?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PaymentPlanCountAggregateInputType = {
+    id?: true
+    name?: true
+    projectLocation?: true
+    description?: true
+    status?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PaymentPlanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PaymentPlan to aggregate.
+     */
+    where?: PaymentPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentPlans to fetch.
+     */
+    orderBy?: PaymentPlanOrderByWithRelationInput | PaymentPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PaymentPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PaymentPlans
+    **/
+    _count?: true | PaymentPlanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PaymentPlanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PaymentPlanMaxAggregateInputType
+  }
+
+  export type GetPaymentPlanAggregateType<T extends PaymentPlanAggregateArgs> = {
+        [P in keyof T & keyof AggregatePaymentPlan]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePaymentPlan[P]>
+      : GetScalarType<T[P], AggregatePaymentPlan[P]>
+  }
+
+
+
+
+  export type PaymentPlanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentPlanWhereInput
+    orderBy?: PaymentPlanOrderByWithAggregationInput | PaymentPlanOrderByWithAggregationInput[]
+    by: PaymentPlanScalarFieldEnum[] | PaymentPlanScalarFieldEnum
+    having?: PaymentPlanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PaymentPlanCountAggregateInputType | true
+    _min?: PaymentPlanMinAggregateInputType
+    _max?: PaymentPlanMaxAggregateInputType
+  }
+
+  export type PaymentPlanGroupByOutputType = {
+    id: string
+    name: string
+    projectLocation: string | null
+    description: string | null
+    status: string
+    createdById: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: PaymentPlanCountAggregateOutputType | null
+    _min: PaymentPlanMinAggregateOutputType | null
+    _max: PaymentPlanMaxAggregateOutputType | null
+  }
+
+  type GetPaymentPlanGroupByPayload<T extends PaymentPlanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PaymentPlanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PaymentPlanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PaymentPlanGroupByOutputType[P]>
+            : GetScalarType<T[P], PaymentPlanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PaymentPlanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    projectLocation?: boolean
+    description?: boolean
+    status?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    milestones?: boolean | PaymentPlan$milestonesArgs<ExtArgs>
+    customers?: boolean | PaymentPlan$customersArgs<ExtArgs>
+    _count?: boolean | PaymentPlanCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["paymentPlan"]>
+
+  export type PaymentPlanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    projectLocation?: boolean
+    description?: boolean
+    status?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["paymentPlan"]>
+
+  export type PaymentPlanSelectScalar = {
+    id?: boolean
+    name?: boolean
+    projectLocation?: boolean
+    description?: boolean
+    status?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PaymentPlanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    milestones?: boolean | PaymentPlan$milestonesArgs<ExtArgs>
+    customers?: boolean | PaymentPlan$customersArgs<ExtArgs>
+    _count?: boolean | PaymentPlanCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PaymentPlanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $PaymentPlanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PaymentPlan"
+    objects: {
+      milestones: Prisma.$PaymentPlanMilestonePayload<ExtArgs>[]
+      customers: Prisma.$CustomerPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      projectLocation: string | null
+      description: string | null
+      status: string
+      createdById: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["paymentPlan"]>
+    composites: {}
+  }
+
+  type PaymentPlanGetPayload<S extends boolean | null | undefined | PaymentPlanDefaultArgs> = $Result.GetResult<Prisma.$PaymentPlanPayload, S>
+
+  type PaymentPlanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PaymentPlanFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PaymentPlanCountAggregateInputType | true
+    }
+
+  export interface PaymentPlanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PaymentPlan'], meta: { name: 'PaymentPlan' } }
+    /**
+     * Find zero or one PaymentPlan that matches the filter.
+     * @param {PaymentPlanFindUniqueArgs} args - Arguments to find a PaymentPlan
+     * @example
+     * // Get one PaymentPlan
+     * const paymentPlan = await prisma.paymentPlan.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PaymentPlanFindUniqueArgs>(args: SelectSubset<T, PaymentPlanFindUniqueArgs<ExtArgs>>): Prisma__PaymentPlanClient<$Result.GetResult<Prisma.$PaymentPlanPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PaymentPlan that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PaymentPlanFindUniqueOrThrowArgs} args - Arguments to find a PaymentPlan
+     * @example
+     * // Get one PaymentPlan
+     * const paymentPlan = await prisma.paymentPlan.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PaymentPlanFindUniqueOrThrowArgs>(args: SelectSubset<T, PaymentPlanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PaymentPlanClient<$Result.GetResult<Prisma.$PaymentPlanPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PaymentPlan that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanFindFirstArgs} args - Arguments to find a PaymentPlan
+     * @example
+     * // Get one PaymentPlan
+     * const paymentPlan = await prisma.paymentPlan.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PaymentPlanFindFirstArgs>(args?: SelectSubset<T, PaymentPlanFindFirstArgs<ExtArgs>>): Prisma__PaymentPlanClient<$Result.GetResult<Prisma.$PaymentPlanPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PaymentPlan that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanFindFirstOrThrowArgs} args - Arguments to find a PaymentPlan
+     * @example
+     * // Get one PaymentPlan
+     * const paymentPlan = await prisma.paymentPlan.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PaymentPlanFindFirstOrThrowArgs>(args?: SelectSubset<T, PaymentPlanFindFirstOrThrowArgs<ExtArgs>>): Prisma__PaymentPlanClient<$Result.GetResult<Prisma.$PaymentPlanPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PaymentPlans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PaymentPlans
+     * const paymentPlans = await prisma.paymentPlan.findMany()
+     * 
+     * // Get first 10 PaymentPlans
+     * const paymentPlans = await prisma.paymentPlan.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const paymentPlanWithIdOnly = await prisma.paymentPlan.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PaymentPlanFindManyArgs>(args?: SelectSubset<T, PaymentPlanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPlanPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PaymentPlan.
+     * @param {PaymentPlanCreateArgs} args - Arguments to create a PaymentPlan.
+     * @example
+     * // Create one PaymentPlan
+     * const PaymentPlan = await prisma.paymentPlan.create({
+     *   data: {
+     *     // ... data to create a PaymentPlan
+     *   }
+     * })
+     * 
+     */
+    create<T extends PaymentPlanCreateArgs>(args: SelectSubset<T, PaymentPlanCreateArgs<ExtArgs>>): Prisma__PaymentPlanClient<$Result.GetResult<Prisma.$PaymentPlanPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PaymentPlans.
+     * @param {PaymentPlanCreateManyArgs} args - Arguments to create many PaymentPlans.
+     * @example
+     * // Create many PaymentPlans
+     * const paymentPlan = await prisma.paymentPlan.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PaymentPlanCreateManyArgs>(args?: SelectSubset<T, PaymentPlanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PaymentPlans and returns the data saved in the database.
+     * @param {PaymentPlanCreateManyAndReturnArgs} args - Arguments to create many PaymentPlans.
+     * @example
+     * // Create many PaymentPlans
+     * const paymentPlan = await prisma.paymentPlan.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PaymentPlans and only return the `id`
+     * const paymentPlanWithIdOnly = await prisma.paymentPlan.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PaymentPlanCreateManyAndReturnArgs>(args?: SelectSubset<T, PaymentPlanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPlanPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PaymentPlan.
+     * @param {PaymentPlanDeleteArgs} args - Arguments to delete one PaymentPlan.
+     * @example
+     * // Delete one PaymentPlan
+     * const PaymentPlan = await prisma.paymentPlan.delete({
+     *   where: {
+     *     // ... filter to delete one PaymentPlan
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PaymentPlanDeleteArgs>(args: SelectSubset<T, PaymentPlanDeleteArgs<ExtArgs>>): Prisma__PaymentPlanClient<$Result.GetResult<Prisma.$PaymentPlanPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PaymentPlan.
+     * @param {PaymentPlanUpdateArgs} args - Arguments to update one PaymentPlan.
+     * @example
+     * // Update one PaymentPlan
+     * const paymentPlan = await prisma.paymentPlan.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PaymentPlanUpdateArgs>(args: SelectSubset<T, PaymentPlanUpdateArgs<ExtArgs>>): Prisma__PaymentPlanClient<$Result.GetResult<Prisma.$PaymentPlanPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PaymentPlans.
+     * @param {PaymentPlanDeleteManyArgs} args - Arguments to filter PaymentPlans to delete.
+     * @example
+     * // Delete a few PaymentPlans
+     * const { count } = await prisma.paymentPlan.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PaymentPlanDeleteManyArgs>(args?: SelectSubset<T, PaymentPlanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PaymentPlans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PaymentPlans
+     * const paymentPlan = await prisma.paymentPlan.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PaymentPlanUpdateManyArgs>(args: SelectSubset<T, PaymentPlanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PaymentPlan.
+     * @param {PaymentPlanUpsertArgs} args - Arguments to update or create a PaymentPlan.
+     * @example
+     * // Update or create a PaymentPlan
+     * const paymentPlan = await prisma.paymentPlan.upsert({
+     *   create: {
+     *     // ... data to create a PaymentPlan
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PaymentPlan we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PaymentPlanUpsertArgs>(args: SelectSubset<T, PaymentPlanUpsertArgs<ExtArgs>>): Prisma__PaymentPlanClient<$Result.GetResult<Prisma.$PaymentPlanPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PaymentPlans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanCountArgs} args - Arguments to filter PaymentPlans to count.
+     * @example
+     * // Count the number of PaymentPlans
+     * const count = await prisma.paymentPlan.count({
+     *   where: {
+     *     // ... the filter for the PaymentPlans we want to count
+     *   }
+     * })
+    **/
+    count<T extends PaymentPlanCountArgs>(
+      args?: Subset<T, PaymentPlanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PaymentPlanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PaymentPlan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PaymentPlanAggregateArgs>(args: Subset<T, PaymentPlanAggregateArgs>): Prisma.PrismaPromise<GetPaymentPlanAggregateType<T>>
+
+    /**
+     * Group by PaymentPlan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PaymentPlanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PaymentPlanGroupByArgs['orderBy'] }
+        : { orderBy?: PaymentPlanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PaymentPlanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPaymentPlanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PaymentPlan model
+   */
+  readonly fields: PaymentPlanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PaymentPlan.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PaymentPlanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    milestones<T extends PaymentPlan$milestonesArgs<ExtArgs> = {}>(args?: Subset<T, PaymentPlan$milestonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPlanMilestonePayload<ExtArgs>, T, "findMany"> | Null>
+    customers<T extends PaymentPlan$customersArgs<ExtArgs> = {}>(args?: Subset<T, PaymentPlan$customersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PaymentPlan model
+   */ 
+  interface PaymentPlanFieldRefs {
+    readonly id: FieldRef<"PaymentPlan", 'String'>
+    readonly name: FieldRef<"PaymentPlan", 'String'>
+    readonly projectLocation: FieldRef<"PaymentPlan", 'String'>
+    readonly description: FieldRef<"PaymentPlan", 'String'>
+    readonly status: FieldRef<"PaymentPlan", 'String'>
+    readonly createdById: FieldRef<"PaymentPlan", 'String'>
+    readonly createdAt: FieldRef<"PaymentPlan", 'DateTime'>
+    readonly updatedAt: FieldRef<"PaymentPlan", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PaymentPlan findUnique
+   */
+  export type PaymentPlanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlan
+     */
+    select?: PaymentPlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentPlan to fetch.
+     */
+    where: PaymentPlanWhereUniqueInput
+  }
+
+  /**
+   * PaymentPlan findUniqueOrThrow
+   */
+  export type PaymentPlanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlan
+     */
+    select?: PaymentPlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentPlan to fetch.
+     */
+    where: PaymentPlanWhereUniqueInput
+  }
+
+  /**
+   * PaymentPlan findFirst
+   */
+  export type PaymentPlanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlan
+     */
+    select?: PaymentPlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentPlan to fetch.
+     */
+    where?: PaymentPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentPlans to fetch.
+     */
+    orderBy?: PaymentPlanOrderByWithRelationInput | PaymentPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PaymentPlans.
+     */
+    cursor?: PaymentPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PaymentPlans.
+     */
+    distinct?: PaymentPlanScalarFieldEnum | PaymentPlanScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentPlan findFirstOrThrow
+   */
+  export type PaymentPlanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlan
+     */
+    select?: PaymentPlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentPlan to fetch.
+     */
+    where?: PaymentPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentPlans to fetch.
+     */
+    orderBy?: PaymentPlanOrderByWithRelationInput | PaymentPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PaymentPlans.
+     */
+    cursor?: PaymentPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PaymentPlans.
+     */
+    distinct?: PaymentPlanScalarFieldEnum | PaymentPlanScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentPlan findMany
+   */
+  export type PaymentPlanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlan
+     */
+    select?: PaymentPlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentPlans to fetch.
+     */
+    where?: PaymentPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentPlans to fetch.
+     */
+    orderBy?: PaymentPlanOrderByWithRelationInput | PaymentPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PaymentPlans.
+     */
+    cursor?: PaymentPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentPlans.
+     */
+    skip?: number
+    distinct?: PaymentPlanScalarFieldEnum | PaymentPlanScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentPlan create
+   */
+  export type PaymentPlanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlan
+     */
+    select?: PaymentPlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PaymentPlan.
+     */
+    data: XOR<PaymentPlanCreateInput, PaymentPlanUncheckedCreateInput>
+  }
+
+  /**
+   * PaymentPlan createMany
+   */
+  export type PaymentPlanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PaymentPlans.
+     */
+    data: PaymentPlanCreateManyInput | PaymentPlanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PaymentPlan createManyAndReturn
+   */
+  export type PaymentPlanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlan
+     */
+    select?: PaymentPlanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PaymentPlans.
+     */
+    data: PaymentPlanCreateManyInput | PaymentPlanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PaymentPlan update
+   */
+  export type PaymentPlanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlan
+     */
+    select?: PaymentPlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PaymentPlan.
+     */
+    data: XOR<PaymentPlanUpdateInput, PaymentPlanUncheckedUpdateInput>
+    /**
+     * Choose, which PaymentPlan to update.
+     */
+    where: PaymentPlanWhereUniqueInput
+  }
+
+  /**
+   * PaymentPlan updateMany
+   */
+  export type PaymentPlanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PaymentPlans.
+     */
+    data: XOR<PaymentPlanUpdateManyMutationInput, PaymentPlanUncheckedUpdateManyInput>
+    /**
+     * Filter which PaymentPlans to update
+     */
+    where?: PaymentPlanWhereInput
+  }
+
+  /**
+   * PaymentPlan upsert
+   */
+  export type PaymentPlanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlan
+     */
+    select?: PaymentPlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PaymentPlan to update in case it exists.
+     */
+    where: PaymentPlanWhereUniqueInput
+    /**
+     * In case the PaymentPlan found by the `where` argument doesn't exist, create a new PaymentPlan with this data.
+     */
+    create: XOR<PaymentPlanCreateInput, PaymentPlanUncheckedCreateInput>
+    /**
+     * In case the PaymentPlan was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PaymentPlanUpdateInput, PaymentPlanUncheckedUpdateInput>
+  }
+
+  /**
+   * PaymentPlan delete
+   */
+  export type PaymentPlanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlan
+     */
+    select?: PaymentPlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanInclude<ExtArgs> | null
+    /**
+     * Filter which PaymentPlan to delete.
+     */
+    where: PaymentPlanWhereUniqueInput
+  }
+
+  /**
+   * PaymentPlan deleteMany
+   */
+  export type PaymentPlanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PaymentPlans to delete
+     */
+    where?: PaymentPlanWhereInput
+  }
+
+  /**
+   * PaymentPlan.milestones
+   */
+  export type PaymentPlan$milestonesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneInclude<ExtArgs> | null
+    where?: PaymentPlanMilestoneWhereInput
+    orderBy?: PaymentPlanMilestoneOrderByWithRelationInput | PaymentPlanMilestoneOrderByWithRelationInput[]
+    cursor?: PaymentPlanMilestoneWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PaymentPlanMilestoneScalarFieldEnum | PaymentPlanMilestoneScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentPlan.customers
+   */
+  export type PaymentPlan$customersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null
+    where?: CustomerWhereInput
+    orderBy?: CustomerOrderByWithRelationInput | CustomerOrderByWithRelationInput[]
+    cursor?: CustomerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerScalarFieldEnum | CustomerScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentPlan without action
+   */
+  export type PaymentPlanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlan
+     */
+    select?: PaymentPlanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PaymentPlanMilestone
+   */
+
+  export type AggregatePaymentPlanMilestone = {
+    _count: PaymentPlanMilestoneCountAggregateOutputType | null
+    _avg: PaymentPlanMilestoneAvgAggregateOutputType | null
+    _sum: PaymentPlanMilestoneSumAggregateOutputType | null
+    _min: PaymentPlanMilestoneMinAggregateOutputType | null
+    _max: PaymentPlanMilestoneMaxAggregateOutputType | null
+  }
+
+  export type PaymentPlanMilestoneAvgAggregateOutputType = {
+    sequence: number | null
+    percentage: Decimal | null
+    fixedAmount: Decimal | null
+    dueDaysAfterTrigger: number | null
+  }
+
+  export type PaymentPlanMilestoneSumAggregateOutputType = {
+    sequence: number | null
+    percentage: Decimal | null
+    fixedAmount: Decimal | null
+    dueDaysAfterTrigger: number | null
+  }
+
+  export type PaymentPlanMilestoneMinAggregateOutputType = {
+    id: string | null
+    planId: string | null
+    sequence: number | null
+    name: string | null
+    calculationType: string | null
+    percentage: Decimal | null
+    fixedAmount: Decimal | null
+    dueDaysAfterTrigger: number | null
+    isTaxable: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PaymentPlanMilestoneMaxAggregateOutputType = {
+    id: string | null
+    planId: string | null
+    sequence: number | null
+    name: string | null
+    calculationType: string | null
+    percentage: Decimal | null
+    fixedAmount: Decimal | null
+    dueDaysAfterTrigger: number | null
+    isTaxable: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PaymentPlanMilestoneCountAggregateOutputType = {
+    id: number
+    planId: number
+    sequence: number
+    name: number
+    calculationType: number
+    percentage: number
+    fixedAmount: number
+    dueDaysAfterTrigger: number
+    isTaxable: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PaymentPlanMilestoneAvgAggregateInputType = {
+    sequence?: true
+    percentage?: true
+    fixedAmount?: true
+    dueDaysAfterTrigger?: true
+  }
+
+  export type PaymentPlanMilestoneSumAggregateInputType = {
+    sequence?: true
+    percentage?: true
+    fixedAmount?: true
+    dueDaysAfterTrigger?: true
+  }
+
+  export type PaymentPlanMilestoneMinAggregateInputType = {
+    id?: true
+    planId?: true
+    sequence?: true
+    name?: true
+    calculationType?: true
+    percentage?: true
+    fixedAmount?: true
+    dueDaysAfterTrigger?: true
+    isTaxable?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PaymentPlanMilestoneMaxAggregateInputType = {
+    id?: true
+    planId?: true
+    sequence?: true
+    name?: true
+    calculationType?: true
+    percentage?: true
+    fixedAmount?: true
+    dueDaysAfterTrigger?: true
+    isTaxable?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PaymentPlanMilestoneCountAggregateInputType = {
+    id?: true
+    planId?: true
+    sequence?: true
+    name?: true
+    calculationType?: true
+    percentage?: true
+    fixedAmount?: true
+    dueDaysAfterTrigger?: true
+    isTaxable?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PaymentPlanMilestoneAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PaymentPlanMilestone to aggregate.
+     */
+    where?: PaymentPlanMilestoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentPlanMilestones to fetch.
+     */
+    orderBy?: PaymentPlanMilestoneOrderByWithRelationInput | PaymentPlanMilestoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PaymentPlanMilestoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentPlanMilestones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentPlanMilestones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PaymentPlanMilestones
+    **/
+    _count?: true | PaymentPlanMilestoneCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PaymentPlanMilestoneAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PaymentPlanMilestoneSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PaymentPlanMilestoneMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PaymentPlanMilestoneMaxAggregateInputType
+  }
+
+  export type GetPaymentPlanMilestoneAggregateType<T extends PaymentPlanMilestoneAggregateArgs> = {
+        [P in keyof T & keyof AggregatePaymentPlanMilestone]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePaymentPlanMilestone[P]>
+      : GetScalarType<T[P], AggregatePaymentPlanMilestone[P]>
+  }
+
+
+
+
+  export type PaymentPlanMilestoneGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentPlanMilestoneWhereInput
+    orderBy?: PaymentPlanMilestoneOrderByWithAggregationInput | PaymentPlanMilestoneOrderByWithAggregationInput[]
+    by: PaymentPlanMilestoneScalarFieldEnum[] | PaymentPlanMilestoneScalarFieldEnum
+    having?: PaymentPlanMilestoneScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PaymentPlanMilestoneCountAggregateInputType | true
+    _avg?: PaymentPlanMilestoneAvgAggregateInputType
+    _sum?: PaymentPlanMilestoneSumAggregateInputType
+    _min?: PaymentPlanMilestoneMinAggregateInputType
+    _max?: PaymentPlanMilestoneMaxAggregateInputType
+  }
+
+  export type PaymentPlanMilestoneGroupByOutputType = {
+    id: string
+    planId: string
+    sequence: number
+    name: string
+    calculationType: string
+    percentage: Decimal | null
+    fixedAmount: Decimal | null
+    dueDaysAfterTrigger: number
+    isTaxable: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: PaymentPlanMilestoneCountAggregateOutputType | null
+    _avg: PaymentPlanMilestoneAvgAggregateOutputType | null
+    _sum: PaymentPlanMilestoneSumAggregateOutputType | null
+    _min: PaymentPlanMilestoneMinAggregateOutputType | null
+    _max: PaymentPlanMilestoneMaxAggregateOutputType | null
+  }
+
+  type GetPaymentPlanMilestoneGroupByPayload<T extends PaymentPlanMilestoneGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PaymentPlanMilestoneGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PaymentPlanMilestoneGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PaymentPlanMilestoneGroupByOutputType[P]>
+            : GetScalarType<T[P], PaymentPlanMilestoneGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PaymentPlanMilestoneSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    planId?: boolean
+    sequence?: boolean
+    name?: boolean
+    calculationType?: boolean
+    percentage?: boolean
+    fixedAmount?: boolean
+    dueDaysAfterTrigger?: boolean
+    isTaxable?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    plan?: boolean | PaymentPlanDefaultArgs<ExtArgs>
+    demandNotes?: boolean | PaymentPlanMilestone$demandNotesArgs<ExtArgs>
+    _count?: boolean | PaymentPlanMilestoneCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["paymentPlanMilestone"]>
+
+  export type PaymentPlanMilestoneSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    planId?: boolean
+    sequence?: boolean
+    name?: boolean
+    calculationType?: boolean
+    percentage?: boolean
+    fixedAmount?: boolean
+    dueDaysAfterTrigger?: boolean
+    isTaxable?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    plan?: boolean | PaymentPlanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["paymentPlanMilestone"]>
+
+  export type PaymentPlanMilestoneSelectScalar = {
+    id?: boolean
+    planId?: boolean
+    sequence?: boolean
+    name?: boolean
+    calculationType?: boolean
+    percentage?: boolean
+    fixedAmount?: boolean
+    dueDaysAfterTrigger?: boolean
+    isTaxable?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PaymentPlanMilestoneInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    plan?: boolean | PaymentPlanDefaultArgs<ExtArgs>
+    demandNotes?: boolean | PaymentPlanMilestone$demandNotesArgs<ExtArgs>
+    _count?: boolean | PaymentPlanMilestoneCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PaymentPlanMilestoneIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    plan?: boolean | PaymentPlanDefaultArgs<ExtArgs>
+  }
+
+  export type $PaymentPlanMilestonePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PaymentPlanMilestone"
+    objects: {
+      plan: Prisma.$PaymentPlanPayload<ExtArgs>
+      demandNotes: Prisma.$CustomerDemandNotePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      planId: string
+      sequence: number
+      name: string
+      calculationType: string
+      percentage: Prisma.Decimal | null
+      fixedAmount: Prisma.Decimal | null
+      dueDaysAfterTrigger: number
+      isTaxable: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["paymentPlanMilestone"]>
+    composites: {}
+  }
+
+  type PaymentPlanMilestoneGetPayload<S extends boolean | null | undefined | PaymentPlanMilestoneDefaultArgs> = $Result.GetResult<Prisma.$PaymentPlanMilestonePayload, S>
+
+  type PaymentPlanMilestoneCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PaymentPlanMilestoneFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PaymentPlanMilestoneCountAggregateInputType | true
+    }
+
+  export interface PaymentPlanMilestoneDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PaymentPlanMilestone'], meta: { name: 'PaymentPlanMilestone' } }
+    /**
+     * Find zero or one PaymentPlanMilestone that matches the filter.
+     * @param {PaymentPlanMilestoneFindUniqueArgs} args - Arguments to find a PaymentPlanMilestone
+     * @example
+     * // Get one PaymentPlanMilestone
+     * const paymentPlanMilestone = await prisma.paymentPlanMilestone.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PaymentPlanMilestoneFindUniqueArgs>(args: SelectSubset<T, PaymentPlanMilestoneFindUniqueArgs<ExtArgs>>): Prisma__PaymentPlanMilestoneClient<$Result.GetResult<Prisma.$PaymentPlanMilestonePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PaymentPlanMilestone that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PaymentPlanMilestoneFindUniqueOrThrowArgs} args - Arguments to find a PaymentPlanMilestone
+     * @example
+     * // Get one PaymentPlanMilestone
+     * const paymentPlanMilestone = await prisma.paymentPlanMilestone.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PaymentPlanMilestoneFindUniqueOrThrowArgs>(args: SelectSubset<T, PaymentPlanMilestoneFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PaymentPlanMilestoneClient<$Result.GetResult<Prisma.$PaymentPlanMilestonePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PaymentPlanMilestone that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanMilestoneFindFirstArgs} args - Arguments to find a PaymentPlanMilestone
+     * @example
+     * // Get one PaymentPlanMilestone
+     * const paymentPlanMilestone = await prisma.paymentPlanMilestone.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PaymentPlanMilestoneFindFirstArgs>(args?: SelectSubset<T, PaymentPlanMilestoneFindFirstArgs<ExtArgs>>): Prisma__PaymentPlanMilestoneClient<$Result.GetResult<Prisma.$PaymentPlanMilestonePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PaymentPlanMilestone that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanMilestoneFindFirstOrThrowArgs} args - Arguments to find a PaymentPlanMilestone
+     * @example
+     * // Get one PaymentPlanMilestone
+     * const paymentPlanMilestone = await prisma.paymentPlanMilestone.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PaymentPlanMilestoneFindFirstOrThrowArgs>(args?: SelectSubset<T, PaymentPlanMilestoneFindFirstOrThrowArgs<ExtArgs>>): Prisma__PaymentPlanMilestoneClient<$Result.GetResult<Prisma.$PaymentPlanMilestonePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PaymentPlanMilestones that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanMilestoneFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PaymentPlanMilestones
+     * const paymentPlanMilestones = await prisma.paymentPlanMilestone.findMany()
+     * 
+     * // Get first 10 PaymentPlanMilestones
+     * const paymentPlanMilestones = await prisma.paymentPlanMilestone.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const paymentPlanMilestoneWithIdOnly = await prisma.paymentPlanMilestone.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PaymentPlanMilestoneFindManyArgs>(args?: SelectSubset<T, PaymentPlanMilestoneFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPlanMilestonePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PaymentPlanMilestone.
+     * @param {PaymentPlanMilestoneCreateArgs} args - Arguments to create a PaymentPlanMilestone.
+     * @example
+     * // Create one PaymentPlanMilestone
+     * const PaymentPlanMilestone = await prisma.paymentPlanMilestone.create({
+     *   data: {
+     *     // ... data to create a PaymentPlanMilestone
+     *   }
+     * })
+     * 
+     */
+    create<T extends PaymentPlanMilestoneCreateArgs>(args: SelectSubset<T, PaymentPlanMilestoneCreateArgs<ExtArgs>>): Prisma__PaymentPlanMilestoneClient<$Result.GetResult<Prisma.$PaymentPlanMilestonePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PaymentPlanMilestones.
+     * @param {PaymentPlanMilestoneCreateManyArgs} args - Arguments to create many PaymentPlanMilestones.
+     * @example
+     * // Create many PaymentPlanMilestones
+     * const paymentPlanMilestone = await prisma.paymentPlanMilestone.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PaymentPlanMilestoneCreateManyArgs>(args?: SelectSubset<T, PaymentPlanMilestoneCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PaymentPlanMilestones and returns the data saved in the database.
+     * @param {PaymentPlanMilestoneCreateManyAndReturnArgs} args - Arguments to create many PaymentPlanMilestones.
+     * @example
+     * // Create many PaymentPlanMilestones
+     * const paymentPlanMilestone = await prisma.paymentPlanMilestone.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PaymentPlanMilestones and only return the `id`
+     * const paymentPlanMilestoneWithIdOnly = await prisma.paymentPlanMilestone.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PaymentPlanMilestoneCreateManyAndReturnArgs>(args?: SelectSubset<T, PaymentPlanMilestoneCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPlanMilestonePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PaymentPlanMilestone.
+     * @param {PaymentPlanMilestoneDeleteArgs} args - Arguments to delete one PaymentPlanMilestone.
+     * @example
+     * // Delete one PaymentPlanMilestone
+     * const PaymentPlanMilestone = await prisma.paymentPlanMilestone.delete({
+     *   where: {
+     *     // ... filter to delete one PaymentPlanMilestone
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PaymentPlanMilestoneDeleteArgs>(args: SelectSubset<T, PaymentPlanMilestoneDeleteArgs<ExtArgs>>): Prisma__PaymentPlanMilestoneClient<$Result.GetResult<Prisma.$PaymentPlanMilestonePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PaymentPlanMilestone.
+     * @param {PaymentPlanMilestoneUpdateArgs} args - Arguments to update one PaymentPlanMilestone.
+     * @example
+     * // Update one PaymentPlanMilestone
+     * const paymentPlanMilestone = await prisma.paymentPlanMilestone.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PaymentPlanMilestoneUpdateArgs>(args: SelectSubset<T, PaymentPlanMilestoneUpdateArgs<ExtArgs>>): Prisma__PaymentPlanMilestoneClient<$Result.GetResult<Prisma.$PaymentPlanMilestonePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PaymentPlanMilestones.
+     * @param {PaymentPlanMilestoneDeleteManyArgs} args - Arguments to filter PaymentPlanMilestones to delete.
+     * @example
+     * // Delete a few PaymentPlanMilestones
+     * const { count } = await prisma.paymentPlanMilestone.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PaymentPlanMilestoneDeleteManyArgs>(args?: SelectSubset<T, PaymentPlanMilestoneDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PaymentPlanMilestones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanMilestoneUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PaymentPlanMilestones
+     * const paymentPlanMilestone = await prisma.paymentPlanMilestone.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PaymentPlanMilestoneUpdateManyArgs>(args: SelectSubset<T, PaymentPlanMilestoneUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PaymentPlanMilestone.
+     * @param {PaymentPlanMilestoneUpsertArgs} args - Arguments to update or create a PaymentPlanMilestone.
+     * @example
+     * // Update or create a PaymentPlanMilestone
+     * const paymentPlanMilestone = await prisma.paymentPlanMilestone.upsert({
+     *   create: {
+     *     // ... data to create a PaymentPlanMilestone
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PaymentPlanMilestone we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PaymentPlanMilestoneUpsertArgs>(args: SelectSubset<T, PaymentPlanMilestoneUpsertArgs<ExtArgs>>): Prisma__PaymentPlanMilestoneClient<$Result.GetResult<Prisma.$PaymentPlanMilestonePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PaymentPlanMilestones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanMilestoneCountArgs} args - Arguments to filter PaymentPlanMilestones to count.
+     * @example
+     * // Count the number of PaymentPlanMilestones
+     * const count = await prisma.paymentPlanMilestone.count({
+     *   where: {
+     *     // ... the filter for the PaymentPlanMilestones we want to count
+     *   }
+     * })
+    **/
+    count<T extends PaymentPlanMilestoneCountArgs>(
+      args?: Subset<T, PaymentPlanMilestoneCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PaymentPlanMilestoneCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PaymentPlanMilestone.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanMilestoneAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PaymentPlanMilestoneAggregateArgs>(args: Subset<T, PaymentPlanMilestoneAggregateArgs>): Prisma.PrismaPromise<GetPaymentPlanMilestoneAggregateType<T>>
+
+    /**
+     * Group by PaymentPlanMilestone.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentPlanMilestoneGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PaymentPlanMilestoneGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PaymentPlanMilestoneGroupByArgs['orderBy'] }
+        : { orderBy?: PaymentPlanMilestoneGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PaymentPlanMilestoneGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPaymentPlanMilestoneGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PaymentPlanMilestone model
+   */
+  readonly fields: PaymentPlanMilestoneFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PaymentPlanMilestone.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PaymentPlanMilestoneClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    plan<T extends PaymentPlanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PaymentPlanDefaultArgs<ExtArgs>>): Prisma__PaymentPlanClient<$Result.GetResult<Prisma.$PaymentPlanPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    demandNotes<T extends PaymentPlanMilestone$demandNotesArgs<ExtArgs> = {}>(args?: Subset<T, PaymentPlanMilestone$demandNotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PaymentPlanMilestone model
+   */ 
+  interface PaymentPlanMilestoneFieldRefs {
+    readonly id: FieldRef<"PaymentPlanMilestone", 'String'>
+    readonly planId: FieldRef<"PaymentPlanMilestone", 'String'>
+    readonly sequence: FieldRef<"PaymentPlanMilestone", 'Int'>
+    readonly name: FieldRef<"PaymentPlanMilestone", 'String'>
+    readonly calculationType: FieldRef<"PaymentPlanMilestone", 'String'>
+    readonly percentage: FieldRef<"PaymentPlanMilestone", 'Decimal'>
+    readonly fixedAmount: FieldRef<"PaymentPlanMilestone", 'Decimal'>
+    readonly dueDaysAfterTrigger: FieldRef<"PaymentPlanMilestone", 'Int'>
+    readonly isTaxable: FieldRef<"PaymentPlanMilestone", 'Boolean'>
+    readonly createdAt: FieldRef<"PaymentPlanMilestone", 'DateTime'>
+    readonly updatedAt: FieldRef<"PaymentPlanMilestone", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PaymentPlanMilestone findUnique
+   */
+  export type PaymentPlanMilestoneFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentPlanMilestone to fetch.
+     */
+    where: PaymentPlanMilestoneWhereUniqueInput
+  }
+
+  /**
+   * PaymentPlanMilestone findUniqueOrThrow
+   */
+  export type PaymentPlanMilestoneFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentPlanMilestone to fetch.
+     */
+    where: PaymentPlanMilestoneWhereUniqueInput
+  }
+
+  /**
+   * PaymentPlanMilestone findFirst
+   */
+  export type PaymentPlanMilestoneFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentPlanMilestone to fetch.
+     */
+    where?: PaymentPlanMilestoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentPlanMilestones to fetch.
+     */
+    orderBy?: PaymentPlanMilestoneOrderByWithRelationInput | PaymentPlanMilestoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PaymentPlanMilestones.
+     */
+    cursor?: PaymentPlanMilestoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentPlanMilestones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentPlanMilestones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PaymentPlanMilestones.
+     */
+    distinct?: PaymentPlanMilestoneScalarFieldEnum | PaymentPlanMilestoneScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentPlanMilestone findFirstOrThrow
+   */
+  export type PaymentPlanMilestoneFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentPlanMilestone to fetch.
+     */
+    where?: PaymentPlanMilestoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentPlanMilestones to fetch.
+     */
+    orderBy?: PaymentPlanMilestoneOrderByWithRelationInput | PaymentPlanMilestoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PaymentPlanMilestones.
+     */
+    cursor?: PaymentPlanMilestoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentPlanMilestones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentPlanMilestones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PaymentPlanMilestones.
+     */
+    distinct?: PaymentPlanMilestoneScalarFieldEnum | PaymentPlanMilestoneScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentPlanMilestone findMany
+   */
+  export type PaymentPlanMilestoneFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentPlanMilestones to fetch.
+     */
+    where?: PaymentPlanMilestoneWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentPlanMilestones to fetch.
+     */
+    orderBy?: PaymentPlanMilestoneOrderByWithRelationInput | PaymentPlanMilestoneOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PaymentPlanMilestones.
+     */
+    cursor?: PaymentPlanMilestoneWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentPlanMilestones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentPlanMilestones.
+     */
+    skip?: number
+    distinct?: PaymentPlanMilestoneScalarFieldEnum | PaymentPlanMilestoneScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentPlanMilestone create
+   */
+  export type PaymentPlanMilestoneCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PaymentPlanMilestone.
+     */
+    data: XOR<PaymentPlanMilestoneCreateInput, PaymentPlanMilestoneUncheckedCreateInput>
+  }
+
+  /**
+   * PaymentPlanMilestone createMany
+   */
+  export type PaymentPlanMilestoneCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PaymentPlanMilestones.
+     */
+    data: PaymentPlanMilestoneCreateManyInput | PaymentPlanMilestoneCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PaymentPlanMilestone createManyAndReturn
+   */
+  export type PaymentPlanMilestoneCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PaymentPlanMilestones.
+     */
+    data: PaymentPlanMilestoneCreateManyInput | PaymentPlanMilestoneCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PaymentPlanMilestone update
+   */
+  export type PaymentPlanMilestoneUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PaymentPlanMilestone.
+     */
+    data: XOR<PaymentPlanMilestoneUpdateInput, PaymentPlanMilestoneUncheckedUpdateInput>
+    /**
+     * Choose, which PaymentPlanMilestone to update.
+     */
+    where: PaymentPlanMilestoneWhereUniqueInput
+  }
+
+  /**
+   * PaymentPlanMilestone updateMany
+   */
+  export type PaymentPlanMilestoneUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PaymentPlanMilestones.
+     */
+    data: XOR<PaymentPlanMilestoneUpdateManyMutationInput, PaymentPlanMilestoneUncheckedUpdateManyInput>
+    /**
+     * Filter which PaymentPlanMilestones to update
+     */
+    where?: PaymentPlanMilestoneWhereInput
+  }
+
+  /**
+   * PaymentPlanMilestone upsert
+   */
+  export type PaymentPlanMilestoneUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PaymentPlanMilestone to update in case it exists.
+     */
+    where: PaymentPlanMilestoneWhereUniqueInput
+    /**
+     * In case the PaymentPlanMilestone found by the `where` argument doesn't exist, create a new PaymentPlanMilestone with this data.
+     */
+    create: XOR<PaymentPlanMilestoneCreateInput, PaymentPlanMilestoneUncheckedCreateInput>
+    /**
+     * In case the PaymentPlanMilestone was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PaymentPlanMilestoneUpdateInput, PaymentPlanMilestoneUncheckedUpdateInput>
+  }
+
+  /**
+   * PaymentPlanMilestone delete
+   */
+  export type PaymentPlanMilestoneDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneInclude<ExtArgs> | null
+    /**
+     * Filter which PaymentPlanMilestone to delete.
+     */
+    where: PaymentPlanMilestoneWhereUniqueInput
+  }
+
+  /**
+   * PaymentPlanMilestone deleteMany
+   */
+  export type PaymentPlanMilestoneDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PaymentPlanMilestones to delete
+     */
+    where?: PaymentPlanMilestoneWhereInput
+  }
+
+  /**
+   * PaymentPlanMilestone.demandNotes
+   */
+  export type PaymentPlanMilestone$demandNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+    where?: CustomerDemandNoteWhereInput
+    orderBy?: CustomerDemandNoteOrderByWithRelationInput | CustomerDemandNoteOrderByWithRelationInput[]
+    cursor?: CustomerDemandNoteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerDemandNoteScalarFieldEnum | CustomerDemandNoteScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentPlanMilestone without action
+   */
+  export type PaymentPlanMilestoneDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CustomerDemandNote
+   */
+
+  export type AggregateCustomerDemandNote = {
+    _count: CustomerDemandNoteCountAggregateOutputType | null
+    _avg: CustomerDemandNoteAvgAggregateOutputType | null
+    _sum: CustomerDemandNoteSumAggregateOutputType | null
+    _min: CustomerDemandNoteMinAggregateOutputType | null
+    _max: CustomerDemandNoteMaxAggregateOutputType | null
+  }
+
+  export type CustomerDemandNoteAvgAggregateOutputType = {
+    sequence: number | null
+    principalAmount: Decimal | null
+    taxAmount: Decimal | null
+    totalDemandAmount: Decimal | null
+    allocatedAmount: Decimal | null
+    outstandingAmount: Decimal | null
+  }
+
+  export type CustomerDemandNoteSumAggregateOutputType = {
+    sequence: number | null
+    principalAmount: Decimal | null
+    taxAmount: Decimal | null
+    totalDemandAmount: Decimal | null
+    allocatedAmount: Decimal | null
+    outstandingAmount: Decimal | null
+  }
+
+  export type CustomerDemandNoteMinAggregateOutputType = {
+    id: string | null
+    demandNumber: string | null
+    customerId: string | null
+    milestoneId: string | null
+    milestoneName: string | null
+    sequence: number | null
+    documentDate: Date | null
+    dueDate: Date | null
+    principalAmount: Decimal | null
+    taxAmount: Decimal | null
+    totalDemandAmount: Decimal | null
+    allocatedAmount: Decimal | null
+    outstandingAmount: Decimal | null
+    status: string | null
+    journalEntryId: string | null
+    issuedById: string | null
+    cancelledAt: Date | null
+    cancelledReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomerDemandNoteMaxAggregateOutputType = {
+    id: string | null
+    demandNumber: string | null
+    customerId: string | null
+    milestoneId: string | null
+    milestoneName: string | null
+    sequence: number | null
+    documentDate: Date | null
+    dueDate: Date | null
+    principalAmount: Decimal | null
+    taxAmount: Decimal | null
+    totalDemandAmount: Decimal | null
+    allocatedAmount: Decimal | null
+    outstandingAmount: Decimal | null
+    status: string | null
+    journalEntryId: string | null
+    issuedById: string | null
+    cancelledAt: Date | null
+    cancelledReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomerDemandNoteCountAggregateOutputType = {
+    id: number
+    demandNumber: number
+    customerId: number
+    milestoneId: number
+    milestoneName: number
+    sequence: number
+    documentDate: number
+    dueDate: number
+    principalAmount: number
+    taxAmount: number
+    totalDemandAmount: number
+    allocatedAmount: number
+    outstandingAmount: number
+    status: number
+    journalEntryId: number
+    issuedById: number
+    cancelledAt: number
+    cancelledReason: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CustomerDemandNoteAvgAggregateInputType = {
+    sequence?: true
+    principalAmount?: true
+    taxAmount?: true
+    totalDemandAmount?: true
+    allocatedAmount?: true
+    outstandingAmount?: true
+  }
+
+  export type CustomerDemandNoteSumAggregateInputType = {
+    sequence?: true
+    principalAmount?: true
+    taxAmount?: true
+    totalDemandAmount?: true
+    allocatedAmount?: true
+    outstandingAmount?: true
+  }
+
+  export type CustomerDemandNoteMinAggregateInputType = {
+    id?: true
+    demandNumber?: true
+    customerId?: true
+    milestoneId?: true
+    milestoneName?: true
+    sequence?: true
+    documentDate?: true
+    dueDate?: true
+    principalAmount?: true
+    taxAmount?: true
+    totalDemandAmount?: true
+    allocatedAmount?: true
+    outstandingAmount?: true
+    status?: true
+    journalEntryId?: true
+    issuedById?: true
+    cancelledAt?: true
+    cancelledReason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomerDemandNoteMaxAggregateInputType = {
+    id?: true
+    demandNumber?: true
+    customerId?: true
+    milestoneId?: true
+    milestoneName?: true
+    sequence?: true
+    documentDate?: true
+    dueDate?: true
+    principalAmount?: true
+    taxAmount?: true
+    totalDemandAmount?: true
+    allocatedAmount?: true
+    outstandingAmount?: true
+    status?: true
+    journalEntryId?: true
+    issuedById?: true
+    cancelledAt?: true
+    cancelledReason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomerDemandNoteCountAggregateInputType = {
+    id?: true
+    demandNumber?: true
+    customerId?: true
+    milestoneId?: true
+    milestoneName?: true
+    sequence?: true
+    documentDate?: true
+    dueDate?: true
+    principalAmount?: true
+    taxAmount?: true
+    totalDemandAmount?: true
+    allocatedAmount?: true
+    outstandingAmount?: true
+    status?: true
+    journalEntryId?: true
+    issuedById?: true
+    cancelledAt?: true
+    cancelledReason?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CustomerDemandNoteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerDemandNote to aggregate.
+     */
+    where?: CustomerDemandNoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerDemandNotes to fetch.
+     */
+    orderBy?: CustomerDemandNoteOrderByWithRelationInput | CustomerDemandNoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerDemandNoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerDemandNotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerDemandNotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerDemandNotes
+    **/
+    _count?: true | CustomerDemandNoteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CustomerDemandNoteAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CustomerDemandNoteSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerDemandNoteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerDemandNoteMaxAggregateInputType
+  }
+
+  export type GetCustomerDemandNoteAggregateType<T extends CustomerDemandNoteAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerDemandNote]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerDemandNote[P]>
+      : GetScalarType<T[P], AggregateCustomerDemandNote[P]>
+  }
+
+
+
+
+  export type CustomerDemandNoteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerDemandNoteWhereInput
+    orderBy?: CustomerDemandNoteOrderByWithAggregationInput | CustomerDemandNoteOrderByWithAggregationInput[]
+    by: CustomerDemandNoteScalarFieldEnum[] | CustomerDemandNoteScalarFieldEnum
+    having?: CustomerDemandNoteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerDemandNoteCountAggregateInputType | true
+    _avg?: CustomerDemandNoteAvgAggregateInputType
+    _sum?: CustomerDemandNoteSumAggregateInputType
+    _min?: CustomerDemandNoteMinAggregateInputType
+    _max?: CustomerDemandNoteMaxAggregateInputType
+  }
+
+  export type CustomerDemandNoteGroupByOutputType = {
+    id: string
+    demandNumber: string
+    customerId: string
+    milestoneId: string | null
+    milestoneName: string
+    sequence: number
+    documentDate: Date
+    dueDate: Date
+    principalAmount: Decimal
+    taxAmount: Decimal
+    totalDemandAmount: Decimal
+    allocatedAmount: Decimal
+    outstandingAmount: Decimal
+    status: string
+    journalEntryId: string | null
+    issuedById: string | null
+    cancelledAt: Date | null
+    cancelledReason: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CustomerDemandNoteCountAggregateOutputType | null
+    _avg: CustomerDemandNoteAvgAggregateOutputType | null
+    _sum: CustomerDemandNoteSumAggregateOutputType | null
+    _min: CustomerDemandNoteMinAggregateOutputType | null
+    _max: CustomerDemandNoteMaxAggregateOutputType | null
+  }
+
+  type GetCustomerDemandNoteGroupByPayload<T extends CustomerDemandNoteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomerDemandNoteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerDemandNoteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerDemandNoteGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerDemandNoteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerDemandNoteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    demandNumber?: boolean
+    customerId?: boolean
+    milestoneId?: boolean
+    milestoneName?: boolean
+    sequence?: boolean
+    documentDate?: boolean
+    dueDate?: boolean
+    principalAmount?: boolean
+    taxAmount?: boolean
+    totalDemandAmount?: boolean
+    allocatedAmount?: boolean
+    outstandingAmount?: boolean
+    status?: boolean
+    journalEntryId?: boolean
+    issuedById?: boolean
+    cancelledAt?: boolean
+    cancelledReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    milestone?: boolean | CustomerDemandNote$milestoneArgs<ExtArgs>
+    journalEntry?: boolean | CustomerDemandNote$journalEntryArgs<ExtArgs>
+    allocations?: boolean | CustomerDemandNote$allocationsArgs<ExtArgs>
+    _count?: boolean | CustomerDemandNoteCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerDemandNote"]>
+
+  export type CustomerDemandNoteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    demandNumber?: boolean
+    customerId?: boolean
+    milestoneId?: boolean
+    milestoneName?: boolean
+    sequence?: boolean
+    documentDate?: boolean
+    dueDate?: boolean
+    principalAmount?: boolean
+    taxAmount?: boolean
+    totalDemandAmount?: boolean
+    allocatedAmount?: boolean
+    outstandingAmount?: boolean
+    status?: boolean
+    journalEntryId?: boolean
+    issuedById?: boolean
+    cancelledAt?: boolean
+    cancelledReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    milestone?: boolean | CustomerDemandNote$milestoneArgs<ExtArgs>
+    journalEntry?: boolean | CustomerDemandNote$journalEntryArgs<ExtArgs>
+  }, ExtArgs["result"]["customerDemandNote"]>
+
+  export type CustomerDemandNoteSelectScalar = {
+    id?: boolean
+    demandNumber?: boolean
+    customerId?: boolean
+    milestoneId?: boolean
+    milestoneName?: boolean
+    sequence?: boolean
+    documentDate?: boolean
+    dueDate?: boolean
+    principalAmount?: boolean
+    taxAmount?: boolean
+    totalDemandAmount?: boolean
+    allocatedAmount?: boolean
+    outstandingAmount?: boolean
+    status?: boolean
+    journalEntryId?: boolean
+    issuedById?: boolean
+    cancelledAt?: boolean
+    cancelledReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CustomerDemandNoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    milestone?: boolean | CustomerDemandNote$milestoneArgs<ExtArgs>
+    journalEntry?: boolean | CustomerDemandNote$journalEntryArgs<ExtArgs>
+    allocations?: boolean | CustomerDemandNote$allocationsArgs<ExtArgs>
+    _count?: boolean | CustomerDemandNoteCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CustomerDemandNoteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    milestone?: boolean | CustomerDemandNote$milestoneArgs<ExtArgs>
+    journalEntry?: boolean | CustomerDemandNote$journalEntryArgs<ExtArgs>
+  }
+
+  export type $CustomerDemandNotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomerDemandNote"
+    objects: {
+      customer: Prisma.$CustomerPayload<ExtArgs>
+      milestone: Prisma.$PaymentPlanMilestonePayload<ExtArgs> | null
+      journalEntry: Prisma.$JournalEntryPayload<ExtArgs> | null
+      allocations: Prisma.$PaymentAllocationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      demandNumber: string
+      customerId: string
+      milestoneId: string | null
+      milestoneName: string
+      sequence: number
+      documentDate: Date
+      dueDate: Date
+      principalAmount: Prisma.Decimal
+      taxAmount: Prisma.Decimal
+      totalDemandAmount: Prisma.Decimal
+      allocatedAmount: Prisma.Decimal
+      outstandingAmount: Prisma.Decimal
+      status: string
+      journalEntryId: string | null
+      issuedById: string | null
+      cancelledAt: Date | null
+      cancelledReason: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["customerDemandNote"]>
+    composites: {}
+  }
+
+  type CustomerDemandNoteGetPayload<S extends boolean | null | undefined | CustomerDemandNoteDefaultArgs> = $Result.GetResult<Prisma.$CustomerDemandNotePayload, S>
+
+  type CustomerDemandNoteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CustomerDemandNoteFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CustomerDemandNoteCountAggregateInputType | true
+    }
+
+  export interface CustomerDemandNoteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomerDemandNote'], meta: { name: 'CustomerDemandNote' } }
+    /**
+     * Find zero or one CustomerDemandNote that matches the filter.
+     * @param {CustomerDemandNoteFindUniqueArgs} args - Arguments to find a CustomerDemandNote
+     * @example
+     * // Get one CustomerDemandNote
+     * const customerDemandNote = await prisma.customerDemandNote.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomerDemandNoteFindUniqueArgs>(args: SelectSubset<T, CustomerDemandNoteFindUniqueArgs<ExtArgs>>): Prisma__CustomerDemandNoteClient<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CustomerDemandNote that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CustomerDemandNoteFindUniqueOrThrowArgs} args - Arguments to find a CustomerDemandNote
+     * @example
+     * // Get one CustomerDemandNote
+     * const customerDemandNote = await prisma.customerDemandNote.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomerDemandNoteFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomerDemandNoteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomerDemandNoteClient<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CustomerDemandNote that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDemandNoteFindFirstArgs} args - Arguments to find a CustomerDemandNote
+     * @example
+     * // Get one CustomerDemandNote
+     * const customerDemandNote = await prisma.customerDemandNote.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomerDemandNoteFindFirstArgs>(args?: SelectSubset<T, CustomerDemandNoteFindFirstArgs<ExtArgs>>): Prisma__CustomerDemandNoteClient<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CustomerDemandNote that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDemandNoteFindFirstOrThrowArgs} args - Arguments to find a CustomerDemandNote
+     * @example
+     * // Get one CustomerDemandNote
+     * const customerDemandNote = await prisma.customerDemandNote.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomerDemandNoteFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomerDemandNoteFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomerDemandNoteClient<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CustomerDemandNotes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDemandNoteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerDemandNotes
+     * const customerDemandNotes = await prisma.customerDemandNote.findMany()
+     * 
+     * // Get first 10 CustomerDemandNotes
+     * const customerDemandNotes = await prisma.customerDemandNote.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerDemandNoteWithIdOnly = await prisma.customerDemandNote.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomerDemandNoteFindManyArgs>(args?: SelectSubset<T, CustomerDemandNoteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CustomerDemandNote.
+     * @param {CustomerDemandNoteCreateArgs} args - Arguments to create a CustomerDemandNote.
+     * @example
+     * // Create one CustomerDemandNote
+     * const CustomerDemandNote = await prisma.customerDemandNote.create({
+     *   data: {
+     *     // ... data to create a CustomerDemandNote
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomerDemandNoteCreateArgs>(args: SelectSubset<T, CustomerDemandNoteCreateArgs<ExtArgs>>): Prisma__CustomerDemandNoteClient<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CustomerDemandNotes.
+     * @param {CustomerDemandNoteCreateManyArgs} args - Arguments to create many CustomerDemandNotes.
+     * @example
+     * // Create many CustomerDemandNotes
+     * const customerDemandNote = await prisma.customerDemandNote.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomerDemandNoteCreateManyArgs>(args?: SelectSubset<T, CustomerDemandNoteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomerDemandNotes and returns the data saved in the database.
+     * @param {CustomerDemandNoteCreateManyAndReturnArgs} args - Arguments to create many CustomerDemandNotes.
+     * @example
+     * // Create many CustomerDemandNotes
+     * const customerDemandNote = await prisma.customerDemandNote.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomerDemandNotes and only return the `id`
+     * const customerDemandNoteWithIdOnly = await prisma.customerDemandNote.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomerDemandNoteCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomerDemandNoteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CustomerDemandNote.
+     * @param {CustomerDemandNoteDeleteArgs} args - Arguments to delete one CustomerDemandNote.
+     * @example
+     * // Delete one CustomerDemandNote
+     * const CustomerDemandNote = await prisma.customerDemandNote.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerDemandNote
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomerDemandNoteDeleteArgs>(args: SelectSubset<T, CustomerDemandNoteDeleteArgs<ExtArgs>>): Prisma__CustomerDemandNoteClient<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CustomerDemandNote.
+     * @param {CustomerDemandNoteUpdateArgs} args - Arguments to update one CustomerDemandNote.
+     * @example
+     * // Update one CustomerDemandNote
+     * const customerDemandNote = await prisma.customerDemandNote.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomerDemandNoteUpdateArgs>(args: SelectSubset<T, CustomerDemandNoteUpdateArgs<ExtArgs>>): Prisma__CustomerDemandNoteClient<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CustomerDemandNotes.
+     * @param {CustomerDemandNoteDeleteManyArgs} args - Arguments to filter CustomerDemandNotes to delete.
+     * @example
+     * // Delete a few CustomerDemandNotes
+     * const { count } = await prisma.customerDemandNote.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomerDemandNoteDeleteManyArgs>(args?: SelectSubset<T, CustomerDemandNoteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerDemandNotes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDemandNoteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerDemandNotes
+     * const customerDemandNote = await prisma.customerDemandNote.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomerDemandNoteUpdateManyArgs>(args: SelectSubset<T, CustomerDemandNoteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CustomerDemandNote.
+     * @param {CustomerDemandNoteUpsertArgs} args - Arguments to update or create a CustomerDemandNote.
+     * @example
+     * // Update or create a CustomerDemandNote
+     * const customerDemandNote = await prisma.customerDemandNote.upsert({
+     *   create: {
+     *     // ... data to create a CustomerDemandNote
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerDemandNote we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomerDemandNoteUpsertArgs>(args: SelectSubset<T, CustomerDemandNoteUpsertArgs<ExtArgs>>): Prisma__CustomerDemandNoteClient<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CustomerDemandNotes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDemandNoteCountArgs} args - Arguments to filter CustomerDemandNotes to count.
+     * @example
+     * // Count the number of CustomerDemandNotes
+     * const count = await prisma.customerDemandNote.count({
+     *   where: {
+     *     // ... the filter for the CustomerDemandNotes we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerDemandNoteCountArgs>(
+      args?: Subset<T, CustomerDemandNoteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerDemandNoteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerDemandNote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDemandNoteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerDemandNoteAggregateArgs>(args: Subset<T, CustomerDemandNoteAggregateArgs>): Prisma.PrismaPromise<GetCustomerDemandNoteAggregateType<T>>
+
+    /**
+     * Group by CustomerDemandNote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerDemandNoteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerDemandNoteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerDemandNoteGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerDemandNoteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerDemandNoteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerDemandNoteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomerDemandNote model
+   */
+  readonly fields: CustomerDemandNoteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerDemandNote.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomerDemandNoteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    milestone<T extends CustomerDemandNote$milestoneArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDemandNote$milestoneArgs<ExtArgs>>): Prisma__PaymentPlanMilestoneClient<$Result.GetResult<Prisma.$PaymentPlanMilestonePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    journalEntry<T extends CustomerDemandNote$journalEntryArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDemandNote$journalEntryArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    allocations<T extends CustomerDemandNote$allocationsArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDemandNote$allocationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomerDemandNote model
+   */ 
+  interface CustomerDemandNoteFieldRefs {
+    readonly id: FieldRef<"CustomerDemandNote", 'String'>
+    readonly demandNumber: FieldRef<"CustomerDemandNote", 'String'>
+    readonly customerId: FieldRef<"CustomerDemandNote", 'String'>
+    readonly milestoneId: FieldRef<"CustomerDemandNote", 'String'>
+    readonly milestoneName: FieldRef<"CustomerDemandNote", 'String'>
+    readonly sequence: FieldRef<"CustomerDemandNote", 'Int'>
+    readonly documentDate: FieldRef<"CustomerDemandNote", 'DateTime'>
+    readonly dueDate: FieldRef<"CustomerDemandNote", 'DateTime'>
+    readonly principalAmount: FieldRef<"CustomerDemandNote", 'Decimal'>
+    readonly taxAmount: FieldRef<"CustomerDemandNote", 'Decimal'>
+    readonly totalDemandAmount: FieldRef<"CustomerDemandNote", 'Decimal'>
+    readonly allocatedAmount: FieldRef<"CustomerDemandNote", 'Decimal'>
+    readonly outstandingAmount: FieldRef<"CustomerDemandNote", 'Decimal'>
+    readonly status: FieldRef<"CustomerDemandNote", 'String'>
+    readonly journalEntryId: FieldRef<"CustomerDemandNote", 'String'>
+    readonly issuedById: FieldRef<"CustomerDemandNote", 'String'>
+    readonly cancelledAt: FieldRef<"CustomerDemandNote", 'DateTime'>
+    readonly cancelledReason: FieldRef<"CustomerDemandNote", 'String'>
+    readonly createdAt: FieldRef<"CustomerDemandNote", 'DateTime'>
+    readonly updatedAt: FieldRef<"CustomerDemandNote", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomerDemandNote findUnique
+   */
+  export type CustomerDemandNoteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerDemandNote to fetch.
+     */
+    where: CustomerDemandNoteWhereUniqueInput
+  }
+
+  /**
+   * CustomerDemandNote findUniqueOrThrow
+   */
+  export type CustomerDemandNoteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerDemandNote to fetch.
+     */
+    where: CustomerDemandNoteWhereUniqueInput
+  }
+
+  /**
+   * CustomerDemandNote findFirst
+   */
+  export type CustomerDemandNoteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerDemandNote to fetch.
+     */
+    where?: CustomerDemandNoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerDemandNotes to fetch.
+     */
+    orderBy?: CustomerDemandNoteOrderByWithRelationInput | CustomerDemandNoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerDemandNotes.
+     */
+    cursor?: CustomerDemandNoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerDemandNotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerDemandNotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerDemandNotes.
+     */
+    distinct?: CustomerDemandNoteScalarFieldEnum | CustomerDemandNoteScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerDemandNote findFirstOrThrow
+   */
+  export type CustomerDemandNoteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerDemandNote to fetch.
+     */
+    where?: CustomerDemandNoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerDemandNotes to fetch.
+     */
+    orderBy?: CustomerDemandNoteOrderByWithRelationInput | CustomerDemandNoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerDemandNotes.
+     */
+    cursor?: CustomerDemandNoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerDemandNotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerDemandNotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerDemandNotes.
+     */
+    distinct?: CustomerDemandNoteScalarFieldEnum | CustomerDemandNoteScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerDemandNote findMany
+   */
+  export type CustomerDemandNoteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerDemandNotes to fetch.
+     */
+    where?: CustomerDemandNoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerDemandNotes to fetch.
+     */
+    orderBy?: CustomerDemandNoteOrderByWithRelationInput | CustomerDemandNoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerDemandNotes.
+     */
+    cursor?: CustomerDemandNoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerDemandNotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerDemandNotes.
+     */
+    skip?: number
+    distinct?: CustomerDemandNoteScalarFieldEnum | CustomerDemandNoteScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerDemandNote create
+   */
+  export type CustomerDemandNoteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomerDemandNote.
+     */
+    data: XOR<CustomerDemandNoteCreateInput, CustomerDemandNoteUncheckedCreateInput>
+  }
+
+  /**
+   * CustomerDemandNote createMany
+   */
+  export type CustomerDemandNoteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomerDemandNotes.
+     */
+    data: CustomerDemandNoteCreateManyInput | CustomerDemandNoteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CustomerDemandNote createManyAndReturn
+   */
+  export type CustomerDemandNoteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CustomerDemandNotes.
+     */
+    data: CustomerDemandNoteCreateManyInput | CustomerDemandNoteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerDemandNote update
+   */
+  export type CustomerDemandNoteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomerDemandNote.
+     */
+    data: XOR<CustomerDemandNoteUpdateInput, CustomerDemandNoteUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerDemandNote to update.
+     */
+    where: CustomerDemandNoteWhereUniqueInput
+  }
+
+  /**
+   * CustomerDemandNote updateMany
+   */
+  export type CustomerDemandNoteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomerDemandNotes.
+     */
+    data: XOR<CustomerDemandNoteUpdateManyMutationInput, CustomerDemandNoteUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerDemandNotes to update
+     */
+    where?: CustomerDemandNoteWhereInput
+  }
+
+  /**
+   * CustomerDemandNote upsert
+   */
+  export type CustomerDemandNoteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomerDemandNote to update in case it exists.
+     */
+    where: CustomerDemandNoteWhereUniqueInput
+    /**
+     * In case the CustomerDemandNote found by the `where` argument doesn't exist, create a new CustomerDemandNote with this data.
+     */
+    create: XOR<CustomerDemandNoteCreateInput, CustomerDemandNoteUncheckedCreateInput>
+    /**
+     * In case the CustomerDemandNote was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerDemandNoteUpdateInput, CustomerDemandNoteUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomerDemandNote delete
+   */
+  export type CustomerDemandNoteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+    /**
+     * Filter which CustomerDemandNote to delete.
+     */
+    where: CustomerDemandNoteWhereUniqueInput
+  }
+
+  /**
+   * CustomerDemandNote deleteMany
+   */
+  export type CustomerDemandNoteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerDemandNotes to delete
+     */
+    where?: CustomerDemandNoteWhereInput
+  }
+
+  /**
+   * CustomerDemandNote.milestone
+   */
+  export type CustomerDemandNote$milestoneArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentPlanMilestone
+     */
+    select?: PaymentPlanMilestoneSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentPlanMilestoneInclude<ExtArgs> | null
+    where?: PaymentPlanMilestoneWhereInput
+  }
+
+  /**
+   * CustomerDemandNote.journalEntry
+   */
+  export type CustomerDemandNote$journalEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    where?: JournalEntryWhereInput
+  }
+
+  /**
+   * CustomerDemandNote.allocations
+   */
+  export type CustomerDemandNote$allocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+    where?: PaymentAllocationWhereInput
+    orderBy?: PaymentAllocationOrderByWithRelationInput | PaymentAllocationOrderByWithRelationInput[]
+    cursor?: PaymentAllocationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PaymentAllocationScalarFieldEnum | PaymentAllocationScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerDemandNote without action
+   */
+  export type CustomerDemandNoteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerDemandNote
+     */
+    select?: CustomerDemandNoteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerDemandNoteInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CustomerLedgerEntry
+   */
+
+  export type AggregateCustomerLedgerEntry = {
+    _count: CustomerLedgerEntryCountAggregateOutputType | null
+    _avg: CustomerLedgerEntryAvgAggregateOutputType | null
+    _sum: CustomerLedgerEntrySumAggregateOutputType | null
+    _min: CustomerLedgerEntryMinAggregateOutputType | null
+    _max: CustomerLedgerEntryMaxAggregateOutputType | null
+  }
+
+  export type CustomerLedgerEntryAvgAggregateOutputType = {
+    debit: Decimal | null
+    credit: Decimal | null
+    runningBalance: Decimal | null
+  }
+
+  export type CustomerLedgerEntrySumAggregateOutputType = {
+    debit: Decimal | null
+    credit: Decimal | null
+    runningBalance: Decimal | null
+  }
+
+  export type CustomerLedgerEntryMinAggregateOutputType = {
+    id: string | null
+    customerId: string | null
+    entryNumber: string | null
+    postingDate: Date | null
+    entryType: string | null
+    referenceType: string | null
+    referenceId: string | null
+    debit: Decimal | null
+    credit: Decimal | null
+    runningBalance: Decimal | null
+    description: string | null
+    journalEntryId: string | null
+    accountingPeriodId: string | null
+    createdById: string | null
+    createdAt: Date | null
+  }
+
+  export type CustomerLedgerEntryMaxAggregateOutputType = {
+    id: string | null
+    customerId: string | null
+    entryNumber: string | null
+    postingDate: Date | null
+    entryType: string | null
+    referenceType: string | null
+    referenceId: string | null
+    debit: Decimal | null
+    credit: Decimal | null
+    runningBalance: Decimal | null
+    description: string | null
+    journalEntryId: string | null
+    accountingPeriodId: string | null
+    createdById: string | null
+    createdAt: Date | null
+  }
+
+  export type CustomerLedgerEntryCountAggregateOutputType = {
+    id: number
+    customerId: number
+    entryNumber: number
+    postingDate: number
+    entryType: number
+    referenceType: number
+    referenceId: number
+    debit: number
+    credit: number
+    runningBalance: number
+    description: number
+    journalEntryId: number
+    accountingPeriodId: number
+    createdById: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CustomerLedgerEntryAvgAggregateInputType = {
+    debit?: true
+    credit?: true
+    runningBalance?: true
+  }
+
+  export type CustomerLedgerEntrySumAggregateInputType = {
+    debit?: true
+    credit?: true
+    runningBalance?: true
+  }
+
+  export type CustomerLedgerEntryMinAggregateInputType = {
+    id?: true
+    customerId?: true
+    entryNumber?: true
+    postingDate?: true
+    entryType?: true
+    referenceType?: true
+    referenceId?: true
+    debit?: true
+    credit?: true
+    runningBalance?: true
+    description?: true
+    journalEntryId?: true
+    accountingPeriodId?: true
+    createdById?: true
+    createdAt?: true
+  }
+
+  export type CustomerLedgerEntryMaxAggregateInputType = {
+    id?: true
+    customerId?: true
+    entryNumber?: true
+    postingDate?: true
+    entryType?: true
+    referenceType?: true
+    referenceId?: true
+    debit?: true
+    credit?: true
+    runningBalance?: true
+    description?: true
+    journalEntryId?: true
+    accountingPeriodId?: true
+    createdById?: true
+    createdAt?: true
+  }
+
+  export type CustomerLedgerEntryCountAggregateInputType = {
+    id?: true
+    customerId?: true
+    entryNumber?: true
+    postingDate?: true
+    entryType?: true
+    referenceType?: true
+    referenceId?: true
+    debit?: true
+    credit?: true
+    runningBalance?: true
+    description?: true
+    journalEntryId?: true
+    accountingPeriodId?: true
+    createdById?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CustomerLedgerEntryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerLedgerEntry to aggregate.
+     */
+    where?: CustomerLedgerEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerLedgerEntries to fetch.
+     */
+    orderBy?: CustomerLedgerEntryOrderByWithRelationInput | CustomerLedgerEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerLedgerEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerLedgerEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerLedgerEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerLedgerEntries
+    **/
+    _count?: true | CustomerLedgerEntryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CustomerLedgerEntryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CustomerLedgerEntrySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerLedgerEntryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerLedgerEntryMaxAggregateInputType
+  }
+
+  export type GetCustomerLedgerEntryAggregateType<T extends CustomerLedgerEntryAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerLedgerEntry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerLedgerEntry[P]>
+      : GetScalarType<T[P], AggregateCustomerLedgerEntry[P]>
+  }
+
+
+
+
+  export type CustomerLedgerEntryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerLedgerEntryWhereInput
+    orderBy?: CustomerLedgerEntryOrderByWithAggregationInput | CustomerLedgerEntryOrderByWithAggregationInput[]
+    by: CustomerLedgerEntryScalarFieldEnum[] | CustomerLedgerEntryScalarFieldEnum
+    having?: CustomerLedgerEntryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerLedgerEntryCountAggregateInputType | true
+    _avg?: CustomerLedgerEntryAvgAggregateInputType
+    _sum?: CustomerLedgerEntrySumAggregateInputType
+    _min?: CustomerLedgerEntryMinAggregateInputType
+    _max?: CustomerLedgerEntryMaxAggregateInputType
+  }
+
+  export type CustomerLedgerEntryGroupByOutputType = {
+    id: string
+    customerId: string
+    entryNumber: string
+    postingDate: Date
+    entryType: string
+    referenceType: string
+    referenceId: string
+    debit: Decimal
+    credit: Decimal
+    runningBalance: Decimal
+    description: string
+    journalEntryId: string | null
+    accountingPeriodId: string | null
+    createdById: string | null
+    createdAt: Date
+    _count: CustomerLedgerEntryCountAggregateOutputType | null
+    _avg: CustomerLedgerEntryAvgAggregateOutputType | null
+    _sum: CustomerLedgerEntrySumAggregateOutputType | null
+    _min: CustomerLedgerEntryMinAggregateOutputType | null
+    _max: CustomerLedgerEntryMaxAggregateOutputType | null
+  }
+
+  type GetCustomerLedgerEntryGroupByPayload<T extends CustomerLedgerEntryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomerLedgerEntryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerLedgerEntryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerLedgerEntryGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerLedgerEntryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerLedgerEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    customerId?: boolean
+    entryNumber?: boolean
+    postingDate?: boolean
+    entryType?: boolean
+    referenceType?: boolean
+    referenceId?: boolean
+    debit?: boolean
+    credit?: boolean
+    runningBalance?: boolean
+    description?: boolean
+    journalEntryId?: boolean
+    accountingPeriodId?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    journalEntry?: boolean | CustomerLedgerEntry$journalEntryArgs<ExtArgs>
+  }, ExtArgs["result"]["customerLedgerEntry"]>
+
+  export type CustomerLedgerEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    customerId?: boolean
+    entryNumber?: boolean
+    postingDate?: boolean
+    entryType?: boolean
+    referenceType?: boolean
+    referenceId?: boolean
+    debit?: boolean
+    credit?: boolean
+    runningBalance?: boolean
+    description?: boolean
+    journalEntryId?: boolean
+    accountingPeriodId?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    journalEntry?: boolean | CustomerLedgerEntry$journalEntryArgs<ExtArgs>
+  }, ExtArgs["result"]["customerLedgerEntry"]>
+
+  export type CustomerLedgerEntrySelectScalar = {
+    id?: boolean
+    customerId?: boolean
+    entryNumber?: boolean
+    postingDate?: boolean
+    entryType?: boolean
+    referenceType?: boolean
+    referenceId?: boolean
+    debit?: boolean
+    credit?: boolean
+    runningBalance?: boolean
+    description?: boolean
+    journalEntryId?: boolean
+    accountingPeriodId?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+  }
+
+  export type CustomerLedgerEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    journalEntry?: boolean | CustomerLedgerEntry$journalEntryArgs<ExtArgs>
+  }
+  export type CustomerLedgerEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    journalEntry?: boolean | CustomerLedgerEntry$journalEntryArgs<ExtArgs>
+  }
+
+  export type $CustomerLedgerEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomerLedgerEntry"
+    objects: {
+      customer: Prisma.$CustomerPayload<ExtArgs>
+      journalEntry: Prisma.$JournalEntryPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      customerId: string
+      entryNumber: string
+      postingDate: Date
+      entryType: string
+      referenceType: string
+      referenceId: string
+      debit: Prisma.Decimal
+      credit: Prisma.Decimal
+      runningBalance: Prisma.Decimal
+      description: string
+      journalEntryId: string | null
+      accountingPeriodId: string | null
+      createdById: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["customerLedgerEntry"]>
+    composites: {}
+  }
+
+  type CustomerLedgerEntryGetPayload<S extends boolean | null | undefined | CustomerLedgerEntryDefaultArgs> = $Result.GetResult<Prisma.$CustomerLedgerEntryPayload, S>
+
+  type CustomerLedgerEntryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CustomerLedgerEntryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CustomerLedgerEntryCountAggregateInputType | true
+    }
+
+  export interface CustomerLedgerEntryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomerLedgerEntry'], meta: { name: 'CustomerLedgerEntry' } }
+    /**
+     * Find zero or one CustomerLedgerEntry that matches the filter.
+     * @param {CustomerLedgerEntryFindUniqueArgs} args - Arguments to find a CustomerLedgerEntry
+     * @example
+     * // Get one CustomerLedgerEntry
+     * const customerLedgerEntry = await prisma.customerLedgerEntry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomerLedgerEntryFindUniqueArgs>(args: SelectSubset<T, CustomerLedgerEntryFindUniqueArgs<ExtArgs>>): Prisma__CustomerLedgerEntryClient<$Result.GetResult<Prisma.$CustomerLedgerEntryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CustomerLedgerEntry that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CustomerLedgerEntryFindUniqueOrThrowArgs} args - Arguments to find a CustomerLedgerEntry
+     * @example
+     * // Get one CustomerLedgerEntry
+     * const customerLedgerEntry = await prisma.customerLedgerEntry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomerLedgerEntryFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomerLedgerEntryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomerLedgerEntryClient<$Result.GetResult<Prisma.$CustomerLedgerEntryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CustomerLedgerEntry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerEntryFindFirstArgs} args - Arguments to find a CustomerLedgerEntry
+     * @example
+     * // Get one CustomerLedgerEntry
+     * const customerLedgerEntry = await prisma.customerLedgerEntry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomerLedgerEntryFindFirstArgs>(args?: SelectSubset<T, CustomerLedgerEntryFindFirstArgs<ExtArgs>>): Prisma__CustomerLedgerEntryClient<$Result.GetResult<Prisma.$CustomerLedgerEntryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CustomerLedgerEntry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerEntryFindFirstOrThrowArgs} args - Arguments to find a CustomerLedgerEntry
+     * @example
+     * // Get one CustomerLedgerEntry
+     * const customerLedgerEntry = await prisma.customerLedgerEntry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomerLedgerEntryFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomerLedgerEntryFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomerLedgerEntryClient<$Result.GetResult<Prisma.$CustomerLedgerEntryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CustomerLedgerEntries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerEntryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerLedgerEntries
+     * const customerLedgerEntries = await prisma.customerLedgerEntry.findMany()
+     * 
+     * // Get first 10 CustomerLedgerEntries
+     * const customerLedgerEntries = await prisma.customerLedgerEntry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerLedgerEntryWithIdOnly = await prisma.customerLedgerEntry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomerLedgerEntryFindManyArgs>(args?: SelectSubset<T, CustomerLedgerEntryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerLedgerEntryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CustomerLedgerEntry.
+     * @param {CustomerLedgerEntryCreateArgs} args - Arguments to create a CustomerLedgerEntry.
+     * @example
+     * // Create one CustomerLedgerEntry
+     * const CustomerLedgerEntry = await prisma.customerLedgerEntry.create({
+     *   data: {
+     *     // ... data to create a CustomerLedgerEntry
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomerLedgerEntryCreateArgs>(args: SelectSubset<T, CustomerLedgerEntryCreateArgs<ExtArgs>>): Prisma__CustomerLedgerEntryClient<$Result.GetResult<Prisma.$CustomerLedgerEntryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CustomerLedgerEntries.
+     * @param {CustomerLedgerEntryCreateManyArgs} args - Arguments to create many CustomerLedgerEntries.
+     * @example
+     * // Create many CustomerLedgerEntries
+     * const customerLedgerEntry = await prisma.customerLedgerEntry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomerLedgerEntryCreateManyArgs>(args?: SelectSubset<T, CustomerLedgerEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomerLedgerEntries and returns the data saved in the database.
+     * @param {CustomerLedgerEntryCreateManyAndReturnArgs} args - Arguments to create many CustomerLedgerEntries.
+     * @example
+     * // Create many CustomerLedgerEntries
+     * const customerLedgerEntry = await prisma.customerLedgerEntry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomerLedgerEntries and only return the `id`
+     * const customerLedgerEntryWithIdOnly = await prisma.customerLedgerEntry.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomerLedgerEntryCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomerLedgerEntryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerLedgerEntryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CustomerLedgerEntry.
+     * @param {CustomerLedgerEntryDeleteArgs} args - Arguments to delete one CustomerLedgerEntry.
+     * @example
+     * // Delete one CustomerLedgerEntry
+     * const CustomerLedgerEntry = await prisma.customerLedgerEntry.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerLedgerEntry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomerLedgerEntryDeleteArgs>(args: SelectSubset<T, CustomerLedgerEntryDeleteArgs<ExtArgs>>): Prisma__CustomerLedgerEntryClient<$Result.GetResult<Prisma.$CustomerLedgerEntryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CustomerLedgerEntry.
+     * @param {CustomerLedgerEntryUpdateArgs} args - Arguments to update one CustomerLedgerEntry.
+     * @example
+     * // Update one CustomerLedgerEntry
+     * const customerLedgerEntry = await prisma.customerLedgerEntry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomerLedgerEntryUpdateArgs>(args: SelectSubset<T, CustomerLedgerEntryUpdateArgs<ExtArgs>>): Prisma__CustomerLedgerEntryClient<$Result.GetResult<Prisma.$CustomerLedgerEntryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CustomerLedgerEntries.
+     * @param {CustomerLedgerEntryDeleteManyArgs} args - Arguments to filter CustomerLedgerEntries to delete.
+     * @example
+     * // Delete a few CustomerLedgerEntries
+     * const { count } = await prisma.customerLedgerEntry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomerLedgerEntryDeleteManyArgs>(args?: SelectSubset<T, CustomerLedgerEntryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerLedgerEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerEntryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerLedgerEntries
+     * const customerLedgerEntry = await prisma.customerLedgerEntry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomerLedgerEntryUpdateManyArgs>(args: SelectSubset<T, CustomerLedgerEntryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CustomerLedgerEntry.
+     * @param {CustomerLedgerEntryUpsertArgs} args - Arguments to update or create a CustomerLedgerEntry.
+     * @example
+     * // Update or create a CustomerLedgerEntry
+     * const customerLedgerEntry = await prisma.customerLedgerEntry.upsert({
+     *   create: {
+     *     // ... data to create a CustomerLedgerEntry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerLedgerEntry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomerLedgerEntryUpsertArgs>(args: SelectSubset<T, CustomerLedgerEntryUpsertArgs<ExtArgs>>): Prisma__CustomerLedgerEntryClient<$Result.GetResult<Prisma.$CustomerLedgerEntryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CustomerLedgerEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerEntryCountArgs} args - Arguments to filter CustomerLedgerEntries to count.
+     * @example
+     * // Count the number of CustomerLedgerEntries
+     * const count = await prisma.customerLedgerEntry.count({
+     *   where: {
+     *     // ... the filter for the CustomerLedgerEntries we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerLedgerEntryCountArgs>(
+      args?: Subset<T, CustomerLedgerEntryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerLedgerEntryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerLedgerEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerEntryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerLedgerEntryAggregateArgs>(args: Subset<T, CustomerLedgerEntryAggregateArgs>): Prisma.PrismaPromise<GetCustomerLedgerEntryAggregateType<T>>
+
+    /**
+     * Group by CustomerLedgerEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerEntryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerLedgerEntryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerLedgerEntryGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerLedgerEntryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerLedgerEntryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerLedgerEntryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomerLedgerEntry model
+   */
+  readonly fields: CustomerLedgerEntryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerLedgerEntry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomerLedgerEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    journalEntry<T extends CustomerLedgerEntry$journalEntryArgs<ExtArgs> = {}>(args?: Subset<T, CustomerLedgerEntry$journalEntryArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomerLedgerEntry model
+   */ 
+  interface CustomerLedgerEntryFieldRefs {
+    readonly id: FieldRef<"CustomerLedgerEntry", 'String'>
+    readonly customerId: FieldRef<"CustomerLedgerEntry", 'String'>
+    readonly entryNumber: FieldRef<"CustomerLedgerEntry", 'String'>
+    readonly postingDate: FieldRef<"CustomerLedgerEntry", 'DateTime'>
+    readonly entryType: FieldRef<"CustomerLedgerEntry", 'String'>
+    readonly referenceType: FieldRef<"CustomerLedgerEntry", 'String'>
+    readonly referenceId: FieldRef<"CustomerLedgerEntry", 'String'>
+    readonly debit: FieldRef<"CustomerLedgerEntry", 'Decimal'>
+    readonly credit: FieldRef<"CustomerLedgerEntry", 'Decimal'>
+    readonly runningBalance: FieldRef<"CustomerLedgerEntry", 'Decimal'>
+    readonly description: FieldRef<"CustomerLedgerEntry", 'String'>
+    readonly journalEntryId: FieldRef<"CustomerLedgerEntry", 'String'>
+    readonly accountingPeriodId: FieldRef<"CustomerLedgerEntry", 'String'>
+    readonly createdById: FieldRef<"CustomerLedgerEntry", 'String'>
+    readonly createdAt: FieldRef<"CustomerLedgerEntry", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomerLedgerEntry findUnique
+   */
+  export type CustomerLedgerEntryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerLedgerEntry to fetch.
+     */
+    where: CustomerLedgerEntryWhereUniqueInput
+  }
+
+  /**
+   * CustomerLedgerEntry findUniqueOrThrow
+   */
+  export type CustomerLedgerEntryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerLedgerEntry to fetch.
+     */
+    where: CustomerLedgerEntryWhereUniqueInput
+  }
+
+  /**
+   * CustomerLedgerEntry findFirst
+   */
+  export type CustomerLedgerEntryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerLedgerEntry to fetch.
+     */
+    where?: CustomerLedgerEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerLedgerEntries to fetch.
+     */
+    orderBy?: CustomerLedgerEntryOrderByWithRelationInput | CustomerLedgerEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerLedgerEntries.
+     */
+    cursor?: CustomerLedgerEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerLedgerEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerLedgerEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerLedgerEntries.
+     */
+    distinct?: CustomerLedgerEntryScalarFieldEnum | CustomerLedgerEntryScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerLedgerEntry findFirstOrThrow
+   */
+  export type CustomerLedgerEntryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerLedgerEntry to fetch.
+     */
+    where?: CustomerLedgerEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerLedgerEntries to fetch.
+     */
+    orderBy?: CustomerLedgerEntryOrderByWithRelationInput | CustomerLedgerEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerLedgerEntries.
+     */
+    cursor?: CustomerLedgerEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerLedgerEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerLedgerEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerLedgerEntries.
+     */
+    distinct?: CustomerLedgerEntryScalarFieldEnum | CustomerLedgerEntryScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerLedgerEntry findMany
+   */
+  export type CustomerLedgerEntryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerLedgerEntries to fetch.
+     */
+    where?: CustomerLedgerEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerLedgerEntries to fetch.
+     */
+    orderBy?: CustomerLedgerEntryOrderByWithRelationInput | CustomerLedgerEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerLedgerEntries.
+     */
+    cursor?: CustomerLedgerEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerLedgerEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerLedgerEntries.
+     */
+    skip?: number
+    distinct?: CustomerLedgerEntryScalarFieldEnum | CustomerLedgerEntryScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerLedgerEntry create
+   */
+  export type CustomerLedgerEntryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomerLedgerEntry.
+     */
+    data: XOR<CustomerLedgerEntryCreateInput, CustomerLedgerEntryUncheckedCreateInput>
+  }
+
+  /**
+   * CustomerLedgerEntry createMany
+   */
+  export type CustomerLedgerEntryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomerLedgerEntries.
+     */
+    data: CustomerLedgerEntryCreateManyInput | CustomerLedgerEntryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CustomerLedgerEntry createManyAndReturn
+   */
+  export type CustomerLedgerEntryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CustomerLedgerEntries.
+     */
+    data: CustomerLedgerEntryCreateManyInput | CustomerLedgerEntryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerLedgerEntry update
+   */
+  export type CustomerLedgerEntryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomerLedgerEntry.
+     */
+    data: XOR<CustomerLedgerEntryUpdateInput, CustomerLedgerEntryUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerLedgerEntry to update.
+     */
+    where: CustomerLedgerEntryWhereUniqueInput
+  }
+
+  /**
+   * CustomerLedgerEntry updateMany
+   */
+  export type CustomerLedgerEntryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomerLedgerEntries.
+     */
+    data: XOR<CustomerLedgerEntryUpdateManyMutationInput, CustomerLedgerEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerLedgerEntries to update
+     */
+    where?: CustomerLedgerEntryWhereInput
+  }
+
+  /**
+   * CustomerLedgerEntry upsert
+   */
+  export type CustomerLedgerEntryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomerLedgerEntry to update in case it exists.
+     */
+    where: CustomerLedgerEntryWhereUniqueInput
+    /**
+     * In case the CustomerLedgerEntry found by the `where` argument doesn't exist, create a new CustomerLedgerEntry with this data.
+     */
+    create: XOR<CustomerLedgerEntryCreateInput, CustomerLedgerEntryUncheckedCreateInput>
+    /**
+     * In case the CustomerLedgerEntry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerLedgerEntryUpdateInput, CustomerLedgerEntryUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomerLedgerEntry delete
+   */
+  export type CustomerLedgerEntryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryInclude<ExtArgs> | null
+    /**
+     * Filter which CustomerLedgerEntry to delete.
+     */
+    where: CustomerLedgerEntryWhereUniqueInput
+  }
+
+  /**
+   * CustomerLedgerEntry deleteMany
+   */
+  export type CustomerLedgerEntryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerLedgerEntries to delete
+     */
+    where?: CustomerLedgerEntryWhereInput
+  }
+
+  /**
+   * CustomerLedgerEntry.journalEntry
+   */
+  export type CustomerLedgerEntry$journalEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    where?: JournalEntryWhereInput
+  }
+
+  /**
+   * CustomerLedgerEntry without action
+   */
+  export type CustomerLedgerEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerEntry
+     */
+    select?: CustomerLedgerEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerEntryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PaymentAllocation
+   */
+
+  export type AggregatePaymentAllocation = {
+    _count: PaymentAllocationCountAggregateOutputType | null
+    _avg: PaymentAllocationAvgAggregateOutputType | null
+    _sum: PaymentAllocationSumAggregateOutputType | null
+    _min: PaymentAllocationMinAggregateOutputType | null
+    _max: PaymentAllocationMaxAggregateOutputType | null
+  }
+
+  export type PaymentAllocationAvgAggregateOutputType = {
+    allocatedAmount: Decimal | null
+  }
+
+  export type PaymentAllocationSumAggregateOutputType = {
+    allocatedAmount: Decimal | null
+  }
+
+  export type PaymentAllocationMinAggregateOutputType = {
+    id: string | null
+    paymentId: string | null
+    demandNoteId: string | null
+    allocatedAmount: Decimal | null
+    allocationDate: Date | null
+    allocatedById: string | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type PaymentAllocationMaxAggregateOutputType = {
+    id: string | null
+    paymentId: string | null
+    demandNoteId: string | null
+    allocatedAmount: Decimal | null
+    allocationDate: Date | null
+    allocatedById: string | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type PaymentAllocationCountAggregateOutputType = {
+    id: number
+    paymentId: number
+    demandNoteId: number
+    allocatedAmount: number
+    allocationDate: number
+    allocatedById: number
+    status: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PaymentAllocationAvgAggregateInputType = {
+    allocatedAmount?: true
+  }
+
+  export type PaymentAllocationSumAggregateInputType = {
+    allocatedAmount?: true
+  }
+
+  export type PaymentAllocationMinAggregateInputType = {
+    id?: true
+    paymentId?: true
+    demandNoteId?: true
+    allocatedAmount?: true
+    allocationDate?: true
+    allocatedById?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type PaymentAllocationMaxAggregateInputType = {
+    id?: true
+    paymentId?: true
+    demandNoteId?: true
+    allocatedAmount?: true
+    allocationDate?: true
+    allocatedById?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type PaymentAllocationCountAggregateInputType = {
+    id?: true
+    paymentId?: true
+    demandNoteId?: true
+    allocatedAmount?: true
+    allocationDate?: true
+    allocatedById?: true
+    status?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PaymentAllocationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PaymentAllocation to aggregate.
+     */
+    where?: PaymentAllocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentAllocations to fetch.
+     */
+    orderBy?: PaymentAllocationOrderByWithRelationInput | PaymentAllocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PaymentAllocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentAllocations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentAllocations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PaymentAllocations
+    **/
+    _count?: true | PaymentAllocationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PaymentAllocationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PaymentAllocationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PaymentAllocationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PaymentAllocationMaxAggregateInputType
+  }
+
+  export type GetPaymentAllocationAggregateType<T extends PaymentAllocationAggregateArgs> = {
+        [P in keyof T & keyof AggregatePaymentAllocation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePaymentAllocation[P]>
+      : GetScalarType<T[P], AggregatePaymentAllocation[P]>
+  }
+
+
+
+
+  export type PaymentAllocationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentAllocationWhereInput
+    orderBy?: PaymentAllocationOrderByWithAggregationInput | PaymentAllocationOrderByWithAggregationInput[]
+    by: PaymentAllocationScalarFieldEnum[] | PaymentAllocationScalarFieldEnum
+    having?: PaymentAllocationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PaymentAllocationCountAggregateInputType | true
+    _avg?: PaymentAllocationAvgAggregateInputType
+    _sum?: PaymentAllocationSumAggregateInputType
+    _min?: PaymentAllocationMinAggregateInputType
+    _max?: PaymentAllocationMaxAggregateInputType
+  }
+
+  export type PaymentAllocationGroupByOutputType = {
+    id: string
+    paymentId: string
+    demandNoteId: string
+    allocatedAmount: Decimal
+    allocationDate: Date
+    allocatedById: string | null
+    status: string
+    createdAt: Date
+    _count: PaymentAllocationCountAggregateOutputType | null
+    _avg: PaymentAllocationAvgAggregateOutputType | null
+    _sum: PaymentAllocationSumAggregateOutputType | null
+    _min: PaymentAllocationMinAggregateOutputType | null
+    _max: PaymentAllocationMaxAggregateOutputType | null
+  }
+
+  type GetPaymentAllocationGroupByPayload<T extends PaymentAllocationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PaymentAllocationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PaymentAllocationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PaymentAllocationGroupByOutputType[P]>
+            : GetScalarType<T[P], PaymentAllocationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PaymentAllocationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    paymentId?: boolean
+    demandNoteId?: boolean
+    allocatedAmount?: boolean
+    allocationDate?: boolean
+    allocatedById?: boolean
+    status?: boolean
+    createdAt?: boolean
+    payment?: boolean | CustomerPaymentDefaultArgs<ExtArgs>
+    demandNote?: boolean | CustomerDemandNoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["paymentAllocation"]>
+
+  export type PaymentAllocationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    paymentId?: boolean
+    demandNoteId?: boolean
+    allocatedAmount?: boolean
+    allocationDate?: boolean
+    allocatedById?: boolean
+    status?: boolean
+    createdAt?: boolean
+    payment?: boolean | CustomerPaymentDefaultArgs<ExtArgs>
+    demandNote?: boolean | CustomerDemandNoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["paymentAllocation"]>
+
+  export type PaymentAllocationSelectScalar = {
+    id?: boolean
+    paymentId?: boolean
+    demandNoteId?: boolean
+    allocatedAmount?: boolean
+    allocationDate?: boolean
+    allocatedById?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }
+
+  export type PaymentAllocationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    payment?: boolean | CustomerPaymentDefaultArgs<ExtArgs>
+    demandNote?: boolean | CustomerDemandNoteDefaultArgs<ExtArgs>
+  }
+  export type PaymentAllocationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    payment?: boolean | CustomerPaymentDefaultArgs<ExtArgs>
+    demandNote?: boolean | CustomerDemandNoteDefaultArgs<ExtArgs>
+  }
+
+  export type $PaymentAllocationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PaymentAllocation"
+    objects: {
+      payment: Prisma.$CustomerPaymentPayload<ExtArgs>
+      demandNote: Prisma.$CustomerDemandNotePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      paymentId: string
+      demandNoteId: string
+      allocatedAmount: Prisma.Decimal
+      allocationDate: Date
+      allocatedById: string | null
+      status: string
+      createdAt: Date
+    }, ExtArgs["result"]["paymentAllocation"]>
+    composites: {}
+  }
+
+  type PaymentAllocationGetPayload<S extends boolean | null | undefined | PaymentAllocationDefaultArgs> = $Result.GetResult<Prisma.$PaymentAllocationPayload, S>
+
+  type PaymentAllocationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PaymentAllocationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PaymentAllocationCountAggregateInputType | true
+    }
+
+  export interface PaymentAllocationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PaymentAllocation'], meta: { name: 'PaymentAllocation' } }
+    /**
+     * Find zero or one PaymentAllocation that matches the filter.
+     * @param {PaymentAllocationFindUniqueArgs} args - Arguments to find a PaymentAllocation
+     * @example
+     * // Get one PaymentAllocation
+     * const paymentAllocation = await prisma.paymentAllocation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PaymentAllocationFindUniqueArgs>(args: SelectSubset<T, PaymentAllocationFindUniqueArgs<ExtArgs>>): Prisma__PaymentAllocationClient<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PaymentAllocation that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PaymentAllocationFindUniqueOrThrowArgs} args - Arguments to find a PaymentAllocation
+     * @example
+     * // Get one PaymentAllocation
+     * const paymentAllocation = await prisma.paymentAllocation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PaymentAllocationFindUniqueOrThrowArgs>(args: SelectSubset<T, PaymentAllocationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PaymentAllocationClient<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PaymentAllocation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentAllocationFindFirstArgs} args - Arguments to find a PaymentAllocation
+     * @example
+     * // Get one PaymentAllocation
+     * const paymentAllocation = await prisma.paymentAllocation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PaymentAllocationFindFirstArgs>(args?: SelectSubset<T, PaymentAllocationFindFirstArgs<ExtArgs>>): Prisma__PaymentAllocationClient<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PaymentAllocation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentAllocationFindFirstOrThrowArgs} args - Arguments to find a PaymentAllocation
+     * @example
+     * // Get one PaymentAllocation
+     * const paymentAllocation = await prisma.paymentAllocation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PaymentAllocationFindFirstOrThrowArgs>(args?: SelectSubset<T, PaymentAllocationFindFirstOrThrowArgs<ExtArgs>>): Prisma__PaymentAllocationClient<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PaymentAllocations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentAllocationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PaymentAllocations
+     * const paymentAllocations = await prisma.paymentAllocation.findMany()
+     * 
+     * // Get first 10 PaymentAllocations
+     * const paymentAllocations = await prisma.paymentAllocation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const paymentAllocationWithIdOnly = await prisma.paymentAllocation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PaymentAllocationFindManyArgs>(args?: SelectSubset<T, PaymentAllocationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PaymentAllocation.
+     * @param {PaymentAllocationCreateArgs} args - Arguments to create a PaymentAllocation.
+     * @example
+     * // Create one PaymentAllocation
+     * const PaymentAllocation = await prisma.paymentAllocation.create({
+     *   data: {
+     *     // ... data to create a PaymentAllocation
+     *   }
+     * })
+     * 
+     */
+    create<T extends PaymentAllocationCreateArgs>(args: SelectSubset<T, PaymentAllocationCreateArgs<ExtArgs>>): Prisma__PaymentAllocationClient<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PaymentAllocations.
+     * @param {PaymentAllocationCreateManyArgs} args - Arguments to create many PaymentAllocations.
+     * @example
+     * // Create many PaymentAllocations
+     * const paymentAllocation = await prisma.paymentAllocation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PaymentAllocationCreateManyArgs>(args?: SelectSubset<T, PaymentAllocationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PaymentAllocations and returns the data saved in the database.
+     * @param {PaymentAllocationCreateManyAndReturnArgs} args - Arguments to create many PaymentAllocations.
+     * @example
+     * // Create many PaymentAllocations
+     * const paymentAllocation = await prisma.paymentAllocation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PaymentAllocations and only return the `id`
+     * const paymentAllocationWithIdOnly = await prisma.paymentAllocation.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PaymentAllocationCreateManyAndReturnArgs>(args?: SelectSubset<T, PaymentAllocationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PaymentAllocation.
+     * @param {PaymentAllocationDeleteArgs} args - Arguments to delete one PaymentAllocation.
+     * @example
+     * // Delete one PaymentAllocation
+     * const PaymentAllocation = await prisma.paymentAllocation.delete({
+     *   where: {
+     *     // ... filter to delete one PaymentAllocation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PaymentAllocationDeleteArgs>(args: SelectSubset<T, PaymentAllocationDeleteArgs<ExtArgs>>): Prisma__PaymentAllocationClient<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PaymentAllocation.
+     * @param {PaymentAllocationUpdateArgs} args - Arguments to update one PaymentAllocation.
+     * @example
+     * // Update one PaymentAllocation
+     * const paymentAllocation = await prisma.paymentAllocation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PaymentAllocationUpdateArgs>(args: SelectSubset<T, PaymentAllocationUpdateArgs<ExtArgs>>): Prisma__PaymentAllocationClient<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PaymentAllocations.
+     * @param {PaymentAllocationDeleteManyArgs} args - Arguments to filter PaymentAllocations to delete.
+     * @example
+     * // Delete a few PaymentAllocations
+     * const { count } = await prisma.paymentAllocation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PaymentAllocationDeleteManyArgs>(args?: SelectSubset<T, PaymentAllocationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PaymentAllocations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentAllocationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PaymentAllocations
+     * const paymentAllocation = await prisma.paymentAllocation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PaymentAllocationUpdateManyArgs>(args: SelectSubset<T, PaymentAllocationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PaymentAllocation.
+     * @param {PaymentAllocationUpsertArgs} args - Arguments to update or create a PaymentAllocation.
+     * @example
+     * // Update or create a PaymentAllocation
+     * const paymentAllocation = await prisma.paymentAllocation.upsert({
+     *   create: {
+     *     // ... data to create a PaymentAllocation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PaymentAllocation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PaymentAllocationUpsertArgs>(args: SelectSubset<T, PaymentAllocationUpsertArgs<ExtArgs>>): Prisma__PaymentAllocationClient<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PaymentAllocations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentAllocationCountArgs} args - Arguments to filter PaymentAllocations to count.
+     * @example
+     * // Count the number of PaymentAllocations
+     * const count = await prisma.paymentAllocation.count({
+     *   where: {
+     *     // ... the filter for the PaymentAllocations we want to count
+     *   }
+     * })
+    **/
+    count<T extends PaymentAllocationCountArgs>(
+      args?: Subset<T, PaymentAllocationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PaymentAllocationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PaymentAllocation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentAllocationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PaymentAllocationAggregateArgs>(args: Subset<T, PaymentAllocationAggregateArgs>): Prisma.PrismaPromise<GetPaymentAllocationAggregateType<T>>
+
+    /**
+     * Group by PaymentAllocation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentAllocationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PaymentAllocationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PaymentAllocationGroupByArgs['orderBy'] }
+        : { orderBy?: PaymentAllocationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PaymentAllocationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPaymentAllocationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PaymentAllocation model
+   */
+  readonly fields: PaymentAllocationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PaymentAllocation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PaymentAllocationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    payment<T extends CustomerPaymentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerPaymentDefaultArgs<ExtArgs>>): Prisma__CustomerPaymentClient<$Result.GetResult<Prisma.$CustomerPaymentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    demandNote<T extends CustomerDemandNoteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDemandNoteDefaultArgs<ExtArgs>>): Prisma__CustomerDemandNoteClient<$Result.GetResult<Prisma.$CustomerDemandNotePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PaymentAllocation model
+   */ 
+  interface PaymentAllocationFieldRefs {
+    readonly id: FieldRef<"PaymentAllocation", 'String'>
+    readonly paymentId: FieldRef<"PaymentAllocation", 'String'>
+    readonly demandNoteId: FieldRef<"PaymentAllocation", 'String'>
+    readonly allocatedAmount: FieldRef<"PaymentAllocation", 'Decimal'>
+    readonly allocationDate: FieldRef<"PaymentAllocation", 'DateTime'>
+    readonly allocatedById: FieldRef<"PaymentAllocation", 'String'>
+    readonly status: FieldRef<"PaymentAllocation", 'String'>
+    readonly createdAt: FieldRef<"PaymentAllocation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PaymentAllocation findUnique
+   */
+  export type PaymentAllocationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentAllocation to fetch.
+     */
+    where: PaymentAllocationWhereUniqueInput
+  }
+
+  /**
+   * PaymentAllocation findUniqueOrThrow
+   */
+  export type PaymentAllocationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentAllocation to fetch.
+     */
+    where: PaymentAllocationWhereUniqueInput
+  }
+
+  /**
+   * PaymentAllocation findFirst
+   */
+  export type PaymentAllocationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentAllocation to fetch.
+     */
+    where?: PaymentAllocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentAllocations to fetch.
+     */
+    orderBy?: PaymentAllocationOrderByWithRelationInput | PaymentAllocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PaymentAllocations.
+     */
+    cursor?: PaymentAllocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentAllocations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentAllocations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PaymentAllocations.
+     */
+    distinct?: PaymentAllocationScalarFieldEnum | PaymentAllocationScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentAllocation findFirstOrThrow
+   */
+  export type PaymentAllocationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentAllocation to fetch.
+     */
+    where?: PaymentAllocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentAllocations to fetch.
+     */
+    orderBy?: PaymentAllocationOrderByWithRelationInput | PaymentAllocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PaymentAllocations.
+     */
+    cursor?: PaymentAllocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentAllocations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentAllocations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PaymentAllocations.
+     */
+    distinct?: PaymentAllocationScalarFieldEnum | PaymentAllocationScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentAllocation findMany
+   */
+  export type PaymentAllocationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+    /**
+     * Filter, which PaymentAllocations to fetch.
+     */
+    where?: PaymentAllocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PaymentAllocations to fetch.
+     */
+    orderBy?: PaymentAllocationOrderByWithRelationInput | PaymentAllocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PaymentAllocations.
+     */
+    cursor?: PaymentAllocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PaymentAllocations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PaymentAllocations.
+     */
+    skip?: number
+    distinct?: PaymentAllocationScalarFieldEnum | PaymentAllocationScalarFieldEnum[]
+  }
+
+  /**
+   * PaymentAllocation create
+   */
+  export type PaymentAllocationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PaymentAllocation.
+     */
+    data: XOR<PaymentAllocationCreateInput, PaymentAllocationUncheckedCreateInput>
+  }
+
+  /**
+   * PaymentAllocation createMany
+   */
+  export type PaymentAllocationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PaymentAllocations.
+     */
+    data: PaymentAllocationCreateManyInput | PaymentAllocationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PaymentAllocation createManyAndReturn
+   */
+  export type PaymentAllocationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PaymentAllocations.
+     */
+    data: PaymentAllocationCreateManyInput | PaymentAllocationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PaymentAllocation update
+   */
+  export type PaymentAllocationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PaymentAllocation.
+     */
+    data: XOR<PaymentAllocationUpdateInput, PaymentAllocationUncheckedUpdateInput>
+    /**
+     * Choose, which PaymentAllocation to update.
+     */
+    where: PaymentAllocationWhereUniqueInput
+  }
+
+  /**
+   * PaymentAllocation updateMany
+   */
+  export type PaymentAllocationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PaymentAllocations.
+     */
+    data: XOR<PaymentAllocationUpdateManyMutationInput, PaymentAllocationUncheckedUpdateManyInput>
+    /**
+     * Filter which PaymentAllocations to update
+     */
+    where?: PaymentAllocationWhereInput
+  }
+
+  /**
+   * PaymentAllocation upsert
+   */
+  export type PaymentAllocationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PaymentAllocation to update in case it exists.
+     */
+    where: PaymentAllocationWhereUniqueInput
+    /**
+     * In case the PaymentAllocation found by the `where` argument doesn't exist, create a new PaymentAllocation with this data.
+     */
+    create: XOR<PaymentAllocationCreateInput, PaymentAllocationUncheckedCreateInput>
+    /**
+     * In case the PaymentAllocation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PaymentAllocationUpdateInput, PaymentAllocationUncheckedUpdateInput>
+  }
+
+  /**
+   * PaymentAllocation delete
+   */
+  export type PaymentAllocationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+    /**
+     * Filter which PaymentAllocation to delete.
+     */
+    where: PaymentAllocationWhereUniqueInput
+  }
+
+  /**
+   * PaymentAllocation deleteMany
+   */
+  export type PaymentAllocationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PaymentAllocations to delete
+     */
+    where?: PaymentAllocationWhereInput
+  }
+
+  /**
+   * PaymentAllocation without action
+   */
+  export type PaymentAllocationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -42016,6 +48227,7 @@ export namespace Prisma {
     refundReferenceNo: 'refundReferenceNo',
     refundNotes: 'refundNotes',
     refundSettledById: 'refundSettledById',
+    paymentPlanId: 'paymentPlanId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -42423,6 +48635,7 @@ export namespace Prisma {
     fiscalYear: 'fiscalYear',
     month: 'month',
     periodName: 'periodName',
+    fiscalQuarter: 'fiscalQuarter',
     startDate: 'startDate',
     endDate: 'endDate',
     status: 'status',
@@ -42436,6 +48649,98 @@ export namespace Prisma {
   };
 
   export type AccountingPeriodScalarFieldEnum = (typeof AccountingPeriodScalarFieldEnum)[keyof typeof AccountingPeriodScalarFieldEnum]
+
+
+  export const PaymentPlanScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    projectLocation: 'projectLocation',
+    description: 'description',
+    status: 'status',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PaymentPlanScalarFieldEnum = (typeof PaymentPlanScalarFieldEnum)[keyof typeof PaymentPlanScalarFieldEnum]
+
+
+  export const PaymentPlanMilestoneScalarFieldEnum: {
+    id: 'id',
+    planId: 'planId',
+    sequence: 'sequence',
+    name: 'name',
+    calculationType: 'calculationType',
+    percentage: 'percentage',
+    fixedAmount: 'fixedAmount',
+    dueDaysAfterTrigger: 'dueDaysAfterTrigger',
+    isTaxable: 'isTaxable',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PaymentPlanMilestoneScalarFieldEnum = (typeof PaymentPlanMilestoneScalarFieldEnum)[keyof typeof PaymentPlanMilestoneScalarFieldEnum]
+
+
+  export const CustomerDemandNoteScalarFieldEnum: {
+    id: 'id',
+    demandNumber: 'demandNumber',
+    customerId: 'customerId',
+    milestoneId: 'milestoneId',
+    milestoneName: 'milestoneName',
+    sequence: 'sequence',
+    documentDate: 'documentDate',
+    dueDate: 'dueDate',
+    principalAmount: 'principalAmount',
+    taxAmount: 'taxAmount',
+    totalDemandAmount: 'totalDemandAmount',
+    allocatedAmount: 'allocatedAmount',
+    outstandingAmount: 'outstandingAmount',
+    status: 'status',
+    journalEntryId: 'journalEntryId',
+    issuedById: 'issuedById',
+    cancelledAt: 'cancelledAt',
+    cancelledReason: 'cancelledReason',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CustomerDemandNoteScalarFieldEnum = (typeof CustomerDemandNoteScalarFieldEnum)[keyof typeof CustomerDemandNoteScalarFieldEnum]
+
+
+  export const CustomerLedgerEntryScalarFieldEnum: {
+    id: 'id',
+    customerId: 'customerId',
+    entryNumber: 'entryNumber',
+    postingDate: 'postingDate',
+    entryType: 'entryType',
+    referenceType: 'referenceType',
+    referenceId: 'referenceId',
+    debit: 'debit',
+    credit: 'credit',
+    runningBalance: 'runningBalance',
+    description: 'description',
+    journalEntryId: 'journalEntryId',
+    accountingPeriodId: 'accountingPeriodId',
+    createdById: 'createdById',
+    createdAt: 'createdAt'
+  };
+
+  export type CustomerLedgerEntryScalarFieldEnum = (typeof CustomerLedgerEntryScalarFieldEnum)[keyof typeof CustomerLedgerEntryScalarFieldEnum]
+
+
+  export const PaymentAllocationScalarFieldEnum: {
+    id: 'id',
+    paymentId: 'paymentId',
+    demandNoteId: 'demandNoteId',
+    allocatedAmount: 'allocatedAmount',
+    allocationDate: 'allocationDate',
+    allocatedById: 'allocatedById',
+    status: 'status',
+    createdAt: 'createdAt'
+  };
+
+  export type PaymentAllocationScalarFieldEnum = (typeof PaymentAllocationScalarFieldEnum)[keyof typeof PaymentAllocationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -43453,6 +49758,8 @@ export namespace Prisma {
     payrollPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
     reversalPayrollPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
     salaryPayment?: XOR<SalaryPaymentNullableRelationFilter, SalaryPaymentWhereInput> | null
+    demandNotes?: CustomerDemandNoteListRelationFilter
+    customerLedgerEntries?: CustomerLedgerEntryListRelationFilter
   }
 
   export type JournalEntryOrderByWithRelationInput = {
@@ -43471,6 +49778,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingOrderByWithRelationInput
     reversalPayrollPosting?: PayrollAccountingPostingOrderByWithRelationInput
     salaryPayment?: SalaryPaymentOrderByWithRelationInput
+    demandNotes?: CustomerDemandNoteOrderByRelationAggregateInput
+    customerLedgerEntries?: CustomerLedgerEntryOrderByRelationAggregateInput
   }
 
   export type JournalEntryWhereUniqueInput = Prisma.AtLeast<{
@@ -43492,6 +49801,8 @@ export namespace Prisma {
     payrollPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
     reversalPayrollPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
     salaryPayment?: XOR<SalaryPaymentNullableRelationFilter, SalaryPaymentWhereInput> | null
+    demandNotes?: CustomerDemandNoteListRelationFilter
+    customerLedgerEntries?: CustomerLedgerEntryListRelationFilter
   }, "id" | "entryNumber">
 
   export type JournalEntryOrderByWithAggregationInput = {
@@ -43713,10 +50024,14 @@ export namespace Prisma {
     refundReferenceNo?: StringNullableFilter<"Customer"> | string | null
     refundNotes?: StringNullableFilter<"Customer"> | string | null
     refundSettledById?: StringNullableFilter<"Customer"> | string | null
+    paymentPlanId?: StringNullableFilter<"Customer"> | string | null
     createdAt?: DateTimeFilter<"Customer"> | Date | string
     updatedAt?: DateTimeFilter<"Customer"> | Date | string
     salesOwner?: XOR<UserRelationFilter, UserWhereInput>
+    paymentPlan?: XOR<PaymentPlanNullableRelationFilter, PaymentPlanWhereInput> | null
     payments?: CustomerPaymentListRelationFilter
+    demandNotes?: CustomerDemandNoteListRelationFilter
+    ledgerEntries?: CustomerLedgerEntryListRelationFilter
   }
 
   export type CustomerOrderByWithRelationInput = {
@@ -43753,10 +50068,14 @@ export namespace Prisma {
     refundReferenceNo?: SortOrderInput | SortOrder
     refundNotes?: SortOrderInput | SortOrder
     refundSettledById?: SortOrderInput | SortOrder
+    paymentPlanId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     salesOwner?: UserOrderByWithRelationInput
+    paymentPlan?: PaymentPlanOrderByWithRelationInput
     payments?: CustomerPaymentOrderByRelationAggregateInput
+    demandNotes?: CustomerDemandNoteOrderByRelationAggregateInput
+    ledgerEntries?: CustomerLedgerEntryOrderByRelationAggregateInput
   }
 
   export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -43796,10 +50115,14 @@ export namespace Prisma {
     refundReferenceNo?: StringNullableFilter<"Customer"> | string | null
     refundNotes?: StringNullableFilter<"Customer"> | string | null
     refundSettledById?: StringNullableFilter<"Customer"> | string | null
+    paymentPlanId?: StringNullableFilter<"Customer"> | string | null
     createdAt?: DateTimeFilter<"Customer"> | Date | string
     updatedAt?: DateTimeFilter<"Customer"> | Date | string
     salesOwner?: XOR<UserRelationFilter, UserWhereInput>
+    paymentPlan?: XOR<PaymentPlanNullableRelationFilter, PaymentPlanWhereInput> | null
     payments?: CustomerPaymentListRelationFilter
+    demandNotes?: CustomerDemandNoteListRelationFilter
+    ledgerEntries?: CustomerLedgerEntryListRelationFilter
   }, "id">
 
   export type CustomerOrderByWithAggregationInput = {
@@ -43836,6 +50159,7 @@ export namespace Prisma {
     refundReferenceNo?: SortOrderInput | SortOrder
     refundNotes?: SortOrderInput | SortOrder
     refundSettledById?: SortOrderInput | SortOrder
+    paymentPlanId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CustomerCountOrderByAggregateInput
@@ -43882,6 +50206,7 @@ export namespace Prisma {
     refundReferenceNo?: StringNullableWithAggregatesFilter<"Customer"> | string | null
     refundNotes?: StringNullableWithAggregatesFilter<"Customer"> | string | null
     refundSettledById?: StringNullableWithAggregatesFilter<"Customer"> | string | null
+    paymentPlanId?: StringNullableWithAggregatesFilter<"Customer"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
   }
@@ -43903,6 +50228,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CustomerPayment"> | Date | string
     customer?: XOR<CustomerRelationFilter, CustomerWhereInput>
     recordedBy?: XOR<UserRelationFilter, UserWhereInput>
+    allocations?: PaymentAllocationListRelationFilter
   }
 
   export type CustomerPaymentOrderByWithRelationInput = {
@@ -43919,6 +50245,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     customer?: CustomerOrderByWithRelationInput
     recordedBy?: UserOrderByWithRelationInput
+    allocations?: PaymentAllocationOrderByRelationAggregateInput
   }
 
   export type CustomerPaymentWhereUniqueInput = Prisma.AtLeast<{
@@ -43938,6 +50265,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CustomerPayment"> | Date | string
     customer?: XOR<CustomerRelationFilter, CustomerWhereInput>
     recordedBy?: XOR<UserRelationFilter, UserWhereInput>
+    allocations?: PaymentAllocationListRelationFilter
   }, "id">
 
   export type CustomerPaymentOrderByWithAggregationInput = {
@@ -46001,6 +52329,7 @@ export namespace Prisma {
     fiscalYear?: IntFilter<"AccountingPeriod"> | number
     month?: IntFilter<"AccountingPeriod"> | number
     periodName?: StringFilter<"AccountingPeriod"> | string
+    fiscalQuarter?: StringNullableFilter<"AccountingPeriod"> | string | null
     startDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
     endDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
     status?: StringFilter<"AccountingPeriod"> | string
@@ -46019,6 +52348,7 @@ export namespace Prisma {
     fiscalYear?: SortOrder
     month?: SortOrder
     periodName?: SortOrder
+    fiscalQuarter?: SortOrderInput | SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     status?: SortOrder
@@ -46041,6 +52371,7 @@ export namespace Prisma {
     NOT?: AccountingPeriodWhereInput | AccountingPeriodWhereInput[]
     fiscalYear?: IntFilter<"AccountingPeriod"> | number
     month?: IntFilter<"AccountingPeriod"> | number
+    fiscalQuarter?: StringNullableFilter<"AccountingPeriod"> | string | null
     startDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
     endDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
     status?: StringFilter<"AccountingPeriod"> | string
@@ -46059,6 +52390,7 @@ export namespace Prisma {
     fiscalYear?: SortOrder
     month?: SortOrder
     periodName?: SortOrder
+    fiscalQuarter?: SortOrderInput | SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     status?: SortOrder
@@ -46084,6 +52416,7 @@ export namespace Prisma {
     fiscalYear?: IntWithAggregatesFilter<"AccountingPeriod"> | number
     month?: IntWithAggregatesFilter<"AccountingPeriod"> | number
     periodName?: StringWithAggregatesFilter<"AccountingPeriod"> | string
+    fiscalQuarter?: StringNullableWithAggregatesFilter<"AccountingPeriod"> | string | null
     startDate?: DateTimeWithAggregatesFilter<"AccountingPeriod"> | Date | string
     endDate?: DateTimeWithAggregatesFilter<"AccountingPeriod"> | Date | string
     status?: StringWithAggregatesFilter<"AccountingPeriod"> | string
@@ -46094,6 +52427,497 @@ export namespace Prisma {
     reopenReason?: StringNullableWithAggregatesFilter<"AccountingPeriod"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"AccountingPeriod"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"AccountingPeriod"> | Date | string
+  }
+
+  export type PaymentPlanWhereInput = {
+    AND?: PaymentPlanWhereInput | PaymentPlanWhereInput[]
+    OR?: PaymentPlanWhereInput[]
+    NOT?: PaymentPlanWhereInput | PaymentPlanWhereInput[]
+    id?: StringFilter<"PaymentPlan"> | string
+    name?: StringFilter<"PaymentPlan"> | string
+    projectLocation?: StringNullableFilter<"PaymentPlan"> | string | null
+    description?: StringNullableFilter<"PaymentPlan"> | string | null
+    status?: StringFilter<"PaymentPlan"> | string
+    createdById?: StringNullableFilter<"PaymentPlan"> | string | null
+    createdAt?: DateTimeFilter<"PaymentPlan"> | Date | string
+    updatedAt?: DateTimeFilter<"PaymentPlan"> | Date | string
+    milestones?: PaymentPlanMilestoneListRelationFilter
+    customers?: CustomerListRelationFilter
+  }
+
+  export type PaymentPlanOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    projectLocation?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    milestones?: PaymentPlanMilestoneOrderByRelationAggregateInput
+    customers?: CustomerOrderByRelationAggregateInput
+  }
+
+  export type PaymentPlanWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: PaymentPlanWhereInput | PaymentPlanWhereInput[]
+    OR?: PaymentPlanWhereInput[]
+    NOT?: PaymentPlanWhereInput | PaymentPlanWhereInput[]
+    projectLocation?: StringNullableFilter<"PaymentPlan"> | string | null
+    description?: StringNullableFilter<"PaymentPlan"> | string | null
+    status?: StringFilter<"PaymentPlan"> | string
+    createdById?: StringNullableFilter<"PaymentPlan"> | string | null
+    createdAt?: DateTimeFilter<"PaymentPlan"> | Date | string
+    updatedAt?: DateTimeFilter<"PaymentPlan"> | Date | string
+    milestones?: PaymentPlanMilestoneListRelationFilter
+    customers?: CustomerListRelationFilter
+  }, "id" | "name">
+
+  export type PaymentPlanOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    projectLocation?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PaymentPlanCountOrderByAggregateInput
+    _max?: PaymentPlanMaxOrderByAggregateInput
+    _min?: PaymentPlanMinOrderByAggregateInput
+  }
+
+  export type PaymentPlanScalarWhereWithAggregatesInput = {
+    AND?: PaymentPlanScalarWhereWithAggregatesInput | PaymentPlanScalarWhereWithAggregatesInput[]
+    OR?: PaymentPlanScalarWhereWithAggregatesInput[]
+    NOT?: PaymentPlanScalarWhereWithAggregatesInput | PaymentPlanScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PaymentPlan"> | string
+    name?: StringWithAggregatesFilter<"PaymentPlan"> | string
+    projectLocation?: StringNullableWithAggregatesFilter<"PaymentPlan"> | string | null
+    description?: StringNullableWithAggregatesFilter<"PaymentPlan"> | string | null
+    status?: StringWithAggregatesFilter<"PaymentPlan"> | string
+    createdById?: StringNullableWithAggregatesFilter<"PaymentPlan"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"PaymentPlan"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PaymentPlan"> | Date | string
+  }
+
+  export type PaymentPlanMilestoneWhereInput = {
+    AND?: PaymentPlanMilestoneWhereInput | PaymentPlanMilestoneWhereInput[]
+    OR?: PaymentPlanMilestoneWhereInput[]
+    NOT?: PaymentPlanMilestoneWhereInput | PaymentPlanMilestoneWhereInput[]
+    id?: StringFilter<"PaymentPlanMilestone"> | string
+    planId?: StringFilter<"PaymentPlanMilestone"> | string
+    sequence?: IntFilter<"PaymentPlanMilestone"> | number
+    name?: StringFilter<"PaymentPlanMilestone"> | string
+    calculationType?: StringFilter<"PaymentPlanMilestone"> | string
+    percentage?: DecimalNullableFilter<"PaymentPlanMilestone"> | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: DecimalNullableFilter<"PaymentPlanMilestone"> | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntFilter<"PaymentPlanMilestone"> | number
+    isTaxable?: BoolFilter<"PaymentPlanMilestone"> | boolean
+    createdAt?: DateTimeFilter<"PaymentPlanMilestone"> | Date | string
+    updatedAt?: DateTimeFilter<"PaymentPlanMilestone"> | Date | string
+    plan?: XOR<PaymentPlanRelationFilter, PaymentPlanWhereInput>
+    demandNotes?: CustomerDemandNoteListRelationFilter
+  }
+
+  export type PaymentPlanMilestoneOrderByWithRelationInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    sequence?: SortOrder
+    name?: SortOrder
+    calculationType?: SortOrder
+    percentage?: SortOrderInput | SortOrder
+    fixedAmount?: SortOrderInput | SortOrder
+    dueDaysAfterTrigger?: SortOrder
+    isTaxable?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    plan?: PaymentPlanOrderByWithRelationInput
+    demandNotes?: CustomerDemandNoteOrderByRelationAggregateInput
+  }
+
+  export type PaymentPlanMilestoneWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    planId_sequence?: PaymentPlanMilestonePlanIdSequenceCompoundUniqueInput
+    AND?: PaymentPlanMilestoneWhereInput | PaymentPlanMilestoneWhereInput[]
+    OR?: PaymentPlanMilestoneWhereInput[]
+    NOT?: PaymentPlanMilestoneWhereInput | PaymentPlanMilestoneWhereInput[]
+    planId?: StringFilter<"PaymentPlanMilestone"> | string
+    sequence?: IntFilter<"PaymentPlanMilestone"> | number
+    name?: StringFilter<"PaymentPlanMilestone"> | string
+    calculationType?: StringFilter<"PaymentPlanMilestone"> | string
+    percentage?: DecimalNullableFilter<"PaymentPlanMilestone"> | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: DecimalNullableFilter<"PaymentPlanMilestone"> | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntFilter<"PaymentPlanMilestone"> | number
+    isTaxable?: BoolFilter<"PaymentPlanMilestone"> | boolean
+    createdAt?: DateTimeFilter<"PaymentPlanMilestone"> | Date | string
+    updatedAt?: DateTimeFilter<"PaymentPlanMilestone"> | Date | string
+    plan?: XOR<PaymentPlanRelationFilter, PaymentPlanWhereInput>
+    demandNotes?: CustomerDemandNoteListRelationFilter
+  }, "id" | "planId_sequence">
+
+  export type PaymentPlanMilestoneOrderByWithAggregationInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    sequence?: SortOrder
+    name?: SortOrder
+    calculationType?: SortOrder
+    percentage?: SortOrderInput | SortOrder
+    fixedAmount?: SortOrderInput | SortOrder
+    dueDaysAfterTrigger?: SortOrder
+    isTaxable?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PaymentPlanMilestoneCountOrderByAggregateInput
+    _avg?: PaymentPlanMilestoneAvgOrderByAggregateInput
+    _max?: PaymentPlanMilestoneMaxOrderByAggregateInput
+    _min?: PaymentPlanMilestoneMinOrderByAggregateInput
+    _sum?: PaymentPlanMilestoneSumOrderByAggregateInput
+  }
+
+  export type PaymentPlanMilestoneScalarWhereWithAggregatesInput = {
+    AND?: PaymentPlanMilestoneScalarWhereWithAggregatesInput | PaymentPlanMilestoneScalarWhereWithAggregatesInput[]
+    OR?: PaymentPlanMilestoneScalarWhereWithAggregatesInput[]
+    NOT?: PaymentPlanMilestoneScalarWhereWithAggregatesInput | PaymentPlanMilestoneScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PaymentPlanMilestone"> | string
+    planId?: StringWithAggregatesFilter<"PaymentPlanMilestone"> | string
+    sequence?: IntWithAggregatesFilter<"PaymentPlanMilestone"> | number
+    name?: StringWithAggregatesFilter<"PaymentPlanMilestone"> | string
+    calculationType?: StringWithAggregatesFilter<"PaymentPlanMilestone"> | string
+    percentage?: DecimalNullableWithAggregatesFilter<"PaymentPlanMilestone"> | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: DecimalNullableWithAggregatesFilter<"PaymentPlanMilestone"> | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntWithAggregatesFilter<"PaymentPlanMilestone"> | number
+    isTaxable?: BoolWithAggregatesFilter<"PaymentPlanMilestone"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"PaymentPlanMilestone"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PaymentPlanMilestone"> | Date | string
+  }
+
+  export type CustomerDemandNoteWhereInput = {
+    AND?: CustomerDemandNoteWhereInput | CustomerDemandNoteWhereInput[]
+    OR?: CustomerDemandNoteWhereInput[]
+    NOT?: CustomerDemandNoteWhereInput | CustomerDemandNoteWhereInput[]
+    id?: StringFilter<"CustomerDemandNote"> | string
+    demandNumber?: StringFilter<"CustomerDemandNote"> | string
+    customerId?: StringFilter<"CustomerDemandNote"> | string
+    milestoneId?: StringNullableFilter<"CustomerDemandNote"> | string | null
+    milestoneName?: StringFilter<"CustomerDemandNote"> | string
+    sequence?: IntFilter<"CustomerDemandNote"> | number
+    documentDate?: DateTimeFilter<"CustomerDemandNote"> | Date | string
+    dueDate?: DateTimeFilter<"CustomerDemandNote"> | Date | string
+    principalAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"CustomerDemandNote"> | string
+    journalEntryId?: StringNullableFilter<"CustomerDemandNote"> | string | null
+    issuedById?: StringNullableFilter<"CustomerDemandNote"> | string | null
+    cancelledAt?: DateTimeNullableFilter<"CustomerDemandNote"> | Date | string | null
+    cancelledReason?: StringNullableFilter<"CustomerDemandNote"> | string | null
+    createdAt?: DateTimeFilter<"CustomerDemandNote"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerDemandNote"> | Date | string
+    customer?: XOR<CustomerRelationFilter, CustomerWhereInput>
+    milestone?: XOR<PaymentPlanMilestoneNullableRelationFilter, PaymentPlanMilestoneWhereInput> | null
+    journalEntry?: XOR<JournalEntryNullableRelationFilter, JournalEntryWhereInput> | null
+    allocations?: PaymentAllocationListRelationFilter
+  }
+
+  export type CustomerDemandNoteOrderByWithRelationInput = {
+    id?: SortOrder
+    demandNumber?: SortOrder
+    customerId?: SortOrder
+    milestoneId?: SortOrderInput | SortOrder
+    milestoneName?: SortOrder
+    sequence?: SortOrder
+    documentDate?: SortOrder
+    dueDate?: SortOrder
+    principalAmount?: SortOrder
+    taxAmount?: SortOrder
+    totalDemandAmount?: SortOrder
+    allocatedAmount?: SortOrder
+    outstandingAmount?: SortOrder
+    status?: SortOrder
+    journalEntryId?: SortOrderInput | SortOrder
+    issuedById?: SortOrderInput | SortOrder
+    cancelledAt?: SortOrderInput | SortOrder
+    cancelledReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    customer?: CustomerOrderByWithRelationInput
+    milestone?: PaymentPlanMilestoneOrderByWithRelationInput
+    journalEntry?: JournalEntryOrderByWithRelationInput
+    allocations?: PaymentAllocationOrderByRelationAggregateInput
+  }
+
+  export type CustomerDemandNoteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    demandNumber?: string
+    AND?: CustomerDemandNoteWhereInput | CustomerDemandNoteWhereInput[]
+    OR?: CustomerDemandNoteWhereInput[]
+    NOT?: CustomerDemandNoteWhereInput | CustomerDemandNoteWhereInput[]
+    customerId?: StringFilter<"CustomerDemandNote"> | string
+    milestoneId?: StringNullableFilter<"CustomerDemandNote"> | string | null
+    milestoneName?: StringFilter<"CustomerDemandNote"> | string
+    sequence?: IntFilter<"CustomerDemandNote"> | number
+    documentDate?: DateTimeFilter<"CustomerDemandNote"> | Date | string
+    dueDate?: DateTimeFilter<"CustomerDemandNote"> | Date | string
+    principalAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"CustomerDemandNote"> | string
+    journalEntryId?: StringNullableFilter<"CustomerDemandNote"> | string | null
+    issuedById?: StringNullableFilter<"CustomerDemandNote"> | string | null
+    cancelledAt?: DateTimeNullableFilter<"CustomerDemandNote"> | Date | string | null
+    cancelledReason?: StringNullableFilter<"CustomerDemandNote"> | string | null
+    createdAt?: DateTimeFilter<"CustomerDemandNote"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerDemandNote"> | Date | string
+    customer?: XOR<CustomerRelationFilter, CustomerWhereInput>
+    milestone?: XOR<PaymentPlanMilestoneNullableRelationFilter, PaymentPlanMilestoneWhereInput> | null
+    journalEntry?: XOR<JournalEntryNullableRelationFilter, JournalEntryWhereInput> | null
+    allocations?: PaymentAllocationListRelationFilter
+  }, "id" | "demandNumber">
+
+  export type CustomerDemandNoteOrderByWithAggregationInput = {
+    id?: SortOrder
+    demandNumber?: SortOrder
+    customerId?: SortOrder
+    milestoneId?: SortOrderInput | SortOrder
+    milestoneName?: SortOrder
+    sequence?: SortOrder
+    documentDate?: SortOrder
+    dueDate?: SortOrder
+    principalAmount?: SortOrder
+    taxAmount?: SortOrder
+    totalDemandAmount?: SortOrder
+    allocatedAmount?: SortOrder
+    outstandingAmount?: SortOrder
+    status?: SortOrder
+    journalEntryId?: SortOrderInput | SortOrder
+    issuedById?: SortOrderInput | SortOrder
+    cancelledAt?: SortOrderInput | SortOrder
+    cancelledReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CustomerDemandNoteCountOrderByAggregateInput
+    _avg?: CustomerDemandNoteAvgOrderByAggregateInput
+    _max?: CustomerDemandNoteMaxOrderByAggregateInput
+    _min?: CustomerDemandNoteMinOrderByAggregateInput
+    _sum?: CustomerDemandNoteSumOrderByAggregateInput
+  }
+
+  export type CustomerDemandNoteScalarWhereWithAggregatesInput = {
+    AND?: CustomerDemandNoteScalarWhereWithAggregatesInput | CustomerDemandNoteScalarWhereWithAggregatesInput[]
+    OR?: CustomerDemandNoteScalarWhereWithAggregatesInput[]
+    NOT?: CustomerDemandNoteScalarWhereWithAggregatesInput | CustomerDemandNoteScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CustomerDemandNote"> | string
+    demandNumber?: StringWithAggregatesFilter<"CustomerDemandNote"> | string
+    customerId?: StringWithAggregatesFilter<"CustomerDemandNote"> | string
+    milestoneId?: StringNullableWithAggregatesFilter<"CustomerDemandNote"> | string | null
+    milestoneName?: StringWithAggregatesFilter<"CustomerDemandNote"> | string
+    sequence?: IntWithAggregatesFilter<"CustomerDemandNote"> | number
+    documentDate?: DateTimeWithAggregatesFilter<"CustomerDemandNote"> | Date | string
+    dueDate?: DateTimeWithAggregatesFilter<"CustomerDemandNote"> | Date | string
+    principalAmount?: DecimalWithAggregatesFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalWithAggregatesFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalWithAggregatesFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalWithAggregatesFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalWithAggregatesFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    status?: StringWithAggregatesFilter<"CustomerDemandNote"> | string
+    journalEntryId?: StringNullableWithAggregatesFilter<"CustomerDemandNote"> | string | null
+    issuedById?: StringNullableWithAggregatesFilter<"CustomerDemandNote"> | string | null
+    cancelledAt?: DateTimeNullableWithAggregatesFilter<"CustomerDemandNote"> | Date | string | null
+    cancelledReason?: StringNullableWithAggregatesFilter<"CustomerDemandNote"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CustomerDemandNote"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CustomerDemandNote"> | Date | string
+  }
+
+  export type CustomerLedgerEntryWhereInput = {
+    AND?: CustomerLedgerEntryWhereInput | CustomerLedgerEntryWhereInput[]
+    OR?: CustomerLedgerEntryWhereInput[]
+    NOT?: CustomerLedgerEntryWhereInput | CustomerLedgerEntryWhereInput[]
+    id?: StringFilter<"CustomerLedgerEntry"> | string
+    customerId?: StringFilter<"CustomerLedgerEntry"> | string
+    entryNumber?: StringFilter<"CustomerLedgerEntry"> | string
+    postingDate?: DateTimeFilter<"CustomerLedgerEntry"> | Date | string
+    entryType?: StringFilter<"CustomerLedgerEntry"> | string
+    referenceType?: StringFilter<"CustomerLedgerEntry"> | string
+    referenceId?: StringFilter<"CustomerLedgerEntry"> | string
+    debit?: DecimalFilter<"CustomerLedgerEntry"> | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFilter<"CustomerLedgerEntry"> | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFilter<"CustomerLedgerEntry"> | Decimal | DecimalJsLike | number | string
+    description?: StringFilter<"CustomerLedgerEntry"> | string
+    journalEntryId?: StringNullableFilter<"CustomerLedgerEntry"> | string | null
+    accountingPeriodId?: StringNullableFilter<"CustomerLedgerEntry"> | string | null
+    createdById?: StringNullableFilter<"CustomerLedgerEntry"> | string | null
+    createdAt?: DateTimeFilter<"CustomerLedgerEntry"> | Date | string
+    customer?: XOR<CustomerRelationFilter, CustomerWhereInput>
+    journalEntry?: XOR<JournalEntryNullableRelationFilter, JournalEntryWhereInput> | null
+  }
+
+  export type CustomerLedgerEntryOrderByWithRelationInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    entryNumber?: SortOrder
+    postingDate?: SortOrder
+    entryType?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    runningBalance?: SortOrder
+    description?: SortOrder
+    journalEntryId?: SortOrderInput | SortOrder
+    accountingPeriodId?: SortOrderInput | SortOrder
+    createdById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    customer?: CustomerOrderByWithRelationInput
+    journalEntry?: JournalEntryOrderByWithRelationInput
+  }
+
+  export type CustomerLedgerEntryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    entryNumber?: string
+    AND?: CustomerLedgerEntryWhereInput | CustomerLedgerEntryWhereInput[]
+    OR?: CustomerLedgerEntryWhereInput[]
+    NOT?: CustomerLedgerEntryWhereInput | CustomerLedgerEntryWhereInput[]
+    customerId?: StringFilter<"CustomerLedgerEntry"> | string
+    postingDate?: DateTimeFilter<"CustomerLedgerEntry"> | Date | string
+    entryType?: StringFilter<"CustomerLedgerEntry"> | string
+    referenceType?: StringFilter<"CustomerLedgerEntry"> | string
+    referenceId?: StringFilter<"CustomerLedgerEntry"> | string
+    debit?: DecimalFilter<"CustomerLedgerEntry"> | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFilter<"CustomerLedgerEntry"> | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFilter<"CustomerLedgerEntry"> | Decimal | DecimalJsLike | number | string
+    description?: StringFilter<"CustomerLedgerEntry"> | string
+    journalEntryId?: StringNullableFilter<"CustomerLedgerEntry"> | string | null
+    accountingPeriodId?: StringNullableFilter<"CustomerLedgerEntry"> | string | null
+    createdById?: StringNullableFilter<"CustomerLedgerEntry"> | string | null
+    createdAt?: DateTimeFilter<"CustomerLedgerEntry"> | Date | string
+    customer?: XOR<CustomerRelationFilter, CustomerWhereInput>
+    journalEntry?: XOR<JournalEntryNullableRelationFilter, JournalEntryWhereInput> | null
+  }, "id" | "entryNumber">
+
+  export type CustomerLedgerEntryOrderByWithAggregationInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    entryNumber?: SortOrder
+    postingDate?: SortOrder
+    entryType?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    runningBalance?: SortOrder
+    description?: SortOrder
+    journalEntryId?: SortOrderInput | SortOrder
+    accountingPeriodId?: SortOrderInput | SortOrder
+    createdById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: CustomerLedgerEntryCountOrderByAggregateInput
+    _avg?: CustomerLedgerEntryAvgOrderByAggregateInput
+    _max?: CustomerLedgerEntryMaxOrderByAggregateInput
+    _min?: CustomerLedgerEntryMinOrderByAggregateInput
+    _sum?: CustomerLedgerEntrySumOrderByAggregateInput
+  }
+
+  export type CustomerLedgerEntryScalarWhereWithAggregatesInput = {
+    AND?: CustomerLedgerEntryScalarWhereWithAggregatesInput | CustomerLedgerEntryScalarWhereWithAggregatesInput[]
+    OR?: CustomerLedgerEntryScalarWhereWithAggregatesInput[]
+    NOT?: CustomerLedgerEntryScalarWhereWithAggregatesInput | CustomerLedgerEntryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CustomerLedgerEntry"> | string
+    customerId?: StringWithAggregatesFilter<"CustomerLedgerEntry"> | string
+    entryNumber?: StringWithAggregatesFilter<"CustomerLedgerEntry"> | string
+    postingDate?: DateTimeWithAggregatesFilter<"CustomerLedgerEntry"> | Date | string
+    entryType?: StringWithAggregatesFilter<"CustomerLedgerEntry"> | string
+    referenceType?: StringWithAggregatesFilter<"CustomerLedgerEntry"> | string
+    referenceId?: StringWithAggregatesFilter<"CustomerLedgerEntry"> | string
+    debit?: DecimalWithAggregatesFilter<"CustomerLedgerEntry"> | Decimal | DecimalJsLike | number | string
+    credit?: DecimalWithAggregatesFilter<"CustomerLedgerEntry"> | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalWithAggregatesFilter<"CustomerLedgerEntry"> | Decimal | DecimalJsLike | number | string
+    description?: StringWithAggregatesFilter<"CustomerLedgerEntry"> | string
+    journalEntryId?: StringNullableWithAggregatesFilter<"CustomerLedgerEntry"> | string | null
+    accountingPeriodId?: StringNullableWithAggregatesFilter<"CustomerLedgerEntry"> | string | null
+    createdById?: StringNullableWithAggregatesFilter<"CustomerLedgerEntry"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CustomerLedgerEntry"> | Date | string
+  }
+
+  export type PaymentAllocationWhereInput = {
+    AND?: PaymentAllocationWhereInput | PaymentAllocationWhereInput[]
+    OR?: PaymentAllocationWhereInput[]
+    NOT?: PaymentAllocationWhereInput | PaymentAllocationWhereInput[]
+    id?: StringFilter<"PaymentAllocation"> | string
+    paymentId?: StringFilter<"PaymentAllocation"> | string
+    demandNoteId?: StringFilter<"PaymentAllocation"> | string
+    allocatedAmount?: DecimalFilter<"PaymentAllocation"> | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFilter<"PaymentAllocation"> | Date | string
+    allocatedById?: StringNullableFilter<"PaymentAllocation"> | string | null
+    status?: StringFilter<"PaymentAllocation"> | string
+    createdAt?: DateTimeFilter<"PaymentAllocation"> | Date | string
+    payment?: XOR<CustomerPaymentRelationFilter, CustomerPaymentWhereInput>
+    demandNote?: XOR<CustomerDemandNoteRelationFilter, CustomerDemandNoteWhereInput>
+  }
+
+  export type PaymentAllocationOrderByWithRelationInput = {
+    id?: SortOrder
+    paymentId?: SortOrder
+    demandNoteId?: SortOrder
+    allocatedAmount?: SortOrder
+    allocationDate?: SortOrder
+    allocatedById?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    payment?: CustomerPaymentOrderByWithRelationInput
+    demandNote?: CustomerDemandNoteOrderByWithRelationInput
+  }
+
+  export type PaymentAllocationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    paymentId_demandNoteId?: PaymentAllocationPaymentIdDemandNoteIdCompoundUniqueInput
+    AND?: PaymentAllocationWhereInput | PaymentAllocationWhereInput[]
+    OR?: PaymentAllocationWhereInput[]
+    NOT?: PaymentAllocationWhereInput | PaymentAllocationWhereInput[]
+    paymentId?: StringFilter<"PaymentAllocation"> | string
+    demandNoteId?: StringFilter<"PaymentAllocation"> | string
+    allocatedAmount?: DecimalFilter<"PaymentAllocation"> | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFilter<"PaymentAllocation"> | Date | string
+    allocatedById?: StringNullableFilter<"PaymentAllocation"> | string | null
+    status?: StringFilter<"PaymentAllocation"> | string
+    createdAt?: DateTimeFilter<"PaymentAllocation"> | Date | string
+    payment?: XOR<CustomerPaymentRelationFilter, CustomerPaymentWhereInput>
+    demandNote?: XOR<CustomerDemandNoteRelationFilter, CustomerDemandNoteWhereInput>
+  }, "id" | "paymentId_demandNoteId">
+
+  export type PaymentAllocationOrderByWithAggregationInput = {
+    id?: SortOrder
+    paymentId?: SortOrder
+    demandNoteId?: SortOrder
+    allocatedAmount?: SortOrder
+    allocationDate?: SortOrder
+    allocatedById?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    _count?: PaymentAllocationCountOrderByAggregateInput
+    _avg?: PaymentAllocationAvgOrderByAggregateInput
+    _max?: PaymentAllocationMaxOrderByAggregateInput
+    _min?: PaymentAllocationMinOrderByAggregateInput
+    _sum?: PaymentAllocationSumOrderByAggregateInput
+  }
+
+  export type PaymentAllocationScalarWhereWithAggregatesInput = {
+    AND?: PaymentAllocationScalarWhereWithAggregatesInput | PaymentAllocationScalarWhereWithAggregatesInput[]
+    OR?: PaymentAllocationScalarWhereWithAggregatesInput[]
+    NOT?: PaymentAllocationScalarWhereWithAggregatesInput | PaymentAllocationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PaymentAllocation"> | string
+    paymentId?: StringWithAggregatesFilter<"PaymentAllocation"> | string
+    demandNoteId?: StringWithAggregatesFilter<"PaymentAllocation"> | string
+    allocatedAmount?: DecimalWithAggregatesFilter<"PaymentAllocation"> | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeWithAggregatesFilter<"PaymentAllocation"> | Date | string
+    allocatedById?: StringNullableWithAggregatesFilter<"PaymentAllocation"> | string | null
+    status?: StringWithAggregatesFilter<"PaymentAllocation"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PaymentAllocation"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -47044,6 +53868,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
     salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryCreateNestedManyWithoutJournalEntryInput
   }
 
   export type JournalEntryUncheckedCreateInput = {
@@ -47061,6 +53887,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
     salaryPayment?: SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedCreateNestedManyWithoutJournalEntryInput
   }
 
   export type JournalEntryUpdateInput = {
@@ -47078,6 +53906,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUpdateManyWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUncheckedUpdateInput = {
@@ -47095,6 +53925,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedUpdateManyWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryCreateManyInput = {
@@ -47329,7 +54161,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     salesOwner: UserCreateNestedOneWithoutCustomersInput
+    paymentPlan?: PaymentPlanCreateNestedOneWithoutCustomersInput
     payments?: CustomerPaymentCreateNestedManyWithoutCustomerInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutCustomerInput
+    ledgerEntries?: CustomerLedgerEntryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateInput = {
@@ -47366,9 +54201,12 @@ export namespace Prisma {
     refundReferenceNo?: string | null
     refundNotes?: string | null
     refundSettledById?: string | null
+    paymentPlanId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payments?: CustomerPaymentUncheckedCreateNestedManyWithoutCustomerInput
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerEntries?: CustomerLedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUpdateInput = {
@@ -47407,7 +54245,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     salesOwner?: UserUpdateOneRequiredWithoutCustomersNestedInput
+    paymentPlan?: PaymentPlanUpdateOneWithoutCustomersNestedInput
     payments?: CustomerPaymentUpdateManyWithoutCustomerNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutCustomerNestedInput
+    ledgerEntries?: CustomerLedgerEntryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateInput = {
@@ -47444,9 +54285,12 @@ export namespace Prisma {
     refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
     refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentPlanId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payments?: CustomerPaymentUncheckedUpdateManyWithoutCustomerNestedInput
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerEntries?: CustomerLedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateManyInput = {
@@ -47483,6 +54327,7 @@ export namespace Prisma {
     refundReferenceNo?: string | null
     refundNotes?: string | null
     refundSettledById?: string | null
+    paymentPlanId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -47558,6 +54403,7 @@ export namespace Prisma {
     refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
     refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentPlanId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -47574,6 +54420,7 @@ export namespace Prisma {
     createdAt?: Date | string
     customer: CustomerCreateNestedOneWithoutPaymentsInput
     recordedBy: UserCreateNestedOneWithoutRecordedPaymentsInput
+    allocations?: PaymentAllocationCreateNestedManyWithoutPaymentInput
   }
 
   export type CustomerPaymentUncheckedCreateInput = {
@@ -47588,6 +54435,7 @@ export namespace Prisma {
     recordedById: string
     status?: string
     createdAt?: Date | string
+    allocations?: PaymentAllocationUncheckedCreateNestedManyWithoutPaymentInput
   }
 
   export type CustomerPaymentUpdateInput = {
@@ -47602,6 +54450,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneRequiredWithoutPaymentsNestedInput
     recordedBy?: UserUpdateOneRequiredWithoutRecordedPaymentsNestedInput
+    allocations?: PaymentAllocationUpdateManyWithoutPaymentNestedInput
   }
 
   export type CustomerPaymentUncheckedUpdateInput = {
@@ -47616,6 +54465,7 @@ export namespace Prisma {
     recordedById?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocations?: PaymentAllocationUncheckedUpdateManyWithoutPaymentNestedInput
   }
 
   export type CustomerPaymentCreateManyInput = {
@@ -50009,6 +56859,7 @@ export namespace Prisma {
     fiscalYear: number
     month: number
     periodName: string
+    fiscalQuarter?: string | null
     startDate: Date | string
     endDate: Date | string
     status?: string
@@ -50027,6 +56878,7 @@ export namespace Prisma {
     fiscalYear: number
     month: number
     periodName: string
+    fiscalQuarter?: string | null
     startDate: Date | string
     endDate: Date | string
     status?: string
@@ -50045,6 +56897,7 @@ export namespace Prisma {
     fiscalYear?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
     periodName?: StringFieldUpdateOperationsInput | string
+    fiscalQuarter?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
@@ -50063,6 +56916,7 @@ export namespace Prisma {
     fiscalYear?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
     periodName?: StringFieldUpdateOperationsInput | string
+    fiscalQuarter?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
@@ -50081,6 +56935,7 @@ export namespace Prisma {
     fiscalYear: number
     month: number
     periodName: string
+    fiscalQuarter?: string | null
     startDate: Date | string
     endDate: Date | string
     status?: string
@@ -50098,6 +56953,7 @@ export namespace Prisma {
     fiscalYear?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
     periodName?: StringFieldUpdateOperationsInput | string
+    fiscalQuarter?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
@@ -50115,6 +56971,7 @@ export namespace Prisma {
     fiscalYear?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
     periodName?: StringFieldUpdateOperationsInput | string
+    fiscalQuarter?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
@@ -50125,6 +56982,553 @@ export namespace Prisma {
     reopenReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentPlanCreateInput = {
+    id?: string
+    name: string
+    projectLocation?: string | null
+    description?: string | null
+    status?: string
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: PaymentPlanMilestoneCreateNestedManyWithoutPlanInput
+    customers?: CustomerCreateNestedManyWithoutPaymentPlanInput
+  }
+
+  export type PaymentPlanUncheckedCreateInput = {
+    id?: string
+    name: string
+    projectLocation?: string | null
+    description?: string | null
+    status?: string
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: PaymentPlanMilestoneUncheckedCreateNestedManyWithoutPlanInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutPaymentPlanInput
+  }
+
+  export type PaymentPlanUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    projectLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: PaymentPlanMilestoneUpdateManyWithoutPlanNestedInput
+    customers?: CustomerUpdateManyWithoutPaymentPlanNestedInput
+  }
+
+  export type PaymentPlanUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    projectLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: PaymentPlanMilestoneUncheckedUpdateManyWithoutPlanNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutPaymentPlanNestedInput
+  }
+
+  export type PaymentPlanCreateManyInput = {
+    id?: string
+    name: string
+    projectLocation?: string | null
+    description?: string | null
+    status?: string
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PaymentPlanUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    projectLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentPlanUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    projectLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentPlanMilestoneCreateInput = {
+    id?: string
+    sequence: number
+    name: string
+    calculationType?: string
+    percentage?: Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: number
+    isTaxable?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    plan: PaymentPlanCreateNestedOneWithoutMilestonesInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutMilestoneInput
+  }
+
+  export type PaymentPlanMilestoneUncheckedCreateInput = {
+    id?: string
+    planId: string
+    sequence: number
+    name: string
+    calculationType?: string
+    percentage?: Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: number
+    isTaxable?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutMilestoneInput
+  }
+
+  export type PaymentPlanMilestoneUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    calculationType?: StringFieldUpdateOperationsInput | string
+    percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: PaymentPlanUpdateOneRequiredWithoutMilestonesNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutMilestoneNestedInput
+  }
+
+  export type PaymentPlanMilestoneUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    calculationType?: StringFieldUpdateOperationsInput | string
+    percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutMilestoneNestedInput
+  }
+
+  export type PaymentPlanMilestoneCreateManyInput = {
+    id?: string
+    planId: string
+    sequence: number
+    name: string
+    calculationType?: string
+    percentage?: Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: number
+    isTaxable?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PaymentPlanMilestoneUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    calculationType?: StringFieldUpdateOperationsInput | string
+    percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentPlanMilestoneUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    calculationType?: StringFieldUpdateOperationsInput | string
+    percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerDemandNoteCreateInput = {
+    id?: string
+    demandNumber: string
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutDemandNotesInput
+    milestone?: PaymentPlanMilestoneCreateNestedOneWithoutDemandNotesInput
+    journalEntry?: JournalEntryCreateNestedOneWithoutDemandNotesInput
+    allocations?: PaymentAllocationCreateNestedManyWithoutDemandNoteInput
+  }
+
+  export type CustomerDemandNoteUncheckedCreateInput = {
+    id?: string
+    demandNumber: string
+    customerId: string
+    milestoneId?: string | null
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    journalEntryId?: string | null
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    allocations?: PaymentAllocationUncheckedCreateNestedManyWithoutDemandNoteInput
+  }
+
+  export type CustomerDemandNoteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutDemandNotesNestedInput
+    milestone?: PaymentPlanMilestoneUpdateOneWithoutDemandNotesNestedInput
+    journalEntry?: JournalEntryUpdateOneWithoutDemandNotesNestedInput
+    allocations?: PaymentAllocationUpdateManyWithoutDemandNoteNestedInput
+  }
+
+  export type CustomerDemandNoteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    milestoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocations?: PaymentAllocationUncheckedUpdateManyWithoutDemandNoteNestedInput
+  }
+
+  export type CustomerDemandNoteCreateManyInput = {
+    id?: string
+    demandNumber: string
+    customerId: string
+    milestoneId?: string | null
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    journalEntryId?: string | null
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerDemandNoteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerDemandNoteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    milestoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerLedgerEntryCreateInput = {
+    id?: string
+    entryNumber: string
+    postingDate?: Date | string
+    entryType: string
+    referenceType: string
+    referenceId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    runningBalance: Decimal | DecimalJsLike | number | string
+    description: string
+    accountingPeriodId?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutLedgerEntriesInput
+    journalEntry?: JournalEntryCreateNestedOneWithoutCustomerLedgerEntriesInput
+  }
+
+  export type CustomerLedgerEntryUncheckedCreateInput = {
+    id?: string
+    customerId: string
+    entryNumber: string
+    postingDate?: Date | string
+    entryType: string
+    referenceType: string
+    referenceId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    runningBalance: Decimal | DecimalJsLike | number | string
+    description: string
+    journalEntryId?: string | null
+    accountingPeriodId?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CustomerLedgerEntryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    postingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    entryType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutLedgerEntriesNestedInput
+    journalEntry?: JournalEntryUpdateOneWithoutCustomerLedgerEntriesNestedInput
+  }
+
+  export type CustomerLedgerEntryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    postingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    entryType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerLedgerEntryCreateManyInput = {
+    id?: string
+    customerId: string
+    entryNumber: string
+    postingDate?: Date | string
+    entryType: string
+    referenceType: string
+    referenceId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    runningBalance: Decimal | DecimalJsLike | number | string
+    description: string
+    journalEntryId?: string | null
+    accountingPeriodId?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CustomerLedgerEntryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    postingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    entryType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerLedgerEntryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    postingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    entryType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentAllocationCreateInput = {
+    id?: string
+    allocatedAmount: Decimal | DecimalJsLike | number | string
+    allocationDate?: Date | string
+    allocatedById?: string | null
+    status?: string
+    createdAt?: Date | string
+    payment: CustomerPaymentCreateNestedOneWithoutAllocationsInput
+    demandNote: CustomerDemandNoteCreateNestedOneWithoutAllocationsInput
+  }
+
+  export type PaymentAllocationUncheckedCreateInput = {
+    id?: string
+    paymentId: string
+    demandNoteId: string
+    allocatedAmount: Decimal | DecimalJsLike | number | string
+    allocationDate?: Date | string
+    allocatedById?: string | null
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PaymentAllocationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocatedById?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: CustomerPaymentUpdateOneRequiredWithoutAllocationsNestedInput
+    demandNote?: CustomerDemandNoteUpdateOneRequiredWithoutAllocationsNestedInput
+  }
+
+  export type PaymentAllocationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: StringFieldUpdateOperationsInput | string
+    demandNoteId?: StringFieldUpdateOperationsInput | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocatedById?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentAllocationCreateManyInput = {
+    id?: string
+    paymentId: string
+    demandNoteId: string
+    allocatedAmount: Decimal | DecimalJsLike | number | string
+    allocationDate?: Date | string
+    allocatedById?: string | null
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PaymentAllocationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocatedById?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentAllocationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: StringFieldUpdateOperationsInput | string
+    demandNoteId?: StringFieldUpdateOperationsInput | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocatedById?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -50939,6 +58343,26 @@ export namespace Prisma {
     isNot?: SalaryPaymentWhereInput | null
   }
 
+  export type CustomerDemandNoteListRelationFilter = {
+    every?: CustomerDemandNoteWhereInput
+    some?: CustomerDemandNoteWhereInput
+    none?: CustomerDemandNoteWhereInput
+  }
+
+  export type CustomerLedgerEntryListRelationFilter = {
+    every?: CustomerLedgerEntryWhereInput
+    some?: CustomerLedgerEntryWhereInput
+    none?: CustomerLedgerEntryWhereInput
+  }
+
+  export type CustomerDemandNoteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CustomerLedgerEntryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type JournalEntryCountOrderByAggregateInput = {
     id?: SortOrder
     entryNumber?: SortOrder
@@ -51115,6 +58539,11 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type PaymentPlanNullableRelationFilter = {
+    is?: PaymentPlanWhereInput | null
+    isNot?: PaymentPlanWhereInput | null
+  }
+
   export type CustomerCountOrderByAggregateInput = {
     id?: SortOrder
     salesOwnerId?: SortOrder
@@ -51149,6 +58578,7 @@ export namespace Prisma {
     refundReferenceNo?: SortOrder
     refundNotes?: SortOrder
     refundSettledById?: SortOrder
+    paymentPlanId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -51201,6 +58631,7 @@ export namespace Prisma {
     refundReferenceNo?: SortOrder
     refundNotes?: SortOrder
     refundSettledById?: SortOrder
+    paymentPlanId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -51238,6 +58669,7 @@ export namespace Prisma {
     refundReferenceNo?: SortOrder
     refundNotes?: SortOrder
     refundSettledById?: SortOrder
+    paymentPlanId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -51260,6 +58692,16 @@ export namespace Prisma {
   export type CustomerRelationFilter = {
     is?: CustomerWhereInput
     isNot?: CustomerWhereInput
+  }
+
+  export type PaymentAllocationListRelationFilter = {
+    every?: PaymentAllocationWhereInput
+    some?: PaymentAllocationWhereInput
+    none?: PaymentAllocationWhereInput
+  }
+
+  export type PaymentAllocationOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type CustomerPaymentCountOrderByAggregateInput = {
@@ -52695,6 +60137,7 @@ export namespace Prisma {
     fiscalYear?: SortOrder
     month?: SortOrder
     periodName?: SortOrder
+    fiscalQuarter?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     status?: SortOrder
@@ -52717,6 +60160,7 @@ export namespace Prisma {
     fiscalYear?: SortOrder
     month?: SortOrder
     periodName?: SortOrder
+    fiscalQuarter?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     status?: SortOrder
@@ -52734,6 +60178,7 @@ export namespace Prisma {
     fiscalYear?: SortOrder
     month?: SortOrder
     periodName?: SortOrder
+    fiscalQuarter?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     status?: SortOrder
@@ -52749,6 +60194,329 @@ export namespace Prisma {
   export type AccountingPeriodSumOrderByAggregateInput = {
     fiscalYear?: SortOrder
     month?: SortOrder
+  }
+
+  export type PaymentPlanMilestoneListRelationFilter = {
+    every?: PaymentPlanMilestoneWhereInput
+    some?: PaymentPlanMilestoneWhereInput
+    none?: PaymentPlanMilestoneWhereInput
+  }
+
+  export type PaymentPlanMilestoneOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PaymentPlanCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    projectLocation?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PaymentPlanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    projectLocation?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PaymentPlanMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    projectLocation?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PaymentPlanRelationFilter = {
+    is?: PaymentPlanWhereInput
+    isNot?: PaymentPlanWhereInput
+  }
+
+  export type PaymentPlanMilestonePlanIdSequenceCompoundUniqueInput = {
+    planId: string
+    sequence: number
+  }
+
+  export type PaymentPlanMilestoneCountOrderByAggregateInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    sequence?: SortOrder
+    name?: SortOrder
+    calculationType?: SortOrder
+    percentage?: SortOrder
+    fixedAmount?: SortOrder
+    dueDaysAfterTrigger?: SortOrder
+    isTaxable?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PaymentPlanMilestoneAvgOrderByAggregateInput = {
+    sequence?: SortOrder
+    percentage?: SortOrder
+    fixedAmount?: SortOrder
+    dueDaysAfterTrigger?: SortOrder
+  }
+
+  export type PaymentPlanMilestoneMaxOrderByAggregateInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    sequence?: SortOrder
+    name?: SortOrder
+    calculationType?: SortOrder
+    percentage?: SortOrder
+    fixedAmount?: SortOrder
+    dueDaysAfterTrigger?: SortOrder
+    isTaxable?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PaymentPlanMilestoneMinOrderByAggregateInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    sequence?: SortOrder
+    name?: SortOrder
+    calculationType?: SortOrder
+    percentage?: SortOrder
+    fixedAmount?: SortOrder
+    dueDaysAfterTrigger?: SortOrder
+    isTaxable?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PaymentPlanMilestoneSumOrderByAggregateInput = {
+    sequence?: SortOrder
+    percentage?: SortOrder
+    fixedAmount?: SortOrder
+    dueDaysAfterTrigger?: SortOrder
+  }
+
+  export type PaymentPlanMilestoneNullableRelationFilter = {
+    is?: PaymentPlanMilestoneWhereInput | null
+    isNot?: PaymentPlanMilestoneWhereInput | null
+  }
+
+  export type CustomerDemandNoteCountOrderByAggregateInput = {
+    id?: SortOrder
+    demandNumber?: SortOrder
+    customerId?: SortOrder
+    milestoneId?: SortOrder
+    milestoneName?: SortOrder
+    sequence?: SortOrder
+    documentDate?: SortOrder
+    dueDate?: SortOrder
+    principalAmount?: SortOrder
+    taxAmount?: SortOrder
+    totalDemandAmount?: SortOrder
+    allocatedAmount?: SortOrder
+    outstandingAmount?: SortOrder
+    status?: SortOrder
+    journalEntryId?: SortOrder
+    issuedById?: SortOrder
+    cancelledAt?: SortOrder
+    cancelledReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerDemandNoteAvgOrderByAggregateInput = {
+    sequence?: SortOrder
+    principalAmount?: SortOrder
+    taxAmount?: SortOrder
+    totalDemandAmount?: SortOrder
+    allocatedAmount?: SortOrder
+    outstandingAmount?: SortOrder
+  }
+
+  export type CustomerDemandNoteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    demandNumber?: SortOrder
+    customerId?: SortOrder
+    milestoneId?: SortOrder
+    milestoneName?: SortOrder
+    sequence?: SortOrder
+    documentDate?: SortOrder
+    dueDate?: SortOrder
+    principalAmount?: SortOrder
+    taxAmount?: SortOrder
+    totalDemandAmount?: SortOrder
+    allocatedAmount?: SortOrder
+    outstandingAmount?: SortOrder
+    status?: SortOrder
+    journalEntryId?: SortOrder
+    issuedById?: SortOrder
+    cancelledAt?: SortOrder
+    cancelledReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerDemandNoteMinOrderByAggregateInput = {
+    id?: SortOrder
+    demandNumber?: SortOrder
+    customerId?: SortOrder
+    milestoneId?: SortOrder
+    milestoneName?: SortOrder
+    sequence?: SortOrder
+    documentDate?: SortOrder
+    dueDate?: SortOrder
+    principalAmount?: SortOrder
+    taxAmount?: SortOrder
+    totalDemandAmount?: SortOrder
+    allocatedAmount?: SortOrder
+    outstandingAmount?: SortOrder
+    status?: SortOrder
+    journalEntryId?: SortOrder
+    issuedById?: SortOrder
+    cancelledAt?: SortOrder
+    cancelledReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerDemandNoteSumOrderByAggregateInput = {
+    sequence?: SortOrder
+    principalAmount?: SortOrder
+    taxAmount?: SortOrder
+    totalDemandAmount?: SortOrder
+    allocatedAmount?: SortOrder
+    outstandingAmount?: SortOrder
+  }
+
+  export type CustomerLedgerEntryCountOrderByAggregateInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    entryNumber?: SortOrder
+    postingDate?: SortOrder
+    entryType?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    runningBalance?: SortOrder
+    description?: SortOrder
+    journalEntryId?: SortOrder
+    accountingPeriodId?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CustomerLedgerEntryAvgOrderByAggregateInput = {
+    debit?: SortOrder
+    credit?: SortOrder
+    runningBalance?: SortOrder
+  }
+
+  export type CustomerLedgerEntryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    entryNumber?: SortOrder
+    postingDate?: SortOrder
+    entryType?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    runningBalance?: SortOrder
+    description?: SortOrder
+    journalEntryId?: SortOrder
+    accountingPeriodId?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CustomerLedgerEntryMinOrderByAggregateInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    entryNumber?: SortOrder
+    postingDate?: SortOrder
+    entryType?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    runningBalance?: SortOrder
+    description?: SortOrder
+    journalEntryId?: SortOrder
+    accountingPeriodId?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CustomerLedgerEntrySumOrderByAggregateInput = {
+    debit?: SortOrder
+    credit?: SortOrder
+    runningBalance?: SortOrder
+  }
+
+  export type CustomerPaymentRelationFilter = {
+    is?: CustomerPaymentWhereInput
+    isNot?: CustomerPaymentWhereInput
+  }
+
+  export type CustomerDemandNoteRelationFilter = {
+    is?: CustomerDemandNoteWhereInput
+    isNot?: CustomerDemandNoteWhereInput
+  }
+
+  export type PaymentAllocationPaymentIdDemandNoteIdCompoundUniqueInput = {
+    paymentId: string
+    demandNoteId: string
+  }
+
+  export type PaymentAllocationCountOrderByAggregateInput = {
+    id?: SortOrder
+    paymentId?: SortOrder
+    demandNoteId?: SortOrder
+    allocatedAmount?: SortOrder
+    allocationDate?: SortOrder
+    allocatedById?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PaymentAllocationAvgOrderByAggregateInput = {
+    allocatedAmount?: SortOrder
+  }
+
+  export type PaymentAllocationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    paymentId?: SortOrder
+    demandNoteId?: SortOrder
+    allocatedAmount?: SortOrder
+    allocationDate?: SortOrder
+    allocatedById?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PaymentAllocationMinOrderByAggregateInput = {
+    id?: SortOrder
+    paymentId?: SortOrder
+    demandNoteId?: SortOrder
+    allocatedAmount?: SortOrder
+    allocationDate?: SortOrder
+    allocatedById?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PaymentAllocationSumOrderByAggregateInput = {
+    allocatedAmount?: SortOrder
   }
 
   export type RoleCreateNestedOneWithoutUsersInput = {
@@ -53766,6 +61534,20 @@ export namespace Prisma {
     connect?: SalaryPaymentWhereUniqueInput
   }
 
+  export type CustomerDemandNoteCreateNestedManyWithoutJournalEntryInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutJournalEntryInput, CustomerDemandNoteUncheckedCreateWithoutJournalEntryInput> | CustomerDemandNoteCreateWithoutJournalEntryInput[] | CustomerDemandNoteUncheckedCreateWithoutJournalEntryInput[]
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutJournalEntryInput | CustomerDemandNoteCreateOrConnectWithoutJournalEntryInput[]
+    createMany?: CustomerDemandNoteCreateManyJournalEntryInputEnvelope
+    connect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+  }
+
+  export type CustomerLedgerEntryCreateNestedManyWithoutJournalEntryInput = {
+    create?: XOR<CustomerLedgerEntryCreateWithoutJournalEntryInput, CustomerLedgerEntryUncheckedCreateWithoutJournalEntryInput> | CustomerLedgerEntryCreateWithoutJournalEntryInput[] | CustomerLedgerEntryUncheckedCreateWithoutJournalEntryInput[]
+    connectOrCreate?: CustomerLedgerEntryCreateOrConnectWithoutJournalEntryInput | CustomerLedgerEntryCreateOrConnectWithoutJournalEntryInput[]
+    createMany?: CustomerLedgerEntryCreateManyJournalEntryInputEnvelope
+    connect?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+  }
+
   export type JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput = {
     create?: XOR<JournalLineCreateWithoutJournalEntryInput, JournalLineUncheckedCreateWithoutJournalEntryInput> | JournalLineCreateWithoutJournalEntryInput[] | JournalLineUncheckedCreateWithoutJournalEntryInput[]
     connectOrCreate?: JournalLineCreateOrConnectWithoutJournalEntryInput | JournalLineCreateOrConnectWithoutJournalEntryInput[]
@@ -53789,6 +61571,20 @@ export namespace Prisma {
     create?: XOR<SalaryPaymentCreateWithoutJournalEntryInput, SalaryPaymentUncheckedCreateWithoutJournalEntryInput>
     connectOrCreate?: SalaryPaymentCreateOrConnectWithoutJournalEntryInput
     connect?: SalaryPaymentWhereUniqueInput
+  }
+
+  export type CustomerDemandNoteUncheckedCreateNestedManyWithoutJournalEntryInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutJournalEntryInput, CustomerDemandNoteUncheckedCreateWithoutJournalEntryInput> | CustomerDemandNoteCreateWithoutJournalEntryInput[] | CustomerDemandNoteUncheckedCreateWithoutJournalEntryInput[]
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutJournalEntryInput | CustomerDemandNoteCreateOrConnectWithoutJournalEntryInput[]
+    createMany?: CustomerDemandNoteCreateManyJournalEntryInputEnvelope
+    connect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+  }
+
+  export type CustomerLedgerEntryUncheckedCreateNestedManyWithoutJournalEntryInput = {
+    create?: XOR<CustomerLedgerEntryCreateWithoutJournalEntryInput, CustomerLedgerEntryUncheckedCreateWithoutJournalEntryInput> | CustomerLedgerEntryCreateWithoutJournalEntryInput[] | CustomerLedgerEntryUncheckedCreateWithoutJournalEntryInput[]
+    connectOrCreate?: CustomerLedgerEntryCreateOrConnectWithoutJournalEntryInput | CustomerLedgerEntryCreateOrConnectWithoutJournalEntryInput[]
+    createMany?: CustomerLedgerEntryCreateManyJournalEntryInputEnvelope
+    connect?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
   }
 
   export type AccountingPeriodUpdateOneWithoutJournalEntriesNestedInput = {
@@ -53845,6 +61641,34 @@ export namespace Prisma {
     update?: XOR<XOR<SalaryPaymentUpdateToOneWithWhereWithoutJournalEntryInput, SalaryPaymentUpdateWithoutJournalEntryInput>, SalaryPaymentUncheckedUpdateWithoutJournalEntryInput>
   }
 
+  export type CustomerDemandNoteUpdateManyWithoutJournalEntryNestedInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutJournalEntryInput, CustomerDemandNoteUncheckedCreateWithoutJournalEntryInput> | CustomerDemandNoteCreateWithoutJournalEntryInput[] | CustomerDemandNoteUncheckedCreateWithoutJournalEntryInput[]
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutJournalEntryInput | CustomerDemandNoteCreateOrConnectWithoutJournalEntryInput[]
+    upsert?: CustomerDemandNoteUpsertWithWhereUniqueWithoutJournalEntryInput | CustomerDemandNoteUpsertWithWhereUniqueWithoutJournalEntryInput[]
+    createMany?: CustomerDemandNoteCreateManyJournalEntryInputEnvelope
+    set?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    disconnect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    delete?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    connect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    update?: CustomerDemandNoteUpdateWithWhereUniqueWithoutJournalEntryInput | CustomerDemandNoteUpdateWithWhereUniqueWithoutJournalEntryInput[]
+    updateMany?: CustomerDemandNoteUpdateManyWithWhereWithoutJournalEntryInput | CustomerDemandNoteUpdateManyWithWhereWithoutJournalEntryInput[]
+    deleteMany?: CustomerDemandNoteScalarWhereInput | CustomerDemandNoteScalarWhereInput[]
+  }
+
+  export type CustomerLedgerEntryUpdateManyWithoutJournalEntryNestedInput = {
+    create?: XOR<CustomerLedgerEntryCreateWithoutJournalEntryInput, CustomerLedgerEntryUncheckedCreateWithoutJournalEntryInput> | CustomerLedgerEntryCreateWithoutJournalEntryInput[] | CustomerLedgerEntryUncheckedCreateWithoutJournalEntryInput[]
+    connectOrCreate?: CustomerLedgerEntryCreateOrConnectWithoutJournalEntryInput | CustomerLedgerEntryCreateOrConnectWithoutJournalEntryInput[]
+    upsert?: CustomerLedgerEntryUpsertWithWhereUniqueWithoutJournalEntryInput | CustomerLedgerEntryUpsertWithWhereUniqueWithoutJournalEntryInput[]
+    createMany?: CustomerLedgerEntryCreateManyJournalEntryInputEnvelope
+    set?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    disconnect?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    delete?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    connect?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    update?: CustomerLedgerEntryUpdateWithWhereUniqueWithoutJournalEntryInput | CustomerLedgerEntryUpdateWithWhereUniqueWithoutJournalEntryInput[]
+    updateMany?: CustomerLedgerEntryUpdateManyWithWhereWithoutJournalEntryInput | CustomerLedgerEntryUpdateManyWithWhereWithoutJournalEntryInput[]
+    deleteMany?: CustomerLedgerEntryScalarWhereInput | CustomerLedgerEntryScalarWhereInput[]
+  }
+
   export type JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput = {
     create?: XOR<JournalLineCreateWithoutJournalEntryInput, JournalLineUncheckedCreateWithoutJournalEntryInput> | JournalLineCreateWithoutJournalEntryInput[] | JournalLineUncheckedCreateWithoutJournalEntryInput[]
     connectOrCreate?: JournalLineCreateOrConnectWithoutJournalEntryInput | JournalLineCreateOrConnectWithoutJournalEntryInput[]
@@ -53887,6 +61711,34 @@ export namespace Prisma {
     delete?: SalaryPaymentWhereInput | boolean
     connect?: SalaryPaymentWhereUniqueInput
     update?: XOR<XOR<SalaryPaymentUpdateToOneWithWhereWithoutJournalEntryInput, SalaryPaymentUpdateWithoutJournalEntryInput>, SalaryPaymentUncheckedUpdateWithoutJournalEntryInput>
+  }
+
+  export type CustomerDemandNoteUncheckedUpdateManyWithoutJournalEntryNestedInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutJournalEntryInput, CustomerDemandNoteUncheckedCreateWithoutJournalEntryInput> | CustomerDemandNoteCreateWithoutJournalEntryInput[] | CustomerDemandNoteUncheckedCreateWithoutJournalEntryInput[]
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutJournalEntryInput | CustomerDemandNoteCreateOrConnectWithoutJournalEntryInput[]
+    upsert?: CustomerDemandNoteUpsertWithWhereUniqueWithoutJournalEntryInput | CustomerDemandNoteUpsertWithWhereUniqueWithoutJournalEntryInput[]
+    createMany?: CustomerDemandNoteCreateManyJournalEntryInputEnvelope
+    set?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    disconnect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    delete?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    connect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    update?: CustomerDemandNoteUpdateWithWhereUniqueWithoutJournalEntryInput | CustomerDemandNoteUpdateWithWhereUniqueWithoutJournalEntryInput[]
+    updateMany?: CustomerDemandNoteUpdateManyWithWhereWithoutJournalEntryInput | CustomerDemandNoteUpdateManyWithWhereWithoutJournalEntryInput[]
+    deleteMany?: CustomerDemandNoteScalarWhereInput | CustomerDemandNoteScalarWhereInput[]
+  }
+
+  export type CustomerLedgerEntryUncheckedUpdateManyWithoutJournalEntryNestedInput = {
+    create?: XOR<CustomerLedgerEntryCreateWithoutJournalEntryInput, CustomerLedgerEntryUncheckedCreateWithoutJournalEntryInput> | CustomerLedgerEntryCreateWithoutJournalEntryInput[] | CustomerLedgerEntryUncheckedCreateWithoutJournalEntryInput[]
+    connectOrCreate?: CustomerLedgerEntryCreateOrConnectWithoutJournalEntryInput | CustomerLedgerEntryCreateOrConnectWithoutJournalEntryInput[]
+    upsert?: CustomerLedgerEntryUpsertWithWhereUniqueWithoutJournalEntryInput | CustomerLedgerEntryUpsertWithWhereUniqueWithoutJournalEntryInput[]
+    createMany?: CustomerLedgerEntryCreateManyJournalEntryInputEnvelope
+    set?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    disconnect?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    delete?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    connect?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    update?: CustomerLedgerEntryUpdateWithWhereUniqueWithoutJournalEntryInput | CustomerLedgerEntryUpdateWithWhereUniqueWithoutJournalEntryInput[]
+    updateMany?: CustomerLedgerEntryUpdateManyWithWhereWithoutJournalEntryInput | CustomerLedgerEntryUpdateManyWithWhereWithoutJournalEntryInput[]
+    deleteMany?: CustomerLedgerEntryScalarWhereInput | CustomerLedgerEntryScalarWhereInput[]
   }
 
   export type JournalEntryCreateNestedOneWithoutLinesInput = {
@@ -53939,11 +61791,31 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type PaymentPlanCreateNestedOneWithoutCustomersInput = {
+    create?: XOR<PaymentPlanCreateWithoutCustomersInput, PaymentPlanUncheckedCreateWithoutCustomersInput>
+    connectOrCreate?: PaymentPlanCreateOrConnectWithoutCustomersInput
+    connect?: PaymentPlanWhereUniqueInput
+  }
+
   export type CustomerPaymentCreateNestedManyWithoutCustomerInput = {
     create?: XOR<CustomerPaymentCreateWithoutCustomerInput, CustomerPaymentUncheckedCreateWithoutCustomerInput> | CustomerPaymentCreateWithoutCustomerInput[] | CustomerPaymentUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerPaymentCreateOrConnectWithoutCustomerInput | CustomerPaymentCreateOrConnectWithoutCustomerInput[]
     createMany?: CustomerPaymentCreateManyCustomerInputEnvelope
     connect?: CustomerPaymentWhereUniqueInput | CustomerPaymentWhereUniqueInput[]
+  }
+
+  export type CustomerDemandNoteCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutCustomerInput, CustomerDemandNoteUncheckedCreateWithoutCustomerInput> | CustomerDemandNoteCreateWithoutCustomerInput[] | CustomerDemandNoteUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutCustomerInput | CustomerDemandNoteCreateOrConnectWithoutCustomerInput[]
+    createMany?: CustomerDemandNoteCreateManyCustomerInputEnvelope
+    connect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+  }
+
+  export type CustomerLedgerEntryCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<CustomerLedgerEntryCreateWithoutCustomerInput, CustomerLedgerEntryUncheckedCreateWithoutCustomerInput> | CustomerLedgerEntryCreateWithoutCustomerInput[] | CustomerLedgerEntryUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerLedgerEntryCreateOrConnectWithoutCustomerInput | CustomerLedgerEntryCreateOrConnectWithoutCustomerInput[]
+    createMany?: CustomerLedgerEntryCreateManyCustomerInputEnvelope
+    connect?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
   }
 
   export type CustomerPaymentUncheckedCreateNestedManyWithoutCustomerInput = {
@@ -53953,12 +61825,36 @@ export namespace Prisma {
     connect?: CustomerPaymentWhereUniqueInput | CustomerPaymentWhereUniqueInput[]
   }
 
+  export type CustomerDemandNoteUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutCustomerInput, CustomerDemandNoteUncheckedCreateWithoutCustomerInput> | CustomerDemandNoteCreateWithoutCustomerInput[] | CustomerDemandNoteUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutCustomerInput | CustomerDemandNoteCreateOrConnectWithoutCustomerInput[]
+    createMany?: CustomerDemandNoteCreateManyCustomerInputEnvelope
+    connect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+  }
+
+  export type CustomerLedgerEntryUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<CustomerLedgerEntryCreateWithoutCustomerInput, CustomerLedgerEntryUncheckedCreateWithoutCustomerInput> | CustomerLedgerEntryCreateWithoutCustomerInput[] | CustomerLedgerEntryUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerLedgerEntryCreateOrConnectWithoutCustomerInput | CustomerLedgerEntryCreateOrConnectWithoutCustomerInput[]
+    createMany?: CustomerLedgerEntryCreateManyCustomerInputEnvelope
+    connect?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+  }
+
   export type UserUpdateOneRequiredWithoutCustomersNestedInput = {
     create?: XOR<UserCreateWithoutCustomersInput, UserUncheckedCreateWithoutCustomersInput>
     connectOrCreate?: UserCreateOrConnectWithoutCustomersInput
     upsert?: UserUpsertWithoutCustomersInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCustomersInput, UserUpdateWithoutCustomersInput>, UserUncheckedUpdateWithoutCustomersInput>
+  }
+
+  export type PaymentPlanUpdateOneWithoutCustomersNestedInput = {
+    create?: XOR<PaymentPlanCreateWithoutCustomersInput, PaymentPlanUncheckedCreateWithoutCustomersInput>
+    connectOrCreate?: PaymentPlanCreateOrConnectWithoutCustomersInput
+    upsert?: PaymentPlanUpsertWithoutCustomersInput
+    disconnect?: PaymentPlanWhereInput | boolean
+    delete?: PaymentPlanWhereInput | boolean
+    connect?: PaymentPlanWhereUniqueInput
+    update?: XOR<XOR<PaymentPlanUpdateToOneWithWhereWithoutCustomersInput, PaymentPlanUpdateWithoutCustomersInput>, PaymentPlanUncheckedUpdateWithoutCustomersInput>
   }
 
   export type CustomerPaymentUpdateManyWithoutCustomerNestedInput = {
@@ -53975,6 +61871,34 @@ export namespace Prisma {
     deleteMany?: CustomerPaymentScalarWhereInput | CustomerPaymentScalarWhereInput[]
   }
 
+  export type CustomerDemandNoteUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutCustomerInput, CustomerDemandNoteUncheckedCreateWithoutCustomerInput> | CustomerDemandNoteCreateWithoutCustomerInput[] | CustomerDemandNoteUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutCustomerInput | CustomerDemandNoteCreateOrConnectWithoutCustomerInput[]
+    upsert?: CustomerDemandNoteUpsertWithWhereUniqueWithoutCustomerInput | CustomerDemandNoteUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: CustomerDemandNoteCreateManyCustomerInputEnvelope
+    set?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    disconnect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    delete?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    connect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    update?: CustomerDemandNoteUpdateWithWhereUniqueWithoutCustomerInput | CustomerDemandNoteUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: CustomerDemandNoteUpdateManyWithWhereWithoutCustomerInput | CustomerDemandNoteUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: CustomerDemandNoteScalarWhereInput | CustomerDemandNoteScalarWhereInput[]
+  }
+
+  export type CustomerLedgerEntryUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<CustomerLedgerEntryCreateWithoutCustomerInput, CustomerLedgerEntryUncheckedCreateWithoutCustomerInput> | CustomerLedgerEntryCreateWithoutCustomerInput[] | CustomerLedgerEntryUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerLedgerEntryCreateOrConnectWithoutCustomerInput | CustomerLedgerEntryCreateOrConnectWithoutCustomerInput[]
+    upsert?: CustomerLedgerEntryUpsertWithWhereUniqueWithoutCustomerInput | CustomerLedgerEntryUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: CustomerLedgerEntryCreateManyCustomerInputEnvelope
+    set?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    disconnect?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    delete?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    connect?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    update?: CustomerLedgerEntryUpdateWithWhereUniqueWithoutCustomerInput | CustomerLedgerEntryUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: CustomerLedgerEntryUpdateManyWithWhereWithoutCustomerInput | CustomerLedgerEntryUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: CustomerLedgerEntryScalarWhereInput | CustomerLedgerEntryScalarWhereInput[]
+  }
+
   export type CustomerPaymentUncheckedUpdateManyWithoutCustomerNestedInput = {
     create?: XOR<CustomerPaymentCreateWithoutCustomerInput, CustomerPaymentUncheckedCreateWithoutCustomerInput> | CustomerPaymentCreateWithoutCustomerInput[] | CustomerPaymentUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerPaymentCreateOrConnectWithoutCustomerInput | CustomerPaymentCreateOrConnectWithoutCustomerInput[]
@@ -53989,6 +61913,34 @@ export namespace Prisma {
     deleteMany?: CustomerPaymentScalarWhereInput | CustomerPaymentScalarWhereInput[]
   }
 
+  export type CustomerDemandNoteUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutCustomerInput, CustomerDemandNoteUncheckedCreateWithoutCustomerInput> | CustomerDemandNoteCreateWithoutCustomerInput[] | CustomerDemandNoteUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutCustomerInput | CustomerDemandNoteCreateOrConnectWithoutCustomerInput[]
+    upsert?: CustomerDemandNoteUpsertWithWhereUniqueWithoutCustomerInput | CustomerDemandNoteUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: CustomerDemandNoteCreateManyCustomerInputEnvelope
+    set?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    disconnect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    delete?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    connect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    update?: CustomerDemandNoteUpdateWithWhereUniqueWithoutCustomerInput | CustomerDemandNoteUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: CustomerDemandNoteUpdateManyWithWhereWithoutCustomerInput | CustomerDemandNoteUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: CustomerDemandNoteScalarWhereInput | CustomerDemandNoteScalarWhereInput[]
+  }
+
+  export type CustomerLedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<CustomerLedgerEntryCreateWithoutCustomerInput, CustomerLedgerEntryUncheckedCreateWithoutCustomerInput> | CustomerLedgerEntryCreateWithoutCustomerInput[] | CustomerLedgerEntryUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerLedgerEntryCreateOrConnectWithoutCustomerInput | CustomerLedgerEntryCreateOrConnectWithoutCustomerInput[]
+    upsert?: CustomerLedgerEntryUpsertWithWhereUniqueWithoutCustomerInput | CustomerLedgerEntryUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: CustomerLedgerEntryCreateManyCustomerInputEnvelope
+    set?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    disconnect?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    delete?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    connect?: CustomerLedgerEntryWhereUniqueInput | CustomerLedgerEntryWhereUniqueInput[]
+    update?: CustomerLedgerEntryUpdateWithWhereUniqueWithoutCustomerInput | CustomerLedgerEntryUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: CustomerLedgerEntryUpdateManyWithWhereWithoutCustomerInput | CustomerLedgerEntryUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: CustomerLedgerEntryScalarWhereInput | CustomerLedgerEntryScalarWhereInput[]
+  }
+
   export type CustomerCreateNestedOneWithoutPaymentsInput = {
     create?: XOR<CustomerCreateWithoutPaymentsInput, CustomerUncheckedCreateWithoutPaymentsInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutPaymentsInput
@@ -53999,6 +61951,20 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutRecordedPaymentsInput, UserUncheckedCreateWithoutRecordedPaymentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutRecordedPaymentsInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type PaymentAllocationCreateNestedManyWithoutPaymentInput = {
+    create?: XOR<PaymentAllocationCreateWithoutPaymentInput, PaymentAllocationUncheckedCreateWithoutPaymentInput> | PaymentAllocationCreateWithoutPaymentInput[] | PaymentAllocationUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: PaymentAllocationCreateOrConnectWithoutPaymentInput | PaymentAllocationCreateOrConnectWithoutPaymentInput[]
+    createMany?: PaymentAllocationCreateManyPaymentInputEnvelope
+    connect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+  }
+
+  export type PaymentAllocationUncheckedCreateNestedManyWithoutPaymentInput = {
+    create?: XOR<PaymentAllocationCreateWithoutPaymentInput, PaymentAllocationUncheckedCreateWithoutPaymentInput> | PaymentAllocationCreateWithoutPaymentInput[] | PaymentAllocationUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: PaymentAllocationCreateOrConnectWithoutPaymentInput | PaymentAllocationCreateOrConnectWithoutPaymentInput[]
+    createMany?: PaymentAllocationCreateManyPaymentInputEnvelope
+    connect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
   }
 
   export type CustomerUpdateOneRequiredWithoutPaymentsNestedInput = {
@@ -54015,6 +61981,34 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutRecordedPaymentsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRecordedPaymentsInput, UserUpdateWithoutRecordedPaymentsInput>, UserUncheckedUpdateWithoutRecordedPaymentsInput>
+  }
+
+  export type PaymentAllocationUpdateManyWithoutPaymentNestedInput = {
+    create?: XOR<PaymentAllocationCreateWithoutPaymentInput, PaymentAllocationUncheckedCreateWithoutPaymentInput> | PaymentAllocationCreateWithoutPaymentInput[] | PaymentAllocationUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: PaymentAllocationCreateOrConnectWithoutPaymentInput | PaymentAllocationCreateOrConnectWithoutPaymentInput[]
+    upsert?: PaymentAllocationUpsertWithWhereUniqueWithoutPaymentInput | PaymentAllocationUpsertWithWhereUniqueWithoutPaymentInput[]
+    createMany?: PaymentAllocationCreateManyPaymentInputEnvelope
+    set?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    disconnect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    delete?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    connect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    update?: PaymentAllocationUpdateWithWhereUniqueWithoutPaymentInput | PaymentAllocationUpdateWithWhereUniqueWithoutPaymentInput[]
+    updateMany?: PaymentAllocationUpdateManyWithWhereWithoutPaymentInput | PaymentAllocationUpdateManyWithWhereWithoutPaymentInput[]
+    deleteMany?: PaymentAllocationScalarWhereInput | PaymentAllocationScalarWhereInput[]
+  }
+
+  export type PaymentAllocationUncheckedUpdateManyWithoutPaymentNestedInput = {
+    create?: XOR<PaymentAllocationCreateWithoutPaymentInput, PaymentAllocationUncheckedCreateWithoutPaymentInput> | PaymentAllocationCreateWithoutPaymentInput[] | PaymentAllocationUncheckedCreateWithoutPaymentInput[]
+    connectOrCreate?: PaymentAllocationCreateOrConnectWithoutPaymentInput | PaymentAllocationCreateOrConnectWithoutPaymentInput[]
+    upsert?: PaymentAllocationUpsertWithWhereUniqueWithoutPaymentInput | PaymentAllocationUpsertWithWhereUniqueWithoutPaymentInput[]
+    createMany?: PaymentAllocationCreateManyPaymentInputEnvelope
+    set?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    disconnect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    delete?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    connect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    update?: PaymentAllocationUpdateWithWhereUniqueWithoutPaymentInput | PaymentAllocationUpdateWithWhereUniqueWithoutPaymentInput[]
+    updateMany?: PaymentAllocationUpdateManyWithWhereWithoutPaymentInput | PaymentAllocationUpdateManyWithWhereWithoutPaymentInput[]
+    deleteMany?: PaymentAllocationScalarWhereInput | PaymentAllocationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutCreatedPropertiesInput = {
@@ -55335,6 +63329,292 @@ export namespace Prisma {
     deleteMany?: JournalEntryScalarWhereInput | JournalEntryScalarWhereInput[]
   }
 
+  export type PaymentPlanMilestoneCreateNestedManyWithoutPlanInput = {
+    create?: XOR<PaymentPlanMilestoneCreateWithoutPlanInput, PaymentPlanMilestoneUncheckedCreateWithoutPlanInput> | PaymentPlanMilestoneCreateWithoutPlanInput[] | PaymentPlanMilestoneUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: PaymentPlanMilestoneCreateOrConnectWithoutPlanInput | PaymentPlanMilestoneCreateOrConnectWithoutPlanInput[]
+    createMany?: PaymentPlanMilestoneCreateManyPlanInputEnvelope
+    connect?: PaymentPlanMilestoneWhereUniqueInput | PaymentPlanMilestoneWhereUniqueInput[]
+  }
+
+  export type CustomerCreateNestedManyWithoutPaymentPlanInput = {
+    create?: XOR<CustomerCreateWithoutPaymentPlanInput, CustomerUncheckedCreateWithoutPaymentPlanInput> | CustomerCreateWithoutPaymentPlanInput[] | CustomerUncheckedCreateWithoutPaymentPlanInput[]
+    connectOrCreate?: CustomerCreateOrConnectWithoutPaymentPlanInput | CustomerCreateOrConnectWithoutPaymentPlanInput[]
+    createMany?: CustomerCreateManyPaymentPlanInputEnvelope
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+  }
+
+  export type PaymentPlanMilestoneUncheckedCreateNestedManyWithoutPlanInput = {
+    create?: XOR<PaymentPlanMilestoneCreateWithoutPlanInput, PaymentPlanMilestoneUncheckedCreateWithoutPlanInput> | PaymentPlanMilestoneCreateWithoutPlanInput[] | PaymentPlanMilestoneUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: PaymentPlanMilestoneCreateOrConnectWithoutPlanInput | PaymentPlanMilestoneCreateOrConnectWithoutPlanInput[]
+    createMany?: PaymentPlanMilestoneCreateManyPlanInputEnvelope
+    connect?: PaymentPlanMilestoneWhereUniqueInput | PaymentPlanMilestoneWhereUniqueInput[]
+  }
+
+  export type CustomerUncheckedCreateNestedManyWithoutPaymentPlanInput = {
+    create?: XOR<CustomerCreateWithoutPaymentPlanInput, CustomerUncheckedCreateWithoutPaymentPlanInput> | CustomerCreateWithoutPaymentPlanInput[] | CustomerUncheckedCreateWithoutPaymentPlanInput[]
+    connectOrCreate?: CustomerCreateOrConnectWithoutPaymentPlanInput | CustomerCreateOrConnectWithoutPaymentPlanInput[]
+    createMany?: CustomerCreateManyPaymentPlanInputEnvelope
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+  }
+
+  export type PaymentPlanMilestoneUpdateManyWithoutPlanNestedInput = {
+    create?: XOR<PaymentPlanMilestoneCreateWithoutPlanInput, PaymentPlanMilestoneUncheckedCreateWithoutPlanInput> | PaymentPlanMilestoneCreateWithoutPlanInput[] | PaymentPlanMilestoneUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: PaymentPlanMilestoneCreateOrConnectWithoutPlanInput | PaymentPlanMilestoneCreateOrConnectWithoutPlanInput[]
+    upsert?: PaymentPlanMilestoneUpsertWithWhereUniqueWithoutPlanInput | PaymentPlanMilestoneUpsertWithWhereUniqueWithoutPlanInput[]
+    createMany?: PaymentPlanMilestoneCreateManyPlanInputEnvelope
+    set?: PaymentPlanMilestoneWhereUniqueInput | PaymentPlanMilestoneWhereUniqueInput[]
+    disconnect?: PaymentPlanMilestoneWhereUniqueInput | PaymentPlanMilestoneWhereUniqueInput[]
+    delete?: PaymentPlanMilestoneWhereUniqueInput | PaymentPlanMilestoneWhereUniqueInput[]
+    connect?: PaymentPlanMilestoneWhereUniqueInput | PaymentPlanMilestoneWhereUniqueInput[]
+    update?: PaymentPlanMilestoneUpdateWithWhereUniqueWithoutPlanInput | PaymentPlanMilestoneUpdateWithWhereUniqueWithoutPlanInput[]
+    updateMany?: PaymentPlanMilestoneUpdateManyWithWhereWithoutPlanInput | PaymentPlanMilestoneUpdateManyWithWhereWithoutPlanInput[]
+    deleteMany?: PaymentPlanMilestoneScalarWhereInput | PaymentPlanMilestoneScalarWhereInput[]
+  }
+
+  export type CustomerUpdateManyWithoutPaymentPlanNestedInput = {
+    create?: XOR<CustomerCreateWithoutPaymentPlanInput, CustomerUncheckedCreateWithoutPaymentPlanInput> | CustomerCreateWithoutPaymentPlanInput[] | CustomerUncheckedCreateWithoutPaymentPlanInput[]
+    connectOrCreate?: CustomerCreateOrConnectWithoutPaymentPlanInput | CustomerCreateOrConnectWithoutPaymentPlanInput[]
+    upsert?: CustomerUpsertWithWhereUniqueWithoutPaymentPlanInput | CustomerUpsertWithWhereUniqueWithoutPaymentPlanInput[]
+    createMany?: CustomerCreateManyPaymentPlanInputEnvelope
+    set?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    disconnect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    delete?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    update?: CustomerUpdateWithWhereUniqueWithoutPaymentPlanInput | CustomerUpdateWithWhereUniqueWithoutPaymentPlanInput[]
+    updateMany?: CustomerUpdateManyWithWhereWithoutPaymentPlanInput | CustomerUpdateManyWithWhereWithoutPaymentPlanInput[]
+    deleteMany?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
+  }
+
+  export type PaymentPlanMilestoneUncheckedUpdateManyWithoutPlanNestedInput = {
+    create?: XOR<PaymentPlanMilestoneCreateWithoutPlanInput, PaymentPlanMilestoneUncheckedCreateWithoutPlanInput> | PaymentPlanMilestoneCreateWithoutPlanInput[] | PaymentPlanMilestoneUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: PaymentPlanMilestoneCreateOrConnectWithoutPlanInput | PaymentPlanMilestoneCreateOrConnectWithoutPlanInput[]
+    upsert?: PaymentPlanMilestoneUpsertWithWhereUniqueWithoutPlanInput | PaymentPlanMilestoneUpsertWithWhereUniqueWithoutPlanInput[]
+    createMany?: PaymentPlanMilestoneCreateManyPlanInputEnvelope
+    set?: PaymentPlanMilestoneWhereUniqueInput | PaymentPlanMilestoneWhereUniqueInput[]
+    disconnect?: PaymentPlanMilestoneWhereUniqueInput | PaymentPlanMilestoneWhereUniqueInput[]
+    delete?: PaymentPlanMilestoneWhereUniqueInput | PaymentPlanMilestoneWhereUniqueInput[]
+    connect?: PaymentPlanMilestoneWhereUniqueInput | PaymentPlanMilestoneWhereUniqueInput[]
+    update?: PaymentPlanMilestoneUpdateWithWhereUniqueWithoutPlanInput | PaymentPlanMilestoneUpdateWithWhereUniqueWithoutPlanInput[]
+    updateMany?: PaymentPlanMilestoneUpdateManyWithWhereWithoutPlanInput | PaymentPlanMilestoneUpdateManyWithWhereWithoutPlanInput[]
+    deleteMany?: PaymentPlanMilestoneScalarWhereInput | PaymentPlanMilestoneScalarWhereInput[]
+  }
+
+  export type CustomerUncheckedUpdateManyWithoutPaymentPlanNestedInput = {
+    create?: XOR<CustomerCreateWithoutPaymentPlanInput, CustomerUncheckedCreateWithoutPaymentPlanInput> | CustomerCreateWithoutPaymentPlanInput[] | CustomerUncheckedCreateWithoutPaymentPlanInput[]
+    connectOrCreate?: CustomerCreateOrConnectWithoutPaymentPlanInput | CustomerCreateOrConnectWithoutPaymentPlanInput[]
+    upsert?: CustomerUpsertWithWhereUniqueWithoutPaymentPlanInput | CustomerUpsertWithWhereUniqueWithoutPaymentPlanInput[]
+    createMany?: CustomerCreateManyPaymentPlanInputEnvelope
+    set?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    disconnect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    delete?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    update?: CustomerUpdateWithWhereUniqueWithoutPaymentPlanInput | CustomerUpdateWithWhereUniqueWithoutPaymentPlanInput[]
+    updateMany?: CustomerUpdateManyWithWhereWithoutPaymentPlanInput | CustomerUpdateManyWithWhereWithoutPaymentPlanInput[]
+    deleteMany?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
+  }
+
+  export type PaymentPlanCreateNestedOneWithoutMilestonesInput = {
+    create?: XOR<PaymentPlanCreateWithoutMilestonesInput, PaymentPlanUncheckedCreateWithoutMilestonesInput>
+    connectOrCreate?: PaymentPlanCreateOrConnectWithoutMilestonesInput
+    connect?: PaymentPlanWhereUniqueInput
+  }
+
+  export type CustomerDemandNoteCreateNestedManyWithoutMilestoneInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutMilestoneInput, CustomerDemandNoteUncheckedCreateWithoutMilestoneInput> | CustomerDemandNoteCreateWithoutMilestoneInput[] | CustomerDemandNoteUncheckedCreateWithoutMilestoneInput[]
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutMilestoneInput | CustomerDemandNoteCreateOrConnectWithoutMilestoneInput[]
+    createMany?: CustomerDemandNoteCreateManyMilestoneInputEnvelope
+    connect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+  }
+
+  export type CustomerDemandNoteUncheckedCreateNestedManyWithoutMilestoneInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutMilestoneInput, CustomerDemandNoteUncheckedCreateWithoutMilestoneInput> | CustomerDemandNoteCreateWithoutMilestoneInput[] | CustomerDemandNoteUncheckedCreateWithoutMilestoneInput[]
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutMilestoneInput | CustomerDemandNoteCreateOrConnectWithoutMilestoneInput[]
+    createMany?: CustomerDemandNoteCreateManyMilestoneInputEnvelope
+    connect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+  }
+
+  export type PaymentPlanUpdateOneRequiredWithoutMilestonesNestedInput = {
+    create?: XOR<PaymentPlanCreateWithoutMilestonesInput, PaymentPlanUncheckedCreateWithoutMilestonesInput>
+    connectOrCreate?: PaymentPlanCreateOrConnectWithoutMilestonesInput
+    upsert?: PaymentPlanUpsertWithoutMilestonesInput
+    connect?: PaymentPlanWhereUniqueInput
+    update?: XOR<XOR<PaymentPlanUpdateToOneWithWhereWithoutMilestonesInput, PaymentPlanUpdateWithoutMilestonesInput>, PaymentPlanUncheckedUpdateWithoutMilestonesInput>
+  }
+
+  export type CustomerDemandNoteUpdateManyWithoutMilestoneNestedInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutMilestoneInput, CustomerDemandNoteUncheckedCreateWithoutMilestoneInput> | CustomerDemandNoteCreateWithoutMilestoneInput[] | CustomerDemandNoteUncheckedCreateWithoutMilestoneInput[]
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutMilestoneInput | CustomerDemandNoteCreateOrConnectWithoutMilestoneInput[]
+    upsert?: CustomerDemandNoteUpsertWithWhereUniqueWithoutMilestoneInput | CustomerDemandNoteUpsertWithWhereUniqueWithoutMilestoneInput[]
+    createMany?: CustomerDemandNoteCreateManyMilestoneInputEnvelope
+    set?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    disconnect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    delete?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    connect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    update?: CustomerDemandNoteUpdateWithWhereUniqueWithoutMilestoneInput | CustomerDemandNoteUpdateWithWhereUniqueWithoutMilestoneInput[]
+    updateMany?: CustomerDemandNoteUpdateManyWithWhereWithoutMilestoneInput | CustomerDemandNoteUpdateManyWithWhereWithoutMilestoneInput[]
+    deleteMany?: CustomerDemandNoteScalarWhereInput | CustomerDemandNoteScalarWhereInput[]
+  }
+
+  export type CustomerDemandNoteUncheckedUpdateManyWithoutMilestoneNestedInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutMilestoneInput, CustomerDemandNoteUncheckedCreateWithoutMilestoneInput> | CustomerDemandNoteCreateWithoutMilestoneInput[] | CustomerDemandNoteUncheckedCreateWithoutMilestoneInput[]
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutMilestoneInput | CustomerDemandNoteCreateOrConnectWithoutMilestoneInput[]
+    upsert?: CustomerDemandNoteUpsertWithWhereUniqueWithoutMilestoneInput | CustomerDemandNoteUpsertWithWhereUniqueWithoutMilestoneInput[]
+    createMany?: CustomerDemandNoteCreateManyMilestoneInputEnvelope
+    set?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    disconnect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    delete?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    connect?: CustomerDemandNoteWhereUniqueInput | CustomerDemandNoteWhereUniqueInput[]
+    update?: CustomerDemandNoteUpdateWithWhereUniqueWithoutMilestoneInput | CustomerDemandNoteUpdateWithWhereUniqueWithoutMilestoneInput[]
+    updateMany?: CustomerDemandNoteUpdateManyWithWhereWithoutMilestoneInput | CustomerDemandNoteUpdateManyWithWhereWithoutMilestoneInput[]
+    deleteMany?: CustomerDemandNoteScalarWhereInput | CustomerDemandNoteScalarWhereInput[]
+  }
+
+  export type CustomerCreateNestedOneWithoutDemandNotesInput = {
+    create?: XOR<CustomerCreateWithoutDemandNotesInput, CustomerUncheckedCreateWithoutDemandNotesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutDemandNotesInput
+    connect?: CustomerWhereUniqueInput
+  }
+
+  export type PaymentPlanMilestoneCreateNestedOneWithoutDemandNotesInput = {
+    create?: XOR<PaymentPlanMilestoneCreateWithoutDemandNotesInput, PaymentPlanMilestoneUncheckedCreateWithoutDemandNotesInput>
+    connectOrCreate?: PaymentPlanMilestoneCreateOrConnectWithoutDemandNotesInput
+    connect?: PaymentPlanMilestoneWhereUniqueInput
+  }
+
+  export type JournalEntryCreateNestedOneWithoutDemandNotesInput = {
+    create?: XOR<JournalEntryCreateWithoutDemandNotesInput, JournalEntryUncheckedCreateWithoutDemandNotesInput>
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutDemandNotesInput
+    connect?: JournalEntryWhereUniqueInput
+  }
+
+  export type PaymentAllocationCreateNestedManyWithoutDemandNoteInput = {
+    create?: XOR<PaymentAllocationCreateWithoutDemandNoteInput, PaymentAllocationUncheckedCreateWithoutDemandNoteInput> | PaymentAllocationCreateWithoutDemandNoteInput[] | PaymentAllocationUncheckedCreateWithoutDemandNoteInput[]
+    connectOrCreate?: PaymentAllocationCreateOrConnectWithoutDemandNoteInput | PaymentAllocationCreateOrConnectWithoutDemandNoteInput[]
+    createMany?: PaymentAllocationCreateManyDemandNoteInputEnvelope
+    connect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+  }
+
+  export type PaymentAllocationUncheckedCreateNestedManyWithoutDemandNoteInput = {
+    create?: XOR<PaymentAllocationCreateWithoutDemandNoteInput, PaymentAllocationUncheckedCreateWithoutDemandNoteInput> | PaymentAllocationCreateWithoutDemandNoteInput[] | PaymentAllocationUncheckedCreateWithoutDemandNoteInput[]
+    connectOrCreate?: PaymentAllocationCreateOrConnectWithoutDemandNoteInput | PaymentAllocationCreateOrConnectWithoutDemandNoteInput[]
+    createMany?: PaymentAllocationCreateManyDemandNoteInputEnvelope
+    connect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+  }
+
+  export type CustomerUpdateOneRequiredWithoutDemandNotesNestedInput = {
+    create?: XOR<CustomerCreateWithoutDemandNotesInput, CustomerUncheckedCreateWithoutDemandNotesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutDemandNotesInput
+    upsert?: CustomerUpsertWithoutDemandNotesInput
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutDemandNotesInput, CustomerUpdateWithoutDemandNotesInput>, CustomerUncheckedUpdateWithoutDemandNotesInput>
+  }
+
+  export type PaymentPlanMilestoneUpdateOneWithoutDemandNotesNestedInput = {
+    create?: XOR<PaymentPlanMilestoneCreateWithoutDemandNotesInput, PaymentPlanMilestoneUncheckedCreateWithoutDemandNotesInput>
+    connectOrCreate?: PaymentPlanMilestoneCreateOrConnectWithoutDemandNotesInput
+    upsert?: PaymentPlanMilestoneUpsertWithoutDemandNotesInput
+    disconnect?: PaymentPlanMilestoneWhereInput | boolean
+    delete?: PaymentPlanMilestoneWhereInput | boolean
+    connect?: PaymentPlanMilestoneWhereUniqueInput
+    update?: XOR<XOR<PaymentPlanMilestoneUpdateToOneWithWhereWithoutDemandNotesInput, PaymentPlanMilestoneUpdateWithoutDemandNotesInput>, PaymentPlanMilestoneUncheckedUpdateWithoutDemandNotesInput>
+  }
+
+  export type JournalEntryUpdateOneWithoutDemandNotesNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutDemandNotesInput, JournalEntryUncheckedCreateWithoutDemandNotesInput>
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutDemandNotesInput
+    upsert?: JournalEntryUpsertWithoutDemandNotesInput
+    disconnect?: JournalEntryWhereInput | boolean
+    delete?: JournalEntryWhereInput | boolean
+    connect?: JournalEntryWhereUniqueInput
+    update?: XOR<XOR<JournalEntryUpdateToOneWithWhereWithoutDemandNotesInput, JournalEntryUpdateWithoutDemandNotesInput>, JournalEntryUncheckedUpdateWithoutDemandNotesInput>
+  }
+
+  export type PaymentAllocationUpdateManyWithoutDemandNoteNestedInput = {
+    create?: XOR<PaymentAllocationCreateWithoutDemandNoteInput, PaymentAllocationUncheckedCreateWithoutDemandNoteInput> | PaymentAllocationCreateWithoutDemandNoteInput[] | PaymentAllocationUncheckedCreateWithoutDemandNoteInput[]
+    connectOrCreate?: PaymentAllocationCreateOrConnectWithoutDemandNoteInput | PaymentAllocationCreateOrConnectWithoutDemandNoteInput[]
+    upsert?: PaymentAllocationUpsertWithWhereUniqueWithoutDemandNoteInput | PaymentAllocationUpsertWithWhereUniqueWithoutDemandNoteInput[]
+    createMany?: PaymentAllocationCreateManyDemandNoteInputEnvelope
+    set?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    disconnect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    delete?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    connect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    update?: PaymentAllocationUpdateWithWhereUniqueWithoutDemandNoteInput | PaymentAllocationUpdateWithWhereUniqueWithoutDemandNoteInput[]
+    updateMany?: PaymentAllocationUpdateManyWithWhereWithoutDemandNoteInput | PaymentAllocationUpdateManyWithWhereWithoutDemandNoteInput[]
+    deleteMany?: PaymentAllocationScalarWhereInput | PaymentAllocationScalarWhereInput[]
+  }
+
+  export type PaymentAllocationUncheckedUpdateManyWithoutDemandNoteNestedInput = {
+    create?: XOR<PaymentAllocationCreateWithoutDemandNoteInput, PaymentAllocationUncheckedCreateWithoutDemandNoteInput> | PaymentAllocationCreateWithoutDemandNoteInput[] | PaymentAllocationUncheckedCreateWithoutDemandNoteInput[]
+    connectOrCreate?: PaymentAllocationCreateOrConnectWithoutDemandNoteInput | PaymentAllocationCreateOrConnectWithoutDemandNoteInput[]
+    upsert?: PaymentAllocationUpsertWithWhereUniqueWithoutDemandNoteInput | PaymentAllocationUpsertWithWhereUniqueWithoutDemandNoteInput[]
+    createMany?: PaymentAllocationCreateManyDemandNoteInputEnvelope
+    set?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    disconnect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    delete?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    connect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    update?: PaymentAllocationUpdateWithWhereUniqueWithoutDemandNoteInput | PaymentAllocationUpdateWithWhereUniqueWithoutDemandNoteInput[]
+    updateMany?: PaymentAllocationUpdateManyWithWhereWithoutDemandNoteInput | PaymentAllocationUpdateManyWithWhereWithoutDemandNoteInput[]
+    deleteMany?: PaymentAllocationScalarWhereInput | PaymentAllocationScalarWhereInput[]
+  }
+
+  export type CustomerCreateNestedOneWithoutLedgerEntriesInput = {
+    create?: XOR<CustomerCreateWithoutLedgerEntriesInput, CustomerUncheckedCreateWithoutLedgerEntriesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutLedgerEntriesInput
+    connect?: CustomerWhereUniqueInput
+  }
+
+  export type JournalEntryCreateNestedOneWithoutCustomerLedgerEntriesInput = {
+    create?: XOR<JournalEntryCreateWithoutCustomerLedgerEntriesInput, JournalEntryUncheckedCreateWithoutCustomerLedgerEntriesInput>
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutCustomerLedgerEntriesInput
+    connect?: JournalEntryWhereUniqueInput
+  }
+
+  export type CustomerUpdateOneRequiredWithoutLedgerEntriesNestedInput = {
+    create?: XOR<CustomerCreateWithoutLedgerEntriesInput, CustomerUncheckedCreateWithoutLedgerEntriesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutLedgerEntriesInput
+    upsert?: CustomerUpsertWithoutLedgerEntriesInput
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutLedgerEntriesInput, CustomerUpdateWithoutLedgerEntriesInput>, CustomerUncheckedUpdateWithoutLedgerEntriesInput>
+  }
+
+  export type JournalEntryUpdateOneWithoutCustomerLedgerEntriesNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutCustomerLedgerEntriesInput, JournalEntryUncheckedCreateWithoutCustomerLedgerEntriesInput>
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutCustomerLedgerEntriesInput
+    upsert?: JournalEntryUpsertWithoutCustomerLedgerEntriesInput
+    disconnect?: JournalEntryWhereInput | boolean
+    delete?: JournalEntryWhereInput | boolean
+    connect?: JournalEntryWhereUniqueInput
+    update?: XOR<XOR<JournalEntryUpdateToOneWithWhereWithoutCustomerLedgerEntriesInput, JournalEntryUpdateWithoutCustomerLedgerEntriesInput>, JournalEntryUncheckedUpdateWithoutCustomerLedgerEntriesInput>
+  }
+
+  export type CustomerPaymentCreateNestedOneWithoutAllocationsInput = {
+    create?: XOR<CustomerPaymentCreateWithoutAllocationsInput, CustomerPaymentUncheckedCreateWithoutAllocationsInput>
+    connectOrCreate?: CustomerPaymentCreateOrConnectWithoutAllocationsInput
+    connect?: CustomerPaymentWhereUniqueInput
+  }
+
+  export type CustomerDemandNoteCreateNestedOneWithoutAllocationsInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutAllocationsInput, CustomerDemandNoteUncheckedCreateWithoutAllocationsInput>
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutAllocationsInput
+    connect?: CustomerDemandNoteWhereUniqueInput
+  }
+
+  export type CustomerPaymentUpdateOneRequiredWithoutAllocationsNestedInput = {
+    create?: XOR<CustomerPaymentCreateWithoutAllocationsInput, CustomerPaymentUncheckedCreateWithoutAllocationsInput>
+    connectOrCreate?: CustomerPaymentCreateOrConnectWithoutAllocationsInput
+    upsert?: CustomerPaymentUpsertWithoutAllocationsInput
+    connect?: CustomerPaymentWhereUniqueInput
+    update?: XOR<XOR<CustomerPaymentUpdateToOneWithWhereWithoutAllocationsInput, CustomerPaymentUpdateWithoutAllocationsInput>, CustomerPaymentUncheckedUpdateWithoutAllocationsInput>
+  }
+
+  export type CustomerDemandNoteUpdateOneRequiredWithoutAllocationsNestedInput = {
+    create?: XOR<CustomerDemandNoteCreateWithoutAllocationsInput, CustomerDemandNoteUncheckedCreateWithoutAllocationsInput>
+    connectOrCreate?: CustomerDemandNoteCreateOrConnectWithoutAllocationsInput
+    upsert?: CustomerDemandNoteUpsertWithoutAllocationsInput
+    connect?: CustomerDemandNoteWhereUniqueInput
+    update?: XOR<XOR<CustomerDemandNoteUpdateToOneWithWhereWithoutAllocationsInput, CustomerDemandNoteUpdateWithoutAllocationsInput>, CustomerDemandNoteUncheckedUpdateWithoutAllocationsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -55878,7 +64158,10 @@ export namespace Prisma {
     refundSettledById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    paymentPlan?: PaymentPlanCreateNestedOneWithoutCustomersInput
     payments?: CustomerPaymentCreateNestedManyWithoutCustomerInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutCustomerInput
+    ledgerEntries?: CustomerLedgerEntryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutSalesOwnerInput = {
@@ -55914,9 +64197,12 @@ export namespace Prisma {
     refundReferenceNo?: string | null
     refundNotes?: string | null
     refundSettledById?: string | null
+    paymentPlanId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payments?: CustomerPaymentUncheckedCreateNestedManyWithoutCustomerInput
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerEntries?: CustomerLedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutSalesOwnerInput = {
@@ -55940,6 +64226,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     customer: CustomerCreateNestedOneWithoutPaymentsInput
+    allocations?: PaymentAllocationCreateNestedManyWithoutPaymentInput
   }
 
   export type CustomerPaymentUncheckedCreateWithoutRecordedByInput = {
@@ -55953,6 +64240,7 @@ export namespace Prisma {
     referenceNo?: string | null
     status?: string
     createdAt?: Date | string
+    allocations?: PaymentAllocationUncheckedCreateNestedManyWithoutPaymentInput
   }
 
   export type CustomerPaymentCreateOrConnectWithoutRecordedByInput = {
@@ -56372,6 +64660,7 @@ export namespace Prisma {
     refundReferenceNo?: StringNullableFilter<"Customer"> | string | null
     refundNotes?: StringNullableFilter<"Customer"> | string | null
     refundSettledById?: StringNullableFilter<"Customer"> | string | null
+    paymentPlanId?: StringNullableFilter<"Customer"> | string | null
     createdAt?: DateTimeFilter<"Customer"> | Date | string
     updatedAt?: DateTimeFilter<"Customer"> | Date | string
   }
@@ -57914,6 +66203,7 @@ export namespace Prisma {
     fiscalYear: number
     month: number
     periodName: string
+    fiscalQuarter?: string | null
     startDate: Date | string
     endDate: Date | string
     status?: string
@@ -57931,6 +66221,7 @@ export namespace Prisma {
     fiscalYear: number
     month: number
     periodName: string
+    fiscalQuarter?: string | null
     startDate: Date | string
     endDate: Date | string
     status?: string
@@ -58111,6 +66402,106 @@ export namespace Prisma {
     create: XOR<SalaryPaymentCreateWithoutJournalEntryInput, SalaryPaymentUncheckedCreateWithoutJournalEntryInput>
   }
 
+  export type CustomerDemandNoteCreateWithoutJournalEntryInput = {
+    id?: string
+    demandNumber: string
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutDemandNotesInput
+    milestone?: PaymentPlanMilestoneCreateNestedOneWithoutDemandNotesInput
+    allocations?: PaymentAllocationCreateNestedManyWithoutDemandNoteInput
+  }
+
+  export type CustomerDemandNoteUncheckedCreateWithoutJournalEntryInput = {
+    id?: string
+    demandNumber: string
+    customerId: string
+    milestoneId?: string | null
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    allocations?: PaymentAllocationUncheckedCreateNestedManyWithoutDemandNoteInput
+  }
+
+  export type CustomerDemandNoteCreateOrConnectWithoutJournalEntryInput = {
+    where: CustomerDemandNoteWhereUniqueInput
+    create: XOR<CustomerDemandNoteCreateWithoutJournalEntryInput, CustomerDemandNoteUncheckedCreateWithoutJournalEntryInput>
+  }
+
+  export type CustomerDemandNoteCreateManyJournalEntryInputEnvelope = {
+    data: CustomerDemandNoteCreateManyJournalEntryInput | CustomerDemandNoteCreateManyJournalEntryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerLedgerEntryCreateWithoutJournalEntryInput = {
+    id?: string
+    entryNumber: string
+    postingDate?: Date | string
+    entryType: string
+    referenceType: string
+    referenceId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    runningBalance: Decimal | DecimalJsLike | number | string
+    description: string
+    accountingPeriodId?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutLedgerEntriesInput
+  }
+
+  export type CustomerLedgerEntryUncheckedCreateWithoutJournalEntryInput = {
+    id?: string
+    customerId: string
+    entryNumber: string
+    postingDate?: Date | string
+    entryType: string
+    referenceType: string
+    referenceId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    runningBalance: Decimal | DecimalJsLike | number | string
+    description: string
+    accountingPeriodId?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CustomerLedgerEntryCreateOrConnectWithoutJournalEntryInput = {
+    where: CustomerLedgerEntryWhereUniqueInput
+    create: XOR<CustomerLedgerEntryCreateWithoutJournalEntryInput, CustomerLedgerEntryUncheckedCreateWithoutJournalEntryInput>
+  }
+
+  export type CustomerLedgerEntryCreateManyJournalEntryInputEnvelope = {
+    data: CustomerLedgerEntryCreateManyJournalEntryInput | CustomerLedgerEntryCreateManyJournalEntryInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountingPeriodUpsertWithoutJournalEntriesInput = {
     update: XOR<AccountingPeriodUpdateWithoutJournalEntriesInput, AccountingPeriodUncheckedUpdateWithoutJournalEntriesInput>
     create: XOR<AccountingPeriodCreateWithoutJournalEntriesInput, AccountingPeriodUncheckedCreateWithoutJournalEntriesInput>
@@ -58127,6 +66518,7 @@ export namespace Prisma {
     fiscalYear?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
     periodName?: StringFieldUpdateOperationsInput | string
+    fiscalQuarter?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
@@ -58144,6 +66536,7 @@ export namespace Prisma {
     fiscalYear?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
     periodName?: StringFieldUpdateOperationsInput | string
+    fiscalQuarter?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
@@ -58327,6 +66720,85 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CustomerDemandNoteUpsertWithWhereUniqueWithoutJournalEntryInput = {
+    where: CustomerDemandNoteWhereUniqueInput
+    update: XOR<CustomerDemandNoteUpdateWithoutJournalEntryInput, CustomerDemandNoteUncheckedUpdateWithoutJournalEntryInput>
+    create: XOR<CustomerDemandNoteCreateWithoutJournalEntryInput, CustomerDemandNoteUncheckedCreateWithoutJournalEntryInput>
+  }
+
+  export type CustomerDemandNoteUpdateWithWhereUniqueWithoutJournalEntryInput = {
+    where: CustomerDemandNoteWhereUniqueInput
+    data: XOR<CustomerDemandNoteUpdateWithoutJournalEntryInput, CustomerDemandNoteUncheckedUpdateWithoutJournalEntryInput>
+  }
+
+  export type CustomerDemandNoteUpdateManyWithWhereWithoutJournalEntryInput = {
+    where: CustomerDemandNoteScalarWhereInput
+    data: XOR<CustomerDemandNoteUpdateManyMutationInput, CustomerDemandNoteUncheckedUpdateManyWithoutJournalEntryInput>
+  }
+
+  export type CustomerDemandNoteScalarWhereInput = {
+    AND?: CustomerDemandNoteScalarWhereInput | CustomerDemandNoteScalarWhereInput[]
+    OR?: CustomerDemandNoteScalarWhereInput[]
+    NOT?: CustomerDemandNoteScalarWhereInput | CustomerDemandNoteScalarWhereInput[]
+    id?: StringFilter<"CustomerDemandNote"> | string
+    demandNumber?: StringFilter<"CustomerDemandNote"> | string
+    customerId?: StringFilter<"CustomerDemandNote"> | string
+    milestoneId?: StringNullableFilter<"CustomerDemandNote"> | string | null
+    milestoneName?: StringFilter<"CustomerDemandNote"> | string
+    sequence?: IntFilter<"CustomerDemandNote"> | number
+    documentDate?: DateTimeFilter<"CustomerDemandNote"> | Date | string
+    dueDate?: DateTimeFilter<"CustomerDemandNote"> | Date | string
+    principalAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFilter<"CustomerDemandNote"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"CustomerDemandNote"> | string
+    journalEntryId?: StringNullableFilter<"CustomerDemandNote"> | string | null
+    issuedById?: StringNullableFilter<"CustomerDemandNote"> | string | null
+    cancelledAt?: DateTimeNullableFilter<"CustomerDemandNote"> | Date | string | null
+    cancelledReason?: StringNullableFilter<"CustomerDemandNote"> | string | null
+    createdAt?: DateTimeFilter<"CustomerDemandNote"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerDemandNote"> | Date | string
+  }
+
+  export type CustomerLedgerEntryUpsertWithWhereUniqueWithoutJournalEntryInput = {
+    where: CustomerLedgerEntryWhereUniqueInput
+    update: XOR<CustomerLedgerEntryUpdateWithoutJournalEntryInput, CustomerLedgerEntryUncheckedUpdateWithoutJournalEntryInput>
+    create: XOR<CustomerLedgerEntryCreateWithoutJournalEntryInput, CustomerLedgerEntryUncheckedCreateWithoutJournalEntryInput>
+  }
+
+  export type CustomerLedgerEntryUpdateWithWhereUniqueWithoutJournalEntryInput = {
+    where: CustomerLedgerEntryWhereUniqueInput
+    data: XOR<CustomerLedgerEntryUpdateWithoutJournalEntryInput, CustomerLedgerEntryUncheckedUpdateWithoutJournalEntryInput>
+  }
+
+  export type CustomerLedgerEntryUpdateManyWithWhereWithoutJournalEntryInput = {
+    where: CustomerLedgerEntryScalarWhereInput
+    data: XOR<CustomerLedgerEntryUpdateManyMutationInput, CustomerLedgerEntryUncheckedUpdateManyWithoutJournalEntryInput>
+  }
+
+  export type CustomerLedgerEntryScalarWhereInput = {
+    AND?: CustomerLedgerEntryScalarWhereInput | CustomerLedgerEntryScalarWhereInput[]
+    OR?: CustomerLedgerEntryScalarWhereInput[]
+    NOT?: CustomerLedgerEntryScalarWhereInput | CustomerLedgerEntryScalarWhereInput[]
+    id?: StringFilter<"CustomerLedgerEntry"> | string
+    customerId?: StringFilter<"CustomerLedgerEntry"> | string
+    entryNumber?: StringFilter<"CustomerLedgerEntry"> | string
+    postingDate?: DateTimeFilter<"CustomerLedgerEntry"> | Date | string
+    entryType?: StringFilter<"CustomerLedgerEntry"> | string
+    referenceType?: StringFilter<"CustomerLedgerEntry"> | string
+    referenceId?: StringFilter<"CustomerLedgerEntry"> | string
+    debit?: DecimalFilter<"CustomerLedgerEntry"> | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFilter<"CustomerLedgerEntry"> | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFilter<"CustomerLedgerEntry"> | Decimal | DecimalJsLike | number | string
+    description?: StringFilter<"CustomerLedgerEntry"> | string
+    journalEntryId?: StringNullableFilter<"CustomerLedgerEntry"> | string | null
+    accountingPeriodId?: StringNullableFilter<"CustomerLedgerEntry"> | string | null
+    createdById?: StringNullableFilter<"CustomerLedgerEntry"> | string | null
+    createdAt?: DateTimeFilter<"CustomerLedgerEntry"> | Date | string
+  }
+
   export type JournalEntryCreateWithoutLinesInput = {
     id?: string
     entryNumber: string
@@ -58341,6 +66813,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
     salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryCreateNestedManyWithoutJournalEntryInput
   }
 
   export type JournalEntryUncheckedCreateWithoutLinesInput = {
@@ -58357,6 +66831,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
     salaryPayment?: SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedCreateNestedManyWithoutJournalEntryInput
   }
 
   export type JournalEntryCreateOrConnectWithoutLinesInput = {
@@ -58414,6 +66890,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUpdateManyWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUncheckedUpdateWithoutLinesInput = {
@@ -58430,6 +66908,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedUpdateManyWithoutJournalEntryNestedInput
   }
 
   export type AccountUpsertWithoutJournalLinesInput = {
@@ -58598,6 +67078,35 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutCustomersInput, UserUncheckedCreateWithoutCustomersInput>
   }
 
+  export type PaymentPlanCreateWithoutCustomersInput = {
+    id?: string
+    name: string
+    projectLocation?: string | null
+    description?: string | null
+    status?: string
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: PaymentPlanMilestoneCreateNestedManyWithoutPlanInput
+  }
+
+  export type PaymentPlanUncheckedCreateWithoutCustomersInput = {
+    id?: string
+    name: string
+    projectLocation?: string | null
+    description?: string | null
+    status?: string
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: PaymentPlanMilestoneUncheckedCreateNestedManyWithoutPlanInput
+  }
+
+  export type PaymentPlanCreateOrConnectWithoutCustomersInput = {
+    where: PaymentPlanWhereUniqueInput
+    create: XOR<PaymentPlanCreateWithoutCustomersInput, PaymentPlanUncheckedCreateWithoutCustomersInput>
+  }
+
   export type CustomerPaymentCreateWithoutCustomerInput = {
     id?: string
     dateOfPayment?: Date | string
@@ -58609,6 +67118,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     recordedBy: UserCreateNestedOneWithoutRecordedPaymentsInput
+    allocations?: PaymentAllocationCreateNestedManyWithoutPaymentInput
   }
 
   export type CustomerPaymentUncheckedCreateWithoutCustomerInput = {
@@ -58622,6 +67132,7 @@ export namespace Prisma {
     recordedById: string
     status?: string
     createdAt?: Date | string
+    allocations?: PaymentAllocationUncheckedCreateNestedManyWithoutPaymentInput
   }
 
   export type CustomerPaymentCreateOrConnectWithoutCustomerInput = {
@@ -58631,6 +67142,106 @@ export namespace Prisma {
 
   export type CustomerPaymentCreateManyCustomerInputEnvelope = {
     data: CustomerPaymentCreateManyCustomerInput | CustomerPaymentCreateManyCustomerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerDemandNoteCreateWithoutCustomerInput = {
+    id?: string
+    demandNumber: string
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestone?: PaymentPlanMilestoneCreateNestedOneWithoutDemandNotesInput
+    journalEntry?: JournalEntryCreateNestedOneWithoutDemandNotesInput
+    allocations?: PaymentAllocationCreateNestedManyWithoutDemandNoteInput
+  }
+
+  export type CustomerDemandNoteUncheckedCreateWithoutCustomerInput = {
+    id?: string
+    demandNumber: string
+    milestoneId?: string | null
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    journalEntryId?: string | null
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    allocations?: PaymentAllocationUncheckedCreateNestedManyWithoutDemandNoteInput
+  }
+
+  export type CustomerDemandNoteCreateOrConnectWithoutCustomerInput = {
+    where: CustomerDemandNoteWhereUniqueInput
+    create: XOR<CustomerDemandNoteCreateWithoutCustomerInput, CustomerDemandNoteUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type CustomerDemandNoteCreateManyCustomerInputEnvelope = {
+    data: CustomerDemandNoteCreateManyCustomerInput | CustomerDemandNoteCreateManyCustomerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerLedgerEntryCreateWithoutCustomerInput = {
+    id?: string
+    entryNumber: string
+    postingDate?: Date | string
+    entryType: string
+    referenceType: string
+    referenceId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    runningBalance: Decimal | DecimalJsLike | number | string
+    description: string
+    accountingPeriodId?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    journalEntry?: JournalEntryCreateNestedOneWithoutCustomerLedgerEntriesInput
+  }
+
+  export type CustomerLedgerEntryUncheckedCreateWithoutCustomerInput = {
+    id?: string
+    entryNumber: string
+    postingDate?: Date | string
+    entryType: string
+    referenceType: string
+    referenceId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    runningBalance: Decimal | DecimalJsLike | number | string
+    description: string
+    journalEntryId?: string | null
+    accountingPeriodId?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CustomerLedgerEntryCreateOrConnectWithoutCustomerInput = {
+    where: CustomerLedgerEntryWhereUniqueInput
+    create: XOR<CustomerLedgerEntryCreateWithoutCustomerInput, CustomerLedgerEntryUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type CustomerLedgerEntryCreateManyCustomerInputEnvelope = {
+    data: CustomerLedgerEntryCreateManyCustomerInput | CustomerLedgerEntryCreateManyCustomerInput[]
     skipDuplicates?: boolean
   }
 
@@ -58683,6 +67294,41 @@ export namespace Prisma {
     employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
   }
 
+  export type PaymentPlanUpsertWithoutCustomersInput = {
+    update: XOR<PaymentPlanUpdateWithoutCustomersInput, PaymentPlanUncheckedUpdateWithoutCustomersInput>
+    create: XOR<PaymentPlanCreateWithoutCustomersInput, PaymentPlanUncheckedCreateWithoutCustomersInput>
+    where?: PaymentPlanWhereInput
+  }
+
+  export type PaymentPlanUpdateToOneWithWhereWithoutCustomersInput = {
+    where?: PaymentPlanWhereInput
+    data: XOR<PaymentPlanUpdateWithoutCustomersInput, PaymentPlanUncheckedUpdateWithoutCustomersInput>
+  }
+
+  export type PaymentPlanUpdateWithoutCustomersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    projectLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: PaymentPlanMilestoneUpdateManyWithoutPlanNestedInput
+  }
+
+  export type PaymentPlanUncheckedUpdateWithoutCustomersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    projectLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: PaymentPlanMilestoneUncheckedUpdateManyWithoutPlanNestedInput
+  }
+
   export type CustomerPaymentUpsertWithWhereUniqueWithoutCustomerInput = {
     where: CustomerPaymentWhereUniqueInput
     update: XOR<CustomerPaymentUpdateWithoutCustomerInput, CustomerPaymentUncheckedUpdateWithoutCustomerInput>
@@ -58697,6 +67343,38 @@ export namespace Prisma {
   export type CustomerPaymentUpdateManyWithWhereWithoutCustomerInput = {
     where: CustomerPaymentScalarWhereInput
     data: XOR<CustomerPaymentUpdateManyMutationInput, CustomerPaymentUncheckedUpdateManyWithoutCustomerInput>
+  }
+
+  export type CustomerDemandNoteUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: CustomerDemandNoteWhereUniqueInput
+    update: XOR<CustomerDemandNoteUpdateWithoutCustomerInput, CustomerDemandNoteUncheckedUpdateWithoutCustomerInput>
+    create: XOR<CustomerDemandNoteCreateWithoutCustomerInput, CustomerDemandNoteUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type CustomerDemandNoteUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: CustomerDemandNoteWhereUniqueInput
+    data: XOR<CustomerDemandNoteUpdateWithoutCustomerInput, CustomerDemandNoteUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type CustomerDemandNoteUpdateManyWithWhereWithoutCustomerInput = {
+    where: CustomerDemandNoteScalarWhereInput
+    data: XOR<CustomerDemandNoteUpdateManyMutationInput, CustomerDemandNoteUncheckedUpdateManyWithoutCustomerInput>
+  }
+
+  export type CustomerLedgerEntryUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: CustomerLedgerEntryWhereUniqueInput
+    update: XOR<CustomerLedgerEntryUpdateWithoutCustomerInput, CustomerLedgerEntryUncheckedUpdateWithoutCustomerInput>
+    create: XOR<CustomerLedgerEntryCreateWithoutCustomerInput, CustomerLedgerEntryUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type CustomerLedgerEntryUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: CustomerLedgerEntryWhereUniqueInput
+    data: XOR<CustomerLedgerEntryUpdateWithoutCustomerInput, CustomerLedgerEntryUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type CustomerLedgerEntryUpdateManyWithWhereWithoutCustomerInput = {
+    where: CustomerLedgerEntryScalarWhereInput
+    data: XOR<CustomerLedgerEntryUpdateManyMutationInput, CustomerLedgerEntryUncheckedUpdateManyWithoutCustomerInput>
   }
 
   export type CustomerCreateWithoutPaymentsInput = {
@@ -58735,6 +67413,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     salesOwner: UserCreateNestedOneWithoutCustomersInput
+    paymentPlan?: PaymentPlanCreateNestedOneWithoutCustomersInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutCustomerInput
+    ledgerEntries?: CustomerLedgerEntryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutPaymentsInput = {
@@ -58771,8 +67452,11 @@ export namespace Prisma {
     refundReferenceNo?: string | null
     refundNotes?: string | null
     refundSettledById?: string | null
+    paymentPlanId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerEntries?: CustomerLedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutPaymentsInput = {
@@ -58823,6 +67507,36 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutRecordedPaymentsInput, UserUncheckedCreateWithoutRecordedPaymentsInput>
   }
 
+  export type PaymentAllocationCreateWithoutPaymentInput = {
+    id?: string
+    allocatedAmount: Decimal | DecimalJsLike | number | string
+    allocationDate?: Date | string
+    allocatedById?: string | null
+    status?: string
+    createdAt?: Date | string
+    demandNote: CustomerDemandNoteCreateNestedOneWithoutAllocationsInput
+  }
+
+  export type PaymentAllocationUncheckedCreateWithoutPaymentInput = {
+    id?: string
+    demandNoteId: string
+    allocatedAmount: Decimal | DecimalJsLike | number | string
+    allocationDate?: Date | string
+    allocatedById?: string | null
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PaymentAllocationCreateOrConnectWithoutPaymentInput = {
+    where: PaymentAllocationWhereUniqueInput
+    create: XOR<PaymentAllocationCreateWithoutPaymentInput, PaymentAllocationUncheckedCreateWithoutPaymentInput>
+  }
+
+  export type PaymentAllocationCreateManyPaymentInputEnvelope = {
+    data: PaymentAllocationCreateManyPaymentInput | PaymentAllocationCreateManyPaymentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CustomerUpsertWithoutPaymentsInput = {
     update: XOR<CustomerUpdateWithoutPaymentsInput, CustomerUncheckedUpdateWithoutPaymentsInput>
     create: XOR<CustomerCreateWithoutPaymentsInput, CustomerUncheckedCreateWithoutPaymentsInput>
@@ -58870,6 +67584,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     salesOwner?: UserUpdateOneRequiredWithoutCustomersNestedInput
+    paymentPlan?: PaymentPlanUpdateOneWithoutCustomersNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutCustomerNestedInput
+    ledgerEntries?: CustomerLedgerEntryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutPaymentsInput = {
@@ -58906,8 +67623,11 @@ export namespace Prisma {
     refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
     refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentPlanId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerEntries?: CustomerLedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutRecordedPaymentsInput = {
@@ -58957,6 +67677,36 @@ export namespace Prisma {
     createdProperties?: PropertyAcquisitionUncheckedUpdateManyWithoutCreatedByNestedInput
     recordedPropertyPayments?: PropertyPaymentUncheckedUpdateManyWithoutPaidByNestedInput
     employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type PaymentAllocationUpsertWithWhereUniqueWithoutPaymentInput = {
+    where: PaymentAllocationWhereUniqueInput
+    update: XOR<PaymentAllocationUpdateWithoutPaymentInput, PaymentAllocationUncheckedUpdateWithoutPaymentInput>
+    create: XOR<PaymentAllocationCreateWithoutPaymentInput, PaymentAllocationUncheckedCreateWithoutPaymentInput>
+  }
+
+  export type PaymentAllocationUpdateWithWhereUniqueWithoutPaymentInput = {
+    where: PaymentAllocationWhereUniqueInput
+    data: XOR<PaymentAllocationUpdateWithoutPaymentInput, PaymentAllocationUncheckedUpdateWithoutPaymentInput>
+  }
+
+  export type PaymentAllocationUpdateManyWithWhereWithoutPaymentInput = {
+    where: PaymentAllocationScalarWhereInput
+    data: XOR<PaymentAllocationUpdateManyMutationInput, PaymentAllocationUncheckedUpdateManyWithoutPaymentInput>
+  }
+
+  export type PaymentAllocationScalarWhereInput = {
+    AND?: PaymentAllocationScalarWhereInput | PaymentAllocationScalarWhereInput[]
+    OR?: PaymentAllocationScalarWhereInput[]
+    NOT?: PaymentAllocationScalarWhereInput | PaymentAllocationScalarWhereInput[]
+    id?: StringFilter<"PaymentAllocation"> | string
+    paymentId?: StringFilter<"PaymentAllocation"> | string
+    demandNoteId?: StringFilter<"PaymentAllocation"> | string
+    allocatedAmount?: DecimalFilter<"PaymentAllocation"> | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFilter<"PaymentAllocation"> | Date | string
+    allocatedById?: StringNullableFilter<"PaymentAllocation"> | string | null
+    status?: StringFilter<"PaymentAllocation"> | string
+    createdAt?: DateTimeFilter<"PaymentAllocation"> | Date | string
   }
 
   export type UserCreateWithoutCreatedPropertiesInput = {
@@ -62722,6 +71472,8 @@ export namespace Prisma {
     lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
     salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryCreateNestedManyWithoutJournalEntryInput
   }
 
   export type JournalEntryUncheckedCreateWithoutPayrollPostingInput = {
@@ -62738,6 +71490,8 @@ export namespace Prisma {
     lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
     salaryPayment?: SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedCreateNestedManyWithoutJournalEntryInput
   }
 
   export type JournalEntryCreateOrConnectWithoutPayrollPostingInput = {
@@ -62759,6 +71513,8 @@ export namespace Prisma {
     lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
     salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryCreateNestedManyWithoutJournalEntryInput
   }
 
   export type JournalEntryUncheckedCreateWithoutReversalPayrollPostingInput = {
@@ -62775,6 +71531,8 @@ export namespace Prisma {
     lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
     salaryPayment?: SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedCreateNestedManyWithoutJournalEntryInput
   }
 
   export type JournalEntryCreateOrConnectWithoutReversalPayrollPostingInput = {
@@ -62874,6 +71632,8 @@ export namespace Prisma {
     lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUpdateManyWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUncheckedUpdateWithoutPayrollPostingInput = {
@@ -62890,6 +71650,8 @@ export namespace Prisma {
     lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedUpdateManyWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUpsertWithoutReversalPayrollPostingInput = {
@@ -62917,6 +71679,8 @@ export namespace Prisma {
     lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUpdateManyWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUncheckedUpdateWithoutReversalPayrollPostingInput = {
@@ -62933,6 +71697,8 @@ export namespace Prisma {
     lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedUpdateManyWithoutJournalEntryNestedInput
   }
 
   export type PayrollRunCreateWithoutPaymentBatchesInput = {
@@ -63391,6 +72157,8 @@ export namespace Prisma {
     lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryCreateNestedManyWithoutJournalEntryInput
   }
 
   export type JournalEntryUncheckedCreateWithoutSalaryPaymentInput = {
@@ -63407,6 +72175,8 @@ export namespace Prisma {
     lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedCreateNestedManyWithoutJournalEntryInput
   }
 
   export type JournalEntryCreateOrConnectWithoutSalaryPaymentInput = {
@@ -63697,6 +72467,8 @@ export namespace Prisma {
     lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUpdateManyWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUncheckedUpdateWithoutSalaryPaymentInput = {
@@ -63713,6 +72485,8 @@ export namespace Prisma {
     lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedUpdateManyWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryCreateWithoutAccountingPeriodInput = {
@@ -63729,6 +72503,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
     salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryCreateNestedManyWithoutJournalEntryInput
   }
 
   export type JournalEntryUncheckedCreateWithoutAccountingPeriodInput = {
@@ -63745,6 +72521,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
     salaryPayment?: SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedCreateNestedManyWithoutJournalEntryInput
   }
 
   export type JournalEntryCreateOrConnectWithoutAccountingPeriodInput = {
@@ -63787,6 +72565,1155 @@ export namespace Prisma {
     createdBy?: StringFilter<"JournalEntry"> | string
     accountingPeriodId?: StringNullableFilter<"JournalEntry"> | string | null
     createdAt?: DateTimeFilter<"JournalEntry"> | Date | string
+  }
+
+  export type PaymentPlanMilestoneCreateWithoutPlanInput = {
+    id?: string
+    sequence: number
+    name: string
+    calculationType?: string
+    percentage?: Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: number
+    isTaxable?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutMilestoneInput
+  }
+
+  export type PaymentPlanMilestoneUncheckedCreateWithoutPlanInput = {
+    id?: string
+    sequence: number
+    name: string
+    calculationType?: string
+    percentage?: Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: number
+    isTaxable?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutMilestoneInput
+  }
+
+  export type PaymentPlanMilestoneCreateOrConnectWithoutPlanInput = {
+    where: PaymentPlanMilestoneWhereUniqueInput
+    create: XOR<PaymentPlanMilestoneCreateWithoutPlanInput, PaymentPlanMilestoneUncheckedCreateWithoutPlanInput>
+  }
+
+  export type PaymentPlanMilestoneCreateManyPlanInputEnvelope = {
+    data: PaymentPlanMilestoneCreateManyPlanInput | PaymentPlanMilestoneCreateManyPlanInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerCreateWithoutPaymentPlanInput = {
+    id?: string
+    customerName: string
+    customerContact: string
+    customerAddress?: string | null
+    projectLocation: string
+    plotNo: string
+    areaSqft: Decimal | DecimalJsLike | number | string
+    khataNo: string
+    identityType: string
+    identityNumber: string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    ratePerSqft?: Decimal | DecimalJsLike | number | string
+    landCost?: Decimal | DecimalJsLike | number | string
+    registryCost?: Decimal | DecimalJsLike | number | string
+    otherCharges?: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    taxes?: Decimal | DecimalJsLike | number | string
+    totalContractValue: Decimal | DecimalJsLike | number | string
+    totalPaid?: Decimal | DecimalJsLike | number | string
+    balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salesOwner: UserCreateNestedOneWithoutCustomersInput
+    payments?: CustomerPaymentCreateNestedManyWithoutCustomerInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutCustomerInput
+    ledgerEntries?: CustomerLedgerEntryCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutPaymentPlanInput = {
+    id?: string
+    salesOwnerId: string
+    customerName: string
+    customerContact: string
+    customerAddress?: string | null
+    projectLocation: string
+    plotNo: string
+    areaSqft: Decimal | DecimalJsLike | number | string
+    khataNo: string
+    identityType: string
+    identityNumber: string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    ratePerSqft?: Decimal | DecimalJsLike | number | string
+    landCost?: Decimal | DecimalJsLike | number | string
+    registryCost?: Decimal | DecimalJsLike | number | string
+    otherCharges?: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    taxes?: Decimal | DecimalJsLike | number | string
+    totalContractValue: Decimal | DecimalJsLike | number | string
+    totalPaid?: Decimal | DecimalJsLike | number | string
+    balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payments?: CustomerPaymentUncheckedCreateNestedManyWithoutCustomerInput
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerEntries?: CustomerLedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutPaymentPlanInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutPaymentPlanInput, CustomerUncheckedCreateWithoutPaymentPlanInput>
+  }
+
+  export type CustomerCreateManyPaymentPlanInputEnvelope = {
+    data: CustomerCreateManyPaymentPlanInput | CustomerCreateManyPaymentPlanInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PaymentPlanMilestoneUpsertWithWhereUniqueWithoutPlanInput = {
+    where: PaymentPlanMilestoneWhereUniqueInput
+    update: XOR<PaymentPlanMilestoneUpdateWithoutPlanInput, PaymentPlanMilestoneUncheckedUpdateWithoutPlanInput>
+    create: XOR<PaymentPlanMilestoneCreateWithoutPlanInput, PaymentPlanMilestoneUncheckedCreateWithoutPlanInput>
+  }
+
+  export type PaymentPlanMilestoneUpdateWithWhereUniqueWithoutPlanInput = {
+    where: PaymentPlanMilestoneWhereUniqueInput
+    data: XOR<PaymentPlanMilestoneUpdateWithoutPlanInput, PaymentPlanMilestoneUncheckedUpdateWithoutPlanInput>
+  }
+
+  export type PaymentPlanMilestoneUpdateManyWithWhereWithoutPlanInput = {
+    where: PaymentPlanMilestoneScalarWhereInput
+    data: XOR<PaymentPlanMilestoneUpdateManyMutationInput, PaymentPlanMilestoneUncheckedUpdateManyWithoutPlanInput>
+  }
+
+  export type PaymentPlanMilestoneScalarWhereInput = {
+    AND?: PaymentPlanMilestoneScalarWhereInput | PaymentPlanMilestoneScalarWhereInput[]
+    OR?: PaymentPlanMilestoneScalarWhereInput[]
+    NOT?: PaymentPlanMilestoneScalarWhereInput | PaymentPlanMilestoneScalarWhereInput[]
+    id?: StringFilter<"PaymentPlanMilestone"> | string
+    planId?: StringFilter<"PaymentPlanMilestone"> | string
+    sequence?: IntFilter<"PaymentPlanMilestone"> | number
+    name?: StringFilter<"PaymentPlanMilestone"> | string
+    calculationType?: StringFilter<"PaymentPlanMilestone"> | string
+    percentage?: DecimalNullableFilter<"PaymentPlanMilestone"> | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: DecimalNullableFilter<"PaymentPlanMilestone"> | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntFilter<"PaymentPlanMilestone"> | number
+    isTaxable?: BoolFilter<"PaymentPlanMilestone"> | boolean
+    createdAt?: DateTimeFilter<"PaymentPlanMilestone"> | Date | string
+    updatedAt?: DateTimeFilter<"PaymentPlanMilestone"> | Date | string
+  }
+
+  export type CustomerUpsertWithWhereUniqueWithoutPaymentPlanInput = {
+    where: CustomerWhereUniqueInput
+    update: XOR<CustomerUpdateWithoutPaymentPlanInput, CustomerUncheckedUpdateWithoutPaymentPlanInput>
+    create: XOR<CustomerCreateWithoutPaymentPlanInput, CustomerUncheckedCreateWithoutPaymentPlanInput>
+  }
+
+  export type CustomerUpdateWithWhereUniqueWithoutPaymentPlanInput = {
+    where: CustomerWhereUniqueInput
+    data: XOR<CustomerUpdateWithoutPaymentPlanInput, CustomerUncheckedUpdateWithoutPaymentPlanInput>
+  }
+
+  export type CustomerUpdateManyWithWhereWithoutPaymentPlanInput = {
+    where: CustomerScalarWhereInput
+    data: XOR<CustomerUpdateManyMutationInput, CustomerUncheckedUpdateManyWithoutPaymentPlanInput>
+  }
+
+  export type PaymentPlanCreateWithoutMilestonesInput = {
+    id?: string
+    name: string
+    projectLocation?: string | null
+    description?: string | null
+    status?: string
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customers?: CustomerCreateNestedManyWithoutPaymentPlanInput
+  }
+
+  export type PaymentPlanUncheckedCreateWithoutMilestonesInput = {
+    id?: string
+    name: string
+    projectLocation?: string | null
+    description?: string | null
+    status?: string
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customers?: CustomerUncheckedCreateNestedManyWithoutPaymentPlanInput
+  }
+
+  export type PaymentPlanCreateOrConnectWithoutMilestonesInput = {
+    where: PaymentPlanWhereUniqueInput
+    create: XOR<PaymentPlanCreateWithoutMilestonesInput, PaymentPlanUncheckedCreateWithoutMilestonesInput>
+  }
+
+  export type CustomerDemandNoteCreateWithoutMilestoneInput = {
+    id?: string
+    demandNumber: string
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutDemandNotesInput
+    journalEntry?: JournalEntryCreateNestedOneWithoutDemandNotesInput
+    allocations?: PaymentAllocationCreateNestedManyWithoutDemandNoteInput
+  }
+
+  export type CustomerDemandNoteUncheckedCreateWithoutMilestoneInput = {
+    id?: string
+    demandNumber: string
+    customerId: string
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    journalEntryId?: string | null
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    allocations?: PaymentAllocationUncheckedCreateNestedManyWithoutDemandNoteInput
+  }
+
+  export type CustomerDemandNoteCreateOrConnectWithoutMilestoneInput = {
+    where: CustomerDemandNoteWhereUniqueInput
+    create: XOR<CustomerDemandNoteCreateWithoutMilestoneInput, CustomerDemandNoteUncheckedCreateWithoutMilestoneInput>
+  }
+
+  export type CustomerDemandNoteCreateManyMilestoneInputEnvelope = {
+    data: CustomerDemandNoteCreateManyMilestoneInput | CustomerDemandNoteCreateManyMilestoneInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PaymentPlanUpsertWithoutMilestonesInput = {
+    update: XOR<PaymentPlanUpdateWithoutMilestonesInput, PaymentPlanUncheckedUpdateWithoutMilestonesInput>
+    create: XOR<PaymentPlanCreateWithoutMilestonesInput, PaymentPlanUncheckedCreateWithoutMilestonesInput>
+    where?: PaymentPlanWhereInput
+  }
+
+  export type PaymentPlanUpdateToOneWithWhereWithoutMilestonesInput = {
+    where?: PaymentPlanWhereInput
+    data: XOR<PaymentPlanUpdateWithoutMilestonesInput, PaymentPlanUncheckedUpdateWithoutMilestonesInput>
+  }
+
+  export type PaymentPlanUpdateWithoutMilestonesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    projectLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customers?: CustomerUpdateManyWithoutPaymentPlanNestedInput
+  }
+
+  export type PaymentPlanUncheckedUpdateWithoutMilestonesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    projectLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customers?: CustomerUncheckedUpdateManyWithoutPaymentPlanNestedInput
+  }
+
+  export type CustomerDemandNoteUpsertWithWhereUniqueWithoutMilestoneInput = {
+    where: CustomerDemandNoteWhereUniqueInput
+    update: XOR<CustomerDemandNoteUpdateWithoutMilestoneInput, CustomerDemandNoteUncheckedUpdateWithoutMilestoneInput>
+    create: XOR<CustomerDemandNoteCreateWithoutMilestoneInput, CustomerDemandNoteUncheckedCreateWithoutMilestoneInput>
+  }
+
+  export type CustomerDemandNoteUpdateWithWhereUniqueWithoutMilestoneInput = {
+    where: CustomerDemandNoteWhereUniqueInput
+    data: XOR<CustomerDemandNoteUpdateWithoutMilestoneInput, CustomerDemandNoteUncheckedUpdateWithoutMilestoneInput>
+  }
+
+  export type CustomerDemandNoteUpdateManyWithWhereWithoutMilestoneInput = {
+    where: CustomerDemandNoteScalarWhereInput
+    data: XOR<CustomerDemandNoteUpdateManyMutationInput, CustomerDemandNoteUncheckedUpdateManyWithoutMilestoneInput>
+  }
+
+  export type CustomerCreateWithoutDemandNotesInput = {
+    id?: string
+    customerName: string
+    customerContact: string
+    customerAddress?: string | null
+    projectLocation: string
+    plotNo: string
+    areaSqft: Decimal | DecimalJsLike | number | string
+    khataNo: string
+    identityType: string
+    identityNumber: string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    ratePerSqft?: Decimal | DecimalJsLike | number | string
+    landCost?: Decimal | DecimalJsLike | number | string
+    registryCost?: Decimal | DecimalJsLike | number | string
+    otherCharges?: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    taxes?: Decimal | DecimalJsLike | number | string
+    totalContractValue: Decimal | DecimalJsLike | number | string
+    totalPaid?: Decimal | DecimalJsLike | number | string
+    balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salesOwner: UserCreateNestedOneWithoutCustomersInput
+    paymentPlan?: PaymentPlanCreateNestedOneWithoutCustomersInput
+    payments?: CustomerPaymentCreateNestedManyWithoutCustomerInput
+    ledgerEntries?: CustomerLedgerEntryCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutDemandNotesInput = {
+    id?: string
+    salesOwnerId: string
+    customerName: string
+    customerContact: string
+    customerAddress?: string | null
+    projectLocation: string
+    plotNo: string
+    areaSqft: Decimal | DecimalJsLike | number | string
+    khataNo: string
+    identityType: string
+    identityNumber: string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    ratePerSqft?: Decimal | DecimalJsLike | number | string
+    landCost?: Decimal | DecimalJsLike | number | string
+    registryCost?: Decimal | DecimalJsLike | number | string
+    otherCharges?: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    taxes?: Decimal | DecimalJsLike | number | string
+    totalContractValue: Decimal | DecimalJsLike | number | string
+    totalPaid?: Decimal | DecimalJsLike | number | string
+    balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
+    paymentPlanId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payments?: CustomerPaymentUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerEntries?: CustomerLedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutDemandNotesInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutDemandNotesInput, CustomerUncheckedCreateWithoutDemandNotesInput>
+  }
+
+  export type PaymentPlanMilestoneCreateWithoutDemandNotesInput = {
+    id?: string
+    sequence: number
+    name: string
+    calculationType?: string
+    percentage?: Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: number
+    isTaxable?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    plan: PaymentPlanCreateNestedOneWithoutMilestonesInput
+  }
+
+  export type PaymentPlanMilestoneUncheckedCreateWithoutDemandNotesInput = {
+    id?: string
+    planId: string
+    sequence: number
+    name: string
+    calculationType?: string
+    percentage?: Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: number
+    isTaxable?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PaymentPlanMilestoneCreateOrConnectWithoutDemandNotesInput = {
+    where: PaymentPlanMilestoneWhereUniqueInput
+    create: XOR<PaymentPlanMilestoneCreateWithoutDemandNotesInput, PaymentPlanMilestoneUncheckedCreateWithoutDemandNotesInput>
+  }
+
+  export type JournalEntryCreateWithoutDemandNotesInput = {
+    id?: string
+    entryNumber: string
+    date?: Date | string
+    referenceType?: string | null
+    referenceId?: string | null
+    description: string
+    status?: string
+    createdBy: string
+    createdAt?: Date | string
+    accountingPeriod?: AccountingPeriodCreateNestedOneWithoutJournalEntriesInput
+    lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
+    payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
+    reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
+    salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryCreateNestedManyWithoutJournalEntryInput
+  }
+
+  export type JournalEntryUncheckedCreateWithoutDemandNotesInput = {
+    id?: string
+    entryNumber: string
+    date?: Date | string
+    referenceType?: string | null
+    referenceId?: string | null
+    description: string
+    status?: string
+    createdBy: string
+    accountingPeriodId?: string | null
+    createdAt?: Date | string
+    lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
+    payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
+    reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
+    salaryPayment?: SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedCreateNestedManyWithoutJournalEntryInput
+  }
+
+  export type JournalEntryCreateOrConnectWithoutDemandNotesInput = {
+    where: JournalEntryWhereUniqueInput
+    create: XOR<JournalEntryCreateWithoutDemandNotesInput, JournalEntryUncheckedCreateWithoutDemandNotesInput>
+  }
+
+  export type PaymentAllocationCreateWithoutDemandNoteInput = {
+    id?: string
+    allocatedAmount: Decimal | DecimalJsLike | number | string
+    allocationDate?: Date | string
+    allocatedById?: string | null
+    status?: string
+    createdAt?: Date | string
+    payment: CustomerPaymentCreateNestedOneWithoutAllocationsInput
+  }
+
+  export type PaymentAllocationUncheckedCreateWithoutDemandNoteInput = {
+    id?: string
+    paymentId: string
+    allocatedAmount: Decimal | DecimalJsLike | number | string
+    allocationDate?: Date | string
+    allocatedById?: string | null
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PaymentAllocationCreateOrConnectWithoutDemandNoteInput = {
+    where: PaymentAllocationWhereUniqueInput
+    create: XOR<PaymentAllocationCreateWithoutDemandNoteInput, PaymentAllocationUncheckedCreateWithoutDemandNoteInput>
+  }
+
+  export type PaymentAllocationCreateManyDemandNoteInputEnvelope = {
+    data: PaymentAllocationCreateManyDemandNoteInput | PaymentAllocationCreateManyDemandNoteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerUpsertWithoutDemandNotesInput = {
+    update: XOR<CustomerUpdateWithoutDemandNotesInput, CustomerUncheckedUpdateWithoutDemandNotesInput>
+    create: XOR<CustomerCreateWithoutDemandNotesInput, CustomerUncheckedCreateWithoutDemandNotesInput>
+    where?: CustomerWhereInput
+  }
+
+  export type CustomerUpdateToOneWithWhereWithoutDemandNotesInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutDemandNotesInput, CustomerUncheckedUpdateWithoutDemandNotesInput>
+  }
+
+  export type CustomerUpdateWithoutDemandNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerContact?: StringFieldUpdateOperationsInput | string
+    customerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    areaSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    identityType?: StringFieldUpdateOperationsInput | string
+    identityNumber?: StringFieldUpdateOperationsInput | string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    ratePerSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    landCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    registryCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    otherCharges?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salesOwner?: UserUpdateOneRequiredWithoutCustomersNestedInput
+    paymentPlan?: PaymentPlanUpdateOneWithoutCustomersNestedInput
+    payments?: CustomerPaymentUpdateManyWithoutCustomerNestedInput
+    ledgerEntries?: CustomerLedgerEntryUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutDemandNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    salesOwnerId?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerContact?: StringFieldUpdateOperationsInput | string
+    customerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    areaSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    identityType?: StringFieldUpdateOperationsInput | string
+    identityNumber?: StringFieldUpdateOperationsInput | string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    ratePerSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    landCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    registryCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    otherCharges?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentPlanId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: CustomerPaymentUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerEntries?: CustomerLedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type PaymentPlanMilestoneUpsertWithoutDemandNotesInput = {
+    update: XOR<PaymentPlanMilestoneUpdateWithoutDemandNotesInput, PaymentPlanMilestoneUncheckedUpdateWithoutDemandNotesInput>
+    create: XOR<PaymentPlanMilestoneCreateWithoutDemandNotesInput, PaymentPlanMilestoneUncheckedCreateWithoutDemandNotesInput>
+    where?: PaymentPlanMilestoneWhereInput
+  }
+
+  export type PaymentPlanMilestoneUpdateToOneWithWhereWithoutDemandNotesInput = {
+    where?: PaymentPlanMilestoneWhereInput
+    data: XOR<PaymentPlanMilestoneUpdateWithoutDemandNotesInput, PaymentPlanMilestoneUncheckedUpdateWithoutDemandNotesInput>
+  }
+
+  export type PaymentPlanMilestoneUpdateWithoutDemandNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    calculationType?: StringFieldUpdateOperationsInput | string
+    percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: PaymentPlanUpdateOneRequiredWithoutMilestonesNestedInput
+  }
+
+  export type PaymentPlanMilestoneUncheckedUpdateWithoutDemandNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    calculationType?: StringFieldUpdateOperationsInput | string
+    percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryUpsertWithoutDemandNotesInput = {
+    update: XOR<JournalEntryUpdateWithoutDemandNotesInput, JournalEntryUncheckedUpdateWithoutDemandNotesInput>
+    create: XOR<JournalEntryCreateWithoutDemandNotesInput, JournalEntryUncheckedCreateWithoutDemandNotesInput>
+    where?: JournalEntryWhereInput
+  }
+
+  export type JournalEntryUpdateToOneWithWhereWithoutDemandNotesInput = {
+    where?: JournalEntryWhereInput
+    data: XOR<JournalEntryUpdateWithoutDemandNotesInput, JournalEntryUncheckedUpdateWithoutDemandNotesInput>
+  }
+
+  export type JournalEntryUpdateWithoutDemandNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountingPeriod?: AccountingPeriodUpdateOneWithoutJournalEntriesNestedInput
+    lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
+    payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
+    reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUpdateManyWithoutJournalEntryNestedInput
+  }
+
+  export type JournalEntryUncheckedUpdateWithoutDemandNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
+    payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
+    reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedUpdateManyWithoutJournalEntryNestedInput
+  }
+
+  export type PaymentAllocationUpsertWithWhereUniqueWithoutDemandNoteInput = {
+    where: PaymentAllocationWhereUniqueInput
+    update: XOR<PaymentAllocationUpdateWithoutDemandNoteInput, PaymentAllocationUncheckedUpdateWithoutDemandNoteInput>
+    create: XOR<PaymentAllocationCreateWithoutDemandNoteInput, PaymentAllocationUncheckedCreateWithoutDemandNoteInput>
+  }
+
+  export type PaymentAllocationUpdateWithWhereUniqueWithoutDemandNoteInput = {
+    where: PaymentAllocationWhereUniqueInput
+    data: XOR<PaymentAllocationUpdateWithoutDemandNoteInput, PaymentAllocationUncheckedUpdateWithoutDemandNoteInput>
+  }
+
+  export type PaymentAllocationUpdateManyWithWhereWithoutDemandNoteInput = {
+    where: PaymentAllocationScalarWhereInput
+    data: XOR<PaymentAllocationUpdateManyMutationInput, PaymentAllocationUncheckedUpdateManyWithoutDemandNoteInput>
+  }
+
+  export type CustomerCreateWithoutLedgerEntriesInput = {
+    id?: string
+    customerName: string
+    customerContact: string
+    customerAddress?: string | null
+    projectLocation: string
+    plotNo: string
+    areaSqft: Decimal | DecimalJsLike | number | string
+    khataNo: string
+    identityType: string
+    identityNumber: string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    ratePerSqft?: Decimal | DecimalJsLike | number | string
+    landCost?: Decimal | DecimalJsLike | number | string
+    registryCost?: Decimal | DecimalJsLike | number | string
+    otherCharges?: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    taxes?: Decimal | DecimalJsLike | number | string
+    totalContractValue: Decimal | DecimalJsLike | number | string
+    totalPaid?: Decimal | DecimalJsLike | number | string
+    balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salesOwner: UserCreateNestedOneWithoutCustomersInput
+    paymentPlan?: PaymentPlanCreateNestedOneWithoutCustomersInput
+    payments?: CustomerPaymentCreateNestedManyWithoutCustomerInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutLedgerEntriesInput = {
+    id?: string
+    salesOwnerId: string
+    customerName: string
+    customerContact: string
+    customerAddress?: string | null
+    projectLocation: string
+    plotNo: string
+    areaSqft: Decimal | DecimalJsLike | number | string
+    khataNo: string
+    identityType: string
+    identityNumber: string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    ratePerSqft?: Decimal | DecimalJsLike | number | string
+    landCost?: Decimal | DecimalJsLike | number | string
+    registryCost?: Decimal | DecimalJsLike | number | string
+    otherCharges?: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    taxes?: Decimal | DecimalJsLike | number | string
+    totalContractValue: Decimal | DecimalJsLike | number | string
+    totalPaid?: Decimal | DecimalJsLike | number | string
+    balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
+    paymentPlanId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payments?: CustomerPaymentUncheckedCreateNestedManyWithoutCustomerInput
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutLedgerEntriesInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutLedgerEntriesInput, CustomerUncheckedCreateWithoutLedgerEntriesInput>
+  }
+
+  export type JournalEntryCreateWithoutCustomerLedgerEntriesInput = {
+    id?: string
+    entryNumber: string
+    date?: Date | string
+    referenceType?: string | null
+    referenceId?: string | null
+    description: string
+    status?: string
+    createdBy: string
+    createdAt?: Date | string
+    accountingPeriod?: AccountingPeriodCreateNestedOneWithoutJournalEntriesInput
+    lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
+    payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
+    reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
+    salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
+    demandNotes?: CustomerDemandNoteCreateNestedManyWithoutJournalEntryInput
+  }
+
+  export type JournalEntryUncheckedCreateWithoutCustomerLedgerEntriesInput = {
+    id?: string
+    entryNumber: string
+    date?: Date | string
+    referenceType?: string | null
+    referenceId?: string | null
+    description: string
+    status?: string
+    createdBy: string
+    accountingPeriodId?: string | null
+    createdAt?: Date | string
+    lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
+    payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
+    reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
+    salaryPayment?: SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput
+    demandNotes?: CustomerDemandNoteUncheckedCreateNestedManyWithoutJournalEntryInput
+  }
+
+  export type JournalEntryCreateOrConnectWithoutCustomerLedgerEntriesInput = {
+    where: JournalEntryWhereUniqueInput
+    create: XOR<JournalEntryCreateWithoutCustomerLedgerEntriesInput, JournalEntryUncheckedCreateWithoutCustomerLedgerEntriesInput>
+  }
+
+  export type CustomerUpsertWithoutLedgerEntriesInput = {
+    update: XOR<CustomerUpdateWithoutLedgerEntriesInput, CustomerUncheckedUpdateWithoutLedgerEntriesInput>
+    create: XOR<CustomerCreateWithoutLedgerEntriesInput, CustomerUncheckedCreateWithoutLedgerEntriesInput>
+    where?: CustomerWhereInput
+  }
+
+  export type CustomerUpdateToOneWithWhereWithoutLedgerEntriesInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutLedgerEntriesInput, CustomerUncheckedUpdateWithoutLedgerEntriesInput>
+  }
+
+  export type CustomerUpdateWithoutLedgerEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerContact?: StringFieldUpdateOperationsInput | string
+    customerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    areaSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    identityType?: StringFieldUpdateOperationsInput | string
+    identityNumber?: StringFieldUpdateOperationsInput | string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    ratePerSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    landCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    registryCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    otherCharges?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salesOwner?: UserUpdateOneRequiredWithoutCustomersNestedInput
+    paymentPlan?: PaymentPlanUpdateOneWithoutCustomersNestedInput
+    payments?: CustomerPaymentUpdateManyWithoutCustomerNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutLedgerEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    salesOwnerId?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerContact?: StringFieldUpdateOperationsInput | string
+    customerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    areaSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    identityType?: StringFieldUpdateOperationsInput | string
+    identityNumber?: StringFieldUpdateOperationsInput | string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    ratePerSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    landCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    registryCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    otherCharges?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentPlanId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: CustomerPaymentUncheckedUpdateManyWithoutCustomerNestedInput
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type JournalEntryUpsertWithoutCustomerLedgerEntriesInput = {
+    update: XOR<JournalEntryUpdateWithoutCustomerLedgerEntriesInput, JournalEntryUncheckedUpdateWithoutCustomerLedgerEntriesInput>
+    create: XOR<JournalEntryCreateWithoutCustomerLedgerEntriesInput, JournalEntryUncheckedCreateWithoutCustomerLedgerEntriesInput>
+    where?: JournalEntryWhereInput
+  }
+
+  export type JournalEntryUpdateToOneWithWhereWithoutCustomerLedgerEntriesInput = {
+    where?: JournalEntryWhereInput
+    data: XOR<JournalEntryUpdateWithoutCustomerLedgerEntriesInput, JournalEntryUncheckedUpdateWithoutCustomerLedgerEntriesInput>
+  }
+
+  export type JournalEntryUpdateWithoutCustomerLedgerEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountingPeriod?: AccountingPeriodUpdateOneWithoutJournalEntriesNestedInput
+    lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
+    payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
+    reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutJournalEntryNestedInput
+  }
+
+  export type JournalEntryUncheckedUpdateWithoutCustomerLedgerEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
+    payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
+    reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutJournalEntryNestedInput
+  }
+
+  export type CustomerPaymentCreateWithoutAllocationsInput = {
+    id?: string
+    dateOfPayment?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccount?: string | null
+    destinationAccount?: string | null
+    referenceNo?: string | null
+    status?: string
+    createdAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutPaymentsInput
+    recordedBy: UserCreateNestedOneWithoutRecordedPaymentsInput
+  }
+
+  export type CustomerPaymentUncheckedCreateWithoutAllocationsInput = {
+    id?: string
+    customerId: string
+    dateOfPayment?: Date | string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccount?: string | null
+    destinationAccount?: string | null
+    referenceNo?: string | null
+    recordedById: string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type CustomerPaymentCreateOrConnectWithoutAllocationsInput = {
+    where: CustomerPaymentWhereUniqueInput
+    create: XOR<CustomerPaymentCreateWithoutAllocationsInput, CustomerPaymentUncheckedCreateWithoutAllocationsInput>
+  }
+
+  export type CustomerDemandNoteCreateWithoutAllocationsInput = {
+    id?: string
+    demandNumber: string
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutDemandNotesInput
+    milestone?: PaymentPlanMilestoneCreateNestedOneWithoutDemandNotesInput
+    journalEntry?: JournalEntryCreateNestedOneWithoutDemandNotesInput
+  }
+
+  export type CustomerDemandNoteUncheckedCreateWithoutAllocationsInput = {
+    id?: string
+    demandNumber: string
+    customerId: string
+    milestoneId?: string | null
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    journalEntryId?: string | null
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerDemandNoteCreateOrConnectWithoutAllocationsInput = {
+    where: CustomerDemandNoteWhereUniqueInput
+    create: XOR<CustomerDemandNoteCreateWithoutAllocationsInput, CustomerDemandNoteUncheckedCreateWithoutAllocationsInput>
+  }
+
+  export type CustomerPaymentUpsertWithoutAllocationsInput = {
+    update: XOR<CustomerPaymentUpdateWithoutAllocationsInput, CustomerPaymentUncheckedUpdateWithoutAllocationsInput>
+    create: XOR<CustomerPaymentCreateWithoutAllocationsInput, CustomerPaymentUncheckedCreateWithoutAllocationsInput>
+    where?: CustomerPaymentWhereInput
+  }
+
+  export type CustomerPaymentUpdateToOneWithWhereWithoutAllocationsInput = {
+    where?: CustomerPaymentWhereInput
+    data: XOR<CustomerPaymentUpdateWithoutAllocationsInput, CustomerPaymentUncheckedUpdateWithoutAllocationsInput>
+  }
+
+  export type CustomerPaymentUpdateWithoutAllocationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dateOfPayment?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutPaymentsNestedInput
+    recordedBy?: UserUpdateOneRequiredWithoutRecordedPaymentsNestedInput
+  }
+
+  export type CustomerPaymentUncheckedUpdateWithoutAllocationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    dateOfPayment?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    destinationAccount?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedById?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerDemandNoteUpsertWithoutAllocationsInput = {
+    update: XOR<CustomerDemandNoteUpdateWithoutAllocationsInput, CustomerDemandNoteUncheckedUpdateWithoutAllocationsInput>
+    create: XOR<CustomerDemandNoteCreateWithoutAllocationsInput, CustomerDemandNoteUncheckedCreateWithoutAllocationsInput>
+    where?: CustomerDemandNoteWhereInput
+  }
+
+  export type CustomerDemandNoteUpdateToOneWithWhereWithoutAllocationsInput = {
+    where?: CustomerDemandNoteWhereInput
+    data: XOR<CustomerDemandNoteUpdateWithoutAllocationsInput, CustomerDemandNoteUncheckedUpdateWithoutAllocationsInput>
+  }
+
+  export type CustomerDemandNoteUpdateWithoutAllocationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutDemandNotesNestedInput
+    milestone?: PaymentPlanMilestoneUpdateOneWithoutDemandNotesNestedInput
+    journalEntry?: JournalEntryUpdateOneWithoutDemandNotesNestedInput
+  }
+
+  export type CustomerDemandNoteUncheckedUpdateWithoutAllocationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    milestoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FundRequestCreateManyRequesterInput = {
@@ -63889,6 +73816,7 @@ export namespace Prisma {
     refundReferenceNo?: string | null
     refundNotes?: string | null
     refundSettledById?: string | null
+    paymentPlanId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -64178,7 +74106,10 @@ export namespace Prisma {
     refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    paymentPlan?: PaymentPlanUpdateOneWithoutCustomersNestedInput
     payments?: CustomerPaymentUpdateManyWithoutCustomerNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutCustomerNestedInput
+    ledgerEntries?: CustomerLedgerEntryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutSalesOwnerInput = {
@@ -64214,9 +74145,12 @@ export namespace Prisma {
     refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
     refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentPlanId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payments?: CustomerPaymentUncheckedUpdateManyWithoutCustomerNestedInput
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerEntries?: CustomerLedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutSalesOwnerInput = {
@@ -64252,6 +74186,7 @@ export namespace Prisma {
     refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
     refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentPlanId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -64267,6 +74202,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneRequiredWithoutPaymentsNestedInput
+    allocations?: PaymentAllocationUpdateManyWithoutPaymentNestedInput
   }
 
   export type CustomerPaymentUncheckedUpdateWithoutRecordedByInput = {
@@ -64280,6 +74216,7 @@ export namespace Prisma {
     referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocations?: PaymentAllocationUncheckedUpdateManyWithoutPaymentNestedInput
   }
 
   export type CustomerPaymentUncheckedUpdateManyWithoutRecordedByInput = {
@@ -64851,6 +74788,45 @@ export namespace Prisma {
     description?: string | null
   }
 
+  export type CustomerDemandNoteCreateManyJournalEntryInput = {
+    id?: string
+    demandNumber: string
+    customerId: string
+    milestoneId?: string | null
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerLedgerEntryCreateManyJournalEntryInput = {
+    id?: string
+    customerId: string
+    entryNumber: string
+    postingDate?: Date | string
+    entryType: string
+    referenceType: string
+    referenceId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    runningBalance: Decimal | DecimalJsLike | number | string
+    description: string
+    accountingPeriodId?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+  }
+
   export type JournalLineUpdateWithoutJournalEntryInput = {
     id?: StringFieldUpdateOperationsInput | string
     debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -64875,6 +74851,125 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type CustomerDemandNoteUpdateWithoutJournalEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutDemandNotesNestedInput
+    milestone?: PaymentPlanMilestoneUpdateOneWithoutDemandNotesNestedInput
+    allocations?: PaymentAllocationUpdateManyWithoutDemandNoteNestedInput
+  }
+
+  export type CustomerDemandNoteUncheckedUpdateWithoutJournalEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    milestoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocations?: PaymentAllocationUncheckedUpdateManyWithoutDemandNoteNestedInput
+  }
+
+  export type CustomerDemandNoteUncheckedUpdateManyWithoutJournalEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    milestoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerLedgerEntryUpdateWithoutJournalEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    postingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    entryType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutLedgerEntriesNestedInput
+  }
+
+  export type CustomerLedgerEntryUncheckedUpdateWithoutJournalEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    postingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    entryType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerLedgerEntryUncheckedUpdateManyWithoutJournalEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    postingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    entryType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CustomerPaymentCreateManyCustomerInput = {
     id?: string
     dateOfPayment?: Date | string
@@ -64885,6 +74980,45 @@ export namespace Prisma {
     referenceNo?: string | null
     recordedById: string
     status?: string
+    createdAt?: Date | string
+  }
+
+  export type CustomerDemandNoteCreateManyCustomerInput = {
+    id?: string
+    demandNumber: string
+    milestoneId?: string | null
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    journalEntryId?: string | null
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerLedgerEntryCreateManyCustomerInput = {
+    id?: string
+    entryNumber: string
+    postingDate?: Date | string
+    entryType: string
+    referenceType: string
+    referenceId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    runningBalance: Decimal | DecimalJsLike | number | string
+    description: string
+    journalEntryId?: string | null
+    accountingPeriodId?: string | null
+    createdById?: string | null
     createdAt?: Date | string
   }
 
@@ -64899,6 +75033,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recordedBy?: UserUpdateOneRequiredWithoutRecordedPaymentsNestedInput
+    allocations?: PaymentAllocationUpdateManyWithoutPaymentNestedInput
   }
 
   export type CustomerPaymentUncheckedUpdateWithoutCustomerInput = {
@@ -64912,6 +75047,7 @@ export namespace Prisma {
     recordedById?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocations?: PaymentAllocationUncheckedUpdateManyWithoutPaymentNestedInput
   }
 
   export type CustomerPaymentUncheckedUpdateManyWithoutCustomerInput = {
@@ -64923,6 +75059,165 @@ export namespace Prisma {
     destinationAccount?: NullableStringFieldUpdateOperationsInput | string | null
     referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     recordedById?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerDemandNoteUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestone?: PaymentPlanMilestoneUpdateOneWithoutDemandNotesNestedInput
+    journalEntry?: JournalEntryUpdateOneWithoutDemandNotesNestedInput
+    allocations?: PaymentAllocationUpdateManyWithoutDemandNoteNestedInput
+  }
+
+  export type CustomerDemandNoteUncheckedUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    milestoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocations?: PaymentAllocationUncheckedUpdateManyWithoutDemandNoteNestedInput
+  }
+
+  export type CustomerDemandNoteUncheckedUpdateManyWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    milestoneId?: NullableStringFieldUpdateOperationsInput | string | null
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerLedgerEntryUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    postingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    entryType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    journalEntry?: JournalEntryUpdateOneWithoutCustomerLedgerEntriesNestedInput
+  }
+
+  export type CustomerLedgerEntryUncheckedUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    postingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    entryType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerLedgerEntryUncheckedUpdateManyWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    postingDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    entryType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    runningBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: StringFieldUpdateOperationsInput | string
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountingPeriodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentAllocationCreateManyPaymentInput = {
+    id?: string
+    demandNoteId: string
+    allocatedAmount: Decimal | DecimalJsLike | number | string
+    allocationDate?: Date | string
+    allocatedById?: string | null
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PaymentAllocationUpdateWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocatedById?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demandNote?: CustomerDemandNoteUpdateOneRequiredWithoutAllocationsNestedInput
+  }
+
+  export type PaymentAllocationUncheckedUpdateWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNoteId?: StringFieldUpdateOperationsInput | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocatedById?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentAllocationUncheckedUpdateManyWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNoteId?: StringFieldUpdateOperationsInput | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocatedById?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -66547,6 +76842,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUpdateManyWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUncheckedUpdateWithoutAccountingPeriodInput = {
@@ -66563,6 +76860,8 @@ export namespace Prisma {
     payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
     salaryPayment?: SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutJournalEntryNestedInput
+    customerLedgerEntries?: CustomerLedgerEntryUncheckedUpdateManyWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUncheckedUpdateManyWithoutAccountingPeriodInput = {
@@ -66574,6 +76873,348 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentPlanMilestoneCreateManyPlanInput = {
+    id?: string
+    sequence: number
+    name: string
+    calculationType?: string
+    percentage?: Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: number
+    isTaxable?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerCreateManyPaymentPlanInput = {
+    id?: string
+    salesOwnerId: string
+    customerName: string
+    customerContact: string
+    customerAddress?: string | null
+    projectLocation: string
+    plotNo: string
+    areaSqft: Decimal | DecimalJsLike | number | string
+    khataNo: string
+    identityType: string
+    identityNumber: string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    ratePerSqft?: Decimal | DecimalJsLike | number | string
+    landCost?: Decimal | DecimalJsLike | number | string
+    registryCost?: Decimal | DecimalJsLike | number | string
+    otherCharges?: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    taxes?: Decimal | DecimalJsLike | number | string
+    totalContractValue: Decimal | DecimalJsLike | number | string
+    totalPaid?: Decimal | DecimalJsLike | number | string
+    balanceDue: Decimal | DecimalJsLike | number | string
+    cancellationStatus?: string | null
+    cancellationReason?: string | null
+    cancelledAt?: Date | string | null
+    cancelledById?: string | null
+    deductionAmount?: Decimal | DecimalJsLike | number | string
+    refundAmount?: Decimal | DecimalJsLike | number | string
+    refundDate?: Date | string | null
+    refundMode?: string | null
+    refundReferenceNo?: string | null
+    refundNotes?: string | null
+    refundSettledById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PaymentPlanMilestoneUpdateWithoutPlanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    calculationType?: StringFieldUpdateOperationsInput | string
+    percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutMilestoneNestedInput
+  }
+
+  export type PaymentPlanMilestoneUncheckedUpdateWithoutPlanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    calculationType?: StringFieldUpdateOperationsInput | string
+    percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutMilestoneNestedInput
+  }
+
+  export type PaymentPlanMilestoneUncheckedUpdateManyWithoutPlanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    calculationType?: StringFieldUpdateOperationsInput | string
+    percentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    fixedAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    dueDaysAfterTrigger?: IntFieldUpdateOperationsInput | number
+    isTaxable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerUpdateWithoutPaymentPlanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerContact?: StringFieldUpdateOperationsInput | string
+    customerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    areaSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    identityType?: StringFieldUpdateOperationsInput | string
+    identityNumber?: StringFieldUpdateOperationsInput | string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    ratePerSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    landCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    registryCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    otherCharges?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salesOwner?: UserUpdateOneRequiredWithoutCustomersNestedInput
+    payments?: CustomerPaymentUpdateManyWithoutCustomerNestedInput
+    demandNotes?: CustomerDemandNoteUpdateManyWithoutCustomerNestedInput
+    ledgerEntries?: CustomerLedgerEntryUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutPaymentPlanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    salesOwnerId?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerContact?: StringFieldUpdateOperationsInput | string
+    customerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    areaSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    identityType?: StringFieldUpdateOperationsInput | string
+    identityNumber?: StringFieldUpdateOperationsInput | string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    ratePerSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    landCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    registryCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    otherCharges?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: CustomerPaymentUncheckedUpdateManyWithoutCustomerNestedInput
+    demandNotes?: CustomerDemandNoteUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerEntries?: CustomerLedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateManyWithoutPaymentPlanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    salesOwnerId?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    customerContact?: StringFieldUpdateOperationsInput | string
+    customerAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    projectLocation?: StringFieldUpdateOperationsInput | string
+    plotNo?: StringFieldUpdateOperationsInput | string
+    areaSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    khataNo?: StringFieldUpdateOperationsInput | string
+    identityType?: StringFieldUpdateOperationsInput | string
+    identityNumber?: StringFieldUpdateOperationsInput | string
+    kycDocuments?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    ratePerSqft?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    landCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    registryCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    otherCharges?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalContractValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceDue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cancellationStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledById?: NullableStringFieldUpdateOperationsInput | string | null
+    deductionAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    refundDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    refundMode?: NullableStringFieldUpdateOperationsInput | string | null
+    refundReferenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    refundNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    refundSettledById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerDemandNoteCreateManyMilestoneInput = {
+    id?: string
+    demandNumber: string
+    customerId: string
+    milestoneName: string
+    sequence?: number
+    documentDate?: Date | string
+    dueDate: Date | string
+    principalAmount: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    totalDemandAmount: Decimal | DecimalJsLike | number | string
+    allocatedAmount?: Decimal | DecimalJsLike | number | string
+    outstandingAmount: Decimal | DecimalJsLike | number | string
+    status?: string
+    journalEntryId?: string | null
+    issuedById?: string | null
+    cancelledAt?: Date | string | null
+    cancelledReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerDemandNoteUpdateWithoutMilestoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutDemandNotesNestedInput
+    journalEntry?: JournalEntryUpdateOneWithoutDemandNotesNestedInput
+    allocations?: PaymentAllocationUpdateManyWithoutDemandNoteNestedInput
+  }
+
+  export type CustomerDemandNoteUncheckedUpdateWithoutMilestoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocations?: PaymentAllocationUncheckedUpdateManyWithoutDemandNoteNestedInput
+  }
+
+  export type CustomerDemandNoteUncheckedUpdateManyWithoutMilestoneInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    demandNumber?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    milestoneName?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    documentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    principalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDemandAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    outstandingAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    issuedById?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancelledReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentAllocationCreateManyDemandNoteInput = {
+    id?: string
+    paymentId: string
+    allocatedAmount: Decimal | DecimalJsLike | number | string
+    allocationDate?: Date | string
+    allocatedById?: string | null
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PaymentAllocationUpdateWithoutDemandNoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocatedById?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: CustomerPaymentUpdateOneRequiredWithoutAllocationsNestedInput
+  }
+
+  export type PaymentAllocationUncheckedUpdateWithoutDemandNoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: StringFieldUpdateOperationsInput | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocatedById?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentAllocationUncheckedUpdateManyWithoutDemandNoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: StringFieldUpdateOperationsInput | string
+    allocatedAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    allocationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocatedById?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -66619,6 +77260,10 @@ export namespace Prisma {
      */
     export type CustomerCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CustomerCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use CustomerPaymentCountOutputTypeDefaultArgs instead
+     */
+    export type CustomerPaymentCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CustomerPaymentCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use PropertyAcquisitionCountOutputTypeDefaultArgs instead
      */
     export type PropertyAcquisitionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PropertyAcquisitionCountOutputTypeDefaultArgs<ExtArgs>
@@ -66654,6 +77299,18 @@ export namespace Prisma {
      * @deprecated Use AccountingPeriodCountOutputTypeDefaultArgs instead
      */
     export type AccountingPeriodCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AccountingPeriodCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PaymentPlanCountOutputTypeDefaultArgs instead
+     */
+    export type PaymentPlanCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PaymentPlanCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PaymentPlanMilestoneCountOutputTypeDefaultArgs instead
+     */
+    export type PaymentPlanMilestoneCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PaymentPlanMilestoneCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CustomerDemandNoteCountOutputTypeDefaultArgs instead
+     */
+    export type CustomerDemandNoteCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CustomerDemandNoteCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
@@ -66790,6 +77447,26 @@ export namespace Prisma {
      * @deprecated Use AccountingPeriodDefaultArgs instead
      */
     export type AccountingPeriodArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AccountingPeriodDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PaymentPlanDefaultArgs instead
+     */
+    export type PaymentPlanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PaymentPlanDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PaymentPlanMilestoneDefaultArgs instead
+     */
+    export type PaymentPlanMilestoneArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PaymentPlanMilestoneDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CustomerDemandNoteDefaultArgs instead
+     */
+    export type CustomerDemandNoteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CustomerDemandNoteDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CustomerLedgerEntryDefaultArgs instead
+     */
+    export type CustomerLedgerEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CustomerLedgerEntryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PaymentAllocationDefaultArgs instead
+     */
+    export type PaymentAllocationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PaymentAllocationDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
