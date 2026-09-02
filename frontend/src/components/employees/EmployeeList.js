@@ -7,6 +7,7 @@ import { hasPermission } from "@/utils/permissions";
 import { getEmployees } from "@/services/employeeService";
 import EmployeeModal from "./EmployeeModal";
 import EmployeeArchiveModal from "./EmployeeArchiveModal";
+import EmployeeLinkUserModal from "./EmployeeLinkUserModal";
 import EditSalaryModal from "./EditSalaryModal";
 import PaySalaryModal from "./PaySalaryModal";
 import {
