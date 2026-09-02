@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { API_URL } from "@/config/api";
+import { CreditCard } from "lucide-react";
 
 export default function ExpenseUploadForm() {
   const { user } = useAuth();
@@ -67,7 +68,6 @@ export default function ExpenseUploadForm() {
       if (res.ok && data.success) {
         setMessage({ type: "success", text: "Expense recorded successfully!" });
         setFormData({ ...formData, amount: "", description: "", reference: "", fundMode: "LIQUID" });
-        // Optionally trigger a re-fetch of wallet balance here
       } else {
         setMessage({ type: "error", text: data.message || "Failed to record expense." });
       }
@@ -78,23 +78,28 @@ export default function ExpenseUploadForm() {
   };
 
   return (
-    <div className="bg-white shadow rounded-lg p-6 mt-8">
-      <h3 className="text-xl font-bold text-gray-800 mb-4">Record New Expense</h3>
-      <p className="text-gray-600 mb-6 text-sm">
-        Submit a new expense against your active wallet balance.
-      </p>
+    <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7 space-y-5">
+      <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
+        <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
+          <CreditCard className="w-5 h-5 text-indigo-400" />
+        </div>
+        <div>
+          <h3 className="text-lg font-bold text-slate-900 tracking-tight">Record Wallet Expense</h3>
+          <p className="text-xs text-slate-500 mt-0.5">Submit personal expenditure against your active petty cash or liquid wallet.</p>
+        </div>
+      </div>
 
       {message && (
-        <div className={`p-4 mb-6 rounded-md ${message.type === 'success' ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
-          <p className="font-semibold">{message.type === 'error' ? 'Transaction Failed' : 'Success'}</p>
-          <p className="text-sm">{message.text}</p>
+        <div className={`p-3.5 rounded-xl text-xs flex flex-col gap-0.5 ${message.type === 'success' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
+          <span className="font-bold">{message.type === 'error' ? 'Transaction Failed' : 'Success'}</span>
+          <span>{message.text}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Amount (₹)</label>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Amount (₹)</label>
             <input
               type="number"
               step="0.01"
@@ -102,53 +107,41 @@ export default function ExpenseUploadForm() {
               value={formData.amount}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
               placeholder="e.g. 1500.00"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Payment Mode</label>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Payment Mode</label>
             <select
               name="fundMode"
               value={formData.fundMode}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
             >
               <option value="LIQUID">Liquid (Online / Bank)</option>
               <option value="CASH">Cash (Physical)</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Date</label>
             <input
               type="date"
               name="date"
               value={formData.date}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-            <input
-              type="text"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              placeholder="What was this expense for?"
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Category</label>
             <select
               name="categoryId"
               value={formData.categoryId}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
             >
               <option value="" disabled>Select category...</option>
               {categories.map((cat) => (
@@ -158,26 +151,38 @@ export default function ExpenseUploadForm() {
               ))}
             </select>
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Reference / Invoice # (Optional)</label>
+          <div className="sm:col-span-2">
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Description</label>
+            <input
+              type="text"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
+              placeholder="What was this expense for? (e.g. Travel, Client Lunch, Office Stationary)"
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Reference / Invoice # (Optional)</label>
             <input
               type="text"
               name="reference"
               value={formData.reference}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              placeholder="INV-10294"
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
+              placeholder="e.g. INV-10294 / Bill ref"
             />
           </div>
         </div>
 
-        <div className="pt-4">
+        <div className="pt-2">
           <button
             type="submit"
             disabled={loading}
-            className="w-full md:w-auto px-6 py-2.5 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 transition-colors"
+            className="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-xs font-semibold rounded-xl shadow-xs transition active:scale-95 disabled:opacity-50"
           >
-            {loading ? "Recording..." : "Submit Expense"}
+            {loading ? "Recording Expense..." : "Submit Expense"}
           </button>
         </div>
       </form>
