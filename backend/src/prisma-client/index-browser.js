@@ -598,6 +598,52 @@ exports.Prisma.PayrollAccountingPostingScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SalaryPaymentBatchScalarFieldEnum = {
+  id: 'id',
+  batchNumber: 'batchNumber',
+  payrollRunId: 'payrollRunId',
+  paymentMode: 'paymentMode',
+  sourceAccountCode: 'sourceAccountCode',
+  totalAmount: 'totalAmount',
+  totalEmployees: 'totalEmployees',
+  status: 'status',
+  paymentDate: 'paymentDate',
+  notes: 'notes',
+  submittedBy: 'submittedBy',
+  approvedBy: 'approvedBy',
+  settledBy: 'settledBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SalaryPaymentScalarFieldEnum = {
+  id: 'id',
+  paymentNumber: 'paymentNumber',
+  salaryPaymentBatchId: 'salaryPaymentBatchId',
+  payrollRunId: 'payrollRunId',
+  payrollItemId: 'payrollItemId',
+  employeeId: 'employeeId',
+  amount: 'amount',
+  paymentMode: 'paymentMode',
+  sourceAccountCode: 'sourceAccountCode',
+  bankName: 'bankName',
+  accountNumberMasked: 'accountNumberMasked',
+  ifscCode: 'ifscCode',
+  referenceNo: 'referenceNo',
+  status: 'status',
+  paymentDate: 'paymentDate',
+  settledAt: 'settledAt',
+  journalEntryId: 'journalEntryId',
+  walletTransactionId: 'walletTransactionId',
+  failureReason: 'failureReason',
+  reversalReason: 'reversalReason',
+  createdBy: 'createdBy',
+  approvedBy: 'approvedBy',
+  settledBy: 'settledBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -659,7 +705,9 @@ exports.Prisma.ModelName = {
   PayrollLine: 'PayrollLine',
   PayrollAdjustment: 'PayrollAdjustment',
   PayrollException: 'PayrollException',
-  PayrollAccountingPosting: 'PayrollAccountingPosting'
+  PayrollAccountingPosting: 'PayrollAccountingPosting',
+  SalaryPaymentBatch: 'SalaryPaymentBatch',
+  SalaryPayment: 'SalaryPayment'
 };
 
 /**

@@ -186,6 +186,7 @@ model JournalEntry {
   lines                 JournalLine[]
   payrollPosting        PayrollAccountingPosting? @relation("OriginalPostingJournal")
   reversalPayrollPosting PayrollAccountingPosting? @relation("ReversalPostingJournal")
+  salaryPayment         SalaryPayment?
   createdAt             DateTime                  @default(now())
 }
 
@@ -350,6 +351,7 @@ model Employee {
   payrollItems       PayrollItem[]
   payrollAdjustments PayrollAdjustment[]
   payrollExceptions  PayrollException[]
+  salaryPayments     SalaryPayment[]
   createdBy          String?
   updatedBy          String?
   archivedAt         DateTime?
@@ -528,6 +530,8 @@ model PayrollRun {
   adjustments            PayrollAdjustment[]
   exceptions             PayrollException[]
   accountingPosting      PayrollAccountingPosting?
+  paymentBatches         SalaryPaymentBatch[]
+  salaryPayments         SalaryPayment[]
   createdBy              String?
   updatedBy              String?
   createdAt              DateTime            @default(now())
@@ -565,6 +569,7 @@ model PayrollItem {
   status                String              @default("CALCULATED") // CALCULATED, BLOCKED, APPROVED, CANCELLED
   lines                 PayrollLine[]
   exceptions            PayrollException[]
+  salaryPayments        SalaryPayment[]
   calculatedAt          DateTime            @default(now())
   approvedAt            DateTime?
   createdAt             DateTime            @default(now())
@@ -682,4 +687,74 @@ model PayrollAccountingPosting {
   @@index([payrollRunId])
   @@index([journalEntryId])
   @@index([status])
+}
+
+// -------------------------------------------------------------
+// 8. Salary Payment Batch (Phase 5)
+// Bulk container for batching employee salary disbursements
+// -------------------------------------------------------------
+model SalaryPaymentBatch {
+  id                 String          @id @default(uuid())
+  batchNumber        String          @unique // e.g. "SPB-202608-0001"
+  payrollRunId       String
+  payrollRun         PayrollRun      @relation(fields: [payrollRunId], references: [id], onDelete: Restrict)
+  paymentMode        String          // BANK_TRANSFER, CASH, CHEQUE, MIXED
+  sourceAccountCode  String          @default("1010")
+  totalAmount        Decimal         @db.Decimal(15, 2) @default(0)
+  totalEmployees     Int             @default(0)
+  status             String          @default("DRAFT") // DRAFT, PENDING_APPROVAL, APPROVED, PROCESSING, SETTLED, PARTIALLY_SETTLED, CANCELLED
+  paymentDate        DateTime        @default(now())
+  notes              String?
+  payments           SalaryPayment[]
+  submittedBy        String?
+  approvedBy         String?
+  settledBy          String?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@index([payrollRunId, status])
+  @@index([batchNumber])
+}
+
+// -------------------------------------------------------------
+// 9. Employee Salary Payment (Phase 5)
+// Itemized payment disbursement & reservation record per employee
+// -------------------------------------------------------------
+model SalaryPayment {
+  id                    String              @id @default(uuid())
+  paymentNumber         String              @unique // e.g. "PAY-202608-0001"
+  salaryPaymentBatchId  String?
+  salaryPaymentBatch    SalaryPaymentBatch? @relation(fields: [salaryPaymentBatchId], references: [id], onDelete: SetNull)
+  payrollRunId          String
+  payrollRun            PayrollRun          @relation(fields: [payrollRunId], references: [id], onDelete: Restrict)
+  payrollItemId         String
+  payrollItem           PayrollItem         @relation(fields: [payrollItemId], references: [id], onDelete: Restrict)
+  employeeId            String
+  employee              Employee            @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  amount                Decimal             @db.Decimal(15, 2)
+  paymentMode           String              // BANK_TRANSFER, CASH, CHEQUE, NEFT, RTGS, UPI
+  sourceAccountCode     String              @default("1010")
+  bankName              String?
+  accountNumberMasked   String?
+  ifscCode              String?
+  referenceNo           String?             // UTR / Cheque / Cash voucher reference
+  status                String              @default("DRAFT") // DRAFT, PENDING_APPROVAL, APPROVED, PROCESSING, SETTLED, FAILED, CANCELLED, REVERSED
+  paymentDate           DateTime            @default(now())
+  settledAt             DateTime?
+  journalEntryId        String?             @unique
+  journalEntry          JournalEntry?       @relation(fields: [journalEntryId], references: [id], onDelete: SetNull)
+  walletTransactionId   String?
+  failureReason         String?
+  reversalReason        String?
+  createdBy             String
+  approvedBy            String?
+  settledBy             String?
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  @@index([payrollRunId])
+  @@index([payrollItemId])
+  @@index([employeeId])
+  @@index([status])
+  @@index([referenceNo])
 }

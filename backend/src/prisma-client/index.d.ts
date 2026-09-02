@@ -163,6 +163,16 @@ export type PayrollException = $Result.DefaultSelection<Prisma.$PayrollException
  * 
  */
 export type PayrollAccountingPosting = $Result.DefaultSelection<Prisma.$PayrollAccountingPostingPayload>
+/**
+ * Model SalaryPaymentBatch
+ * 
+ */
+export type SalaryPaymentBatch = $Result.DefaultSelection<Prisma.$SalaryPaymentBatchPayload>
+/**
+ * Model SalaryPayment
+ * 
+ */
+export type SalaryPayment = $Result.DefaultSelection<Prisma.$SalaryPaymentPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -586,6 +596,26 @@ export class PrismaClient<
     * ```
     */
   get payrollAccountingPosting(): Prisma.PayrollAccountingPostingDelegate<ExtArgs>;
+
+  /**
+   * `prisma.salaryPaymentBatch`: Exposes CRUD operations for the **SalaryPaymentBatch** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SalaryPaymentBatches
+    * const salaryPaymentBatches = await prisma.salaryPaymentBatch.findMany()
+    * ```
+    */
+  get salaryPaymentBatch(): Prisma.SalaryPaymentBatchDelegate<ExtArgs>;
+
+  /**
+   * `prisma.salaryPayment`: Exposes CRUD operations for the **SalaryPayment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SalaryPayments
+    * const salaryPayments = await prisma.salaryPayment.findMany()
+    * ```
+    */
+  get salaryPayment(): Prisma.SalaryPaymentDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1056,7 +1086,9 @@ export namespace Prisma {
     PayrollLine: 'PayrollLine',
     PayrollAdjustment: 'PayrollAdjustment',
     PayrollException: 'PayrollException',
-    PayrollAccountingPosting: 'PayrollAccountingPosting'
+    PayrollAccountingPosting: 'PayrollAccountingPosting',
+    SalaryPaymentBatch: 'SalaryPaymentBatch',
+    SalaryPayment: 'SalaryPayment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1072,7 +1104,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "role" | "permission" | "rolePermission" | "wallet" | "walletTransaction" | "fundRequest" | "expense" | "expenseCategory" | "idempotencyKey" | "account" | "journalEntry" | "journalLine" | "auditLog" | "customer" | "customerPayment" | "propertyAcquisition" | "propertyPayment" | "employee" | "salaryComponent" | "salaryStructure" | "salaryStructureLine" | "employeeSalaryAssignment" | "payrollPeriod" | "payrollRun" | "payrollItem" | "payrollLine" | "payrollAdjustment" | "payrollException" | "payrollAccountingPosting"
+      modelProps: "user" | "role" | "permission" | "rolePermission" | "wallet" | "walletTransaction" | "fundRequest" | "expense" | "expenseCategory" | "idempotencyKey" | "account" | "journalEntry" | "journalLine" | "auditLog" | "customer" | "customerPayment" | "propertyAcquisition" | "propertyPayment" | "employee" | "salaryComponent" | "salaryStructure" | "salaryStructureLine" | "employeeSalaryAssignment" | "payrollPeriod" | "payrollRun" | "payrollItem" | "payrollLine" | "payrollAdjustment" | "payrollException" | "payrollAccountingPosting" | "salaryPaymentBatch" | "salaryPayment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3176,6 +3208,146 @@ export namespace Prisma {
           }
         }
       }
+      SalaryPaymentBatch: {
+        payload: Prisma.$SalaryPaymentBatchPayload<ExtArgs>
+        fields: Prisma.SalaryPaymentBatchFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SalaryPaymentBatchFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentBatchPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SalaryPaymentBatchFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentBatchPayload>
+          }
+          findFirst: {
+            args: Prisma.SalaryPaymentBatchFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentBatchPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SalaryPaymentBatchFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentBatchPayload>
+          }
+          findMany: {
+            args: Prisma.SalaryPaymentBatchFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentBatchPayload>[]
+          }
+          create: {
+            args: Prisma.SalaryPaymentBatchCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentBatchPayload>
+          }
+          createMany: {
+            args: Prisma.SalaryPaymentBatchCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SalaryPaymentBatchCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentBatchPayload>[]
+          }
+          delete: {
+            args: Prisma.SalaryPaymentBatchDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentBatchPayload>
+          }
+          update: {
+            args: Prisma.SalaryPaymentBatchUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentBatchPayload>
+          }
+          deleteMany: {
+            args: Prisma.SalaryPaymentBatchDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SalaryPaymentBatchUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SalaryPaymentBatchUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentBatchPayload>
+          }
+          aggregate: {
+            args: Prisma.SalaryPaymentBatchAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSalaryPaymentBatch>
+          }
+          groupBy: {
+            args: Prisma.SalaryPaymentBatchGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SalaryPaymentBatchGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SalaryPaymentBatchCountArgs<ExtArgs>
+            result: $Utils.Optional<SalaryPaymentBatchCountAggregateOutputType> | number
+          }
+        }
+      }
+      SalaryPayment: {
+        payload: Prisma.$SalaryPaymentPayload<ExtArgs>
+        fields: Prisma.SalaryPaymentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SalaryPaymentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SalaryPaymentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentPayload>
+          }
+          findFirst: {
+            args: Prisma.SalaryPaymentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SalaryPaymentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentPayload>
+          }
+          findMany: {
+            args: Prisma.SalaryPaymentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentPayload>[]
+          }
+          create: {
+            args: Prisma.SalaryPaymentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentPayload>
+          }
+          createMany: {
+            args: Prisma.SalaryPaymentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SalaryPaymentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentPayload>[]
+          }
+          delete: {
+            args: Prisma.SalaryPaymentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentPayload>
+          }
+          update: {
+            args: Prisma.SalaryPaymentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentPayload>
+          }
+          deleteMany: {
+            args: Prisma.SalaryPaymentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SalaryPaymentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SalaryPaymentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalaryPaymentPayload>
+          }
+          aggregate: {
+            args: Prisma.SalaryPaymentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSalaryPayment>
+          }
+          groupBy: {
+            args: Prisma.SalaryPaymentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SalaryPaymentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SalaryPaymentCountArgs<ExtArgs>
+            result: $Utils.Optional<SalaryPaymentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3742,6 +3914,7 @@ export namespace Prisma {
     payrollItems: number
     payrollAdjustments: number
     payrollExceptions: number
+    salaryPayments: number
   }
 
   export type EmployeeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3750,6 +3923,7 @@ export namespace Prisma {
     payrollItems?: boolean | EmployeeCountOutputTypeCountPayrollItemsArgs
     payrollAdjustments?: boolean | EmployeeCountOutputTypeCountPayrollAdjustmentsArgs
     payrollExceptions?: boolean | EmployeeCountOutputTypeCountPayrollExceptionsArgs
+    salaryPayments?: boolean | EmployeeCountOutputTypeCountSalaryPaymentsArgs
   }
 
   // Custom InputTypes
@@ -3796,6 +3970,13 @@ export namespace Prisma {
    */
   export type EmployeeCountOutputTypeCountPayrollExceptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PayrollExceptionWhereInput
+  }
+
+  /**
+   * EmployeeCountOutputType without action
+   */
+  export type EmployeeCountOutputTypeCountSalaryPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalaryPaymentWhereInput
   }
 
 
@@ -3909,12 +4090,16 @@ export namespace Prisma {
     items: number
     adjustments: number
     exceptions: number
+    paymentBatches: number
+    salaryPayments: number
   }
 
   export type PayrollRunCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | PayrollRunCountOutputTypeCountItemsArgs
     adjustments?: boolean | PayrollRunCountOutputTypeCountAdjustmentsArgs
     exceptions?: boolean | PayrollRunCountOutputTypeCountExceptionsArgs
+    paymentBatches?: boolean | PayrollRunCountOutputTypeCountPaymentBatchesArgs
+    salaryPayments?: boolean | PayrollRunCountOutputTypeCountSalaryPaymentsArgs
   }
 
   // Custom InputTypes
@@ -3949,6 +4134,20 @@ export namespace Prisma {
     where?: PayrollExceptionWhereInput
   }
 
+  /**
+   * PayrollRunCountOutputType without action
+   */
+  export type PayrollRunCountOutputTypeCountPaymentBatchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalaryPaymentBatchWhereInput
+  }
+
+  /**
+   * PayrollRunCountOutputType without action
+   */
+  export type PayrollRunCountOutputTypeCountSalaryPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalaryPaymentWhereInput
+  }
+
 
   /**
    * Count Type PayrollItemCountOutputType
@@ -3957,11 +4156,13 @@ export namespace Prisma {
   export type PayrollItemCountOutputType = {
     lines: number
     exceptions: number
+    salaryPayments: number
   }
 
   export type PayrollItemCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lines?: boolean | PayrollItemCountOutputTypeCountLinesArgs
     exceptions?: boolean | PayrollItemCountOutputTypeCountExceptionsArgs
+    salaryPayments?: boolean | PayrollItemCountOutputTypeCountSalaryPaymentsArgs
   }
 
   // Custom InputTypes
@@ -3987,6 +4188,44 @@ export namespace Prisma {
    */
   export type PayrollItemCountOutputTypeCountExceptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PayrollExceptionWhereInput
+  }
+
+  /**
+   * PayrollItemCountOutputType without action
+   */
+  export type PayrollItemCountOutputTypeCountSalaryPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalaryPaymentWhereInput
+  }
+
+
+  /**
+   * Count Type SalaryPaymentBatchCountOutputType
+   */
+
+  export type SalaryPaymentBatchCountOutputType = {
+    payments: number
+  }
+
+  export type SalaryPaymentBatchCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    payments?: boolean | SalaryPaymentBatchCountOutputTypeCountPaymentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SalaryPaymentBatchCountOutputType without action
+   */
+  export type SalaryPaymentBatchCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatchCountOutputType
+     */
+    select?: SalaryPaymentBatchCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SalaryPaymentBatchCountOutputType without action
+   */
+  export type SalaryPaymentBatchCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalaryPaymentWhereInput
   }
 
 
@@ -15516,6 +15755,7 @@ export namespace Prisma {
     lines?: boolean | JournalEntry$linesArgs<ExtArgs>
     payrollPosting?: boolean | JournalEntry$payrollPostingArgs<ExtArgs>
     reversalPayrollPosting?: boolean | JournalEntry$reversalPayrollPostingArgs<ExtArgs>
+    salaryPayment?: boolean | JournalEntry$salaryPaymentArgs<ExtArgs>
     _count?: boolean | JournalEntryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["journalEntry"]>
 
@@ -15547,6 +15787,7 @@ export namespace Prisma {
     lines?: boolean | JournalEntry$linesArgs<ExtArgs>
     payrollPosting?: boolean | JournalEntry$payrollPostingArgs<ExtArgs>
     reversalPayrollPosting?: boolean | JournalEntry$reversalPayrollPostingArgs<ExtArgs>
+    salaryPayment?: boolean | JournalEntry$salaryPaymentArgs<ExtArgs>
     _count?: boolean | JournalEntryCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type JournalEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -15557,6 +15798,7 @@ export namespace Prisma {
       lines: Prisma.$JournalLinePayload<ExtArgs>[]
       payrollPosting: Prisma.$PayrollAccountingPostingPayload<ExtArgs> | null
       reversalPayrollPosting: Prisma.$PayrollAccountingPostingPayload<ExtArgs> | null
+      salaryPayment: Prisma.$SalaryPaymentPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15935,6 +16177,7 @@ export namespace Prisma {
     lines<T extends JournalEntry$linesArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$linesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalLinePayload<ExtArgs>, T, "findMany"> | Null>
     payrollPosting<T extends JournalEntry$payrollPostingArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$payrollPostingArgs<ExtArgs>>): Prisma__PayrollAccountingPostingClient<$Result.GetResult<Prisma.$PayrollAccountingPostingPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     reversalPayrollPosting<T extends JournalEntry$reversalPayrollPostingArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$reversalPayrollPostingArgs<ExtArgs>>): Prisma__PayrollAccountingPostingClient<$Result.GetResult<Prisma.$PayrollAccountingPostingPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    salaryPayment<T extends JournalEntry$salaryPaymentArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntry$salaryPaymentArgs<ExtArgs>>): Prisma__SalaryPaymentClient<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16334,6 +16577,21 @@ export namespace Prisma {
      */
     include?: PayrollAccountingPostingInclude<ExtArgs> | null
     where?: PayrollAccountingPostingWhereInput
+  }
+
+  /**
+   * JournalEntry.salaryPayment
+   */
+  export type JournalEntry$salaryPaymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    where?: SalaryPaymentWhereInput
   }
 
   /**
@@ -23319,6 +23577,7 @@ export namespace Prisma {
     payrollItems?: boolean | Employee$payrollItemsArgs<ExtArgs>
     payrollAdjustments?: boolean | Employee$payrollAdjustmentsArgs<ExtArgs>
     payrollExceptions?: boolean | Employee$payrollExceptionsArgs<ExtArgs>
+    salaryPayments?: boolean | Employee$salaryPaymentsArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
@@ -23390,6 +23649,7 @@ export namespace Prisma {
     payrollItems?: boolean | Employee$payrollItemsArgs<ExtArgs>
     payrollAdjustments?: boolean | Employee$payrollAdjustmentsArgs<ExtArgs>
     payrollExceptions?: boolean | Employee$payrollExceptionsArgs<ExtArgs>
+    salaryPayments?: boolean | Employee$salaryPaymentsArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -23407,6 +23667,7 @@ export namespace Prisma {
       payrollItems: Prisma.$PayrollItemPayload<ExtArgs>[]
       payrollAdjustments: Prisma.$PayrollAdjustmentPayload<ExtArgs>[]
       payrollExceptions: Prisma.$PayrollExceptionPayload<ExtArgs>[]
+      salaryPayments: Prisma.$SalaryPaymentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -23806,6 +24067,7 @@ export namespace Prisma {
     payrollItems<T extends Employee$payrollItemsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$payrollItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayrollItemPayload<ExtArgs>, T, "findMany"> | Null>
     payrollAdjustments<T extends Employee$payrollAdjustmentsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$payrollAdjustmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayrollAdjustmentPayload<ExtArgs>, T, "findMany"> | Null>
     payrollExceptions<T extends Employee$payrollExceptionsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$payrollExceptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayrollExceptionPayload<ExtArgs>, T, "findMany"> | Null>
+    salaryPayments<T extends Employee$salaryPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$salaryPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -24306,6 +24568,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PayrollExceptionScalarFieldEnum | PayrollExceptionScalarFieldEnum[]
+  }
+
+  /**
+   * Employee.salaryPayments
+   */
+  export type Employee$salaryPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    where?: SalaryPaymentWhereInput
+    orderBy?: SalaryPaymentOrderByWithRelationInput | SalaryPaymentOrderByWithRelationInput[]
+    cursor?: SalaryPaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalaryPaymentScalarFieldEnum | SalaryPaymentScalarFieldEnum[]
   }
 
   /**
@@ -30142,6 +30424,8 @@ export namespace Prisma {
     adjustments?: boolean | PayrollRun$adjustmentsArgs<ExtArgs>
     exceptions?: boolean | PayrollRun$exceptionsArgs<ExtArgs>
     accountingPosting?: boolean | PayrollRun$accountingPostingArgs<ExtArgs>
+    paymentBatches?: boolean | PayrollRun$paymentBatchesArgs<ExtArgs>
+    salaryPayments?: boolean | PayrollRun$salaryPaymentsArgs<ExtArgs>
     _count?: boolean | PayrollRunCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payrollRun"]>
 
@@ -30198,6 +30482,8 @@ export namespace Prisma {
     adjustments?: boolean | PayrollRun$adjustmentsArgs<ExtArgs>
     exceptions?: boolean | PayrollRun$exceptionsArgs<ExtArgs>
     accountingPosting?: boolean | PayrollRun$accountingPostingArgs<ExtArgs>
+    paymentBatches?: boolean | PayrollRun$paymentBatchesArgs<ExtArgs>
+    salaryPayments?: boolean | PayrollRun$salaryPaymentsArgs<ExtArgs>
     _count?: boolean | PayrollRunCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PayrollRunIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30212,6 +30498,8 @@ export namespace Prisma {
       adjustments: Prisma.$PayrollAdjustmentPayload<ExtArgs>[]
       exceptions: Prisma.$PayrollExceptionPayload<ExtArgs>[]
       accountingPosting: Prisma.$PayrollAccountingPostingPayload<ExtArgs> | null
+      paymentBatches: Prisma.$SalaryPaymentBatchPayload<ExtArgs>[]
+      salaryPayments: Prisma.$SalaryPaymentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -30603,6 +30891,8 @@ export namespace Prisma {
     adjustments<T extends PayrollRun$adjustmentsArgs<ExtArgs> = {}>(args?: Subset<T, PayrollRun$adjustmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayrollAdjustmentPayload<ExtArgs>, T, "findMany"> | Null>
     exceptions<T extends PayrollRun$exceptionsArgs<ExtArgs> = {}>(args?: Subset<T, PayrollRun$exceptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayrollExceptionPayload<ExtArgs>, T, "findMany"> | Null>
     accountingPosting<T extends PayrollRun$accountingPostingArgs<ExtArgs> = {}>(args?: Subset<T, PayrollRun$accountingPostingArgs<ExtArgs>>): Prisma__PayrollAccountingPostingClient<$Result.GetResult<Prisma.$PayrollAccountingPostingPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    paymentBatches<T extends PayrollRun$paymentBatchesArgs<ExtArgs> = {}>(args?: Subset<T, PayrollRun$paymentBatchesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryPaymentBatchPayload<ExtArgs>, T, "findMany"> | Null>
+    salaryPayments<T extends PayrollRun$salaryPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, PayrollRun$salaryPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -31045,6 +31335,46 @@ export namespace Prisma {
   }
 
   /**
+   * PayrollRun.paymentBatches
+   */
+  export type PayrollRun$paymentBatchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchInclude<ExtArgs> | null
+    where?: SalaryPaymentBatchWhereInput
+    orderBy?: SalaryPaymentBatchOrderByWithRelationInput | SalaryPaymentBatchOrderByWithRelationInput[]
+    cursor?: SalaryPaymentBatchWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalaryPaymentBatchScalarFieldEnum | SalaryPaymentBatchScalarFieldEnum[]
+  }
+
+  /**
+   * PayrollRun.salaryPayments
+   */
+  export type PayrollRun$salaryPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    where?: SalaryPaymentWhereInput
+    orderBy?: SalaryPaymentOrderByWithRelationInput | SalaryPaymentOrderByWithRelationInput[]
+    cursor?: SalaryPaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalaryPaymentScalarFieldEnum | SalaryPaymentScalarFieldEnum[]
+  }
+
+  /**
    * PayrollRun without action
    */
   export type PayrollRunDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31421,6 +31751,7 @@ export namespace Prisma {
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     lines?: boolean | PayrollItem$linesArgs<ExtArgs>
     exceptions?: boolean | PayrollItem$exceptionsArgs<ExtArgs>
+    salaryPayments?: boolean | PayrollItem$salaryPaymentsArgs<ExtArgs>
     _count?: boolean | PayrollItemCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payrollItem"]>
 
@@ -31481,6 +31812,7 @@ export namespace Prisma {
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     lines?: boolean | PayrollItem$linesArgs<ExtArgs>
     exceptions?: boolean | PayrollItem$exceptionsArgs<ExtArgs>
+    salaryPayments?: boolean | PayrollItem$salaryPaymentsArgs<ExtArgs>
     _count?: boolean | PayrollItemCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PayrollItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31495,6 +31827,7 @@ export namespace Prisma {
       employee: Prisma.$EmployeePayload<ExtArgs>
       lines: Prisma.$PayrollLinePayload<ExtArgs>[]
       exceptions: Prisma.$PayrollExceptionPayload<ExtArgs>[]
+      salaryPayments: Prisma.$SalaryPaymentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -31887,6 +32220,7 @@ export namespace Prisma {
     employee<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     lines<T extends PayrollItem$linesArgs<ExtArgs> = {}>(args?: Subset<T, PayrollItem$linesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayrollLinePayload<ExtArgs>, T, "findMany"> | Null>
     exceptions<T extends PayrollItem$exceptionsArgs<ExtArgs> = {}>(args?: Subset<T, PayrollItem$exceptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayrollExceptionPayload<ExtArgs>, T, "findMany"> | Null>
+    salaryPayments<T extends PayrollItem$salaryPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, PayrollItem$salaryPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -32293,6 +32627,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PayrollExceptionScalarFieldEnum | PayrollExceptionScalarFieldEnum[]
+  }
+
+  /**
+   * PayrollItem.salaryPayments
+   */
+  export type PayrollItem$salaryPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    where?: SalaryPaymentWhereInput
+    orderBy?: SalaryPaymentOrderByWithRelationInput | SalaryPaymentOrderByWithRelationInput[]
+    cursor?: SalaryPaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalaryPaymentScalarFieldEnum | SalaryPaymentScalarFieldEnum[]
   }
 
   /**
@@ -36692,6 +37046,2384 @@ export namespace Prisma {
 
 
   /**
+   * Model SalaryPaymentBatch
+   */
+
+  export type AggregateSalaryPaymentBatch = {
+    _count: SalaryPaymentBatchCountAggregateOutputType | null
+    _avg: SalaryPaymentBatchAvgAggregateOutputType | null
+    _sum: SalaryPaymentBatchSumAggregateOutputType | null
+    _min: SalaryPaymentBatchMinAggregateOutputType | null
+    _max: SalaryPaymentBatchMaxAggregateOutputType | null
+  }
+
+  export type SalaryPaymentBatchAvgAggregateOutputType = {
+    totalAmount: Decimal | null
+    totalEmployees: number | null
+  }
+
+  export type SalaryPaymentBatchSumAggregateOutputType = {
+    totalAmount: Decimal | null
+    totalEmployees: number | null
+  }
+
+  export type SalaryPaymentBatchMinAggregateOutputType = {
+    id: string | null
+    batchNumber: string | null
+    payrollRunId: string | null
+    paymentMode: string | null
+    sourceAccountCode: string | null
+    totalAmount: Decimal | null
+    totalEmployees: number | null
+    status: string | null
+    paymentDate: Date | null
+    notes: string | null
+    submittedBy: string | null
+    approvedBy: string | null
+    settledBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalaryPaymentBatchMaxAggregateOutputType = {
+    id: string | null
+    batchNumber: string | null
+    payrollRunId: string | null
+    paymentMode: string | null
+    sourceAccountCode: string | null
+    totalAmount: Decimal | null
+    totalEmployees: number | null
+    status: string | null
+    paymentDate: Date | null
+    notes: string | null
+    submittedBy: string | null
+    approvedBy: string | null
+    settledBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalaryPaymentBatchCountAggregateOutputType = {
+    id: number
+    batchNumber: number
+    payrollRunId: number
+    paymentMode: number
+    sourceAccountCode: number
+    totalAmount: number
+    totalEmployees: number
+    status: number
+    paymentDate: number
+    notes: number
+    submittedBy: number
+    approvedBy: number
+    settledBy: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SalaryPaymentBatchAvgAggregateInputType = {
+    totalAmount?: true
+    totalEmployees?: true
+  }
+
+  export type SalaryPaymentBatchSumAggregateInputType = {
+    totalAmount?: true
+    totalEmployees?: true
+  }
+
+  export type SalaryPaymentBatchMinAggregateInputType = {
+    id?: true
+    batchNumber?: true
+    payrollRunId?: true
+    paymentMode?: true
+    sourceAccountCode?: true
+    totalAmount?: true
+    totalEmployees?: true
+    status?: true
+    paymentDate?: true
+    notes?: true
+    submittedBy?: true
+    approvedBy?: true
+    settledBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalaryPaymentBatchMaxAggregateInputType = {
+    id?: true
+    batchNumber?: true
+    payrollRunId?: true
+    paymentMode?: true
+    sourceAccountCode?: true
+    totalAmount?: true
+    totalEmployees?: true
+    status?: true
+    paymentDate?: true
+    notes?: true
+    submittedBy?: true
+    approvedBy?: true
+    settledBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalaryPaymentBatchCountAggregateInputType = {
+    id?: true
+    batchNumber?: true
+    payrollRunId?: true
+    paymentMode?: true
+    sourceAccountCode?: true
+    totalAmount?: true
+    totalEmployees?: true
+    status?: true
+    paymentDate?: true
+    notes?: true
+    submittedBy?: true
+    approvedBy?: true
+    settledBy?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SalaryPaymentBatchAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalaryPaymentBatch to aggregate.
+     */
+    where?: SalaryPaymentBatchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryPaymentBatches to fetch.
+     */
+    orderBy?: SalaryPaymentBatchOrderByWithRelationInput | SalaryPaymentBatchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SalaryPaymentBatchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryPaymentBatches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryPaymentBatches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SalaryPaymentBatches
+    **/
+    _count?: true | SalaryPaymentBatchCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SalaryPaymentBatchAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SalaryPaymentBatchSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SalaryPaymentBatchMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SalaryPaymentBatchMaxAggregateInputType
+  }
+
+  export type GetSalaryPaymentBatchAggregateType<T extends SalaryPaymentBatchAggregateArgs> = {
+        [P in keyof T & keyof AggregateSalaryPaymentBatch]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSalaryPaymentBatch[P]>
+      : GetScalarType<T[P], AggregateSalaryPaymentBatch[P]>
+  }
+
+
+
+
+  export type SalaryPaymentBatchGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalaryPaymentBatchWhereInput
+    orderBy?: SalaryPaymentBatchOrderByWithAggregationInput | SalaryPaymentBatchOrderByWithAggregationInput[]
+    by: SalaryPaymentBatchScalarFieldEnum[] | SalaryPaymentBatchScalarFieldEnum
+    having?: SalaryPaymentBatchScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SalaryPaymentBatchCountAggregateInputType | true
+    _avg?: SalaryPaymentBatchAvgAggregateInputType
+    _sum?: SalaryPaymentBatchSumAggregateInputType
+    _min?: SalaryPaymentBatchMinAggregateInputType
+    _max?: SalaryPaymentBatchMaxAggregateInputType
+  }
+
+  export type SalaryPaymentBatchGroupByOutputType = {
+    id: string
+    batchNumber: string
+    payrollRunId: string
+    paymentMode: string
+    sourceAccountCode: string
+    totalAmount: Decimal
+    totalEmployees: number
+    status: string
+    paymentDate: Date
+    notes: string | null
+    submittedBy: string | null
+    approvedBy: string | null
+    settledBy: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SalaryPaymentBatchCountAggregateOutputType | null
+    _avg: SalaryPaymentBatchAvgAggregateOutputType | null
+    _sum: SalaryPaymentBatchSumAggregateOutputType | null
+    _min: SalaryPaymentBatchMinAggregateOutputType | null
+    _max: SalaryPaymentBatchMaxAggregateOutputType | null
+  }
+
+  type GetSalaryPaymentBatchGroupByPayload<T extends SalaryPaymentBatchGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SalaryPaymentBatchGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SalaryPaymentBatchGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SalaryPaymentBatchGroupByOutputType[P]>
+            : GetScalarType<T[P], SalaryPaymentBatchGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SalaryPaymentBatchSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    batchNumber?: boolean
+    payrollRunId?: boolean
+    paymentMode?: boolean
+    sourceAccountCode?: boolean
+    totalAmount?: boolean
+    totalEmployees?: boolean
+    status?: boolean
+    paymentDate?: boolean
+    notes?: boolean
+    submittedBy?: boolean
+    approvedBy?: boolean
+    settledBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    payrollRun?: boolean | PayrollRunDefaultArgs<ExtArgs>
+    payments?: boolean | SalaryPaymentBatch$paymentsArgs<ExtArgs>
+    _count?: boolean | SalaryPaymentBatchCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["salaryPaymentBatch"]>
+
+  export type SalaryPaymentBatchSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    batchNumber?: boolean
+    payrollRunId?: boolean
+    paymentMode?: boolean
+    sourceAccountCode?: boolean
+    totalAmount?: boolean
+    totalEmployees?: boolean
+    status?: boolean
+    paymentDate?: boolean
+    notes?: boolean
+    submittedBy?: boolean
+    approvedBy?: boolean
+    settledBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    payrollRun?: boolean | PayrollRunDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["salaryPaymentBatch"]>
+
+  export type SalaryPaymentBatchSelectScalar = {
+    id?: boolean
+    batchNumber?: boolean
+    payrollRunId?: boolean
+    paymentMode?: boolean
+    sourceAccountCode?: boolean
+    totalAmount?: boolean
+    totalEmployees?: boolean
+    status?: boolean
+    paymentDate?: boolean
+    notes?: boolean
+    submittedBy?: boolean
+    approvedBy?: boolean
+    settledBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SalaryPaymentBatchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    payrollRun?: boolean | PayrollRunDefaultArgs<ExtArgs>
+    payments?: boolean | SalaryPaymentBatch$paymentsArgs<ExtArgs>
+    _count?: boolean | SalaryPaymentBatchCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SalaryPaymentBatchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    payrollRun?: boolean | PayrollRunDefaultArgs<ExtArgs>
+  }
+
+  export type $SalaryPaymentBatchPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SalaryPaymentBatch"
+    objects: {
+      payrollRun: Prisma.$PayrollRunPayload<ExtArgs>
+      payments: Prisma.$SalaryPaymentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      batchNumber: string
+      payrollRunId: string
+      paymentMode: string
+      sourceAccountCode: string
+      totalAmount: Prisma.Decimal
+      totalEmployees: number
+      status: string
+      paymentDate: Date
+      notes: string | null
+      submittedBy: string | null
+      approvedBy: string | null
+      settledBy: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["salaryPaymentBatch"]>
+    composites: {}
+  }
+
+  type SalaryPaymentBatchGetPayload<S extends boolean | null | undefined | SalaryPaymentBatchDefaultArgs> = $Result.GetResult<Prisma.$SalaryPaymentBatchPayload, S>
+
+  type SalaryPaymentBatchCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SalaryPaymentBatchFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SalaryPaymentBatchCountAggregateInputType | true
+    }
+
+  export interface SalaryPaymentBatchDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SalaryPaymentBatch'], meta: { name: 'SalaryPaymentBatch' } }
+    /**
+     * Find zero or one SalaryPaymentBatch that matches the filter.
+     * @param {SalaryPaymentBatchFindUniqueArgs} args - Arguments to find a SalaryPaymentBatch
+     * @example
+     * // Get one SalaryPaymentBatch
+     * const salaryPaymentBatch = await prisma.salaryPaymentBatch.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SalaryPaymentBatchFindUniqueArgs>(args: SelectSubset<T, SalaryPaymentBatchFindUniqueArgs<ExtArgs>>): Prisma__SalaryPaymentBatchClient<$Result.GetResult<Prisma.$SalaryPaymentBatchPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SalaryPaymentBatch that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SalaryPaymentBatchFindUniqueOrThrowArgs} args - Arguments to find a SalaryPaymentBatch
+     * @example
+     * // Get one SalaryPaymentBatch
+     * const salaryPaymentBatch = await prisma.salaryPaymentBatch.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SalaryPaymentBatchFindUniqueOrThrowArgs>(args: SelectSubset<T, SalaryPaymentBatchFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SalaryPaymentBatchClient<$Result.GetResult<Prisma.$SalaryPaymentBatchPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SalaryPaymentBatch that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentBatchFindFirstArgs} args - Arguments to find a SalaryPaymentBatch
+     * @example
+     * // Get one SalaryPaymentBatch
+     * const salaryPaymentBatch = await prisma.salaryPaymentBatch.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SalaryPaymentBatchFindFirstArgs>(args?: SelectSubset<T, SalaryPaymentBatchFindFirstArgs<ExtArgs>>): Prisma__SalaryPaymentBatchClient<$Result.GetResult<Prisma.$SalaryPaymentBatchPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SalaryPaymentBatch that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentBatchFindFirstOrThrowArgs} args - Arguments to find a SalaryPaymentBatch
+     * @example
+     * // Get one SalaryPaymentBatch
+     * const salaryPaymentBatch = await prisma.salaryPaymentBatch.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SalaryPaymentBatchFindFirstOrThrowArgs>(args?: SelectSubset<T, SalaryPaymentBatchFindFirstOrThrowArgs<ExtArgs>>): Prisma__SalaryPaymentBatchClient<$Result.GetResult<Prisma.$SalaryPaymentBatchPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SalaryPaymentBatches that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentBatchFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SalaryPaymentBatches
+     * const salaryPaymentBatches = await prisma.salaryPaymentBatch.findMany()
+     * 
+     * // Get first 10 SalaryPaymentBatches
+     * const salaryPaymentBatches = await prisma.salaryPaymentBatch.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const salaryPaymentBatchWithIdOnly = await prisma.salaryPaymentBatch.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SalaryPaymentBatchFindManyArgs>(args?: SelectSubset<T, SalaryPaymentBatchFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryPaymentBatchPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SalaryPaymentBatch.
+     * @param {SalaryPaymentBatchCreateArgs} args - Arguments to create a SalaryPaymentBatch.
+     * @example
+     * // Create one SalaryPaymentBatch
+     * const SalaryPaymentBatch = await prisma.salaryPaymentBatch.create({
+     *   data: {
+     *     // ... data to create a SalaryPaymentBatch
+     *   }
+     * })
+     * 
+     */
+    create<T extends SalaryPaymentBatchCreateArgs>(args: SelectSubset<T, SalaryPaymentBatchCreateArgs<ExtArgs>>): Prisma__SalaryPaymentBatchClient<$Result.GetResult<Prisma.$SalaryPaymentBatchPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SalaryPaymentBatches.
+     * @param {SalaryPaymentBatchCreateManyArgs} args - Arguments to create many SalaryPaymentBatches.
+     * @example
+     * // Create many SalaryPaymentBatches
+     * const salaryPaymentBatch = await prisma.salaryPaymentBatch.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SalaryPaymentBatchCreateManyArgs>(args?: SelectSubset<T, SalaryPaymentBatchCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SalaryPaymentBatches and returns the data saved in the database.
+     * @param {SalaryPaymentBatchCreateManyAndReturnArgs} args - Arguments to create many SalaryPaymentBatches.
+     * @example
+     * // Create many SalaryPaymentBatches
+     * const salaryPaymentBatch = await prisma.salaryPaymentBatch.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SalaryPaymentBatches and only return the `id`
+     * const salaryPaymentBatchWithIdOnly = await prisma.salaryPaymentBatch.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SalaryPaymentBatchCreateManyAndReturnArgs>(args?: SelectSubset<T, SalaryPaymentBatchCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryPaymentBatchPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SalaryPaymentBatch.
+     * @param {SalaryPaymentBatchDeleteArgs} args - Arguments to delete one SalaryPaymentBatch.
+     * @example
+     * // Delete one SalaryPaymentBatch
+     * const SalaryPaymentBatch = await prisma.salaryPaymentBatch.delete({
+     *   where: {
+     *     // ... filter to delete one SalaryPaymentBatch
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SalaryPaymentBatchDeleteArgs>(args: SelectSubset<T, SalaryPaymentBatchDeleteArgs<ExtArgs>>): Prisma__SalaryPaymentBatchClient<$Result.GetResult<Prisma.$SalaryPaymentBatchPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SalaryPaymentBatch.
+     * @param {SalaryPaymentBatchUpdateArgs} args - Arguments to update one SalaryPaymentBatch.
+     * @example
+     * // Update one SalaryPaymentBatch
+     * const salaryPaymentBatch = await prisma.salaryPaymentBatch.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SalaryPaymentBatchUpdateArgs>(args: SelectSubset<T, SalaryPaymentBatchUpdateArgs<ExtArgs>>): Prisma__SalaryPaymentBatchClient<$Result.GetResult<Prisma.$SalaryPaymentBatchPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SalaryPaymentBatches.
+     * @param {SalaryPaymentBatchDeleteManyArgs} args - Arguments to filter SalaryPaymentBatches to delete.
+     * @example
+     * // Delete a few SalaryPaymentBatches
+     * const { count } = await prisma.salaryPaymentBatch.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SalaryPaymentBatchDeleteManyArgs>(args?: SelectSubset<T, SalaryPaymentBatchDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SalaryPaymentBatches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentBatchUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SalaryPaymentBatches
+     * const salaryPaymentBatch = await prisma.salaryPaymentBatch.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SalaryPaymentBatchUpdateManyArgs>(args: SelectSubset<T, SalaryPaymentBatchUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SalaryPaymentBatch.
+     * @param {SalaryPaymentBatchUpsertArgs} args - Arguments to update or create a SalaryPaymentBatch.
+     * @example
+     * // Update or create a SalaryPaymentBatch
+     * const salaryPaymentBatch = await prisma.salaryPaymentBatch.upsert({
+     *   create: {
+     *     // ... data to create a SalaryPaymentBatch
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SalaryPaymentBatch we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SalaryPaymentBatchUpsertArgs>(args: SelectSubset<T, SalaryPaymentBatchUpsertArgs<ExtArgs>>): Prisma__SalaryPaymentBatchClient<$Result.GetResult<Prisma.$SalaryPaymentBatchPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SalaryPaymentBatches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentBatchCountArgs} args - Arguments to filter SalaryPaymentBatches to count.
+     * @example
+     * // Count the number of SalaryPaymentBatches
+     * const count = await prisma.salaryPaymentBatch.count({
+     *   where: {
+     *     // ... the filter for the SalaryPaymentBatches we want to count
+     *   }
+     * })
+    **/
+    count<T extends SalaryPaymentBatchCountArgs>(
+      args?: Subset<T, SalaryPaymentBatchCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SalaryPaymentBatchCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SalaryPaymentBatch.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentBatchAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SalaryPaymentBatchAggregateArgs>(args: Subset<T, SalaryPaymentBatchAggregateArgs>): Prisma.PrismaPromise<GetSalaryPaymentBatchAggregateType<T>>
+
+    /**
+     * Group by SalaryPaymentBatch.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentBatchGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SalaryPaymentBatchGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SalaryPaymentBatchGroupByArgs['orderBy'] }
+        : { orderBy?: SalaryPaymentBatchGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SalaryPaymentBatchGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSalaryPaymentBatchGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SalaryPaymentBatch model
+   */
+  readonly fields: SalaryPaymentBatchFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SalaryPaymentBatch.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SalaryPaymentBatchClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    payrollRun<T extends PayrollRunDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PayrollRunDefaultArgs<ExtArgs>>): Prisma__PayrollRunClient<$Result.GetResult<Prisma.$PayrollRunPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    payments<T extends SalaryPaymentBatch$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, SalaryPaymentBatch$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SalaryPaymentBatch model
+   */ 
+  interface SalaryPaymentBatchFieldRefs {
+    readonly id: FieldRef<"SalaryPaymentBatch", 'String'>
+    readonly batchNumber: FieldRef<"SalaryPaymentBatch", 'String'>
+    readonly payrollRunId: FieldRef<"SalaryPaymentBatch", 'String'>
+    readonly paymentMode: FieldRef<"SalaryPaymentBatch", 'String'>
+    readonly sourceAccountCode: FieldRef<"SalaryPaymentBatch", 'String'>
+    readonly totalAmount: FieldRef<"SalaryPaymentBatch", 'Decimal'>
+    readonly totalEmployees: FieldRef<"SalaryPaymentBatch", 'Int'>
+    readonly status: FieldRef<"SalaryPaymentBatch", 'String'>
+    readonly paymentDate: FieldRef<"SalaryPaymentBatch", 'DateTime'>
+    readonly notes: FieldRef<"SalaryPaymentBatch", 'String'>
+    readonly submittedBy: FieldRef<"SalaryPaymentBatch", 'String'>
+    readonly approvedBy: FieldRef<"SalaryPaymentBatch", 'String'>
+    readonly settledBy: FieldRef<"SalaryPaymentBatch", 'String'>
+    readonly createdAt: FieldRef<"SalaryPaymentBatch", 'DateTime'>
+    readonly updatedAt: FieldRef<"SalaryPaymentBatch", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SalaryPaymentBatch findUnique
+   */
+  export type SalaryPaymentBatchFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryPaymentBatch to fetch.
+     */
+    where: SalaryPaymentBatchWhereUniqueInput
+  }
+
+  /**
+   * SalaryPaymentBatch findUniqueOrThrow
+   */
+  export type SalaryPaymentBatchFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryPaymentBatch to fetch.
+     */
+    where: SalaryPaymentBatchWhereUniqueInput
+  }
+
+  /**
+   * SalaryPaymentBatch findFirst
+   */
+  export type SalaryPaymentBatchFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryPaymentBatch to fetch.
+     */
+    where?: SalaryPaymentBatchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryPaymentBatches to fetch.
+     */
+    orderBy?: SalaryPaymentBatchOrderByWithRelationInput | SalaryPaymentBatchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalaryPaymentBatches.
+     */
+    cursor?: SalaryPaymentBatchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryPaymentBatches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryPaymentBatches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalaryPaymentBatches.
+     */
+    distinct?: SalaryPaymentBatchScalarFieldEnum | SalaryPaymentBatchScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryPaymentBatch findFirstOrThrow
+   */
+  export type SalaryPaymentBatchFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryPaymentBatch to fetch.
+     */
+    where?: SalaryPaymentBatchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryPaymentBatches to fetch.
+     */
+    orderBy?: SalaryPaymentBatchOrderByWithRelationInput | SalaryPaymentBatchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalaryPaymentBatches.
+     */
+    cursor?: SalaryPaymentBatchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryPaymentBatches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryPaymentBatches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalaryPaymentBatches.
+     */
+    distinct?: SalaryPaymentBatchScalarFieldEnum | SalaryPaymentBatchScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryPaymentBatch findMany
+   */
+  export type SalaryPaymentBatchFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryPaymentBatches to fetch.
+     */
+    where?: SalaryPaymentBatchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryPaymentBatches to fetch.
+     */
+    orderBy?: SalaryPaymentBatchOrderByWithRelationInput | SalaryPaymentBatchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SalaryPaymentBatches.
+     */
+    cursor?: SalaryPaymentBatchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryPaymentBatches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryPaymentBatches.
+     */
+    skip?: number
+    distinct?: SalaryPaymentBatchScalarFieldEnum | SalaryPaymentBatchScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryPaymentBatch create
+   */
+  export type SalaryPaymentBatchCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SalaryPaymentBatch.
+     */
+    data: XOR<SalaryPaymentBatchCreateInput, SalaryPaymentBatchUncheckedCreateInput>
+  }
+
+  /**
+   * SalaryPaymentBatch createMany
+   */
+  export type SalaryPaymentBatchCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SalaryPaymentBatches.
+     */
+    data: SalaryPaymentBatchCreateManyInput | SalaryPaymentBatchCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SalaryPaymentBatch createManyAndReturn
+   */
+  export type SalaryPaymentBatchCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SalaryPaymentBatches.
+     */
+    data: SalaryPaymentBatchCreateManyInput | SalaryPaymentBatchCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SalaryPaymentBatch update
+   */
+  export type SalaryPaymentBatchUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SalaryPaymentBatch.
+     */
+    data: XOR<SalaryPaymentBatchUpdateInput, SalaryPaymentBatchUncheckedUpdateInput>
+    /**
+     * Choose, which SalaryPaymentBatch to update.
+     */
+    where: SalaryPaymentBatchWhereUniqueInput
+  }
+
+  /**
+   * SalaryPaymentBatch updateMany
+   */
+  export type SalaryPaymentBatchUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SalaryPaymentBatches.
+     */
+    data: XOR<SalaryPaymentBatchUpdateManyMutationInput, SalaryPaymentBatchUncheckedUpdateManyInput>
+    /**
+     * Filter which SalaryPaymentBatches to update
+     */
+    where?: SalaryPaymentBatchWhereInput
+  }
+
+  /**
+   * SalaryPaymentBatch upsert
+   */
+  export type SalaryPaymentBatchUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SalaryPaymentBatch to update in case it exists.
+     */
+    where: SalaryPaymentBatchWhereUniqueInput
+    /**
+     * In case the SalaryPaymentBatch found by the `where` argument doesn't exist, create a new SalaryPaymentBatch with this data.
+     */
+    create: XOR<SalaryPaymentBatchCreateInput, SalaryPaymentBatchUncheckedCreateInput>
+    /**
+     * In case the SalaryPaymentBatch was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SalaryPaymentBatchUpdateInput, SalaryPaymentBatchUncheckedUpdateInput>
+  }
+
+  /**
+   * SalaryPaymentBatch delete
+   */
+  export type SalaryPaymentBatchDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchInclude<ExtArgs> | null
+    /**
+     * Filter which SalaryPaymentBatch to delete.
+     */
+    where: SalaryPaymentBatchWhereUniqueInput
+  }
+
+  /**
+   * SalaryPaymentBatch deleteMany
+   */
+  export type SalaryPaymentBatchDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalaryPaymentBatches to delete
+     */
+    where?: SalaryPaymentBatchWhereInput
+  }
+
+  /**
+   * SalaryPaymentBatch.payments
+   */
+  export type SalaryPaymentBatch$paymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    where?: SalaryPaymentWhereInput
+    orderBy?: SalaryPaymentOrderByWithRelationInput | SalaryPaymentOrderByWithRelationInput[]
+    cursor?: SalaryPaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalaryPaymentScalarFieldEnum | SalaryPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryPaymentBatch without action
+   */
+  export type SalaryPaymentBatchDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SalaryPayment
+   */
+
+  export type AggregateSalaryPayment = {
+    _count: SalaryPaymentCountAggregateOutputType | null
+    _avg: SalaryPaymentAvgAggregateOutputType | null
+    _sum: SalaryPaymentSumAggregateOutputType | null
+    _min: SalaryPaymentMinAggregateOutputType | null
+    _max: SalaryPaymentMaxAggregateOutputType | null
+  }
+
+  export type SalaryPaymentAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type SalaryPaymentSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type SalaryPaymentMinAggregateOutputType = {
+    id: string | null
+    paymentNumber: string | null
+    salaryPaymentBatchId: string | null
+    payrollRunId: string | null
+    payrollItemId: string | null
+    employeeId: string | null
+    amount: Decimal | null
+    paymentMode: string | null
+    sourceAccountCode: string | null
+    bankName: string | null
+    accountNumberMasked: string | null
+    ifscCode: string | null
+    referenceNo: string | null
+    status: string | null
+    paymentDate: Date | null
+    settledAt: Date | null
+    journalEntryId: string | null
+    walletTransactionId: string | null
+    failureReason: string | null
+    reversalReason: string | null
+    createdBy: string | null
+    approvedBy: string | null
+    settledBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalaryPaymentMaxAggregateOutputType = {
+    id: string | null
+    paymentNumber: string | null
+    salaryPaymentBatchId: string | null
+    payrollRunId: string | null
+    payrollItemId: string | null
+    employeeId: string | null
+    amount: Decimal | null
+    paymentMode: string | null
+    sourceAccountCode: string | null
+    bankName: string | null
+    accountNumberMasked: string | null
+    ifscCode: string | null
+    referenceNo: string | null
+    status: string | null
+    paymentDate: Date | null
+    settledAt: Date | null
+    journalEntryId: string | null
+    walletTransactionId: string | null
+    failureReason: string | null
+    reversalReason: string | null
+    createdBy: string | null
+    approvedBy: string | null
+    settledBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalaryPaymentCountAggregateOutputType = {
+    id: number
+    paymentNumber: number
+    salaryPaymentBatchId: number
+    payrollRunId: number
+    payrollItemId: number
+    employeeId: number
+    amount: number
+    paymentMode: number
+    sourceAccountCode: number
+    bankName: number
+    accountNumberMasked: number
+    ifscCode: number
+    referenceNo: number
+    status: number
+    paymentDate: number
+    settledAt: number
+    journalEntryId: number
+    walletTransactionId: number
+    failureReason: number
+    reversalReason: number
+    createdBy: number
+    approvedBy: number
+    settledBy: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SalaryPaymentAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type SalaryPaymentSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type SalaryPaymentMinAggregateInputType = {
+    id?: true
+    paymentNumber?: true
+    salaryPaymentBatchId?: true
+    payrollRunId?: true
+    payrollItemId?: true
+    employeeId?: true
+    amount?: true
+    paymentMode?: true
+    sourceAccountCode?: true
+    bankName?: true
+    accountNumberMasked?: true
+    ifscCode?: true
+    referenceNo?: true
+    status?: true
+    paymentDate?: true
+    settledAt?: true
+    journalEntryId?: true
+    walletTransactionId?: true
+    failureReason?: true
+    reversalReason?: true
+    createdBy?: true
+    approvedBy?: true
+    settledBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalaryPaymentMaxAggregateInputType = {
+    id?: true
+    paymentNumber?: true
+    salaryPaymentBatchId?: true
+    payrollRunId?: true
+    payrollItemId?: true
+    employeeId?: true
+    amount?: true
+    paymentMode?: true
+    sourceAccountCode?: true
+    bankName?: true
+    accountNumberMasked?: true
+    ifscCode?: true
+    referenceNo?: true
+    status?: true
+    paymentDate?: true
+    settledAt?: true
+    journalEntryId?: true
+    walletTransactionId?: true
+    failureReason?: true
+    reversalReason?: true
+    createdBy?: true
+    approvedBy?: true
+    settledBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalaryPaymentCountAggregateInputType = {
+    id?: true
+    paymentNumber?: true
+    salaryPaymentBatchId?: true
+    payrollRunId?: true
+    payrollItemId?: true
+    employeeId?: true
+    amount?: true
+    paymentMode?: true
+    sourceAccountCode?: true
+    bankName?: true
+    accountNumberMasked?: true
+    ifscCode?: true
+    referenceNo?: true
+    status?: true
+    paymentDate?: true
+    settledAt?: true
+    journalEntryId?: true
+    walletTransactionId?: true
+    failureReason?: true
+    reversalReason?: true
+    createdBy?: true
+    approvedBy?: true
+    settledBy?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SalaryPaymentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalaryPayment to aggregate.
+     */
+    where?: SalaryPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryPayments to fetch.
+     */
+    orderBy?: SalaryPaymentOrderByWithRelationInput | SalaryPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SalaryPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SalaryPayments
+    **/
+    _count?: true | SalaryPaymentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SalaryPaymentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SalaryPaymentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SalaryPaymentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SalaryPaymentMaxAggregateInputType
+  }
+
+  export type GetSalaryPaymentAggregateType<T extends SalaryPaymentAggregateArgs> = {
+        [P in keyof T & keyof AggregateSalaryPayment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSalaryPayment[P]>
+      : GetScalarType<T[P], AggregateSalaryPayment[P]>
+  }
+
+
+
+
+  export type SalaryPaymentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalaryPaymentWhereInput
+    orderBy?: SalaryPaymentOrderByWithAggregationInput | SalaryPaymentOrderByWithAggregationInput[]
+    by: SalaryPaymentScalarFieldEnum[] | SalaryPaymentScalarFieldEnum
+    having?: SalaryPaymentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SalaryPaymentCountAggregateInputType | true
+    _avg?: SalaryPaymentAvgAggregateInputType
+    _sum?: SalaryPaymentSumAggregateInputType
+    _min?: SalaryPaymentMinAggregateInputType
+    _max?: SalaryPaymentMaxAggregateInputType
+  }
+
+  export type SalaryPaymentGroupByOutputType = {
+    id: string
+    paymentNumber: string
+    salaryPaymentBatchId: string | null
+    payrollRunId: string
+    payrollItemId: string
+    employeeId: string
+    amount: Decimal
+    paymentMode: string
+    sourceAccountCode: string
+    bankName: string | null
+    accountNumberMasked: string | null
+    ifscCode: string | null
+    referenceNo: string | null
+    status: string
+    paymentDate: Date
+    settledAt: Date | null
+    journalEntryId: string | null
+    walletTransactionId: string | null
+    failureReason: string | null
+    reversalReason: string | null
+    createdBy: string
+    approvedBy: string | null
+    settledBy: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SalaryPaymentCountAggregateOutputType | null
+    _avg: SalaryPaymentAvgAggregateOutputType | null
+    _sum: SalaryPaymentSumAggregateOutputType | null
+    _min: SalaryPaymentMinAggregateOutputType | null
+    _max: SalaryPaymentMaxAggregateOutputType | null
+  }
+
+  type GetSalaryPaymentGroupByPayload<T extends SalaryPaymentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SalaryPaymentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SalaryPaymentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SalaryPaymentGroupByOutputType[P]>
+            : GetScalarType<T[P], SalaryPaymentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SalaryPaymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    paymentNumber?: boolean
+    salaryPaymentBatchId?: boolean
+    payrollRunId?: boolean
+    payrollItemId?: boolean
+    employeeId?: boolean
+    amount?: boolean
+    paymentMode?: boolean
+    sourceAccountCode?: boolean
+    bankName?: boolean
+    accountNumberMasked?: boolean
+    ifscCode?: boolean
+    referenceNo?: boolean
+    status?: boolean
+    paymentDate?: boolean
+    settledAt?: boolean
+    journalEntryId?: boolean
+    walletTransactionId?: boolean
+    failureReason?: boolean
+    reversalReason?: boolean
+    createdBy?: boolean
+    approvedBy?: boolean
+    settledBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    salaryPaymentBatch?: boolean | SalaryPayment$salaryPaymentBatchArgs<ExtArgs>
+    payrollRun?: boolean | PayrollRunDefaultArgs<ExtArgs>
+    payrollItem?: boolean | PayrollItemDefaultArgs<ExtArgs>
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    journalEntry?: boolean | SalaryPayment$journalEntryArgs<ExtArgs>
+  }, ExtArgs["result"]["salaryPayment"]>
+
+  export type SalaryPaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    paymentNumber?: boolean
+    salaryPaymentBatchId?: boolean
+    payrollRunId?: boolean
+    payrollItemId?: boolean
+    employeeId?: boolean
+    amount?: boolean
+    paymentMode?: boolean
+    sourceAccountCode?: boolean
+    bankName?: boolean
+    accountNumberMasked?: boolean
+    ifscCode?: boolean
+    referenceNo?: boolean
+    status?: boolean
+    paymentDate?: boolean
+    settledAt?: boolean
+    journalEntryId?: boolean
+    walletTransactionId?: boolean
+    failureReason?: boolean
+    reversalReason?: boolean
+    createdBy?: boolean
+    approvedBy?: boolean
+    settledBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    salaryPaymentBatch?: boolean | SalaryPayment$salaryPaymentBatchArgs<ExtArgs>
+    payrollRun?: boolean | PayrollRunDefaultArgs<ExtArgs>
+    payrollItem?: boolean | PayrollItemDefaultArgs<ExtArgs>
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    journalEntry?: boolean | SalaryPayment$journalEntryArgs<ExtArgs>
+  }, ExtArgs["result"]["salaryPayment"]>
+
+  export type SalaryPaymentSelectScalar = {
+    id?: boolean
+    paymentNumber?: boolean
+    salaryPaymentBatchId?: boolean
+    payrollRunId?: boolean
+    payrollItemId?: boolean
+    employeeId?: boolean
+    amount?: boolean
+    paymentMode?: boolean
+    sourceAccountCode?: boolean
+    bankName?: boolean
+    accountNumberMasked?: boolean
+    ifscCode?: boolean
+    referenceNo?: boolean
+    status?: boolean
+    paymentDate?: boolean
+    settledAt?: boolean
+    journalEntryId?: boolean
+    walletTransactionId?: boolean
+    failureReason?: boolean
+    reversalReason?: boolean
+    createdBy?: boolean
+    approvedBy?: boolean
+    settledBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SalaryPaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    salaryPaymentBatch?: boolean | SalaryPayment$salaryPaymentBatchArgs<ExtArgs>
+    payrollRun?: boolean | PayrollRunDefaultArgs<ExtArgs>
+    payrollItem?: boolean | PayrollItemDefaultArgs<ExtArgs>
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    journalEntry?: boolean | SalaryPayment$journalEntryArgs<ExtArgs>
+  }
+  export type SalaryPaymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    salaryPaymentBatch?: boolean | SalaryPayment$salaryPaymentBatchArgs<ExtArgs>
+    payrollRun?: boolean | PayrollRunDefaultArgs<ExtArgs>
+    payrollItem?: boolean | PayrollItemDefaultArgs<ExtArgs>
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+    journalEntry?: boolean | SalaryPayment$journalEntryArgs<ExtArgs>
+  }
+
+  export type $SalaryPaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SalaryPayment"
+    objects: {
+      salaryPaymentBatch: Prisma.$SalaryPaymentBatchPayload<ExtArgs> | null
+      payrollRun: Prisma.$PayrollRunPayload<ExtArgs>
+      payrollItem: Prisma.$PayrollItemPayload<ExtArgs>
+      employee: Prisma.$EmployeePayload<ExtArgs>
+      journalEntry: Prisma.$JournalEntryPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      paymentNumber: string
+      salaryPaymentBatchId: string | null
+      payrollRunId: string
+      payrollItemId: string
+      employeeId: string
+      amount: Prisma.Decimal
+      paymentMode: string
+      sourceAccountCode: string
+      bankName: string | null
+      accountNumberMasked: string | null
+      ifscCode: string | null
+      referenceNo: string | null
+      status: string
+      paymentDate: Date
+      settledAt: Date | null
+      journalEntryId: string | null
+      walletTransactionId: string | null
+      failureReason: string | null
+      reversalReason: string | null
+      createdBy: string
+      approvedBy: string | null
+      settledBy: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["salaryPayment"]>
+    composites: {}
+  }
+
+  type SalaryPaymentGetPayload<S extends boolean | null | undefined | SalaryPaymentDefaultArgs> = $Result.GetResult<Prisma.$SalaryPaymentPayload, S>
+
+  type SalaryPaymentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SalaryPaymentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SalaryPaymentCountAggregateInputType | true
+    }
+
+  export interface SalaryPaymentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SalaryPayment'], meta: { name: 'SalaryPayment' } }
+    /**
+     * Find zero or one SalaryPayment that matches the filter.
+     * @param {SalaryPaymentFindUniqueArgs} args - Arguments to find a SalaryPayment
+     * @example
+     * // Get one SalaryPayment
+     * const salaryPayment = await prisma.salaryPayment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SalaryPaymentFindUniqueArgs>(args: SelectSubset<T, SalaryPaymentFindUniqueArgs<ExtArgs>>): Prisma__SalaryPaymentClient<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SalaryPayment that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SalaryPaymentFindUniqueOrThrowArgs} args - Arguments to find a SalaryPayment
+     * @example
+     * // Get one SalaryPayment
+     * const salaryPayment = await prisma.salaryPayment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SalaryPaymentFindUniqueOrThrowArgs>(args: SelectSubset<T, SalaryPaymentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SalaryPaymentClient<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SalaryPayment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentFindFirstArgs} args - Arguments to find a SalaryPayment
+     * @example
+     * // Get one SalaryPayment
+     * const salaryPayment = await prisma.salaryPayment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SalaryPaymentFindFirstArgs>(args?: SelectSubset<T, SalaryPaymentFindFirstArgs<ExtArgs>>): Prisma__SalaryPaymentClient<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SalaryPayment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentFindFirstOrThrowArgs} args - Arguments to find a SalaryPayment
+     * @example
+     * // Get one SalaryPayment
+     * const salaryPayment = await prisma.salaryPayment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SalaryPaymentFindFirstOrThrowArgs>(args?: SelectSubset<T, SalaryPaymentFindFirstOrThrowArgs<ExtArgs>>): Prisma__SalaryPaymentClient<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SalaryPayments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SalaryPayments
+     * const salaryPayments = await prisma.salaryPayment.findMany()
+     * 
+     * // Get first 10 SalaryPayments
+     * const salaryPayments = await prisma.salaryPayment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const salaryPaymentWithIdOnly = await prisma.salaryPayment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SalaryPaymentFindManyArgs>(args?: SelectSubset<T, SalaryPaymentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SalaryPayment.
+     * @param {SalaryPaymentCreateArgs} args - Arguments to create a SalaryPayment.
+     * @example
+     * // Create one SalaryPayment
+     * const SalaryPayment = await prisma.salaryPayment.create({
+     *   data: {
+     *     // ... data to create a SalaryPayment
+     *   }
+     * })
+     * 
+     */
+    create<T extends SalaryPaymentCreateArgs>(args: SelectSubset<T, SalaryPaymentCreateArgs<ExtArgs>>): Prisma__SalaryPaymentClient<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SalaryPayments.
+     * @param {SalaryPaymentCreateManyArgs} args - Arguments to create many SalaryPayments.
+     * @example
+     * // Create many SalaryPayments
+     * const salaryPayment = await prisma.salaryPayment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SalaryPaymentCreateManyArgs>(args?: SelectSubset<T, SalaryPaymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SalaryPayments and returns the data saved in the database.
+     * @param {SalaryPaymentCreateManyAndReturnArgs} args - Arguments to create many SalaryPayments.
+     * @example
+     * // Create many SalaryPayments
+     * const salaryPayment = await prisma.salaryPayment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SalaryPayments and only return the `id`
+     * const salaryPaymentWithIdOnly = await prisma.salaryPayment.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SalaryPaymentCreateManyAndReturnArgs>(args?: SelectSubset<T, SalaryPaymentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SalaryPayment.
+     * @param {SalaryPaymentDeleteArgs} args - Arguments to delete one SalaryPayment.
+     * @example
+     * // Delete one SalaryPayment
+     * const SalaryPayment = await prisma.salaryPayment.delete({
+     *   where: {
+     *     // ... filter to delete one SalaryPayment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SalaryPaymentDeleteArgs>(args: SelectSubset<T, SalaryPaymentDeleteArgs<ExtArgs>>): Prisma__SalaryPaymentClient<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SalaryPayment.
+     * @param {SalaryPaymentUpdateArgs} args - Arguments to update one SalaryPayment.
+     * @example
+     * // Update one SalaryPayment
+     * const salaryPayment = await prisma.salaryPayment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SalaryPaymentUpdateArgs>(args: SelectSubset<T, SalaryPaymentUpdateArgs<ExtArgs>>): Prisma__SalaryPaymentClient<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SalaryPayments.
+     * @param {SalaryPaymentDeleteManyArgs} args - Arguments to filter SalaryPayments to delete.
+     * @example
+     * // Delete a few SalaryPayments
+     * const { count } = await prisma.salaryPayment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SalaryPaymentDeleteManyArgs>(args?: SelectSubset<T, SalaryPaymentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SalaryPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SalaryPayments
+     * const salaryPayment = await prisma.salaryPayment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SalaryPaymentUpdateManyArgs>(args: SelectSubset<T, SalaryPaymentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SalaryPayment.
+     * @param {SalaryPaymentUpsertArgs} args - Arguments to update or create a SalaryPayment.
+     * @example
+     * // Update or create a SalaryPayment
+     * const salaryPayment = await prisma.salaryPayment.upsert({
+     *   create: {
+     *     // ... data to create a SalaryPayment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SalaryPayment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SalaryPaymentUpsertArgs>(args: SelectSubset<T, SalaryPaymentUpsertArgs<ExtArgs>>): Prisma__SalaryPaymentClient<$Result.GetResult<Prisma.$SalaryPaymentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SalaryPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentCountArgs} args - Arguments to filter SalaryPayments to count.
+     * @example
+     * // Count the number of SalaryPayments
+     * const count = await prisma.salaryPayment.count({
+     *   where: {
+     *     // ... the filter for the SalaryPayments we want to count
+     *   }
+     * })
+    **/
+    count<T extends SalaryPaymentCountArgs>(
+      args?: Subset<T, SalaryPaymentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SalaryPaymentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SalaryPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SalaryPaymentAggregateArgs>(args: Subset<T, SalaryPaymentAggregateArgs>): Prisma.PrismaPromise<GetSalaryPaymentAggregateType<T>>
+
+    /**
+     * Group by SalaryPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalaryPaymentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SalaryPaymentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SalaryPaymentGroupByArgs['orderBy'] }
+        : { orderBy?: SalaryPaymentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SalaryPaymentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSalaryPaymentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SalaryPayment model
+   */
+  readonly fields: SalaryPaymentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SalaryPayment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SalaryPaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    salaryPaymentBatch<T extends SalaryPayment$salaryPaymentBatchArgs<ExtArgs> = {}>(args?: Subset<T, SalaryPayment$salaryPaymentBatchArgs<ExtArgs>>): Prisma__SalaryPaymentBatchClient<$Result.GetResult<Prisma.$SalaryPaymentBatchPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    payrollRun<T extends PayrollRunDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PayrollRunDefaultArgs<ExtArgs>>): Prisma__PayrollRunClient<$Result.GetResult<Prisma.$PayrollRunPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    payrollItem<T extends PayrollItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PayrollItemDefaultArgs<ExtArgs>>): Prisma__PayrollItemClient<$Result.GetResult<Prisma.$PayrollItemPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    employee<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    journalEntry<T extends SalaryPayment$journalEntryArgs<ExtArgs> = {}>(args?: Subset<T, SalaryPayment$journalEntryArgs<ExtArgs>>): Prisma__JournalEntryClient<$Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SalaryPayment model
+   */ 
+  interface SalaryPaymentFieldRefs {
+    readonly id: FieldRef<"SalaryPayment", 'String'>
+    readonly paymentNumber: FieldRef<"SalaryPayment", 'String'>
+    readonly salaryPaymentBatchId: FieldRef<"SalaryPayment", 'String'>
+    readonly payrollRunId: FieldRef<"SalaryPayment", 'String'>
+    readonly payrollItemId: FieldRef<"SalaryPayment", 'String'>
+    readonly employeeId: FieldRef<"SalaryPayment", 'String'>
+    readonly amount: FieldRef<"SalaryPayment", 'Decimal'>
+    readonly paymentMode: FieldRef<"SalaryPayment", 'String'>
+    readonly sourceAccountCode: FieldRef<"SalaryPayment", 'String'>
+    readonly bankName: FieldRef<"SalaryPayment", 'String'>
+    readonly accountNumberMasked: FieldRef<"SalaryPayment", 'String'>
+    readonly ifscCode: FieldRef<"SalaryPayment", 'String'>
+    readonly referenceNo: FieldRef<"SalaryPayment", 'String'>
+    readonly status: FieldRef<"SalaryPayment", 'String'>
+    readonly paymentDate: FieldRef<"SalaryPayment", 'DateTime'>
+    readonly settledAt: FieldRef<"SalaryPayment", 'DateTime'>
+    readonly journalEntryId: FieldRef<"SalaryPayment", 'String'>
+    readonly walletTransactionId: FieldRef<"SalaryPayment", 'String'>
+    readonly failureReason: FieldRef<"SalaryPayment", 'String'>
+    readonly reversalReason: FieldRef<"SalaryPayment", 'String'>
+    readonly createdBy: FieldRef<"SalaryPayment", 'String'>
+    readonly approvedBy: FieldRef<"SalaryPayment", 'String'>
+    readonly settledBy: FieldRef<"SalaryPayment", 'String'>
+    readonly createdAt: FieldRef<"SalaryPayment", 'DateTime'>
+    readonly updatedAt: FieldRef<"SalaryPayment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SalaryPayment findUnique
+   */
+  export type SalaryPaymentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryPayment to fetch.
+     */
+    where: SalaryPaymentWhereUniqueInput
+  }
+
+  /**
+   * SalaryPayment findUniqueOrThrow
+   */
+  export type SalaryPaymentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryPayment to fetch.
+     */
+    where: SalaryPaymentWhereUniqueInput
+  }
+
+  /**
+   * SalaryPayment findFirst
+   */
+  export type SalaryPaymentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryPayment to fetch.
+     */
+    where?: SalaryPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryPayments to fetch.
+     */
+    orderBy?: SalaryPaymentOrderByWithRelationInput | SalaryPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalaryPayments.
+     */
+    cursor?: SalaryPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalaryPayments.
+     */
+    distinct?: SalaryPaymentScalarFieldEnum | SalaryPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryPayment findFirstOrThrow
+   */
+  export type SalaryPaymentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryPayment to fetch.
+     */
+    where?: SalaryPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryPayments to fetch.
+     */
+    orderBy?: SalaryPaymentOrderByWithRelationInput | SalaryPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalaryPayments.
+     */
+    cursor?: SalaryPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalaryPayments.
+     */
+    distinct?: SalaryPaymentScalarFieldEnum | SalaryPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryPayment findMany
+   */
+  export type SalaryPaymentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which SalaryPayments to fetch.
+     */
+    where?: SalaryPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalaryPayments to fetch.
+     */
+    orderBy?: SalaryPaymentOrderByWithRelationInput | SalaryPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SalaryPayments.
+     */
+    cursor?: SalaryPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalaryPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalaryPayments.
+     */
+    skip?: number
+    distinct?: SalaryPaymentScalarFieldEnum | SalaryPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * SalaryPayment create
+   */
+  export type SalaryPaymentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SalaryPayment.
+     */
+    data: XOR<SalaryPaymentCreateInput, SalaryPaymentUncheckedCreateInput>
+  }
+
+  /**
+   * SalaryPayment createMany
+   */
+  export type SalaryPaymentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SalaryPayments.
+     */
+    data: SalaryPaymentCreateManyInput | SalaryPaymentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SalaryPayment createManyAndReturn
+   */
+  export type SalaryPaymentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SalaryPayments.
+     */
+    data: SalaryPaymentCreateManyInput | SalaryPaymentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SalaryPayment update
+   */
+  export type SalaryPaymentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SalaryPayment.
+     */
+    data: XOR<SalaryPaymentUpdateInput, SalaryPaymentUncheckedUpdateInput>
+    /**
+     * Choose, which SalaryPayment to update.
+     */
+    where: SalaryPaymentWhereUniqueInput
+  }
+
+  /**
+   * SalaryPayment updateMany
+   */
+  export type SalaryPaymentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SalaryPayments.
+     */
+    data: XOR<SalaryPaymentUpdateManyMutationInput, SalaryPaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which SalaryPayments to update
+     */
+    where?: SalaryPaymentWhereInput
+  }
+
+  /**
+   * SalaryPayment upsert
+   */
+  export type SalaryPaymentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SalaryPayment to update in case it exists.
+     */
+    where: SalaryPaymentWhereUniqueInput
+    /**
+     * In case the SalaryPayment found by the `where` argument doesn't exist, create a new SalaryPayment with this data.
+     */
+    create: XOR<SalaryPaymentCreateInput, SalaryPaymentUncheckedCreateInput>
+    /**
+     * In case the SalaryPayment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SalaryPaymentUpdateInput, SalaryPaymentUncheckedUpdateInput>
+  }
+
+  /**
+   * SalaryPayment delete
+   */
+  export type SalaryPaymentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+    /**
+     * Filter which SalaryPayment to delete.
+     */
+    where: SalaryPaymentWhereUniqueInput
+  }
+
+  /**
+   * SalaryPayment deleteMany
+   */
+  export type SalaryPaymentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalaryPayments to delete
+     */
+    where?: SalaryPaymentWhereInput
+  }
+
+  /**
+   * SalaryPayment.salaryPaymentBatch
+   */
+  export type SalaryPayment$salaryPaymentBatchArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPaymentBatch
+     */
+    select?: SalaryPaymentBatchSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentBatchInclude<ExtArgs> | null
+    where?: SalaryPaymentBatchWhereInput
+  }
+
+  /**
+   * SalaryPayment.journalEntry
+   */
+  export type SalaryPayment$journalEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntry
+     */
+    select?: JournalEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryInclude<ExtArgs> | null
+    where?: JournalEntryWhereInput
+  }
+
+  /**
+   * SalaryPayment without action
+   */
+  export type SalaryPaymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalaryPayment
+     */
+    select?: SalaryPaymentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalaryPaymentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -37269,6 +40001,58 @@ export namespace Prisma {
   };
 
   export type PayrollAccountingPostingScalarFieldEnum = (typeof PayrollAccountingPostingScalarFieldEnum)[keyof typeof PayrollAccountingPostingScalarFieldEnum]
+
+
+  export const SalaryPaymentBatchScalarFieldEnum: {
+    id: 'id',
+    batchNumber: 'batchNumber',
+    payrollRunId: 'payrollRunId',
+    paymentMode: 'paymentMode',
+    sourceAccountCode: 'sourceAccountCode',
+    totalAmount: 'totalAmount',
+    totalEmployees: 'totalEmployees',
+    status: 'status',
+    paymentDate: 'paymentDate',
+    notes: 'notes',
+    submittedBy: 'submittedBy',
+    approvedBy: 'approvedBy',
+    settledBy: 'settledBy',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SalaryPaymentBatchScalarFieldEnum = (typeof SalaryPaymentBatchScalarFieldEnum)[keyof typeof SalaryPaymentBatchScalarFieldEnum]
+
+
+  export const SalaryPaymentScalarFieldEnum: {
+    id: 'id',
+    paymentNumber: 'paymentNumber',
+    salaryPaymentBatchId: 'salaryPaymentBatchId',
+    payrollRunId: 'payrollRunId',
+    payrollItemId: 'payrollItemId',
+    employeeId: 'employeeId',
+    amount: 'amount',
+    paymentMode: 'paymentMode',
+    sourceAccountCode: 'sourceAccountCode',
+    bankName: 'bankName',
+    accountNumberMasked: 'accountNumberMasked',
+    ifscCode: 'ifscCode',
+    referenceNo: 'referenceNo',
+    status: 'status',
+    paymentDate: 'paymentDate',
+    settledAt: 'settledAt',
+    journalEntryId: 'journalEntryId',
+    walletTransactionId: 'walletTransactionId',
+    failureReason: 'failureReason',
+    reversalReason: 'reversalReason',
+    createdBy: 'createdBy',
+    approvedBy: 'approvedBy',
+    settledBy: 'settledBy',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SalaryPaymentScalarFieldEnum = (typeof SalaryPaymentScalarFieldEnum)[keyof typeof SalaryPaymentScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -38283,6 +41067,7 @@ export namespace Prisma {
     lines?: JournalLineListRelationFilter
     payrollPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
     reversalPayrollPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
+    salaryPayment?: XOR<SalaryPaymentNullableRelationFilter, SalaryPaymentWhereInput> | null
   }
 
   export type JournalEntryOrderByWithRelationInput = {
@@ -38298,6 +41083,7 @@ export namespace Prisma {
     lines?: JournalLineOrderByRelationAggregateInput
     payrollPosting?: PayrollAccountingPostingOrderByWithRelationInput
     reversalPayrollPosting?: PayrollAccountingPostingOrderByWithRelationInput
+    salaryPayment?: SalaryPaymentOrderByWithRelationInput
   }
 
   export type JournalEntryWhereUniqueInput = Prisma.AtLeast<{
@@ -38316,6 +41102,7 @@ export namespace Prisma {
     lines?: JournalLineListRelationFilter
     payrollPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
     reversalPayrollPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
+    salaryPayment?: XOR<SalaryPaymentNullableRelationFilter, SalaryPaymentWhereInput> | null
   }, "id" | "entryNumber">
 
   export type JournalEntryOrderByWithAggregationInput = {
@@ -39045,6 +41832,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemListRelationFilter
     payrollAdjustments?: PayrollAdjustmentListRelationFilter
     payrollExceptions?: PayrollExceptionListRelationFilter
+    salaryPayments?: SalaryPaymentListRelationFilter
   }
 
   export type EmployeeOrderByWithRelationInput = {
@@ -39081,6 +41869,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemOrderByRelationAggregateInput
     payrollAdjustments?: PayrollAdjustmentOrderByRelationAggregateInput
     payrollExceptions?: PayrollExceptionOrderByRelationAggregateInput
+    salaryPayments?: SalaryPaymentOrderByRelationAggregateInput
   }
 
   export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
@@ -39120,6 +41909,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemListRelationFilter
     payrollAdjustments?: PayrollAdjustmentListRelationFilter
     payrollExceptions?: PayrollExceptionListRelationFilter
+    salaryPayments?: SalaryPaymentListRelationFilter
   }, "id" | "employeeCode" | "mobile" | "email" | "userId">
 
   export type EmployeeOrderByWithAggregationInput = {
@@ -39736,6 +42526,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentListRelationFilter
     exceptions?: PayrollExceptionListRelationFilter
     accountingPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
+    paymentBatches?: SalaryPaymentBatchListRelationFilter
+    salaryPayments?: SalaryPaymentListRelationFilter
   }
 
   export type PayrollRunOrderByWithRelationInput = {
@@ -39764,6 +42556,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentOrderByRelationAggregateInput
     exceptions?: PayrollExceptionOrderByRelationAggregateInput
     accountingPosting?: PayrollAccountingPostingOrderByWithRelationInput
+    paymentBatches?: SalaryPaymentBatchOrderByRelationAggregateInput
+    salaryPayments?: SalaryPaymentOrderByRelationAggregateInput
   }
 
   export type PayrollRunWhereUniqueInput = Prisma.AtLeast<{
@@ -39796,6 +42590,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentListRelationFilter
     exceptions?: PayrollExceptionListRelationFilter
     accountingPosting?: XOR<PayrollAccountingPostingNullableRelationFilter, PayrollAccountingPostingWhereInput> | null
+    paymentBatches?: SalaryPaymentBatchListRelationFilter
+    salaryPayments?: SalaryPaymentListRelationFilter
   }, "id" | "payrollPeriodId_runNumber">
 
   export type PayrollRunOrderByWithAggregationInput = {
@@ -39882,6 +42678,7 @@ export namespace Prisma {
     employee?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
     lines?: PayrollLineListRelationFilter
     exceptions?: PayrollExceptionListRelationFilter
+    salaryPayments?: SalaryPaymentListRelationFilter
   }
 
   export type PayrollItemOrderByWithRelationInput = {
@@ -39911,6 +42708,7 @@ export namespace Prisma {
     employee?: EmployeeOrderByWithRelationInput
     lines?: PayrollLineOrderByRelationAggregateInput
     exceptions?: PayrollExceptionOrderByRelationAggregateInput
+    salaryPayments?: SalaryPaymentOrderByRelationAggregateInput
   }
 
   export type PayrollItemWhereUniqueInput = Prisma.AtLeast<{
@@ -39944,6 +42742,7 @@ export namespace Prisma {
     employee?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
     lines?: PayrollLineListRelationFilter
     exceptions?: PayrollExceptionListRelationFilter
+    salaryPayments?: SalaryPaymentListRelationFilter
   }, "id" | "payrollRunId_employeeId">
 
   export type PayrollItemOrderByWithAggregationInput = {
@@ -40428,6 +43227,285 @@ export namespace Prisma {
     postedAt?: DateTimeWithAggregatesFilter<"PayrollAccountingPosting"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"PayrollAccountingPosting"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PayrollAccountingPosting"> | Date | string
+  }
+
+  export type SalaryPaymentBatchWhereInput = {
+    AND?: SalaryPaymentBatchWhereInput | SalaryPaymentBatchWhereInput[]
+    OR?: SalaryPaymentBatchWhereInput[]
+    NOT?: SalaryPaymentBatchWhereInput | SalaryPaymentBatchWhereInput[]
+    id?: StringFilter<"SalaryPaymentBatch"> | string
+    batchNumber?: StringFilter<"SalaryPaymentBatch"> | string
+    payrollRunId?: StringFilter<"SalaryPaymentBatch"> | string
+    paymentMode?: StringFilter<"SalaryPaymentBatch"> | string
+    sourceAccountCode?: StringFilter<"SalaryPaymentBatch"> | string
+    totalAmount?: DecimalFilter<"SalaryPaymentBatch"> | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntFilter<"SalaryPaymentBatch"> | number
+    status?: StringFilter<"SalaryPaymentBatch"> | string
+    paymentDate?: DateTimeFilter<"SalaryPaymentBatch"> | Date | string
+    notes?: StringNullableFilter<"SalaryPaymentBatch"> | string | null
+    submittedBy?: StringNullableFilter<"SalaryPaymentBatch"> | string | null
+    approvedBy?: StringNullableFilter<"SalaryPaymentBatch"> | string | null
+    settledBy?: StringNullableFilter<"SalaryPaymentBatch"> | string | null
+    createdAt?: DateTimeFilter<"SalaryPaymentBatch"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryPaymentBatch"> | Date | string
+    payrollRun?: XOR<PayrollRunRelationFilter, PayrollRunWhereInput>
+    payments?: SalaryPaymentListRelationFilter
+  }
+
+  export type SalaryPaymentBatchOrderByWithRelationInput = {
+    id?: SortOrder
+    batchNumber?: SortOrder
+    payrollRunId?: SortOrder
+    paymentMode?: SortOrder
+    sourceAccountCode?: SortOrder
+    totalAmount?: SortOrder
+    totalEmployees?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    submittedBy?: SortOrderInput | SortOrder
+    approvedBy?: SortOrderInput | SortOrder
+    settledBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    payrollRun?: PayrollRunOrderByWithRelationInput
+    payments?: SalaryPaymentOrderByRelationAggregateInput
+  }
+
+  export type SalaryPaymentBatchWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    batchNumber?: string
+    AND?: SalaryPaymentBatchWhereInput | SalaryPaymentBatchWhereInput[]
+    OR?: SalaryPaymentBatchWhereInput[]
+    NOT?: SalaryPaymentBatchWhereInput | SalaryPaymentBatchWhereInput[]
+    payrollRunId?: StringFilter<"SalaryPaymentBatch"> | string
+    paymentMode?: StringFilter<"SalaryPaymentBatch"> | string
+    sourceAccountCode?: StringFilter<"SalaryPaymentBatch"> | string
+    totalAmount?: DecimalFilter<"SalaryPaymentBatch"> | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntFilter<"SalaryPaymentBatch"> | number
+    status?: StringFilter<"SalaryPaymentBatch"> | string
+    paymentDate?: DateTimeFilter<"SalaryPaymentBatch"> | Date | string
+    notes?: StringNullableFilter<"SalaryPaymentBatch"> | string | null
+    submittedBy?: StringNullableFilter<"SalaryPaymentBatch"> | string | null
+    approvedBy?: StringNullableFilter<"SalaryPaymentBatch"> | string | null
+    settledBy?: StringNullableFilter<"SalaryPaymentBatch"> | string | null
+    createdAt?: DateTimeFilter<"SalaryPaymentBatch"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryPaymentBatch"> | Date | string
+    payrollRun?: XOR<PayrollRunRelationFilter, PayrollRunWhereInput>
+    payments?: SalaryPaymentListRelationFilter
+  }, "id" | "batchNumber">
+
+  export type SalaryPaymentBatchOrderByWithAggregationInput = {
+    id?: SortOrder
+    batchNumber?: SortOrder
+    payrollRunId?: SortOrder
+    paymentMode?: SortOrder
+    sourceAccountCode?: SortOrder
+    totalAmount?: SortOrder
+    totalEmployees?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    submittedBy?: SortOrderInput | SortOrder
+    approvedBy?: SortOrderInput | SortOrder
+    settledBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SalaryPaymentBatchCountOrderByAggregateInput
+    _avg?: SalaryPaymentBatchAvgOrderByAggregateInput
+    _max?: SalaryPaymentBatchMaxOrderByAggregateInput
+    _min?: SalaryPaymentBatchMinOrderByAggregateInput
+    _sum?: SalaryPaymentBatchSumOrderByAggregateInput
+  }
+
+  export type SalaryPaymentBatchScalarWhereWithAggregatesInput = {
+    AND?: SalaryPaymentBatchScalarWhereWithAggregatesInput | SalaryPaymentBatchScalarWhereWithAggregatesInput[]
+    OR?: SalaryPaymentBatchScalarWhereWithAggregatesInput[]
+    NOT?: SalaryPaymentBatchScalarWhereWithAggregatesInput | SalaryPaymentBatchScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SalaryPaymentBatch"> | string
+    batchNumber?: StringWithAggregatesFilter<"SalaryPaymentBatch"> | string
+    payrollRunId?: StringWithAggregatesFilter<"SalaryPaymentBatch"> | string
+    paymentMode?: StringWithAggregatesFilter<"SalaryPaymentBatch"> | string
+    sourceAccountCode?: StringWithAggregatesFilter<"SalaryPaymentBatch"> | string
+    totalAmount?: DecimalWithAggregatesFilter<"SalaryPaymentBatch"> | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntWithAggregatesFilter<"SalaryPaymentBatch"> | number
+    status?: StringWithAggregatesFilter<"SalaryPaymentBatch"> | string
+    paymentDate?: DateTimeWithAggregatesFilter<"SalaryPaymentBatch"> | Date | string
+    notes?: StringNullableWithAggregatesFilter<"SalaryPaymentBatch"> | string | null
+    submittedBy?: StringNullableWithAggregatesFilter<"SalaryPaymentBatch"> | string | null
+    approvedBy?: StringNullableWithAggregatesFilter<"SalaryPaymentBatch"> | string | null
+    settledBy?: StringNullableWithAggregatesFilter<"SalaryPaymentBatch"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SalaryPaymentBatch"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SalaryPaymentBatch"> | Date | string
+  }
+
+  export type SalaryPaymentWhereInput = {
+    AND?: SalaryPaymentWhereInput | SalaryPaymentWhereInput[]
+    OR?: SalaryPaymentWhereInput[]
+    NOT?: SalaryPaymentWhereInput | SalaryPaymentWhereInput[]
+    id?: StringFilter<"SalaryPayment"> | string
+    paymentNumber?: StringFilter<"SalaryPayment"> | string
+    salaryPaymentBatchId?: StringNullableFilter<"SalaryPayment"> | string | null
+    payrollRunId?: StringFilter<"SalaryPayment"> | string
+    payrollItemId?: StringFilter<"SalaryPayment"> | string
+    employeeId?: StringFilter<"SalaryPayment"> | string
+    amount?: DecimalFilter<"SalaryPayment"> | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFilter<"SalaryPayment"> | string
+    sourceAccountCode?: StringFilter<"SalaryPayment"> | string
+    bankName?: StringNullableFilter<"SalaryPayment"> | string | null
+    accountNumberMasked?: StringNullableFilter<"SalaryPayment"> | string | null
+    ifscCode?: StringNullableFilter<"SalaryPayment"> | string | null
+    referenceNo?: StringNullableFilter<"SalaryPayment"> | string | null
+    status?: StringFilter<"SalaryPayment"> | string
+    paymentDate?: DateTimeFilter<"SalaryPayment"> | Date | string
+    settledAt?: DateTimeNullableFilter<"SalaryPayment"> | Date | string | null
+    journalEntryId?: StringNullableFilter<"SalaryPayment"> | string | null
+    walletTransactionId?: StringNullableFilter<"SalaryPayment"> | string | null
+    failureReason?: StringNullableFilter<"SalaryPayment"> | string | null
+    reversalReason?: StringNullableFilter<"SalaryPayment"> | string | null
+    createdBy?: StringFilter<"SalaryPayment"> | string
+    approvedBy?: StringNullableFilter<"SalaryPayment"> | string | null
+    settledBy?: StringNullableFilter<"SalaryPayment"> | string | null
+    createdAt?: DateTimeFilter<"SalaryPayment"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryPayment"> | Date | string
+    salaryPaymentBatch?: XOR<SalaryPaymentBatchNullableRelationFilter, SalaryPaymentBatchWhereInput> | null
+    payrollRun?: XOR<PayrollRunRelationFilter, PayrollRunWhereInput>
+    payrollItem?: XOR<PayrollItemRelationFilter, PayrollItemWhereInput>
+    employee?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    journalEntry?: XOR<JournalEntryNullableRelationFilter, JournalEntryWhereInput> | null
+  }
+
+  export type SalaryPaymentOrderByWithRelationInput = {
+    id?: SortOrder
+    paymentNumber?: SortOrder
+    salaryPaymentBatchId?: SortOrderInput | SortOrder
+    payrollRunId?: SortOrder
+    payrollItemId?: SortOrder
+    employeeId?: SortOrder
+    amount?: SortOrder
+    paymentMode?: SortOrder
+    sourceAccountCode?: SortOrder
+    bankName?: SortOrderInput | SortOrder
+    accountNumberMasked?: SortOrderInput | SortOrder
+    ifscCode?: SortOrderInput | SortOrder
+    referenceNo?: SortOrderInput | SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+    settledAt?: SortOrderInput | SortOrder
+    journalEntryId?: SortOrderInput | SortOrder
+    walletTransactionId?: SortOrderInput | SortOrder
+    failureReason?: SortOrderInput | SortOrder
+    reversalReason?: SortOrderInput | SortOrder
+    createdBy?: SortOrder
+    approvedBy?: SortOrderInput | SortOrder
+    settledBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    salaryPaymentBatch?: SalaryPaymentBatchOrderByWithRelationInput
+    payrollRun?: PayrollRunOrderByWithRelationInput
+    payrollItem?: PayrollItemOrderByWithRelationInput
+    employee?: EmployeeOrderByWithRelationInput
+    journalEntry?: JournalEntryOrderByWithRelationInput
+  }
+
+  export type SalaryPaymentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    paymentNumber?: string
+    journalEntryId?: string
+    AND?: SalaryPaymentWhereInput | SalaryPaymentWhereInput[]
+    OR?: SalaryPaymentWhereInput[]
+    NOT?: SalaryPaymentWhereInput | SalaryPaymentWhereInput[]
+    salaryPaymentBatchId?: StringNullableFilter<"SalaryPayment"> | string | null
+    payrollRunId?: StringFilter<"SalaryPayment"> | string
+    payrollItemId?: StringFilter<"SalaryPayment"> | string
+    employeeId?: StringFilter<"SalaryPayment"> | string
+    amount?: DecimalFilter<"SalaryPayment"> | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFilter<"SalaryPayment"> | string
+    sourceAccountCode?: StringFilter<"SalaryPayment"> | string
+    bankName?: StringNullableFilter<"SalaryPayment"> | string | null
+    accountNumberMasked?: StringNullableFilter<"SalaryPayment"> | string | null
+    ifscCode?: StringNullableFilter<"SalaryPayment"> | string | null
+    referenceNo?: StringNullableFilter<"SalaryPayment"> | string | null
+    status?: StringFilter<"SalaryPayment"> | string
+    paymentDate?: DateTimeFilter<"SalaryPayment"> | Date | string
+    settledAt?: DateTimeNullableFilter<"SalaryPayment"> | Date | string | null
+    walletTransactionId?: StringNullableFilter<"SalaryPayment"> | string | null
+    failureReason?: StringNullableFilter<"SalaryPayment"> | string | null
+    reversalReason?: StringNullableFilter<"SalaryPayment"> | string | null
+    createdBy?: StringFilter<"SalaryPayment"> | string
+    approvedBy?: StringNullableFilter<"SalaryPayment"> | string | null
+    settledBy?: StringNullableFilter<"SalaryPayment"> | string | null
+    createdAt?: DateTimeFilter<"SalaryPayment"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryPayment"> | Date | string
+    salaryPaymentBatch?: XOR<SalaryPaymentBatchNullableRelationFilter, SalaryPaymentBatchWhereInput> | null
+    payrollRun?: XOR<PayrollRunRelationFilter, PayrollRunWhereInput>
+    payrollItem?: XOR<PayrollItemRelationFilter, PayrollItemWhereInput>
+    employee?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    journalEntry?: XOR<JournalEntryNullableRelationFilter, JournalEntryWhereInput> | null
+  }, "id" | "paymentNumber" | "journalEntryId">
+
+  export type SalaryPaymentOrderByWithAggregationInput = {
+    id?: SortOrder
+    paymentNumber?: SortOrder
+    salaryPaymentBatchId?: SortOrderInput | SortOrder
+    payrollRunId?: SortOrder
+    payrollItemId?: SortOrder
+    employeeId?: SortOrder
+    amount?: SortOrder
+    paymentMode?: SortOrder
+    sourceAccountCode?: SortOrder
+    bankName?: SortOrderInput | SortOrder
+    accountNumberMasked?: SortOrderInput | SortOrder
+    ifscCode?: SortOrderInput | SortOrder
+    referenceNo?: SortOrderInput | SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+    settledAt?: SortOrderInput | SortOrder
+    journalEntryId?: SortOrderInput | SortOrder
+    walletTransactionId?: SortOrderInput | SortOrder
+    failureReason?: SortOrderInput | SortOrder
+    reversalReason?: SortOrderInput | SortOrder
+    createdBy?: SortOrder
+    approvedBy?: SortOrderInput | SortOrder
+    settledBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SalaryPaymentCountOrderByAggregateInput
+    _avg?: SalaryPaymentAvgOrderByAggregateInput
+    _max?: SalaryPaymentMaxOrderByAggregateInput
+    _min?: SalaryPaymentMinOrderByAggregateInput
+    _sum?: SalaryPaymentSumOrderByAggregateInput
+  }
+
+  export type SalaryPaymentScalarWhereWithAggregatesInput = {
+    AND?: SalaryPaymentScalarWhereWithAggregatesInput | SalaryPaymentScalarWhereWithAggregatesInput[]
+    OR?: SalaryPaymentScalarWhereWithAggregatesInput[]
+    NOT?: SalaryPaymentScalarWhereWithAggregatesInput | SalaryPaymentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SalaryPayment"> | string
+    paymentNumber?: StringWithAggregatesFilter<"SalaryPayment"> | string
+    salaryPaymentBatchId?: StringNullableWithAggregatesFilter<"SalaryPayment"> | string | null
+    payrollRunId?: StringWithAggregatesFilter<"SalaryPayment"> | string
+    payrollItemId?: StringWithAggregatesFilter<"SalaryPayment"> | string
+    employeeId?: StringWithAggregatesFilter<"SalaryPayment"> | string
+    amount?: DecimalWithAggregatesFilter<"SalaryPayment"> | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringWithAggregatesFilter<"SalaryPayment"> | string
+    sourceAccountCode?: StringWithAggregatesFilter<"SalaryPayment"> | string
+    bankName?: StringNullableWithAggregatesFilter<"SalaryPayment"> | string | null
+    accountNumberMasked?: StringNullableWithAggregatesFilter<"SalaryPayment"> | string | null
+    ifscCode?: StringNullableWithAggregatesFilter<"SalaryPayment"> | string | null
+    referenceNo?: StringNullableWithAggregatesFilter<"SalaryPayment"> | string | null
+    status?: StringWithAggregatesFilter<"SalaryPayment"> | string
+    paymentDate?: DateTimeWithAggregatesFilter<"SalaryPayment"> | Date | string
+    settledAt?: DateTimeNullableWithAggregatesFilter<"SalaryPayment"> | Date | string | null
+    journalEntryId?: StringNullableWithAggregatesFilter<"SalaryPayment"> | string | null
+    walletTransactionId?: StringNullableWithAggregatesFilter<"SalaryPayment"> | string | null
+    failureReason?: StringNullableWithAggregatesFilter<"SalaryPayment"> | string | null
+    reversalReason?: StringNullableWithAggregatesFilter<"SalaryPayment"> | string | null
+    createdBy?: StringWithAggregatesFilter<"SalaryPayment"> | string
+    approvedBy?: StringNullableWithAggregatesFilter<"SalaryPayment"> | string | null
+    settledBy?: StringNullableWithAggregatesFilter<"SalaryPayment"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SalaryPayment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SalaryPayment"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -41376,6 +44454,7 @@ export namespace Prisma {
     lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
+    salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
   }
 
   export type JournalEntryUncheckedCreateInput = {
@@ -41391,6 +44470,7 @@ export namespace Prisma {
     lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
+    salaryPayment?: SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput
   }
 
   export type JournalEntryUpdateInput = {
@@ -41406,6 +44486,7 @@ export namespace Prisma {
     lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUncheckedUpdateInput = {
@@ -41421,6 +44502,7 @@ export namespace Prisma {
     lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryCreateManyInput = {
@@ -42253,6 +45335,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateInput = {
@@ -42287,6 +45370,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUpdateInput = {
@@ -42321,6 +45405,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateInput = {
@@ -42355,6 +45440,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUncheckedUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeCreateManyInput = {
@@ -43074,6 +46160,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentCreateNestedManyWithoutPayrollRunInput
     exceptions?: PayrollExceptionCreateNestedManyWithoutPayrollRunInput
     accountingPosting?: PayrollAccountingPostingCreateNestedOneWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchCreateNestedManyWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutPayrollRunInput
   }
 
   export type PayrollRunUncheckedCreateInput = {
@@ -43101,6 +46189,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutPayrollRunInput
     exceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutPayrollRunInput
     accountingPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchUncheckedCreateNestedManyWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutPayrollRunInput
   }
 
   export type PayrollRunUpdateInput = {
@@ -43128,6 +46218,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentUpdateManyWithoutPayrollRunNestedInput
     exceptions?: PayrollExceptionUpdateManyWithoutPayrollRunNestedInput
     accountingPosting?: PayrollAccountingPostingUpdateOneWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUpdateManyWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutPayrollRunNestedInput
   }
 
   export type PayrollRunUncheckedUpdateInput = {
@@ -43155,6 +46247,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutPayrollRunNestedInput
     exceptions?: PayrollExceptionUncheckedUpdateManyWithoutPayrollRunNestedInput
     accountingPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUncheckedUpdateManyWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutPayrollRunNestedInput
   }
 
   export type PayrollRunCreateManyInput = {
@@ -43250,6 +46344,7 @@ export namespace Prisma {
     employee: EmployeeCreateNestedOneWithoutPayrollItemsInput
     lines?: PayrollLineCreateNestedManyWithoutPayrollItemInput
     exceptions?: PayrollExceptionCreateNestedManyWithoutPayrollItemInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemUncheckedCreateInput = {
@@ -43277,6 +46372,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lines?: PayrollLineUncheckedCreateNestedManyWithoutPayrollItemInput
     exceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutPayrollItemInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemUpdateInput = {
@@ -43304,6 +46400,7 @@ export namespace Prisma {
     employee?: EmployeeUpdateOneRequiredWithoutPayrollItemsNestedInput
     lines?: PayrollLineUpdateManyWithoutPayrollItemNestedInput
     exceptions?: PayrollExceptionUpdateManyWithoutPayrollItemNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateInput = {
@@ -43331,6 +46428,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lines?: PayrollLineUncheckedUpdateManyWithoutPayrollItemNestedInput
     exceptions?: PayrollExceptionUncheckedUpdateManyWithoutPayrollItemNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemCreateManyInput = {
@@ -43876,6 +46974,326 @@ export namespace Prisma {
     totalCredit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     postedBy?: StringFieldUpdateOperationsInput | string
     postedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryPaymentBatchCreateInput = {
+    id?: string
+    batchNumber: string
+    paymentMode: string
+    sourceAccountCode?: string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    totalEmployees?: number
+    status?: string
+    paymentDate?: Date | string
+    notes?: string | null
+    submittedBy?: string | null
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payrollRun: PayrollRunCreateNestedOneWithoutPaymentBatchesInput
+    payments?: SalaryPaymentCreateNestedManyWithoutSalaryPaymentBatchInput
+  }
+
+  export type SalaryPaymentBatchUncheckedCreateInput = {
+    id?: string
+    batchNumber: string
+    payrollRunId: string
+    paymentMode: string
+    sourceAccountCode?: string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    totalEmployees?: number
+    status?: string
+    paymentDate?: Date | string
+    notes?: string | null
+    submittedBy?: string | null
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payments?: SalaryPaymentUncheckedCreateNestedManyWithoutSalaryPaymentBatchInput
+  }
+
+  export type SalaryPaymentBatchUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payrollRun?: PayrollRunUpdateOneRequiredWithoutPaymentBatchesNestedInput
+    payments?: SalaryPaymentUpdateManyWithoutSalaryPaymentBatchNestedInput
+  }
+
+  export type SalaryPaymentBatchUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: SalaryPaymentUncheckedUpdateManyWithoutSalaryPaymentBatchNestedInput
+  }
+
+  export type SalaryPaymentBatchCreateManyInput = {
+    id?: string
+    batchNumber: string
+    payrollRunId: string
+    paymentMode: string
+    sourceAccountCode?: string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    totalEmployees?: number
+    status?: string
+    paymentDate?: Date | string
+    notes?: string | null
+    submittedBy?: string | null
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryPaymentBatchUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryPaymentBatchUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryPaymentCreateInput = {
+    id?: string
+    paymentNumber: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salaryPaymentBatch?: SalaryPaymentBatchCreateNestedOneWithoutPaymentsInput
+    payrollRun: PayrollRunCreateNestedOneWithoutSalaryPaymentsInput
+    payrollItem: PayrollItemCreateNestedOneWithoutSalaryPaymentsInput
+    employee: EmployeeCreateNestedOneWithoutSalaryPaymentsInput
+    journalEntry?: JournalEntryCreateNestedOneWithoutSalaryPaymentInput
+  }
+
+  export type SalaryPaymentUncheckedCreateInput = {
+    id?: string
+    paymentNumber: string
+    salaryPaymentBatchId?: string | null
+    payrollRunId: string
+    payrollItemId: string
+    employeeId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    journalEntryId?: string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryPaymentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salaryPaymentBatch?: SalaryPaymentBatchUpdateOneWithoutPaymentsNestedInput
+    payrollRun?: PayrollRunUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    payrollItem?: PayrollItemUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    employee?: EmployeeUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    journalEntry?: JournalEntryUpdateOneWithoutSalaryPaymentNestedInput
+  }
+
+  export type SalaryPaymentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    salaryPaymentBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryPaymentCreateManyInput = {
+    id?: string
+    paymentNumber: string
+    salaryPaymentBatchId?: string | null
+    payrollRunId: string
+    payrollItemId: string
+    employeeId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    journalEntryId?: string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryPaymentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryPaymentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    salaryPaymentBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44682,6 +48100,11 @@ export namespace Prisma {
     isNot?: PayrollAccountingPostingWhereInput | null
   }
 
+  export type SalaryPaymentNullableRelationFilter = {
+    is?: SalaryPaymentWhereInput | null
+    isNot?: SalaryPaymentWhereInput | null
+  }
+
   export type JournalEntryCountOrderByAggregateInput = {
     id?: SortOrder
     entryNumber?: SortOrder
@@ -45236,6 +48659,12 @@ export namespace Prisma {
     none?: PayrollExceptionWhereInput
   }
 
+  export type SalaryPaymentListRelationFilter = {
+    every?: SalaryPaymentWhereInput
+    some?: SalaryPaymentWhereInput
+    none?: SalaryPaymentWhereInput
+  }
+
   export type EmployeeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -45253,6 +48682,10 @@ export namespace Prisma {
   }
 
   export type PayrollExceptionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SalaryPaymentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -45709,6 +49142,16 @@ export namespace Prisma {
   export type PayrollPeriodRelationFilter = {
     is?: PayrollPeriodWhereInput
     isNot?: PayrollPeriodWhereInput
+  }
+
+  export type SalaryPaymentBatchListRelationFilter = {
+    every?: SalaryPaymentBatchWhereInput
+    some?: SalaryPaymentBatchWhereInput
+    none?: SalaryPaymentBatchWhereInput
+  }
+
+  export type SalaryPaymentBatchOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type PayrollRunPayrollPeriodIdRunNumberCompoundUniqueInput = {
@@ -46176,6 +49619,167 @@ export namespace Prisma {
     postedEmployerCost?: SortOrder
     totalDebit?: SortOrder
     totalCredit?: SortOrder
+  }
+
+  export type SalaryPaymentBatchCountOrderByAggregateInput = {
+    id?: SortOrder
+    batchNumber?: SortOrder
+    payrollRunId?: SortOrder
+    paymentMode?: SortOrder
+    sourceAccountCode?: SortOrder
+    totalAmount?: SortOrder
+    totalEmployees?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+    notes?: SortOrder
+    submittedBy?: SortOrder
+    approvedBy?: SortOrder
+    settledBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryPaymentBatchAvgOrderByAggregateInput = {
+    totalAmount?: SortOrder
+    totalEmployees?: SortOrder
+  }
+
+  export type SalaryPaymentBatchMaxOrderByAggregateInput = {
+    id?: SortOrder
+    batchNumber?: SortOrder
+    payrollRunId?: SortOrder
+    paymentMode?: SortOrder
+    sourceAccountCode?: SortOrder
+    totalAmount?: SortOrder
+    totalEmployees?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+    notes?: SortOrder
+    submittedBy?: SortOrder
+    approvedBy?: SortOrder
+    settledBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryPaymentBatchMinOrderByAggregateInput = {
+    id?: SortOrder
+    batchNumber?: SortOrder
+    payrollRunId?: SortOrder
+    paymentMode?: SortOrder
+    sourceAccountCode?: SortOrder
+    totalAmount?: SortOrder
+    totalEmployees?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+    notes?: SortOrder
+    submittedBy?: SortOrder
+    approvedBy?: SortOrder
+    settledBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryPaymentBatchSumOrderByAggregateInput = {
+    totalAmount?: SortOrder
+    totalEmployees?: SortOrder
+  }
+
+  export type SalaryPaymentBatchNullableRelationFilter = {
+    is?: SalaryPaymentBatchWhereInput | null
+    isNot?: SalaryPaymentBatchWhereInput | null
+  }
+
+  export type SalaryPaymentCountOrderByAggregateInput = {
+    id?: SortOrder
+    paymentNumber?: SortOrder
+    salaryPaymentBatchId?: SortOrder
+    payrollRunId?: SortOrder
+    payrollItemId?: SortOrder
+    employeeId?: SortOrder
+    amount?: SortOrder
+    paymentMode?: SortOrder
+    sourceAccountCode?: SortOrder
+    bankName?: SortOrder
+    accountNumberMasked?: SortOrder
+    ifscCode?: SortOrder
+    referenceNo?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+    settledAt?: SortOrder
+    journalEntryId?: SortOrder
+    walletTransactionId?: SortOrder
+    failureReason?: SortOrder
+    reversalReason?: SortOrder
+    createdBy?: SortOrder
+    approvedBy?: SortOrder
+    settledBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryPaymentAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type SalaryPaymentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    paymentNumber?: SortOrder
+    salaryPaymentBatchId?: SortOrder
+    payrollRunId?: SortOrder
+    payrollItemId?: SortOrder
+    employeeId?: SortOrder
+    amount?: SortOrder
+    paymentMode?: SortOrder
+    sourceAccountCode?: SortOrder
+    bankName?: SortOrder
+    accountNumberMasked?: SortOrder
+    ifscCode?: SortOrder
+    referenceNo?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+    settledAt?: SortOrder
+    journalEntryId?: SortOrder
+    walletTransactionId?: SortOrder
+    failureReason?: SortOrder
+    reversalReason?: SortOrder
+    createdBy?: SortOrder
+    approvedBy?: SortOrder
+    settledBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryPaymentMinOrderByAggregateInput = {
+    id?: SortOrder
+    paymentNumber?: SortOrder
+    salaryPaymentBatchId?: SortOrder
+    payrollRunId?: SortOrder
+    payrollItemId?: SortOrder
+    employeeId?: SortOrder
+    amount?: SortOrder
+    paymentMode?: SortOrder
+    sourceAccountCode?: SortOrder
+    bankName?: SortOrder
+    accountNumberMasked?: SortOrder
+    ifscCode?: SortOrder
+    referenceNo?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+    settledAt?: SortOrder
+    journalEntryId?: SortOrder
+    walletTransactionId?: SortOrder
+    failureReason?: SortOrder
+    reversalReason?: SortOrder
+    createdBy?: SortOrder
+    approvedBy?: SortOrder
+    settledBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalaryPaymentSumOrderByAggregateInput = {
+    amount?: SortOrder
   }
 
   export type RoleCreateNestedOneWithoutUsersInput = {
@@ -47181,6 +50785,12 @@ export namespace Prisma {
     connect?: PayrollAccountingPostingWhereUniqueInput
   }
 
+  export type SalaryPaymentCreateNestedOneWithoutJournalEntryInput = {
+    create?: XOR<SalaryPaymentCreateWithoutJournalEntryInput, SalaryPaymentUncheckedCreateWithoutJournalEntryInput>
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutJournalEntryInput
+    connect?: SalaryPaymentWhereUniqueInput
+  }
+
   export type JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput = {
     create?: XOR<JournalLineCreateWithoutJournalEntryInput, JournalLineUncheckedCreateWithoutJournalEntryInput> | JournalLineCreateWithoutJournalEntryInput[] | JournalLineUncheckedCreateWithoutJournalEntryInput[]
     connectOrCreate?: JournalLineCreateOrConnectWithoutJournalEntryInput | JournalLineCreateOrConnectWithoutJournalEntryInput[]
@@ -47198,6 +50808,12 @@ export namespace Prisma {
     create?: XOR<PayrollAccountingPostingCreateWithoutReversalJournalEntryInput, PayrollAccountingPostingUncheckedCreateWithoutReversalJournalEntryInput>
     connectOrCreate?: PayrollAccountingPostingCreateOrConnectWithoutReversalJournalEntryInput
     connect?: PayrollAccountingPostingWhereUniqueInput
+  }
+
+  export type SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput = {
+    create?: XOR<SalaryPaymentCreateWithoutJournalEntryInput, SalaryPaymentUncheckedCreateWithoutJournalEntryInput>
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutJournalEntryInput
+    connect?: SalaryPaymentWhereUniqueInput
   }
 
   export type JournalLineUpdateManyWithoutJournalEntryNestedInput = {
@@ -47234,6 +50850,16 @@ export namespace Prisma {
     update?: XOR<XOR<PayrollAccountingPostingUpdateToOneWithWhereWithoutReversalJournalEntryInput, PayrollAccountingPostingUpdateWithoutReversalJournalEntryInput>, PayrollAccountingPostingUncheckedUpdateWithoutReversalJournalEntryInput>
   }
 
+  export type SalaryPaymentUpdateOneWithoutJournalEntryNestedInput = {
+    create?: XOR<SalaryPaymentCreateWithoutJournalEntryInput, SalaryPaymentUncheckedCreateWithoutJournalEntryInput>
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutJournalEntryInput
+    upsert?: SalaryPaymentUpsertWithoutJournalEntryInput
+    disconnect?: SalaryPaymentWhereInput | boolean
+    delete?: SalaryPaymentWhereInput | boolean
+    connect?: SalaryPaymentWhereUniqueInput
+    update?: XOR<XOR<SalaryPaymentUpdateToOneWithWhereWithoutJournalEntryInput, SalaryPaymentUpdateWithoutJournalEntryInput>, SalaryPaymentUncheckedUpdateWithoutJournalEntryInput>
+  }
+
   export type JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput = {
     create?: XOR<JournalLineCreateWithoutJournalEntryInput, JournalLineUncheckedCreateWithoutJournalEntryInput> | JournalLineCreateWithoutJournalEntryInput[] | JournalLineUncheckedCreateWithoutJournalEntryInput[]
     connectOrCreate?: JournalLineCreateOrConnectWithoutJournalEntryInput | JournalLineCreateOrConnectWithoutJournalEntryInput[]
@@ -47266,6 +50892,16 @@ export namespace Prisma {
     delete?: PayrollAccountingPostingWhereInput | boolean
     connect?: PayrollAccountingPostingWhereUniqueInput
     update?: XOR<XOR<PayrollAccountingPostingUpdateToOneWithWhereWithoutReversalJournalEntryInput, PayrollAccountingPostingUpdateWithoutReversalJournalEntryInput>, PayrollAccountingPostingUncheckedUpdateWithoutReversalJournalEntryInput>
+  }
+
+  export type SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput = {
+    create?: XOR<SalaryPaymentCreateWithoutJournalEntryInput, SalaryPaymentUncheckedCreateWithoutJournalEntryInput>
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutJournalEntryInput
+    upsert?: SalaryPaymentUpsertWithoutJournalEntryInput
+    disconnect?: SalaryPaymentWhereInput | boolean
+    delete?: SalaryPaymentWhereInput | boolean
+    connect?: SalaryPaymentWhereUniqueInput
+    update?: XOR<XOR<SalaryPaymentUpdateToOneWithWhereWithoutJournalEntryInput, SalaryPaymentUpdateWithoutJournalEntryInput>, SalaryPaymentUncheckedUpdateWithoutJournalEntryInput>
   }
 
   export type JournalEntryCreateNestedOneWithoutLinesInput = {
@@ -47535,6 +51171,13 @@ export namespace Prisma {
     connect?: PayrollExceptionWhereUniqueInput | PayrollExceptionWhereUniqueInput[]
   }
 
+  export type SalaryPaymentCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<SalaryPaymentCreateWithoutEmployeeInput, SalaryPaymentUncheckedCreateWithoutEmployeeInput> | SalaryPaymentCreateWithoutEmployeeInput[] | SalaryPaymentUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutEmployeeInput | SalaryPaymentCreateOrConnectWithoutEmployeeInput[]
+    createMany?: SalaryPaymentCreateManyEmployeeInputEnvelope
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+  }
+
   export type EmployeeUncheckedCreateNestedManyWithoutReportingManagerInput = {
     create?: XOR<EmployeeCreateWithoutReportingManagerInput, EmployeeUncheckedCreateWithoutReportingManagerInput> | EmployeeCreateWithoutReportingManagerInput[] | EmployeeUncheckedCreateWithoutReportingManagerInput[]
     connectOrCreate?: EmployeeCreateOrConnectWithoutReportingManagerInput | EmployeeCreateOrConnectWithoutReportingManagerInput[]
@@ -47568,6 +51211,13 @@ export namespace Prisma {
     connectOrCreate?: PayrollExceptionCreateOrConnectWithoutEmployeeInput | PayrollExceptionCreateOrConnectWithoutEmployeeInput[]
     createMany?: PayrollExceptionCreateManyEmployeeInputEnvelope
     connect?: PayrollExceptionWhereUniqueInput | PayrollExceptionWhereUniqueInput[]
+  }
+
+  export type SalaryPaymentUncheckedCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<SalaryPaymentCreateWithoutEmployeeInput, SalaryPaymentUncheckedCreateWithoutEmployeeInput> | SalaryPaymentCreateWithoutEmployeeInput[] | SalaryPaymentUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutEmployeeInput | SalaryPaymentCreateOrConnectWithoutEmployeeInput[]
+    createMany?: SalaryPaymentCreateManyEmployeeInputEnvelope
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
   }
 
   export type EmployeeUpdateOneWithoutSubordinatesNestedInput = {
@@ -47660,6 +51310,20 @@ export namespace Prisma {
     deleteMany?: PayrollExceptionScalarWhereInput | PayrollExceptionScalarWhereInput[]
   }
 
+  export type SalaryPaymentUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<SalaryPaymentCreateWithoutEmployeeInput, SalaryPaymentUncheckedCreateWithoutEmployeeInput> | SalaryPaymentCreateWithoutEmployeeInput[] | SalaryPaymentUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutEmployeeInput | SalaryPaymentCreateOrConnectWithoutEmployeeInput[]
+    upsert?: SalaryPaymentUpsertWithWhereUniqueWithoutEmployeeInput | SalaryPaymentUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: SalaryPaymentCreateManyEmployeeInputEnvelope
+    set?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    disconnect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    delete?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    update?: SalaryPaymentUpdateWithWhereUniqueWithoutEmployeeInput | SalaryPaymentUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: SalaryPaymentUpdateManyWithWhereWithoutEmployeeInput | SalaryPaymentUpdateManyWithWhereWithoutEmployeeInput[]
+    deleteMany?: SalaryPaymentScalarWhereInput | SalaryPaymentScalarWhereInput[]
+  }
+
   export type EmployeeUncheckedUpdateManyWithoutReportingManagerNestedInput = {
     create?: XOR<EmployeeCreateWithoutReportingManagerInput, EmployeeUncheckedCreateWithoutReportingManagerInput> | EmployeeCreateWithoutReportingManagerInput[] | EmployeeUncheckedCreateWithoutReportingManagerInput[]
     connectOrCreate?: EmployeeCreateOrConnectWithoutReportingManagerInput | EmployeeCreateOrConnectWithoutReportingManagerInput[]
@@ -47728,6 +51392,20 @@ export namespace Prisma {
     update?: PayrollExceptionUpdateWithWhereUniqueWithoutEmployeeInput | PayrollExceptionUpdateWithWhereUniqueWithoutEmployeeInput[]
     updateMany?: PayrollExceptionUpdateManyWithWhereWithoutEmployeeInput | PayrollExceptionUpdateManyWithWhereWithoutEmployeeInput[]
     deleteMany?: PayrollExceptionScalarWhereInput | PayrollExceptionScalarWhereInput[]
+  }
+
+  export type SalaryPaymentUncheckedUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<SalaryPaymentCreateWithoutEmployeeInput, SalaryPaymentUncheckedCreateWithoutEmployeeInput> | SalaryPaymentCreateWithoutEmployeeInput[] | SalaryPaymentUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutEmployeeInput | SalaryPaymentCreateOrConnectWithoutEmployeeInput[]
+    upsert?: SalaryPaymentUpsertWithWhereUniqueWithoutEmployeeInput | SalaryPaymentUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: SalaryPaymentCreateManyEmployeeInputEnvelope
+    set?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    disconnect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    delete?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    update?: SalaryPaymentUpdateWithWhereUniqueWithoutEmployeeInput | SalaryPaymentUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: SalaryPaymentUpdateManyWithWhereWithoutEmployeeInput | SalaryPaymentUpdateManyWithWhereWithoutEmployeeInput[]
+    deleteMany?: SalaryPaymentScalarWhereInput | SalaryPaymentScalarWhereInput[]
   }
 
   export type SalaryStructureLineCreateNestedManyWithoutComponentInput = {
@@ -47991,6 +51669,20 @@ export namespace Prisma {
     connect?: PayrollAccountingPostingWhereUniqueInput
   }
 
+  export type SalaryPaymentBatchCreateNestedManyWithoutPayrollRunInput = {
+    create?: XOR<SalaryPaymentBatchCreateWithoutPayrollRunInput, SalaryPaymentBatchUncheckedCreateWithoutPayrollRunInput> | SalaryPaymentBatchCreateWithoutPayrollRunInput[] | SalaryPaymentBatchUncheckedCreateWithoutPayrollRunInput[]
+    connectOrCreate?: SalaryPaymentBatchCreateOrConnectWithoutPayrollRunInput | SalaryPaymentBatchCreateOrConnectWithoutPayrollRunInput[]
+    createMany?: SalaryPaymentBatchCreateManyPayrollRunInputEnvelope
+    connect?: SalaryPaymentBatchWhereUniqueInput | SalaryPaymentBatchWhereUniqueInput[]
+  }
+
+  export type SalaryPaymentCreateNestedManyWithoutPayrollRunInput = {
+    create?: XOR<SalaryPaymentCreateWithoutPayrollRunInput, SalaryPaymentUncheckedCreateWithoutPayrollRunInput> | SalaryPaymentCreateWithoutPayrollRunInput[] | SalaryPaymentUncheckedCreateWithoutPayrollRunInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutPayrollRunInput | SalaryPaymentCreateOrConnectWithoutPayrollRunInput[]
+    createMany?: SalaryPaymentCreateManyPayrollRunInputEnvelope
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+  }
+
   export type PayrollItemUncheckedCreateNestedManyWithoutPayrollRunInput = {
     create?: XOR<PayrollItemCreateWithoutPayrollRunInput, PayrollItemUncheckedCreateWithoutPayrollRunInput> | PayrollItemCreateWithoutPayrollRunInput[] | PayrollItemUncheckedCreateWithoutPayrollRunInput[]
     connectOrCreate?: PayrollItemCreateOrConnectWithoutPayrollRunInput | PayrollItemCreateOrConnectWithoutPayrollRunInput[]
@@ -48016,6 +51708,20 @@ export namespace Prisma {
     create?: XOR<PayrollAccountingPostingCreateWithoutPayrollRunInput, PayrollAccountingPostingUncheckedCreateWithoutPayrollRunInput>
     connectOrCreate?: PayrollAccountingPostingCreateOrConnectWithoutPayrollRunInput
     connect?: PayrollAccountingPostingWhereUniqueInput
+  }
+
+  export type SalaryPaymentBatchUncheckedCreateNestedManyWithoutPayrollRunInput = {
+    create?: XOR<SalaryPaymentBatchCreateWithoutPayrollRunInput, SalaryPaymentBatchUncheckedCreateWithoutPayrollRunInput> | SalaryPaymentBatchCreateWithoutPayrollRunInput[] | SalaryPaymentBatchUncheckedCreateWithoutPayrollRunInput[]
+    connectOrCreate?: SalaryPaymentBatchCreateOrConnectWithoutPayrollRunInput | SalaryPaymentBatchCreateOrConnectWithoutPayrollRunInput[]
+    createMany?: SalaryPaymentBatchCreateManyPayrollRunInputEnvelope
+    connect?: SalaryPaymentBatchWhereUniqueInput | SalaryPaymentBatchWhereUniqueInput[]
+  }
+
+  export type SalaryPaymentUncheckedCreateNestedManyWithoutPayrollRunInput = {
+    create?: XOR<SalaryPaymentCreateWithoutPayrollRunInput, SalaryPaymentUncheckedCreateWithoutPayrollRunInput> | SalaryPaymentCreateWithoutPayrollRunInput[] | SalaryPaymentUncheckedCreateWithoutPayrollRunInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutPayrollRunInput | SalaryPaymentCreateOrConnectWithoutPayrollRunInput[]
+    createMany?: SalaryPaymentCreateManyPayrollRunInputEnvelope
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
   }
 
   export type PayrollPeriodUpdateOneRequiredWithoutRunsNestedInput = {
@@ -48078,6 +51784,34 @@ export namespace Prisma {
     update?: XOR<XOR<PayrollAccountingPostingUpdateToOneWithWhereWithoutPayrollRunInput, PayrollAccountingPostingUpdateWithoutPayrollRunInput>, PayrollAccountingPostingUncheckedUpdateWithoutPayrollRunInput>
   }
 
+  export type SalaryPaymentBatchUpdateManyWithoutPayrollRunNestedInput = {
+    create?: XOR<SalaryPaymentBatchCreateWithoutPayrollRunInput, SalaryPaymentBatchUncheckedCreateWithoutPayrollRunInput> | SalaryPaymentBatchCreateWithoutPayrollRunInput[] | SalaryPaymentBatchUncheckedCreateWithoutPayrollRunInput[]
+    connectOrCreate?: SalaryPaymentBatchCreateOrConnectWithoutPayrollRunInput | SalaryPaymentBatchCreateOrConnectWithoutPayrollRunInput[]
+    upsert?: SalaryPaymentBatchUpsertWithWhereUniqueWithoutPayrollRunInput | SalaryPaymentBatchUpsertWithWhereUniqueWithoutPayrollRunInput[]
+    createMany?: SalaryPaymentBatchCreateManyPayrollRunInputEnvelope
+    set?: SalaryPaymentBatchWhereUniqueInput | SalaryPaymentBatchWhereUniqueInput[]
+    disconnect?: SalaryPaymentBatchWhereUniqueInput | SalaryPaymentBatchWhereUniqueInput[]
+    delete?: SalaryPaymentBatchWhereUniqueInput | SalaryPaymentBatchWhereUniqueInput[]
+    connect?: SalaryPaymentBatchWhereUniqueInput | SalaryPaymentBatchWhereUniqueInput[]
+    update?: SalaryPaymentBatchUpdateWithWhereUniqueWithoutPayrollRunInput | SalaryPaymentBatchUpdateWithWhereUniqueWithoutPayrollRunInput[]
+    updateMany?: SalaryPaymentBatchUpdateManyWithWhereWithoutPayrollRunInput | SalaryPaymentBatchUpdateManyWithWhereWithoutPayrollRunInput[]
+    deleteMany?: SalaryPaymentBatchScalarWhereInput | SalaryPaymentBatchScalarWhereInput[]
+  }
+
+  export type SalaryPaymentUpdateManyWithoutPayrollRunNestedInput = {
+    create?: XOR<SalaryPaymentCreateWithoutPayrollRunInput, SalaryPaymentUncheckedCreateWithoutPayrollRunInput> | SalaryPaymentCreateWithoutPayrollRunInput[] | SalaryPaymentUncheckedCreateWithoutPayrollRunInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutPayrollRunInput | SalaryPaymentCreateOrConnectWithoutPayrollRunInput[]
+    upsert?: SalaryPaymentUpsertWithWhereUniqueWithoutPayrollRunInput | SalaryPaymentUpsertWithWhereUniqueWithoutPayrollRunInput[]
+    createMany?: SalaryPaymentCreateManyPayrollRunInputEnvelope
+    set?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    disconnect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    delete?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    update?: SalaryPaymentUpdateWithWhereUniqueWithoutPayrollRunInput | SalaryPaymentUpdateWithWhereUniqueWithoutPayrollRunInput[]
+    updateMany?: SalaryPaymentUpdateManyWithWhereWithoutPayrollRunInput | SalaryPaymentUpdateManyWithWhereWithoutPayrollRunInput[]
+    deleteMany?: SalaryPaymentScalarWhereInput | SalaryPaymentScalarWhereInput[]
+  }
+
   export type PayrollItemUncheckedUpdateManyWithoutPayrollRunNestedInput = {
     create?: XOR<PayrollItemCreateWithoutPayrollRunInput, PayrollItemUncheckedCreateWithoutPayrollRunInput> | PayrollItemCreateWithoutPayrollRunInput[] | PayrollItemUncheckedCreateWithoutPayrollRunInput[]
     connectOrCreate?: PayrollItemCreateOrConnectWithoutPayrollRunInput | PayrollItemCreateOrConnectWithoutPayrollRunInput[]
@@ -48130,6 +51864,34 @@ export namespace Prisma {
     update?: XOR<XOR<PayrollAccountingPostingUpdateToOneWithWhereWithoutPayrollRunInput, PayrollAccountingPostingUpdateWithoutPayrollRunInput>, PayrollAccountingPostingUncheckedUpdateWithoutPayrollRunInput>
   }
 
+  export type SalaryPaymentBatchUncheckedUpdateManyWithoutPayrollRunNestedInput = {
+    create?: XOR<SalaryPaymentBatchCreateWithoutPayrollRunInput, SalaryPaymentBatchUncheckedCreateWithoutPayrollRunInput> | SalaryPaymentBatchCreateWithoutPayrollRunInput[] | SalaryPaymentBatchUncheckedCreateWithoutPayrollRunInput[]
+    connectOrCreate?: SalaryPaymentBatchCreateOrConnectWithoutPayrollRunInput | SalaryPaymentBatchCreateOrConnectWithoutPayrollRunInput[]
+    upsert?: SalaryPaymentBatchUpsertWithWhereUniqueWithoutPayrollRunInput | SalaryPaymentBatchUpsertWithWhereUniqueWithoutPayrollRunInput[]
+    createMany?: SalaryPaymentBatchCreateManyPayrollRunInputEnvelope
+    set?: SalaryPaymentBatchWhereUniqueInput | SalaryPaymentBatchWhereUniqueInput[]
+    disconnect?: SalaryPaymentBatchWhereUniqueInput | SalaryPaymentBatchWhereUniqueInput[]
+    delete?: SalaryPaymentBatchWhereUniqueInput | SalaryPaymentBatchWhereUniqueInput[]
+    connect?: SalaryPaymentBatchWhereUniqueInput | SalaryPaymentBatchWhereUniqueInput[]
+    update?: SalaryPaymentBatchUpdateWithWhereUniqueWithoutPayrollRunInput | SalaryPaymentBatchUpdateWithWhereUniqueWithoutPayrollRunInput[]
+    updateMany?: SalaryPaymentBatchUpdateManyWithWhereWithoutPayrollRunInput | SalaryPaymentBatchUpdateManyWithWhereWithoutPayrollRunInput[]
+    deleteMany?: SalaryPaymentBatchScalarWhereInput | SalaryPaymentBatchScalarWhereInput[]
+  }
+
+  export type SalaryPaymentUncheckedUpdateManyWithoutPayrollRunNestedInput = {
+    create?: XOR<SalaryPaymentCreateWithoutPayrollRunInput, SalaryPaymentUncheckedCreateWithoutPayrollRunInput> | SalaryPaymentCreateWithoutPayrollRunInput[] | SalaryPaymentUncheckedCreateWithoutPayrollRunInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutPayrollRunInput | SalaryPaymentCreateOrConnectWithoutPayrollRunInput[]
+    upsert?: SalaryPaymentUpsertWithWhereUniqueWithoutPayrollRunInput | SalaryPaymentUpsertWithWhereUniqueWithoutPayrollRunInput[]
+    createMany?: SalaryPaymentCreateManyPayrollRunInputEnvelope
+    set?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    disconnect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    delete?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    update?: SalaryPaymentUpdateWithWhereUniqueWithoutPayrollRunInput | SalaryPaymentUpdateWithWhereUniqueWithoutPayrollRunInput[]
+    updateMany?: SalaryPaymentUpdateManyWithWhereWithoutPayrollRunInput | SalaryPaymentUpdateManyWithWhereWithoutPayrollRunInput[]
+    deleteMany?: SalaryPaymentScalarWhereInput | SalaryPaymentScalarWhereInput[]
+  }
+
   export type PayrollRunCreateNestedOneWithoutItemsInput = {
     create?: XOR<PayrollRunCreateWithoutItemsInput, PayrollRunUncheckedCreateWithoutItemsInput>
     connectOrCreate?: PayrollRunCreateOrConnectWithoutItemsInput
@@ -48156,6 +51918,13 @@ export namespace Prisma {
     connect?: PayrollExceptionWhereUniqueInput | PayrollExceptionWhereUniqueInput[]
   }
 
+  export type SalaryPaymentCreateNestedManyWithoutPayrollItemInput = {
+    create?: XOR<SalaryPaymentCreateWithoutPayrollItemInput, SalaryPaymentUncheckedCreateWithoutPayrollItemInput> | SalaryPaymentCreateWithoutPayrollItemInput[] | SalaryPaymentUncheckedCreateWithoutPayrollItemInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutPayrollItemInput | SalaryPaymentCreateOrConnectWithoutPayrollItemInput[]
+    createMany?: SalaryPaymentCreateManyPayrollItemInputEnvelope
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+  }
+
   export type PayrollLineUncheckedCreateNestedManyWithoutPayrollItemInput = {
     create?: XOR<PayrollLineCreateWithoutPayrollItemInput, PayrollLineUncheckedCreateWithoutPayrollItemInput> | PayrollLineCreateWithoutPayrollItemInput[] | PayrollLineUncheckedCreateWithoutPayrollItemInput[]
     connectOrCreate?: PayrollLineCreateOrConnectWithoutPayrollItemInput | PayrollLineCreateOrConnectWithoutPayrollItemInput[]
@@ -48168,6 +51937,13 @@ export namespace Prisma {
     connectOrCreate?: PayrollExceptionCreateOrConnectWithoutPayrollItemInput | PayrollExceptionCreateOrConnectWithoutPayrollItemInput[]
     createMany?: PayrollExceptionCreateManyPayrollItemInputEnvelope
     connect?: PayrollExceptionWhereUniqueInput | PayrollExceptionWhereUniqueInput[]
+  }
+
+  export type SalaryPaymentUncheckedCreateNestedManyWithoutPayrollItemInput = {
+    create?: XOR<SalaryPaymentCreateWithoutPayrollItemInput, SalaryPaymentUncheckedCreateWithoutPayrollItemInput> | SalaryPaymentCreateWithoutPayrollItemInput[] | SalaryPaymentUncheckedCreateWithoutPayrollItemInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutPayrollItemInput | SalaryPaymentCreateOrConnectWithoutPayrollItemInput[]
+    createMany?: SalaryPaymentCreateManyPayrollItemInputEnvelope
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
   }
 
   export type PayrollRunUpdateOneRequiredWithoutItemsNestedInput = {
@@ -48214,6 +51990,20 @@ export namespace Prisma {
     deleteMany?: PayrollExceptionScalarWhereInput | PayrollExceptionScalarWhereInput[]
   }
 
+  export type SalaryPaymentUpdateManyWithoutPayrollItemNestedInput = {
+    create?: XOR<SalaryPaymentCreateWithoutPayrollItemInput, SalaryPaymentUncheckedCreateWithoutPayrollItemInput> | SalaryPaymentCreateWithoutPayrollItemInput[] | SalaryPaymentUncheckedCreateWithoutPayrollItemInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutPayrollItemInput | SalaryPaymentCreateOrConnectWithoutPayrollItemInput[]
+    upsert?: SalaryPaymentUpsertWithWhereUniqueWithoutPayrollItemInput | SalaryPaymentUpsertWithWhereUniqueWithoutPayrollItemInput[]
+    createMany?: SalaryPaymentCreateManyPayrollItemInputEnvelope
+    set?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    disconnect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    delete?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    update?: SalaryPaymentUpdateWithWhereUniqueWithoutPayrollItemInput | SalaryPaymentUpdateWithWhereUniqueWithoutPayrollItemInput[]
+    updateMany?: SalaryPaymentUpdateManyWithWhereWithoutPayrollItemInput | SalaryPaymentUpdateManyWithWhereWithoutPayrollItemInput[]
+    deleteMany?: SalaryPaymentScalarWhereInput | SalaryPaymentScalarWhereInput[]
+  }
+
   export type PayrollLineUncheckedUpdateManyWithoutPayrollItemNestedInput = {
     create?: XOR<PayrollLineCreateWithoutPayrollItemInput, PayrollLineUncheckedCreateWithoutPayrollItemInput> | PayrollLineCreateWithoutPayrollItemInput[] | PayrollLineUncheckedCreateWithoutPayrollItemInput[]
     connectOrCreate?: PayrollLineCreateOrConnectWithoutPayrollItemInput | PayrollLineCreateOrConnectWithoutPayrollItemInput[]
@@ -48240,6 +52030,20 @@ export namespace Prisma {
     update?: PayrollExceptionUpdateWithWhereUniqueWithoutPayrollItemInput | PayrollExceptionUpdateWithWhereUniqueWithoutPayrollItemInput[]
     updateMany?: PayrollExceptionUpdateManyWithWhereWithoutPayrollItemInput | PayrollExceptionUpdateManyWithWhereWithoutPayrollItemInput[]
     deleteMany?: PayrollExceptionScalarWhereInput | PayrollExceptionScalarWhereInput[]
+  }
+
+  export type SalaryPaymentUncheckedUpdateManyWithoutPayrollItemNestedInput = {
+    create?: XOR<SalaryPaymentCreateWithoutPayrollItemInput, SalaryPaymentUncheckedCreateWithoutPayrollItemInput> | SalaryPaymentCreateWithoutPayrollItemInput[] | SalaryPaymentUncheckedCreateWithoutPayrollItemInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutPayrollItemInput | SalaryPaymentCreateOrConnectWithoutPayrollItemInput[]
+    upsert?: SalaryPaymentUpsertWithWhereUniqueWithoutPayrollItemInput | SalaryPaymentUpsertWithWhereUniqueWithoutPayrollItemInput[]
+    createMany?: SalaryPaymentCreateManyPayrollItemInputEnvelope
+    set?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    disconnect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    delete?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    update?: SalaryPaymentUpdateWithWhereUniqueWithoutPayrollItemInput | SalaryPaymentUpdateWithWhereUniqueWithoutPayrollItemInput[]
+    updateMany?: SalaryPaymentUpdateManyWithWhereWithoutPayrollItemInput | SalaryPaymentUpdateManyWithWhereWithoutPayrollItemInput[]
+    deleteMany?: SalaryPaymentScalarWhereInput | SalaryPaymentScalarWhereInput[]
   }
 
   export type PayrollItemCreateNestedOneWithoutLinesInput = {
@@ -48372,6 +52176,136 @@ export namespace Prisma {
     delete?: JournalEntryWhereInput | boolean
     connect?: JournalEntryWhereUniqueInput
     update?: XOR<XOR<JournalEntryUpdateToOneWithWhereWithoutReversalPayrollPostingInput, JournalEntryUpdateWithoutReversalPayrollPostingInput>, JournalEntryUncheckedUpdateWithoutReversalPayrollPostingInput>
+  }
+
+  export type PayrollRunCreateNestedOneWithoutPaymentBatchesInput = {
+    create?: XOR<PayrollRunCreateWithoutPaymentBatchesInput, PayrollRunUncheckedCreateWithoutPaymentBatchesInput>
+    connectOrCreate?: PayrollRunCreateOrConnectWithoutPaymentBatchesInput
+    connect?: PayrollRunWhereUniqueInput
+  }
+
+  export type SalaryPaymentCreateNestedManyWithoutSalaryPaymentBatchInput = {
+    create?: XOR<SalaryPaymentCreateWithoutSalaryPaymentBatchInput, SalaryPaymentUncheckedCreateWithoutSalaryPaymentBatchInput> | SalaryPaymentCreateWithoutSalaryPaymentBatchInput[] | SalaryPaymentUncheckedCreateWithoutSalaryPaymentBatchInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutSalaryPaymentBatchInput | SalaryPaymentCreateOrConnectWithoutSalaryPaymentBatchInput[]
+    createMany?: SalaryPaymentCreateManySalaryPaymentBatchInputEnvelope
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+  }
+
+  export type SalaryPaymentUncheckedCreateNestedManyWithoutSalaryPaymentBatchInput = {
+    create?: XOR<SalaryPaymentCreateWithoutSalaryPaymentBatchInput, SalaryPaymentUncheckedCreateWithoutSalaryPaymentBatchInput> | SalaryPaymentCreateWithoutSalaryPaymentBatchInput[] | SalaryPaymentUncheckedCreateWithoutSalaryPaymentBatchInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutSalaryPaymentBatchInput | SalaryPaymentCreateOrConnectWithoutSalaryPaymentBatchInput[]
+    createMany?: SalaryPaymentCreateManySalaryPaymentBatchInputEnvelope
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+  }
+
+  export type PayrollRunUpdateOneRequiredWithoutPaymentBatchesNestedInput = {
+    create?: XOR<PayrollRunCreateWithoutPaymentBatchesInput, PayrollRunUncheckedCreateWithoutPaymentBatchesInput>
+    connectOrCreate?: PayrollRunCreateOrConnectWithoutPaymentBatchesInput
+    upsert?: PayrollRunUpsertWithoutPaymentBatchesInput
+    connect?: PayrollRunWhereUniqueInput
+    update?: XOR<XOR<PayrollRunUpdateToOneWithWhereWithoutPaymentBatchesInput, PayrollRunUpdateWithoutPaymentBatchesInput>, PayrollRunUncheckedUpdateWithoutPaymentBatchesInput>
+  }
+
+  export type SalaryPaymentUpdateManyWithoutSalaryPaymentBatchNestedInput = {
+    create?: XOR<SalaryPaymentCreateWithoutSalaryPaymentBatchInput, SalaryPaymentUncheckedCreateWithoutSalaryPaymentBatchInput> | SalaryPaymentCreateWithoutSalaryPaymentBatchInput[] | SalaryPaymentUncheckedCreateWithoutSalaryPaymentBatchInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutSalaryPaymentBatchInput | SalaryPaymentCreateOrConnectWithoutSalaryPaymentBatchInput[]
+    upsert?: SalaryPaymentUpsertWithWhereUniqueWithoutSalaryPaymentBatchInput | SalaryPaymentUpsertWithWhereUniqueWithoutSalaryPaymentBatchInput[]
+    createMany?: SalaryPaymentCreateManySalaryPaymentBatchInputEnvelope
+    set?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    disconnect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    delete?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    update?: SalaryPaymentUpdateWithWhereUniqueWithoutSalaryPaymentBatchInput | SalaryPaymentUpdateWithWhereUniqueWithoutSalaryPaymentBatchInput[]
+    updateMany?: SalaryPaymentUpdateManyWithWhereWithoutSalaryPaymentBatchInput | SalaryPaymentUpdateManyWithWhereWithoutSalaryPaymentBatchInput[]
+    deleteMany?: SalaryPaymentScalarWhereInput | SalaryPaymentScalarWhereInput[]
+  }
+
+  export type SalaryPaymentUncheckedUpdateManyWithoutSalaryPaymentBatchNestedInput = {
+    create?: XOR<SalaryPaymentCreateWithoutSalaryPaymentBatchInput, SalaryPaymentUncheckedCreateWithoutSalaryPaymentBatchInput> | SalaryPaymentCreateWithoutSalaryPaymentBatchInput[] | SalaryPaymentUncheckedCreateWithoutSalaryPaymentBatchInput[]
+    connectOrCreate?: SalaryPaymentCreateOrConnectWithoutSalaryPaymentBatchInput | SalaryPaymentCreateOrConnectWithoutSalaryPaymentBatchInput[]
+    upsert?: SalaryPaymentUpsertWithWhereUniqueWithoutSalaryPaymentBatchInput | SalaryPaymentUpsertWithWhereUniqueWithoutSalaryPaymentBatchInput[]
+    createMany?: SalaryPaymentCreateManySalaryPaymentBatchInputEnvelope
+    set?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    disconnect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    delete?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    connect?: SalaryPaymentWhereUniqueInput | SalaryPaymentWhereUniqueInput[]
+    update?: SalaryPaymentUpdateWithWhereUniqueWithoutSalaryPaymentBatchInput | SalaryPaymentUpdateWithWhereUniqueWithoutSalaryPaymentBatchInput[]
+    updateMany?: SalaryPaymentUpdateManyWithWhereWithoutSalaryPaymentBatchInput | SalaryPaymentUpdateManyWithWhereWithoutSalaryPaymentBatchInput[]
+    deleteMany?: SalaryPaymentScalarWhereInput | SalaryPaymentScalarWhereInput[]
+  }
+
+  export type SalaryPaymentBatchCreateNestedOneWithoutPaymentsInput = {
+    create?: XOR<SalaryPaymentBatchCreateWithoutPaymentsInput, SalaryPaymentBatchUncheckedCreateWithoutPaymentsInput>
+    connectOrCreate?: SalaryPaymentBatchCreateOrConnectWithoutPaymentsInput
+    connect?: SalaryPaymentBatchWhereUniqueInput
+  }
+
+  export type PayrollRunCreateNestedOneWithoutSalaryPaymentsInput = {
+    create?: XOR<PayrollRunCreateWithoutSalaryPaymentsInput, PayrollRunUncheckedCreateWithoutSalaryPaymentsInput>
+    connectOrCreate?: PayrollRunCreateOrConnectWithoutSalaryPaymentsInput
+    connect?: PayrollRunWhereUniqueInput
+  }
+
+  export type PayrollItemCreateNestedOneWithoutSalaryPaymentsInput = {
+    create?: XOR<PayrollItemCreateWithoutSalaryPaymentsInput, PayrollItemUncheckedCreateWithoutSalaryPaymentsInput>
+    connectOrCreate?: PayrollItemCreateOrConnectWithoutSalaryPaymentsInput
+    connect?: PayrollItemWhereUniqueInput
+  }
+
+  export type EmployeeCreateNestedOneWithoutSalaryPaymentsInput = {
+    create?: XOR<EmployeeCreateWithoutSalaryPaymentsInput, EmployeeUncheckedCreateWithoutSalaryPaymentsInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutSalaryPaymentsInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
+  export type JournalEntryCreateNestedOneWithoutSalaryPaymentInput = {
+    create?: XOR<JournalEntryCreateWithoutSalaryPaymentInput, JournalEntryUncheckedCreateWithoutSalaryPaymentInput>
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutSalaryPaymentInput
+    connect?: JournalEntryWhereUniqueInput
+  }
+
+  export type SalaryPaymentBatchUpdateOneWithoutPaymentsNestedInput = {
+    create?: XOR<SalaryPaymentBatchCreateWithoutPaymentsInput, SalaryPaymentBatchUncheckedCreateWithoutPaymentsInput>
+    connectOrCreate?: SalaryPaymentBatchCreateOrConnectWithoutPaymentsInput
+    upsert?: SalaryPaymentBatchUpsertWithoutPaymentsInput
+    disconnect?: SalaryPaymentBatchWhereInput | boolean
+    delete?: SalaryPaymentBatchWhereInput | boolean
+    connect?: SalaryPaymentBatchWhereUniqueInput
+    update?: XOR<XOR<SalaryPaymentBatchUpdateToOneWithWhereWithoutPaymentsInput, SalaryPaymentBatchUpdateWithoutPaymentsInput>, SalaryPaymentBatchUncheckedUpdateWithoutPaymentsInput>
+  }
+
+  export type PayrollRunUpdateOneRequiredWithoutSalaryPaymentsNestedInput = {
+    create?: XOR<PayrollRunCreateWithoutSalaryPaymentsInput, PayrollRunUncheckedCreateWithoutSalaryPaymentsInput>
+    connectOrCreate?: PayrollRunCreateOrConnectWithoutSalaryPaymentsInput
+    upsert?: PayrollRunUpsertWithoutSalaryPaymentsInput
+    connect?: PayrollRunWhereUniqueInput
+    update?: XOR<XOR<PayrollRunUpdateToOneWithWhereWithoutSalaryPaymentsInput, PayrollRunUpdateWithoutSalaryPaymentsInput>, PayrollRunUncheckedUpdateWithoutSalaryPaymentsInput>
+  }
+
+  export type PayrollItemUpdateOneRequiredWithoutSalaryPaymentsNestedInput = {
+    create?: XOR<PayrollItemCreateWithoutSalaryPaymentsInput, PayrollItemUncheckedCreateWithoutSalaryPaymentsInput>
+    connectOrCreate?: PayrollItemCreateOrConnectWithoutSalaryPaymentsInput
+    upsert?: PayrollItemUpsertWithoutSalaryPaymentsInput
+    connect?: PayrollItemWhereUniqueInput
+    update?: XOR<XOR<PayrollItemUpdateToOneWithWhereWithoutSalaryPaymentsInput, PayrollItemUpdateWithoutSalaryPaymentsInput>, PayrollItemUncheckedUpdateWithoutSalaryPaymentsInput>
+  }
+
+  export type EmployeeUpdateOneRequiredWithoutSalaryPaymentsNestedInput = {
+    create?: XOR<EmployeeCreateWithoutSalaryPaymentsInput, EmployeeUncheckedCreateWithoutSalaryPaymentsInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutSalaryPaymentsInput
+    upsert?: EmployeeUpsertWithoutSalaryPaymentsInput
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutSalaryPaymentsInput, EmployeeUpdateWithoutSalaryPaymentsInput>, EmployeeUncheckedUpdateWithoutSalaryPaymentsInput>
+  }
+
+  export type JournalEntryUpdateOneWithoutSalaryPaymentNestedInput = {
+    create?: XOR<JournalEntryCreateWithoutSalaryPaymentInput, JournalEntryUncheckedCreateWithoutSalaryPaymentInput>
+    connectOrCreate?: JournalEntryCreateOrConnectWithoutSalaryPaymentInput
+    upsert?: JournalEntryUpsertWithoutSalaryPaymentInput
+    disconnect?: JournalEntryWhereInput | boolean
+    delete?: JournalEntryWhereInput | boolean
+    connect?: JournalEntryWhereUniqueInput
+    update?: XOR<XOR<JournalEntryUpdateToOneWithWhereWithoutSalaryPaymentInput, JournalEntryUpdateWithoutSalaryPaymentInput>, JournalEntryUncheckedUpdateWithoutSalaryPaymentInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -49121,6 +53055,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutUserInput = {
@@ -49154,6 +53089,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutUserInput = {
@@ -49560,6 +53496,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutUserInput = {
@@ -49593,6 +53530,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUncheckedUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type UserCreateWithoutRoleInput = {
@@ -51048,6 +54986,65 @@ export namespace Prisma {
     create: XOR<PayrollAccountingPostingCreateWithoutReversalJournalEntryInput, PayrollAccountingPostingUncheckedCreateWithoutReversalJournalEntryInput>
   }
 
+  export type SalaryPaymentCreateWithoutJournalEntryInput = {
+    id?: string
+    paymentNumber: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salaryPaymentBatch?: SalaryPaymentBatchCreateNestedOneWithoutPaymentsInput
+    payrollRun: PayrollRunCreateNestedOneWithoutSalaryPaymentsInput
+    payrollItem: PayrollItemCreateNestedOneWithoutSalaryPaymentsInput
+    employee: EmployeeCreateNestedOneWithoutSalaryPaymentsInput
+  }
+
+  export type SalaryPaymentUncheckedCreateWithoutJournalEntryInput = {
+    id?: string
+    paymentNumber: string
+    salaryPaymentBatchId?: string | null
+    payrollRunId: string
+    payrollItemId: string
+    employeeId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryPaymentCreateOrConnectWithoutJournalEntryInput = {
+    where: SalaryPaymentWhereUniqueInput
+    create: XOR<SalaryPaymentCreateWithoutJournalEntryInput, SalaryPaymentUncheckedCreateWithoutJournalEntryInput>
+  }
+
   export type JournalLineUpsertWithWhereUniqueWithoutJournalEntryInput = {
     where: JournalLineWhereUniqueInput
     update: XOR<JournalLineUpdateWithoutJournalEntryInput, JournalLineUncheckedUpdateWithoutJournalEntryInput>
@@ -51154,6 +55151,71 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SalaryPaymentUpsertWithoutJournalEntryInput = {
+    update: XOR<SalaryPaymentUpdateWithoutJournalEntryInput, SalaryPaymentUncheckedUpdateWithoutJournalEntryInput>
+    create: XOR<SalaryPaymentCreateWithoutJournalEntryInput, SalaryPaymentUncheckedCreateWithoutJournalEntryInput>
+    where?: SalaryPaymentWhereInput
+  }
+
+  export type SalaryPaymentUpdateToOneWithWhereWithoutJournalEntryInput = {
+    where?: SalaryPaymentWhereInput
+    data: XOR<SalaryPaymentUpdateWithoutJournalEntryInput, SalaryPaymentUncheckedUpdateWithoutJournalEntryInput>
+  }
+
+  export type SalaryPaymentUpdateWithoutJournalEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salaryPaymentBatch?: SalaryPaymentBatchUpdateOneWithoutPaymentsNestedInput
+    payrollRun?: PayrollRunUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    payrollItem?: PayrollItemUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    employee?: EmployeeUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+  }
+
+  export type SalaryPaymentUncheckedUpdateWithoutJournalEntryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    salaryPaymentBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type JournalEntryCreateWithoutLinesInput = {
     id?: string
     entryNumber: string
@@ -51166,6 +55228,7 @@ export namespace Prisma {
     createdAt?: Date | string
     payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
+    salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
   }
 
   export type JournalEntryUncheckedCreateWithoutLinesInput = {
@@ -51180,6 +55243,7 @@ export namespace Prisma {
     createdAt?: Date | string
     payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
+    salaryPayment?: SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput
   }
 
   export type JournalEntryCreateOrConnectWithoutLinesInput = {
@@ -51235,6 +55299,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUncheckedUpdateWithoutLinesInput = {
@@ -51249,6 +55314,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
   }
 
   export type AccountUpsertWithoutJournalLinesInput = {
@@ -52141,6 +56207,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
@@ -52174,6 +56241,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutSubordinatesInput = {
@@ -52212,6 +56280,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutReportingManagerInput = {
@@ -52245,6 +56314,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutReportingManagerInput = {
@@ -52366,6 +56436,7 @@ export namespace Prisma {
     payrollRun: PayrollRunCreateNestedOneWithoutItemsInput
     lines?: PayrollLineCreateNestedManyWithoutPayrollItemInput
     exceptions?: PayrollExceptionCreateNestedManyWithoutPayrollItemInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemUncheckedCreateWithoutEmployeeInput = {
@@ -52392,6 +56463,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lines?: PayrollLineUncheckedCreateNestedManyWithoutPayrollItemInput
     exceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutPayrollItemInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemCreateOrConnectWithoutEmployeeInput = {
@@ -52484,6 +56556,70 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SalaryPaymentCreateWithoutEmployeeInput = {
+    id?: string
+    paymentNumber: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salaryPaymentBatch?: SalaryPaymentBatchCreateNestedOneWithoutPaymentsInput
+    payrollRun: PayrollRunCreateNestedOneWithoutSalaryPaymentsInput
+    payrollItem: PayrollItemCreateNestedOneWithoutSalaryPaymentsInput
+    journalEntry?: JournalEntryCreateNestedOneWithoutSalaryPaymentInput
+  }
+
+  export type SalaryPaymentUncheckedCreateWithoutEmployeeInput = {
+    id?: string
+    paymentNumber: string
+    salaryPaymentBatchId?: string | null
+    payrollRunId: string
+    payrollItemId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    journalEntryId?: string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryPaymentCreateOrConnectWithoutEmployeeInput = {
+    where: SalaryPaymentWhereUniqueInput
+    create: XOR<SalaryPaymentCreateWithoutEmployeeInput, SalaryPaymentUncheckedCreateWithoutEmployeeInput>
+  }
+
+  export type SalaryPaymentCreateManyEmployeeInputEnvelope = {
+    data: SalaryPaymentCreateManyEmployeeInput | SalaryPaymentCreateManyEmployeeInput[]
+    skipDuplicates?: boolean
+  }
+
   export type EmployeeUpsertWithoutSubordinatesInput = {
     update: XOR<EmployeeUpdateWithoutSubordinatesInput, EmployeeUncheckedUpdateWithoutSubordinatesInput>
     create: XOR<EmployeeCreateWithoutSubordinatesInput, EmployeeUncheckedCreateWithoutSubordinatesInput>
@@ -52526,6 +56662,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
@@ -52559,6 +56696,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUncheckedUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUpsertWithWhereUniqueWithoutReportingManagerInput = {
@@ -52806,6 +56944,53 @@ export namespace Prisma {
     resolvedAt?: DateTimeNullableFilter<"PayrollException"> | Date | string | null
     createdAt?: DateTimeFilter<"PayrollException"> | Date | string
     updatedAt?: DateTimeFilter<"PayrollException"> | Date | string
+  }
+
+  export type SalaryPaymentUpsertWithWhereUniqueWithoutEmployeeInput = {
+    where: SalaryPaymentWhereUniqueInput
+    update: XOR<SalaryPaymentUpdateWithoutEmployeeInput, SalaryPaymentUncheckedUpdateWithoutEmployeeInput>
+    create: XOR<SalaryPaymentCreateWithoutEmployeeInput, SalaryPaymentUncheckedCreateWithoutEmployeeInput>
+  }
+
+  export type SalaryPaymentUpdateWithWhereUniqueWithoutEmployeeInput = {
+    where: SalaryPaymentWhereUniqueInput
+    data: XOR<SalaryPaymentUpdateWithoutEmployeeInput, SalaryPaymentUncheckedUpdateWithoutEmployeeInput>
+  }
+
+  export type SalaryPaymentUpdateManyWithWhereWithoutEmployeeInput = {
+    where: SalaryPaymentScalarWhereInput
+    data: XOR<SalaryPaymentUpdateManyMutationInput, SalaryPaymentUncheckedUpdateManyWithoutEmployeeInput>
+  }
+
+  export type SalaryPaymentScalarWhereInput = {
+    AND?: SalaryPaymentScalarWhereInput | SalaryPaymentScalarWhereInput[]
+    OR?: SalaryPaymentScalarWhereInput[]
+    NOT?: SalaryPaymentScalarWhereInput | SalaryPaymentScalarWhereInput[]
+    id?: StringFilter<"SalaryPayment"> | string
+    paymentNumber?: StringFilter<"SalaryPayment"> | string
+    salaryPaymentBatchId?: StringNullableFilter<"SalaryPayment"> | string | null
+    payrollRunId?: StringFilter<"SalaryPayment"> | string
+    payrollItemId?: StringFilter<"SalaryPayment"> | string
+    employeeId?: StringFilter<"SalaryPayment"> | string
+    amount?: DecimalFilter<"SalaryPayment"> | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFilter<"SalaryPayment"> | string
+    sourceAccountCode?: StringFilter<"SalaryPayment"> | string
+    bankName?: StringNullableFilter<"SalaryPayment"> | string | null
+    accountNumberMasked?: StringNullableFilter<"SalaryPayment"> | string | null
+    ifscCode?: StringNullableFilter<"SalaryPayment"> | string | null
+    referenceNo?: StringNullableFilter<"SalaryPayment"> | string | null
+    status?: StringFilter<"SalaryPayment"> | string
+    paymentDate?: DateTimeFilter<"SalaryPayment"> | Date | string
+    settledAt?: DateTimeNullableFilter<"SalaryPayment"> | Date | string | null
+    journalEntryId?: StringNullableFilter<"SalaryPayment"> | string | null
+    walletTransactionId?: StringNullableFilter<"SalaryPayment"> | string | null
+    failureReason?: StringNullableFilter<"SalaryPayment"> | string | null
+    reversalReason?: StringNullableFilter<"SalaryPayment"> | string | null
+    createdBy?: StringFilter<"SalaryPayment"> | string
+    approvedBy?: StringNullableFilter<"SalaryPayment"> | string | null
+    settledBy?: StringNullableFilter<"SalaryPayment"> | string | null
+    createdAt?: DateTimeFilter<"SalaryPayment"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryPayment"> | Date | string
   }
 
   export type SalaryStructureLineCreateWithoutComponentInput = {
@@ -53207,6 +57392,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutSalaryAssignmentsInput = {
@@ -53240,6 +57426,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutSalaryAssignmentsInput = {
@@ -53328,6 +57515,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutSalaryAssignmentsInput = {
@@ -53361,6 +57549,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUncheckedUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type SalaryStructureUpsertWithoutAssignmentsInput = {
@@ -53432,6 +57621,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentCreateNestedManyWithoutPayrollRunInput
     exceptions?: PayrollExceptionCreateNestedManyWithoutPayrollRunInput
     accountingPosting?: PayrollAccountingPostingCreateNestedOneWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchCreateNestedManyWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutPayrollRunInput
   }
 
   export type PayrollRunUncheckedCreateWithoutPayrollPeriodInput = {
@@ -53458,6 +57649,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutPayrollRunInput
     exceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutPayrollRunInput
     accountingPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchUncheckedCreateNestedManyWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutPayrollRunInput
   }
 
   export type PayrollRunCreateOrConnectWithoutPayrollPeriodInput = {
@@ -53573,6 +57766,7 @@ export namespace Prisma {
     employee: EmployeeCreateNestedOneWithoutPayrollItemsInput
     lines?: PayrollLineCreateNestedManyWithoutPayrollItemInput
     exceptions?: PayrollExceptionCreateNestedManyWithoutPayrollItemInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemUncheckedCreateWithoutPayrollRunInput = {
@@ -53599,6 +57793,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lines?: PayrollLineUncheckedCreateNestedManyWithoutPayrollItemInput
     exceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutPayrollItemInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemCreateOrConnectWithoutPayrollRunInput = {
@@ -53728,6 +57923,116 @@ export namespace Prisma {
   export type PayrollAccountingPostingCreateOrConnectWithoutPayrollRunInput = {
     where: PayrollAccountingPostingWhereUniqueInput
     create: XOR<PayrollAccountingPostingCreateWithoutPayrollRunInput, PayrollAccountingPostingUncheckedCreateWithoutPayrollRunInput>
+  }
+
+  export type SalaryPaymentBatchCreateWithoutPayrollRunInput = {
+    id?: string
+    batchNumber: string
+    paymentMode: string
+    sourceAccountCode?: string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    totalEmployees?: number
+    status?: string
+    paymentDate?: Date | string
+    notes?: string | null
+    submittedBy?: string | null
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payments?: SalaryPaymentCreateNestedManyWithoutSalaryPaymentBatchInput
+  }
+
+  export type SalaryPaymentBatchUncheckedCreateWithoutPayrollRunInput = {
+    id?: string
+    batchNumber: string
+    paymentMode: string
+    sourceAccountCode?: string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    totalEmployees?: number
+    status?: string
+    paymentDate?: Date | string
+    notes?: string | null
+    submittedBy?: string | null
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payments?: SalaryPaymentUncheckedCreateNestedManyWithoutSalaryPaymentBatchInput
+  }
+
+  export type SalaryPaymentBatchCreateOrConnectWithoutPayrollRunInput = {
+    where: SalaryPaymentBatchWhereUniqueInput
+    create: XOR<SalaryPaymentBatchCreateWithoutPayrollRunInput, SalaryPaymentBatchUncheckedCreateWithoutPayrollRunInput>
+  }
+
+  export type SalaryPaymentBatchCreateManyPayrollRunInputEnvelope = {
+    data: SalaryPaymentBatchCreateManyPayrollRunInput | SalaryPaymentBatchCreateManyPayrollRunInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SalaryPaymentCreateWithoutPayrollRunInput = {
+    id?: string
+    paymentNumber: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salaryPaymentBatch?: SalaryPaymentBatchCreateNestedOneWithoutPaymentsInput
+    payrollItem: PayrollItemCreateNestedOneWithoutSalaryPaymentsInput
+    employee: EmployeeCreateNestedOneWithoutSalaryPaymentsInput
+    journalEntry?: JournalEntryCreateNestedOneWithoutSalaryPaymentInput
+  }
+
+  export type SalaryPaymentUncheckedCreateWithoutPayrollRunInput = {
+    id?: string
+    paymentNumber: string
+    salaryPaymentBatchId?: string | null
+    payrollItemId: string
+    employeeId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    journalEntryId?: string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryPaymentCreateOrConnectWithoutPayrollRunInput = {
+    where: SalaryPaymentWhereUniqueInput
+    create: XOR<SalaryPaymentCreateWithoutPayrollRunInput, SalaryPaymentUncheckedCreateWithoutPayrollRunInput>
+  }
+
+  export type SalaryPaymentCreateManyPayrollRunInputEnvelope = {
+    data: SalaryPaymentCreateManyPayrollRunInput | SalaryPaymentCreateManyPayrollRunInput[]
+    skipDuplicates?: boolean
   }
 
   export type PayrollPeriodUpsertWithoutRunsInput = {
@@ -53866,6 +58171,59 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SalaryPaymentBatchUpsertWithWhereUniqueWithoutPayrollRunInput = {
+    where: SalaryPaymentBatchWhereUniqueInput
+    update: XOR<SalaryPaymentBatchUpdateWithoutPayrollRunInput, SalaryPaymentBatchUncheckedUpdateWithoutPayrollRunInput>
+    create: XOR<SalaryPaymentBatchCreateWithoutPayrollRunInput, SalaryPaymentBatchUncheckedCreateWithoutPayrollRunInput>
+  }
+
+  export type SalaryPaymentBatchUpdateWithWhereUniqueWithoutPayrollRunInput = {
+    where: SalaryPaymentBatchWhereUniqueInput
+    data: XOR<SalaryPaymentBatchUpdateWithoutPayrollRunInput, SalaryPaymentBatchUncheckedUpdateWithoutPayrollRunInput>
+  }
+
+  export type SalaryPaymentBatchUpdateManyWithWhereWithoutPayrollRunInput = {
+    where: SalaryPaymentBatchScalarWhereInput
+    data: XOR<SalaryPaymentBatchUpdateManyMutationInput, SalaryPaymentBatchUncheckedUpdateManyWithoutPayrollRunInput>
+  }
+
+  export type SalaryPaymentBatchScalarWhereInput = {
+    AND?: SalaryPaymentBatchScalarWhereInput | SalaryPaymentBatchScalarWhereInput[]
+    OR?: SalaryPaymentBatchScalarWhereInput[]
+    NOT?: SalaryPaymentBatchScalarWhereInput | SalaryPaymentBatchScalarWhereInput[]
+    id?: StringFilter<"SalaryPaymentBatch"> | string
+    batchNumber?: StringFilter<"SalaryPaymentBatch"> | string
+    payrollRunId?: StringFilter<"SalaryPaymentBatch"> | string
+    paymentMode?: StringFilter<"SalaryPaymentBatch"> | string
+    sourceAccountCode?: StringFilter<"SalaryPaymentBatch"> | string
+    totalAmount?: DecimalFilter<"SalaryPaymentBatch"> | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntFilter<"SalaryPaymentBatch"> | number
+    status?: StringFilter<"SalaryPaymentBatch"> | string
+    paymentDate?: DateTimeFilter<"SalaryPaymentBatch"> | Date | string
+    notes?: StringNullableFilter<"SalaryPaymentBatch"> | string | null
+    submittedBy?: StringNullableFilter<"SalaryPaymentBatch"> | string | null
+    approvedBy?: StringNullableFilter<"SalaryPaymentBatch"> | string | null
+    settledBy?: StringNullableFilter<"SalaryPaymentBatch"> | string | null
+    createdAt?: DateTimeFilter<"SalaryPaymentBatch"> | Date | string
+    updatedAt?: DateTimeFilter<"SalaryPaymentBatch"> | Date | string
+  }
+
+  export type SalaryPaymentUpsertWithWhereUniqueWithoutPayrollRunInput = {
+    where: SalaryPaymentWhereUniqueInput
+    update: XOR<SalaryPaymentUpdateWithoutPayrollRunInput, SalaryPaymentUncheckedUpdateWithoutPayrollRunInput>
+    create: XOR<SalaryPaymentCreateWithoutPayrollRunInput, SalaryPaymentUncheckedCreateWithoutPayrollRunInput>
+  }
+
+  export type SalaryPaymentUpdateWithWhereUniqueWithoutPayrollRunInput = {
+    where: SalaryPaymentWhereUniqueInput
+    data: XOR<SalaryPaymentUpdateWithoutPayrollRunInput, SalaryPaymentUncheckedUpdateWithoutPayrollRunInput>
+  }
+
+  export type SalaryPaymentUpdateManyWithWhereWithoutPayrollRunInput = {
+    where: SalaryPaymentScalarWhereInput
+    data: XOR<SalaryPaymentUpdateManyMutationInput, SalaryPaymentUncheckedUpdateManyWithoutPayrollRunInput>
+  }
+
   export type PayrollRunCreateWithoutItemsInput = {
     id?: string
     runNumber?: number
@@ -53890,6 +58248,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentCreateNestedManyWithoutPayrollRunInput
     exceptions?: PayrollExceptionCreateNestedManyWithoutPayrollRunInput
     accountingPosting?: PayrollAccountingPostingCreateNestedOneWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchCreateNestedManyWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutPayrollRunInput
   }
 
   export type PayrollRunUncheckedCreateWithoutItemsInput = {
@@ -53916,6 +58276,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutPayrollRunInput
     exceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutPayrollRunInput
     accountingPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchUncheckedCreateNestedManyWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutPayrollRunInput
   }
 
   export type PayrollRunCreateOrConnectWithoutItemsInput = {
@@ -53954,6 +58316,7 @@ export namespace Prisma {
     salaryAssignments?: EmployeeSalaryAssignmentCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
@@ -53987,6 +58350,7 @@ export namespace Prisma {
     salaryAssignments?: EmployeeSalaryAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutPayrollItemsInput = {
@@ -54080,6 +58444,70 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SalaryPaymentCreateWithoutPayrollItemInput = {
+    id?: string
+    paymentNumber: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salaryPaymentBatch?: SalaryPaymentBatchCreateNestedOneWithoutPaymentsInput
+    payrollRun: PayrollRunCreateNestedOneWithoutSalaryPaymentsInput
+    employee: EmployeeCreateNestedOneWithoutSalaryPaymentsInput
+    journalEntry?: JournalEntryCreateNestedOneWithoutSalaryPaymentInput
+  }
+
+  export type SalaryPaymentUncheckedCreateWithoutPayrollItemInput = {
+    id?: string
+    paymentNumber: string
+    salaryPaymentBatchId?: string | null
+    payrollRunId: string
+    employeeId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    journalEntryId?: string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryPaymentCreateOrConnectWithoutPayrollItemInput = {
+    where: SalaryPaymentWhereUniqueInput
+    create: XOR<SalaryPaymentCreateWithoutPayrollItemInput, SalaryPaymentUncheckedCreateWithoutPayrollItemInput>
+  }
+
+  export type SalaryPaymentCreateManyPayrollItemInputEnvelope = {
+    data: SalaryPaymentCreateManyPayrollItemInput | SalaryPaymentCreateManyPayrollItemInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PayrollRunUpsertWithoutItemsInput = {
     update: XOR<PayrollRunUpdateWithoutItemsInput, PayrollRunUncheckedUpdateWithoutItemsInput>
     create: XOR<PayrollRunCreateWithoutItemsInput, PayrollRunUncheckedCreateWithoutItemsInput>
@@ -54115,6 +58543,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentUpdateManyWithoutPayrollRunNestedInput
     exceptions?: PayrollExceptionUpdateManyWithoutPayrollRunNestedInput
     accountingPosting?: PayrollAccountingPostingUpdateOneWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUpdateManyWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutPayrollRunNestedInput
   }
 
   export type PayrollRunUncheckedUpdateWithoutItemsInput = {
@@ -54141,6 +58571,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutPayrollRunNestedInput
     exceptions?: PayrollExceptionUncheckedUpdateManyWithoutPayrollRunNestedInput
     accountingPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUncheckedUpdateManyWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutPayrollRunNestedInput
   }
 
   export type EmployeeUpsertWithoutPayrollItemsInput = {
@@ -54185,6 +58617,7 @@ export namespace Prisma {
     salaryAssignments?: EmployeeSalaryAssignmentUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
@@ -54218,6 +58651,7 @@ export namespace Prisma {
     salaryAssignments?: EmployeeSalaryAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUncheckedUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type PayrollLineUpsertWithWhereUniqueWithoutPayrollItemInput = {
@@ -54274,6 +58708,22 @@ export namespace Prisma {
     data: XOR<PayrollExceptionUpdateManyMutationInput, PayrollExceptionUncheckedUpdateManyWithoutPayrollItemInput>
   }
 
+  export type SalaryPaymentUpsertWithWhereUniqueWithoutPayrollItemInput = {
+    where: SalaryPaymentWhereUniqueInput
+    update: XOR<SalaryPaymentUpdateWithoutPayrollItemInput, SalaryPaymentUncheckedUpdateWithoutPayrollItemInput>
+    create: XOR<SalaryPaymentCreateWithoutPayrollItemInput, SalaryPaymentUncheckedCreateWithoutPayrollItemInput>
+  }
+
+  export type SalaryPaymentUpdateWithWhereUniqueWithoutPayrollItemInput = {
+    where: SalaryPaymentWhereUniqueInput
+    data: XOR<SalaryPaymentUpdateWithoutPayrollItemInput, SalaryPaymentUncheckedUpdateWithoutPayrollItemInput>
+  }
+
+  export type SalaryPaymentUpdateManyWithWhereWithoutPayrollItemInput = {
+    where: SalaryPaymentScalarWhereInput
+    data: XOR<SalaryPaymentUpdateManyMutationInput, SalaryPaymentUncheckedUpdateManyWithoutPayrollItemInput>
+  }
+
   export type PayrollItemCreateWithoutLinesInput = {
     id?: string
     salaryAssignmentId?: string | null
@@ -54298,6 +58748,7 @@ export namespace Prisma {
     payrollRun: PayrollRunCreateNestedOneWithoutItemsInput
     employee: EmployeeCreateNestedOneWithoutPayrollItemsInput
     exceptions?: PayrollExceptionCreateNestedManyWithoutPayrollItemInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemUncheckedCreateWithoutLinesInput = {
@@ -54324,6 +58775,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     exceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutPayrollItemInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemCreateOrConnectWithoutLinesInput = {
@@ -54366,6 +58818,7 @@ export namespace Prisma {
     payrollRun?: PayrollRunUpdateOneRequiredWithoutItemsNestedInput
     employee?: EmployeeUpdateOneRequiredWithoutPayrollItemsNestedInput
     exceptions?: PayrollExceptionUpdateManyWithoutPayrollItemNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateWithoutLinesInput = {
@@ -54392,6 +58845,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     exceptions?: PayrollExceptionUncheckedUpdateManyWithoutPayrollItemNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollRunCreateWithoutAdjustmentsInput = {
@@ -54418,6 +58872,8 @@ export namespace Prisma {
     items?: PayrollItemCreateNestedManyWithoutPayrollRunInput
     exceptions?: PayrollExceptionCreateNestedManyWithoutPayrollRunInput
     accountingPosting?: PayrollAccountingPostingCreateNestedOneWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchCreateNestedManyWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutPayrollRunInput
   }
 
   export type PayrollRunUncheckedCreateWithoutAdjustmentsInput = {
@@ -54444,6 +58900,8 @@ export namespace Prisma {
     items?: PayrollItemUncheckedCreateNestedManyWithoutPayrollRunInput
     exceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutPayrollRunInput
     accountingPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchUncheckedCreateNestedManyWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutPayrollRunInput
   }
 
   export type PayrollRunCreateOrConnectWithoutAdjustmentsInput = {
@@ -54482,6 +58940,7 @@ export namespace Prisma {
     salaryAssignments?: EmployeeSalaryAssignmentCreateNestedManyWithoutEmployeeInput
     payrollItems?: PayrollItemCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutPayrollAdjustmentsInput = {
@@ -54515,6 +58974,7 @@ export namespace Prisma {
     salaryAssignments?: EmployeeSalaryAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
     payrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
     payrollExceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutPayrollAdjustmentsInput = {
@@ -54557,6 +59017,8 @@ export namespace Prisma {
     items?: PayrollItemUpdateManyWithoutPayrollRunNestedInput
     exceptions?: PayrollExceptionUpdateManyWithoutPayrollRunNestedInput
     accountingPosting?: PayrollAccountingPostingUpdateOneWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUpdateManyWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutPayrollRunNestedInput
   }
 
   export type PayrollRunUncheckedUpdateWithoutAdjustmentsInput = {
@@ -54583,6 +59045,8 @@ export namespace Prisma {
     items?: PayrollItemUncheckedUpdateManyWithoutPayrollRunNestedInput
     exceptions?: PayrollExceptionUncheckedUpdateManyWithoutPayrollRunNestedInput
     accountingPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUncheckedUpdateManyWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutPayrollRunNestedInput
   }
 
   export type EmployeeUpsertWithoutPayrollAdjustmentsInput = {
@@ -54627,6 +59091,7 @@ export namespace Prisma {
     salaryAssignments?: EmployeeSalaryAssignmentUpdateManyWithoutEmployeeNestedInput
     payrollItems?: PayrollItemUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutPayrollAdjustmentsInput = {
@@ -54660,6 +59125,7 @@ export namespace Prisma {
     salaryAssignments?: EmployeeSalaryAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUncheckedUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type PayrollRunCreateWithoutExceptionsInput = {
@@ -54686,6 +59152,8 @@ export namespace Prisma {
     items?: PayrollItemCreateNestedManyWithoutPayrollRunInput
     adjustments?: PayrollAdjustmentCreateNestedManyWithoutPayrollRunInput
     accountingPosting?: PayrollAccountingPostingCreateNestedOneWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchCreateNestedManyWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutPayrollRunInput
   }
 
   export type PayrollRunUncheckedCreateWithoutExceptionsInput = {
@@ -54712,6 +59180,8 @@ export namespace Prisma {
     items?: PayrollItemUncheckedCreateNestedManyWithoutPayrollRunInput
     adjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutPayrollRunInput
     accountingPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchUncheckedCreateNestedManyWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutPayrollRunInput
   }
 
   export type PayrollRunCreateOrConnectWithoutExceptionsInput = {
@@ -54743,6 +59213,7 @@ export namespace Prisma {
     payrollRun: PayrollRunCreateNestedOneWithoutItemsInput
     employee: EmployeeCreateNestedOneWithoutPayrollItemsInput
     lines?: PayrollLineCreateNestedManyWithoutPayrollItemInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemUncheckedCreateWithoutExceptionsInput = {
@@ -54769,6 +59240,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lines?: PayrollLineUncheckedCreateNestedManyWithoutPayrollItemInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemCreateOrConnectWithoutExceptionsInput = {
@@ -54807,6 +59279,7 @@ export namespace Prisma {
     salaryAssignments?: EmployeeSalaryAssignmentCreateNestedManyWithoutEmployeeInput
     payrollItems?: PayrollItemCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutPayrollExceptionsInput = {
@@ -54840,6 +59313,7 @@ export namespace Prisma {
     salaryAssignments?: EmployeeSalaryAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
     payrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
     payrollAdjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutEmployeeInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutPayrollExceptionsInput = {
@@ -54882,6 +59356,8 @@ export namespace Prisma {
     items?: PayrollItemUpdateManyWithoutPayrollRunNestedInput
     adjustments?: PayrollAdjustmentUpdateManyWithoutPayrollRunNestedInput
     accountingPosting?: PayrollAccountingPostingUpdateOneWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUpdateManyWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutPayrollRunNestedInput
   }
 
   export type PayrollRunUncheckedUpdateWithoutExceptionsInput = {
@@ -54908,6 +59384,8 @@ export namespace Prisma {
     items?: PayrollItemUncheckedUpdateManyWithoutPayrollRunNestedInput
     adjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutPayrollRunNestedInput
     accountingPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUncheckedUpdateManyWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutPayrollRunNestedInput
   }
 
   export type PayrollItemUpsertWithoutExceptionsInput = {
@@ -54945,6 +59423,7 @@ export namespace Prisma {
     payrollRun?: PayrollRunUpdateOneRequiredWithoutItemsNestedInput
     employee?: EmployeeUpdateOneRequiredWithoutPayrollItemsNestedInput
     lines?: PayrollLineUpdateManyWithoutPayrollItemNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateWithoutExceptionsInput = {
@@ -54971,6 +59450,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lines?: PayrollLineUncheckedUpdateManyWithoutPayrollItemNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type EmployeeUpsertWithoutPayrollExceptionsInput = {
@@ -55015,6 +59495,7 @@ export namespace Prisma {
     salaryAssignments?: EmployeeSalaryAssignmentUpdateManyWithoutEmployeeNestedInput
     payrollItems?: PayrollItemUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutPayrollExceptionsInput = {
@@ -55048,6 +59529,7 @@ export namespace Prisma {
     salaryAssignments?: EmployeeSalaryAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type PayrollRunCreateWithoutAccountingPostingInput = {
@@ -55074,6 +59556,8 @@ export namespace Prisma {
     items?: PayrollItemCreateNestedManyWithoutPayrollRunInput
     adjustments?: PayrollAdjustmentCreateNestedManyWithoutPayrollRunInput
     exceptions?: PayrollExceptionCreateNestedManyWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchCreateNestedManyWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutPayrollRunInput
   }
 
   export type PayrollRunUncheckedCreateWithoutAccountingPostingInput = {
@@ -55100,6 +59584,8 @@ export namespace Prisma {
     items?: PayrollItemUncheckedCreateNestedManyWithoutPayrollRunInput
     adjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutPayrollRunInput
     exceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchUncheckedCreateNestedManyWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutPayrollRunInput
   }
 
   export type PayrollRunCreateOrConnectWithoutAccountingPostingInput = {
@@ -55119,6 +59605,7 @@ export namespace Prisma {
     createdAt?: Date | string
     lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
+    salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
   }
 
   export type JournalEntryUncheckedCreateWithoutPayrollPostingInput = {
@@ -55133,6 +59620,7 @@ export namespace Prisma {
     createdAt?: Date | string
     lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
+    salaryPayment?: SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput
   }
 
   export type JournalEntryCreateOrConnectWithoutPayrollPostingInput = {
@@ -55152,6 +59640,7 @@ export namespace Prisma {
     createdAt?: Date | string
     lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
+    salaryPayment?: SalaryPaymentCreateNestedOneWithoutJournalEntryInput
   }
 
   export type JournalEntryUncheckedCreateWithoutReversalPayrollPostingInput = {
@@ -55166,6 +59655,7 @@ export namespace Prisma {
     createdAt?: Date | string
     lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
     payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
+    salaryPayment?: SalaryPaymentUncheckedCreateNestedOneWithoutJournalEntryInput
   }
 
   export type JournalEntryCreateOrConnectWithoutReversalPayrollPostingInput = {
@@ -55208,6 +59698,8 @@ export namespace Prisma {
     items?: PayrollItemUpdateManyWithoutPayrollRunNestedInput
     adjustments?: PayrollAdjustmentUpdateManyWithoutPayrollRunNestedInput
     exceptions?: PayrollExceptionUpdateManyWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUpdateManyWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutPayrollRunNestedInput
   }
 
   export type PayrollRunUncheckedUpdateWithoutAccountingPostingInput = {
@@ -55234,6 +59726,8 @@ export namespace Prisma {
     items?: PayrollItemUncheckedUpdateManyWithoutPayrollRunNestedInput
     adjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutPayrollRunNestedInput
     exceptions?: PayrollExceptionUncheckedUpdateManyWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUncheckedUpdateManyWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutPayrollRunNestedInput
   }
 
   export type JournalEntryUpsertWithoutPayrollPostingInput = {
@@ -55259,6 +59753,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUncheckedUpdateWithoutPayrollPostingInput = {
@@ -55273,6 +59768,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
     reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUpsertWithoutReversalPayrollPostingInput = {
@@ -55298,6 +59794,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUpdateOneWithoutJournalEntryNestedInput
   }
 
   export type JournalEntryUncheckedUpdateWithoutReversalPayrollPostingInput = {
@@ -55312,6 +59809,783 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
     payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
+    salaryPayment?: SalaryPaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
+  }
+
+  export type PayrollRunCreateWithoutPaymentBatchesInput = {
+    id?: string
+    runNumber?: number
+    status?: string
+    totalEmployees?: number
+    totalGross?: Decimal | DecimalJsLike | number | string
+    totalDeductions?: Decimal | DecimalJsLike | number | string
+    totalNet?: Decimal | DecimalJsLike | number | string
+    totalEmployerCost?: Decimal | DecimalJsLike | number | string
+    calculationStartedAt?: Date | string | null
+    calculationCompletedAt?: Date | string | null
+    initiatedBy?: string | null
+    approvedBy?: string | null
+    approvedAt?: Date | string | null
+    lockedBy?: string | null
+    lockedAt?: Date | string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payrollPeriod: PayrollPeriodCreateNestedOneWithoutRunsInput
+    items?: PayrollItemCreateNestedManyWithoutPayrollRunInput
+    adjustments?: PayrollAdjustmentCreateNestedManyWithoutPayrollRunInput
+    exceptions?: PayrollExceptionCreateNestedManyWithoutPayrollRunInput
+    accountingPosting?: PayrollAccountingPostingCreateNestedOneWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentCreateNestedManyWithoutPayrollRunInput
+  }
+
+  export type PayrollRunUncheckedCreateWithoutPaymentBatchesInput = {
+    id?: string
+    payrollPeriodId: string
+    runNumber?: number
+    status?: string
+    totalEmployees?: number
+    totalGross?: Decimal | DecimalJsLike | number | string
+    totalDeductions?: Decimal | DecimalJsLike | number | string
+    totalNet?: Decimal | DecimalJsLike | number | string
+    totalEmployerCost?: Decimal | DecimalJsLike | number | string
+    calculationStartedAt?: Date | string | null
+    calculationCompletedAt?: Date | string | null
+    initiatedBy?: string | null
+    approvedBy?: string | null
+    approvedAt?: Date | string | null
+    lockedBy?: string | null
+    lockedAt?: Date | string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: PayrollItemUncheckedCreateNestedManyWithoutPayrollRunInput
+    adjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutPayrollRunInput
+    exceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutPayrollRunInput
+    accountingPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutPayrollRunInput
+    salaryPayments?: SalaryPaymentUncheckedCreateNestedManyWithoutPayrollRunInput
+  }
+
+  export type PayrollRunCreateOrConnectWithoutPaymentBatchesInput = {
+    where: PayrollRunWhereUniqueInput
+    create: XOR<PayrollRunCreateWithoutPaymentBatchesInput, PayrollRunUncheckedCreateWithoutPaymentBatchesInput>
+  }
+
+  export type SalaryPaymentCreateWithoutSalaryPaymentBatchInput = {
+    id?: string
+    paymentNumber: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payrollRun: PayrollRunCreateNestedOneWithoutSalaryPaymentsInput
+    payrollItem: PayrollItemCreateNestedOneWithoutSalaryPaymentsInput
+    employee: EmployeeCreateNestedOneWithoutSalaryPaymentsInput
+    journalEntry?: JournalEntryCreateNestedOneWithoutSalaryPaymentInput
+  }
+
+  export type SalaryPaymentUncheckedCreateWithoutSalaryPaymentBatchInput = {
+    id?: string
+    paymentNumber: string
+    payrollRunId: string
+    payrollItemId: string
+    employeeId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    journalEntryId?: string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryPaymentCreateOrConnectWithoutSalaryPaymentBatchInput = {
+    where: SalaryPaymentWhereUniqueInput
+    create: XOR<SalaryPaymentCreateWithoutSalaryPaymentBatchInput, SalaryPaymentUncheckedCreateWithoutSalaryPaymentBatchInput>
+  }
+
+  export type SalaryPaymentCreateManySalaryPaymentBatchInputEnvelope = {
+    data: SalaryPaymentCreateManySalaryPaymentBatchInput | SalaryPaymentCreateManySalaryPaymentBatchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PayrollRunUpsertWithoutPaymentBatchesInput = {
+    update: XOR<PayrollRunUpdateWithoutPaymentBatchesInput, PayrollRunUncheckedUpdateWithoutPaymentBatchesInput>
+    create: XOR<PayrollRunCreateWithoutPaymentBatchesInput, PayrollRunUncheckedCreateWithoutPaymentBatchesInput>
+    where?: PayrollRunWhereInput
+  }
+
+  export type PayrollRunUpdateToOneWithWhereWithoutPaymentBatchesInput = {
+    where?: PayrollRunWhereInput
+    data: XOR<PayrollRunUpdateWithoutPaymentBatchesInput, PayrollRunUncheckedUpdateWithoutPaymentBatchesInput>
+  }
+
+  export type PayrollRunUpdateWithoutPaymentBatchesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    runNumber?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    totalGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalNet?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployerCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    calculationCompletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    initiatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lockedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payrollPeriod?: PayrollPeriodUpdateOneRequiredWithoutRunsNestedInput
+    items?: PayrollItemUpdateManyWithoutPayrollRunNestedInput
+    adjustments?: PayrollAdjustmentUpdateManyWithoutPayrollRunNestedInput
+    exceptions?: PayrollExceptionUpdateManyWithoutPayrollRunNestedInput
+    accountingPosting?: PayrollAccountingPostingUpdateOneWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutPayrollRunNestedInput
+  }
+
+  export type PayrollRunUncheckedUpdateWithoutPaymentBatchesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    payrollPeriodId?: StringFieldUpdateOperationsInput | string
+    runNumber?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    totalGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalNet?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployerCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    calculationCompletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    initiatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lockedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: PayrollItemUncheckedUpdateManyWithoutPayrollRunNestedInput
+    adjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutPayrollRunNestedInput
+    exceptions?: PayrollExceptionUncheckedUpdateManyWithoutPayrollRunNestedInput
+    accountingPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutPayrollRunNestedInput
+  }
+
+  export type SalaryPaymentUpsertWithWhereUniqueWithoutSalaryPaymentBatchInput = {
+    where: SalaryPaymentWhereUniqueInput
+    update: XOR<SalaryPaymentUpdateWithoutSalaryPaymentBatchInput, SalaryPaymentUncheckedUpdateWithoutSalaryPaymentBatchInput>
+    create: XOR<SalaryPaymentCreateWithoutSalaryPaymentBatchInput, SalaryPaymentUncheckedCreateWithoutSalaryPaymentBatchInput>
+  }
+
+  export type SalaryPaymentUpdateWithWhereUniqueWithoutSalaryPaymentBatchInput = {
+    where: SalaryPaymentWhereUniqueInput
+    data: XOR<SalaryPaymentUpdateWithoutSalaryPaymentBatchInput, SalaryPaymentUncheckedUpdateWithoutSalaryPaymentBatchInput>
+  }
+
+  export type SalaryPaymentUpdateManyWithWhereWithoutSalaryPaymentBatchInput = {
+    where: SalaryPaymentScalarWhereInput
+    data: XOR<SalaryPaymentUpdateManyMutationInput, SalaryPaymentUncheckedUpdateManyWithoutSalaryPaymentBatchInput>
+  }
+
+  export type SalaryPaymentBatchCreateWithoutPaymentsInput = {
+    id?: string
+    batchNumber: string
+    paymentMode: string
+    sourceAccountCode?: string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    totalEmployees?: number
+    status?: string
+    paymentDate?: Date | string
+    notes?: string | null
+    submittedBy?: string | null
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payrollRun: PayrollRunCreateNestedOneWithoutPaymentBatchesInput
+  }
+
+  export type SalaryPaymentBatchUncheckedCreateWithoutPaymentsInput = {
+    id?: string
+    batchNumber: string
+    payrollRunId: string
+    paymentMode: string
+    sourceAccountCode?: string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    totalEmployees?: number
+    status?: string
+    paymentDate?: Date | string
+    notes?: string | null
+    submittedBy?: string | null
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryPaymentBatchCreateOrConnectWithoutPaymentsInput = {
+    where: SalaryPaymentBatchWhereUniqueInput
+    create: XOR<SalaryPaymentBatchCreateWithoutPaymentsInput, SalaryPaymentBatchUncheckedCreateWithoutPaymentsInput>
+  }
+
+  export type PayrollRunCreateWithoutSalaryPaymentsInput = {
+    id?: string
+    runNumber?: number
+    status?: string
+    totalEmployees?: number
+    totalGross?: Decimal | DecimalJsLike | number | string
+    totalDeductions?: Decimal | DecimalJsLike | number | string
+    totalNet?: Decimal | DecimalJsLike | number | string
+    totalEmployerCost?: Decimal | DecimalJsLike | number | string
+    calculationStartedAt?: Date | string | null
+    calculationCompletedAt?: Date | string | null
+    initiatedBy?: string | null
+    approvedBy?: string | null
+    approvedAt?: Date | string | null
+    lockedBy?: string | null
+    lockedAt?: Date | string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payrollPeriod: PayrollPeriodCreateNestedOneWithoutRunsInput
+    items?: PayrollItemCreateNestedManyWithoutPayrollRunInput
+    adjustments?: PayrollAdjustmentCreateNestedManyWithoutPayrollRunInput
+    exceptions?: PayrollExceptionCreateNestedManyWithoutPayrollRunInput
+    accountingPosting?: PayrollAccountingPostingCreateNestedOneWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchCreateNestedManyWithoutPayrollRunInput
+  }
+
+  export type PayrollRunUncheckedCreateWithoutSalaryPaymentsInput = {
+    id?: string
+    payrollPeriodId: string
+    runNumber?: number
+    status?: string
+    totalEmployees?: number
+    totalGross?: Decimal | DecimalJsLike | number | string
+    totalDeductions?: Decimal | DecimalJsLike | number | string
+    totalNet?: Decimal | DecimalJsLike | number | string
+    totalEmployerCost?: Decimal | DecimalJsLike | number | string
+    calculationStartedAt?: Date | string | null
+    calculationCompletedAt?: Date | string | null
+    initiatedBy?: string | null
+    approvedBy?: string | null
+    approvedAt?: Date | string | null
+    lockedBy?: string | null
+    lockedAt?: Date | string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: PayrollItemUncheckedCreateNestedManyWithoutPayrollRunInput
+    adjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutPayrollRunInput
+    exceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutPayrollRunInput
+    accountingPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutPayrollRunInput
+    paymentBatches?: SalaryPaymentBatchUncheckedCreateNestedManyWithoutPayrollRunInput
+  }
+
+  export type PayrollRunCreateOrConnectWithoutSalaryPaymentsInput = {
+    where: PayrollRunWhereUniqueInput
+    create: XOR<PayrollRunCreateWithoutSalaryPaymentsInput, PayrollRunUncheckedCreateWithoutSalaryPaymentsInput>
+  }
+
+  export type PayrollItemCreateWithoutSalaryPaymentsInput = {
+    id?: string
+    salaryAssignmentId?: string | null
+    employeeCodeSnapshot: string
+    employeeNameSnapshot: string
+    departmentSnapshot?: string | null
+    designationSnapshot?: string | null
+    structureCodeSnapshot?: string | null
+    grossEarnings?: Decimal | DecimalJsLike | number | string
+    totalDeductions?: Decimal | DecimalJsLike | number | string
+    employerCost?: Decimal | DecimalJsLike | number | string
+    reimbursements?: Decimal | DecimalJsLike | number | string
+    adjustmentsCredit?: Decimal | DecimalJsLike | number | string
+    adjustmentsDebit?: Decimal | DecimalJsLike | number | string
+    netPayable?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    status?: string
+    calculatedAt?: Date | string
+    approvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payrollRun: PayrollRunCreateNestedOneWithoutItemsInput
+    employee: EmployeeCreateNestedOneWithoutPayrollItemsInput
+    lines?: PayrollLineCreateNestedManyWithoutPayrollItemInput
+    exceptions?: PayrollExceptionCreateNestedManyWithoutPayrollItemInput
+  }
+
+  export type PayrollItemUncheckedCreateWithoutSalaryPaymentsInput = {
+    id?: string
+    payrollRunId: string
+    employeeId: string
+    salaryAssignmentId?: string | null
+    employeeCodeSnapshot: string
+    employeeNameSnapshot: string
+    departmentSnapshot?: string | null
+    designationSnapshot?: string | null
+    structureCodeSnapshot?: string | null
+    grossEarnings?: Decimal | DecimalJsLike | number | string
+    totalDeductions?: Decimal | DecimalJsLike | number | string
+    employerCost?: Decimal | DecimalJsLike | number | string
+    reimbursements?: Decimal | DecimalJsLike | number | string
+    adjustmentsCredit?: Decimal | DecimalJsLike | number | string
+    adjustmentsDebit?: Decimal | DecimalJsLike | number | string
+    netPayable?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    status?: string
+    calculatedAt?: Date | string
+    approvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lines?: PayrollLineUncheckedCreateNestedManyWithoutPayrollItemInput
+    exceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutPayrollItemInput
+  }
+
+  export type PayrollItemCreateOrConnectWithoutSalaryPaymentsInput = {
+    where: PayrollItemWhereUniqueInput
+    create: XOR<PayrollItemCreateWithoutSalaryPaymentsInput, PayrollItemUncheckedCreateWithoutSalaryPaymentsInput>
+  }
+
+  export type EmployeeCreateWithoutSalaryPaymentsInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reportingManager?: EmployeeCreateNestedOneWithoutSubordinatesInput
+    subordinates?: EmployeeCreateNestedManyWithoutReportingManagerInput
+    user?: UserCreateNestedOneWithoutEmployeeInput
+    salaryAssignments?: EmployeeSalaryAssignmentCreateNestedManyWithoutEmployeeInput
+    payrollItems?: PayrollItemCreateNestedManyWithoutEmployeeInput
+    payrollAdjustments?: PayrollAdjustmentCreateNestedManyWithoutEmployeeInput
+    payrollExceptions?: PayrollExceptionCreateNestedManyWithoutEmployeeInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutSalaryPaymentsInput = {
+    id?: string
+    employeeCode: string
+    fullName: string
+    displayName?: string | null
+    photo?: string | null
+    mobile: string
+    alternatePhone?: string | null
+    email?: string | null
+    address?: string | null
+    department: string
+    designation: string
+    employmentType?: string
+    joiningDate: Date | string
+    confirmationDate?: Date | string | null
+    reportingManagerId?: string | null
+    workLocation?: string | null
+    status?: string
+    exitDate?: Date | string | null
+    exitReason?: string | null
+    userId?: string | null
+    createdBy?: string | null
+    updatedBy?: string | null
+    archivedAt?: Date | string | null
+    archivedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subordinates?: EmployeeUncheckedCreateNestedManyWithoutReportingManagerInput
+    salaryAssignments?: EmployeeSalaryAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+    payrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+    payrollAdjustments?: PayrollAdjustmentUncheckedCreateNestedManyWithoutEmployeeInput
+    payrollExceptions?: PayrollExceptionUncheckedCreateNestedManyWithoutEmployeeInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutSalaryPaymentsInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutSalaryPaymentsInput, EmployeeUncheckedCreateWithoutSalaryPaymentsInput>
+  }
+
+  export type JournalEntryCreateWithoutSalaryPaymentInput = {
+    id?: string
+    entryNumber: string
+    date?: Date | string
+    referenceType?: string | null
+    referenceId?: string | null
+    description: string
+    status?: string
+    createdBy: string
+    createdAt?: Date | string
+    lines?: JournalLineCreateNestedManyWithoutJournalEntryInput
+    payrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutJournalEntryInput
+    reversalPayrollPosting?: PayrollAccountingPostingCreateNestedOneWithoutReversalJournalEntryInput
+  }
+
+  export type JournalEntryUncheckedCreateWithoutSalaryPaymentInput = {
+    id?: string
+    entryNumber: string
+    date?: Date | string
+    referenceType?: string | null
+    referenceId?: string | null
+    description: string
+    status?: string
+    createdBy: string
+    createdAt?: Date | string
+    lines?: JournalLineUncheckedCreateNestedManyWithoutJournalEntryInput
+    payrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutJournalEntryInput
+    reversalPayrollPosting?: PayrollAccountingPostingUncheckedCreateNestedOneWithoutReversalJournalEntryInput
+  }
+
+  export type JournalEntryCreateOrConnectWithoutSalaryPaymentInput = {
+    where: JournalEntryWhereUniqueInput
+    create: XOR<JournalEntryCreateWithoutSalaryPaymentInput, JournalEntryUncheckedCreateWithoutSalaryPaymentInput>
+  }
+
+  export type SalaryPaymentBatchUpsertWithoutPaymentsInput = {
+    update: XOR<SalaryPaymentBatchUpdateWithoutPaymentsInput, SalaryPaymentBatchUncheckedUpdateWithoutPaymentsInput>
+    create: XOR<SalaryPaymentBatchCreateWithoutPaymentsInput, SalaryPaymentBatchUncheckedCreateWithoutPaymentsInput>
+    where?: SalaryPaymentBatchWhereInput
+  }
+
+  export type SalaryPaymentBatchUpdateToOneWithWhereWithoutPaymentsInput = {
+    where?: SalaryPaymentBatchWhereInput
+    data: XOR<SalaryPaymentBatchUpdateWithoutPaymentsInput, SalaryPaymentBatchUncheckedUpdateWithoutPaymentsInput>
+  }
+
+  export type SalaryPaymentBatchUpdateWithoutPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payrollRun?: PayrollRunUpdateOneRequiredWithoutPaymentBatchesNestedInput
+  }
+
+  export type SalaryPaymentBatchUncheckedUpdateWithoutPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PayrollRunUpsertWithoutSalaryPaymentsInput = {
+    update: XOR<PayrollRunUpdateWithoutSalaryPaymentsInput, PayrollRunUncheckedUpdateWithoutSalaryPaymentsInput>
+    create: XOR<PayrollRunCreateWithoutSalaryPaymentsInput, PayrollRunUncheckedCreateWithoutSalaryPaymentsInput>
+    where?: PayrollRunWhereInput
+  }
+
+  export type PayrollRunUpdateToOneWithWhereWithoutSalaryPaymentsInput = {
+    where?: PayrollRunWhereInput
+    data: XOR<PayrollRunUpdateWithoutSalaryPaymentsInput, PayrollRunUncheckedUpdateWithoutSalaryPaymentsInput>
+  }
+
+  export type PayrollRunUpdateWithoutSalaryPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    runNumber?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    totalGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalNet?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployerCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    calculationCompletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    initiatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lockedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payrollPeriod?: PayrollPeriodUpdateOneRequiredWithoutRunsNestedInput
+    items?: PayrollItemUpdateManyWithoutPayrollRunNestedInput
+    adjustments?: PayrollAdjustmentUpdateManyWithoutPayrollRunNestedInput
+    exceptions?: PayrollExceptionUpdateManyWithoutPayrollRunNestedInput
+    accountingPosting?: PayrollAccountingPostingUpdateOneWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUpdateManyWithoutPayrollRunNestedInput
+  }
+
+  export type PayrollRunUncheckedUpdateWithoutSalaryPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    payrollPeriodId?: StringFieldUpdateOperationsInput | string
+    runNumber?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    totalGross?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalNet?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployerCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    calculationStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    calculationCompletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    initiatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lockedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: PayrollItemUncheckedUpdateManyWithoutPayrollRunNestedInput
+    adjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutPayrollRunNestedInput
+    exceptions?: PayrollExceptionUncheckedUpdateManyWithoutPayrollRunNestedInput
+    accountingPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUncheckedUpdateManyWithoutPayrollRunNestedInput
+  }
+
+  export type PayrollItemUpsertWithoutSalaryPaymentsInput = {
+    update: XOR<PayrollItemUpdateWithoutSalaryPaymentsInput, PayrollItemUncheckedUpdateWithoutSalaryPaymentsInput>
+    create: XOR<PayrollItemCreateWithoutSalaryPaymentsInput, PayrollItemUncheckedCreateWithoutSalaryPaymentsInput>
+    where?: PayrollItemWhereInput
+  }
+
+  export type PayrollItemUpdateToOneWithWhereWithoutSalaryPaymentsInput = {
+    where?: PayrollItemWhereInput
+    data: XOR<PayrollItemUpdateWithoutSalaryPaymentsInput, PayrollItemUncheckedUpdateWithoutSalaryPaymentsInput>
+  }
+
+  export type PayrollItemUpdateWithoutSalaryPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    salaryAssignmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeCodeSnapshot?: StringFieldUpdateOperationsInput | string
+    employeeNameSnapshot?: StringFieldUpdateOperationsInput | string
+    departmentSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    designationSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    structureCodeSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    employerCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reimbursements?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    adjustmentsCredit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    adjustmentsDebit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netPayable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payrollRun?: PayrollRunUpdateOneRequiredWithoutItemsNestedInput
+    employee?: EmployeeUpdateOneRequiredWithoutPayrollItemsNestedInput
+    lines?: PayrollLineUpdateManyWithoutPayrollItemNestedInput
+    exceptions?: PayrollExceptionUpdateManyWithoutPayrollItemNestedInput
+  }
+
+  export type PayrollItemUncheckedUpdateWithoutSalaryPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    salaryAssignmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeCodeSnapshot?: StringFieldUpdateOperationsInput | string
+    employeeNameSnapshot?: StringFieldUpdateOperationsInput | string
+    departmentSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    designationSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    structureCodeSnapshot?: NullableStringFieldUpdateOperationsInput | string | null
+    grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    employerCost?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reimbursements?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    adjustmentsCredit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    adjustmentsDebit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    netPayable?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    calculatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: PayrollLineUncheckedUpdateManyWithoutPayrollItemNestedInput
+    exceptions?: PayrollExceptionUncheckedUpdateManyWithoutPayrollItemNestedInput
+  }
+
+  export type EmployeeUpsertWithoutSalaryPaymentsInput = {
+    update: XOR<EmployeeUpdateWithoutSalaryPaymentsInput, EmployeeUncheckedUpdateWithoutSalaryPaymentsInput>
+    create: XOR<EmployeeCreateWithoutSalaryPaymentsInput, EmployeeUncheckedCreateWithoutSalaryPaymentsInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutSalaryPaymentsInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutSalaryPaymentsInput, EmployeeUncheckedUpdateWithoutSalaryPaymentsInput>
+  }
+
+  export type EmployeeUpdateWithoutSalaryPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reportingManager?: EmployeeUpdateOneWithoutSubordinatesNestedInput
+    subordinates?: EmployeeUpdateManyWithoutReportingManagerNestedInput
+    user?: UserUpdateOneWithoutEmployeeNestedInput
+    salaryAssignments?: EmployeeSalaryAssignmentUpdateManyWithoutEmployeeNestedInput
+    payrollItems?: PayrollItemUpdateManyWithoutEmployeeNestedInput
+    payrollAdjustments?: PayrollAdjustmentUpdateManyWithoutEmployeeNestedInput
+    payrollExceptions?: PayrollExceptionUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutSalaryPaymentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employeeCode?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: StringFieldUpdateOperationsInput | string
+    designation?: StringFieldUpdateOperationsInput | string
+    employmentType?: StringFieldUpdateOperationsInput | string
+    joiningDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reportingManagerId?: NullableStringFieldUpdateOperationsInput | string | null
+    workLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    exitDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    exitReason?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    archivedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    archivedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subordinates?: EmployeeUncheckedUpdateManyWithoutReportingManagerNestedInput
+    salaryAssignments?: EmployeeSalaryAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+    payrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+    payrollAdjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutEmployeeNestedInput
+    payrollExceptions?: PayrollExceptionUncheckedUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type JournalEntryUpsertWithoutSalaryPaymentInput = {
+    update: XOR<JournalEntryUpdateWithoutSalaryPaymentInput, JournalEntryUncheckedUpdateWithoutSalaryPaymentInput>
+    create: XOR<JournalEntryCreateWithoutSalaryPaymentInput, JournalEntryUncheckedCreateWithoutSalaryPaymentInput>
+    where?: JournalEntryWhereInput
+  }
+
+  export type JournalEntryUpdateToOneWithWhereWithoutSalaryPaymentInput = {
+    where?: JournalEntryWhereInput
+    data: XOR<JournalEntryUpdateWithoutSalaryPaymentInput, JournalEntryUncheckedUpdateWithoutSalaryPaymentInput>
+  }
+
+  export type JournalEntryUpdateWithoutSalaryPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalLineUpdateManyWithoutJournalEntryNestedInput
+    payrollPosting?: PayrollAccountingPostingUpdateOneWithoutJournalEntryNestedInput
+    reversalPayrollPosting?: PayrollAccountingPostingUpdateOneWithoutReversalJournalEntryNestedInput
+  }
+
+  export type JournalEntryUncheckedUpdateWithoutSalaryPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entryNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceType?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalLineUncheckedUpdateManyWithoutJournalEntryNestedInput
+    payrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutJournalEntryNestedInput
+    reversalPayrollPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutReversalJournalEntryNestedInput
   }
 
   export type FundRequestCreateManyRequesterInput = {
@@ -56602,6 +61876,33 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type SalaryPaymentCreateManyEmployeeInput = {
+    id?: string
+    paymentNumber: string
+    salaryPaymentBatchId?: string | null
+    payrollRunId: string
+    payrollItemId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    journalEntryId?: string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type EmployeeUpdateWithoutReportingManagerInput = {
     id?: StringFieldUpdateOperationsInput | string
     employeeCode?: StringFieldUpdateOperationsInput | string
@@ -56633,6 +61934,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutReportingManagerInput = {
@@ -56666,6 +61968,7 @@ export namespace Prisma {
     payrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollAdjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollExceptions?: PayrollExceptionUncheckedUpdateManyWithoutEmployeeNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateManyWithoutReportingManagerInput = {
@@ -56768,6 +62071,7 @@ export namespace Prisma {
     payrollRun?: PayrollRunUpdateOneRequiredWithoutItemsNestedInput
     lines?: PayrollLineUpdateManyWithoutPayrollItemNestedInput
     exceptions?: PayrollExceptionUpdateManyWithoutPayrollItemNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateWithoutEmployeeInput = {
@@ -56794,6 +62098,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lines?: PayrollLineUncheckedUpdateManyWithoutPayrollItemNestedInput
     exceptions?: PayrollExceptionUncheckedUpdateManyWithoutPayrollItemNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateManyWithoutEmployeeInput = {
@@ -56906,6 +62211,87 @@ export namespace Prisma {
     isResolved?: BoolFieldUpdateOperationsInput | boolean
     resolvedBy?: NullableStringFieldUpdateOperationsInput | string | null
     resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryPaymentUpdateWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salaryPaymentBatch?: SalaryPaymentBatchUpdateOneWithoutPaymentsNestedInput
+    payrollRun?: PayrollRunUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    payrollItem?: PayrollItemUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    journalEntry?: JournalEntryUpdateOneWithoutSalaryPaymentNestedInput
+  }
+
+  export type SalaryPaymentUncheckedUpdateWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    salaryPaymentBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryPaymentUncheckedUpdateManyWithoutEmployeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    salaryPaymentBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -57132,6 +62518,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentUpdateManyWithoutPayrollRunNestedInput
     exceptions?: PayrollExceptionUpdateManyWithoutPayrollRunNestedInput
     accountingPosting?: PayrollAccountingPostingUpdateOneWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUpdateManyWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutPayrollRunNestedInput
   }
 
   export type PayrollRunUncheckedUpdateWithoutPayrollPeriodInput = {
@@ -57158,6 +62546,8 @@ export namespace Prisma {
     adjustments?: PayrollAdjustmentUncheckedUpdateManyWithoutPayrollRunNestedInput
     exceptions?: PayrollExceptionUncheckedUpdateManyWithoutPayrollRunNestedInput
     accountingPosting?: PayrollAccountingPostingUncheckedUpdateOneWithoutPayrollRunNestedInput
+    paymentBatches?: SalaryPaymentBatchUncheckedUpdateManyWithoutPayrollRunNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutPayrollRunNestedInput
   }
 
   export type PayrollRunUncheckedUpdateManyWithoutPayrollPeriodInput = {
@@ -57236,6 +62626,50 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type SalaryPaymentBatchCreateManyPayrollRunInput = {
+    id?: string
+    batchNumber: string
+    paymentMode: string
+    sourceAccountCode?: string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    totalEmployees?: number
+    status?: string
+    paymentDate?: Date | string
+    notes?: string | null
+    submittedBy?: string | null
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryPaymentCreateManyPayrollRunInput = {
+    id?: string
+    paymentNumber: string
+    salaryPaymentBatchId?: string | null
+    payrollItemId: string
+    employeeId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    journalEntryId?: string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type PayrollItemUpdateWithoutPayrollRunInput = {
     id?: StringFieldUpdateOperationsInput | string
     salaryAssignmentId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57260,6 +62694,7 @@ export namespace Prisma {
     employee?: EmployeeUpdateOneRequiredWithoutPayrollItemsNestedInput
     lines?: PayrollLineUpdateManyWithoutPayrollItemNestedInput
     exceptions?: PayrollExceptionUpdateManyWithoutPayrollItemNestedInput
+    salaryPayments?: SalaryPaymentUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateWithoutPayrollRunInput = {
@@ -57286,6 +62721,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lines?: PayrollLineUncheckedUpdateManyWithoutPayrollItemNestedInput
     exceptions?: PayrollExceptionUncheckedUpdateManyWithoutPayrollItemNestedInput
+    salaryPayments?: SalaryPaymentUncheckedUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateManyWithoutPayrollRunInput = {
@@ -57402,6 +62838,140 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SalaryPaymentBatchUpdateWithoutPayrollRunInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: SalaryPaymentUpdateManyWithoutSalaryPaymentBatchNestedInput
+  }
+
+  export type SalaryPaymentBatchUncheckedUpdateWithoutPayrollRunInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: SalaryPaymentUncheckedUpdateManyWithoutSalaryPaymentBatchNestedInput
+  }
+
+  export type SalaryPaymentBatchUncheckedUpdateManyWithoutPayrollRunInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalEmployees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryPaymentUpdateWithoutPayrollRunInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salaryPaymentBatch?: SalaryPaymentBatchUpdateOneWithoutPaymentsNestedInput
+    payrollItem?: PayrollItemUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    employee?: EmployeeUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    journalEntry?: JournalEntryUpdateOneWithoutSalaryPaymentNestedInput
+  }
+
+  export type SalaryPaymentUncheckedUpdateWithoutPayrollRunInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    salaryPaymentBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollItemId?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryPaymentUncheckedUpdateManyWithoutPayrollRunInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    salaryPaymentBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollItemId?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PayrollLineCreateManyPayrollItemInput = {
     id?: string
     componentId?: string | null
@@ -57431,6 +63001,33 @@ export namespace Prisma {
     isResolved?: boolean
     resolvedBy?: string | null
     resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryPaymentCreateManyPayrollItemInput = {
+    id?: string
+    paymentNumber: string
+    salaryPaymentBatchId?: string | null
+    payrollRunId: string
+    employeeId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    journalEntryId?: string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -57534,6 +63131,195 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SalaryPaymentUpdateWithoutPayrollItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salaryPaymentBatch?: SalaryPaymentBatchUpdateOneWithoutPaymentsNestedInput
+    payrollRun?: PayrollRunUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    employee?: EmployeeUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    journalEntry?: JournalEntryUpdateOneWithoutSalaryPaymentNestedInput
+  }
+
+  export type SalaryPaymentUncheckedUpdateWithoutPayrollItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    salaryPaymentBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryPaymentUncheckedUpdateManyWithoutPayrollItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    salaryPaymentBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryPaymentCreateManySalaryPaymentBatchInput = {
+    id?: string
+    paymentNumber: string
+    payrollRunId: string
+    payrollItemId: string
+    employeeId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMode: string
+    sourceAccountCode?: string
+    bankName?: string | null
+    accountNumberMasked?: string | null
+    ifscCode?: string | null
+    referenceNo?: string | null
+    status?: string
+    paymentDate?: Date | string
+    settledAt?: Date | string | null
+    journalEntryId?: string | null
+    walletTransactionId?: string | null
+    failureReason?: string | null
+    reversalReason?: string | null
+    createdBy: string
+    approvedBy?: string | null
+    settledBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalaryPaymentUpdateWithoutSalaryPaymentBatchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payrollRun?: PayrollRunUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    payrollItem?: PayrollItemUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    employee?: EmployeeUpdateOneRequiredWithoutSalaryPaymentsNestedInput
+    journalEntry?: JournalEntryUpdateOneWithoutSalaryPaymentNestedInput
+  }
+
+  export type SalaryPaymentUncheckedUpdateWithoutSalaryPaymentBatchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalaryPaymentUncheckedUpdateManyWithoutSalaryPaymentBatchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentNumber?: StringFieldUpdateOperationsInput | string
+    payrollRunId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMode?: StringFieldUpdateOperationsInput | string
+    sourceAccountCode?: StringFieldUpdateOperationsInput | string
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountNumberMasked?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    journalEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    walletTransactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reversalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    settledBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -57603,6 +63389,10 @@ export namespace Prisma {
      * @deprecated Use PayrollItemCountOutputTypeDefaultArgs instead
      */
     export type PayrollItemCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PayrollItemCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SalaryPaymentBatchCountOutputTypeDefaultArgs instead
+     */
+    export type SalaryPaymentBatchCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SalaryPaymentBatchCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
@@ -57723,6 +63513,14 @@ export namespace Prisma {
      * @deprecated Use PayrollAccountingPostingDefaultArgs instead
      */
     export type PayrollAccountingPostingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PayrollAccountingPostingDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SalaryPaymentBatchDefaultArgs instead
+     */
+    export type SalaryPaymentBatchArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SalaryPaymentBatchDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SalaryPaymentDefaultArgs instead
+     */
+    export type SalaryPaymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SalaryPaymentDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
