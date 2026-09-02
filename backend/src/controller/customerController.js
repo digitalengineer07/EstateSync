@@ -541,8 +541,8 @@ exports.settleCustomerCancellationRefund = async (req, res) => {
           await registerBankReference(tx, {
             referenceNo,
             module: 'CUSTOMER_REFUND',
-            sourceTable: 'Customer',
-            sourceRecordId: customer.id,
+            sourceTable: 'CustomerPayment',
+            sourceRecordId: refundPaymentRecord.id,
             amount: refundAmount,
             paymentMode: refundMode || 'DIRECT',
             recordedBy: req.user?.email || 'SYSTEM'

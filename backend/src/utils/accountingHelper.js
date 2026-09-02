@@ -19,7 +19,7 @@ const STANDARD_ACCOUNTS = [
   { code: '2010', name: 'Net Salaries Payable', type: 'LIABILITY', description: 'Accrued net salary obligations payable to staff' },
   { code: '2020', name: 'Employee Statutory Payable (PF/ESI)', type: 'LIABILITY', description: 'Statutory deductions held for remittance (Employee EPF, Employee ESIC)' },
   { code: '2025', name: 'Employer Statutory Contribution Payable', type: 'LIABILITY', description: 'Employer statutory contributions held for remittance (Employer EPF/ESIC)' },
-  { code: '2030', name: 'TDS (Income Tax) Payable', type: 'LIABILITY', description: 'Tax deducted at source from payroll held for remittance to tax authority' },
+  { code: '2030', name: 'TDS (Income Tax) Payable', type: 'LIABILITY', description: 'Tax deducted at source held for remittance to tax authority' },
   { code: '1040', name: 'Employee Advance & Loan Asset', type: 'ASSET', description: 'Outstanding salary advances and recoverable staff loans' },
   { code: '1200', name: 'Accounts Receivable — Customer Control', type: 'ASSET', description: 'Legally enforceable customer receivables for issued milestone demand notes' },
   { code: '2040', name: 'Customer Advances & Unearned Booking Revenue', type: 'LIABILITY', description: 'Customer unallocated deposits and unearned milestone booking liability' },

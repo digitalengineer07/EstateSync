@@ -11,14 +11,14 @@ router.use(verifyJWT);
 // 1. List Periods (Admin, Accounting, Manager)
 router.get(
   '/',
-  checkPermission('payroll.accounting.view'),
+  checkPermission('accounting.view'),
   accountingPeriodController.listPeriods
 );
 
 // 2. Close Period (Admin, Senior Accounting)
 router.post(
   '/:id/close',
-  checkPermission('payroll.accounting.post'),
+  checkPermission(['accounting.view', 'expense.approve']),
   idempotencyMiddleware,
   accountingPeriodController.closePeriod
 );
@@ -26,7 +26,7 @@ router.post(
 // 3. Reopen Period (Admin Only)
 router.post(
   '/:id/reopen',
-  checkPermission('payroll.accounting.reverse'),
+  checkPermission(['user.manage', 'expense.reverse']),
   idempotencyMiddleware,
   accountingPeriodController.reopenPeriod
 );
