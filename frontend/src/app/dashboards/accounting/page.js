@@ -6,7 +6,6 @@ import UserWalletLedger from "@/components/UserWalletLedger";
 import ExpenseList from "@/components/ExpenseList";
 import TransactionLedger from "@/components/TransactionLedger";
 import GeneralLedgerView from "@/components/GeneralLedgerView";
-import AuditLogViewer from "@/components/AuditLogViewer";
 import CustomerPortfolioList from "@/components/CustomerPortfolioList";
 import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
 import TreasuryInflowList from "@/components/TreasuryInflowList";
@@ -148,9 +147,6 @@ export default function AccountingDashboard() {
           </div>
         )}
       </div>
-
-      {/* Security & Audit Trail */}
-      <AuditLogViewer />
     </div>
   );
 }
