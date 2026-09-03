@@ -48,6 +48,11 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo, excludeSource
   const cleanRef = normalizeReferenceNo(referenceNo);
   if (!cleanRef) return null;
 
+  // Strict Rule: UTR / Reference number length must not exceed 22 characters
+  if (cleanRef.length > 22) {
+    return `Invalid UTR / Reference Error: Reference number "${cleanRef}" is too long (${cleanRef.length} characters). Maximum 22 characters allowed. Standard Indian banking UTRs are 12 to 22 characters.`;
+  }
+
   // 1. Fast-Path: Check Centralized GlobalBankReference Registry
   const existingGlobal = await tx.globalBankReference.findUnique({
     where: { referenceNo: cleanRef }

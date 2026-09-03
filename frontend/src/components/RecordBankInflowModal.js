@@ -219,6 +219,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
                     value={formData.referenceNo}
                     onChange={handleChange}
                     placeholder="e.g. UTR202608290091"
+                    maxLength={22}
                     required
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-bold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
                   />
@@ -252,6 +253,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
                   value={formData.accountNo}
                   onChange={handleChange}
                   placeholder="e.g. 50200091823412"
+                  maxLength={22}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
                 />
               </div>
@@ -266,6 +268,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
                   value={formData.referenceNo}
                   onChange={handleChange}
                   placeholder="e.g. CSH-REC-001"
+                  maxLength={22}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
                 />
               </div>

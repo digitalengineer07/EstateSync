@@ -395,7 +395,7 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
           amount: payAmount,
           fundMode: fMode,
           referenceType: 'PROPERTY_PAYMENT',
-          referenceId: payment.id,
+          referenceId: cleanRef || `CASH-PAY-${payment.id.slice(-4).toUpperCase()}`,
           description: `Land acquisition payout of ₹${payAmount.toLocaleString()} to ${property.landOwnerName} (Plot ${property.plotNo}, Khata ${property.khataNo}) via ${paymentMode.toUpperCase()}`,
           createdBy: accountingUserId,
           status: 'COMPLETED'

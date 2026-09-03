@@ -730,7 +730,7 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
           amount: payAmount,
           fundMode: fMode,
           referenceType: 'CUSTOMER_PAYMENT',
-          referenceId: payment.id,
+          referenceId: cleanRef || `CASH-RCPT-${payment.id.slice(-4).toUpperCase()}`,
           description: `Customer payment received from ${customer.customerName} for Plot ${customer.plotNo} (${customer.projectLocation}) via ${paymentMode.toUpperCase()}`,
           createdBy: accountingUserId,
           status: 'COMPLETED'

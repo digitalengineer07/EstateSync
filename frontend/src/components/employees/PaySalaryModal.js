@@ -195,6 +195,7 @@ export default function PaySalaryModal({ isOpen, onClose, employee, onPaid }) {
                 value={referenceNo}
                 onChange={(e) => setReferenceNo(e.target.value)}
                 placeholder={paymentMode === "CASH" ? "Optional cash voucher no" : "e.g. UTR-HDFC-981273"}
+                maxLength={22}
                 required={paymentMode !== "CASH"}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition placeholder:text-slate-400 placeholder:font-sans"
               />

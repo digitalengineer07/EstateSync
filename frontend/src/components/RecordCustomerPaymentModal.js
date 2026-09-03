@@ -206,6 +206,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
                   value={referenceNo}
                   onChange={(e) => setReferenceNo(e.target.value)}
                   placeholder="e.g. UTR-HDFC-99881102"
+                  maxLength={22}
                   className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none font-mono"
                 />
               </div>

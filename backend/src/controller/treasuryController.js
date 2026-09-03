@@ -38,7 +38,7 @@ exports.recordBankInflow = async (req, res) => {
         effectiveBankName = 'Cash In Hand';
       }
       if (!cleanRef) {
-        cleanRef = `CASH-DEP-${Date.now()}`;
+        cleanRef = `CASH-DEP-${String(Date.now()).slice(-4)}`;
       }
     }
 
