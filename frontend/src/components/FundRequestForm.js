@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { API_URL } from "@/config/api";
-import { Receipt } from "lucide-react";
+import { Receipt, ShieldCheck, CheckCircle2, Clock, Info, IndianRupee, Sparkles } from "lucide-react";
 
 export default function FundRequestForm() {
   const { user } = useAuth();
@@ -26,7 +26,7 @@ export default function FundRequestForm() {
         });
         const data = await res.json();
         if (data.success) {
-          setManagers(data.managers);
+          setManagers(data.managers || []);
         }
       } catch (error) {
         console.error("Failed to fetch managers", error);
@@ -37,6 +37,10 @@ export default function FundRequestForm() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleQuickAmount = (val) => {
+    setFormData(prev => ({ ...prev, amount: val.toString() }));
   };
 
   const handleSubmit = async (e) => {
@@ -56,7 +60,7 @@ export default function FundRequestForm() {
 
       const data = await res.json();
       if (res.ok && data.success) {
-        setMessage({ type: "success", text: "Fund request submitted to manager!" });
+        setMessage({ type: "success", text: "Fund requisition submitted successfully!" });
         setFormData({ amount: "", reason: "", managerId: "", fundMode: "LIQUID" });
       } else {
         setMessage({ type: "error", text: data.message || "Failed to submit request." });
@@ -68,96 +72,153 @@ export default function FundRequestForm() {
   };
 
   return (
-    <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7 space-y-5">
-      <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
-        <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
-          <Receipt className="w-5 h-5 text-indigo-400" />
-        </div>
-        <div>
-          <h3 className="text-lg font-bold text-slate-900 tracking-tight">Request Wallet Top-Up</h3>
-          <p className="text-xs text-slate-500 mt-0.5">Submit a fund requisition to management for your operational wallet balance.</p>
-        </div>
-      </div>
-
-      {message && (
-        <div className={`p-3.5 rounded-xl text-xs flex flex-col gap-0.5 ${message.type === 'success' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
-          <span className="font-bold">{message.type === 'error' ? 'Request Failed' : 'Success'}</span>
-          <span>{message.text}</span>
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 gap-4">
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Select Approver (Manager / Admin)
-            </label>
-            <select
-              name="managerId"
-              value={formData.managerId}
-              onChange={handleChange}
-              required
-              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
-            >
-              <option value="" disabled>Select approver (Manager / Admin)...</option>
-              {managers.map((mgr) => (
-                <option key={mgr.id} value={mgr.id}>
-                  {mgr.name} ({mgr.role?.name || "Authority"}) — {mgr.email}
-                </option>
-              ))}
-            </select>
+    <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7 space-y-5 flex flex-col justify-between">
+      <div className="space-y-4">
+        <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
+          <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
+            <Receipt className="w-5 h-5 text-indigo-400" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <h3 className="text-lg font-bold text-slate-900 tracking-tight">Request Wallet Top-Up</h3>
+            <p className="text-xs text-slate-500 mt-0.5">Submit a fund requisition to management for your operational wallet balance.</p>
+          </div>
+        </div>
+
+        {message && (
+          <div className={`p-3.5 rounded-xl text-xs flex flex-col gap-0.5 ${message.type === 'success' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
+            <span className="font-bold">{message.type === 'error' ? 'Request Failed' : 'Success'}</span>
+            <span>{message.text}</span>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-3.5">
+          <div className="grid grid-cols-1 gap-3.5">
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Amount (₹)</label>
-              <input
-                type="number"
-                step="0.01"
-                name="amount"
-                value={formData.amount}
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Select Approver (Manager / Admin)
+              </label>
+              <select
+                name="managerId"
+                value={formData.managerId}
                 onChange={handleChange}
                 required
                 className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
-                placeholder="e.g. 50000.00"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Fund Mode</label>
-              <select
-                name="fundMode"
-                value={formData.fundMode}
-                onChange={handleChange}
-                className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
               >
-                <option value="LIQUID">Liquid (Online / Bank)</option>
-                <option value="CASH">Cash (Physical)</option>
+                <option value="" disabled>Select approver (Manager / Admin)...</option>
+                {managers.map((mgr) => (
+                  <option key={mgr.id} value={mgr.id}>
+                    {mgr.name} ({mgr.role?.name || "Authority"}) — {mgr.email}
+                  </option>
+                ))}
               </select>
             </div>
-          </div>
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Reason for Request</label>
-            <input
-              type="text"
-              name="reason"
-              value={formData.reason}
-              onChange={handleChange}
-              required
-              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
-              placeholder="e.g. Client travel to Mumbai, Project audit..."
-            />
-          </div>
-        </div>
 
-        <div className="pt-2">
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-xs font-semibold rounded-xl shadow-xs transition active:scale-95 disabled:opacity-50"
-          >
-            {loading ? "Submitting Request..." : "Submit Requisition"}
-          </button>
-        </div>
-      </form>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">Amount (₹)</label>
+                  {formData.amount && (
+                    <span className="font-digital text-xs font-bold text-indigo-700">
+                      ₹{parseFloat(formData.amount || 0).toLocaleString('en-IN')}
+                    </span>
+                  )}
+                </div>
+                <input
+                  type="number"
+                  step="0.01"
+                  name="amount"
+                  value={formData.amount}
+                  onChange={handleChange}
+                  required
+                  className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium font-digital"
+                  placeholder="e.g. 50000.00"
+                />
+                {/* Quick Selection Chips */}
+                <div className="flex items-center gap-1.5 mt-1.5">
+                  {[5000, 10000, 25000, 50000].map((val) => (
+                    <button
+                      key={val}
+                      type="button"
+                      onClick={() => handleQuickAmount(val)}
+                      className="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-[10px] font-semibold text-slate-600 border border-slate-200/80 transition"
+                    >
+                      +₹{val >= 1000 ? `${val / 1000}k` : val}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Fund Mode</label>
+                <select
+                  name="fundMode"
+                  value={formData.fundMode}
+                  onChange={handleChange}
+                  className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
+                >
+                  <option value="LIQUID">Liquid (Online / Bank)</option>
+                  <option value="CASH">Cash (Physical)</option>
+                </select>
+                <span className="text-[11px] text-slate-400 mt-1 block">
+                  {formData.fundMode === "LIQUID" ? "Direct bank/UPI wallet allocation" : "Physical cash voucher allocation"}
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Reason for Request</label>
+              <input
+                type="text"
+                name="reason"
+                value={formData.reason}
+                onChange={handleChange}
+                required
+                className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
+                placeholder="e.g. Client travel to Mumbai, Site inspection, Equipment repair..."
+              />
+            </div>
+          </div>
+
+          {/* Requisition Policy & Workflow Info Card */}
+          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2 text-xs">
+            <div className="flex items-center justify-between text-slate-800 font-bold text-[11px]">
+              <span className="flex items-center gap-1.5 text-indigo-700">
+                <ShieldCheck className="w-3.5 h-3.5 text-indigo-600" />
+                Requisition & Approval Protocol
+              </span>
+              <span className="text-[10px] font-mono text-slate-500 bg-white px-2 py-0.5 rounded-full border border-slate-200/80">
+                SLA: 2–4 Hours
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-slate-600">
+              <div className="flex items-start gap-1.5">
+                <CheckCircle2 className="w-3 h-3 text-emerald-600 mt-0.5 shrink-0" />
+                <span><strong>Instant Credit:</strong> Approved funds reflect immediately in your active operational wallet.</span>
+              </div>
+              <div className="flex items-start gap-1.5">
+                <CheckCircle2 className="w-3 h-3 text-indigo-600 mt-0.5 shrink-0" />
+                <span><strong>Expense Audit:</strong> Submit vendor invoices under "Record Wallet Expense" once utilized.</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Row */}
+          <div className="pt-1 flex items-center justify-between">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-xs font-semibold rounded-xl shadow-xs transition active:scale-95 disabled:opacity-50 flex items-center justify-center gap-1.5"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>{loading ? "Submitting Requisition..." : "Submit Requisition"}</span>
+            </button>
+
+            <span className="text-[11px] text-slate-400 hidden sm:inline">
+              Authority approval required
+            </span>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
