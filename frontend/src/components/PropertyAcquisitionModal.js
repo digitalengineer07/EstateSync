@@ -1,24 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
 
+const INITIAL_FORM_DATA = {
+  khataNo: "",
+  plotNo: "",
+  projectLocation: "",
+  landOwnerName: "",
+  landOwnerContact: "",
+  landOwnerAddress: "",
+  areaSqft: "",
+  totalLandValue: "",
+  agreementDate: new Date().toISOString().split("T")[0]
+};
+
 export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCreated }) {
-  const [formData, setFormData] = useState({
-    khataNo: "",
-    plotNo: "",
-    projectLocation: "",
-    landOwnerName: "",
-    landOwnerContact: "",
-    landOwnerAddress: "",
-    areaSqft: "",
-    totalLandValue: "",
-    agreementDate: new Date().toISOString().split("T")[0]
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
+
+  const handleClose = () => {
+    setFormData(INITIAL_FORM_DATA);
+    setError(null);
+    setSuccessMsg(null);
+    onClose();
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      setFormData(INITIAL_FORM_DATA);
+      setError(null);
+      setSuccessMsg(null);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -79,9 +96,10 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
       }
 
       setSuccessMsg(`Land acquisition for Plot ${data.property.plotNo} (Khata ${data.property.khataNo}) registered successfully!`);
+      setFormData(INITIAL_FORM_DATA);
       setTimeout(() => {
         onPropertyCreated?.(data.property);
-        onClose();
+        handleClose();
       }, 1200);
     } catch (err) {
       setError(err.message);
@@ -101,7 +119,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
             <p className="text-xs text-amber-200 mt-0.5">Register land parcel and owner liability terms (PRD §20.2)</p>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-full transition"
           >
             ✕
@@ -284,7 +302,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
           <div className="flex justify-end gap-3 pt-3 border-t border-gray-200">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               disabled={loading}
               className="px-4 py-2 text-xs font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition"
             >

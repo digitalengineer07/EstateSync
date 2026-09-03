@@ -1,30 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
 
+const INITIAL_FORM_DATA = {
+  customerName: "",
+  customerContact: "",
+  customerAddress: "",
+  projectLocation: "",
+  plotNo: "",
+  areaSqft: "",
+  khataNo: "",
+  identityType: "Aadhaar",
+  identityNumber: "",
+  ratePerSqft: "",
+  landCost: "",
+  registryCost: "",
+  otherCharges: "",
+  discount: "",
+  taxes: ""
+};
+
 export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerCreated }) {
-  const [formData, setFormData] = useState({
-    customerName: "",
-    customerContact: "",
-    customerAddress: "",
-    projectLocation: "",
-    plotNo: "",
-    areaSqft: "",
-    khataNo: "",
-    identityType: "Aadhaar",
-    identityNumber: "",
-    ratePerSqft: "",
-    landCost: "",
-    registryCost: "",
-    otherCharges: "",
-    discount: "",
-    taxes: ""
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
+
+  const handleClose = () => {
+    setFormData(INITIAL_FORM_DATA);
+    setError(null);
+    setSuccessMsg(null);
+    onClose();
+  };
+
+  // Ensure fresh, empty columns every time the modal is opened
+  useEffect(() => {
+    if (isOpen) {
+      setFormData(INITIAL_FORM_DATA);
+      setError(null);
+      setSuccessMsg(null);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -112,9 +130,10 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
       }
 
       setSuccessMsg(`Customer ${data.customer.customerName} registered successfully! (Contract: ₹${parseFloat(data.customer.totalContractValue).toLocaleString('en-IN')})`);
+      setFormData(INITIAL_FORM_DATA);
       setTimeout(() => {
         onCustomerCreated?.(data.customer);
-        onClose();
+        handleClose();
       }, 1200);
     } catch (err) {
       setError(err.message);
@@ -134,7 +153,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
             <p className="text-xs text-indigo-200 mt-0.5">Plot booking master registration with frozen commercial terms (PRD §19)</p>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-full transition"
           >
             ✕
@@ -396,7 +415,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
           <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               disabled={loading}
               className="px-5 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition"
             >
