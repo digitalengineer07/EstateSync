@@ -191,8 +191,8 @@ exports.createEmployee = async (req, res) => {
       return newEmployee;
     }, { timeout: 15000, maxWait: 10000 });
 
-    // Attach salary info if provided by Admin
-    if (req.user?.role === 'ADMIN' && (req.body.baseSalary !== undefined || req.body.bankName)) {
+    // Attach salary info if provided
+    if (['ADMIN', 'MANAGER', 'ACCOUNTING'].includes(req.user?.role) && (req.body.baseSalary !== undefined || req.body.bankName)) {
       const numSal = parseFloat(req.body.baseSalary || 0);
       await prisma.$executeRawUnsafe(`
         UPDATE "Employee"
@@ -794,8 +794,8 @@ exports.updateSalaryConfig = async (req, res) => {
     const { id } = req.params;
     const { baseSalary, bankName, bankAccountNo, ifscCode, upiId, paymentMethod } = req.body;
 
-    if (req.user?.role !== 'ADMIN') {
-      return res.status(403).json({ success: false, message: 'Forbidden: Only Administrators can configure employee salaries.' });
+    if (!['ADMIN', 'MANAGER', 'ACCOUNTING'].includes(req.user?.role)) {
+      return res.status(403).json({ success: false, message: 'Forbidden: Insufficient permissions to configure employee salaries.' });
     }
 
     const result = await salaryService.updateEmployeeSalaryConfig({
