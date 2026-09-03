@@ -23,6 +23,15 @@ export const AuthProvider = ({ children }) => {
       setUser(JSON.parse(storedUser));
     }
     setLoading(false);
+
+    // Prevent mouse wheel from inadvertently changing values in number inputs while scrolling
+    const handleWheel = () => {
+      if (document.activeElement?.tagName === "INPUT" && document.activeElement?.type === "number") {
+        document.activeElement.blur();
+      }
+    };
+    window.addEventListener("wheel", handleWheel, { passive: true });
+    return () => window.removeEventListener("wheel", handleWheel);
   }, []);
 
   const login = async (email, password) => {
