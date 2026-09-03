@@ -202,9 +202,20 @@ exports.getTreasuryInflows = async (req, res) => {
       orderBy: { createdAt: 'desc' }
     });
 
+    // Resolve users so createdBy shows readable email instead of raw UUID
+    const users = await prisma.user.findMany({
+      select: { id: true, email: true }
+    });
+    const userMap = new Map(users.map(u => [u.id, u.email]));
+
+    const formattedInflows = inflows.map(i => ({
+      ...i,
+      createdBy: userMap.get(i.createdBy) || i.createdBy || 'System'
+    }));
+
     return res.json({
       success: true,
-      inflows
+      inflows: formattedInflows
     });
   } catch (error) {
     console.error('Error fetching treasury inflows:', error);
@@ -245,6 +256,12 @@ exports.getTreasuryCashflow = async (req, res) => {
       orderBy: { createdAt: 'desc' }
     });
 
+    // Resolve users so createdBy shows readable email instead of raw UUID
+    const users = await prisma.user.findMany({
+      select: { id: true, email: true }
+    });
+    const userMap = new Map(users.map(u => [u.id, u.email]));
+
     let totalInflow = 0;
     let totalOutflow = 0;
 
@@ -265,8 +282,11 @@ exports.getTreasuryCashflow = async (req, res) => {
       else if (t.type === 'SALARY_PAYMENT') categoryLabel = 'Salary Disbursement';
       else if (t.type === 'FUND_ALLOCATION') categoryLabel = 'Manager Top-Up';
 
+      const resolvedCreatedBy = userMap.get(t.createdBy) || t.createdBy || 'System';
+
       return {
         ...t,
+        createdBy: resolvedCreatedBy,
         direction: isInflow ? 'INFLOW' : 'OUTFLOW',
         categoryLabel
       };
