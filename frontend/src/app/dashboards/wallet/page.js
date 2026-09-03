@@ -15,8 +15,9 @@ export default function WalletDashboard() {
   const [activeTab, setActiveTab] = useState("wallet");
   const [activityTab, setActivityTab] = useState("requests");
 
-  const isAdmin = user?.role === "ADMIN";
-  const isSalesOrAdmin = ["SALES", "ADMIN", "MARKETING"].includes(user?.role);
+  const userRole = (typeof user?.role === "object" ? user?.role?.name : user?.role) || "";
+  const isAdmin = userRole === "ADMIN";
+  const isSalesOrAdmin = ["SALES", "ADMIN", "MARKETING"].includes(userRole);
 
   return (
     <div className="space-y-6">

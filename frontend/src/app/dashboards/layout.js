@@ -26,23 +26,26 @@ export default function DashboardsLayout({ children }) {
     );
   }
 
+  const userRole = (typeof user?.role === "object" ? user?.role?.name : user?.role) || "";
+  const isAdmin = userRole === "ADMIN";
+
   const navItems = [
     { 
       name: "Admin Hub", 
       path: "/dashboards/admin", 
-      visible: user.role === "ADMIN", 
+      visible: isAdmin, 
       icon: ShieldCheck 
     },
     { 
       name: "Manager Hub", 
       path: "/dashboards/manager", 
-      visible: ["ADMIN", "MANAGER"].includes(user.role), 
+      visible: ["ADMIN", "MANAGER"].includes(userRole), 
       icon: Layers 
     },
     { 
       name: "Accounting Hub", 
       path: "/dashboards/accounting", 
-      visible: ["ADMIN", "ACCOUNTING"].includes(user.role), 
+      visible: ["ADMIN", "ACCOUNTING"].includes(userRole), 
       icon: Landmark 
     },
     { 
@@ -52,7 +55,7 @@ export default function DashboardsLayout({ children }) {
       icon: Users 
     },
     { 
-      name: user.role === "ADMIN" ? "Approvals & Expenses" : "My Wallet & Expenses", 
+      name: isAdmin ? "Approvals & Expenses" : "My Wallet & Expenses", 
       path: "/dashboards/wallet", 
       visible: true, 
       icon: Wallet 
