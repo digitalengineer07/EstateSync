@@ -6,9 +6,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "test": "node scripts/github_action_validation_suite.js",
-    "db:backup": "node scripts/backup_database.js",
-    "db:restore": "node scripts/restore_database.js"
+    "test": "node scripts/github_action_validation_suite.js"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
