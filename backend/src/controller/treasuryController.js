@@ -26,16 +26,28 @@ exports.recordBankInflow = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Valid positive amount is required' });
     }
 
-    if (!bankName || !referenceNo || !referenceNo.trim()) {
-      return res.status(400).json({ success: false, message: 'Bank Name and UTR / Reference Number are required' });
+    let cleanRef = referenceNo && typeof referenceNo === 'string' ? referenceNo.trim() : null;
+    let effectiveBankName = bankName ? bankName.trim() : '';
+
+    if (paymentMode !== 'CASH') {
+      if (!effectiveBankName || !cleanRef) {
+        return res.status(400).json({ success: false, message: 'Bank Name and UTR / Reference Number are required' });
+      }
+    } else {
+      if (!effectiveBankName) {
+        effectiveBankName = 'Cash In Hand';
+      }
+      if (!cleanRef) {
+        cleanRef = `CASH-DEP-${Date.now()}`;
+      }
     }
 
-    const cleanRef = referenceNo.trim();
-
-    // Check for duplicate UTR / Reference Number across system
-    const duplicateErr = await checkDuplicateReferenceNo(prisma, cleanRef);
-    if (duplicateErr) {
-      return res.status(400).json({ success: false, message: duplicateErr });
+    // Check for duplicate UTR / Reference Number across system if reference is provided
+    if (cleanRef) {
+      const duplicateErr = await checkDuplicateReferenceNo(prisma, cleanRef);
+      if (duplicateErr) {
+        return res.status(400).json({ success: false, message: duplicateErr });
+      }
     }
 
     // Execute atomic financial transaction
