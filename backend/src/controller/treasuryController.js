@@ -88,7 +88,9 @@ exports.recordBankInflow = async (req, res) => {
       });
 
       // 3. Create Immutable Wallet Transaction Record
-      const txnDescription = `Bank Statement Inflow [${bankName} / ${paymentMode} Ref: ${referenceNo}]: ${narration || 'Capital Deposit into Primary Treasury'}`;
+      const txnDescription = paymentMode === 'CASH'
+        ? `Cash Deposit Inflow [${effectiveBankName}]: ${narration || 'Physical Cash Deposit into Primary Treasury'}`
+        : `Bank Statement Inflow [${effectiveBankName} / ${paymentMode} Ref: ${cleanRef}]: ${narration || 'Capital Deposit into Primary Treasury'}`;
 
       const walletTxn = await tx.walletTransaction.create({
         data: {
@@ -97,21 +99,21 @@ exports.recordBankInflow = async (req, res) => {
           fundMode: fMode,
           destWalletId: adminWallet.id,
           referenceType: 'BANK_STATEMENT',
-          referenceId: referenceNo,
+          referenceId: cleanRef,
           description: txnDescription,
           createdBy: req.user?.email || 'Accountant',
           status: 'COMPLETED'
         }
       });
 
-      if (referenceNo) {
+      if (cleanRef) {
         await registerBankReference(tx, {
-          referenceNo,
+          referenceNo: cleanRef,
           module: 'TREASURY_INFLOW',
           sourceTable: 'WalletTransaction',
           sourceRecordId: walletTxn.id,
           amount: parsedAmount,
-          bankName,
+          bankName: effectiveBankName,
           paymentMode: paymentMode.toUpperCase(),
           recordedBy: req.user?.email || 'Accountant'
         });
@@ -121,8 +123,8 @@ exports.recordBankInflow = async (req, res) => {
       const journalEntry = await postCapitalInfusionJournal(tx, {
         amount: parsedAmount,
         inflowType,
-        bankName: accountNo ? `${bankName} (${accountNo})` : bankName,
-        referenceNo,
+        bankName: accountNo ? `${effectiveBankName} (${accountNo})` : effectiveBankName,
+        referenceNo: cleanRef,
         description: narration,
         referenceId: walletTxn.id,
         createdBy: req.user?.email || 'Accountant'

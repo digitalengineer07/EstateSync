@@ -241,7 +241,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
             </div>
 
             {/* Account Number (Optional) */}
-            {formData.paymentMode !== 'CASH' && (
+            {formData.paymentMode !== 'CASH' ? (
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Account Number (Optional)
@@ -252,6 +252,20 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
                   value={formData.accountNo}
                   onChange={handleChange}
                   placeholder="e.g. 50200091823412"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                />
+              </div>
+            ) : (
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  Receipt / Voucher No (Optional)
+                </label>
+                <input
+                  type="text"
+                  name="referenceNo"
+                  value={formData.referenceNo}
+                  onChange={handleChange}
+                  placeholder="e.g. CSH-REC-001"
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
                 />
               </div>
@@ -282,7 +296,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
               <span>General Ledger</span>
             </div>
             <div className="flex justify-between items-center text-emerald-300">
-              <span>[Debit] Bank Account (Money In)</span>
+              <span>[Debit] {formData.paymentMode === 'CASH' ? 'Cash Treasury (Physical Cash)' : 'Bank Account (Money In)'}</span>
               <span className="font-bold">₹{parseFloat(formData.amount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
             </div>
             <div className="flex justify-between items-center text-indigo-300">
