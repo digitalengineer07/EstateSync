@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { API_URL } from "@/config/api";
-import { CreditCard, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { CreditCard } from "lucide-react";
 
 export default function ExpenseUploadForm() {
   const { user } = useAuth();
