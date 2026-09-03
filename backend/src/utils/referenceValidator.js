@@ -25,6 +25,25 @@ function normalizeReferenceNo(referenceNo) {
  * @param {string|null} excludeSourceRecordId - Optional ID to exclude (e.g. current in-flight transaction record)
  * @returns {Promise<string|null>} - Returns duplicate error message if duplicate found, null if clean
  */
+function getFriendlyModuleName(module) {
+  switch (module) {
+    case 'PROPERTY_PAYMENT':
+      return 'a land owner payout';
+    case 'CUSTOMER_PAYMENT':
+      return 'a customer collection payment';
+    case 'CUSTOMER_REFUND':
+      return 'a customer cancellation refund';
+    case 'SALARY_PAYMENT':
+      return 'an employee salary payout';
+    case 'TREASURY_INFLOW':
+    case 'BANK_STATEMENT':
+    case 'CAPITAL_INFUSION':
+      return 'a corporate treasury bank deposit';
+    default:
+      return 'another payment transaction';
+  }
+}
+
 async function checkDuplicateReferenceNo(tx = prisma, referenceNo, excludeSourceRecordId = null) {
   const cleanRef = normalizeReferenceNo(referenceNo);
   if (!cleanRef) return null;
@@ -35,7 +54,8 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo, excludeSource
   });
 
   if (existingGlobal && (!excludeSourceRecordId || existingGlobal.sourceRecordId !== String(excludeSourceRecordId))) {
-    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" is already recorded in ${existingGlobal.module} (Record: ${existingGlobal.sourceRecordId}, Status: ${existingGlobal.status}). Duplicate external banking entries are strictly prohibited.`;
+    const friendlyModule = getFriendlyModuleName(existingGlobal.module);
+    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" has already been used in ${friendlyModule}. Please enter a new, unique reference number.`;
   }
 
   // 2. Fallback: Check Customer Payments (Collections & Refunds)
@@ -54,7 +74,7 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo, excludeSource
     const custInfo = existingCustPay.customer
       ? `customer "${existingCustPay.customer.customerName}" (Plot ${existingCustPay.customer.plotNo})`
       : 'a customer account';
-    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" is already recorded on a customer transaction for ${custInfo}. Duplicate entries are prohibited.`;
+    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" has already been used for ${custInfo}. Please enter a new reference number.`;
   }
 
   // 3. Fallback: Check Customer Cancellation Settlement Records
@@ -67,7 +87,7 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo, excludeSource
   });
 
   if (existingRefundCust) {
-    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" is already recorded on a cancellation refund for customer "${existingRefundCust.customerName}" (Plot ${existingRefundCust.plotNo}). Duplicate entries are prohibited.`;
+    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" has already been used on a refund for customer "${existingRefundCust.customerName}" (Plot ${existingRefundCust.plotNo}). Please enter a new reference number.`;
   }
 
   // 4. Fallback: Check Land Acquisition Payments (Land Owner Payouts)
@@ -84,9 +104,9 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo, excludeSource
 
   if (existingPropPay) {
     const ownerInfo = existingPropPay.property
-      ? `land owner "${existingPropPay.property.landOwnerName}" (Plot ${existingPropPay.property.plotNo}, Khata ${existingPropPay.property.khataNo})`
-      : 'a land acquisition parcel';
-    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" is already recorded on a land payout for ${ownerInfo}. Duplicate entries are prohibited.`;
+      ? `land owner "${existingPropPay.property.landOwnerName}" (Plot ${existingPropPay.property.plotNo})`
+      : 'a land parcel';
+    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" has already been used for ${ownerInfo}. Please enter a new reference number.`;
   }
 
   // 5. Fallback: Check Treasury Bank Inflows / Capital Infusions
@@ -102,7 +122,7 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo, excludeSource
   });
 
   if (existingInflow) {
-    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" is already recorded on a Corporate Treasury Bank Statement / Capital Infusion. Duplicate entries are prohibited.`;
+    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" has already been used on a Corporate Treasury deposit. Please enter a new reference number.`;
   }
 
   // 6. Fallback: Check Salary Disbursements (SalaryPayment)
@@ -121,7 +141,7 @@ async function checkDuplicateReferenceNo(tx = prisma, referenceNo, excludeSource
     const empInfo = existingSalaryPay.employee
       ? `employee "${existingSalaryPay.employee.fullName}" (${existingSalaryPay.employee.employeeCode})`
       : 'a staff salary payment';
-    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" is already recorded on a salary disbursement for ${empInfo}. Duplicate entries are prohibited.`;
+    return `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" has already been used on a salary payment for ${empInfo}. Please enter a new reference number.`;
   }
 
   return null;
@@ -190,7 +210,7 @@ async function registerBankReference(tx, {
       throw {
         status: 400,
         code: 'DUPLICATE_REFERENCE_NO',
-        message: `Duplicate UTR / Reference Error: Reference No. "${cleanRef}" is already recorded in another transaction. Concurrency collision prevented.`
+        message: `Duplicate UTR / Reference: Reference No. "${cleanRef}" has already been used in another transaction. Please enter a new, unique reference number.`
       };
     }
     throw err;
