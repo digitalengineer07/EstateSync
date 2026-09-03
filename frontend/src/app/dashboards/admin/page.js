@@ -10,6 +10,7 @@ import GeneralLedgerView from "@/components/GeneralLedgerView";
 import AuditLogViewer from "@/components/AuditLogViewer";
 import CustomerPortfolioList from "@/components/CustomerPortfolioList";
 import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
+import TreasuryInflowList from "@/components/TreasuryInflowList";
 import Link from "next/link";
 import { ShieldCheck, FileText, ArrowLeftRight, Users } from "lucide-react";
 
@@ -44,6 +45,9 @@ export default function AdminDashboard() {
         <DirectFundAllocationForm />
         <UserRegistrationForm />
       </div>
+
+      {/* Corporate Treasury & Bank Inflow Audit */}
+      <TreasuryInflowList userRole="ADMIN" />
 
       {/* Staff & Workforce Directory Navigation Card */}
       <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6">
