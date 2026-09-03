@@ -214,3 +214,77 @@ exports.getTreasuryInflows = async (req, res) => {
     });
   }
 };
+
+/**
+ * Get unified Treasury Cashflow (Inflows + Outflows)
+ * GET /api/v1/treasury/cashflow
+ */
+exports.getTreasuryCashflow = async (req, res) => {
+  try {
+    const { filter } = req.query; // 'all', 'inflow', 'outflow'
+
+    const INFLOW_TYPES = ['CAPITAL_INFUSION', 'CUSTOMER_PAYMENT_RECEIVED'];
+    const OUTFLOW_TYPES = ['LAND_ACQUISITION_PAYMENT', 'SALARY_PAYMENT', 'FUND_ALLOCATION'];
+
+    let typeFilter = [...INFLOW_TYPES, ...OUTFLOW_TYPES];
+    if (filter === 'inflow') typeFilter = INFLOW_TYPES;
+    if (filter === 'outflow') typeFilter = OUTFLOW_TYPES;
+
+    const transactions = await prisma.walletTransaction.findMany({
+      where: {
+        type: { in: typeFilter }
+      },
+      include: {
+        sourceWallet: {
+          include: { user: { select: { name: true, email: true } } }
+        },
+        destWallet: {
+          include: { user: { select: { name: true, email: true } } }
+        }
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    let totalInflow = 0;
+    let totalOutflow = 0;
+
+    const items = transactions.map((t) => {
+      const isInflow = INFLOW_TYPES.includes(t.type);
+      const amt = parseFloat(t.amount || 0);
+
+      if (isInflow) {
+        totalInflow += amt;
+      } else {
+        totalOutflow += amt;
+      }
+
+      let categoryLabel = 'Corporate Flow';
+      if (t.type === 'CAPITAL_INFUSION') categoryLabel = 'Capital Infusion';
+      else if (t.type === 'CUSTOMER_PAYMENT_RECEIVED') categoryLabel = 'Customer Collection';
+      else if (t.type === 'LAND_ACQUISITION_PAYMENT') categoryLabel = 'Land Payout';
+      else if (t.type === 'SALARY_PAYMENT') categoryLabel = 'Salary Disbursement';
+      else if (t.type === 'FUND_ALLOCATION') categoryLabel = 'Manager Top-Up';
+
+      return {
+        ...t,
+        direction: isInflow ? 'INFLOW' : 'OUTFLOW',
+        categoryLabel
+      };
+    });
+
+    return res.json({
+      success: true,
+      items,
+      summary: {
+        totalInflow,
+        totalOutflow,
+        netCashflow: totalInflow - totalOutflow,
+        totalCount: items.length
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching treasury cashflow:', error);
+    return res.status(500).json({ success: false, message: 'Failed to fetch treasury cashflow' });
+  }
+};
+

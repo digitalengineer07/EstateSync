@@ -11,6 +11,14 @@ router.get('/inflows', verifyJWT, (req, res, next) => {
   return res.status(403).json({ success: false, message: 'Access denied: Admin or Accounting role required' });
 }, treasuryController.getTreasuryInflows);
 
+// GET /api/v1/treasury/cashflow - Unified Treasury Cashflow (Inflows + Outflows)
+router.get('/cashflow', verifyJWT, (req, res, next) => {
+  if (['ADMIN', 'ACCOUNTING'].includes(req.user?.role)) {
+    return next();
+  }
+  return res.status(403).json({ success: false, message: 'Access denied: Admin or Accounting role required' });
+}, treasuryController.getTreasuryCashflow);
+
 router.post('/inflow', verifyJWT, (req, res, next) => {
   if (['ADMIN', 'ACCOUNTING'].includes(req.user?.role)) {
     return next();
