@@ -62,7 +62,7 @@ router.post(
 // 4. Simple Salary Configuration & Disbursal Routes
 router.put(
   '/:id/salary',
-  checkPermission('user.manage'),
+  checkPermission(['employee.update', 'user.manage']),
   employeeController.updateSalaryConfig
 );
 
