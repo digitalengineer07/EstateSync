@@ -1,0 +1,44 @@
+[
+  {
+    "id": "4155e2dd-c273-4509-bd16-cae1cfad9f38",
+    "name": "ADMIN",
+    "description": "ADMIN Role",
+    "createdAt": "2026-08-31T16:46:38.060Z",
+    "updatedAt": "2026-08-31T16:46:38.060Z"
+  },
+  {
+    "id": "ce527451-3f80-4425-a2f1-9e6e6aadf178",
+    "name": "MANAGER",
+    "description": "MANAGER Role",
+    "createdAt": "2026-08-31T16:46:54.878Z",
+    "updatedAt": "2026-08-31T16:46:54.878Z"
+  },
+  {
+    "id": "d56b85e3-389c-4894-a252-a12ffbaeaebf",
+    "name": "SALES",
+    "description": "SALES Role",
+    "createdAt": "2026-08-31T16:46:56.040Z",
+    "updatedAt": "2026-08-31T16:46:56.040Z"
+  },
+  {
+    "id": "8be0b78a-2fa9-4048-a59f-d8e2c202db7d",
+    "name": "MARKETING",
+    "description": "MARKETING Role",
+    "createdAt": "2026-08-31T16:46:57.249Z",
+    "updatedAt": "2026-08-31T16:46:57.249Z"
+  },
+  {
+    "id": "f8d14d24-9a52-42a0-ac2b-03723a3379ab",
+    "name": "ACCOUNTING",
+    "description": "ACCOUNTING Role",
+    "createdAt": "2026-08-31T16:46:59.373Z",
+    "updatedAt": "2026-08-31T16:46:59.373Z"
+  },
+  {
+    "id": "bb4cdb44-6d66-4daa-8cb3-2855392cde2c",
+    "name": "OTHER",
+    "description": "OTHER Role",
+    "createdAt": "2026-08-31T16:47:00.133Z",
+    "updatedAt": "2026-08-31T16:47:00.133Z"
+  }
+]

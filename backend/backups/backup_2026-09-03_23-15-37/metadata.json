@@ -1,0 +1,165 @@
+{
+  "backupName": "backup_2026-09-03_23-15-37",
+  "createdAt": "2026-09-03T23:15:37.786Z",
+  "totalTables": 39,
+  "totalRecords": 2616,
+  "tablesWithData": 28,
+  "tableBreakdown": [
+    {
+      "model": "User",
+      "count": 6
+    },
+    {
+      "model": "Role",
+      "count": 6
+    },
+    {
+      "model": "Permission",
+      "count": 33
+    },
+    {
+      "model": "RolePermission",
+      "count": 98
+    },
+    {
+      "model": "Wallet",
+      "count": 6
+    },
+    {
+      "model": "WalletTransaction",
+      "count": 130
+    },
+    {
+      "model": "FundRequest",
+      "count": 8
+    },
+    {
+      "model": "Expense",
+      "count": 4
+    },
+    {
+      "model": "ExpenseCategory",
+      "count": 5
+    },
+    {
+      "model": "IdempotencyKey",
+      "count": 44
+    },
+    {
+      "model": "Account",
+      "count": 24
+    },
+    {
+      "model": "JournalEntry",
+      "count": 135
+    },
+    {
+      "model": "JournalLine",
+      "count": 273
+    },
+    {
+      "model": "AuditLog",
+      "count": 1613
+    },
+    {
+      "model": "Customer",
+      "count": 15
+    },
+    {
+      "model": "CustomerPayment",
+      "count": 5
+    },
+    {
+      "model": "PropertyAcquisition",
+      "count": 5
+    },
+    {
+      "model": "PropertyPayment",
+      "count": 3
+    },
+    {
+      "model": "Employee",
+      "count": 9
+    },
+    {
+      "model": "SalaryComponent",
+      "count": 10
+    },
+    {
+      "model": "SalaryStructure",
+      "count": 2
+    },
+    {
+      "model": "SalaryStructureLine",
+      "count": 7
+    },
+    {
+      "model": "EmployeeSalaryAssignment",
+      "count": 1
+    },
+    {
+      "model": "PayrollPeriod",
+      "count": 1
+    },
+    {
+      "model": "PayrollRun",
+      "count": 0
+    },
+    {
+      "model": "PayrollItem",
+      "count": 0
+    },
+    {
+      "model": "PayrollLine",
+      "count": 0
+    },
+    {
+      "model": "PayrollAdjustment",
+      "count": 0
+    },
+    {
+      "model": "PayrollException",
+      "count": 0
+    },
+    {
+      "model": "PayrollAccountingPosting",
+      "count": 0
+    },
+    {
+      "model": "SalaryPaymentBatch",
+      "count": 0
+    },
+    {
+      "model": "SalaryPayment",
+      "count": 0
+    },
+    {
+      "model": "GlobalBankReference",
+      "count": 88
+    },
+    {
+      "model": "AccountingPeriod",
+      "count": 60
+    },
+    {
+      "model": "PaymentPlan",
+      "count": 5
+    },
+    {
+      "model": "PaymentPlanMilestone",
+      "count": 20
+    },
+    {
+      "model": "CustomerDemandNote",
+      "count": 0
+    },
+    {
+      "model": "CustomerLedgerEntry",
+      "count": 0
+    },
+    {
+      "model": "PaymentAllocation",
+      "count": 0
+    }
+  ]
+}

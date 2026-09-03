@@ -1,0 +1,67 @@
+[
+  {
+    "id": "088b7e70-252f-4e7a-bbac-b78a41ce39e7",
+    "customerId": "a97c1854-5323-4c00-8352-9abb9c20adbe",
+    "dateOfPayment": "2026-08-31T00:00:00.000Z",
+    "amount": "206000",
+    "paymentMode": "CASH",
+    "sourceAccount": "HDFC Bank",
+    "destinationAccount": "Corporate Treasury HDFC A/C (1010)",
+    "referenceNo": "UTR-SBI-76856473",
+    "recordedById": "6a358462-3c46-4532-9472-1e9ee1e4f282",
+    "status": "RECORDED",
+    "createdAt": "2026-08-31T18:51:15.245Z"
+  },
+  {
+    "id": "dd36597b-baee-49be-871b-e69de1de4786",
+    "customerId": "65240a85-e37e-4938-b91c-d961efb0ce1e",
+    "dateOfPayment": "2026-08-31T00:00:00.000Z",
+    "amount": "2000000",
+    "paymentMode": "RTGS",
+    "sourceAccount": "Client Bank Account",
+    "destinationAccount": "Corporate Treasury HDFC A/C (1010)",
+    "referenceNo": "UTR-SBI-95867543",
+    "recordedById": "6a358462-3c46-4532-9472-1e9ee1e4f282",
+    "status": "RECORDED",
+    "createdAt": "2026-08-31T18:53:14.981Z"
+  },
+  {
+    "id": "ca5bd1bf-dc5a-48fe-8862-c64fe9be9e6b",
+    "customerId": "f58d0bbe-00e8-421d-98fe-0e7cd24de50b",
+    "dateOfPayment": "2026-09-01T00:00:00.000Z",
+    "amount": "1000000",
+    "paymentMode": "RTGS",
+    "sourceAccount": "ICICI Bank -  A/C 9812401",
+    "destinationAccount": "Corporate  Treasury HDFC  (1010)",
+    "referenceNo": "UTR CUST-891201",
+    "recordedById": "6a358462-3c46-4532-9472-1e9ee1e4f282",
+    "status": "RECORDED",
+    "createdAt": "2026-09-03T19:55:28.497Z"
+  },
+  {
+    "id": "82868211-8508-4479-89b1-239b461599f5",
+    "customerId": "3e32c218-c2f6-4266-b1ec-2542a7d4676c",
+    "dateOfPayment": "2026-09-01T00:00:00.000Z",
+    "amount": "1500000",
+    "paymentMode": "NEFT",
+    "sourceAccount": "SBI - A/C  30129012",
+    "destinationAccount": "Corporate  Treasury HDFC  (1010)",
+    "referenceNo": "UTR CUST-891202",
+    "recordedById": "6a358462-3c46-4532-9472-1e9ee1e4f282",
+    "status": "RECORDED",
+    "createdAt": "2026-09-03T20:21:14.021Z"
+  },
+  {
+    "id": "7ae6a832-c169-414f-8ca1-311e1ba2a194",
+    "customerId": "4ca8c400-f592-4106-a760-60d3d331dad3",
+    "dateOfPayment": "2026-09-03T00:00:00.000Z",
+    "amount": "400",
+    "paymentMode": "CASH",
+    "sourceAccount": "Cash In Hand",
+    "destinationAccount": "Cash In Hand",
+    "referenceNo": "CASH-RCPT-134",
+    "recordedById": "92bc55d6-c402-4720-99ca-834910ee8250",
+    "status": "RECORDED",
+    "createdAt": "2026-09-03T18:59:48.231Z"
+  }
+]

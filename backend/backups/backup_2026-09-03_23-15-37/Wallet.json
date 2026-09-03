@@ -1,0 +1,74 @@
+[
+  {
+    "id": "d313146b-de93-4307-bd6e-de6c5e145b11",
+    "userId": "19d7165c-1c86-4568-a1ec-95668b8d4096",
+    "totalAllocatedLiquid": "0",
+    "totalAllocatedCash": "0",
+    "totalSpentLiquid": "0",
+    "totalSpentCash": "0",
+    "availableBalanceLiquid": "0",
+    "availableBalanceCash": "0",
+    "createdAt": "2026-08-31T17:06:09.723Z",
+    "updatedAt": "2026-08-31T17:06:09.723Z"
+  },
+  {
+    "id": "8a0f8e10-9fc0-4154-af76-436ea2eca631",
+    "userId": "da598a96-f264-4e8c-bc92-99e9cbde1b3d",
+    "totalAllocatedLiquid": "0",
+    "totalAllocatedCash": "0",
+    "totalSpentLiquid": "0",
+    "totalSpentCash": "0",
+    "availableBalanceLiquid": "0",
+    "availableBalanceCash": "0",
+    "createdAt": "2026-08-31T17:06:11.164Z",
+    "updatedAt": "2026-08-31T17:06:11.164Z"
+  },
+  {
+    "id": "0cea8007-c1cc-4851-94e9-e28114e715a5",
+    "userId": "6a358462-3c46-4532-9472-1e9ee1e4f282",
+    "totalAllocatedLiquid": "0",
+    "totalAllocatedCash": "110000",
+    "totalSpentLiquid": "0",
+    "totalSpentCash": "5240.89",
+    "availableBalanceLiquid": "0",
+    "availableBalanceCash": "104759.11",
+    "createdAt": "2026-08-31T17:06:10.369Z",
+    "updatedAt": "2026-08-31T19:46:17.318Z"
+  },
+  {
+    "id": "24dd5be7-94ec-40f8-820e-db3b6c4196d4",
+    "userId": "61118673-a6a3-4444-87d9-789f7ea4ed73",
+    "totalAllocatedLiquid": "50000",
+    "totalAllocatedCash": "0",
+    "totalSpentLiquid": "0",
+    "totalSpentCash": "0",
+    "availableBalanceLiquid": "50000",
+    "availableBalanceCash": "0",
+    "createdAt": "2026-08-31T17:06:09.041Z",
+    "updatedAt": "2026-09-02T21:01:38.223Z"
+  },
+  {
+    "id": "98a58a09-771b-4014-afac-51a6e862a839",
+    "userId": "1e20de1a-8ba2-43ec-8aae-02c0c573207d",
+    "totalAllocatedLiquid": "542000",
+    "totalAllocatedCash": "0",
+    "totalSpentLiquid": "13500",
+    "totalSpentCash": "0",
+    "availableBalanceLiquid": "528500",
+    "availableBalanceCash": "0",
+    "createdAt": "2026-08-31T17:06:08.469Z",
+    "updatedAt": "2026-09-03T21:32:00.084Z"
+  },
+  {
+    "id": "102a9dca-829c-475b-82a7-e0f9627713b0",
+    "userId": "92bc55d6-c402-4720-99ca-834910ee8250",
+    "totalAllocatedLiquid": "43928000",
+    "totalAllocatedCash": "163400",
+    "totalSpentLiquid": "2623200",
+    "totalSpentCash": "218400",
+    "availableBalanceLiquid": "43028000",
+    "availableBalanceCash": "1080000",
+    "createdAt": "2026-08-31T17:06:07.529Z",
+    "updatedAt": "2026-09-03T22:10:25.094Z"
+  }
+]

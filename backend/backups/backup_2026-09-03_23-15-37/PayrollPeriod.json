@@ -1,0 +1,17 @@
+[
+  {
+    "id": "18c3ec46-303b-47b9-a043-16da06e89d19",
+    "year": 2026,
+    "month": 9,
+    "periodStart": "2026-09-01T00:00:00.000Z",
+    "periodEnd": "2026-09-30T23:59:59.999Z",
+    "status": "LOCKED",
+    "createdBy": "admin@estatesync.local",
+    "approvedBy": "admin@estatesync.local",
+    "lockedBy": "admin@estatesync.local",
+    "lockedAt": "2026-09-02T15:49:08.536Z",
+    "updatedBy": "admin@estatesync.local",
+    "createdAt": "2026-09-02T15:48:58.597Z",
+    "updatedAt": "2026-09-02T15:49:08.540Z"
+  }
+]

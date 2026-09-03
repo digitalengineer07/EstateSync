@@ -1,0 +1,32 @@
+[
+  {
+    "id": "30d0f70e-2e61-4d06-9478-595beb4ad478",
+    "code": "STR_QA_204027",
+    "name": "QA Standard Engineering Compensation Scheme",
+    "description": "Structure for end-to-end verification",
+    "currency": "INR",
+    "status": "ACTIVE",
+    "version": 1,
+    "effectiveFrom": "2026-01-01T00:00:00.000Z",
+    "effectiveTo": null,
+    "createdBy": "admin@estatesync.local",
+    "updatedBy": "admin@estatesync.local",
+    "createdAt": "2026-09-02T15:50:04.574Z",
+    "updatedAt": "2026-09-02T15:50:04.574Z"
+  },
+  {
+    "id": "3e0acc1e-3b97-4125-b465-7e9005616fa1",
+    "code": "STR_F9_424530",
+    "name": "F9 Master Structure 424530",
+    "description": null,
+    "currency": "INR",
+    "status": "ACTIVE",
+    "version": 1,
+    "effectiveFrom": "2026-09-02T17:00:27.048Z",
+    "effectiveTo": null,
+    "createdBy": null,
+    "updatedBy": null,
+    "createdAt": "2026-09-02T17:00:27.048Z",
+    "updatedAt": "2026-09-02T17:00:27.048Z"
+  }
+]

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "10b9c80b-859b-44f6-b229-bebd7ebe6cac",
+    "propertyId": "05fda687-7eba-4271-99d9-00c0e9b899b6",
+    "dateOfPayment": "2026-09-03T00:00:00.000Z",
+    "amount": "500000",
+    "paymentMode": "RTGS",
+    "paidFromAccount": "Company bank account",
+    "referenceNo": "RTGS-SBI-86758395",
+    "notes": "First payment after registry dead signing",
+    "paidById": "6a358462-3c46-4532-9472-1e9ee1e4f282",
+    "status": "RECORDED",
+    "createdAt": "2026-09-03T14:40:04.652Z"
+  },
+  {
+    "id": "8bcd88f8-6355-487b-9aa9-f05bdf096a3e",
+    "propertyId": "05fda687-7eba-4271-99d9-00c0e9b899b6",
+    "dateOfPayment": "2026-09-03T00:00:00.000Z",
+    "amount": "100000",
+    "paymentMode": "CASH",
+    "paidFromAccount": "Cash In Hand",
+    "referenceNo": "CASH-PAY-201",
+    "notes": "Second Land payment",
+    "paidById": "6a358462-3c46-4532-9472-1e9ee1e4f282",
+    "status": "RECORDED",
+    "createdAt": "2026-09-03T14:43:20.291Z"
+  },
+  {
+    "id": "709b9377-4414-42ff-8447-0343882070a5",
+    "propertyId": "05fda687-7eba-4271-99d9-00c0e9b899b6",
+    "dateOfPayment": "2026-09-03T00:00:00.000Z",
+    "amount": "3000",
+    "paymentMode": "CASH",
+    "paidFromAccount": "Cash In Hand",
+    "referenceNo": "CASH-PAY-202",
+    "notes": "test payment",
+    "paidById": "92bc55d6-c402-4720-99ca-834910ee8250",
+    "status": "RECORDED",
+    "createdAt": "2026-09-03T19:04:59.746Z"
+  }
+]

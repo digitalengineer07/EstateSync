@@ -1,0 +1,233 @@
+[
+  {
+    "id": "45f820c4-f74f-4bd1-9c7d-3d183a9486e2",
+    "code": "fund.view",
+    "description": "Permission for fund.view",
+    "createdAt": "2026-08-31T16:47:01.138Z",
+    "updatedAt": "2026-08-31T16:47:01.138Z"
+  },
+  {
+    "id": "e4056c6f-dd6e-4e0f-90f5-d3745f29db64",
+    "code": "fund.allocate",
+    "description": "Permission for fund.allocate",
+    "createdAt": "2026-08-31T16:47:02.322Z",
+    "updatedAt": "2026-08-31T16:47:02.322Z"
+  },
+  {
+    "id": "c3b9a0df-fd9d-4879-aec9-fb5f9c2e38cc",
+    "code": "fund.request",
+    "description": "Permission for fund.request",
+    "createdAt": "2026-08-31T16:47:03.023Z",
+    "updatedAt": "2026-08-31T16:47:03.023Z"
+  },
+  {
+    "id": "946207de-06dc-48d1-a594-eec492d244c6",
+    "code": "fund.approve",
+    "description": "Permission for fund.approve",
+    "createdAt": "2026-08-31T16:47:05.203Z",
+    "updatedAt": "2026-08-31T16:47:05.203Z"
+  },
+  {
+    "id": "189c041a-8555-408c-b18c-e5437d403477",
+    "code": "fund.reject",
+    "description": "Permission for fund.reject",
+    "createdAt": "2026-08-31T16:47:13.587Z",
+    "updatedAt": "2026-08-31T16:47:13.587Z"
+  },
+  {
+    "id": "21dd615a-6d24-4385-ab05-ea003f644752",
+    "code": "wallet.view",
+    "description": "Permission for wallet.view",
+    "createdAt": "2026-08-31T16:47:27.798Z",
+    "updatedAt": "2026-08-31T16:47:27.798Z"
+  },
+  {
+    "id": "92b92874-a60e-4c47-b551-06848bb23cb0",
+    "code": "wallet.view_all",
+    "description": "Permission for wallet.view_all",
+    "createdAt": "2026-08-31T16:47:37.806Z",
+    "updatedAt": "2026-08-31T16:47:37.806Z"
+  },
+  {
+    "id": "2a9642e3-7190-4378-8a3f-44236004969b",
+    "code": "expense.create",
+    "description": "Permission for expense.create",
+    "createdAt": "2026-08-31T16:47:46.124Z",
+    "updatedAt": "2026-08-31T16:47:46.124Z"
+  },
+  {
+    "id": "4b75cb43-3ddd-4b03-89a5-409b2eff70a4",
+    "code": "expense.view",
+    "description": "Permission for expense.view",
+    "createdAt": "2026-08-31T16:47:47.039Z",
+    "updatedAt": "2026-08-31T16:47:47.039Z"
+  },
+  {
+    "id": "56550bde-e497-45a4-8d6f-d86398c3a2c7",
+    "code": "expense.view_all",
+    "description": "Permission for expense.view_all",
+    "createdAt": "2026-08-31T16:47:48.322Z",
+    "updatedAt": "2026-08-31T16:47:48.322Z"
+  },
+  {
+    "id": "cd3cf2f4-5894-4c96-84c8-10b762255d1d",
+    "code": "expense.approve",
+    "description": "Permission for expense.approve",
+    "createdAt": "2026-08-31T16:47:49.154Z",
+    "updatedAt": "2026-08-31T16:47:49.154Z"
+  },
+  {
+    "id": "1a9156ac-7990-4044-8b6f-774bf4ea4775",
+    "code": "expense.reverse",
+    "description": "Permission for expense.reverse",
+    "createdAt": "2026-08-31T16:47:50.038Z",
+    "updatedAt": "2026-08-31T16:47:50.038Z"
+  },
+  {
+    "id": "3968eb73-b434-45f2-bf9d-fb741dd52ff8",
+    "code": "transaction.view",
+    "description": "Permission for transaction.view",
+    "createdAt": "2026-08-31T16:47:50.764Z",
+    "updatedAt": "2026-08-31T16:47:50.764Z"
+  },
+  {
+    "id": "e79a0819-104e-415d-be0a-f063fcec34f5",
+    "code": "transaction.view_all",
+    "description": "Permission for transaction.view_all",
+    "createdAt": "2026-08-31T16:47:51.572Z",
+    "updatedAt": "2026-08-31T16:47:51.572Z"
+  },
+  {
+    "id": "0ee6d284-43d2-4bb3-a5bb-f6fec2969785",
+    "code": "accounting.view",
+    "description": "Permission for accounting.view",
+    "createdAt": "2026-08-31T16:47:52.495Z",
+    "updatedAt": "2026-08-31T16:47:52.495Z"
+  },
+  {
+    "id": "e76802c5-dfbd-4040-b59c-9e4f83b38320",
+    "code": "report.view",
+    "description": "Permission for report.view",
+    "createdAt": "2026-08-31T16:47:53.420Z",
+    "updatedAt": "2026-08-31T16:47:53.420Z"
+  },
+  {
+    "id": "08d6c462-1aa3-44b8-8c8b-dc0ffb36a980",
+    "code": "audit.view",
+    "description": "Permission for audit.view",
+    "createdAt": "2026-08-31T16:47:55.283Z",
+    "updatedAt": "2026-08-31T16:47:55.283Z"
+  },
+  {
+    "id": "907ded25-ea3c-4977-b8e0-597eea52015e",
+    "code": "user.manage",
+    "description": "Permission for user.manage",
+    "createdAt": "2026-08-31T16:47:56.079Z",
+    "updatedAt": "2026-08-31T16:47:56.079Z"
+  },
+  {
+    "id": "40e17007-7e42-40ef-9889-ae026216d606",
+    "code": "customer.create",
+    "description": "Permission for customer.create",
+    "createdAt": "2026-08-31T16:47:56.875Z",
+    "updatedAt": "2026-08-31T16:47:56.875Z"
+  },
+  {
+    "id": "d919ce52-af7c-40f4-8a13-1e7f8972d2e9",
+    "code": "customer.view",
+    "description": "Permission for customer.view",
+    "createdAt": "2026-08-31T16:48:03.396Z",
+    "updatedAt": "2026-08-31T16:48:03.396Z"
+  },
+  {
+    "id": "e17c7332-43a2-45c5-9035-b37cea9f8079",
+    "code": "customer.view_all",
+    "description": "Permission for customer.view_all",
+    "createdAt": "2026-08-31T16:48:10.793Z",
+    "updatedAt": "2026-08-31T16:48:10.793Z"
+  },
+  {
+    "id": "b1c54ed6-d463-4f00-b871-88d135b5edea",
+    "code": "customer.edit",
+    "description": "Permission for customer.edit",
+    "createdAt": "2026-08-31T16:48:19.893Z",
+    "updatedAt": "2026-08-31T16:48:19.893Z"
+  },
+  {
+    "id": "10e00a3c-1c72-4cdc-b598-7198c7a8057c",
+    "code": "customer.payment.record",
+    "description": "Permission for customer.payment.record",
+    "createdAt": "2026-08-31T16:48:21.545Z",
+    "updatedAt": "2026-08-31T16:48:21.545Z"
+  },
+  {
+    "id": "a330a5f0-dddd-40e5-ad18-9d4d642adeff",
+    "code": "customer.payment.view",
+    "description": "Permission for customer.payment.view",
+    "createdAt": "2026-08-31T16:48:23.012Z",
+    "updatedAt": "2026-08-31T16:48:23.012Z"
+  },
+  {
+    "id": "1e569e9c-1e7b-44f2-876a-722acf5c0c2f",
+    "code": "property.create",
+    "description": "Permission for property.create",
+    "createdAt": "2026-08-31T16:48:24.197Z",
+    "updatedAt": "2026-08-31T16:48:24.197Z"
+  },
+  {
+    "id": "45424d4f-a45f-4647-822a-05f34ba52fb3",
+    "code": "property.view_all",
+    "description": "Permission for property.view_all",
+    "createdAt": "2026-08-31T16:48:25.423Z",
+    "updatedAt": "2026-08-31T16:48:25.423Z"
+  },
+  {
+    "id": "75981768-a7e1-4e51-bff7-ff4f67755b71",
+    "code": "property.edit",
+    "description": "Permission for property.edit",
+    "createdAt": "2026-08-31T16:48:26.325Z",
+    "updatedAt": "2026-08-31T16:48:26.325Z"
+  },
+  {
+    "id": "b6c19f49-0d48-4b41-a59b-eb8078d5233e",
+    "code": "property.payment.record",
+    "description": "Permission for property.payment.record",
+    "createdAt": "2026-08-31T16:48:27.946Z",
+    "updatedAt": "2026-08-31T16:48:27.946Z"
+  },
+  {
+    "id": "11b94baf-8731-44c7-8848-06d8dc7ef94f",
+    "code": "property.payment.view",
+    "description": "Permission for property.payment.view",
+    "createdAt": "2026-08-31T16:48:29.252Z",
+    "updatedAt": "2026-08-31T16:48:29.252Z"
+  },
+  {
+    "id": "d85b1a46-afa9-4dc8-8155-e0628d5297c7",
+    "code": "employee.view",
+    "description": "Permission for employee.view",
+    "createdAt": "2026-09-01T20:18:24.865Z",
+    "updatedAt": "2026-09-01T20:18:24.865Z"
+  },
+  {
+    "id": "1303d017-a5e6-48af-ae2c-7ee0ca670adc",
+    "code": "employee.create",
+    "description": "Permission for employee.create",
+    "createdAt": "2026-09-01T20:18:26.013Z",
+    "updatedAt": "2026-09-01T20:18:26.013Z"
+  },
+  {
+    "id": "f2ea671a-5ecb-4b9b-9098-ee507031f7e8",
+    "code": "employee.update",
+    "description": "Permission for employee.update",
+    "createdAt": "2026-09-01T20:18:27.153Z",
+    "updatedAt": "2026-09-01T20:18:27.153Z"
+  },
+  {
+    "id": "d92a241a-87f4-4100-ad8e-51029364ea12",
+    "code": "employee.archive",
+    "description": "Permission for employee.archive",
+    "createdAt": "2026-09-01T20:18:27.863Z",
+    "updatedAt": "2026-09-01T20:18:27.863Z"
+  }
+]
