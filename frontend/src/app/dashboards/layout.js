@@ -52,7 +52,7 @@ export default function DashboardsLayout({ children }) {
       icon: Users 
     },
     { 
-      name: "My Wallet & Expenses", 
+      name: user.role === "ADMIN" ? "Approvals & Expenses" : "My Wallet & Expenses", 
       path: "/dashboards/wallet", 
       visible: true, 
       icon: Wallet 
