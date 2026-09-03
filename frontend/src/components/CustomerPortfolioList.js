@@ -182,7 +182,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                 </div>
               </div>
               <div className="mt-3">
-                <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-sans block">
+                <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-digital block">
                   ₹{parseFloat(summary.totalPortfolioValue || 0).toLocaleString('en-IN')}
                 </span>
               </div>
@@ -203,7 +203,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                 </div>
               </div>
               <div className="mt-3">
-                <span className="text-xl sm:text-[22px] font-bold text-emerald-700 tracking-tight font-sans block">
+                <span className="text-xl sm:text-[22px] font-bold text-emerald-700 tracking-tight font-digital block">
                   ₹{parseFloat(summary.totalCollected || 0).toLocaleString('en-IN')}
                 </span>
               </div>
@@ -226,7 +226,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                 </div>
               </div>
               <div className="mt-3">
-                <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-sans block">
+                <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-digital block">
                   ₹{parseFloat(summary.totalOutstanding || 0).toLocaleString('en-IN')}
                 </span>
               </div>

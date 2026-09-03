@@ -100,7 +100,7 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
           {/* Total Inflows Metric Label */}
           <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs whitespace-nowrap">
             <span className="text-slate-400 text-[11px]">Total:</span>
-            <span className="font-bold text-slate-900 font-sans">
+            <span className="font-bold text-slate-900 font-digital tracking-wide text-[13px]">
               ₹{totalInflowAmount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
             </span>
           </div>
@@ -189,7 +189,7 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
                       {item.description}
                     </td>
                     <td className="px-5 py-4 text-right">
-                      <span className="font-mono font-black text-emerald-700 text-sm bg-emerald-50/80 px-3 py-1 rounded-lg border border-emerald-200/60 inline-block shadow-2xs">
+                      <span className="font-digital font-bold text-emerald-700 text-sm bg-emerald-50/80 px-3 py-1 rounded-lg border border-emerald-200/60 inline-block shadow-2xs tracking-wide">
                         +₹{parseFloat(item.amount).toLocaleString("en-IN", { minimumFractionDigits: 2 })}
                       </span>
                     </td>

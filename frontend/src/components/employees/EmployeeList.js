@@ -232,7 +232,7 @@ export default function EmployeeList() {
                 <IndianRupee className="w-4 h-4" />
               </div>
             </div>
-            <div className="text-2xl sm:text-[26px] font-bold text-slate-900 tracking-tight font-sans mt-3">
+            <div className="text-2xl sm:text-[26px] font-bold text-slate-900 tracking-tight font-digital mt-3">
               {loading ? "--" : `₹${Math.round(totalMonthlyPayroll).toLocaleString("en-IN")}`}
             </div>
           </div>
@@ -419,7 +419,7 @@ export default function EmployeeList() {
                             {emp.baseSalary && parseFloat(emp.baseSalary) > 0 ? (
                               <div>
                                 <div className="flex items-center gap-2">
-                                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-md bg-emerald-50 border border-emerald-200/90 text-emerald-800 text-xs font-bold font-sans">
+                                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-md bg-emerald-50 border border-emerald-200/90 text-emerald-800 text-xs font-bold font-digital tracking-wide">
                                     ₹{parseFloat(emp.baseSalary).toLocaleString("en-IN")}
                                   </span>
                                   {canEditSalary && (
