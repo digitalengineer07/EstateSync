@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import DashboardStats from "@/components/DashboardStats";
 import UserWalletLedger from "@/components/UserWalletLedger";
 import ExpenseList from "@/components/ExpenseList";
@@ -11,11 +11,16 @@ import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
 import TreasuryInflowList from "@/components/TreasuryInflowList";
 import AccountingSalaryView from "@/components/accounting/AccountingSalaryView";
 import Link from "next/link";
-import { Users, MapPin, Scale, Wallet, Receipt, ArrowLeftRight, ShieldCheck, Landmark, IndianRupee } from "lucide-react";
+import { Users, MapPin, Scale, Wallet, Receipt, ArrowLeftRight, ShieldCheck, Landmark, IndianRupee, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function AccountingDashboard() {
   const [activeTab, setActiveTab] = useState("treasury");
   const [walletSubTab, setWalletSubTab] = useState("expenses");
+
+  const tabContainerRef = useRef(null);
+  const tabRefs = useRef({});
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   const tabs = [
     { id: "treasury", label: "Bank Inflow & Treasury", icon: Landmark, badge: "PRD §4.1" },
@@ -25,6 +30,58 @@ export default function AccountingDashboard() {
     { id: "ledger", label: "General Ledger", icon: Scale, badge: "Dr = Cr" },
     { id: "wallets", label: "Wallets & Expenses", icon: Wallet, badge: "Corporate" },
   ];
+
+  const checkScroll = useCallback(() => {
+    const el = tabContainerRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 6);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 6);
+  }, []);
+
+  useEffect(() => {
+    checkScroll();
+    window.addEventListener("resize", checkScroll);
+    return () => window.removeEventListener("resize", checkScroll);
+  }, [checkScroll]);
+
+  // Genius Auto-Scroll: Whenever activeTab changes, smoothly center it in view
+  useEffect(() => {
+    const container = tabContainerRef.current;
+    const activeBtn = tabRefs.current[activeTab];
+    if (container && activeBtn) {
+      const containerRect = container.getBoundingClientRect();
+      const btnRect = activeBtn.getBoundingClientRect();
+      
+      const scrollOffset =
+        btnRect.left - containerRect.left - (containerRect.width / 2) + (btnRect.width / 2);
+      
+      container.scrollBy({
+        left: scrollOffset,
+        behavior: "smooth"
+      });
+    }
+    const timer = setTimeout(checkScroll, 350);
+    return () => clearTimeout(timer);
+  }, [activeTab, checkScroll]);
+
+  const handleScroll = (direction) => {
+    if (tabContainerRef.current) {
+      tabContainerRef.current.scrollBy({
+        left: direction === "left" ? -200 : 200,
+        behavior: "smooth"
+      });
+      setTimeout(checkScroll, 250);
+    }
+  };
+
+  const handleWheel = (e) => {
+    if (tabContainerRef.current) {
+      if (e.deltaY !== 0) {
+        tabContainerRef.current.scrollLeft += e.deltaY;
+        checkScroll();
+      }
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -45,26 +102,69 @@ export default function AccountingDashboard() {
           </p>
         </div>
 
-        {/* Top-Right Tab Navigation Pills */}
-        <div className="flex items-center gap-1 bg-white/90 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200/90 shadow-xs overflow-x-auto self-start lg:self-auto">
-          {tabs.map((tab) => {
-            const isActive = activeTab === tab.id;
-            const Icon = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap active:scale-95 ${
-                  isActive
-                    ? "bg-slate-900 text-white shadow-sm ring-1 ring-slate-800"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/70"
-                }`}
-              >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-indigo-400" : "text-slate-400"}`} />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
+        {/* Top-Right Tab Navigation Island with Genius Auto-Scroll & Nav Controls */}
+        <div className="relative flex items-center max-w-full self-start lg:self-auto group">
+          {/* Left Scroll Arrow Button */}
+          {canScrollLeft && (
+            <button
+              onClick={() => handleScroll("left")}
+              className="absolute -left-3 z-10 p-1.5 rounded-full bg-white/95 border border-slate-200 text-slate-700 shadow-md hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all"
+              title="Scroll Left"
+              aria-label="Scroll Left"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+          )}
+
+          {/* Left Fade Mask */}
+          {canScrollLeft && (
+            <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-[5] rounded-l-2xl" />
+          )}
+
+          {/* Scrollable Tab Container (Scrollbar Hidden, Auto-Centering Active Tab) */}
+          <div
+            ref={tabContainerRef}
+            onWheel={handleWheel}
+            onScroll={checkScroll}
+            className="flex items-center gap-1 bg-white/95 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200/90 shadow-xs overflow-x-auto no-scrollbar scroll-smooth max-w-[85vw] sm:max-w-xl lg:max-w-2xl"
+          >
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.id;
+              const Icon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  ref={(el) => (tabRefs.current[tab.id] = el)}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap active:scale-95 shrink-0 ${
+                    isActive
+                      ? "bg-slate-900 text-white shadow-sm ring-1 ring-slate-800"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/70"
+                  }`}
+                >
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? "text-indigo-400" : "text-slate-400"}`} />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right Fade Mask */}
+          {canScrollRight && (
+            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-[5] rounded-r-2xl" />
+          )}
+
+          {/* Right Scroll Arrow Button */}
+          {canScrollRight && (
+            <button
+              onClick={() => handleScroll("right")}
+              className="absolute -right-3 z-10 p-1.5 rounded-full bg-white/95 border border-slate-200 text-slate-700 shadow-md hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all"
+              title="Scroll Right"
+              aria-label="Scroll Right"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          )}
         </div>
       </div>
 
