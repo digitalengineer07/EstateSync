@@ -183,15 +183,6 @@ export default function PaySalaryModal({ isOpen, onClose, employee, onPaid }) {
                 <option value="CHEQUE">Bank Cheque</option>
                 <option value="CASH">Cash Voucher</option>
               </select>
-              {paymentMode === "CASH" ? (
-                <p className="text-[11px] text-amber-600 mt-1.5 font-medium flex items-center gap-1">
-                  <span>💵 Payout will deduct from Corporate Treasury <b>Cash in Hand</b> balance.</span>
-                </p>
-              ) : (
-                <p className="text-[11px] text-emerald-600 mt-1.5 font-medium flex items-center gap-1">
-                  <span>🏦 Payout will deduct from Corporate Treasury <b>Bank / Liquid</b> balance.</span>
-                </p>
-              )}
             </div>
 
             {/* Reference No / UTR */}
@@ -207,6 +198,19 @@ export default function PaySalaryModal({ isOpen, onClose, employee, onPaid }) {
                 required={paymentMode !== "CASH"}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition placeholder:text-slate-400 placeholder:font-sans"
               />
+            </div>
+
+            {/* Single Line Deduction Notice */}
+            <div className="sm:col-span-2 -mt-2">
+              {paymentMode === "CASH" ? (
+                <p className="text-[11px] text-amber-600 font-medium flex items-center gap-1 whitespace-nowrap">
+                  <span>💵 Payout will deduct from Corporate Treasury <b>Cash in Hand</b> balance.</span>
+                </p>
+              ) : (
+                <p className="text-[11px] text-emerald-600 font-medium flex items-center gap-1 whitespace-nowrap">
+                  <span>🏦 Payout will deduct from Corporate Treasury <b>Bank / Liquid</b> balance.</span>
+                </p>
+              )}
             </div>
           </div>
 
