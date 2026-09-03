@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from "react";
 import RecordBankInflowModal from "./RecordBankInflowModal";
-import { Landmark, Plus, Search, RefreshCw, ArrowDownRight, ArrowUpRight, ShieldCheck, FileCheck, ArrowLeftRight } from "lucide-react";
+import { Landmark, Plus, Search, RefreshCw, ArrowDownRight, ArrowUpRight, ShieldCheck, FileCheck, ArrowLeftRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { API_URL } from "@/config/api";
+
+const PAGE_SIZE = 10;
 
 export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
   const [cashflows, setCashflows] = useState([]);
@@ -11,6 +13,7 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [flowFilter, setFlowFilter] = useState("all"); // "all", "inflows", "outflows"
+  const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
 
@@ -37,6 +40,10 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
     fetchCashflow();
   }, []);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, flowFilter]);
+
   const handleInflowSuccess = (data) => {
     setToastMessage(data.message || "Bank inflow successfully posted to Corporate Treasury.");
     fetchCashflow();
@@ -58,6 +65,10 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
       item.createdBy?.toLowerCase().includes(q)
     );
   });
+
+  const totalPages = Math.max(1, Math.ceil(filteredItems.length / PAGE_SIZE));
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const paginatedItems = filteredItems.slice(startIndex, startIndex + PAGE_SIZE);
 
   return (
     <div className="bg-white rounded-2xl border border-slate-200/80 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 space-y-6">
@@ -191,9 +202,9 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
           </span>
         </div>
 
-        {/* Records Count */}
+        {/* Records Count (10 per page indicator) */}
         <span className="text-xs font-medium text-slate-500 bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl whitespace-nowrap ml-auto">
-          Showing {filteredItems.length} of {cashflows.length} Records
+          Showing {filteredItems.length > 0 ? startIndex + 1 : 0}–{Math.min(startIndex + PAGE_SIZE, filteredItems.length)} of {filteredItems.length} Records
         </span>
       </div>
 
@@ -234,7 +245,7 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
                   </td>
                 </tr>
               ) : (
-                filteredItems.map((item) => {
+                paginatedItems.map((item) => {
                   const isInflow = item.direction === "INFLOW";
                   return (
                     <tr key={item.id} className="hover:bg-slate-50/70 transition-colors group">
@@ -305,6 +316,42 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination Controls Footer */}
+        {filteredItems.length > PAGE_SIZE && (
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-5 py-3.5 bg-slate-50/70 border-t border-slate-100">
+            <div className="text-xs text-slate-500">
+              Showing <span className="font-semibold text-slate-900">{startIndex + 1}</span> to{" "}
+              <span className="font-semibold text-slate-900">{Math.min(startIndex + PAGE_SIZE, filteredItems.length)}</span> of{" "}
+              <span className="font-semibold text-slate-900">{filteredItems.length}</span> records
+            </div>
+
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition active:scale-95 shadow-2xs"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+                <span>Previous</span>
+              </button>
+
+              <span className="text-xs font-medium text-slate-600 px-2.5">
+                Page <span className="font-bold text-slate-900">{currentPage}</span> of{" "}
+                <span className="font-bold text-slate-900">{totalPages}</span>
+              </span>
+
+              <button
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage >= totalPages}
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition active:scale-95 shadow-2xs"
+              >
+                <span>Next</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Record Inflow Modal */}
