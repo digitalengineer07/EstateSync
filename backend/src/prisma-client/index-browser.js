@@ -255,6 +255,7 @@ exports.Prisma.JournalEntryScalarFieldEnum = {
   description: 'description',
   status: 'status',
   createdBy: 'createdBy',
+  accountingPeriodId: 'accountingPeriodId',
   createdAt: 'createdAt'
 };
 
@@ -315,6 +316,7 @@ exports.Prisma.CustomerScalarFieldEnum = {
   refundReferenceNo: 'refundReferenceNo',
   refundNotes: 'refundNotes',
   refundSettledById: 'refundSettledById',
+  paymentPlanId: 'paymentPlanId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -363,6 +365,394 @@ exports.Prisma.PropertyPaymentScalarFieldEnum = {
   referenceNo: 'referenceNo',
   notes: 'notes',
   paidById: 'paidById',
+  status: 'status',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.EmployeeScalarFieldEnum = {
+  id: 'id',
+  employeeCode: 'employeeCode',
+  fullName: 'fullName',
+  displayName: 'displayName',
+  photo: 'photo',
+  mobile: 'mobile',
+  alternatePhone: 'alternatePhone',
+  email: 'email',
+  address: 'address',
+  department: 'department',
+  designation: 'designation',
+  employmentType: 'employmentType',
+  joiningDate: 'joiningDate',
+  confirmationDate: 'confirmationDate',
+  reportingManagerId: 'reportingManagerId',
+  workLocation: 'workLocation',
+  status: 'status',
+  exitDate: 'exitDate',
+  exitReason: 'exitReason',
+  userId: 'userId',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  archivedAt: 'archivedAt',
+  archivedBy: 'archivedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SalaryComponentScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  componentType: 'componentType',
+  calculationMethod: 'calculationMethod',
+  calculationBase: 'calculationBase',
+  defaultValue: 'defaultValue',
+  percentageValue: 'percentageValue',
+  sequence: 'sequence',
+  isTaxable: 'isTaxable',
+  isRecurring: 'isRecurring',
+  isActive: 'isActive',
+  glAccountCode: 'glAccountCode',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SalaryStructureScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  currency: 'currency',
+  status: 'status',
+  version: 'version',
+  effectiveFrom: 'effectiveFrom',
+  effectiveTo: 'effectiveTo',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SalaryStructureLineScalarFieldEnum = {
+  id: 'id',
+  structureId: 'structureId',
+  componentId: 'componentId',
+  calculationMethod: 'calculationMethod',
+  value: 'value',
+  percentage: 'percentage',
+  calculationBase: 'calculationBase',
+  sequence: 'sequence',
+  isMandatory: 'isMandatory',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EmployeeSalaryAssignmentScalarFieldEnum = {
+  id: 'id',
+  employeeId: 'employeeId',
+  salaryStructureId: 'salaryStructureId',
+  baseGross: 'baseGross',
+  effectiveFrom: 'effectiveFrom',
+  effectiveTo: 'effectiveTo',
+  reason: 'reason',
+  notes: 'notes',
+  status: 'status',
+  approvedBy: 'approvedBy',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayrollPeriodScalarFieldEnum = {
+  id: 'id',
+  year: 'year',
+  month: 'month',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  status: 'status',
+  createdBy: 'createdBy',
+  approvedBy: 'approvedBy',
+  lockedBy: 'lockedBy',
+  lockedAt: 'lockedAt',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayrollRunScalarFieldEnum = {
+  id: 'id',
+  payrollPeriodId: 'payrollPeriodId',
+  runNumber: 'runNumber',
+  status: 'status',
+  totalEmployees: 'totalEmployees',
+  totalGross: 'totalGross',
+  totalDeductions: 'totalDeductions',
+  totalNet: 'totalNet',
+  totalEmployerCost: 'totalEmployerCost',
+  calculationStartedAt: 'calculationStartedAt',
+  calculationCompletedAt: 'calculationCompletedAt',
+  initiatedBy: 'initiatedBy',
+  approvedBy: 'approvedBy',
+  approvedAt: 'approvedAt',
+  lockedBy: 'lockedBy',
+  lockedAt: 'lockedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayrollItemScalarFieldEnum = {
+  id: 'id',
+  payrollRunId: 'payrollRunId',
+  employeeId: 'employeeId',
+  salaryAssignmentId: 'salaryAssignmentId',
+  employeeCodeSnapshot: 'employeeCodeSnapshot',
+  employeeNameSnapshot: 'employeeNameSnapshot',
+  departmentSnapshot: 'departmentSnapshot',
+  designationSnapshot: 'designationSnapshot',
+  structureCodeSnapshot: 'structureCodeSnapshot',
+  grossEarnings: 'grossEarnings',
+  totalDeductions: 'totalDeductions',
+  employerCost: 'employerCost',
+  reimbursements: 'reimbursements',
+  adjustmentsCredit: 'adjustmentsCredit',
+  adjustmentsDebit: 'adjustmentsDebit',
+  netPayable: 'netPayable',
+  currency: 'currency',
+  status: 'status',
+  calculatedAt: 'calculatedAt',
+  approvedAt: 'approvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayrollLineScalarFieldEnum = {
+  id: 'id',
+  payrollItemId: 'payrollItemId',
+  componentId: 'componentId',
+  componentCode: 'componentCode',
+  componentName: 'componentName',
+  componentType: 'componentType',
+  calculationMethod: 'calculationMethod',
+  calculationBase: 'calculationBase',
+  sequence: 'sequence',
+  rate: 'rate',
+  percentage: 'percentage',
+  amount: 'amount',
+  source: 'source',
+  glAccountCodeSnapshot: 'glAccountCodeSnapshot',
+  narration: 'narration',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PayrollAdjustmentScalarFieldEnum = {
+  id: 'id',
+  payrollRunId: 'payrollRunId',
+  employeeId: 'employeeId',
+  adjustmentType: 'adjustmentType',
+  category: 'category',
+  amount: 'amount',
+  reason: 'reason',
+  notes: 'notes',
+  status: 'status',
+  createdBy: 'createdBy',
+  approvedBy: 'approvedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayrollExceptionScalarFieldEnum = {
+  id: 'id',
+  payrollRunId: 'payrollRunId',
+  payrollItemId: 'payrollItemId',
+  employeeId: 'employeeId',
+  code: 'code',
+  severity: 'severity',
+  message: 'message',
+  context: 'context',
+  isResolved: 'isResolved',
+  resolvedBy: 'resolvedBy',
+  resolvedAt: 'resolvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayrollAccountingPostingScalarFieldEnum = {
+  id: 'id',
+  payrollRunId: 'payrollRunId',
+  journalEntryId: 'journalEntryId',
+  reversalJournalEntryId: 'reversalJournalEntryId',
+  status: 'status',
+  postedGross: 'postedGross',
+  postedDeductions: 'postedDeductions',
+  postedNet: 'postedNet',
+  postedEmployerCost: 'postedEmployerCost',
+  totalDebit: 'totalDebit',
+  totalCredit: 'totalCredit',
+  postedBy: 'postedBy',
+  postedAt: 'postedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SalaryPaymentBatchScalarFieldEnum = {
+  id: 'id',
+  batchNumber: 'batchNumber',
+  payrollRunId: 'payrollRunId',
+  paymentMode: 'paymentMode',
+  sourceAccountCode: 'sourceAccountCode',
+  totalAmount: 'totalAmount',
+  totalEmployees: 'totalEmployees',
+  status: 'status',
+  paymentDate: 'paymentDate',
+  notes: 'notes',
+  submittedBy: 'submittedBy',
+  approvedBy: 'approvedBy',
+  settledBy: 'settledBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SalaryPaymentScalarFieldEnum = {
+  id: 'id',
+  paymentNumber: 'paymentNumber',
+  salaryPaymentBatchId: 'salaryPaymentBatchId',
+  payrollRunId: 'payrollRunId',
+  payrollItemId: 'payrollItemId',
+  employeeId: 'employeeId',
+  amount: 'amount',
+  paymentMode: 'paymentMode',
+  sourceAccountCode: 'sourceAccountCode',
+  bankName: 'bankName',
+  accountNumberMasked: 'accountNumberMasked',
+  ifscCode: 'ifscCode',
+  referenceNo: 'referenceNo',
+  status: 'status',
+  paymentDate: 'paymentDate',
+  settledAt: 'settledAt',
+  journalEntryId: 'journalEntryId',
+  walletTransactionId: 'walletTransactionId',
+  failureReason: 'failureReason',
+  reversalReason: 'reversalReason',
+  createdBy: 'createdBy',
+  approvedBy: 'approvedBy',
+  settledBy: 'settledBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.GlobalBankReferenceScalarFieldEnum = {
+  id: 'id',
+  referenceNo: 'referenceNo',
+  module: 'module',
+  sourceTable: 'sourceTable',
+  sourceRecordId: 'sourceRecordId',
+  amount: 'amount',
+  bankName: 'bankName',
+  paymentMode: 'paymentMode',
+  status: 'status',
+  recordedBy: 'recordedBy',
+  reversalReason: 'reversalReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AccountingPeriodScalarFieldEnum = {
+  id: 'id',
+  fiscalYear: 'fiscalYear',
+  month: 'month',
+  periodName: 'periodName',
+  fiscalQuarter: 'fiscalQuarter',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  closedAt: 'closedAt',
+  closedBy: 'closedBy',
+  reopenedAt: 'reopenedAt',
+  reopenedBy: 'reopenedBy',
+  reopenReason: 'reopenReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PaymentPlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  projectLocation: 'projectLocation',
+  description: 'description',
+  status: 'status',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PaymentPlanMilestoneScalarFieldEnum = {
+  id: 'id',
+  planId: 'planId',
+  sequence: 'sequence',
+  name: 'name',
+  calculationType: 'calculationType',
+  percentage: 'percentage',
+  fixedAmount: 'fixedAmount',
+  dueDaysAfterTrigger: 'dueDaysAfterTrigger',
+  isTaxable: 'isTaxable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CustomerDemandNoteScalarFieldEnum = {
+  id: 'id',
+  demandNumber: 'demandNumber',
+  customerId: 'customerId',
+  milestoneId: 'milestoneId',
+  milestoneName: 'milestoneName',
+  sequence: 'sequence',
+  documentDate: 'documentDate',
+  dueDate: 'dueDate',
+  principalAmount: 'principalAmount',
+  taxAmount: 'taxAmount',
+  totalDemandAmount: 'totalDemandAmount',
+  allocatedAmount: 'allocatedAmount',
+  outstandingAmount: 'outstandingAmount',
+  status: 'status',
+  journalEntryId: 'journalEntryId',
+  issuedById: 'issuedById',
+  cancelledAt: 'cancelledAt',
+  cancelledReason: 'cancelledReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CustomerLedgerEntryScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  entryNumber: 'entryNumber',
+  postingDate: 'postingDate',
+  entryType: 'entryType',
+  referenceType: 'referenceType',
+  referenceId: 'referenceId',
+  debit: 'debit',
+  credit: 'credit',
+  runningBalance: 'runningBalance',
+  description: 'description',
+  journalEntryId: 'journalEntryId',
+  accountingPeriodId: 'accountingPeriodId',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PaymentAllocationScalarFieldEnum = {
+  id: 'id',
+  paymentId: 'paymentId',
+  demandNoteId: 'demandNoteId',
+  allocatedAmount: 'allocatedAmount',
+  allocationDate: 'allocationDate',
+  allocatedById: 'allocatedById',
   status: 'status',
   createdAt: 'createdAt'
 };
@@ -416,7 +806,28 @@ exports.Prisma.ModelName = {
   Customer: 'Customer',
   CustomerPayment: 'CustomerPayment',
   PropertyAcquisition: 'PropertyAcquisition',
-  PropertyPayment: 'PropertyPayment'
+  PropertyPayment: 'PropertyPayment',
+  Employee: 'Employee',
+  SalaryComponent: 'SalaryComponent',
+  SalaryStructure: 'SalaryStructure',
+  SalaryStructureLine: 'SalaryStructureLine',
+  EmployeeSalaryAssignment: 'EmployeeSalaryAssignment',
+  PayrollPeriod: 'PayrollPeriod',
+  PayrollRun: 'PayrollRun',
+  PayrollItem: 'PayrollItem',
+  PayrollLine: 'PayrollLine',
+  PayrollAdjustment: 'PayrollAdjustment',
+  PayrollException: 'PayrollException',
+  PayrollAccountingPosting: 'PayrollAccountingPosting',
+  SalaryPaymentBatch: 'SalaryPaymentBatch',
+  SalaryPayment: 'SalaryPayment',
+  GlobalBankReference: 'GlobalBankReference',
+  AccountingPeriod: 'AccountingPeriod',
+  PaymentPlan: 'PaymentPlan',
+  PaymentPlanMilestone: 'PaymentPlanMilestone',
+  CustomerDemandNote: 'CustomerDemandNote',
+  CustomerLedgerEntry: 'CustomerLedgerEntry',
+  PaymentAllocation: 'PaymentAllocation'
 };
 
 /**

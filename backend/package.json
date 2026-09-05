@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
+    "audit:db": "node scripts/audit_database_integrity.js",
     "test": "node scripts/github_action_validation_suite.js"
   },
   "dependencies": {

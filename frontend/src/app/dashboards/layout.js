@@ -3,7 +3,8 @@
 import { useAuth } from "@/context/AuthContext";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { Building2, ShieldCheck, Layers, Landmark, Wallet, LogOut } from "lucide-react";
+import { Building2, ShieldCheck, Layers, Landmark, Wallet, LogOut, Users } from "lucide-react";
+import { hasPermission, hasAnyPermission } from "@/utils/permissions";
 
 export default function DashboardsLayout({ children }) {
   const { user, loading, logout } = useAuth();
@@ -25,94 +26,176 @@ export default function DashboardsLayout({ children }) {
     );
   }
 
+  const userRole = (typeof user?.role === "object" ? user?.role?.name : user?.role) || "";
+  const isAdmin = userRole === "ADMIN";
+
   const navItems = [
-    { name: "Admin Hub", path: "/dashboards/admin", roles: ["ADMIN"], icon: ShieldCheck },
-    { name: "Manager Hub", path: "/dashboards/manager", roles: ["ADMIN", "MANAGER"], icon: Layers },
-    { name: "Accounting Hub", path: "/dashboards/accounting", roles: ["ADMIN", "ACCOUNTING"], icon: Landmark },
-    { name: "My Wallet & Expenses", path: "/dashboards/wallet", roles: ["ADMIN", "MANAGER", "SALES", "MARKETING", "ACCOUNTING", "OTHER"], icon: Wallet },
+    { 
+      name: "Admin Hub", 
+      path: "/dashboards/admin", 
+      visible: isAdmin, 
+      icon: ShieldCheck 
+    },
+    { 
+      name: "Manager Hub", 
+      path: "/dashboards/manager", 
+      visible: ["ADMIN", "MANAGER"].includes(userRole), 
+      icon: Layers 
+    },
+    { 
+      name: "Accounting Hub", 
+      path: "/dashboards/accounting", 
+      visible: ["ADMIN", "ACCOUNTING"].includes(userRole), 
+      icon: Landmark 
+    },
+    { 
+      name: "Employees", 
+      path: "/dashboards/employees", 
+      visible: hasPermission(user, "employee.view"), 
+      icon: Users 
+    },
+    { 
+      name: isAdmin 
+        ? "Approvals & Expenses" 
+        : userRole === "SALES"
+        ? "Sales Panel"
+        : userRole === "MARKETING"
+        ? "Marketing Panel"
+        : "My Wallet & Expenses", 
+      path: "/dashboards/wallet", 
+      visible: true, 
+      icon: ["SALES", "MARKETING"].includes(userRole) ? Users : Wallet 
+    },
   ];
 
-  const visibleNav = navItems.filter(item => item.roles.includes(user.role));
+  const visibleNav = navItems.filter(item => item.visible);
 
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col antialiased">
-      {/* Crisp, Modern Enterprise Navbar */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
-        <div className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-col md:flex-row justify-between items-center gap-3">
-          
-          {/* Brand Logo & Navigation */}
-          <div className="flex flex-wrap items-center gap-6 sm:gap-8 w-full md:w-auto justify-between md:justify-start">
-            <div 
-              onClick={() => router.push("/dashboards/wallet")}
-              className="flex items-center gap-2.5 cursor-pointer group select-none"
-            >
-              <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-xs group-hover:bg-indigo-700 transition">
-                <Building2 className="w-4 h-4" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-base font-bold tracking-tight text-slate-900 flex items-center gap-0.5 leading-none">
-                  Estate<span className="text-indigo-600 font-extrabold">Sync</span>
-                </span>
-                <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase mt-0.5">
-                  Treasury & Accounting
-                </span>
-              </div>
-            </div>
-
-            {/* Navigation Tabs */}
-            <nav className="flex items-center gap-1 text-xs font-semibold">
-              {visibleNav.map((nav) => {
-                const isActive = pathname === nav.path;
-                const Icon = nav.icon;
-                return (
-                  <button
-                    key={nav.path}
-                    onClick={() => router.push(nav.path)}
-                    className={`px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2 ${
-                      isActive
-                        ? "bg-slate-900 text-white font-semibold shadow-xs"
-                        : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"
-                    }`}
-                  >
-                    <Icon className={`w-3.5 h-3.5 ${isActive ? "text-indigo-400" : "text-slate-400"}`} />
-                    <span>{nav.name}</span>
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-
-          {/* User Profile & Actions */}
-          <div className="flex items-center gap-3 self-end md:self-auto">
-            <div className="flex items-center gap-2.5 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200/80 text-xs">
-              <div className="w-6 h-6 rounded-md bg-indigo-100 border border-indigo-200 text-indigo-700 font-bold text-[11px] flex items-center justify-center">
-                {user.name ? user.name.charAt(0).toUpperCase() : "U"}
-              </div>
-              <div className="text-left">
-                <div className="font-semibold text-slate-900 text-xs leading-none">{user.name}</div>
-                <div className="text-[10px] text-slate-500 font-mono mt-0.5 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  {user.role}
+      {/* Floating Island Header with Rounded Edges */}
+      <div className="sticky top-0 z-40 pt-3 sm:pt-4 px-3 sm:px-6 lg:px-8 w-full pointer-events-none">
+        <header className="pointer-events-auto w-full max-w-[1800px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-[22px] shadow-[0_4px_24px_-6px_rgba(0,0,0,0.06)] px-4 sm:px-6 py-2.5 transition-all">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3">
+            
+            {/* Left: Brand Logo & Navigation */}
+            <div className="flex items-center gap-4 sm:gap-6 w-full md:w-auto justify-between md:justify-start">
+              <div 
+                onClick={() => router.push("/dashboards/wallet")}
+                className="flex items-center gap-2.5 cursor-pointer group select-none shrink-0"
+              >
+                <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-xs group-hover:bg-indigo-700 transition">
+                  <Building2 className="w-4 h-4" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-base font-bold tracking-tight text-slate-900 flex items-center gap-0.5 leading-none">
+                    Estate<span className="text-indigo-600 font-extrabold">Sync</span>
+                  </span>
+                  <span className="text-[9.5px] text-slate-400 font-bold tracking-wider uppercase mt-0.5">
+                    Treasury & Accounting
+                  </span>
                 </div>
               </div>
+
+              {/* Subtle vertical divider */}
+              <div className="hidden lg:block h-6 w-px bg-slate-200/80"></div>
+
+              {/* Navigation Tabs */}
+              <nav className="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5 text-xs font-semibold">
+                {visibleNav.map((nav) => {
+                  const isActive = pathname === nav.path;
+                  const Icon = nav.icon;
+                  return (
+                    <button
+                      key={nav.path}
+                      onClick={() => router.push(nav.path)}
+                      className={`px-3 py-1.5 rounded-xl transition-all duration-150 flex items-center gap-1.5 whitespace-nowrap text-xs ${
+                        isActive
+                          ? "bg-slate-900 text-white font-bold shadow-xs"
+                          : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium"
+                      }`}
+                    >
+                      <Icon className={`w-3.5 h-3.5 ${isActive ? "text-indigo-400" : "text-slate-400"}`} />
+                      <span>{nav.name}</span>
+                    </button>
+                  );
+                })}
+              </nav>
             </div>
 
-            <button
-              onClick={logout}
-              className="bg-white hover:bg-rose-50 text-slate-600 hover:text-rose-700 border border-slate-200 hover:border-rose-200 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 shadow-2xs active:scale-95"
-              title="Logout session"
-            >
-              <span>Logout</span>
-              <LogOut className="w-3.5 h-3.5" />
-            </button>
+            {/* Right: User Profile Chip & Logout */}
+            <div className="flex items-center gap-2.5 self-end md:self-auto shrink-0">
+              <div className="flex items-center gap-2.5 bg-slate-50/80 px-3 py-1.5 rounded-xl border border-slate-200/80 text-xs shadow-2xs">
+                <div className="w-6 h-6 rounded-lg bg-slate-900 text-white font-bold text-[11px] flex items-center justify-center shadow-2xs">
+                  {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+                </div>
+                <div className="flex items-center gap-1.5 font-bold text-slate-900 text-xs leading-none">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                  <span>{user.name || "System Admin"}</span>
+                </div>
+              </div>
+
+              <button
+                onClick={logout}
+                className="bg-rose-50/90 hover:bg-rose-100 text-rose-600 hover:text-rose-700 border border-rose-200/90 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs active:scale-95"
+                title="Logout session"
+              >
+                <span>Logout</span>
+                <LogOut className="w-3.5 h-3.5 text-rose-600" />
+              </button>
+            </div>
+
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
 
       {/* Main Fluid Content Container */}
-      <main className="flex-grow w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="flex-grow w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
         {children}
       </main>
+
+      {/* Global Enterprise Footer & Trademark Banner */}
+      <footer className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 pb-6 pt-2">
+        <div className="bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-[22px] shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] px-5 sm:px-8 py-4 sm:py-5 transition-all">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            {/* Left: Product & Company Legal Entity */}
+            <div className="flex items-center gap-3.5 text-center md:text-left">
+              <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-xs shrink-0">
+                <Building2 className="w-4 h-4" />
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
+                  <span className="text-sm font-bold text-slate-900 tracking-tight">
+                    Estate<span className="text-indigo-600 font-extrabold">Sync</span>™
+                  </span>
+                  <span className="text-slate-300 hidden sm:inline">•</span>
+                  <span className="text-xs font-semibold text-slate-600">
+                    A Product of <span className="font-bold text-slate-900">Devoxa Technologies Pvt. Ltd.</span>
+                  </span>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                    Registered Trademark ®
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-400 mt-0.5">
+                  Enterprise Real Estate Treasury, Double-Entry General Ledger & Workforce Governance Platform
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Copyright & Compliance */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6 text-center sm:text-right">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="text-xs font-semibold text-slate-600">System v2.4 Enterprise</span>
+              </div>
+              <div className="text-[11px] text-slate-500 font-medium">
+                © {new Date().getFullYear()} <span className="font-semibold text-slate-700">Devoxa Technologies Pvt. Ltd.</span> All rights reserved.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

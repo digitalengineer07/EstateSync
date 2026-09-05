@@ -7,3 +7,6 @@ backend/src/prisma-client/
 *.exe
 *.tmp*
 EstateSync_Developer_Master_Blueprint_v3.1.pdf
+backend/backups/
+*.sql
+*.dump

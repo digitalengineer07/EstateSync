@@ -200,8 +200,28 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="e.g. 500000"
-              className="w-full text-base font-bold text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+              className={`w-full text-base font-bold text-gray-900 border rounded-lg px-3 py-2 focus:outline-none transition ${
+                numAmount > balanceRemaining || (availableFunds !== null && numAmount > availableFunds)
+                  ? "border-red-400 bg-red-50/40 text-red-900 focus:ring-2 focus:ring-red-500"
+                  : "border-gray-300 focus:ring-2 focus:ring-amber-500"
+              }`}
             />
+            {numAmount > balanceRemaining && (
+              <div className="mt-1.5 p-2 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-1.5 font-medium">
+                <span>⚠️</span>
+                <span>
+                  Entered amount (<strong>₹{numAmount.toLocaleString('en-IN')}</strong>) exceeds remaining land liability (<strong>₹{balanceRemaining.toLocaleString('en-IN')}</strong>). Maximum you can pay is <strong>₹{balanceRemaining.toLocaleString('en-IN')}</strong>.
+                </span>
+              </div>
+            )}
+            {numAmount <= balanceRemaining && availableFunds !== null && numAmount > availableFunds && (
+              <div className="mt-1.5 p-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center gap-1.5 font-medium">
+                <span>⚠️</span>
+                <span>
+                  Insufficient Treasury {paymentMode === 'CASH' ? 'cash' : 'liquid funds'}. Available: <strong>₹{availableFunds.toLocaleString('en-IN')}</strong>.
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-3">
@@ -242,6 +262,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
                   value={referenceNo}
                   onChange={(e) => setReferenceNo(e.target.value)}
                   placeholder="e.g. RTGS-HDFC-88990011"
+                  maxLength={22}
                   className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none font-mono"
                 />
               </div>

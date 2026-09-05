@@ -2,7 +2,7 @@ const prisma = require('../src/config/db');
 
 const BASE_URL = process.env.API_BASE_URL || 'http://127.0.0.1:4000';
 const PASSWORD = process.env.TEST_USER_PASSWORD || 'password123';
-const RUN_ID = `gha-${Date.now()}`;
+const RUN_ID = `gha-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
 
 const created = {
   customerIds: [],
@@ -10,6 +10,7 @@ const created = {
   expenseIds: [],
   fundRequestIds: [],
   walletTransactionIds: [],
+  globalReferenceIds: [],
   idempotencyKeys: []
 };
 
@@ -501,6 +502,14 @@ async function cleanup() {
       OR: [
         { referenceId: { in: created.walletTransactionIds } },
         { description: { contains: RUN_ID } }
+      ]
+    }
+  }).catch(() => {});
+  await prisma.globalBankReference.deleteMany({
+    where: {
+      OR: [
+        { referenceNo: { contains: RUN_ID } },
+        { sourceRecordId: { in: created.customerIds.concat(created.propertyIds).concat(created.walletTransactionIds) } }
       ]
     }
   }).catch(() => {});

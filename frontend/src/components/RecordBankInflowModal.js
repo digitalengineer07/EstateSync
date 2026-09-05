@@ -100,13 +100,13 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
             </div>
             <div>
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                Record Bank Statement Inflow
+                Record Bank Deposit
                 <span className="px-2 py-0.5 text-[10px] font-bold uppercase rounded-full bg-emerald-100 text-emerald-800">
-                  CA Treasury
+                  Treasury
                 </span>
               </h2>
               <p className="text-xs text-slate-500 mt-0.5">
-                Official deposit into Main Corporate Treasury (Admin Master Wallet).
+                Add funds or capital received into company bank account.
               </p>
             </div>
           </div>
@@ -131,7 +131,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
             {/* Amount */}
             <div className="sm:col-span-2">
               <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Inflow Amount (₹) <span className="text-rose-500">*</span>
+                Amount (₹) <span className="text-rose-500">*</span>
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-sm font-bold text-slate-400">
@@ -151,10 +151,10 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
               </div>
             </div>
 
-            {/* Inflow Category */}
+            {/* Inflow Category / Deposit Type */}
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Inflow Category / Source <span className="text-rose-500">*</span>
+                Deposit Type <span className="text-rose-500">*</span>
               </label>
               <select
                 name="inflowType"
@@ -162,17 +162,17 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
                 onChange={handleChange}
                 className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
               >
-                <option value="CAPITAL_INFUSION">Capital Infusion (Shareholder Equity)</option>
-                <option value="DIRECTOR_LOAN">Director / Promoter Loan Advance</option>
-                <option value="BANK_INTEREST">Bank Interest & Corporate Returns</option>
-                <option value="OTHER">Other Bank Deposit / Direct Receipt</option>
+                <option value="CAPITAL_INFUSION">Capital Investment</option>
+                <option value="DIRECTOR_LOAN">Director Loan</option>
+                <option value="BANK_INTEREST">Bank Interest</option>
+                <option value="OTHER">Other Deposit</option>
               </select>
             </div>
 
             {/* Payment Mode */}
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Payment Channel / Mode <span className="text-rose-500">*</span>
+                Payment Mode <span className="text-rose-500">*</span>
               </label>
               <select
                 name="paymentMode"
@@ -180,13 +180,13 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
                 onChange={handleChange}
                 className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
               >
-                <option value="RTGS">RTGS (Real-Time Gross Settlement)</option>
-                <option value="NEFT">NEFT (National Electronic Fund Transfer)</option>
-                <option value="IMPS">IMPS / Immediate Transfer</option>
-                <option value="CHEQUE">Bank Cheque / Demand Draft</option>
-                <option value="WIRE">International Wire Transfer</option>
-                <option value="UPI">Corporate UPI / NetBanking</option>
-                <option value="CASH">Cash Deposit to Bank</option>
+                <option value="RTGS">RTGS</option>
+                <option value="NEFT">NEFT</option>
+                <option value="IMPS">IMPS</option>
+                <option value="CHEQUE">Cheque</option>
+                <option value="UPI">UPI</option>
+                <option value="CASH">Cash Deposit</option>
+                <option value="WIRE">Wire Transfer</option>
               </select>
             </div>
 
@@ -195,14 +195,14 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
                 {/* Bank Name */}
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                    Corporate Bank Account <span className="text-rose-500">*</span>
+                    Bank Name <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"
                     name="bankName"
                     value={formData.bankName}
                     onChange={handleChange}
-                    placeholder="e.g. HDFC Bank Ltd - Corporate"
+                    placeholder="e.g. HDFC Bank"
                     required
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
                   />
@@ -211,7 +211,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
                 {/* UTR / Reference No */}
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                    Bank Reference No / UTR / Cheque No <span className="text-rose-500">*</span>
+                    UTR / Reference No <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -219,6 +219,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
                     value={formData.referenceNo}
                     onChange={handleChange}
                     placeholder="e.g. UTR202608290091"
+                    maxLength={22}
                     required
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-bold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
                   />
@@ -226,10 +227,10 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
               </>
             )}
 
-            {/* Transaction Value Date */}
+            {/* Deposit Date */}
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Bank Statement Value Date
+                Deposit Date <span className="text-rose-500">*</span>
               </label>
               <input
                 type="date"
@@ -241,10 +242,10 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
             </div>
 
             {/* Account Number (Optional) */}
-            {formData.paymentMode !== 'CASH' && (
+            {formData.paymentMode !== 'CASH' ? (
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Bank Account Number (Optional)
+                  Account Number (Optional)
                 </label>
                 <input
                   type="text"
@@ -252,22 +253,38 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
                   value={formData.accountNo}
                   onChange={handleChange}
                   placeholder="e.g. 50200091823412"
+                  maxLength={22}
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                />
+              </div>
+            ) : (
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  Receipt / Voucher No (Optional)
+                </label>
+                <input
+                  type="text"
+                  name="referenceNo"
+                  value={formData.referenceNo}
+                  onChange={handleChange}
+                  placeholder="e.g. CSH-REC-001"
+                  maxLength={22}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
                 />
               </div>
             )}
 
-            {/* Narration */}
+            {/* Description */}
             <div className="sm:col-span-2">
               <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                Voucher Narration / Description
+                Description (Optional)
               </label>
               <textarea
                 name="narration"
                 value={formData.narration}
                 onChange={handleChange}
                 rows={2}
-                placeholder="e.g. Capital injection from promoters for operational liquidity..."
+                placeholder="e.g. Capital added by promoters..."
                 className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
               />
             </div>
@@ -277,12 +294,12 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
           <div className="p-3.5 bg-slate-900 text-white rounded-xl border border-slate-800 text-xs space-y-1.5 font-mono">
             <div className="flex items-center justify-between text-slate-400 font-sans text-[11px] pb-1 border-b border-slate-800">
               <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
-                <ShieldCheck className="w-3.5 h-3.5" /> Balanced Journal Preview (Dr = Cr)
+                <ShieldCheck className="w-3.5 h-3.5" /> Accounting Preview (Auto-Generated)
               </span>
-              <span>PRD §4.1 Treasury</span>
+              <span>General Ledger</span>
             </div>
             <div className="flex justify-between items-center text-emerald-300">
-              <span>[Debit] 1010 - Corporate Bank / Primary Treasury (Asset +)</span>
+              <span>[Debit] {formData.paymentMode === 'CASH' ? 'Cash Treasury (Physical Cash)' : 'Bank Account (Money In)'}</span>
               <span className="font-bold">₹{parseFloat(formData.amount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
             </div>
             <div className="flex justify-between items-center text-indigo-300">
@@ -306,11 +323,11 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
               className="flex items-center space-x-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-900/20 disabled:opacity-50 transition"
             >
               {loading ? (
-                <span>Posting to Treasury...</span>
+                <span>Saving...</span>
               ) : (
                 <>
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>Confirm & Post Inflow</span>
+                  <span>Confirm Deposit</span>
                 </>
               )}
             </button>

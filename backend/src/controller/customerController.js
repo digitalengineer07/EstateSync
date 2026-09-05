@@ -2,7 +2,7 @@ const prisma = require('../config/db');
 const { logAudit } = require('../utils/auditLogger');
 const { postCustomerPaymentJournal, postCustomerRefundJournal } = require('../utils/accountingHelper');
 const { getPrimaryTreasuryWallet } = require('../utils/treasuryHelper');
-const { checkDuplicateReferenceNo } = require('../utils/referenceValidator');
+const { checkDuplicateReferenceNo, registerBankReference } = require('../utils/referenceValidator');
 const { cleanPlotNumber, cleanKhataNumber, normalizeForComparison } = require('../utils/identifierHelper');
 
 // 1. Create a new Customer profile with commercial terms
@@ -536,6 +536,18 @@ exports.settleCustomerCancellationRefund = async (req, res) => {
             status: 'REFUND_DISBURSED'
           }
         });
+
+        if (referenceNo) {
+          await registerBankReference(tx, {
+            referenceNo,
+            module: 'CUSTOMER_REFUND',
+            sourceTable: 'CustomerPayment',
+            sourceRecordId: refundPaymentRecord.id,
+            amount: refundAmount,
+            paymentMode: refundMode || 'DIRECT',
+            recordedBy: req.user?.email || 'SYSTEM'
+          });
+        }
       }
 
       // 5. Update Customer with settlement fields
@@ -688,6 +700,18 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
         }
       });
 
+      if (cleanRef) {
+        await registerBankReference(tx, {
+          referenceNo: cleanRef,
+          module: 'CUSTOMER_PAYMENT',
+          sourceTable: 'CustomerPayment',
+          sourceRecordId: payment.id,
+          amount: payAmount,
+          paymentMode: paymentMode.toUpperCase(),
+          recordedBy: req.user?.email || 'SYSTEM'
+        });
+      }
+
       // 2. Increment Organization Wallet available balance & treasury funds (PRD §19.4)
       const updatedOrgWallet = await tx.wallet.update({
         where: { id: treasuryWallet.id },
@@ -706,7 +730,7 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
           amount: payAmount,
           fundMode: fMode,
           referenceType: 'CUSTOMER_PAYMENT',
-          referenceId: payment.id,
+          referenceId: cleanRef || `CASH-RCPT-${payment.id.slice(-4).toUpperCase()}`,
           description: `Customer payment received from ${customer.customerName} for Plot ${customer.plotNo} (${customer.projectLocation}) via ${paymentMode.toUpperCase()}`,
           createdBy: accountingUserId,
           status: 'COMPLETED'

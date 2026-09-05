@@ -54,6 +54,9 @@ const auditRoutes = require('./routes/auditRoutes');
 const customerRoutes = require('./routes/customerRoutes');
 const propertyRoutes = require('./routes/propertyRoutes');
 const treasuryRoutes = require('./routes/treasuryRoutes');
+const employeeRoutes = require('./routes/employeeRoutes');
+const accountingPeriodRoutes = require('./routes/accountingPeriodRoutes');
+const customerBillingRoutes = require('./routes/customerBillingRoutes');
 
 // Mount Routes
 app.use('/api/v1/auth', authRoutes);
@@ -68,6 +71,9 @@ app.use('/api/v1/audit', auditRoutes);
 app.use('/api/v1/customers', customerRoutes);
 app.use('/api/v1/properties', propertyRoutes);
 app.use('/api/v1/treasury', treasuryRoutes);
+app.use('/api/v1/employees', employeeRoutes);
+app.use('/api/v1/accounting/periods', accountingPeriodRoutes);
+app.use('/api/v1/billing', customerBillingRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {
@@ -82,8 +88,23 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 4000;
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
+
+  // Proactive Database Schema Integrity Check
+  try {
+    const { auditDatabaseIntegrity } = require('../scripts/audit_database_integrity');
+    const result = await auditDatabaseIntegrity({ silent: true });
+    if (!result.success) {
+      console.warn(`\n⚠️  [DATABASE INTEGRITY WARNING] ${result.issues.length} schema mismatches detected!`);
+      result.issues.slice(0, 5).forEach(iss => console.warn(`   • ${iss}`));
+      console.warn('👉 Run `npx prisma db push` or `npm run audit:db` to align database schema.\n');
+    } else {
+      console.log('✅ Database schema parity verified: All tables & columns intact.');
+    }
+  } catch (err) {
+    console.warn('Database schema integrity check skipped:', err.message);
+  }
 
   // Keep-alive ping mechanism to prevent Render sleep
   const BACKEND_URL = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;

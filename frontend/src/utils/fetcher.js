@@ -17,6 +17,18 @@ export const fetcher = async (url) => {
 
   const data = await res.json();
   
+  // Handle token expiry: redirect to login instead of crashing
+  if (res.status === 401) {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("user");
+      sessionStorage.setItem("authMessage", "Your session has expired. Please log in again.");
+      window.location.href = "/login";
+    }
+    return new Promise(() => {});
+  }
+
   if (!res.ok || data.success === false) {
     const error = new Error(data.message || "An error occurred while fetching the data.");
     error.status = res.status;

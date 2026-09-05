@@ -8,7 +8,7 @@ import { API_URL } from "@/config/api";
 import { formatINR } from "@/utils/formatters";
 
 // type can be 'my', 'team', or 'all'
-export default function ExpenseList({ type = "my" }) {
+export default function ExpenseList({ type = "my", embedded = false, showHeader = true }) {
   const [actionError, setActionError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
   const [currentUserRole, setCurrentUserRole] = useState("");
@@ -82,55 +82,52 @@ export default function ExpenseList({ type = "my" }) {
 
   if (isLoading && !data) {
     return (
-      <div className="bg-white shadow rounded-lg p-6 mt-8">
-        <div className="animate-pulse flex space-x-4">
-          <div className="flex-1 space-y-4 py-1">
-            <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-            <div className="space-y-2">
-              <div className="h-4 bg-gray-200 rounded"></div>
-              <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-            </div>
-          </div>
+      <div className={embedded ? "py-8 text-center text-slate-400 text-xs" : "bg-white rounded-2xl border border-slate-200/90 shadow-xs p-6"}>
+        <div className="flex flex-col items-center justify-center gap-2">
+          <RefreshCw className="w-5 h-5 animate-spin text-indigo-600" />
+          <span>Loading recorded expenses...</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white shadow rounded-lg p-6 mt-8">
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-6">
-        <div>
-          <h3 className="text-xl font-bold text-gray-900">
-            {type === "my"
-              ? "My Recorded Expenses"
-              : type === "team"
-              ? "Team Expense Records"
-              : "All Organization Expenses"}
-          </h3>
-          <p className="text-sm text-gray-600 mt-0.5">
-            {type === "my"
-              ? "All personal spending recorded against your wallet balance."
-              : type === "team"
-              ? "Real-time record of all expenditures submitted by your team members."
-              : "Complete history of all departmental and organizational spending."}
-          </p>
-        </div>
-        <div className="flex items-center space-x-3">
-          <div className="text-right">
-            <span className="text-xs text-gray-500 block">Total Active Recorded</span>
-            <span className="text-sm font-bold text-gray-900">
-              {formatINR(totalSpentSum, { showDecimals: true })}
-            </span>
+    <div className={embedded ? "space-y-4" : "bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7 space-y-5"}>
+      {showHeader && (
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 pb-4 border-b border-slate-100">
+          <div>
+            <h3 className="text-lg font-bold text-slate-900 tracking-tight">
+              {type === "my"
+                ? "My Recorded Expenses"
+                : type === "team"
+                ? "Team Expense Records"
+                : "All Organization Expenses"}
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5">
+              {type === "my"
+                ? "All personal spending recorded against your wallet balance."
+                : type === "team"
+                ? "Real-time record of all expenditures submitted by your team members."
+                : "Complete history of all departmental and organizational spending."}
+            </p>
           </div>
-          <button
-            onClick={() => mutate()}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 rounded-md border border-indigo-200 transition-colors"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
-            <span>Refresh</span>
-          </button>
+          <div className="flex items-center gap-3">
+            <div className="px-3.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200/80 text-right">
+              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Total Recorded</span>
+              <span className="text-sm font-bold text-slate-900 font-mono">
+                {formatINR(totalSpentSum, { showDecimals: true })}
+              </span>
+            </div>
+            <button
+              onClick={() => mutate()}
+              className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-xl border border-slate-200 transition"
+              title="Refresh expenses"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-indigo-600' : ''}`} />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {fetchError && data && (
         <div className="p-2 mb-4 bg-amber-50 text-amber-800 border border-amber-200 rounded-md text-xs flex items-center justify-between">
@@ -159,89 +156,91 @@ export default function ExpenseList({ type = "my" }) {
           <p className="text-xs text-gray-400">Recorded receipts and bills will appear here.</p>
         </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-left text-sm whitespace-nowrap">
-            <thead className="uppercase tracking-wider border-b-2 border-gray-200 text-gray-600 text-xs font-semibold">
-              <tr>
-                <th scope="col" className="px-5 py-3">Date</th>
-                {type !== "my" && <th scope="col" className="px-5 py-3">Spender</th>}
-                <th scope="col" className="px-5 py-3">Category</th>
-                <th scope="col" className="px-5 py-3">Description</th>
-                <th scope="col" className="px-5 py-3">Vendor / Ref</th>
-                <th scope="col" className="px-5 py-3">Amount</th>
-                <th scope="col" className="px-5 py-3">Mode</th>
-                <th scope="col" className="px-5 py-3">Status</th>
-                {canReverse && type !== "my" && <th scope="col" className="px-5 py-3 text-right">Actions</th>}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200 text-gray-900 font-normal">
-              {expenses.map((item) => (
-                <tr key={item.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-5 py-3.5 text-gray-700">
-                    {new Date(item.date).toLocaleDateString("en-IN", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric"
-                    })}
-                  </td>
-                  {type !== "my" && (
-                    <td className="px-5 py-3.5">
-                      <div className="font-semibold text-gray-900">{item.user?.name || "Team Member"}</div>
-                      <div className="text-xs text-gray-500">{item.user?.role?.name || item.user?.email}</div>
+        <div className="overflow-hidden rounded-2xl border border-slate-200/80 shadow-2xs bg-white">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs whitespace-nowrap">
+              <thead className="bg-slate-50/90 backdrop-blur-xs text-slate-600 font-bold uppercase tracking-wider text-[10px] border-b border-slate-200">
+                <tr>
+                  <th scope="col" className="px-4 py-3">Date</th>
+                  {type !== "my" && <th scope="col" className="px-4 py-3">Spender</th>}
+                  <th scope="col" className="px-4 py-3">Category</th>
+                  <th scope="col" className="px-4 py-3 min-w-[200px]">Description</th>
+                  <th scope="col" className="px-4 py-3">Vendor / Ref</th>
+                  <th scope="col" className="px-4 py-3">Amount</th>
+                  <th scope="col" className="px-4 py-3">Mode</th>
+                  <th scope="col" className="px-4 py-3">Status</th>
+                  {canReverse && type !== "my" && <th scope="col" className="px-4 py-3 text-right">Actions</th>}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 text-slate-800 font-normal">
+                {expenses.map((item) => (
+                  <tr key={item.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="px-4 py-3 text-slate-600 font-medium">
+                      {new Date(item.date).toLocaleDateString("en-IN", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                      })}
                     </td>
-                  )}
-                  <td className="px-5 py-3.5">
-                    <span className="px-2.5 py-0.5 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">
-                      {item.category?.name || "General"}
-                    </span>
-                  </td>
-                  <td className="px-5 py-3.5 text-gray-800 max-w-xs truncate" title={item.description}>
-                    {item.description}
-                  </td>
-                  <td className="px-5 py-3.5 text-gray-600 text-xs">
-                    {item.vendorId || item.reference ? (
-                      <span>{item.vendorId || item.reference}</span>
-                    ) : (
-                      <span className="text-gray-400">—</span>
+                    {type !== "my" && (
+                      <td className="px-4 py-3">
+                        <div className="font-semibold text-slate-900">{item.user?.name || "Team Member"}</div>
+                        <div className="text-[10px] text-slate-400">{item.user?.role?.name || item.user?.email}</div>
+                      </td>
                     )}
-                  </td>
-                  <td className="px-5 py-3.5 font-bold text-gray-900">
-                    {formatINR(item.amount, { showDecimals: true })}
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <span className="px-2.5 py-0.5 inline-flex text-[10px] font-bold rounded bg-slate-100 text-slate-700">
-                      {item.fundMode || 'LIQUID'}
-                    </span>
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <span
-                      className={`px-2.5 py-0.5 text-xs font-semibold rounded-full ${
-                        item.status === "RECORDED"
-                          ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                          : "bg-rose-100 text-rose-800 border border-rose-200 line-through"
-                      }`}
-                    >
-                      {item.status}
-                    </span>
-                  </td>
-                  {canReverse && type !== "my" && (
-                    <td className="px-5 py-3.5 text-right">
-                      {item.status === "RECORDED" ? (
-                        <button
-                          onClick={() => setSelectedExpense(item)}
-                          className="px-2.5 py-1 text-xs font-medium text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded transition-colors"
-                        >
-                          Reverse Entry
-                        </button>
+                    <td className="px-4 py-3">
+                      <span className="px-2.5 py-0.5 text-[11px] font-semibold bg-purple-50 text-purple-700 rounded-md border border-purple-200/80">
+                        {item.category?.name || "General"}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-slate-800 max-w-xs truncate font-medium" title={item.description}>
+                      {item.description}
+                    </td>
+                    <td className="px-4 py-3 text-slate-500 font-mono text-[11px]">
+                      {item.vendorId || item.reference ? (
+                        <span className="bg-slate-50 px-2 py-0.5 rounded border border-slate-200/80">{item.vendorId || item.reference}</span>
                       ) : (
-                        <span className="text-xs text-gray-400 italic">Reversed</span>
+                        <span className="text-slate-300">—</span>
                       )}
                     </td>
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    <td className="px-4 py-3 font-bold text-slate-900 font-sans text-xs">
+                      {formatINR(item.amount, { showDecimals: true })}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="px-2 py-0.5 inline-flex text-[10px] font-bold rounded bg-slate-100 text-slate-700 border border-slate-200/70">
+                        {item.fundMode || 'LIQUID'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <span
+                        className={`px-2.5 py-0.5 text-[10.5px] font-bold rounded-md border ${
+                          item.status === "RECORDED"
+                            ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                            : "bg-rose-50 text-rose-700 border-rose-200 line-through"
+                        }`}
+                      >
+                        {item.status}
+                      </span>
+                    </td>
+                    {canReverse && type !== "my" && (
+                      <td className="px-4 py-3 text-right">
+                        {item.status === "RECORDED" ? (
+                          <button
+                            onClick={() => setSelectedExpense(item)}
+                            className="px-2.5 py-1 text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-lg transition active:scale-95"
+                          >
+                            Reverse
+                          </button>
+                        ) : (
+                          <span className="text-slate-300 text-xs">Reversed</span>
+                        )}
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
 

@@ -66,7 +66,7 @@ async function testCancellationRefundWorkflow() {
   // Step 2: Record Payment ₹5,00,000 from Accounting
   console.log('\nStep 2: Accounting records collection payment of ₹5,00,000...');
   const initialWallet = await prisma.wallet.findUnique({ where: { userId: adminUser.id } });
-  const initialBal = parseFloat(initialWallet.availableBalance);
+  const initialBal = parseFloat(initialWallet.availableBalanceLiquid || 0);
 
   const res2 = await fetch(`${baseUrl}/api/v1/customers/${customerId}/payments`, {
     method: 'POST',
@@ -127,7 +127,7 @@ async function testCancellationRefundWorkflow() {
   // Step 5: Verify Treasury and Ledger Balance
   console.log('\nStep 5: Verifying Treasury liquidity & Ledger updates...');
   const finalWallet = await prisma.wallet.findUnique({ where: { userId: adminUser.id } });
-  const finalBal = parseFloat(finalWallet.availableBalance);
+  const finalBal = parseFloat(finalWallet.availableBalanceLiquid || 0);
   const expectedBal = initialBal + 500000 - 250000; // Net +250000
   console.log(`  Initial Treasury: ₹${initialBal.toLocaleString('en-IN')}`);
   console.log(`  After +₹5L collection & -₹2.5L refund: ₹${finalBal.toLocaleString('en-IN')}`);
@@ -169,7 +169,7 @@ async function testCancellationRefundWorkflow() {
   await prisma.customerPayment.deleteMany({ where: { customerId } });
   await prisma.customer.delete({ where: { id: customerId } });
   // Restore initial wallet
-  await prisma.wallet.update({ where: { id: finalWallet.id }, data: { availableBalance: initialBal, totalAllocated: initialBal } });
+  await prisma.wallet.update({ where: { id: finalWallet.id }, data: { availableBalanceLiquid: initialBal, totalAllocatedLiquid: initialBal } });
   console.log('  ✅ Cleanup complete.');
 
   console.log('\n=== ALL CANCELLATION & REFUND SETTLEMENT TESTS PASSED! ===');

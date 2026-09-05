@@ -13,7 +13,18 @@ const STANDARD_ACCOUNTS = [
   { code: '5020', name: 'Marketing & Promotions', type: 'EXPENSE', description: 'Lead generation, print collateral, digital ads' },
   { code: '5030', name: 'Client Entertainment & Hospitality', type: 'EXPENSE', description: 'Customer meetings, food, refreshments' },
   { code: '5040', name: 'Office Supplies & Utilities', type: 'EXPENSE', description: 'Stationery, telecom, petty equipment' },
-  { code: '5050', name: 'General & Miscellaneous Operations', type: 'EXPENSE', description: 'General operational overheads' }
+  { code: '5050', name: 'General & Miscellaneous Operations', type: 'EXPENSE', description: 'General operational overheads' },
+  { code: '5060', name: 'Salaries & Wages Expense', type: 'EXPENSE', description: 'Employee regular salaries, allowances, and monthly wage expenses' },
+  { code: '5070', name: 'Employer Statutory Contribution Expense', type: 'EXPENSE', description: 'Company statutory contributions (Employer EPF, Employer ESIC)' },
+  { code: '2010', name: 'Net Salaries Payable', type: 'LIABILITY', description: 'Accrued net salary obligations payable to staff' },
+  { code: '2020', name: 'Employee Statutory Payable (PF/ESI)', type: 'LIABILITY', description: 'Statutory deductions held for remittance (Employee EPF, Employee ESIC)' },
+  { code: '2025', name: 'Employer Statutory Contribution Payable', type: 'LIABILITY', description: 'Employer statutory contributions held for remittance (Employer EPF/ESIC)' },
+  { code: '2030', name: 'TDS (Income Tax) Payable', type: 'LIABILITY', description: 'Tax deducted at source held for remittance to tax authority' },
+  { code: '1040', name: 'Employee Advance & Loan Asset', type: 'ASSET', description: 'Outstanding salary advances and recoverable staff loans' },
+  { code: '1200', name: 'Accounts Receivable — Customer Control', type: 'ASSET', description: 'Legally enforceable customer receivables for issued milestone demand notes' },
+  { code: '2040', name: 'Customer Advances & Unearned Booking Revenue', type: 'LIABILITY', description: 'Customer unallocated deposits and unearned milestone booking liability' },
+  { code: '2060', name: 'Output CGST Payable', type: 'LIABILITY', description: 'Central GST collected on taxable real estate development demands' },
+  { code: '2061', name: 'Output SGST Payable', type: 'LIABILITY', description: 'State GST collected on taxable real estate development demands' }
 ];
 
 let accountsInitialized = false;
@@ -48,16 +59,66 @@ ensureStandardAccounts().catch(console.error);
 /**
  * Post an atomic Double-Entry Journal Entry
  * Invariant: Sum of Debits MUST equal Sum of Credits.
+ * Enforces: Accounting Period MUST be OPEN.
  */
 async function postJournalEntry(tx, {
   description,
   referenceType,
   referenceId,
   createdBy,
+  postingDate, // Optional: defaults to new Date()
   lines // [{ accountCode, debit, credit, description }]
 }) {
   if (!lines || lines.length < 2) {
     throw new Error('Journal entry requires at least two lines (Double-Entry Bookkeeping)');
+  }
+
+  const effectiveDate = postingDate ? new Date(postingDate) : new Date();
+
+  // 1. Fiscal Accounting Period Validation Gate (Phase 6B)
+  let period = await tx.accountingPeriod.findFirst({
+    where: {
+      startDate: { lte: effectiveDate },
+      endDate: { gte: effectiveDate }
+    }
+  });
+
+  if (!period) {
+    const { ensureAccountingPeriods } = require('../services/accountingPeriodService');
+    const y = effectiveDate.getFullYear();
+    await ensureAccountingPeriods(tx, { startYear: y - 1, endYear: y + 1 });
+    period = await tx.accountingPeriod.findFirst({
+      where: {
+        startDate: { lte: effectiveDate },
+        endDate: { gte: effectiveDate }
+      }
+    });
+  }
+
+  if (period) {
+    // 1b. Strict Concurrency Row-Level Lock (FOR UPDATE)
+    // Synchronizes with closeAccountingPeriod() to eliminate posting-vs-closing race conditions.
+    try {
+      const lockedPeriods = await tx.$queryRaw`
+        SELECT id, status, "periodName"
+        FROM public."AccountingPeriod"
+        WHERE id = ${period.id}
+        FOR UPDATE
+      `;
+      if (lockedPeriods && lockedPeriods.length > 0) {
+        period = lockedPeriods[0];
+      }
+    } catch (lockErr) {
+      console.warn('AccountingPeriod row lock query skipped:', lockErr.message);
+    }
+  }
+
+  if (period && period.status !== 'OPEN') {
+    throw {
+      status: 400,
+      code: 'ACCOUNTING_PERIOD_CLOSED',
+      message: `Cannot post journal entry: Accounting Period "${period.periodName}" is CLOSED. Postings to closed periods are strictly prohibited.`
+    };
   }
 
   let totalDebit = 0;
@@ -89,7 +150,7 @@ async function postJournalEntry(tx, {
   const accountMap = new Map(accounts.map(a => [a.code, a.id]));
 
   // Generate sequential unique entry number for today
-  const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  const dateStr = effectiveDate.toISOString().slice(0, 10).replace(/-/g, '');
   const todayPrefix = `JE-${dateStr}-`;
   const latestEntry = await tx.journalEntry.findFirst({
     where: { entryNumber: { startsWith: todayPrefix } },
@@ -116,6 +177,8 @@ async function postJournalEntry(tx, {
   const entry = await tx.journalEntry.create({
     data: {
       entryNumber,
+      date: effectiveDate,
+      accountingPeriodId: period?.id || null,
       description,
       referenceType,
       referenceId: referenceId ? String(referenceId) : null,
@@ -341,6 +404,59 @@ async function postCustomerRefundJournal(tx, {
   });
 }
 
+/**
+ * Double-Entry Post: Salary Payment Settlement
+ * Debit: Net Salaries Payable (2010) (Liability -)
+ * Credit: Corporate Bank / Primary Treasury (1010) or Cash / Manager Wallet (1020) (Asset -)
+ */
+async function postSalaryPaymentSettlementJournal(tx, {
+  amount,
+  employeeName,
+  employeeCode,
+  paymentNumber,
+  sourceAccountCode = '1010',
+  referenceId,
+  createdBy
+}) {
+  return await postJournalEntry(tx, {
+    description: `Salary Disbursement: ${paymentNumber} — ${employeeName || 'Staff'}${employeeCode ? ` (${employeeCode})` : ''}`,
+    referenceType: 'SALARY_PAYMENT',
+    referenceId,
+    createdBy,
+    lines: [
+      { accountCode: '2010', debit: amount, credit: 0, description: `Clear Net Salary Liability: ${employeeName || 'Staff'}` },
+      { accountCode: sourceAccountCode || '1010', debit: 0, credit: amount, description: `Disbursement Outflow: ${paymentNumber}` }
+    ]
+  });
+}
+
+/**
+ * Double-Entry Post: Salary Payment Reversal
+ * Debit: Corporate Bank / Primary Treasury (1010) or Cash (1020) (Asset + / Restored)
+ * Credit: Net Salaries Payable (2010) (Liability + / Reinstated)
+ */
+async function postSalaryPaymentReversalJournal(tx, {
+  amount,
+  employeeName,
+  employeeCode,
+  paymentNumber,
+  sourceAccountCode = '1010',
+  referenceId,
+  createdBy,
+  reason
+}) {
+  return await postJournalEntry(tx, {
+    description: `Salary Settlement Reversal: ${paymentNumber} — ${employeeName || 'Staff'} (${reason || 'Reversal'})`,
+    referenceType: 'SALARY_PAYMENT_REVERSAL',
+    referenceId,
+    createdBy,
+    lines: [
+      { accountCode: sourceAccountCode || '1010', debit: amount, credit: 0, description: `Restored Bank/Cash: Reversal of ${paymentNumber}` },
+      { accountCode: '2010', debit: 0, credit: amount, description: `Reinstated Net Salary Liability: ${employeeName || 'Staff'}` }
+    ]
+  });
+}
+
 module.exports = {
   ensureStandardAccounts,
   postJournalEntry,
@@ -350,7 +466,9 @@ module.exports = {
   postCustomerPaymentJournal,
   postCustomerRefundJournal,
   postPropertyPaymentJournal,
-  postCapitalInfusionJournal
+  postCapitalInfusionJournal,
+  postSalaryPaymentSettlementJournal,
+  postSalaryPaymentReversalJournal
 };
 
 

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
+import { Coins, ShieldCheck, CheckCircle2, XCircle } from "lucide-react";
 
 export default function DirectFundAllocationForm({ onAllocationSuccess }) {
   const [users, setUsers] = useState([]);
@@ -24,7 +25,6 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
       });
       const data = await res.json();
       if (data.success) {
-        // Filter out ADMIN if desired or list everyone with a wallet
         setUsers(data.users);
       }
     } catch (error) {
@@ -68,7 +68,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
           text: data.message || "Funds successfully allocated!"
         });
         setFormData({ targetUserId: "", amount: "", fundMode: "LIQUID", description: "" });
-        fetchUsers(); // Refresh wallet balances in dropdown
+        fetchUsers();
         if (onAllocationSuccess) onAllocationSuccess();
       } else {
         setMessage({
@@ -85,151 +85,166 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
   const selectedUser = users.find(u => u.id === formData.targetUserId);
 
   return (
-    <div className="bg-white shadow rounded-lg p-6">
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h3 className="text-xl font-bold text-gray-900">Direct Fund Allocation</h3>
-          <p className="text-sm text-gray-600 mt-1">
-            Push funds directly from the organization reserve into a manager or team member wallet.
-          </p>
+    <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7 flex flex-col justify-between h-full space-y-5">
+      {/* Header */}
+      <div className="flex items-start justify-between gap-3 pb-4 border-b border-slate-100">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold shadow-2xs shrink-0">
+            <Coins className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">Direct Fund Allocation</h3>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Push funds directly from the organization reserve into a manager or team member wallet.
+            </p>
+          </div>
         </div>
-        <span className="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-full border border-indigo-200">
+        <span className="px-2.5 py-1 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-full border border-indigo-200 shrink-0">
           Admin Only
         </span>
       </div>
 
       {message && (
         <div
-          className={`p-4 mb-6 rounded-md ${
+          className={`p-3.5 rounded-xl text-xs flex items-center gap-2.5 border ${
             message.type === "success"
-              ? "bg-green-50 text-green-900 border border-green-200"
-              : "bg-red-50 text-red-900 border border-red-200"
+              ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+              : "bg-rose-50 text-rose-800 border-rose-200"
           }`}
         >
-          <p className="font-semibold text-sm">
-            {message.type === "error" ? "Allocation Failed" : "Success"}
-          </p>
-          <p className="text-sm mt-0.5">{message.text}</p>
+          {message.type === "success" ? (
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+          ) : (
+            <XCircle className="w-4 h-4 text-rose-600 shrink-0" />
+          )}
+          <span className="font-medium">{message.text}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-1.5">
-            Recipient (Manager / Team Member)
-          </label>
-          <select
-            name="targetUserId"
-            value={formData.targetUserId}
-            onChange={handleChange}
-            required
-            disabled={loadingUsers}
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 bg-white"
-          >
-            <option value="" disabled>
-              {loadingUsers ? "Loading users..." : "Select recipient to allocate funds..."}
-            </option>
-            {users.map((u) => {
-              const balance = u.wallet?.availableBalance
-                ? parseFloat(u.wallet.availableBalance).toLocaleString('en-IN')
-                : "0";
-              return (
-                <option key={u.id} value={u.id}>
-                  {u.name} ({u.role?.name || "User"}) — Current Balance: ₹{balance}
-                </option>
-              );
-            })}
-          </select>
-          {selectedUser && (
-            <p className="text-xs text-gray-500 mt-1.5 flex gap-4">
-              <span>
-                Liquid:{" "}
-                <span className="font-semibold text-gray-800">
-                  ₹{parseFloat(selectedUser.wallet?.availableBalanceLiquid || 0).toLocaleString('en-IN')}
-                </span>
-              </span>
-              <span>
-                Cash:{" "}
-                <span className="font-semibold text-gray-800">
-                  ₹{parseFloat(selectedUser.wallet?.availableBalanceCash || 0).toLocaleString('en-IN')}
-                </span>
-              </span>
-            </p>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-1.5">
-            Allocation Mode
-          </label>
-          <select
-            name="fundMode"
-            value={formData.fundMode}
-            onChange={handleChange}
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 bg-white"
-          >
-            <option value="LIQUID">Liquid (Online / Bank)</option>
-            <option value="CASH">Cash (Physical)</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-1.5">
-            Allocation Amount (₹)
-          </label>
-          <div className="relative rounded-md shadow-sm">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <span className="text-gray-500 sm:text-sm font-bold">₹</span>
-            </div>
-            <input
-              type="number"
-              step="0.01"
-              min="1"
-              name="amount"
-              value={formData.amount}
+      <form onSubmit={handleSubmit} className="flex-1 flex flex-col justify-between space-y-4">
+        <div className="space-y-4">
+          <div>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              Recipient (Manager / Team Member)
+            </label>
+            <select
+              name="targetUserId"
+              value={formData.targetUserId}
               onChange={handleChange}
               required
-              placeholder="e.g. 50000.00"
-              className="w-full pl-8 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 placeholder-gray-400 bg-white font-medium"
+              disabled={loadingUsers}
+              className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm text-slate-900 bg-slate-50/50 outline-none transition"
+            >
+              <option value="" disabled>
+                {loadingUsers ? "Loading users..." : "Select recipient to allocate funds..."}
+              </option>
+              {users.map((u) => {
+                const balance = u.wallet?.availableBalance
+                  ? parseFloat(u.wallet.availableBalance).toLocaleString('en-IN')
+                  : "0";
+                return (
+                  <option key={u.id} value={u.id}>
+                    {u.name} ({u.role?.name || "User"}) — Current Balance: ₹{balance}
+                  </option>
+                );
+              })}
+            </select>
+            {selectedUser && (
+              <div className="text-xs text-slate-500 mt-1.5 flex gap-4 p-2 bg-slate-50 rounded-lg border border-slate-100">
+                <span>
+                  Liquid:{" "}
+                  <span className="font-bold text-slate-800">
+                    ₹{parseFloat(selectedUser.wallet?.availableBalanceLiquid || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                  </span>
+                </span>
+                <span>
+                  Cash:{" "}
+                  <span className="font-bold text-slate-800">
+                    ₹{parseFloat(selectedUser.wallet?.availableBalanceCash || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                  </span>
+                </span>
+              </div>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Allocation Mode
+              </label>
+              <select
+                name="fundMode"
+                value={formData.fundMode}
+                onChange={handleChange}
+                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm text-slate-900 bg-slate-50/50 outline-none transition"
+              >
+                <option value="LIQUID">Liquid (Online / Bank)</option>
+                <option value="CASH">Cash (Physical)</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Allocation Amount (₹)
+              </label>
+              <div className="relative rounded-xl shadow-2xs">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+                  <span className="text-slate-400 font-bold text-sm">₹</span>
+                </div>
+                <input
+                  type="number"
+                  step="0.01"
+                  min="1"
+                  name="amount"
+                  value={formData.amount}
+                  onChange={handleChange}
+                  required
+                  placeholder="50000.00"
+                  className="w-full pl-8 pr-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 font-medium outline-none transition"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="text-[11px] font-semibold text-slate-500 mr-1">Quick Select:</span>
+              {[10000, 25000, 50000, 100000].map((val) => (
+                <button
+                  type="button"
+                  key={val}
+                  onClick={() => handleQuickAmount(val)}
+                  className="px-2.5 py-1 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg border border-slate-200/80 transition active:scale-95"
+                >
+                  +₹{val.toLocaleString('en-IN')}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              Reason / Allocation Notes
+            </label>
+            <input
+              type="text"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              placeholder="e.g. Q3 Sales Team operational budget top-up"
+              className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 outline-none transition"
             />
           </div>
-
-          <div className="flex flex-wrap gap-2 mt-2">
-            <span className="text-xs text-gray-500 py-1">Quick Select:</span>
-            {[10000, 25000, 50000, 100000].map((val) => (
-              <button
-                type="button"
-                key={val}
-                onClick={() => handleQuickAmount(val)}
-                className="px-2.5 py-1 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded border border-gray-200 transition-colors"
-              >
-                +₹{val.toLocaleString('en-IN')}
-              </button>
-            ))}
-          </div>
         </div>
 
-        <div>
-          <label className="block text-sm font-semibold text-gray-800 mb-1.5">
-            Reason / Allocation Notes
-          </label>
-          <input
-            type="text"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            placeholder="e.g. Q3 Sales Team operational budget top-up"
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 placeholder-gray-400 bg-white"
-          />
-        </div>
-
-        <div className="pt-2">
+        <div className="pt-4 border-t border-slate-100">
           <button
             type="submit"
             disabled={submitting || loadingUsers}
-            className="w-full md:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition-colors"
+            className="w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition-all duration-150 active:scale-95 text-xs sm:text-sm flex items-center justify-center gap-2"
           >
-            {submitting ? "Allocating Funds..." : "Confirm & Allocate Funds"}
+            <ShieldCheck className="w-4 h-4" />
+            <span>{submitting ? "Allocating Funds..." : "Confirm & Allocate Funds"}</span>
           </button>
         </div>
       </form>

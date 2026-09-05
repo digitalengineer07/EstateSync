@@ -1,7 +1,6 @@
 generator client {
   provider   = "prisma-client-js"
   engineType = "binary"
-  output     = "../src/prisma-client"
 }
 
 datasource db {
@@ -27,6 +26,7 @@ model User {
   recordedPayments CustomerPayment[] @relation("RecordedCustomerPayments")
   createdProperties PropertyAcquisition[] @relation("CreatedProperties")
   recordedPropertyPayments PropertyPayment[] @relation("RecordedPropertyPayments")
+  employee        Employee?        @relation("UserEmployee")
 }
 
 model Role {
@@ -88,6 +88,7 @@ model WalletTransaction {
   description      String?
   createdBy        String
   status           String       // COMPLETED, REVERSED
+  simpleSalaryPayments EmployeeSalaryPayment[]
   createdAt        DateTime     @default(now())
 }
 
@@ -174,16 +175,27 @@ model Account {
 }
 
 model JournalEntry {
-  id            String        @id @default(uuid())
-  entryNumber   String        @unique // e.g. "JE-2026-0001"
-  date          DateTime      @default(now())
-  referenceType String?       // WALLET_TRANSACTION, EXPENSE, REVERSAL, DIRECT_ALLOCATION
-  referenceId   String?
-  description   String
-  status        String        @default("POSTED") // POSTED, REVERSED
-  createdBy     String
-  lines         JournalLine[]
-  createdAt     DateTime      @default(now())
+  id                    String                    @id @default(uuid())
+  entryNumber           String                    @unique // e.g. "JE-2026-0001"
+  date                  DateTime                  @default(now())
+  referenceType         String?                   // WALLET_TRANSACTION, EXPENSE, REVERSAL, DIRECT_ALLOCATION, PAYROLL, PAYROLL_REVERSAL
+  referenceId           String?
+  description           String
+  status                String                    @default("POSTED") // POSTED, REVERSED
+  createdBy             String
+  accountingPeriodId    String?
+  accountingPeriod      AccountingPeriod?         @relation(fields: [accountingPeriodId], references: [id], onDelete: Restrict)
+  lines                 JournalLine[]
+  payrollPosting        PayrollAccountingPosting? @relation("OriginalPostingJournal")
+  reversalPayrollPosting PayrollAccountingPosting? @relation("ReversalPostingJournal")
+  salaryPayment         SalaryPayment?
+  simpleSalaryPayments  EmployeeSalaryPayment[]
+  demandNotes           CustomerDemandNote[]
+  customerLedgerEntries CustomerLedgerEntry[]
+  createdAt             DateTime                  @default(now())
+
+  @@index([accountingPeriodId])
+  @@index([date])
 }
 
 model JournalLine {
@@ -253,25 +265,30 @@ model Customer {
   refundReferenceNo  String?
   refundNotes        String?
   refundSettledById  String?
+  paymentPlanId      String?
+  paymentPlan        PaymentPlan?          @relation(fields: [paymentPlanId], references: [id])
   payments           CustomerPayment[]
-  createdAt          DateTime          @default(now())
-  updatedAt          DateTime          @updatedAt
+  demandNotes        CustomerDemandNote[]
+  ledgerEntries      CustomerLedgerEntry[]
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
 }
 
 model CustomerPayment {
-  id                 String    @id @default(uuid())
+  id                 String              @id @default(uuid())
   customerId         String
-  customer           Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  dateOfPayment      DateTime  @default(now())
-  amount             Decimal   @db.Decimal(15, 2)
-  paymentMode        String    // CASH, CHEQUE, NEFT, RTGS, UPI, DD
-  sourceAccount      String?   // Client bank/account description
-  destinationAccount String?   // Treasury collection bank account
-  referenceNo        String?   // UTR / Cheque / Transaction reference
+  customer           Customer            @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  dateOfPayment      DateTime            @default(now())
+  amount             Decimal             @db.Decimal(15, 2)
+  paymentMode        String              // CASH, CHEQUE, NEFT, RTGS, UPI, DD
+  sourceAccount      String?             // Client bank/account description
+  destinationAccount String?             // Treasury collection bank account
+  referenceNo        String?             // UTR / Cheque / Transaction reference
   recordedById       String
-  recordedBy         User      @relation("RecordedCustomerPayments", fields: [recordedById], references: [id])
-  status             String    @default("RECORDED") // RECORDED, REVERSED
-  createdAt          DateTime  @default(now())
+  recordedBy         User                @relation("RecordedCustomerPayments", fields: [recordedById], references: [id])
+  status             String              @default("RECORDED") // RECORDED, REVERSED
+  allocations        PaymentAllocation[]
+  createdAt          DateTime            @default(now())
 }
 
 // -------------------------------------------------------------
@@ -314,5 +331,641 @@ model PropertyPayment {
   status             String              @default("RECORDED") // RECORDED, REVERSED
   createdAt          DateTime            @default(now())
 }
+
+// -------------------------------------------------------------
+// Employee Master & Staff Governance Model (Phase 1)
+// Non-login staff supported (userId: null); Login-linked staff (userId: unique)
+// -------------------------------------------------------------
+model Employee {
+  id                 String      @id @default(uuid())
+  employeeCode       String      @unique // e.g. "EMP-000001"
+  fullName           String
+  displayName        String?
+  photo              String?
+  mobile             String      @unique
+  alternatePhone     String?
+  email              String?     @unique
+  address            String?
+  department         String      // Sales, Accounting, Management, Marketing, Operations, Security, General
+  designation        String      // Accountant, Sales Rep, Guard, Driver, Operator, etc.
+  employmentType     String      @default("FULL_TIME") // FULL_TIME, PART_TIME, CONTRACT, PROBATION, INTERN
+  joiningDate        DateTime
+  confirmationDate   DateTime?
+  reportingManagerId String?
+  reportingManager   Employee?   @relation("ManagerSubordinates", fields: [reportingManagerId], references: [id], onDelete: SetNull)
+  subordinates       Employee[]  @relation("ManagerSubordinates")
+  workLocation       String?     @default("Head Office")
+  status             String      @default("ACTIVE") // ACTIVE, INACTIVE, ARCHIVED, ON_LEAVE, RESIGNED, TERMINATED
+  exitDate           DateTime?
+  exitReason         String?
+  userId             String?     @unique
+  user               User?       @relation("UserEmployee", fields: [userId], references: [id], onDelete: SetNull)
+  baseSalary         Decimal?    @default(0) @db.Decimal(15, 2)
+  bankName           String?
+  bankAccountNo      String?
+  ifscCode           String?
+  upiId              String?
+  paymentMethod      String?     @default("BANK_TRANSFER")
+  salaryAssignments  EmployeeSalaryAssignment[]
+  payrollItems       PayrollItem[]
+  payrollAdjustments PayrollAdjustment[]
+  payrollExceptions  PayrollException[]
+  salaryPayments     SalaryPayment[]
+  simpleSalaryPayments EmployeeSalaryPayment[]
+  createdBy          String?
+  updatedBy          String?
+  archivedAt         DateTime?
+  archivedBy         String?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  @@index([employeeCode])
+  @@index([fullName])
+  @@index([mobile])
+  @@index([email])
+  @@index([status])
+  @@index([department])
+  @@index([userId])
+}
+
+// -------------------------------------------------------------
+// Salary Component Master (Phase 2)
+// Configurable earning, deduction, employer contribution, and reimbursement rules
+// -------------------------------------------------------------
+model SalaryComponent {
+  id                 String                @id @default(uuid())
+  code               String                @unique // BASIC, HRA, CONVEYANCE, SPECIAL_ALLOWANCE, PF_EMPLOYEE, ESI_EMPLOYEE, TDS, ADVANCE_RECOVERY, PF_EMPLOYER, etc.
+  name               String                // Basic Salary, House Rent Allowance, Provident Fund, etc.
+  description        String?
+  componentType      String                // EARNING, DEDUCTION, EMPLOYER_CONTRIBUTION, REIMBURSEMENT
+  calculationMethod  String                // FIXED_AMOUNT, PERCENTAGE_OF_BASIC, PERCENTAGE_OF_GROSS, PERCENTAGE_OF_COMPONENT, MANUAL_AMOUNT
+  calculationBase    String?               // Reference component code or base concept ('BASIC', 'GROSS')
+  defaultValue       Decimal               @db.Decimal(15, 2) @default(0)
+  percentageValue    Decimal               @db.Decimal(5, 2) @default(0) // e.g. 50.00 for 50%
+  sequence           Int                   @default(1)
+  isTaxable          Boolean               @default(true)
+  isRecurring        Boolean               @default(true)
+  isActive           Boolean               @default(true)
+  glAccountCode      String?               // e.g. "5060", "2020", "1040"
+  structureLines     SalaryStructureLine[]
+  createdBy          String?
+  updatedBy          String?
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+
+  @@index([code])
+  @@index([componentType])
+  @@index([isActive])
+}
+
+// -------------------------------------------------------------
+// Salary Structure Master (Phase 2)
+// Reusable, versioned compensation package templates
+// -------------------------------------------------------------
+model SalaryStructure {
+  id                 String                    @id @default(uuid())
+  code               String                    @unique // e.g. "STR-SALES-STD", "STR-MGMT-EXEC", "STR-GUARD-V1"
+  name               String                    // Sales Standard Structure, Executive Structure
+  description        String?
+  currency           String                    @default("INR")
+  status             String                    @default("ACTIVE") // ACTIVE, INACTIVE, ARCHIVED
+  version            Int                       @default(1)
+  effectiveFrom      DateTime                  @default(now())
+  effectiveTo        DateTime?
+  lines              SalaryStructureLine[]
+  assignments        EmployeeSalaryAssignment[]
+  createdBy          String?
+  updatedBy          String?
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
+
+  @@index([code])
+  @@index([status])
+}
+
+// -------------------------------------------------------------
+// Salary Structure Line Items (Phase 2)
+// Itemized components configured for a specific structure
+// -------------------------------------------------------------
+model SalaryStructureLine {
+  id                 String          @id @default(uuid())
+  structureId        String
+  structure          SalaryStructure @relation(fields: [structureId], references: [id], onDelete: Cascade)
+  componentId        String
+  component          SalaryComponent @relation(fields: [componentId], references: [id], onDelete: Restrict)
+  calculationMethod  String          // FIXED_AMOUNT, PERCENTAGE_OF_BASIC, etc.
+  value              Decimal         @db.Decimal(15, 2) @default(0)
+  percentage         Decimal         @db.Decimal(5, 2) @default(0)
+  calculationBase    String?
+  sequence           Int             @default(1)
+  isMandatory        Boolean         @default(true)
+  isActive           Boolean         @default(true)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@unique([structureId, componentId])
+  @@index([structureId])
+  @@index([componentId])
+}
+
+// -------------------------------------------------------------
+// Effective-Dated Employee Salary Assignments (Phase 2)
+// Preserves immutable compensation history with zero overlap
+// -------------------------------------------------------------
+model EmployeeSalaryAssignment {
+  id                 String          @id @default(uuid())
+  employeeId         String
+  employee           Employee        @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  salaryStructureId  String
+  salaryStructure    SalaryStructure @relation(fields: [salaryStructureId], references: [id], onDelete: Restrict)
+  baseGross          Decimal         @db.Decimal(15, 2) @default(0) // Baseline monthly Gross / CTC reference
+  effectiveFrom      DateTime        // Inclusive start date
+  effectiveTo        DateTime?       // Inclusive end date (null = currently active)
+  reason             String?         // "Annual Increment", "Initial Offer", "Promotion"
+  notes              String?
+  status             String          @default("ACTIVE") // ACTIVE, SUPERSEDED, CANCELLED
+  approvedBy         String?
+  createdBy          String?
+  updatedBy          String?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@index([employeeId, status])
+  @@index([employeeId, effectiveFrom])
+  @@index([salaryStructureId])
+}
+
+// =============================================================
+// PHASE 3 — MONTHLY PAYROLL CALCULATION ENGINE MODELS
+// =============================================================
+
+// -------------------------------------------------------------
+// 1. Monthly Payroll Period (Phase 3)
+// Enforces single unique period per calendar year + month
+// -------------------------------------------------------------
+model PayrollPeriod {
+  id                 String        @id @default(uuid())
+  year               Int           // e.g. 2026
+  month              Int           // 1 to 12
+  periodStart        DateTime      // e.g. 2026-08-01T00:00:00.000Z
+  periodEnd          DateTime      // e.g. 2026-08-31T23:59:59.999Z
+  status             String        @default("DRAFT") // DRAFT, OPEN, PROCESSING, CALCULATED, PENDING_APPROVAL, APPROVED, LOCKED, CLOSED, CANCELLED
+  runs               PayrollRun[]
+  createdBy          String?
+  approvedBy         String?
+  lockedBy           String?
+  lockedAt           DateTime?
+  updatedBy          String?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  @@unique([year, month])
+  @@index([year, month, status])
+  @@index([status])
+}
+
+// -------------------------------------------------------------
+// 2. Payroll Calculation Run (Phase 3)
+// Batch run container for calculating a payroll period
+// -------------------------------------------------------------
+model PayrollRun {
+  id                     String              @id @default(uuid())
+  payrollPeriodId        String
+  payrollPeriod          PayrollPeriod       @relation(fields: [payrollPeriodId], references: [id], onDelete: Restrict)
+  runNumber              Int                 @default(1)
+  status                 String              @default("DRAFT") // DRAFT, PROCESSING, CALCULATED, PENDING_APPROVAL, APPROVED, LOCKED, CANCELLED
+  totalEmployees         Int                 @default(0)
+  totalGross             Decimal             @db.Decimal(15, 2) @default(0)
+  totalDeductions        Decimal             @db.Decimal(15, 2) @default(0)
+  totalNet               Decimal             @db.Decimal(15, 2) @default(0)
+  totalEmployerCost      Decimal             @db.Decimal(15, 2) @default(0)
+  calculationStartedAt   DateTime?
+  calculationCompletedAt DateTime?
+  initiatedBy            String?
+  approvedBy             String?
+  approvedAt             DateTime?
+  lockedBy               String?
+  lockedAt               DateTime?
+  items                  PayrollItem[]
+  adjustments            PayrollAdjustment[]
+  exceptions             PayrollException[]
+  accountingPosting      PayrollAccountingPosting?
+  paymentBatches         SalaryPaymentBatch[]
+  salaryPayments         SalaryPayment[]
+  createdBy              String?
+  updatedBy              String?
+  createdAt              DateTime            @default(now())
+  updatedAt              DateTime            @updatedAt
+
+  @@unique([payrollPeriodId, runNumber])
+  @@index([payrollPeriodId, status])
+  @@index([status])
+}
+
+// -------------------------------------------------------------
+// 3. Employee Payroll Item (Phase 3)
+// Calculated monthly compensation record per employee
+// -------------------------------------------------------------
+model PayrollItem {
+  id                    String              @id @default(uuid())
+  payrollRunId          String
+  payrollRun            PayrollRun          @relation(fields: [payrollRunId], references: [id], onDelete: Cascade)
+  employeeId            String
+  employee              Employee            @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  salaryAssignmentId    String?             // Reference to the effective-dated assignment snapshot
+  employeeCodeSnapshot  String              // e.g. "EMP-000001"
+  employeeNameSnapshot  String
+  departmentSnapshot    String?
+  designationSnapshot   String?
+  structureCodeSnapshot String?             // e.g. "STR-SALES-STD"
+  grossEarnings         Decimal             @db.Decimal(15, 2) @default(0)
+  totalDeductions       Decimal             @db.Decimal(15, 2) @default(0)
+  employerCost          Decimal             @db.Decimal(15, 2) @default(0)
+  reimbursements        Decimal             @db.Decimal(15, 2) @default(0)
+  adjustmentsCredit     Decimal             @db.Decimal(15, 2) @default(0)
+  adjustmentsDebit      Decimal             @db.Decimal(15, 2) @default(0)
+  netPayable            Decimal             @db.Decimal(15, 2) @default(0)
+  currency              String              @default("INR")
+  status                String              @default("CALCULATED") // CALCULATED, BLOCKED, APPROVED, CANCELLED
+  lines                 PayrollLine[]
+  exceptions            PayrollException[]
+  salaryPayments        SalaryPayment[]
+  calculatedAt          DateTime            @default(now())
+  approvedAt            DateTime?
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  @@unique([payrollRunId, employeeId])
+  @@index([payrollRunId, status])
+  @@index([employeeId])
+}
+
+// -------------------------------------------------------------
+// 4. Payroll Line Snapshot (Phase 3)
+// Immutable snapshot of each calculated earning/deduction line
+// -------------------------------------------------------------
+model PayrollLine {
+  id                    String          @id @default(uuid())
+  payrollItemId         String
+  payrollItem           PayrollItem     @relation(fields: [payrollItemId], references: [id], onDelete: Cascade)
+  componentId           String?
+  componentCode         String          // e.g. "BASIC", "HRA", "PF_EMPLOYEE"
+  componentName         String
+  componentType         String          // EARNING, DEDUCTION, EMPLOYER_CONTRIBUTION, REIMBURSEMENT
+  calculationMethod     String          // FIXED_AMOUNT, PERCENTAGE_OF_BASIC, etc.
+  calculationBase       String?
+  sequence              Int             @default(1)
+  rate                  Decimal         @db.Decimal(15, 2) @default(0)
+  percentage            Decimal         @db.Decimal(5, 2) @default(0)
+  amount                Decimal         @db.Decimal(15, 2) @default(0)
+  source                String          @default("SALARY_STRUCTURE") // SALARY_STRUCTURE, MANUAL_ADJUSTMENT, BONUS, REIMBURSEMENT
+  glAccountCodeSnapshot String?         // e.g. "5060", "2020", "1040"
+  narration             String?
+  createdAt             DateTime        @default(now())
+
+  @@index([payrollItemId])
+  @@index([componentCode])
+  @@index([componentType])
+}
+
+// -------------------------------------------------------------
+// 5. Payroll Adjustment (Phase 3)
+// Ad-hoc additions/deductions applied to a payroll run
+// -------------------------------------------------------------
+model PayrollAdjustment {
+  id                 String          @id @default(uuid())
+  payrollRunId       String
+  payrollRun         PayrollRun      @relation(fields: [payrollRunId], references: [id], onDelete: Cascade)
+  employeeId         String
+  employee           Employee        @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  adjustmentType     String          // CREDIT (Increases Net), DEBIT (Decreases Net)
+  category           String          // BONUS, INCENTIVE, REIMBURSEMENT, ADVANCE_RECOVERY, ARREARS, OTHER
+  amount             Decimal         @db.Decimal(15, 2)
+  reason             String
+  notes              String?
+  status             String          @default("APPROVED") // PENDING, APPROVED, REJECTED
+  createdBy          String
+  approvedBy         String?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@index([payrollRunId, employeeId])
+  @@index([employeeId])
+}
+
+// -------------------------------------------------------------
+// 6. Payroll Exception (Phase 3)
+// Anomaly log for calculation errors or rule violations
+// -------------------------------------------------------------
+model PayrollException {
+  id                 String          @id @default(uuid())
+  payrollRunId       String
+  payrollRun         PayrollRun      @relation(fields: [payrollRunId], references: [id], onDelete: Cascade)
+  payrollItemId      String?
+  payrollItem        PayrollItem?    @relation(fields: [payrollItemId], references: [id], onDelete: SetNull)
+  employeeId         String?
+  employee           Employee?       @relation(fields: [employeeId], references: [id], onDelete: SetNull)
+  code               String          // NO_SALARY_ASSIGNMENT, MISSING_COMPONENT, INVALID_COMPONENT_RULE, CIRCULAR_COMPONENT_DEPENDENCY, NEGATIVE_NET_PAY, MISSING_REQUIRED_DATA, INVALID_EMPLOYEE_STATUS, CALCULATION_ERROR
+  severity           String          // WARNING, BLOCKING
+  message            String
+  context            Json?
+  isResolved         Boolean         @default(false)
+  resolvedBy         String?
+  resolvedAt         DateTime?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@index([payrollRunId, severity])
+  @@index([employeeId])
+  @@index([isResolved])
+}
+
+// -------------------------------------------------------------
+// 7. Payroll Accounting Posting (Phase 4)
+// Immutable reconciliation record linking PayrollRun to JournalEntry
+// -------------------------------------------------------------
+model PayrollAccountingPosting {
+  id                     String        @id @default(uuid())
+  payrollRunId           String        @unique
+  payrollRun             PayrollRun    @relation(fields: [payrollRunId], references: [id], onDelete: Restrict)
+  journalEntryId         String        @unique
+  journalEntry           JournalEntry  @relation("OriginalPostingJournal", fields: [journalEntryId], references: [id], onDelete: Restrict)
+  reversalJournalEntryId String?       @unique
+  reversalJournalEntry   JournalEntry? @relation("ReversalPostingJournal", fields: [reversalJournalEntryId], references: [id], onDelete: Restrict)
+  status                 String        @default("POSTED") // POSTED, REVERSED
+  postedGross            Decimal       @db.Decimal(15, 2)
+  postedDeductions       Decimal       @db.Decimal(15, 2)
+  postedNet              Decimal       @db.Decimal(15, 2)
+  postedEmployerCost     Decimal       @db.Decimal(15, 2)
+  totalDebit             Decimal       @db.Decimal(15, 2)
+  totalCredit            Decimal       @db.Decimal(15, 2)
+  postedBy               String
+  postedAt               DateTime      @default(now())
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+
+  @@index([payrollRunId])
+  @@index([journalEntryId])
+  @@index([status])
+}
+
+// -------------------------------------------------------------
+// 8. Salary Payment Batch (Phase 5)
+// Bulk container for batching employee salary disbursements
+// -------------------------------------------------------------
+model SalaryPaymentBatch {
+  id                 String          @id @default(uuid())
+  batchNumber        String          @unique // e.g. "SPB-202608-0001"
+  payrollRunId       String
+  payrollRun         PayrollRun      @relation(fields: [payrollRunId], references: [id], onDelete: Restrict)
+  paymentMode        String          // BANK_TRANSFER, CASH, CHEQUE, MIXED
+  sourceAccountCode  String          @default("1010")
+  totalAmount        Decimal         @db.Decimal(15, 2) @default(0)
+  totalEmployees     Int             @default(0)
+  status             String          @default("DRAFT") // DRAFT, PENDING_APPROVAL, APPROVED, PROCESSING, SETTLED, PARTIALLY_SETTLED, CANCELLED
+  paymentDate        DateTime        @default(now())
+  notes              String?
+  payments           SalaryPayment[]
+  submittedBy        String?
+  approvedBy         String?
+  settledBy          String?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@index([payrollRunId, status])
+  @@index([batchNumber])
+}
+
+// -------------------------------------------------------------
+// 9. Employee Salary Payment (Phase 5)
+// Itemized payment disbursement & reservation record per employee
+// -------------------------------------------------------------
+model SalaryPayment {
+  id                    String              @id @default(uuid())
+  paymentNumber         String              @unique // e.g. "PAY-202608-0001"
+  salaryPaymentBatchId  String?
+  salaryPaymentBatch    SalaryPaymentBatch? @relation(fields: [salaryPaymentBatchId], references: [id], onDelete: SetNull)
+  payrollRunId          String
+  payrollRun            PayrollRun          @relation(fields: [payrollRunId], references: [id], onDelete: Restrict)
+  payrollItemId         String
+  payrollItem           PayrollItem         @relation(fields: [payrollItemId], references: [id], onDelete: Restrict)
+  employeeId            String
+  employee              Employee            @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  amount                Decimal             @db.Decimal(15, 2)
+  paymentMode           String              // BANK_TRANSFER, CASH, CHEQUE, NEFT, RTGS, UPI
+  sourceAccountCode     String              @default("1010")
+  bankName              String?
+  accountNumberMasked   String?
+  ifscCode              String?
+  referenceNo           String?             // UTR / Cheque / Cash voucher reference
+  status                String              @default("DRAFT") // DRAFT, PENDING_APPROVAL, APPROVED, PROCESSING, SETTLED, FAILED, CANCELLED, REVERSED
+  paymentDate           DateTime            @default(now())
+  settledAt             DateTime?
+  journalEntryId        String?             @unique
+  journalEntry          JournalEntry?       @relation(fields: [journalEntryId], references: [id], onDelete: SetNull)
+  walletTransactionId   String?
+  failureReason         String?
+  reversalReason        String?
+  createdBy             String
+  approvedBy            String?
+  settledBy             String?
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  @@index([payrollRunId])
+  @@index([payrollItemId])
+  @@index([employeeId])
+  @@index([status])
+  @@index([referenceNo])
+}
+
+// -------------------------------------------------------------
+// Global Bank Transaction Reference Registry (Phase 6A)
+// Centralized, concurrency-safe external reference uniqueness
+// -------------------------------------------------------------
+model GlobalBankReference {
+  id              String    @id @default(uuid())
+  referenceNo     String    @unique // Normalized: UPPERCASE + TRIMMED
+  module          String    // "CUSTOMER_PAYMENT", "PROPERTY_PAYMENT", "SALARY_PAYMENT", "TREASURY_INFLOW", "CUSTOMER_REFUND"
+  sourceTable     String    // "CustomerPayment", "PropertyPayment", "SalaryPayment", "WalletTransaction"
+  sourceRecordId  String
+  amount          Decimal   @db.Decimal(15, 2)
+  bankName        String?
+  paymentMode     String    // "NEFT", "RTGS", "IMPS", "UPI", "CHEQUE", "DD", "BANK_TRANSFER"
+  status          String    @default("ACTIVE") // "ACTIVE", "REVERSED"
+  recordedBy      String
+  reversalReason  String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([module])
+  @@index([sourceRecordId])
+  @@index([status])
+}
+
+// -------------------------------------------------------------
+// Enterprise Accounting Period Governance Model (Phase 6B)
+// Fiscal calendar locking & closed-period posting protection
+// -------------------------------------------------------------
+model AccountingPeriod {
+  id              String         @id @default(uuid())
+  fiscalYear      Int            // Indian FY (e.g., 2026 for FY 2026-27)
+  month           Int            // 1 to 12
+  periodName      String         @unique // e.g., "2026-04"
+  fiscalQuarter   String?        // "Q1", "Q2", "Q3", "Q4"
+  startDate       DateTime       @db.Date
+  endDate         DateTime       @db.Date
+  status          String         @default("OPEN") // "OPEN", "CLOSED"
+  closedAt        DateTime?
+  closedBy        String?
+  reopenedAt      DateTime?
+  reopenedBy      String?
+  reopenReason    String?
+  journalEntries  JournalEntry[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@unique([fiscalYear, month])
+  @@index([status])
+  @@index([startDate, endDate])
+}
+
+// -------------------------------------------------------------
+// Customer Accounts Receivable & Milestone Billing Models (Phase 7)
+// -------------------------------------------------------------
+model PaymentPlan {
+  id              String                 @id @default(uuid())
+  name            String                 @unique // e.g. "STANDARD_PLOT_4_STAGE_V1"
+  projectLocation String?
+  description     String?
+  status          String                 @default("ACTIVE") // ACTIVE, INACTIVE
+  createdById     String?
+  milestones      PaymentPlanMilestone[]
+  customers       Customer[]
+  createdAt       DateTime               @default(now())
+  updatedAt       DateTime               @updatedAt
+}
+
+model PaymentPlanMilestone {
+  id                  String               @id @default(uuid())
+  planId              String
+  plan                PaymentPlan          @relation(fields: [planId], references: [id], onDelete: Cascade)
+  sequence            Int                  // 1, 2, 3...
+  name                String               // e.g. "Booking Advance", "Agreement Signing"
+  calculationType     String               @default("PERCENTAGE") // PERCENTAGE, FIXED_AMOUNT
+  percentage          Decimal?             @db.Decimal(5, 2)
+  fixedAmount         Decimal?             @db.Decimal(15, 2)
+  dueDaysAfterTrigger Int                  @default(15)
+  isTaxable           Boolean              @default(false)
+  demandNotes         CustomerDemandNote[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+
+  @@unique([planId, sequence])
+  @@index([planId])
+}
+
+model CustomerDemandNote {
+  id                  String                @id @default(uuid())
+  demandNumber        String                @unique // e.g. "DN-202609-0001"
+  customerId          String
+  customer            Customer              @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  milestoneId         String?
+  milestone           PaymentPlanMilestone? @relation(fields: [milestoneId], references: [id])
+  milestoneName       String
+  sequence            Int                   @default(1)
+  documentDate        DateTime              @default(now())
+  dueDate             DateTime
+  principalAmount     Decimal               @db.Decimal(15, 2)
+  taxAmount           Decimal               @db.Decimal(15, 2) @default(0)
+  totalDemandAmount   Decimal               @db.Decimal(15, 2)
+  allocatedAmount     Decimal               @db.Decimal(15, 2) @default(0)
+  outstandingAmount   Decimal               @db.Decimal(15, 2)
+  status              String                @default("ISSUED") // DRAFT, ISSUED, PARTIALLY_PAID, PAID, CANCELLED, CREDITED
+  journalEntryId      String?
+  journalEntry        JournalEntry?         @relation(fields: [journalEntryId], references: [id])
+  issuedById          String?
+  cancelledAt         DateTime?
+  cancelledReason     String?
+  allocations         PaymentAllocation[]
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+
+  @@index([customerId])
+  @@index([status])
+  @@index([dueDate])
+}
+
+model CustomerLedgerEntry {
+  id                  String        @id @default(uuid())
+  customerId          String
+  customer            Customer      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  entryNumber         String        @unique // e.g. "CLE-202609-0001"
+  postingDate         DateTime      @default(now())
+  entryType           String        // DEMAND_NOTE, PAYMENT_RECEIPT, CUSTOMER_ADVANCE, CREDIT_NOTE, DEBIT_NOTE, REFUND_DISBURSEMENT
+  referenceType       String        // CustomerDemandNote, CustomerPayment, CustomerCreditNote, CustomerRefund
+  referenceId         String
+  debit               Decimal       @db.Decimal(15, 2) @default(0)
+  credit              Decimal       @db.Decimal(15, 2) @default(0)
+  runningBalance      Decimal       @db.Decimal(15, 2)
+  description         String
+  journalEntryId      String?
+  journalEntry        JournalEntry? @relation(fields: [journalEntryId], references: [id])
+  accountingPeriodId  String?
+  createdById         String?
+  createdAt           DateTime      @default(now())
+
+  @@index([customerId, postingDate])
+  @@index([referenceType, referenceId])
+}
+
+model PaymentAllocation {
+  id                  String             @id @default(uuid())
+  paymentId           String
+  payment             CustomerPayment    @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  demandNoteId        String
+  demandNote          CustomerDemandNote @relation(fields: [demandNoteId], references: [id], onDelete: Cascade)
+  allocatedAmount     Decimal            @db.Decimal(15, 2)
+  allocationDate      DateTime           @default(now())
+  allocatedById       String?
+  status              String             @default("ACTIVE") // ACTIVE, REVERSED
+  createdAt           DateTime           @default(now())
+
+  @@unique([paymentId, demandNoteId])
+  @@index([paymentId])
+  @@index([demandNoteId])
+}
+
+// -------------------------------------------------------------
+// Simple Salary Disbursal & Payment History Model
+// -------------------------------------------------------------
+model EmployeeSalaryPayment {
+  id                  String             @id @default(uuid())
+  paymentNumber       String             @unique
+  employeeId          String
+  employee            Employee           @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  month               String
+  amount              Decimal            @db.Decimal(15, 2)
+  paymentMode         String             @default("BANK_TRANSFER")
+  referenceNo         String?
+  notes               String?
+  paidAt              DateTime           @default(now())
+  paidBy              String
+  journalEntryId      String?
+  journalEntry        JournalEntry?      @relation(fields: [journalEntryId], references: [id], onDelete: SetNull)
+  walletTransactionId String?
+  walletTransaction   WalletTransaction? @relation(fields: [walletTransactionId], references: [id], onDelete: SetNull)
+  status              String?            @default("PAID")
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+
+  @@index([employeeId])
+  @@index([month])
+  @@index([referenceNo])
+}
+
+
+
+
 
 

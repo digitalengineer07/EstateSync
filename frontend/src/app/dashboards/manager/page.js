@@ -4,7 +4,8 @@ import { useState } from "react";
 import FundRequestList from "@/components/FundRequestList";
 import DashboardStats from "@/components/DashboardStats";
 import ExpenseList from "@/components/ExpenseList";
-import { Layers, FileCheck, Receipt } from "lucide-react";
+import ManagerSalaryView from "@/components/manager/ManagerSalaryView";
+import { Layers, FileCheck, Receipt, IndianRupee } from "lucide-react";
 
 export default function ManagerDashboard() {
   const [managerTab, setManagerTab] = useState("approvals");
@@ -24,7 +25,7 @@ export default function ManagerDashboard() {
             </span>
           </div>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
-            Approve incoming fund requests from your field team, monitor departmental spending, and request additional capital from Admin.
+            Approve incoming fund requests from your field team, monitor departmental spending, and supervise team salary baselines.
           </p>
         </div>
       </div>
@@ -37,19 +38,25 @@ export default function ManagerDashboard() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-5 border-b border-slate-100">
           <div>
             <h3 className="text-lg font-bold text-slate-900">
-              {managerTab === "approvals" ? "Incoming Team Fund Requests" : "Team Expense Submissions"}
+              {managerTab === "approvals"
+                ? "Incoming Team Fund Requests"
+                : managerTab === "expenses"
+                ? "Team Expense Submissions"
+                : "Department Team Salaries & Compensation"}
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
               {managerTab === "approvals"
                 ? "Review and one-click approve pending fund allocations to team members."
-                : "Monitor itemized receipts and expenditures filed by your team."}
+                : managerTab === "expenses"
+                ? "Monitor itemized receipts and expenditures filed by your team."
+                : "Supervisory read-only view of team member salary configurations and bank details."}
             </p>
           </div>
 
-          <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs font-semibold">
+          <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs font-semibold overflow-x-auto">
             <button
               onClick={() => setManagerTab("approvals")}
-              className={`px-3.5 py-1.5 rounded-md transition flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 rounded-md transition flex items-center gap-1.5 whitespace-nowrap ${
                 managerTab === "approvals"
                   ? "bg-white text-slate-900 shadow-xs font-bold"
                   : "text-slate-600 hover:text-slate-900"
@@ -60,7 +67,7 @@ export default function ManagerDashboard() {
             </button>
             <button
               onClick={() => setManagerTab("expenses")}
-              className={`px-3.5 py-1.5 rounded-md transition flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 rounded-md transition flex items-center gap-1.5 whitespace-nowrap ${
                 managerTab === "expenses"
                   ? "bg-white text-slate-900 shadow-xs font-bold"
                   : "text-slate-600 hover:text-slate-900"
@@ -69,14 +76,27 @@ export default function ManagerDashboard() {
               <Receipt className="w-3.5 h-3.5" />
               Team Expenses
             </button>
+            <button
+              onClick={() => setManagerTab("salaries")}
+              className={`px-3.5 py-1.5 rounded-md transition flex items-center gap-1.5 whitespace-nowrap ${
+                managerTab === "salaries"
+                  ? "bg-white text-slate-900 shadow-xs font-bold"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <IndianRupee className="w-3.5 h-3.5" />
+              Team Salaries
+            </button>
           </div>
         </div>
 
         <div className="mt-4">
           {managerTab === "approvals" ? (
             <FundRequestList type="incoming" embedded={true} showHeader={false} />
-          ) : (
+          ) : managerTab === "expenses" ? (
             <ExpenseList type="team" />
+          ) : (
+            <ManagerSalaryView />
           )}
         </div>
       </div>

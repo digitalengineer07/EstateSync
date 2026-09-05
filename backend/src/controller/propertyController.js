@@ -1,7 +1,7 @@
 const prisma = require('../config/db');
 const { logAudit } = require('../utils/auditLogger');
 const { postPropertyPaymentJournal } = require('../utils/accountingHelper');
-const { checkDuplicateReferenceNo } = require('../utils/referenceValidator');
+const { checkDuplicateReferenceNo, registerBankReference } = require('../utils/referenceValidator');
 const { cleanPlotNumber, cleanKhataNumber, normalizeForComparison } = require('../utils/identifierHelper');
 
 // 1. Create a new Land/Property Acquisition record (Admin / Accounting only)
@@ -365,6 +365,18 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
         }
       });
 
+      if (referenceNo) {
+        await registerBankReference(tx, {
+          referenceNo,
+          module: 'PROPERTY_PAYMENT',
+          sourceTable: 'PropertyPayment',
+          sourceRecordId: payment.id,
+          amount: payAmount,
+          paymentMode: paymentMode.toUpperCase(),
+          recordedBy: req.user?.email || 'SYSTEM'
+        });
+      }
+
       // 2. Deduct from Organization Treasury Wallet (PRD §20.3)
       const updatedOrgWallet = await tx.wallet.update({
         where: { id: treasuryWallet.id },
@@ -383,7 +395,7 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
           amount: payAmount,
           fundMode: fMode,
           referenceType: 'PROPERTY_PAYMENT',
-          referenceId: payment.id,
+          referenceId: cleanRef || `CASH-PAY-${payment.id.slice(-4).toUpperCase()}`,
           description: `Land acquisition payout of ₹${payAmount.toLocaleString()} to ${property.landOwnerName} (Plot ${property.plotNo}, Khata ${property.khataNo}) via ${paymentMode.toUpperCase()}`,
           createdBy: accountingUserId,
           status: 'COMPLETED'

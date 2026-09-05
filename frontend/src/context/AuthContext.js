@@ -23,6 +23,15 @@ export const AuthProvider = ({ children }) => {
       setUser(JSON.parse(storedUser));
     }
     setLoading(false);
+
+    // Prevent mouse wheel from inadvertently changing values in number inputs while scrolling
+    const handleWheel = () => {
+      if (document.activeElement?.tagName === "INPUT" && document.activeElement?.type === "number") {
+        document.activeElement.blur();
+      }
+    };
+    window.addEventListener("wheel", handleWheel, { passive: true });
+    return () => window.removeEventListener("wheel", handleWheel);
   }, []);
 
   const login = async (email, password) => {
@@ -70,8 +79,17 @@ export const AuthProvider = ({ children }) => {
     router.push("/login");
   };
 
+  const logoutWithMessage = (message = "You have been logged out.") => {
+    setUser(null);
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
+    sessionStorage.setItem("authMessage", message);
+    router.push("/login");
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, logoutWithMessage }}>
       {children}
     </AuthContext.Provider>
   );

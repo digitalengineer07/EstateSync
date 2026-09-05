@@ -6,7 +6,7 @@ import CustomerEditModal from "./CustomerEditModal";
 import RecordCustomerPaymentModal from "./RecordCustomerPaymentModal";
 import CustomerStatementModal from "./CustomerStatementModal";
 import CustomerCancellationSettlementModal from "./CustomerCancellationSettlementModal";
-import { Users, Search, RefreshCw, Plus, FileSpreadsheet, Eye, CreditCard, Edit3 } from "lucide-react";
+import { Users, Search, RefreshCw, Plus, FileSpreadsheet, Eye, CreditCard, Edit3, IndianRupee, TrendingUp, Clock } from "lucide-react";
 import { API_URL } from "@/config/api";
 
 export default function CustomerPortfolioList({ mode = "sales", userRole = "SALES" }) {
@@ -150,41 +150,110 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
 
       {/* Summary KPI Cards */}
       {summary && (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-5">
-          <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Active Clients</span>
-            <p className="text-2xl font-extrabold text-slate-900 mt-0.5">{summary.totalCustomers}</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-5">
+          {/* Card 1: Active Clients */}
+          <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300/80 transition-all duration-200 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Active Clients</span>
+                <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                  <Users className="w-4 h-4" />
+                </div>
+              </div>
+              <div className="mt-3">
+                <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-sans block">
+                  {summary.totalCustomers}
+                </span>
+              </div>
+            </div>
+            <div className="text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between">
+              <span>Client bookings</span>
+              <span className="text-emerald-700 font-semibold text-[11px] bg-emerald-50 px-1.5 py-0.5 rounded">Active</span>
+            </div>
           </div>
-          <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Total Booked Value</span>
-            <p className="text-2xl font-extrabold text-slate-900 mt-0.5">₹{parseFloat(summary.totalPortfolioValue || 0).toLocaleString('en-IN')}</p>
+
+          {/* Card 2: Total Booked Value */}
+          <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300/80 transition-all duration-200 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Booked Value</span>
+                <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                  <IndianRupee className="w-4 h-4" />
+                </div>
+              </div>
+              <div className="mt-3">
+                <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-digital block">
+                  ₹{parseFloat(summary.totalPortfolioValue || 0).toLocaleString('en-IN')}
+                </span>
+              </div>
+            </div>
+            <div className="text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between">
+              <span>Contract value</span>
+              <span className="text-slate-400 text-[11px]">Total Portfolio</span>
+            </div>
           </div>
-          <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Total Collections</span>
-            <p className="text-2xl font-extrabold text-emerald-600 mt-0.5">₹{parseFloat(summary.totalCollected || 0).toLocaleString('en-IN')}</p>
+
+          {/* Card 3: Total Collections */}
+          <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300/80 transition-all duration-200 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Collections</span>
+                <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                  <TrendingUp className="w-4 h-4" />
+                </div>
+              </div>
+              <div className="mt-3">
+                <span className="text-xl sm:text-[22px] font-bold text-emerald-700 tracking-tight font-digital block">
+                  ₹{parseFloat(summary.totalCollected || 0).toLocaleString('en-IN')}
+                </span>
+              </div>
+            </div>
+            <div className="text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between">
+              <span>Realized cash flow</span>
+              <span className="text-emerald-700 font-semibold text-[11px]">
+                {Math.round((summary.totalCollected / (summary.totalPortfolioValue || 1)) * 100)}% paid
+              </span>
+            </div>
           </div>
-          <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Outstanding Receivables</span>
-            <p className="text-2xl font-extrabold text-slate-900 mt-0.5">₹{parseFloat(summary.totalOutstanding || 0).toLocaleString('en-IN')}</p>
+
+          {/* Card 4: Outstanding Receivables */}
+          <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300/80 transition-all duration-200 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Outstanding Receivables</span>
+                <div className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
+                  <Clock className="w-4 h-4" />
+                </div>
+              </div>
+              <div className="mt-3">
+                <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-digital block">
+                  ₹{parseFloat(summary.totalOutstanding || 0).toLocaleString('en-IN')}
+                </span>
+              </div>
+            </div>
+            <div className="text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between">
+              <span>Balance pending</span>
+              <span className="text-rose-600 font-semibold text-[11px]">Due for collection</span>
+            </div>
           </div>
         </div>
       )}
 
       {/* Filter & Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-5">
         <div className="relative w-full sm:w-80">
-          <Search className="absolute left-3 top-2.5 w-3.5 h-3.5 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by customer, plot, location, or khata..."
-            className="w-full text-xs border border-slate-200 rounded-lg pl-8 pr-8 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none bg-slate-50/50"
+            className="w-full text-xs border border-slate-200 rounded-xl pl-9 pr-8 py-2.5 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 focus:outline-none bg-slate-50/70 transition"
           />
           {search && (
             <button
               onClick={() => setSearch("")}
-              className="absolute right-2.5 top-2 text-xs text-slate-400 hover:text-slate-600"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600"
             >
               ✕
             </button>
@@ -196,7 +265,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-xs border border-slate-200 rounded-lg px-3 py-1.5 focus:outline-none bg-white font-medium text-slate-700"
+            className="text-xs border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 bg-white font-medium text-slate-700 transition"
           >
             <option value="ALL">All Statuses</option>
             <option value="ACTIVE">Active</option>
