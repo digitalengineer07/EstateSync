@@ -12,10 +12,11 @@ import CustomerPortfolioList from "@/components/CustomerPortfolioList";
 import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
 import TreasuryInflowList from "@/components/TreasuryInflowList";
 import Link from "next/link";
-import { ShieldCheck, FileText, ArrowLeftRight, Users } from "lucide-react";
+import { ShieldCheck, FileText, ArrowLeftRight, Users, Coins, UserPlus, Columns2, SlidersHorizontal } from "lucide-react";
 
 export default function AdminDashboard() {
   const [activeLedgerTab, setActiveLedgerTab] = useState("requests"); // "requests" or "transactions"
+  const [operationsTab, setOperationsTab] = useState("both"); // "both", "allocation", "registration"
 
   return (
     <div className="space-y-6">
@@ -40,10 +41,82 @@ export default function AdminDashboard() {
       {/* 4 Clean Stats */}
       <DashboardStats type="admin" />
       
-      {/* Operations Grid: Direct Allocation & User Registration */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <DirectFundAllocationForm />
-        <UserRegistrationForm />
+      {/* Administrative Operations Control: Toggle between Allocation, Registration, or Side-by-Side */}
+      <div className="space-y-4">
+        <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-4 sm:p-5">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
+                <SlidersHorizontal className="w-5 h-5 text-indigo-400" />
+              </div>
+              <div>
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
+                  Administrative Operations Hub
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Allocate corporate treasury capital or provision new staff accounts. Use the toggle buttons to switch views.
+                </p>
+              </div>
+            </div>
+
+            {/* Segmented Toggle Control */}
+            <div className="flex flex-wrap bg-slate-100/90 p-1 rounded-xl border border-slate-200/80 text-xs font-semibold self-start sm:self-auto shadow-2xs gap-1">
+              <button
+                onClick={() => setOperationsTab("allocation")}
+                className={`px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-1.5 ${
+                  operationsTab === "allocation"
+                    ? "bg-white text-slate-900 shadow-xs font-bold"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                <Coins className="w-3.5 h-3.5 text-indigo-600" />
+                <span>Direct Fund Allocation</span>
+              </button>
+              <button
+                onClick={() => setOperationsTab("registration")}
+                className={`px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-1.5 ${
+                  operationsTab === "registration"
+                    ? "bg-white text-slate-900 shadow-xs font-bold"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                <UserPlus className="w-3.5 h-3.5 text-indigo-600" />
+                <span>Register New User</span>
+              </button>
+              <button
+                onClick={() => setOperationsTab("both")}
+                className={`px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-1.5 ${
+                  operationsTab === "both"
+                    ? "bg-white text-slate-900 shadow-xs font-bold"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                <Columns2 className="w-3.5 h-3.5 text-indigo-600" />
+                <span>Side-by-Side (Both)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Operations Content */}
+        {operationsTab === "allocation" && (
+          <div>
+            <DirectFundAllocationForm />
+          </div>
+        )}
+
+        {operationsTab === "registration" && (
+          <div>
+            <UserRegistrationForm />
+          </div>
+        )}
+
+        {operationsTab === "both" && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+            <DirectFundAllocationForm />
+            <UserRegistrationForm />
+          </div>
+        )}
       </div>
 
       {/* Corporate Treasury & Bank Inflow Audit */}
