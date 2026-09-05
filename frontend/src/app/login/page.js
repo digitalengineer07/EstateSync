@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { Eye, EyeOff, ShieldCheck, Briefcase, Megaphone, Layers, Landmark } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -35,24 +35,10 @@ export default function LoginPage() {
     }
   };
 
-  const handleSelectDemoUser = (demoEmail) => {
-    setEmail(demoEmail);
-    setPassword("password123");
-    setError("");
-  };
-
-  const demoRoles = [
-    { label: "Sales Panel", email: "sales@estatesync.local", icon: Briefcase, color: "text-emerald-700 bg-emerald-50 border-emerald-200 hover:bg-emerald-100" },
-    { label: "Marketing Panel", email: "marketing@estatesync.local", icon: Megaphone, color: "text-purple-700 bg-purple-50 border-purple-200 hover:bg-purple-100" },
-    { label: "Admin Hub", email: "admin@estatesync.local", icon: ShieldCheck, color: "text-indigo-700 bg-indigo-50 border-indigo-200 hover:bg-indigo-100" },
-    { label: "Manager Hub", email: "manager@estatesync.local", icon: Layers, color: "text-blue-700 bg-blue-50 border-blue-200 hover:bg-blue-100" },
-    { label: "Accounting Hub", email: "accounting@estatesync.local", icon: Landmark, color: "text-amber-700 bg-amber-50 border-amber-200 hover:bg-amber-100" }
-  ];
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-100 py-10 px-4">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
-        <div className="text-center mb-6">
+        <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-600 text-white font-bold text-xl shadow-md mb-3">
             ES
           </div>
@@ -60,39 +46,6 @@ export default function LoginPage() {
             Estate<span className="text-indigo-600">Sync</span>
           </h1>
           <p className="text-slate-500 text-sm mt-1">Sign in to your organizational portal</p>
-        </div>
-
-        {/* Quick Demo Selector */}
-        <div className="mb-6 p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">
-              Quick Role Sign-In
-            </span>
-            <span className="text-[10px] font-medium text-slate-400">
-              Pass: <code className="bg-slate-200/80 px-1 py-0.5 rounded font-mono text-slate-700">password123</code>
-            </span>
-          </div>
-          <div className="grid grid-cols-2 gap-1.5">
-            {demoRoles.map((role) => {
-              const Icon = role.icon;
-              const isSelected = email === role.email;
-              return (
-                <button
-                  key={role.email}
-                  type="button"
-                  onClick={() => handleSelectDemoUser(role.email)}
-                  className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-lg border transition text-left ${
-                    isSelected
-                      ? "ring-2 ring-indigo-500 " + role.color
-                      : role.color
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5 shrink-0" />
-                  <span className="truncate">{role.label}</span>
-                </button>
-              );
-            })}
-          </div>
         </div>
 
         {/* Session-expired / auth message banner */}
