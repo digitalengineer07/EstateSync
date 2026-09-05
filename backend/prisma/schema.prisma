@@ -358,6 +358,12 @@ model Employee {
   exitReason         String?
   userId             String?     @unique
   user               User?       @relation("UserEmployee", fields: [userId], references: [id], onDelete: SetNull)
+  baseSalary         Decimal?    @default(0) @db.Decimal(15, 2)
+  bankName           String?
+  bankAccountNo      String?
+  ifscCode           String?
+  upiId              String?
+  paymentMethod      String?     @default("BANK_TRANSFER")
   salaryAssignments  EmployeeSalaryAssignment[]
   payrollItems       PayrollItem[]
   payrollAdjustments PayrollAdjustment[]
