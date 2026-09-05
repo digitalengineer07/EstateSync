@@ -146,6 +146,50 @@ export default function DashboardsLayout({ children }) {
       <main className="flex-grow w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
         {children}
       </main>
+
+      {/* Global Enterprise Footer & Trademark Banner */}
+      <footer className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 pb-6 pt-2">
+        <div className="bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-[22px] shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] px-5 sm:px-8 py-4 sm:py-5 transition-all">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            {/* Left: Product & Company Legal Entity */}
+            <div className="flex items-center gap-3.5 text-center md:text-left">
+              <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-xs shrink-0">
+                <Building2 className="w-4 h-4" />
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
+                  <span className="text-sm font-bold text-slate-900 tracking-tight">
+                    Estate<span className="text-indigo-600 font-extrabold">Sync</span>™
+                  </span>
+                  <span className="text-slate-300 hidden sm:inline">•</span>
+                  <span className="text-xs font-semibold text-slate-600">
+                    A Product of <span className="font-bold text-slate-900">Devoxa Technologies Pvt. Ltd.</span>
+                  </span>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                    Registered Trademark ®
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-400 mt-0.5">
+                  Enterprise Real Estate Treasury, Double-Entry General Ledger & Workforce Governance Platform
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Copyright & Compliance */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6 text-center sm:text-right">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="text-xs font-semibold text-slate-600">System v2.4 Enterprise</span>
+              </div>
+              <div className="text-[11px] text-slate-500 font-medium">
+                © {new Date().getFullYear()} <span className="font-semibold text-slate-700">Devoxa Technologies Pvt. Ltd.</span> All rights reserved.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

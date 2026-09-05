@@ -102,6 +102,15 @@ export default function LoginPage() {
             {isLoading ? "Signing in..." : "Sign In"}
           </button>
         </form>
+
+        <div className="mt-8 text-center pt-4 border-t border-gray-100">
+          <p className="text-xs text-gray-500">
+            EstateSync™ • A Product of <span className="font-semibold text-gray-700">Devoxa Technologies Pvt. Ltd.</span>
+          </p>
+          <p className="text-[11px] text-gray-400 mt-1">
+            © {new Date().getFullYear()} All rights reserved. Registered Trademark ®
+          </p>
+        </div>
       </div>
     </div>
   );
