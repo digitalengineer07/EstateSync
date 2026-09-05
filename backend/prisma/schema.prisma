@@ -88,6 +88,7 @@ model WalletTransaction {
   description      String?
   createdBy        String
   status           String       // COMPLETED, REVERSED
+  simpleSalaryPayments EmployeeSalaryPayment[]
   createdAt        DateTime     @default(now())
 }
 
@@ -188,6 +189,7 @@ model JournalEntry {
   payrollPosting        PayrollAccountingPosting? @relation("OriginalPostingJournal")
   reversalPayrollPosting PayrollAccountingPosting? @relation("ReversalPostingJournal")
   salaryPayment         SalaryPayment?
+  simpleSalaryPayments  EmployeeSalaryPayment[]
   demandNotes           CustomerDemandNote[]
   customerLedgerEntries CustomerLedgerEntry[]
   createdAt             DateTime                  @default(now())
@@ -369,6 +371,7 @@ model Employee {
   payrollAdjustments PayrollAdjustment[]
   payrollExceptions  PayrollException[]
   salaryPayments     SalaryPayment[]
+  simpleSalaryPayments EmployeeSalaryPayment[]
   createdBy          String?
   updatedBy          String?
   archivedAt         DateTime?
@@ -932,6 +935,35 @@ model PaymentAllocation {
   @@index([paymentId])
   @@index([demandNoteId])
 }
+
+// -------------------------------------------------------------
+// Simple Salary Disbursal & Payment History Model
+// -------------------------------------------------------------
+model EmployeeSalaryPayment {
+  id                  String             @id @default(uuid())
+  paymentNumber       String             @unique
+  employeeId          String
+  employee            Employee           @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  month               String
+  amount              Decimal            @db.Decimal(15, 2)
+  paymentMode         String             @default("BANK_TRANSFER")
+  referenceNo         String?
+  notes               String?
+  paidAt              DateTime           @default(now())
+  paidBy              String
+  journalEntryId      String?
+  journalEntry        JournalEntry?      @relation(fields: [journalEntryId], references: [id], onDelete: SetNull)
+  walletTransactionId String?
+  walletTransaction   WalletTransaction? @relation(fields: [walletTransactionId], references: [id], onDelete: SetNull)
+  status              String?            @default("PAID")
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+
+  @@index([employeeId])
+  @@index([month])
+  @@index([referenceNo])
+}
+
 
 
 
