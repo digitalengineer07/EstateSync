@@ -79,8 +79,17 @@ export const AuthProvider = ({ children }) => {
     router.push("/login");
   };
 
+  const logoutWithMessage = (message = "You have been logged out.") => {
+    setUser(null);
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
+    sessionStorage.setItem("authMessage", message);
+    router.push("/login");
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, logoutWithMessage }}>
       {children}
     </AuthContext.Provider>
   );

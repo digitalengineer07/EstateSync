@@ -84,6 +84,19 @@ export async function apiRequest(endpoint, {
     data = { success: response.ok, message: response.statusText };
   }
 
+  // Handle token expiry: redirect to login instead of crashing
+  if (response.status === 401) {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("user");
+      sessionStorage.setItem("authMessage", "Your session has expired. Please log in again.");
+      window.location.href = "/login";
+    }
+    // Return a never-resolving promise so no downstream code runs after redirect
+    return new Promise(() => {});
+  }
+
   if (!response.ok || data.success === false) {
     const error = new Error(data.message || `HTTP ${response.status}: Request failed`);
     error.status = response.status;
