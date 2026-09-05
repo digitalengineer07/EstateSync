@@ -26,16 +26,32 @@ export default function WalletDashboard() {
         <div>
           <div className="flex items-center gap-3">
             <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-              {isAdmin ? "Corporate Approvals & Executive Wallet" : "Personal Portal & Operations"}
+              {isAdmin 
+                ? "Corporate Approvals & Executive Wallet" 
+                : userRole === "SALES"
+                ? "Sales Operations & Customer Bookings"
+                : userRole === "MARKETING"
+                ? "Marketing Operations & Field Portal"
+                : "Personal Portal & Operations"}
             </h1>
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
               <Wallet className="w-3.5 h-3.5" />
-              {isAdmin ? "Executive Approvals" : "Wallet & Field"}
+              {isAdmin 
+                ? "Executive Approvals" 
+                : userRole === "SALES"
+                ? "Sales Panel"
+                : userRole === "MARKETING"
+                ? "Marketing Panel"
+                : "Wallet & Field"}
             </span>
           </div>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
             {isAdmin
               ? "Review and disburse incoming team fund requests across the organization, and record executive corporate expenditures."
+              : userRole === "SALES"
+              ? "Register customer bookings, track collections, manage sales field float, and file operational expenses."
+              : userRole === "MARKETING"
+              ? "Manage promotional campaigns, client lead registrations, field expenditures, and wallet allowances."
               : "Manage your personal wallet balance, request departmental funds, file expense receipts, and register customer contracts."}
           </p>
         </div>

@@ -55,10 +55,16 @@ export default function DashboardsLayout({ children }) {
       icon: Users 
     },
     { 
-      name: isAdmin ? "Approvals & Expenses" : "My Wallet & Expenses", 
+      name: isAdmin 
+        ? "Approvals & Expenses" 
+        : userRole === "SALES"
+        ? "Sales Panel"
+        : userRole === "MARKETING"
+        ? "Marketing Panel"
+        : "My Wallet & Expenses", 
       path: "/dashboards/wallet", 
       visible: true, 
-      icon: Wallet 
+      icon: ["SALES", "MARKETING"].includes(userRole) ? Users : Wallet 
     },
   ];
 
