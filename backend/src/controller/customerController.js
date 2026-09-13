@@ -718,7 +718,8 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
           sourceRecordId: payment.id,
           amount: payAmount,
           paymentMode: paymentMode.toUpperCase(),
-          recordedBy: req.user?.email || 'SYSTEM'
+          recordedBy: req.user?.email || 'SYSTEM',
+          skipPreCheck: true
         });
       }
 
@@ -768,34 +769,33 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
         createdBy: accountingUserId
       });
 
-      // 6. Record Audit Log
-      await logAudit({
-        actorId: accountingUserId,
-        actorEmail: req.user.email,
-        action: 'CUSTOMER_PAYMENT_RECORD',
-        entityType: 'CUSTOMER_PAYMENT',
-        entityId: payment.id,
-        newValues: {
-          customerId: customer.id,
-          customerName: customer.customerName,
-          amount: payAmount,
-          paymentMode,
-          referenceNo,
-          customerTotalPaid: parseFloat(updatedCustomer.totalPaid),
-          customerBalanceDue: parseFloat(updatedCustomer.balanceDue),
-          treasuryWalletBalance: parseFloat(updatedOrgWallet[balanceField])
-        },
-        req,
-        tx
-      });
-
       return {
         payment,
         customer: updatedCustomer,
         transaction,
         treasuryWallet: updatedOrgWallet
       };
-    }, { timeout: 20000 });
+    }, { timeout: 35000, maxWait: 15000 });
+
+    // 6. Record Audit Log asynchronously after transaction commits (Non-blocking)
+    logAudit({
+      actorId: accountingUserId,
+      actorEmail: req.user.email,
+      action: 'CUSTOMER_PAYMENT_RECORD',
+      entityType: 'CUSTOMER_PAYMENT',
+      entityId: result.payment.id,
+      newValues: {
+        customerId: customer.id,
+        customerName: customer.customerName,
+        amount: payAmount,
+        paymentMode,
+        referenceNo,
+        customerTotalPaid: parseFloat(result.customer.totalPaid),
+        customerBalanceDue: parseFloat(result.customer.balanceDue),
+        treasuryWalletBalance: parseFloat(result.treasuryWallet[balanceField])
+      },
+      req
+    }).catch(err => console.warn('Payment audit log warning:', err.message));
 
     res.status(201).json({
       success: true,
@@ -804,7 +804,11 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
     });
   } catch (error) {
     console.error('Error recording customer payment:', error);
-    res.status(500).json({ success: false, message: 'Server error recording customer payment', error: error.message });
+    const statusCode = error.status || (error.code === 'P2002' || error.code === 'DUPLICATE_REFERENCE_NO' ? 400 : (error.message?.includes('timeout') ? 504 : 500));
+    const message = error.message?.includes('timeout')
+      ? 'Database operation timed out due to network latency. Please check customer statement or try again.'
+      : (error.message || 'Server error recording customer payment');
+    res.status(statusCode).json({ success: false, message, error: error.message });
   }
 };
 

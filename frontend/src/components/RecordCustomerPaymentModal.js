@@ -18,9 +18,12 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
 
   if (!isOpen || !customer) return null;
 
+  const paymentsSum = Array.isArray(customer.payments)
+    ? customer.payments.reduce((acc, p) => acc + (parseFloat(p.amount) || 0), 0)
+    : 0;
   const totalContract = parseFloat(customer.totalContractValue || 0);
-  const totalPaid = parseFloat(customer.totalPaid || 0);
-  const balanceDue = parseFloat(customer.balanceDue || 0);
+  const totalPaid = Math.max(parseFloat(customer.totalPaid || 0), paymentsSum);
+  const balanceDue = Math.max(0, totalContract - totalPaid);
 
   const numAmount = parseFloat(amount) || 0;
 
@@ -211,8 +214,17 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
                   onChange={(e) => setReferenceNo(e.target.value)}
                   placeholder="e.g. UTR-HDFC-99881102"
                   maxLength={22}
-                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none font-mono"
+                  className={`w-full text-xs border rounded-lg px-3 py-2 focus:outline-none font-mono ${
+                    referenceNo?.trim() && Array.isArray(customer.payments) && customer.payments.some(p => p.referenceNo && p.referenceNo.trim().toUpperCase() === referenceNo.trim().toUpperCase())
+                      ? 'border-amber-400 bg-amber-50/50 focus:ring-2 focus:ring-amber-400'
+                      : 'border-gray-300 focus:ring-2 focus:ring-emerald-500'
+                  }`}
                 />
+                {referenceNo?.trim() && Array.isArray(customer.payments) && customer.payments.some(p => p.referenceNo && p.referenceNo.trim().toUpperCase() === referenceNo.trim().toUpperCase()) && (
+                  <span className="text-[11px] text-amber-700 font-semibold mt-1 block">
+                    ⚠️ Note: Reference No. &ldquo;{referenceNo.trim()}&rdquo; has already been recorded for this customer. Please enter a new UTR.
+                  </span>
+                )}
               </div>
 
               <div>

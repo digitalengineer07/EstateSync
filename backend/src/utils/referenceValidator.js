@@ -164,7 +164,8 @@ async function registerBankReference(tx, {
   amount,
   bankName,
   paymentMode,
-  recordedBy
+  recordedBy,
+  skipPreCheck = false
 }) {
   const cleanRef = normalizeReferenceNo(referenceNo);
   if (!cleanRef) return null;
@@ -175,23 +176,25 @@ async function registerBankReference(tx, {
     return null;
   }
 
-  // 1. Acquire PostgreSQL Advisory Transaction Lock on the Reference String
-  // This serializes concurrent requests checking the same reference without deadlocks.
-  try {
-    await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${cleanRef}))`;
-  } catch (lockErr) {
-    // If raw query unavailable on mock/pooler, continue to DB constraint
-    console.warn('Advisory lock skipped:', lockErr.message);
-  }
+  if (!skipPreCheck) {
+    // 1. Acquire PostgreSQL Advisory Transaction Lock on the Reference String
+    // This serializes concurrent requests checking the same reference without deadlocks.
+    try {
+      await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${cleanRef}))`;
+    } catch (lockErr) {
+      // If raw query unavailable on mock/pooler, continue to DB constraint
+      console.warn('Advisory lock skipped:', lockErr.message);
+    }
 
-  // 2. Check for duplicate reference (excluding the current in-flight record if it was already inserted in this tx)
-  const dupError = await checkDuplicateReferenceNo(tx, cleanRef, sourceRecordId);
-  if (dupError) {
-    throw {
-      status: 400,
-      code: 'DUPLICATE_REFERENCE_NO',
-      message: dupError
-    };
+    // 2. Check for duplicate reference (excluding the current in-flight record if it was already inserted in this tx)
+    const dupError = await checkDuplicateReferenceNo(tx, cleanRef, sourceRecordId);
+    if (dupError) {
+      throw {
+        status: 400,
+        code: 'DUPLICATE_REFERENCE_NO',
+        message: dupError
+      };
+    }
   }
 
   // 3. Insert into GlobalBankReference

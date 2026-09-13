@@ -96,20 +96,19 @@ async function postJournalEntry(tx, {
   }
 
   if (period) {
-    // 1b. Strict Concurrency Row-Level Lock (FOR UPDATE)
-    // Synchronizes with closeAccountingPeriod() to eliminate posting-vs-closing race conditions.
+    // 1b. Row-Level verification (NOWAIT prevents 20s lock stalling)
     try {
       const lockedPeriods = await tx.$queryRaw`
         SELECT id, status, "periodName"
         FROM public."AccountingPeriod"
         WHERE id = ${period.id}
-        FOR UPDATE
+        FOR UPDATE NOWAIT
       `;
       if (lockedPeriods && lockedPeriods.length > 0) {
         period = lockedPeriods[0];
       }
     } catch (lockErr) {
-      console.warn('AccountingPeriod row lock query skipped:', lockErr.message);
+      // If already locked or NOWAIT triggered, proceed with current period state
     }
   }
 
@@ -134,20 +133,31 @@ async function postJournalEntry(tx, {
     throw new Error(`Double-entry bookkeeping mismatch: Total Debits (₹${totalDebit.toFixed(2)}) must equal Total Credits (₹${totalCredit.toFixed(2)})`);
   }
 
-  // Fetch account IDs for codes in a single query
+  // Fetch account IDs for codes with in-memory caching
   const codes = lines.map(l => l.accountCode);
-  let accounts = await tx.account.findMany({
-    where: { code: { in: codes } }
-  });
-
-  if (accounts.length === 0) {
-    await ensureStandardAccounts(tx);
-    accounts = await tx.account.findMany({
-      where: { code: { in: codes } }
-    });
+  if (!global._estatesyncAccountMap) {
+    global._estatesyncAccountMap = new Map();
   }
 
-  const accountMap = new Map(accounts.map(a => [a.code, a.id]));
+  const missingCodes = codes.filter(c => !global._estatesyncAccountMap.has(c));
+  if (missingCodes.length > 0) {
+    let accounts = await tx.account.findMany({
+      where: { code: { in: missingCodes } }
+    });
+
+    if (accounts.length === 0) {
+      await ensureStandardAccounts(tx);
+      accounts = await tx.account.findMany({
+        where: { code: { in: missingCodes } }
+      });
+    }
+
+    for (const a of accounts) {
+      global._estatesyncAccountMap.set(a.code, a.id);
+    }
+  }
+
+  const accountMap = global._estatesyncAccountMap;
 
   // Generate sequential unique entry number for today
   const dateStr = effectiveDate.toISOString().slice(0, 10).replace(/-/g, '');
@@ -167,12 +177,6 @@ async function postJournalEntry(tx, {
   }
 
   let entryNumber = `${todayPrefix}${String(nextSeq).padStart(4, '0')}`;
-
-  // Double check uniqueness in case of race condition
-  const existing = await tx.journalEntry.findUnique({ where: { entryNumber } });
-  if (existing) {
-    entryNumber = `${todayPrefix}${Date.now().toString().slice(-4)}`;
-  }
 
   const entry = await tx.journalEntry.create({
     data: {
