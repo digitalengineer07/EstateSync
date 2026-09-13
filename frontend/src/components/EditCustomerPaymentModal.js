@@ -2,7 +2,18 @@
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
-import { X, Calendar, Landmark, CreditCard, Hash, CheckCircle2, AlertCircle } from "lucide-react";
+import { 
+  X, 
+  Calendar, 
+  Landmark, 
+  CreditCard, 
+  Hash, 
+  CheckCircle2, 
+  AlertCircle, 
+  Lock, 
+  ShieldCheck, 
+  IndianRupee 
+} from "lucide-react";
 import { toISTDateInputString, createSafePaymentDateISO, formatDate } from "@/utils/formatters";
 
 export default function EditCustomerPaymentModal({
@@ -10,6 +21,7 @@ export default function EditCustomerPaymentModal({
   onClose,
   payment,
   customer,
+  userRole,
   onPaymentUpdated
 }) {
   const [dateOfPayment, setDateOfPayment] = useState("");
@@ -17,26 +29,55 @@ export default function EditCustomerPaymentModal({
   const [sourceAccount, setSourceAccount] = useState("");
   const [destinationAccount, setDestinationAccount] = useState("");
   const [referenceNo, setReferenceNo] = useState("");
+  const [amount, setAmount] = useState("");
+  const [reason, setReason] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
 
+  // Role detection: prioritize prop, fallback to localStorage
+  const [effectiveRole, setEffectiveRole] = useState(userRole || "ACCOUNTING");
+
+  useEffect(() => {
+    if (userRole) {
+      setEffectiveRole(userRole);
+    } else {
+      try {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          const parsed = JSON.parse(storedUser);
+          setEffectiveRole(parsed.role?.name || parsed.role || "ACCOUNTING");
+        }
+      } catch (e) {
+        // Fallback to default
+      }
+    }
+  }, [userRole]);
+
+  const isAdmin = effectiveRole === "ADMIN";
+
   useEffect(() => {
     if (payment) {
-      // Extract YYYY-MM-DD cleanly without timezone offset
       const rawDate = payment.dateOfPayment ? toISTDateInputString(payment.dateOfPayment) : toISTDateInputString();
       setDateOfPayment(rawDate);
       setPaymentMode(payment.paymentMode || "NEFT");
       setSourceAccount(payment.sourceAccount || "");
       setDestinationAccount(payment.destinationAccount || "");
       setReferenceNo(payment.referenceNo || "");
+      setAmount(payment.amount !== undefined && payment.amount !== null ? String(payment.amount) : "");
+      setReason("");
       setError(null);
       setSuccessMsg(null);
     }
   }, [payment]);
 
   if (!isOpen || !payment) return null;
+
+  const oldAmount = parseFloat(payment.amount || 0);
+  const newAmountNum = parseFloat(amount || 0);
+  const isAmountChanged = !isNaN(newAmountNum) && Math.abs(newAmountNum - oldAmount) > 0.001;
+  const delta = isAmountChanged ? Math.round((newAmountNum - oldAmount) * 100) / 100 : 0;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,9 +91,35 @@ export default function EditCustomerPaymentModal({
       return;
     }
 
+    if (isAdmin && isAmountChanged) {
+      if (isNaN(newAmountNum) || newAmountNum <= 0) {
+        setError("Please enter a valid positive payment amount.");
+        setLoading(false);
+        return;
+      }
+      if (!reason || reason.trim().length < 10) {
+        setError("Please provide a detailed adjustment reason (minimum 10 characters) for financial compliance audit trail.");
+        setLoading(false);
+        return;
+      }
+    }
+
     try {
       const token = localStorage.getItem("accessToken");
       const safeDateISO = createSafePaymentDateISO(dateOfPayment);
+
+      const payload = {
+        dateOfPayment: safeDateISO,
+        paymentMode: paymentMode.toUpperCase(),
+        sourceAccount: paymentMode === "CASH" ? "Cash In Hand" : (sourceAccount?.trim() || null),
+        destinationAccount: paymentMode === "CASH" ? "Cash In Hand" : (destinationAccount?.trim() || null),
+        referenceNo: paymentMode === "CASH" ? null : (referenceNo?.trim() || null)
+      };
+
+      if (isAdmin && isAmountChanged) {
+        payload.amount = newAmountNum;
+        payload.reason = reason.trim();
+      }
 
       const res = await fetch(`${API_URL}/api/v1/customers/payments/${payment.id}`, {
         method: "PATCH",
@@ -60,13 +127,7 @@ export default function EditCustomerPaymentModal({
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({
-          dateOfPayment: safeDateISO,
-          paymentMode: paymentMode.toUpperCase(),
-          sourceAccount: paymentMode === "CASH" ? "Cash In Hand" : (sourceAccount?.trim() || null),
-          destinationAccount: paymentMode === "CASH" ? "Cash In Hand" : (destinationAccount?.trim() || null),
-          referenceNo: paymentMode === "CASH" ? null : (referenceNo?.trim() || null)
-        })
+        body: JSON.stringify(payload)
       });
 
       const data = await res.json();
@@ -74,11 +135,11 @@ export default function EditCustomerPaymentModal({
         throw new Error(data.message || "Failed to update payment record");
       }
 
-      setSuccessMsg("Payment record updated successfully!");
+      setSuccessMsg(data.message || "Payment record updated successfully!");
       setTimeout(() => {
         onPaymentUpdated?.(data.data);
         onClose();
-      }, 700);
+      }, 750);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -99,7 +160,7 @@ export default function EditCustomerPaymentModal({
             <div>
               <h3 className="text-base font-bold">Edit Customer Payment Record</h3>
               <p className="text-[11px] text-slate-400">
-                Correct payment date, bank details, or UTR number
+                {isAdmin ? "Admin Correction & Financial Reconciliation" : "Correct payment date, bank details, or UTR number"}
               </p>
             </div>
           </div>
@@ -123,9 +184,9 @@ export default function EditCustomerPaymentModal({
             )}
           </div>
           <div className="text-right">
-            <span className="text-slate-500 font-medium">Amount: </span>
+            <span className="text-slate-500 font-medium">Original Amount: </span>
             <span className="font-mono font-black text-emerald-700 text-sm">
-              ₹{parseFloat(payment.amount || 0).toLocaleString("en-IN")}
+              ₹{oldAmount.toLocaleString("en-IN")}
             </span>
           </div>
         </div>
@@ -145,6 +206,94 @@ export default function EditCustomerPaymentModal({
               <span>{successMsg}</span>
             </div>
           )}
+
+          {/* Amount Field Box with Admin Privilege & Lock */}
+          <div className="bg-slate-50/80 border border-slate-200 rounded-xl p-3.5 space-y-2.5">
+            <div className="flex items-center justify-between">
+              <label className="font-semibold text-slate-700 flex items-center gap-1.5">
+                <IndianRupee className="w-3.5 h-3.5 text-slate-500" />
+                Payment Amount (₹) *
+              </label>
+              {isAdmin ? (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200">
+                  <ShieldCheck className="w-3 h-3 text-amber-700" />
+                  Admin Authorized
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 text-slate-600">
+                  <Lock className="w-3 h-3 text-slate-500" />
+                  Locked (Admin Only)
+                </span>
+              )}
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-bold">
+                ₹
+              </div>
+              <input
+                type="number"
+                step="any"
+                disabled={!isAdmin}
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className={`w-full pl-7 pr-3 py-2 text-sm font-mono font-bold rounded-lg border transition ${
+                  !isAdmin
+                    ? "bg-slate-100 text-slate-500 border-slate-200 cursor-not-allowed"
+                    : isAmountChanged
+                    ? "bg-amber-50/50 text-slate-900 border-amber-400 ring-2 ring-amber-300/40"
+                    : "bg-white text-slate-900 border-slate-300 focus:ring-2 focus:ring-indigo-500"
+                }`}
+              />
+            </div>
+
+            {!isAdmin ? (
+              <p className="text-[11px] text-slate-500 flex items-center gap-1">
+                <Lock className="w-3 h-3 text-slate-400 shrink-0" />
+                Accountants can only edit metadata. Payment amounts are locked to prevent financial divergence.
+              </p>
+            ) : isAmountChanged && (
+              <div className={`p-2.5 rounded-lg border text-xs flex flex-col gap-1 ${
+                delta > 0 
+                  ? "bg-emerald-50 border-emerald-200 text-emerald-900" 
+                  : "bg-amber-50 border-amber-200 text-amber-900"
+              }`}>
+                <div className="flex items-center justify-between font-bold">
+                  <span>Adjustment Impact (Δ):</span>
+                  <span className={`font-mono text-sm font-black ${delta > 0 ? "text-emerald-700" : "text-amber-700"}`}>
+                    {delta > 0 ? `+₹${delta.toLocaleString("en-IN")}` : `-₹${Math.abs(delta).toLocaleString("en-IN")}`}
+                  </span>
+                </div>
+                <p className="text-[11px] opacity-90">
+                  {delta > 0 
+                    ? "Customer balance due will decrease and treasury liquidity will be incremented." 
+                    : "Customer balance due will increase and excess funds will be deducted from corporate treasury."}
+                </p>
+              </div>
+            )}
+
+            {isAdmin && isAmountChanged && (
+              <div className="pt-1">
+                <label className="block font-semibold text-slate-700 mb-1">
+                  Reason for Amount Correction * <span className="text-[10px] text-slate-400 font-normal">(Min 10 characters)</span>
+                </label>
+                <textarea
+                  required
+                  rows={2}
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                  placeholder="e.g. Typo error by accountant: entered 500000 instead of 50000 per bank slip..."
+                  className="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                />
+                <div className="flex justify-between items-center text-[10px] text-slate-500 mt-0.5">
+                  <span>Required for audit log & General Ledger journal</span>
+                  <span className={reason.trim().length >= 10 ? "text-emerald-600 font-bold" : "text-amber-600"}>
+                    {reason.trim().length}/10 chars
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
 
           <div className="grid grid-cols-2 gap-3">
             {/* Payment Date */}
@@ -242,9 +391,15 @@ export default function EditCustomerPaymentModal({
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition shadow-xs disabled:opacity-50"
+              className={`px-5 py-2 text-xs font-bold text-white rounded-lg transition shadow-xs disabled:opacity-50 ${
+                isAdmin && isAmountChanged
+                  ? "bg-amber-600 hover:bg-amber-700"
+                  : "bg-indigo-600 hover:bg-indigo-700"
+              }`}
             >
-              {loading ? "Saving Changes..." : "Save Payment Details"}
+              {loading 
+                ? "Saving Changes..." 
+                : (isAdmin && isAmountChanged ? "Apply Amount Adjustment" : "Save Payment Details")}
             </button>
           </div>
         </form>

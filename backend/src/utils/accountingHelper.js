@@ -501,6 +501,54 @@ async function postWalletAdjustmentJournal(tx, {
   });
 }
 
+/**
+ * Double-Entry Post: Customer Payment Amount Correction / Adjustment (Admin Only)
+ * When delta > 0:
+ *   Debit: Corporate Bank / Primary Treasury (Asset +) delta
+ *   Credit: Customer Sales & Contract Revenue (Revenue +) delta
+ * When delta < 0:
+ *   Debit: Customer Sales & Contract Revenue (Revenue -) |delta|
+ *   Credit: Corporate Bank / Primary Treasury (Asset -) |delta|
+ */
+async function postCustomerPaymentAdjustmentJournal(tx, {
+  delta,
+  customerName,
+  plotNo,
+  paymentId,
+  oldAmount,
+  newAmount,
+  reason,
+  createdBy
+}) {
+  const numDelta = parseFloat(delta);
+  if (isNaN(numDelta) || Math.abs(numDelta) < 0.01) return null;
+
+  const isIncrease = numDelta > 0;
+  const absDelta = Math.abs(numDelta);
+
+  const debitCode = isIncrease ? '1010' : '4010';
+  const creditCode = isIncrease ? '4010' : '1010';
+
+  const debitDesc = isIncrease
+    ? `Bank Capital Inflow: Payment correction increase for ${customerName} (Plot ${plotNo})`
+    : `Revenue Correction Adjustment: Payment correction reduction for ${customerName} (Plot ${plotNo})`;
+
+  const creditDesc = isIncrease
+    ? `Recognize Contract Revenue: Payment adjustment for Plot ${plotNo}`
+    : `Bank Outflow Clawback: Return over-recorded payment to customer receivable`;
+
+  return await postJournalEntry(tx, {
+    description: `Admin Payment Adjustment: ${customerName} (Plot ${plotNo}) payment corrected from ₹${Number(oldAmount).toLocaleString('en-IN')} to ₹${Number(newAmount).toLocaleString('en-IN')} (${isIncrease ? '+' : '-'}₹${absDelta.toLocaleString('en-IN')}). Reason: ${reason}`,
+    referenceType: 'CUSTOMER_PAYMENT_ADJUSTMENT',
+    referenceId: paymentId,
+    createdBy,
+    lines: [
+      { accountCode: debitCode, debit: absDelta, credit: 0, description: debitDesc },
+      { accountCode: creditCode, debit: 0, credit: absDelta, description: creditDesc }
+    ]
+  });
+}
+
 module.exports = {
   ensureStandardAccounts,
   postJournalEntry,
@@ -508,6 +556,7 @@ module.exports = {
   postExpenseJournal,
   postExpenseReversalJournal,
   postCustomerPaymentJournal,
+  postCustomerPaymentAdjustmentJournal,
   postCustomerRefundJournal,
   postPropertyPaymentJournal,
   postCapitalInfusionJournal,

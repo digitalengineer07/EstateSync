@@ -425,12 +425,21 @@ export default function CustomerStatementModal({
           isOpen={Boolean(selectedPaymentForEdit)}
           payment={selectedPaymentForEdit}
           customer={currentCustomer}
+          userRole={userRole}
           onClose={() => setSelectedPaymentForEdit(null)}
           onPaymentUpdated={(updatedPayment) => {
             const updatedPayments = (currentCustomer.payments || []).map(p => 
               p.id === updatedPayment.id ? { ...p, ...updatedPayment } : p
             );
-            const updatedCust = { ...currentCustomer, payments: updatedPayments };
+            const newTotalPaid = updatedPayments.reduce((acc, curr) => acc + (parseFloat(curr.amount) || 0), 0);
+            const totalContractVal = parseFloat(currentCustomer.totalContractValue || 0);
+            const newBalanceDue = Math.max(0, totalContractVal - newTotalPaid);
+            const updatedCust = { 
+              ...currentCustomer, 
+              payments: updatedPayments,
+              totalPaid: newTotalPaid,
+              balanceDue: newBalanceDue
+            };
             setLocalCustomer(updatedCust);
             onCustomerUpdated?.(updatedCust);
           }}
