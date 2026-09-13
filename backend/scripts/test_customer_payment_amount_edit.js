@@ -82,6 +82,26 @@ async function runTests() {
     }
   }
 
+  // TEST 1B: Non-Admin (Accountant) attempts to change payment mode between CASH and LIQUID -> Must be blocked with 403
+  console.log('\n[TEST 1B] Non-Admin attempts to convert payment mode between CASH and LIQUID...');
+  {
+    const req = {
+      user: accountantUser,
+      params: { paymentId: targetPayment.id },
+      body: {
+        paymentMode: targetPayment.paymentMode === 'CASH' ? 'NEFT' : 'CASH'
+      }
+    };
+    const res = createMockRes();
+    await updatePayment(req, res);
+
+    if (res.statusCode === 403 && res.body.message.includes('change payment mode between CASH and BANK/LIQUID')) {
+      console.log('✔ PASSED: Non-admin mode change blocked with HTTP 403: ' + res.body.message);
+    } else {
+      throw new Error(`TEST 1B FAILED: Expected 403 for mode change, got ${res.statusCode}: ${JSON.stringify(res.body)}`);
+    }
+  }
+
   // TEST 2: Admin changing amount without proper reason (< 10 chars) -> Must be blocked with 400
   console.log('\n[TEST 2] Admin attempts to change amount without a reason (< 10 chars)...');
   {
@@ -121,6 +141,27 @@ async function runTests() {
       console.log('✔ PASSED: Blocked with HTTP 400: ' + res.body.message);
     } else {
       throw new Error(`TEST 3 FAILED: Expected 400 for negative amount, got ${res.statusCode}: ${JSON.stringify(res.body)}`);
+    }
+  }
+
+  // TEST 3B: Admin changing amount to exceed system limit (> 100 Crores) -> Must be blocked with 400
+  console.log('\n[TEST 3B] Admin attempts to enter unrealistic amount (> 100 Crores)...');
+  {
+    const req = {
+      user: adminUser,
+      params: { paymentId: targetPayment.id },
+      body: {
+        amount: 2000000000,
+        reason: 'Unrealistic 200 Crores amount for test'
+      }
+    };
+    const res = createMockRes();
+    await updatePayment(req, res);
+
+    if (res.statusCode === 400 && res.body.message.includes('maximum permissible system limit')) {
+      console.log('✔ PASSED: Blocked with HTTP 400: ' + res.body.message);
+    } else {
+      throw new Error(`TEST 3B FAILED: Expected 400 for excessive amount, got ${res.statusCode}: ${JSON.stringify(res.body)}`);
     }
   }
 
@@ -240,6 +281,57 @@ async function runTests() {
       console.log('✔ PASSED: Accountant successfully updated metadata: ' + res.body.message);
     } else {
       throw new Error(`TEST 6 FAILED: Expected 200, got ${res.statusCode}: ${JSON.stringify(res.body)}`);
+    }
+  }
+
+  // TEST 7: Editing a REVERSED payment record -> Must be blocked with 400
+  console.log('\n[TEST 7] Attempting to edit a REVERSED payment record...');
+  {
+    const reversedPayment = await prisma.customerPayment.findFirst({
+      where: { status: 'REVERSED' }
+    });
+    if (reversedPayment) {
+      const req = {
+        user: adminUser,
+        params: { paymentId: reversedPayment.id },
+        body: { amount: 50000, reason: 'Trying to resurrect a reversed payment record' }
+      };
+      const res = createMockRes();
+      await updatePayment(req, res);
+
+      if (res.statusCode === 400 && res.body.message.includes('REVERSED')) {
+        console.log('✔ PASSED: Blocked with HTTP 400: ' + res.body.message);
+      } else {
+        throw new Error(`TEST 7 FAILED: Expected 400 for reversed payment, got ${res.statusCode}: ${JSON.stringify(res.body)}`);
+      }
+    } else {
+      console.log('✔ SKIPPED (No reversed payment record currently in DB to test)');
+    }
+  }
+
+  // TEST 8: Editing payment on a CANCELLED customer -> Must be blocked with 400
+  console.log('\n[TEST 8] Attempting to edit payment on a CANCELLED customer account...');
+  {
+    const cancelledCust = await prisma.customer.findFirst({
+      where: { status: 'CANCELLED' },
+      include: { payments: true }
+    });
+    if (cancelledCust && cancelledCust.payments.length > 0) {
+      const req = {
+        user: adminUser,
+        params: { paymentId: cancelledCust.payments[0].id },
+        body: { amount: 50000, reason: 'Modifying payment on cancelled customer' }
+      };
+      const res = createMockRes();
+      await updatePayment(req, res);
+
+      if (res.statusCode === 400 && res.body.message.includes('CANCELLED')) {
+        console.log('✔ PASSED: Blocked with HTTP 400: ' + res.body.message);
+      } else {
+        throw new Error(`TEST 8 FAILED: Expected 400 for cancelled customer payment, got ${res.statusCode}: ${JSON.stringify(res.body)}`);
+      }
+    } else {
+      console.log('✔ SKIPPED (No cancelled customer with payments in DB to test)');
     }
   }
 

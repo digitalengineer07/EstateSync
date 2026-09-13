@@ -809,7 +809,7 @@ exports.recordPayment = async (req, res) => {
   }
 };
 
-// 6. Update / Correct an Existing Customer Payment Record (Accounting can update metadata; ONLY ADMIN can modify amount)
+// 6. Update / Correct an Existing Customer Payment Record (Accounting can update non-cash metadata; ONLY ADMIN can modify amount or Cash<->Liquid mode)
 exports.updatePayment = async (req, res) => {
   try {
     const { paymentId } = req.params;
@@ -826,24 +826,65 @@ exports.updatePayment = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Payment record not found' });
     }
 
-    // Determine if amount is being modified
-    const parsedNewAmount = (amount !== undefined && amount !== null && amount !== '') ? parseFloat(amount) : null;
-    const isAmountChanging = parsedNewAmount !== null && Math.abs(parsedNewAmount - parseFloat(existingPayment.amount)) > 0.001;
-    const cleanReason = reason ? reason.trim() : '';
-
-    // Enforce Role Restriction: ONLY ADMIN can edit the payment amount
-    if (isAmountChanging && userRole !== 'ADMIN') {
-      return res.status(403).json({
+    // LOOPHOLE GUARD 1: Prevent editing REVERSED or REFUNDED payment records
+    if (existingPayment.status === 'REVERSED' || existingPayment.status === 'REFUND_DISBURSED') {
+      return res.status(400).json({
         success: false,
-        message: 'Permission Denied: Only ADMIN is authorized to modify customer payment amounts. Accountants can only correct payment metadata (dates, payment mode, bank accounts, or reference numbers).'
+        message: 'Invalid Action: Cannot modify a payment record that has already been REVERSED or REFUNDED.'
       });
     }
 
+    // LOOPHOLE GUARD 2: Prevent editing payments for CANCELLED or SETTLED customer accounts
+    if (existingPayment.customer.status === 'CANCELLED' || existingPayment.customer.cancellationStatus === 'SETTLED') {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid Action: Cannot modify payment records for a CANCELLED or SETTLED customer account.'
+      });
+    }
+
+    // Determine if amount is being modified
+    const oldAmount = parseFloat(existingPayment.amount);
+    const parsedNewAmount = (amount !== undefined && amount !== null && amount !== '') ? parseFloat(amount) : null;
+    const isAmountChanging = parsedNewAmount !== null && Math.abs(parsedNewAmount - oldAmount) > 0.001;
+    const cleanReason = reason ? reason.trim() : '';
+
+    // Determine if payment mode / fund category is changing
+    const oldPaymentMode = existingPayment.paymentMode.toUpperCase();
+    const finalPaymentMode = paymentMode ? paymentMode.toUpperCase() : oldPaymentMode;
+    const oldFMode = oldPaymentMode === 'CASH' ? 'CASH' : 'LIQUID';
+    const newFMode = finalPaymentMode === 'CASH' ? 'CASH' : 'LIQUID';
+    const isFundModeChanging = oldFMode !== newFMode;
+
+    // LOOPHOLE GUARD 3: Role Restrictions
+    // ONLY ADMIN can edit the payment amount
+    if (isAmountChanging && userRole !== 'ADMIN') {
+      return res.status(403).json({
+        success: false,
+        message: 'Permission Denied: Only ADMIN is authorized to modify customer payment amounts. Accountants can only correct payment metadata (dates, bank accounts, or reference numbers).'
+      });
+    }
+
+    // ONLY ADMIN can convert payment mode between CASH and BANK/LIQUID
+    if (isFundModeChanging && userRole !== 'ADMIN') {
+      return res.status(403).json({
+        success: false,
+        message: 'Permission Denied: Only ADMIN is authorized to change payment mode between CASH and BANK/LIQUID transfers.'
+      });
+    }
+
+    // LOOPHOLE GUARD 4: Input Validation & Commercial Limits
     if (isAmountChanging) {
-      if (isNaN(parsedNewAmount) || parsedNewAmount <= 0) {
+      if (isNaN(parsedNewAmount) || !isFinite(parsedNewAmount) || parsedNewAmount <= 0) {
         return res.status(400).json({
           success: false,
           message: 'Invalid Amount: Payment amount must be a positive number greater than 0.'
+        });
+      }
+
+      if (parsedNewAmount > 1000000000) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid Amount: Payment amount exceeds maximum permissible system limit (₹100 Crores).'
         });
       }
 
@@ -855,8 +896,25 @@ exports.updatePayment = async (req, res) => {
       }
     }
 
-    const cleanRef = referenceNo ? referenceNo.trim() : null;
-    if (cleanRef && cleanRef !== existingPayment.referenceNo) {
+    // LOOPHOLE GUARD 5: Active Milestone Allocation Check
+    if (isAmountChanging && parsedNewAmount < oldAmount) {
+      const activeAllocations = await prisma.paymentAllocation.findMany({
+        where: { paymentId, status: 'ACTIVE' }
+      });
+      const totalAllocatedToDemands = activeAllocations.reduce((sum, a) => sum + parseFloat(a.allocatedAmount || 0), 0);
+      if (parsedNewAmount < (totalAllocatedToDemands - 0.01)) {
+        return res.status(400).json({
+          success: false,
+          message: `Cannot reduce payment amount to ₹${parsedNewAmount.toLocaleString()} because ₹${totalAllocatedToDemands.toLocaleString()} is already locked/allocated to milestone demand notes. Please de-allocate or adjust the milestone demand notes first.`
+        });
+      }
+    }
+
+    // Reference validation (CASH has no reference; non-CASH requires clean, unique reference if passed)
+    let cleanRef = referenceNo ? referenceNo.trim() : null;
+    if (finalPaymentMode === 'CASH') {
+      cleanRef = null;
+    } else if (cleanRef && cleanRef !== existingPayment.referenceNo) {
       const dupErr = await checkDuplicateReferenceNo(prisma, cleanRef, existingPayment.id);
       if (dupErr) {
         return res.status(400).json({ success: false, message: dupErr });
@@ -874,36 +932,16 @@ exports.updatePayment = async (req, res) => {
       }
     }
 
-    const finalPaymentMode = paymentMode ? paymentMode.toUpperCase() : existingPayment.paymentMode;
     const finalSourceAccount = sourceAccount !== undefined ? (sourceAccount ? sourceAccount.trim() : null) : existingPayment.sourceAccount;
     const finalDestAccount = destinationAccount !== undefined ? (destinationAccount ? destinationAccount.trim() : null) : existingPayment.destinationAccount;
 
-    // Branch 1: Payment Amount is being adjusted by ADMIN
-    if (isAmountChanging) {
-      const oldAmount = parseFloat(existingPayment.amount);
-      const delta = Math.round((parsedNewAmount - oldAmount) * 100) / 100;
-      const currentTotalPaid = parseFloat(existingPayment.customer.totalPaid || 0);
-      const currentBalanceDue = parseFloat(existingPayment.customer.balanceDue || 0);
+    // Is there any financial balance change?
+    // Amount changing OR Fund mode changing (Cash <-> Liquid)
+    const requiresFinancialRebalance = isAmountChanging || isFundModeChanging;
 
-      // Commercial bounds check
-      if (delta < 0 && (currentTotalPaid + delta < -0.01)) {
-        return res.status(400).json({
-          success: false,
-          message: `Cannot reduce payment by ₹${Math.abs(delta).toLocaleString()}: would cause customer total paid to become negative.`
-        });
-      }
-
-      if (delta > 0 && delta > (currentBalanceDue + 0.01)) {
-        return res.status(400).json({
-          success: false,
-          message: `Adjustment amount increase (+₹${delta.toLocaleString()}) exceeds the customer outstanding balance due (₹${currentBalanceDue.toLocaleString()}).`
-        });
-      }
-
-      // Treasury Wallet setup & liquidity validation
-      const fMode = finalPaymentMode === 'CASH' ? 'CASH' : 'LIQUID';
-      const balanceField = fMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
-      const allocatedField = fMode === 'CASH' ? 'totalAllocatedCash' : 'totalAllocatedLiquid';
+    if (requiresFinancialRebalance) {
+      const effectiveNewAmount = isAmountChanging ? parsedNewAmount : oldAmount;
+      const delta = Math.round((effectiveNewAmount - oldAmount) * 100) / 100;
 
       const adminUser = await getPrimaryTreasuryAdmin(prisma);
       if (!adminUser || !adminUser.wallet) {
@@ -911,27 +949,64 @@ exports.updatePayment = async (req, res) => {
       }
       const treasuryWallet = adminUser.wallet;
 
-      // When reducing payment (delta < 0), Treasury must have sufficient unallocated balance
-      if (delta < 0) {
-        const currentTreasuryBalance = parseFloat(treasuryWallet[balanceField] || 0);
-        if (currentTreasuryBalance < Math.abs(delta)) {
+      const oldBalanceField = oldFMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
+      const oldAllocatedField = oldFMode === 'CASH' ? 'totalAllocatedCash' : 'totalAllocatedLiquid';
+      const newBalanceField = newFMode === 'CASH' ? 'availableBalanceCash' : 'availableBalanceLiquid';
+      const newAllocatedField = newFMode === 'CASH' ? 'totalAllocatedCash' : 'totalAllocatedLiquid';
+
+      // Liquidity verification before transaction
+      if (isFundModeChanging) {
+        // Must have sufficient liquidity in old mode to withdraw
+        const currentOldBal = parseFloat(treasuryWallet[oldBalanceField] || 0);
+        if (currentOldBal < oldAmount) {
           return res.status(400).json({
             success: false,
-            message: `Insufficient Corporate Treasury liquidity in ${fMode} mode to deduct ₹${Math.abs(delta).toLocaleString()} adjustment. Available balance is ₹${currentTreasuryBalance.toLocaleString()}.`
+            message: `Insufficient Corporate Treasury liquidity in ${oldFMode} mode (₹${currentOldBal.toLocaleString()}) to convert ₹${oldAmount.toLocaleString()} payment to ${newFMode} mode.`
+          });
+        }
+      } else if (delta < 0) {
+        const currentBal = parseFloat(treasuryWallet[oldBalanceField] || 0);
+        if (currentBal < Math.abs(delta)) {
+          return res.status(400).json({
+            success: false,
+            message: `Insufficient Corporate Treasury liquidity in ${oldFMode} mode to deduct ₹${Math.abs(delta).toLocaleString()} adjustment. Available balance is ₹${currentBal.toLocaleString()}.`
           });
         }
       }
 
       const result = await prisma.$transaction(async (tx) => {
-        // 1. Update CustomerPayment record
+        // 1. Fetch fresh customer record within transaction to eliminate race conditions
+        const freshCustomer = await tx.customer.findUnique({
+          where: { id: existingPayment.customerId }
+        });
+
+        const currentTotalPaid = parseFloat(freshCustomer.totalPaid || 0);
+        const currentBalanceDue = parseFloat(freshCustomer.balanceDue || 0);
+        const totalContractValue = parseFloat(freshCustomer.totalContractValue || 0);
+
+        if (delta < 0 && (currentTotalPaid + delta < -0.01)) {
+          throw {
+            status: 400,
+            message: `Cannot reduce payment by ₹${Math.abs(delta).toLocaleString()}: would cause customer total paid to become negative.`
+          };
+        }
+
+        if (delta > 0 && (currentTotalPaid + delta > totalContractValue + 0.01)) {
+          throw {
+            status: 400,
+            message: `Payment increase (+₹${delta.toLocaleString()}) would cause total paid (₹${(currentTotalPaid + delta).toLocaleString()}) to exceed total contract value (₹${totalContractValue.toLocaleString()}).`
+          };
+        }
+
+        // 2. Update CustomerPayment record
         const updatedPayment = await tx.customerPayment.update({
           where: { id: paymentId },
           data: {
-            amount: parsedNewAmount,
+            amount: effectiveNewAmount,
             dateOfPayment: parsedDate,
             paymentMode: finalPaymentMode,
-            sourceAccount: finalSourceAccount,
-            destinationAccount: finalDestAccount,
+            sourceAccount: finalPaymentMode === 'CASH' ? 'Cash In Hand' : finalSourceAccount,
+            destinationAccount: finalPaymentMode === 'CASH' ? 'Cash In Hand' : finalDestAccount,
             referenceNo: cleanRef
           },
           include: {
@@ -940,55 +1015,75 @@ exports.updatePayment = async (req, res) => {
           }
         });
 
-        // 2. Adjust Corporate Treasury Wallet balances
-        const updatedWallet = await tx.wallet.update({
-          where: { id: treasuryWallet.id },
-          data: {
-            [balanceField]: { increment: delta },
-            [allocatedField]: { increment: delta }
-          }
-        });
+        // 3. Rebalance Corporate Treasury Wallet
+        let updatedWallet;
+        if (isFundModeChanging) {
+          updatedWallet = await tx.wallet.update({
+            where: { id: treasuryWallet.id },
+            data: {
+              [oldBalanceField]: { decrement: oldAmount },
+              [oldAllocatedField]: { decrement: oldAmount },
+              [newBalanceField]: { increment: effectiveNewAmount },
+              [newAllocatedField]: { increment: effectiveNewAmount }
+            }
+          });
+        } else {
+          updatedWallet = await tx.wallet.update({
+            where: { id: treasuryWallet.id },
+            data: {
+              [newBalanceField]: { increment: delta },
+              [newAllocatedField]: { increment: delta }
+            }
+          });
+        }
 
-        // 3. Create Treasury WalletTransaction Audit Trail
+        // 4. Create WalletTransaction Audit Trail
+        const walletTxDesc = isFundModeChanging
+          ? `Payment reclassification from ${oldFMode} to ${newFMode} for customer ${freshCustomer.customerName} (Payment ID: ${paymentId.slice(0, 8)}). ${cleanReason || 'Mode updated by Admin'}`
+          : `${delta > 0 ? 'Upward' : 'Downward'} payment correction for customer ${freshCustomer.customerName} (Payment ID: ${paymentId.slice(0, 8)}). Reason: ${cleanReason}`;
+
         const transaction = await tx.walletTransaction.create({
           data: {
             type: 'CUSTOMER_PAYMENT_CORRECTION',
-            sourceWalletId: delta < 0 ? treasuryWallet.id : null,
-            destWalletId: delta > 0 ? treasuryWallet.id : null,
-            amount: Math.abs(delta),
-            fundMode: fMode,
+            sourceWalletId: (delta < 0 || isFundModeChanging) ? treasuryWallet.id : null,
+            destWalletId: (delta > 0 || isFundModeChanging) ? treasuryWallet.id : null,
+            amount: isFundModeChanging ? effectiveNewAmount : Math.abs(delta),
+            fundMode: newFMode,
             referenceType: 'CUSTOMER_PAYMENT_ADJUSTMENT',
             referenceId: `ADJ-${paymentId.slice(-6).toUpperCase()}`,
-            description: `${delta > 0 ? 'Upward' : 'Downward'} payment correction for customer ${existingPayment.customer.customerName} (Payment ID: ${paymentId.slice(0, 8)}). Reason: ${cleanReason}`,
+            description: walletTxDesc,
             createdBy: currentUserId,
             status: 'COMPLETED'
           }
         });
 
-        // 4. Update Customer running balances
+        // 5. Update Customer running balances
         const newTotalPaid = Math.max(0, currentTotalPaid + delta);
         const newBalanceDue = Math.max(0, currentBalanceDue - delta);
         const updatedCustomer = await tx.customer.update({
-          where: { id: existingPayment.customerId },
+          where: { id: freshCustomer.id },
           data: {
             totalPaid: newTotalPaid,
             balanceDue: newBalanceDue
           }
         });
 
-        // 5. Post General Ledger double-entry adjustment journal
-        const journal = await postCustomerPaymentAdjustmentJournal(tx, {
-          delta,
-          customerName: existingPayment.customer.customerName,
-          plotNo: existingPayment.customer.plotNo,
-          paymentId: existingPayment.id,
-          oldAmount,
-          newAmount: parsedNewAmount,
-          reason: cleanReason,
-          createdBy: currentUserId
-        });
+        // 6. Post General Ledger double-entry adjustment journal
+        let journal = null;
+        if (Math.abs(delta) > 0.009) {
+          journal = await postCustomerPaymentAdjustmentJournal(tx, {
+            delta,
+            customerName: freshCustomer.customerName,
+            plotNo: freshCustomer.plotNo,
+            paymentId: existingPayment.id,
+            oldAmount,
+            newAmount: effectiveNewAmount,
+            reason: cleanReason || 'Payment amount adjustment',
+            createdBy: currentUserId
+          });
+        }
 
-        // 6. Synchronize Centralized GlobalBankReference Registry
+        // 7. Synchronize Centralized GlobalBankReference Registry
         if (cleanRef || existingPayment.referenceNo) {
           const refToMatch = cleanRef || existingPayment.referenceNo;
           const existingRef = await tx.globalBankReference.findFirst({
@@ -1001,21 +1096,34 @@ exports.updatePayment = async (req, res) => {
           });
 
           if (existingRef) {
-            await tx.globalBankReference.update({
-              where: { id: existingRef.id },
-              data: {
-                referenceNo: cleanRef ? cleanRef.toUpperCase() : existingRef.referenceNo,
-                amount: parsedNewAmount,
-                paymentMode: finalPaymentMode
-              }
-            });
-          } else if (cleanRef) {
+            if (finalPaymentMode === 'CASH') {
+              // Cash has no reference; mark existing reference as REVERSED
+              await tx.globalBankReference.update({
+                where: { id: existingRef.id },
+                data: {
+                  status: 'REVERSED',
+                  reversalReason: `Payment mode converted to CASH by Admin. Reason: ${cleanReason || 'N/A'}`,
+                  updatedAt: new Date()
+                }
+              });
+            } else {
+              await tx.globalBankReference.update({
+                where: { id: existingRef.id },
+                data: {
+                  referenceNo: cleanRef ? cleanRef.toUpperCase() : existingRef.referenceNo,
+                  amount: effectiveNewAmount,
+                  paymentMode: finalPaymentMode,
+                  status: 'ACTIVE'
+                }
+              });
+            }
+          } else if (cleanRef && finalPaymentMode !== 'CASH') {
             await registerBankReference(tx, {
               referenceNo: cleanRef,
               module: 'CUSTOMER_PAYMENT',
               sourceTable: 'CustomerPayment',
               sourceRecordId: existingPayment.id,
-              amount: parsedNewAmount,
+              amount: effectiveNewAmount,
               paymentMode: finalPaymentMode,
               recordedBy: req.user?.email || 'SYSTEM',
               skipPreCheck: true
@@ -1030,18 +1138,20 @@ exports.updatePayment = async (req, res) => {
       logAudit({
         actorId: currentUserId,
         actorEmail: req.user.email,
-        action: 'CUSTOMER_PAYMENT_AMOUNT_ADJUST',
+        action: isAmountChanging ? 'CUSTOMER_PAYMENT_AMOUNT_ADJUST' : 'CUSTOMER_PAYMENT_MODE_CHANGE',
         entityType: 'CUSTOMER_PAYMENT',
         entityId: paymentId,
         oldValues: {
           amount: oldAmount,
-          totalPaid: currentTotalPaid,
-          balanceDue: currentBalanceDue,
+          paymentMode: oldPaymentMode,
+          totalPaid: existingPayment.customer.totalPaid,
+          balanceDue: existingPayment.customer.balanceDue,
           dateOfPayment: existingPayment.dateOfPayment,
           referenceNo: existingPayment.referenceNo
         },
         newValues: {
-          amount: parsedNewAmount,
+          amount: effectiveNewAmount,
+          paymentMode: finalPaymentMode,
           delta,
           reason: cleanReason,
           totalPaid: parseFloat(result.updatedCustomer.totalPaid),
@@ -1050,23 +1160,25 @@ exports.updatePayment = async (req, res) => {
           referenceNo: result.updatedPayment.referenceNo
         },
         req
-      }).catch(err => console.warn('Payment amount adjust audit log warning:', err.message));
+      }).catch(err => console.warn('Payment adjustment audit log warning:', err.message));
 
       return res.json({
         success: true,
-        message: `Payment amount successfully adjusted by Admin from ₹${oldAmount.toLocaleString()} to ₹${parsedNewAmount.toLocaleString()} (Δ: ${delta >= 0 ? '+' : ''}₹${delta.toLocaleString()}). Financial ledger and customer balances reconciled.`,
+        message: isAmountChanging
+          ? `Payment amount successfully adjusted by Admin from ₹${oldAmount.toLocaleString()} to ₹${effectiveNewAmount.toLocaleString()} (Δ: ${delta >= 0 ? '+' : ''}₹${delta.toLocaleString()}). Financial ledger and customer balances reconciled.`
+          : `Payment mode successfully converted from ${oldPaymentMode} to ${finalPaymentMode}. Treasury cash/liquid balances reconciled.`,
         data: result.updatedPayment
       });
     }
 
-    // Branch 2: Standard metadata update (Date, Mode, Account, Reference) - accessible to Accounting & Admin
+    // Branch 2: Standard metadata update (Date, Source/Destination bank accounts, Reference within same liquid mode)
     const updatedPayment = await prisma.customerPayment.update({
       where: { id: paymentId },
       data: {
         dateOfPayment: parsedDate,
         paymentMode: finalPaymentMode,
-        sourceAccount: finalSourceAccount,
-        destinationAccount: finalDestAccount,
+        sourceAccount: finalPaymentMode === 'CASH' ? 'Cash In Hand' : finalSourceAccount,
+        destinationAccount: finalPaymentMode === 'CASH' ? 'Cash In Hand' : finalDestAccount,
         referenceNo: cleanRef
       },
       include: {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { Printer, Download, Plus, X, Building2, Edit3, Pencil } from "lucide-react";
+import { Printer, Download, Plus, X, Building2, Edit3, Pencil, Lock } from "lucide-react";
 import { formatDate, formatDateTime } from "@/utils/formatters";
 import EditCustomerPaymentModal from "./EditCustomerPaymentModal";
 
@@ -357,14 +357,20 @@ export default function CustomerStatementModal({
                       </td>
                       {canRecordPayment && (
                         <td className="py-1.5 px-2 text-center print:hidden border-l border-slate-300">
-                          <button
-                            type="button"
-                            onClick={() => setSelectedPaymentForEdit(p)}
-                            className="p-1 rounded text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition"
-                            title="Edit payment date, bank details, or reference"
-                          >
-                            <Pencil className="w-3.5 h-3.5" />
-                          </button>
+                          {p.status === 'REFUND_DISBURSED' || p.status === 'REVERSED' || currentCustomer.status === 'CANCELLED' ? (
+                            <span className="p-1 inline-flex text-slate-300 cursor-not-allowed" title="Locked: Cannot edit reversed or cancelled payment records">
+                              <Lock className="w-3.5 h-3.5" />
+                            </span>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => setSelectedPaymentForEdit(p)}
+                              className="p-1 rounded text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition"
+                              title={userRole === 'ADMIN' ? "Admin: Edit payment amount, date, bank details, or UTR" : "Edit payment date, bank details, or UTR (Amount locked to Admin)"}
+                            >
+                              <Pencil className="w-3.5 h-3.5" />
+                            </button>
+                          )}
                         </td>
                       )}
                     </tr>
