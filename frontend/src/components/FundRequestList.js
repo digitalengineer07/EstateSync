@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { CheckCircle2, XCircle, Clock, RefreshCw } from "lucide-react";
 import { API_URL } from "@/config/api";
+import { formatDateTime } from "@/utils/formatters";
 
 // type can be 'outgoing', 'incoming', or 'all'
 export default function FundRequestList({ type = "outgoing", embedded = false, showHeader = true }) {
@@ -157,7 +158,7 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
               <tbody className="divide-y divide-slate-100 text-slate-800 font-normal">
                 {requests.map((req) => (
                   <tr key={req.id} className="hover:bg-slate-50/70 transition-colors">
-                    <td className="px-4 py-3 text-slate-600 font-medium">{new Date(req.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
+                    <td className="px-4 py-3 text-slate-700 font-mono text-xs whitespace-nowrap">{formatDateTime(req.createdAt, { format: 'dd-mmm-yyyy' })}</td>
                     {type !== 'outgoing' && (
                       <td className="px-4 py-3 font-medium text-slate-800">
                         <div>{req.requester?.name || 'User'}</div>

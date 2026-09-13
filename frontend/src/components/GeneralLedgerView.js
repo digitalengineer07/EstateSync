@@ -4,7 +4,7 @@ import { useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { API_URL } from "@/config/api";
-import { formatINR } from "@/utils/formatters";
+import { formatINR, formatDateTime } from "@/utils/formatters";
 import { RefreshCw } from "lucide-react";
 
 export default function GeneralLedgerView() {
@@ -107,14 +107,8 @@ export default function GeneralLedgerView() {
                 <div className="bg-gray-50 px-4 py-3 border-b border-gray-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                   <div className="flex items-center gap-2">
                     <span className="font-mono font-bold text-sm text-indigo-900">{entry.entryNumber}</span>
-                    <span className="text-xs text-gray-500">
-                      {new Date(entry.createdAt).toLocaleString("en-IN", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit"
-                      })}
+                    <span className="text-xs text-gray-500 font-mono">
+                      {formatDateTime(entry.createdAt, { format: 'dd-mmm-yyyy' })}
                     </span>
                     <span className="px-2 py-0.5 text-xs font-semibold rounded bg-blue-100 text-blue-800">
                       {entry.referenceType || "MANUAL"}

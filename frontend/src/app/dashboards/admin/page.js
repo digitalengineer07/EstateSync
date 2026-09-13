@@ -11,12 +11,13 @@ import AuditLogViewer from "@/components/AuditLogViewer";
 import CustomerPortfolioList from "@/components/CustomerPortfolioList";
 import PropertyAcquisitionList from "@/components/PropertyAcquisitionList";
 import TreasuryInflowList from "@/components/TreasuryInflowList";
+import UserWalletLedger from "@/components/UserWalletLedger";
 import Link from "next/link";
-import { ShieldCheck, FileText, ArrowLeftRight, Users, Coins, UserPlus, Columns2, SlidersHorizontal } from "lucide-react";
+import { ShieldCheck, FileText, ArrowLeftRight, Users, Coins, UserPlus, Columns2, SlidersHorizontal, Wallet } from "lucide-react";
 
 export default function AdminDashboard() {
   const [activeLedgerTab, setActiveLedgerTab] = useState("requests"); // "requests" or "transactions"
-  const [operationsTab, setOperationsTab] = useState("both"); // "both", "allocation", "registration"
+  const [operationsTab, setOperationsTab] = useState("both"); // "both", "allocation", "registration", "wallets"
 
   return (
     <div className="space-y-6">
@@ -84,6 +85,17 @@ export default function AdminDashboard() {
                 <span>Register New User</span>
               </button>
               <button
+                onClick={() => setOperationsTab("wallets")}
+                className={`px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-1.5 ${
+                  operationsTab === "wallets"
+                    ? "bg-white text-slate-900 shadow-xs font-bold"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5 text-indigo-600" />
+                <span>Adjust & Audit Wallets</span>
+              </button>
+              <button
                 onClick={() => setOperationsTab("both")}
                 className={`px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-1.5 ${
                   operationsTab === "both"
@@ -111,6 +123,12 @@ export default function AdminDashboard() {
           </div>
         )}
 
+        {operationsTab === "wallets" && (
+          <div>
+            <UserWalletLedger />
+          </div>
+        )}
+
         {operationsTab === "both" && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
             <DirectFundAllocationForm />
@@ -121,6 +139,11 @@ export default function AdminDashboard() {
 
       {/* Corporate Treasury & Bank Inflow Audit */}
       <TreasuryInflowList userRole="ADMIN" />
+
+      {/* Corporate Wallets & Balance Adjustment Audit */}
+      {operationsTab !== "wallets" && (
+        <UserWalletLedger />
+      )}
 
       {/* Staff & Workforce Directory Navigation Card */}
       <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6">

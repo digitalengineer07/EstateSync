@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { API_URL } from "@/config/api";
 import { RefreshCw, Shield, Terminal, ArrowUpRight, ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import { formatDate, formatTime } from "@/utils/formatters";
 
 export default function AuditLogViewer() {
   const [filterAction, setFilterAction] = useState("");
@@ -307,20 +308,12 @@ export default function AuditLogViewer() {
                     <td className="px-5 py-3.5 whitespace-nowrap align-top">
                       <div className="flex flex-col gap-1.5">
                         <span className="font-semibold text-slate-900 text-xs tracking-tight">
-                          {new Date(log.createdAt).toLocaleDateString("en-IN", {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric"
-                          })}
+                          {formatDate(log.createdAt, { format: 'dd-mmm-yyyy' })}
                         </span>
                         <span className="inline-flex items-center gap-1 font-mono text-slate-500 bg-slate-50 border border-slate-200/80 px-2 py-0.5 rounded-md text-[10.5px] w-fit shadow-2xs">
                           <Clock className="w-3 h-3 text-slate-400 shrink-0" />
                           <span>
-                            {new Date(log.createdAt).toLocaleTimeString("en-IN", {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                              second: "2-digit"
-                            })}
+                            {formatTime(log.createdAt, { showSeconds: true })}
                           </span>
                         </span>
                       </div>

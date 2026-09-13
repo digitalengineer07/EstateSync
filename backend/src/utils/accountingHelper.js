@@ -457,6 +457,46 @@ async function postSalaryPaymentReversalJournal(tx, {
   });
 }
 
+/**
+ * Double-Entry Post: Wallet Balance Adjustment (Admin Manual Correction / Delta)
+ * If Direction === 'INCREASE':
+ *   Debit: Target Wallet (1020 Manager / 1030 Team) (Asset +)
+ *   Credit: Corporate Treasury Bank (1010) (Asset -)
+ * If Direction === 'DECREASE':
+ *   Debit: Corporate Treasury Bank (1010) (Asset +)
+ *   Credit: Target Wallet (1020 Manager / 1030 Team) (Asset -)
+ */
+async function postWalletAdjustmentJournal(tx, {
+  targetWalletType = 'TEAM', // 'MANAGER' or 'TEAM'
+  direction = 'INCREASE', // 'INCREASE' or 'DECREASE'
+  amount,
+  description,
+  referenceId,
+  createdBy
+}) {
+  const targetCode = targetWalletType === 'MANAGER' ? '1020' : '1030';
+  const treasuryCode = '1010';
+  const numAmount = parseFloat(amount);
+
+  const lines = direction === 'INCREASE'
+    ? [
+        { accountCode: targetCode, debit: numAmount, credit: 0, description: `Wallet Balance Top-Up: ${targetWalletType}` },
+        { accountCode: treasuryCode, debit: 0, credit: numAmount, description: `Treasury Outflow for Wallet Adjustment` }
+      ]
+    : [
+        { accountCode: treasuryCode, debit: numAmount, credit: 0, description: `Treasury Inflow from Wallet Clawback` },
+        { accountCode: targetCode, debit: 0, credit: numAmount, description: `Wallet Balance Deduction: ${targetWalletType}` }
+      ];
+
+  return await postJournalEntry(tx, {
+    description: `Admin Wallet Balance Adjustment: ${description}`,
+    referenceType: 'ADMIN_ADJUSTMENT',
+    referenceId,
+    createdBy,
+    lines
+  });
+}
+
 module.exports = {
   ensureStandardAccounts,
   postJournalEntry,
@@ -468,7 +508,6 @@ module.exports = {
   postPropertyPaymentJournal,
   postCapitalInfusionJournal,
   postSalaryPaymentSettlementJournal,
-  postSalaryPaymentReversalJournal
+  postSalaryPaymentReversalJournal,
+  postWalletAdjustmentJournal
 };
-
-

@@ -5,6 +5,7 @@ import PropertyAcquisitionModal from "./PropertyAcquisitionModal";
 import RecordPropertyPaymentModal from "./RecordPropertyPaymentModal";
 import { MapPin, Search, RefreshCw, Plus, Building2, Coins, TrendingDown, Clock } from "lucide-react";
 import { API_URL } from "@/config/api";
+import { formatDate } from "@/utils/formatters";
 
 export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
   const [properties, setProperties] = useState([]);
@@ -306,7 +307,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
                   <tbody className="divide-y divide-slate-100 font-mono">
                     {historyProperty.payments.map((p) => (
                       <tr key={p.id} className="hover:bg-slate-50">
-                        <td className="px-3 py-2 text-slate-700">{new Date(p.dateOfPayment).toLocaleDateString()}</td>
+                        <td className="px-3 py-2 text-slate-700 font-bold">{formatDate(p.dateOfPayment, { format: 'dd/mm/yyyy' })}</td>
                         <td className="px-3 py-2 font-sans font-medium text-slate-800">{p.paymentMode}</td>
                         <td className="px-3 py-2 text-slate-500 text-[11px] font-sans">{p.paidFromAccount}</td>
                         <td className="px-3 py-2 text-slate-500 text-[11px]">{p.referenceNo || "N/A"}</td>

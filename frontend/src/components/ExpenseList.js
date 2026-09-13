@@ -5,7 +5,7 @@ import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { RefreshCw } from "lucide-react";
 import { API_URL } from "@/config/api";
-import { formatINR } from "@/utils/formatters";
+import { formatINR, formatDate } from "@/utils/formatters";
 
 // type can be 'my', 'team', or 'all'
 export default function ExpenseList({ type = "my", embedded = false, showHeader = true }) {
@@ -175,12 +175,8 @@ export default function ExpenseList({ type = "my", embedded = false, showHeader 
               <tbody className="divide-y divide-slate-100 text-slate-800 font-normal">
                 {expenses.map((item) => (
                   <tr key={item.id} className="hover:bg-slate-50/70 transition-colors">
-                    <td className="px-4 py-3 text-slate-600 font-medium">
-                      {new Date(item.date).toLocaleDateString("en-IN", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric"
-                      })}
+                    <td className="px-4 py-3 text-slate-700 font-mono text-xs">
+                      {formatDate(item.date, { format: 'dd-mmm-yyyy' })}
                     </td>
                     {type !== "my" && (
                       <td className="px-4 py-3">

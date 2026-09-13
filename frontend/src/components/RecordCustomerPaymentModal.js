@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { API_URL } from "@/config/api";
+import { toISTDateInputString, createSafePaymentDateISO, formatDate } from "@/utils/formatters";
 
 export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, onPaymentRecorded }) {
   const [amount, setAmount] = useState("");
@@ -9,7 +10,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
   const [sourceAccount, setSourceAccount] = useState("");
   const [destinationAccount, setDestinationAccount] = useState("Corporate Treasury HDFC A/C (1010)");
   const [referenceNo, setReferenceNo] = useState("");
-  const [dateOfPayment, setDateOfPayment] = useState(new Date().toISOString().split("T")[0]);
+  const [dateOfPayment, setDateOfPayment] = useState(toISTDateInputString());
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -58,7 +59,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
           sourceAccount: paymentMode === 'CASH' ? 'Cash In Hand' : (sourceAccount?.trim() || null),
           destinationAccount: paymentMode === 'CASH' ? 'Cash In Hand' : (destinationAccount?.trim() || null),
           referenceNo: paymentMode === 'CASH' ? null : (referenceNo?.trim() || null),
-          dateOfPayment: new Date(dateOfPayment).toISOString()
+          dateOfPayment: createSafePaymentDateISO(dateOfPayment)
         })
       });
 
@@ -192,8 +193,11 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
                 required
                 value={dateOfPayment}
                 onChange={(e) => setDateOfPayment(e.target.value)}
-                className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white font-medium"
               />
+              <span className="text-[10.5px] text-emerald-700 font-semibold mt-1 block">
+                Selected: {formatDate(dateOfPayment, { format: 'dd-mmm-yyyy' })}
+              </span>
             </div>
           </div>
 

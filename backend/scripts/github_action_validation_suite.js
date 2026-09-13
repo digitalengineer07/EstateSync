@@ -2,7 +2,7 @@ const prisma = require('../src/config/db');
 
 const BASE_URL = process.env.API_BASE_URL || 'http://127.0.0.1:4000';
 const PASSWORD = process.env.TEST_USER_PASSWORD || 'password123';
-const RUN_ID = `gha-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+const RUN_ID = Math.random().toString(36).substring(2, 8).toUpperCase();
 
 const created = {
   customerIds: [],

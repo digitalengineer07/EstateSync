@@ -685,6 +685,16 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
     }
 
     const result = await prisma.$transaction(async (tx) => {
+      let parsedDateOfPayment = new Date();
+      if (dateOfPayment) {
+        if (typeof dateOfPayment === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateOfPayment.trim())) {
+          parsedDateOfPayment = new Date(`${dateOfPayment.trim()}T12:00:00.000Z`);
+        } else {
+          const d = new Date(dateOfPayment);
+          if (!isNaN(d.getTime())) parsedDateOfPayment = d;
+        }
+      }
+
       // 1. Create the immutable CustomerPayment record
       const payment = await tx.customerPayment.create({
         data: {
@@ -695,7 +705,7 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
           destinationAccount: destinationAccount || 'Corporate Treasury Account (1010)',
           referenceNo: referenceNo || null,
           recordedById: accountingUserId,
-          dateOfPayment: dateOfPayment ? new Date(dateOfPayment) : new Date(),
+          dateOfPayment: parsedDateOfPayment,
           status: 'RECORDED'
         }
       });
@@ -797,3 +807,87 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
     res.status(500).json({ success: false, message: 'Server error recording customer payment', error: error.message });
   }
 };
+
+// 6. Update / Correct an Existing Customer Payment Record (Accounting & Admin only)
+exports.updatePayment = async (req, res) => {
+  try {
+    const { paymentId } = req.params;
+    const { dateOfPayment, paymentMode, sourceAccount, destinationAccount, referenceNo } = req.body;
+    const accountingUserId = req.user.userId;
+
+    const existingPayment = await prisma.customerPayment.findUnique({
+      where: { id: paymentId },
+      include: { customer: true }
+    });
+
+    if (!existingPayment) {
+      return res.status(404).json({ success: false, message: 'Payment record not found' });
+    }
+
+    const cleanRef = referenceNo ? referenceNo.trim() : null;
+    if (cleanRef && cleanRef !== existingPayment.referenceNo) {
+      const dupErr = await checkDuplicateReferenceNo(prisma, cleanRef);
+      if (dupErr) {
+        return res.status(400).json({ success: false, message: dupErr });
+      }
+    }
+
+    // Parse date safely without timezone shift
+    let parsedDate = existingPayment.dateOfPayment;
+    if (dateOfPayment) {
+      if (typeof dateOfPayment === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateOfPayment.trim())) {
+        parsedDate = new Date(`${dateOfPayment.trim()}T12:00:00.000Z`);
+      } else {
+        const d = new Date(dateOfPayment);
+        if (!isNaN(d.getTime())) parsedDate = d;
+      }
+    }
+
+    const updatedPayment = await prisma.customerPayment.update({
+      where: { id: paymentId },
+      data: {
+        dateOfPayment: parsedDate,
+        paymentMode: paymentMode ? paymentMode.toUpperCase() : existingPayment.paymentMode,
+        sourceAccount: sourceAccount !== undefined ? (sourceAccount ? sourceAccount.trim() : null) : existingPayment.sourceAccount,
+        destinationAccount: destinationAccount !== undefined ? (destinationAccount ? destinationAccount.trim() : null) : existingPayment.destinationAccount,
+        referenceNo: cleanRef
+      },
+      include: {
+        recordedBy: { select: { id: true, name: true, email: true } }
+      }
+    });
+
+    await logAudit({
+      actorId: accountingUserId,
+      actorEmail: req.user.email,
+      action: 'CUSTOMER_PAYMENT_UPDATE',
+      entityType: 'CUSTOMER_PAYMENT',
+      entityId: paymentId,
+      oldValues: {
+        dateOfPayment: existingPayment.dateOfPayment,
+        paymentMode: existingPayment.paymentMode,
+        sourceAccount: existingPayment.sourceAccount,
+        destinationAccount: existingPayment.destinationAccount,
+        referenceNo: existingPayment.referenceNo
+      },
+      newValues: {
+        dateOfPayment: updatedPayment.dateOfPayment,
+        paymentMode: updatedPayment.paymentMode,
+        sourceAccount: updatedPayment.sourceAccount,
+        destinationAccount: updatedPayment.destinationAccount,
+        referenceNo: updatedPayment.referenceNo
+      },
+      req
+    });
+
+    res.json({
+      success: true,
+      message: 'Payment record updated successfully',
+      data: updatedPayment
+    });
+  } catch (error) {
+    console.error('Error updating customer payment:', error);
+    res.status(500).json({ success: false, message: 'Server error updating customer payment', error: error.message });
+  }
+};
+

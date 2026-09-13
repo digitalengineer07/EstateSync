@@ -425,6 +425,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
         onClose={() => setStatementCustomer(null)}
         onOpenPayment={handleOpenPayment}
         onOpenEdit={handleOpenEdit}
+        onCustomerUpdated={handleCustomerUpdated}
         canRecordPayment={canRecordPayment}
         userRole={userRole}
       />

@@ -1,7 +1,9 @@
 "use client";
 
-import { useRef } from "react";
-import { Printer, Download, Plus, X, Building2, Edit3 } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { Printer, Download, Plus, X, Building2, Edit3, Pencil } from "lucide-react";
+import { formatDate, formatDateTime } from "@/utils/formatters";
+import EditCustomerPaymentModal from "./EditCustomerPaymentModal";
 
 export default function CustomerStatementModal({ 
   isOpen, 
@@ -9,25 +11,33 @@ export default function CustomerStatementModal({
   customer, 
   onOpenPayment,
   onOpenEdit,
+  onCustomerUpdated,
   canRecordPayment = false,
   userRole = "SALES"
 }) {
   const printRef = useRef(null);
+  const [localCustomer, setLocalCustomer] = useState(customer);
+  const [selectedPaymentForEdit, setSelectedPaymentForEdit] = useState(null);
 
-  if (!isOpen || !customer) return null;
+  useEffect(() => {
+    setLocalCustomer(customer);
+  }, [customer]);
 
-  const totalContract = parseFloat(customer.totalContractValue || 0);
-  const totalPaid = parseFloat(customer.totalPaid || 0);
-  const balanceDue = parseFloat(customer.balanceDue || 0);
-  const landCost = parseFloat(customer.landCost || 0);
-  const registryCost = parseFloat(customer.registryCost || 0);
-  const otherCharges = parseFloat(customer.otherCharges || 0);
-  const taxes = parseFloat(customer.taxes || 0);
-  const discount = parseFloat(customer.discount || 0);
-  const ratePerSqft = parseFloat(customer.ratePerSqft || 0);
-  const areaSqft = parseFloat(customer.areaSqft || 0);
+  if (!isOpen || !localCustomer) return null;
 
-  const payments = customer.payments || [];
+  const currentCustomer = localCustomer;
+  const totalContract = parseFloat(currentCustomer.totalContractValue || 0);
+  const totalPaid = parseFloat(currentCustomer.totalPaid || 0);
+  const balanceDue = parseFloat(currentCustomer.balanceDue || 0);
+  const landCost = parseFloat(currentCustomer.landCost || 0);
+  const registryCost = parseFloat(currentCustomer.registryCost || 0);
+  const otherCharges = parseFloat(currentCustomer.otherCharges || 0);
+  const taxes = parseFloat(currentCustomer.taxes || 0);
+  const discount = parseFloat(currentCustomer.discount || 0);
+  const ratePerSqft = parseFloat(currentCustomer.ratePerSqft || 0);
+  const areaSqft = parseFloat(currentCustomer.areaSqft || 0);
+
+  const payments = currentCustomer.payments || [];
 
   const handlePrint = () => {
     window.print();
@@ -36,7 +46,7 @@ export default function CustomerStatementModal({
   const handleExportCSV = () => {
     const headers = ["Date", "Mode", "Reference No", "Bank / Source Account", "Amount", "Beneficiary Name", "Beneficiary A/C No"];
     const rows = payments.map(p => [
-      new Date(p.dateOfPayment).toLocaleDateString("en-IN"),
+      formatDate(p.dateOfPayment, { format: 'dd/mm/yyyy' }),
       p.paymentMode,
       p.referenceNo || "N/A",
       p.sourceAccount || "Direct",
@@ -46,7 +56,7 @@ export default function CustomerStatementModal({
     ]);
 
     const csvContent = "data:text/csv;charset=utf-8," + 
-      [`CUSTOMER STATEMENT - ${customer.customerName} (Plot ${customer.plotNo})`, ""]
+      [`CUSTOMER STATEMENT - ${currentCustomer.customerName} (Plot ${currentCustomer.plotNo})`, ""]
       .concat([headers.join(",")])
       .concat(rows.map(e => e.map(item => `"${item}"`).join(",")))
       .concat(["", `"TOTAL AMT RECEIVED","${totalPaid}"`])
@@ -56,7 +66,7 @@ export default function CustomerStatementModal({
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `Customer_Statement_${customer.customerName.replace(/\s+/g, "_")}_Plot_${customer.plotNo}.csv`);
+    link.setAttribute("download", `Customer_Statement_${currentCustomer.customerName.replace(/\s+/g, "_")}_Plot_${currentCustomer.plotNo}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -290,6 +300,9 @@ export default function CustomerStatementModal({
                   <th className="py-2 px-3 border-r border-slate-800 text-left">BENEFICIARY NAME</th>
                   <th className="py-2 px-3 border-r border-slate-800 text-left">BENEFICIARY A/C NO</th>
                   <th className="py-2 px-3 text-left">REMARKS / REFERENCE</th>
+                  {canRecordPayment && (
+                    <th className="py-2 px-2 text-center print:hidden border-l border-slate-800 w-12">EDIT</th>
+                  )}
                 </tr>
               </thead>
 
@@ -297,7 +310,7 @@ export default function CustomerStatementModal({
               <tbody className="divide-y divide-slate-300 font-medium">
                 {payments.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="py-8 text-center text-slate-500 italic">
+                    <td colSpan={canRecordPayment ? 9 : 8} className="py-8 text-center text-slate-500 italic">
                       No collection payments recorded yet for this customer.
                     </td>
                   </tr>
@@ -305,12 +318,8 @@ export default function CustomerStatementModal({
                   payments.map((p, idx) => (
                     <tr key={p.id || idx} className={`divide-x divide-slate-300 ${p.status === 'REFUND_DISBURSED' ? 'bg-rose-50/40' : 'hover:bg-slate-50'}`}>
                       <td className="py-1.5 px-3 text-center font-mono text-slate-500">{idx + 1}</td>
-                      <td className="py-1.5 px-3 font-mono text-slate-800">
-                        {new Date(p.dateOfPayment).toLocaleDateString("en-IN", {
-                          day: "2-digit",
-                          month: "2-digit",
-                          year: "numeric"
-                        })}
+                      <td className="py-1.5 px-3 font-mono font-bold text-slate-900">
+                        {formatDate(p.dateOfPayment, { format: 'dd/mm/yyyy' })}
                       </td>
                       <td className="py-1.5 px-3 font-bold text-slate-900">
                         {p.status === 'REFUND_DISBURSED' ? (
@@ -326,7 +335,7 @@ export default function CustomerStatementModal({
                         {p.status === 'REFUND_DISBURSED' ? `-₹${parseFloat(p.amount).toLocaleString('en-IN')}` : `₹${parseFloat(p.amount).toLocaleString('en-IN')}`}
                       </td>
                       <td className="py-1.5 px-3 text-slate-800 font-semibold">
-                        {p.status === 'REFUND_DISBURSED' ? customer.customerName : 'ESTATESYNC INDIA'}
+                        {p.status === 'REFUND_DISBURSED' ? currentCustomer.customerName : 'ESTATESYNC INDIA'}
                       </td>
                       <td className="py-1.5 px-3 text-slate-700 font-mono text-[11px]">
                         {p.destinationAccount || "HDFC-1010"}
@@ -336,7 +345,7 @@ export default function CustomerStatementModal({
                           <span className="text-rose-800 font-bold">
                             REFUND DISBURSED (Ref: {p.referenceNo || "N/A"})
                           </span>
-                        ) : customer.status === 'CANCELLED' ? (
+                        ) : currentCustomer.status === 'CANCELLED' ? (
                           <span className="text-amber-800 font-semibold">
                             Recorded on Cancelled Account (by {p.recordedBy?.name || "Accounts"})
                           </span>
@@ -346,6 +355,18 @@ export default function CustomerStatementModal({
                           </span>
                         )}
                       </td>
+                      {canRecordPayment && (
+                        <td className="py-1.5 px-2 text-center print:hidden border-l border-slate-300">
+                          <button
+                            type="button"
+                            onClick={() => setSelectedPaymentForEdit(p)}
+                            className="p-1 rounded text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition"
+                            title="Edit payment date, bank details, or reference"
+                          >
+                            <Pencil className="w-3.5 h-3.5" />
+                          </button>
+                        </td>
+                      )}
                     </tr>
                   ))
                 )}
@@ -363,6 +384,7 @@ export default function CustomerStatementModal({
                   <td colSpan={3} className="py-2 px-3 text-slate-500 font-normal italic">
                     Corporate Treasury Inflow (Dr 1010 / Cr 4010)
                   </td>
+                  {canRecordPayment && <td className="print:hidden"></td>}
                 </tr>
                 <tr className="divide-x divide-slate-800 bg-slate-200/90">
                   <td colSpan={4} className="py-2 px-4 text-right uppercase tracking-wider text-rose-900">
@@ -374,6 +396,7 @@ export default function CustomerStatementModal({
                   <td colSpan={3} className="py-2 px-3 text-slate-600 font-normal">
                     Remaining Client Balance Receivable
                   </td>
+                  {canRecordPayment && <td className="print:hidden"></td>}
                 </tr>
               </tfoot>
 
@@ -384,7 +407,7 @@ export default function CustomerStatementModal({
           <div className="pt-6 border-t border-slate-300 flex justify-between items-end text-xs text-slate-600 print:pt-10">
             <div>
               <p className="font-semibold text-slate-800">EstateSync Real Estate ERP</p>
-              <p className="text-[10px] text-slate-400">Statement Generated on: {new Date().toLocaleDateString("en-IN")}</p>
+              <p className="text-[10px] text-slate-400">Statement Generated on: {formatDateTime(new Date())}</p>
             </div>
             <div className="text-right">
               <div className="w-44 border-b border-slate-400 mb-1"></div>
@@ -395,6 +418,24 @@ export default function CustomerStatementModal({
         </div>
 
       </div>
+
+      {/* Edit Payment Modal */}
+      {selectedPaymentForEdit && (
+        <EditCustomerPaymentModal
+          isOpen={Boolean(selectedPaymentForEdit)}
+          payment={selectedPaymentForEdit}
+          customer={currentCustomer}
+          onClose={() => setSelectedPaymentForEdit(null)}
+          onPaymentUpdated={(updatedPayment) => {
+            const updatedPayments = (currentCustomer.payments || []).map(p => 
+              p.id === updatedPayment.id ? { ...p, ...updatedPayment } : p
+            );
+            const updatedCust = { ...currentCustomer, payments: updatedPayments };
+            setLocalCustomer(updatedCust);
+            onCustomerUpdated?.(updatedCust);
+          }}
+        />
+      )}
     </div>
   );
 }

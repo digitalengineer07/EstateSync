@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Landmark, ArrowUpRight, X, ShieldCheck, CheckCircle2, AlertCircle } from "lucide-react";
 import { API_URL } from "@/config/api";
+import { toISTDateInputString, createSafePaymentDateISO, formatDate } from "@/utils/formatters";
 
 export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -12,7 +13,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
     inflowType: "CAPITAL_INFUSION",
     paymentMode: "RTGS",
     referenceNo: "",
-    transactionDate: new Date().toISOString().split("T")[0],
+    transactionDate: toISTDateInputString(),
     narration: ""
   });
 
@@ -54,6 +55,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
         },
         body: JSON.stringify({
           ...formData,
+          transactionDate: createSafePaymentDateISO(formData.transactionDate),
           bankName: formData.paymentMode === 'CASH' ? 'Cash In Hand' : formData.bankName.trim(),
           accountNo: formData.paymentMode === 'CASH' ? null : (formData.accountNo ? formData.accountNo.trim() : null),
           referenceNo: formData.paymentMode === 'CASH' ? null : formData.referenceNo.trim(),

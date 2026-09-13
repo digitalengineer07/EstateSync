@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import RecordBankInflowModal from "./RecordBankInflowModal";
 import { Landmark, Plus, Search, RefreshCw, ArrowDownRight, ArrowUpRight, ShieldCheck, FileCheck, ArrowLeftRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { API_URL } from "@/config/api";
+import { formatDate } from "@/utils/formatters";
 
 const PAGE_SIZE = 10;
 
@@ -249,12 +250,8 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
                   const isInflow = item.direction === "INFLOW";
                   return (
                     <tr key={item.id} className="hover:bg-slate-50/70 transition-colors group">
-                      <td className="px-5 py-4 font-semibold text-slate-700">
-                        {new Date(item.createdAt).toLocaleDateString("en-IN", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric"
-                        })}
+                      <td className="px-5 py-4 font-semibold text-slate-700 font-mono text-xs">
+                        {formatDate(item.createdAt, { format: 'dd-mmm-yyyy' })}
                       </td>
                       <td className="px-5 py-4">
                         {isInflow ? (

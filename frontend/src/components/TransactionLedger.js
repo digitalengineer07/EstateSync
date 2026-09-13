@@ -4,6 +4,7 @@ import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { API_URL } from "@/config/api";
 import { RefreshCw } from "lucide-react";
+import { formatDateTime, formatINR } from "@/utils/formatters";
 
 export default function TransactionLedger({ embedded = false, showHeader = true }) {
   const { data, error, isLoading, mutate } = useSWR(`/api/v1/transactions/all`, fetcher, {
@@ -87,7 +88,7 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
             <tbody className="divide-y divide-gray-200 text-gray-900 text-xs">
               {transactions.map((txn) => (
                 <tr key={txn.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-4 text-gray-600">{new Date(txn.createdAt).toLocaleString('en-IN')}</td>
+                  <td className="px-6 py-4 text-slate-700 font-mono text-xs">{formatDateTime(txn.createdAt)}</td>
                   <td className="px-6 py-4">
                     {getEntryBadge(txn.type)}
                   </td>

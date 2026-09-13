@@ -11,6 +11,7 @@ import EmployeeArchiveModal from "./EmployeeArchiveModal";
 import EmployeeLinkUserModal from "./EmployeeLinkUserModal";
 import EditSalaryModal from "./EditSalaryModal";
 import PaySalaryModal from "./PaySalaryModal";
+import { formatDate } from "@/utils/formatters";
 import {
   Users,
   ArrowLeft,
@@ -350,27 +351,15 @@ export default function EmployeeDetailView({ id }) {
 
                 <div>
                   <span className="text-slate-400 block text-[11px]">Joining Date</span>
-                  <span className="font-semibold text-slate-800 mt-0.5 block">
-                    {employee.joiningDate
-                      ? new Date(employee.joiningDate).toLocaleDateString("en-IN", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric"
-                        })
-                      : "--"}
+                  <span className="font-semibold text-slate-800 mt-0.5 block font-mono">
+                    {formatDate(employee.joiningDate, { format: 'dd-mmm-yyyy' })}
                   </span>
                 </div>
 
                 <div>
                   <span className="text-slate-400 block text-[11px]">Confirmation Date</span>
-                  <span className="font-semibold text-slate-800 mt-0.5 block">
-                    {employee.confirmationDate
-                      ? new Date(employee.confirmationDate).toLocaleDateString("en-IN", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric"
-                        })
-                      : "Pending"}
+                  <span className="font-semibold text-slate-800 mt-0.5 block font-mono">
+                    {employee.confirmationDate ? formatDate(employee.confirmationDate, { format: 'dd-mmm-yyyy' }) : "Pending"}
                   </span>
                 </div>
 
@@ -639,12 +628,8 @@ export default function EmployeeDetailView({ id }) {
                           </span>
                         </td>
                         <td className="px-4 py-3 font-mono text-slate-600">{pay.referenceNo || "—"}</td>
-                        <td className="px-4 py-3 text-slate-500">
-                          {new Date(pay.paidAt).toLocaleDateString("en-IN", {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric"
-                          })}
+                        <td className="px-4 py-3 text-slate-700 font-mono text-xs">
+                          {formatDate(pay.paidAt, { format: 'dd-mmm-yyyy' })}
                         </td>
                         <td className="px-4 py-3 text-slate-600">{pay.paidBy}</td>
                         <td className="px-4 py-3 font-mono text-indigo-600 font-semibold">{pay.journalNumber || "—"}</td>

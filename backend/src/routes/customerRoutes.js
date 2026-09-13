@@ -56,4 +56,12 @@ router.post(
   customerController.settleCustomerCancellationRefund
 );
 
+// 7. Update / Correct an Existing Customer Payment Record (Accounting / Admin only)
+router.patch(
+  '/payments/:paymentId',
+  verifyJWT,
+  checkPermission('customer.payment.record'),
+  customerController.updatePayment
+);
+
 module.exports = router;
