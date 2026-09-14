@@ -62,8 +62,13 @@ exports.createExpense = async (req, res) => {
       }
 
       // 2. Check sufficient balance
-      if (parseFloat(wallet[balanceField]) < expenseAmount) {
-        throw new Error('INSUFFICIENT_FUNDS');
+      const currentAvailable = parseFloat(wallet[balanceField] || 0);
+      if (currentAvailable < expenseAmount) {
+        const altMode = fMode === 'CASH' ? 'Liquid (Online/Bank)' : 'Cash (Physical)';
+        const altBalance = parseFloat(fMode === 'CASH' ? wallet.availableBalanceLiquid : wallet.availableBalanceCash) || 0;
+        const err = new Error('INSUFFICIENT_FUNDS');
+        err.customMessage = `Insufficient ${fMode === 'CASH' ? 'Cash' : 'Liquid'} funds in wallet (Available: ₹${currentAvailable.toLocaleString('en-IN', { minimumFractionDigits: 2 })}). ${altBalance >= expenseAmount ? `You have ₹${altBalance.toLocaleString('en-IN', { minimumFractionDigits: 2 })} available in ${altMode} — please change Payment Mode to '${altMode}'.` : ''}`.trim();
+        throw err;
       }
 
       // 3. Update wallet balances
@@ -139,7 +144,7 @@ exports.createExpense = async (req, res) => {
     res.status(201).json({ success: true, expense: result, message: 'Expense recorded successfully' });
   } catch (error) {
     if (error.message === 'INSUFFICIENT_FUNDS') {
-      return res.status(400).json({ success: false, message: 'Insufficient funds in wallet to cover this expense' });
+      return res.status(400).json({ success: false, message: error.customMessage || 'Insufficient funds in wallet to cover this expense' });
     }
     console.error('Error creating expense:', error);
     res.status(500).json({ success: false, message: error.message || 'Server error creating expense' });

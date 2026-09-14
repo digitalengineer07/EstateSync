@@ -8,6 +8,7 @@ import { CreditCard } from "lucide-react";
 export default function ExpenseUploadForm() {
   const { user } = useAuth();
   const [categories, setCategories] = useState([]);
+  const [wallet, setWallet] = useState({ liquid: 0, cash: 0 });
   const [formData, setFormData] = useState({
     amount: "",
     description: "",
@@ -21,25 +22,39 @@ export default function ExpenseUploadForm() {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchInitialData = async () => {
       try {
         const token = localStorage.getItem("accessToken");
-        const res = await fetch(`${API_URL}/api/v1/expenses/categories`, {
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
+        if (!token) return;
+
+        // 1. Fetch Categories
+        const catRes = await fetch(`${API_URL}/api/v1/expenses/categories`, {
+          headers: { "Authorization": `Bearer ${token}` }
         });
-        const data = await res.json();
-        if (data.success) {
-          setCategories(data.categories);
-        } else {
-          console.error("Failed to fetch categories:", data.message);
+        const catData = await catRes.json();
+        if (catData.success) {
+          setCategories(catData.categories);
+        }
+
+        // 2. Fetch User Wallet Balances
+        const walletRes = await fetch(`${API_URL}/api/v1/dashboard/wallet`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const walletData = await walletRes.json();
+        if (walletData.success && walletData.stats) {
+          const liquid = parseFloat(walletData.stats.availableBalanceLiquid || 0);
+          const cash = parseFloat(walletData.stats.availableBalanceCash || 0);
+          setWallet({ liquid, cash });
+          // If liquid is 0 but cash is available, automatically select CASH mode!
+          if (liquid <= 0 && cash > 0) {
+            setFormData(prev => ({ ...prev, fundMode: "CASH" }));
+          }
         }
       } catch (error) {
-        console.error("Failed to fetch categories", error);
+        console.error("Failed to load initial data for expense form", error);
       }
     };
-    fetchCategories();
+    fetchInitialData();
   }, []);
 
   const handleChange = (e) => {
@@ -67,7 +82,20 @@ export default function ExpenseUploadForm() {
       const data = await res.json();
       if (res.ok && data.success) {
         setMessage({ type: "success", text: "Expense recorded successfully!" });
-        setFormData({ ...formData, amount: "", description: "", reference: "", fundMode: "LIQUID" });
+        setFormData(prev => ({
+          ...prev,
+          amount: "",
+          description: "",
+          reference: ""
+        }));
+        // Update local wallet estimate and trigger global dashboard refresh
+        const amt = parseFloat(formData.amount || 0);
+        if (formData.fundMode === "CASH") {
+          setWallet(prev => ({ ...prev, cash: Math.max(0, prev.cash - amt) }));
+        } else {
+          setWallet(prev => ({ ...prev, liquid: Math.max(0, prev.liquid - amt) }));
+        }
+        window.dispatchEvent(new Event("estatesync:data-refresh"));
       } else {
         setMessage({ type: "error", text: data.message || "Failed to record expense." });
       }
@@ -99,7 +127,14 @@ export default function ExpenseUploadForm() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Amount (₹)</label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">Amount (₹)</label>
+              {parseFloat(formData.amount || 0) > (formData.fundMode === 'CASH' ? wallet.cash : wallet.liquid) && (
+                <span className="text-[10.5px] font-bold text-rose-600">
+                  Exceeds {formData.fundMode === 'CASH' ? 'Cash' : 'Liquid'}
+                </span>
+              )}
+            </div>
             <input
               type="number"
               step="0.01"
@@ -112,16 +147,26 @@ export default function ExpenseUploadForm() {
             />
           </div>
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Payment Mode</label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">Payment Mode</label>
+              <span className="text-[10.5px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/80">
+                Avail: ₹{(formData.fundMode === 'CASH' ? wallet.cash : wallet.liquid).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+              </span>
+            </div>
             <select
               name="fundMode"
               value={formData.fundMode}
               onChange={handleChange}
-              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium font-sans"
             >
-              <option value="LIQUID">Liquid (Online / Bank)</option>
-              <option value="CASH">Cash (Physical)</option>
+              <option value="LIQUID">Liquid (Online / Bank) — ₹{wallet.liquid.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</option>
+              <option value="CASH">Cash (Physical) — ₹{wallet.cash.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</option>
             </select>
+            {formData.fundMode === 'LIQUID' && wallet.liquid === 0 && wallet.cash > 0 && (
+              <p className="text-[11px] text-amber-600 font-semibold mt-1 flex items-center gap-1">
+                💡 Tip: You have ₹{wallet.cash.toLocaleString('en-IN', { minimumFractionDigits: 2 })} in Cash. Select "Cash (Physical)" to spend.
+              </p>
+            )}
           </div>
           <div>
             <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Date</label>
