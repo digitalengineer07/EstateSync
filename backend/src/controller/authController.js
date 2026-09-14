@@ -21,9 +21,11 @@ const generateTokens = (user) => {
 };
 
 exports.login = async (req, res) => {
+  console.log('[Login Route] Started login request for email:', req.body.email);
   try {
     const { email, password } = req.body;
 
+    console.log('[Login Route] Querying Prisma for user...');
     const user = await prisma.user.findUnique({
       where: { email },
       include: {
@@ -38,6 +40,7 @@ exports.login = async (req, res) => {
         }
       }
     });
+    console.log('[Login Route] Prisma query finished. User found:', !!user);
 
     if (!user) {
       await logAudit({
@@ -50,7 +53,10 @@ exports.login = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
+    console.log('[Login Route] Comparing passwords with bcrypt...');
     const isValidPassword = await bcrypt.compare(password, user.passwordHash);
+    console.log('[Login Route] Bcrypt compare finished:', isValidPassword);
+    
     if (!isValidPassword) {
       await logAudit({
         actorId: user.id,
