@@ -153,51 +153,110 @@ export default function DashboardStats({ type }) {
 
   if (type === 'manager') {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md transition">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">My Budget Available</span>
-            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
-              <Landmark className="w-4 h-4" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Card 1: Treasury Liquidity (Corporate Main Balance) */}
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300/80 transition-all duration-200 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Corporate Main Balance</span>
+              <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <Landmark className="w-4 h-4" />
+              </div>
+            </div>
+
+            <div className="mt-3.5 space-y-2.5">
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="text-xs font-semibold text-slate-500">Liquid:</span>
+                <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-digital">
+                  {formatCurrency(stats.totalOrganizationalFundsLiquid)}
+                </span>
+              </div>
+              <div className="flex items-baseline justify-between gap-2 pt-1.5 border-t border-slate-100">
+                <span className="text-xs font-semibold text-slate-500">Cash:</span>
+                <span className="text-base sm:text-[17px] font-bold text-slate-700 tracking-tight font-digital">
+                  {formatCurrency(stats.totalOrganizationalFundsCash)}
+                </span>
+              </div>
             </div>
           </div>
-          <div className="mt-2 space-y-1">
-            <p className="text-xl font-bold text-slate-900 tracking-tight flex items-center justify-between">
-              <span className="text-sm font-normal text-slate-500">Liquid:</span>
-              <span className="font-digital">{formatCurrency(stats.managerAvailableBalanceLiquid)}</span>
-            </p>
-            <p className="text-xl font-bold text-slate-900 tracking-tight flex items-center justify-between">
-              <span className="text-sm font-normal text-slate-500">Cash:</span>
-              <span className="font-digital">{formatCurrency(stats.managerAvailableBalanceCash)}</span>
-            </p>
+
+          <div className="flex items-center justify-between text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100">
+            <span className="text-emerald-600 font-medium flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Treasury Liquidity
+            </span>
           </div>
-          <p className="text-xs text-slate-500 mt-2 border-t pt-2 border-slate-100">Departmental liquidity ready for team</p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md transition">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pending Team Approvals</span>
-            <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
-              <Clock className="w-4 h-4" />
+        {/* Card 2: Departmental Budget / Manager Float */}
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300/80 transition-all duration-200 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Departmental Budget</span>
+              <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
+                <Coins className="w-4 h-4" />
+              </div>
+            </div>
+
+            <div className="mt-3.5 space-y-2.5">
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="text-xs font-semibold text-slate-500">Liquid:</span>
+                <span className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight font-digital">
+                  {formatCurrency(stats.managerAvailableBalanceLiquid)}
+                </span>
+              </div>
+              <div className="flex items-baseline justify-between gap-2 pt-1.5 border-t border-slate-100">
+                <span className="text-xs font-semibold text-slate-500">Cash:</span>
+                <span className="text-base sm:text-[17px] font-bold text-slate-700 tracking-tight font-digital">
+                  {formatCurrency(stats.managerAvailableBalanceCash)}
+                </span>
+              </div>
             </div>
           </div>
-          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight">
-            {stats.pendingApprovalsCount} Requests
-          </p>
-          <p className="text-xs text-slate-500 mt-1"><span className="font-digital font-bold text-slate-800">{formatCurrency(stats.pendingApprovalsAmount)}</span> total requested</p>
+
+          <div className="flex items-center justify-between text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100">
+            <span>Float ready for team</span>
+          </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md transition">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Team Disbursed</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <CheckCircle2 className="w-4 h-4" />
+        {/* Card 3: Pending Team Approvals */}
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300/80 transition-all duration-200 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pending Approvals</span>
+              <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                <Clock className="w-4 h-4" />
+              </div>
+            </div>
+            <div className="mt-3.5">
+              <span className="text-2xl sm:text-[26px] font-bold text-slate-900 tracking-tight block">
+                {stats.pendingApprovalsCount || 0} Requests
+              </span>
             </div>
           </div>
-          <p className="text-2xl font-bold text-slate-900 mt-2 tracking-tight font-digital">
-            {formatCurrency(stats.totalTeamApprovedFunds)}
-          </p>
-          <p className="text-xs text-slate-500 mt-1">Approved to team members</p>
+          <div className="flex items-center justify-between text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100">
+            <span>Requested:</span>
+            <span className="font-digital font-bold text-slate-800">{formatCurrency(stats.pendingApprovalsAmount)}</span>
+          </div>
+        </div>
+
+        {/* Card 4: Total Team Disbursed */}
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300/80 transition-all duration-200 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Disbursed</span>
+              <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <CheckCircle2 className="w-4 h-4" />
+              </div>
+            </div>
+            <div className="mt-3.5">
+              <span className="text-2xl sm:text-[26px] font-bold text-slate-900 tracking-tight font-digital block">
+                {formatCurrency(stats.totalTeamApprovedFunds)}
+              </span>
+            </div>
+          </div>
+          <div className="flex items-center justify-between text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100">
+            <span>Approved to team</span>
+          </div>
         </div>
       </div>
     );

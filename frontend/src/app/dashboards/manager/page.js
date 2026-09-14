@@ -30,7 +30,7 @@ export default function ManagerDashboard() {
         </div>
       </div>
 
-      {/* 3 Clean Stats */}
+      {/* 4 Clean Stats */}
       <DashboardStats type="manager" />
 
       {/* Toggled Operations Container */}

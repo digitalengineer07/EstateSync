@@ -60,19 +60,64 @@ exports.getManagerStats = async (req, res) => {
   try {
     const managerId = req.user.userId;
 
-    const managerWallet = await prisma.wallet.findUnique({
-      where: { userId: managerId }
-    });
+    // 1. Fetch Departmental / Manager Wallet Float
+    const isApproverAdmin = req.user.role === 'ADMIN';
+    let managerWallet;
 
-    if (!managerWallet) {
-      return res.status(404).json({ success: false, message: 'Manager wallet not found' });
+    if (isApproverAdmin) {
+      // For Admin inspecting Manager Hub: show the department managers' float
+      const managerAgg = await prisma.wallet.aggregate({
+        where: { user: { role: { name: 'MANAGER' } } },
+        _sum: {
+          availableBalanceLiquid: true,
+          availableBalanceCash: true,
+          totalAllocatedLiquid: true,
+          totalAllocatedCash: true
+        }
+      });
+      managerWallet = {
+        availableBalanceLiquid: managerAgg._sum.availableBalanceLiquid || 0,
+        availableBalanceCash: managerAgg._sum.availableBalanceCash || 0,
+        totalAllocatedLiquid: managerAgg._sum.totalAllocatedLiquid || 0,
+        totalAllocatedCash: managerAgg._sum.totalAllocatedCash || 0
+      };
+    } else {
+      managerWallet = await prisma.wallet.findUnique({
+        where: { userId: managerId }
+      });
+
+      if (!managerWallet) {
+        managerWallet = await prisma.wallet.create({
+          data: {
+            userId: managerId,
+            totalAllocatedLiquid: 0,
+            totalAllocatedCash: 0,
+            totalSpentLiquid: 0,
+            totalSpentCash: 0,
+            availableBalanceLiquid: 0,
+            availableBalanceCash: 0
+          }
+        });
+      }
     }
 
+    // 2. Fetch Corporate Treasury (Primary Single Source of Truth Main Balance)
+    const treasuryWallet = await getPrimaryTreasuryWallet();
+    const treasuryBalanceLiquid = parseFloat(treasuryWallet.availableBalanceLiquid || 0);
+    const treasuryBalanceCash = parseFloat(treasuryWallet.availableBalanceCash || 0);
+    const totalOrganizationalFunds = treasuryBalanceLiquid + treasuryBalanceCash;
+
+    // 3. Pending & Approved Requisitions
+    const pendingFilter = isApproverAdmin
+      ? { status: 'PENDING' }
+      : { managerId: managerId, status: 'PENDING' };
+
+    const approvedFilter = isApproverAdmin
+      ? { status: 'APPROVED' }
+      : { managerId: managerId, status: 'APPROVED' };
+
     const pendingApprovals = await prisma.fundRequest.aggregate({
-      where: {
-        managerId: managerId,
-        status: 'PENDING'
-      },
+      where: pendingFilter,
       _count: {
         id: true
       },
@@ -82,23 +127,35 @@ exports.getManagerStats = async (req, res) => {
     });
 
     const totalApprovedFunds = await prisma.fundRequest.aggregate({
-      where: {
-        managerId: managerId,
-        status: 'APPROVED'
-      },
+      where: approvedFilter,
       _sum: {
         amount: true
       }
     });
 
+    const totalWallets = await prisma.wallet.count();
+
     res.json({
       success: true,
       stats: {
-        managerAvailableBalanceLiquid: managerWallet.availableBalanceLiquid,
-        managerAvailableBalanceCash: managerWallet.availableBalanceCash,
+        // Corporate Treasury (Main Balance)
+        totalOrganizationalFunds,
+        totalOrganizationalFundsLiquid: treasuryBalanceLiquid,
+        totalOrganizationalFundsCash: treasuryBalanceCash,
+        treasuryBalanceLiquid,
+        treasuryBalanceCash,
+        totalWallets,
+
+        // Departmental / Manager Wallet Float
+        managerAvailableBalanceLiquid: parseFloat(managerWallet.availableBalanceLiquid || 0),
+        managerAvailableBalanceCash: parseFloat(managerWallet.availableBalanceCash || 0),
+        managerTotalAllocatedLiquid: parseFloat(managerWallet.totalAllocatedLiquid || 0),
+        managerTotalAllocatedCash: parseFloat(managerWallet.totalAllocatedCash || 0),
+
+        // Approvals & Disbursed
         pendingApprovalsCount: pendingApprovals._count.id || 0,
-        pendingApprovalsAmount: pendingApprovals._sum.amount || 0,
-        totalTeamApprovedFunds: totalApprovedFunds._sum.amount || 0
+        pendingApprovalsAmount: Number(pendingApprovals._sum.amount || 0),
+        totalTeamApprovedFunds: Number(totalApprovedFunds._sum.amount || 0)
       }
     });
   } catch (error) {
