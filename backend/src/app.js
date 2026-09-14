@@ -102,6 +102,11 @@ app.get('/', (req, res) => {
   res.send('EstateSync API is running with Full Accounting & Idempotency Engine');
 });
 
+app.post('/test-post', (req, res) => {
+  console.log('Received POST to /test-post with body:', req.body);
+  res.json({ success: true, message: 'POST body received', body: req.body });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Unhandled Application Error:', err.stack);
