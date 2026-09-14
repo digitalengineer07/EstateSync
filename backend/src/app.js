@@ -107,6 +107,23 @@ app.post('/test-post', (req, res) => {
   res.json({ success: true, message: 'POST body received', body: req.body });
 });
 
+app.get('/test-db', async (req, res) => {
+  try {
+    const { Pool } = require('pg');
+    const pool = new Pool({ 
+      connectionString: process.env.DATABASE_URL,
+      connectionTimeoutMillis: 5000 
+    });
+    const client = await pool.connect();
+    const result = await client.query('SELECT NOW()');
+    client.release();
+    await pool.end();
+    res.json({ success: true, time: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message, stack: err.stack });
+  }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Unhandled Application Error:', err.stack);
