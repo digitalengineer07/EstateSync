@@ -37,7 +37,7 @@ export default function DashboardsLayout({ children }) {
       icon: ShieldCheck 
     },
     { 
-      name: "Manager Hub", 
+      name: "Operations Hub", 
       path: "/dashboards/manager", 
       visible: ["ADMIN", "MANAGER"].includes(userRole), 
       icon: Layers 
@@ -61,6 +61,8 @@ export default function DashboardsLayout({ children }) {
         ? "Sales Panel"
         : userRole === "MARKETING"
         ? "Marketing Panel"
+        : userRole === "MANAGER"
+        ? "Operations Wallet"
         : "My Wallet & Expenses", 
       path: "/dashboards/wallet", 
       visible: true, 
@@ -124,15 +126,22 @@ export default function DashboardsLayout({ children }) {
 
             {/* Right: User Profile Chip & Logout */}
             <div className="flex items-center gap-2.5 self-end md:self-auto shrink-0">
-              <div className="flex items-center gap-2.5 bg-slate-50/80 px-3 py-1.5 rounded-xl border border-slate-200/80 text-xs shadow-2xs">
-                <div className="w-6 h-6 rounded-lg bg-slate-900 text-white font-bold text-[11px] flex items-center justify-center shadow-2xs">
-                  {user.name ? user.name.charAt(0).toUpperCase() : "U"}
-                </div>
-                <div className="flex items-center gap-1.5 font-bold text-slate-900 text-xs leading-none">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
-                  <span>{user.name || "System Admin"}</span>
-                </div>
-              </div>
+              {(() => {
+                const displayName = (user?.name === "Sales Manager" || user?.email === "manager@estatesync.local")
+                  ? "Operations Manager"
+                  : user?.name || "System Admin";
+                return (
+                  <div className="flex items-center gap-2.5 bg-slate-50/80 px-3 py-1.5 rounded-xl border border-slate-200/80 text-xs shadow-2xs">
+                    <div className="w-6 h-6 rounded-lg bg-slate-900 text-white font-bold text-[11px] flex items-center justify-center shadow-2xs">
+                      {displayName.charAt(0).toUpperCase()}
+                    </div>
+                    <div className="flex items-center gap-1.5 font-bold text-slate-900 text-xs leading-none">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                      <span>{displayName}</span>
+                    </div>
+                  </div>
+                );
+              })()}
 
               <button
                 onClick={logout}

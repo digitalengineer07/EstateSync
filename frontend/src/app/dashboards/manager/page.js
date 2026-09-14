@@ -17,15 +17,15 @@ export default function ManagerDashboard() {
         <div>
           <div className="flex items-center gap-3">
             <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-              Manager Oversight Hub
+              Operations & Management Hub
             </h1>
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">
               <Layers className="w-3.5 h-3.5" />
-              Department Budget
+              Operations Authority
             </span>
           </div>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
-            Approve incoming fund requests from your field team, monitor departmental spending, and supervise team salary baselines.
+            Supervise departmental workflows, approve field team fund requisitions, monitor expenditures, and oversee operations.
           </p>
         </div>
       </div>

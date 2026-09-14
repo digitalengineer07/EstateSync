@@ -197,7 +197,7 @@ async function resetAndSeedPristineDatabase() {
     { email: 'admin@estatesync.local', name: 'System Admin', roleName: 'ADMIN' },
     { email: 'accounting@estatesync.local', name: 'Accounting Officer', roleName: 'ACCOUNTING' },
     { email: 'sales@estatesync.local', name: 'Sales Representative', roleName: 'SALES' },
-    { email: 'manager@estatesync.local', name: 'General Manager', roleName: 'MANAGER' },
+    { email: 'manager@estatesync.local', name: 'Operations Manager', roleName: 'MANAGER' },
     { email: 'marketing@estatesync.local', name: 'Marketing Officer', roleName: 'MARKETING' },
     { email: 'other@estatesync.local', name: 'General Staff', roleName: 'OTHER' }
   ];
@@ -206,6 +206,7 @@ async function resetAndSeedPristineDatabase() {
     const user = await prisma.user.upsert({
       where: { email: u.email },
       update: {
+        name: u.name,
         roleId: roleMap[u.roleName].id,
         passwordHash
       },

@@ -20,7 +20,16 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("accessToken");
 
     if (storedUser && token) {
-      setUser(JSON.parse(storedUser));
+      try {
+        const parsed = JSON.parse(storedUser);
+        if (parsed?.email === "manager@estatesync.local" && (parsed?.name === "Sales Manager" || !parsed?.name)) {
+          parsed.name = "Operations Manager";
+          localStorage.setItem("user", JSON.stringify(parsed));
+        }
+        setUser(parsed);
+      } catch (e) {
+        setUser(JSON.parse(storedUser));
+      }
     }
     setLoading(false);
 
