@@ -10,9 +10,16 @@ require('dotenv').config();
 const app = express();
 
 // Security Middlewares
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  crossOriginOpenerPolicy: { policy: "unsafe-none" }
+}));
 app.use(cors({
-  origin: true,
+  origin: [
+    'http://localhost:3000',
+    'https://estatesync-frontend.onrender.com',
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   credentials: true
 }));
 app.use(express.json());
