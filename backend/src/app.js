@@ -8,20 +8,33 @@ const session = require('express-session');
 require('dotenv').config();
 
 const app = express();
+app.set('trust proxy', 1); // Trust first proxy (Hostinger/Render load balancer)
 
 // Security Middlewares
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" },
   crossOriginOpenerPolicy: { policy: "unsafe-none" }
 }));
-app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://estatesync-frontend.onrender.com',
-    process.env.FRONTEND_URL
-  ].filter(Boolean),
-  credentials: true
-}));
+// Log OPTIONS requests to test if Hostinger is dropping them before they reach Node
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    console.log('OPTIONS request received:', req.headers.origin);
+  }
+  next();
+});
+
+const corsOptions = {
+    origin: ['https://estatesync-frontend.onrender.com', 'http://localhost:3000'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: [
+        'Content-Type',
+        'Authorization',
+        'Idempotency-Key'
+    ]
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Set up Session Management

@@ -12,7 +12,7 @@ async function auditDatabaseIntegrity({ silent = false } = {}) {
 
   // 1. Fetch all tables from DB
   const dbTables = await prisma.$queryRawUnsafe(`
-    SELECT table_name 
+    SELECT table_name::text as table_name 
     FROM information_schema.tables 
     WHERE table_schema = 'public' AND table_type = 'BASE TABLE'
     ORDER BY table_name;
@@ -23,7 +23,7 @@ async function auditDatabaseIntegrity({ silent = false } = {}) {
 
   // 2. Fetch all columns per table from DB
   const dbCols = await prisma.$queryRawUnsafe(`
-    SELECT table_name, column_name, data_type, is_nullable
+    SELECT table_name::text as table_name, column_name::text as column_name, data_type::text as data_type, is_nullable::text as is_nullable
     FROM information_schema.columns 
     WHERE table_schema = 'public'
     ORDER BY table_name, ordinal_position;
