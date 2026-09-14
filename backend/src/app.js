@@ -128,10 +128,11 @@ const server = app.listen(PORT, async () => {
     console.warn('Database schema integrity check skipped:', err.message);
   }
 
-  // Keep-alive ping mechanism to prevent Render sleep
+  // Keep-alive ping mechanism to prevent Render/Neon sleep
   const BACKEND_URL = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
   const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
+  // Ping the HTTP server (keeps Render/Hostinger alive)
   setInterval(async () => {
     try {
       if (BACKEND_URL) await fetch(BACKEND_URL);
@@ -141,6 +142,18 @@ const server = app.listen(PORT, async () => {
       console.error('Keep-alive ping failed:', err.message);
     }
   }, 14 * 60 * 1000); // 14 minutes
+
+  // Ping the Neon database directly every 4 minutes to prevent cold start
+  // Neon free tier sleeps after 5 minutes of no queries
+  const prisma = require('./config/db');
+  setInterval(async () => {
+    try {
+      await prisma.$queryRaw`SELECT 1`;
+      console.log('Neon DB keep-alive ping successful');
+    } catch (err) {
+      console.error('Neon DB keep-alive ping failed:', err.message);
+    }
+  }, 4 * 60 * 1000); // 4 minutes
 });
 
 process.on('uncaughtException', (err) => {
