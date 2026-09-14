@@ -28,7 +28,12 @@ export const AuthProvider = ({ children }) => {
         }
         setUser(parsed);
       } catch (e) {
-        setUser(JSON.parse(storedUser));
+        // We suppress the error log here because Next.js dev server 
+        // intercepts console.error and shows an overlay even for caught errors.
+        localStorage.removeItem("user");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        setUser(null);
       }
     }
     setLoading(false);
