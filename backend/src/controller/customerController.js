@@ -763,7 +763,8 @@ exports.recordPayment = async (req, res) => {
         customerName: customer.customerName,
         plotNo: customer.plotNo,
         referenceId: payment.id,
-        createdBy: accountingUserId
+        createdBy: accountingUserId,
+        postingDate: parsedDateOfPayment
       });
 
       return {

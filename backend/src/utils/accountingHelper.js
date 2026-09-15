@@ -312,13 +312,15 @@ async function postCustomerPaymentJournal(tx, {
   customerName,
   plotNo,
   referenceId,
-  createdBy
+  createdBy,
+  postingDate
 }) {
   return await postJournalEntry(tx, {
     description: `Customer Collection: ${customerName} (Plot ${plotNo})`,
     referenceType: 'CUSTOMER_PAYMENT',
     referenceId,
     createdBy,
+    postingDate,
     lines: [
       { accountCode: '1010', debit: amount, credit: 0, description: `Bank Inflow: Collection from ${customerName}` },
       { accountCode: '4010', debit: 0, credit: amount, description: `Recognize Contract Revenue: Plot ${plotNo}` }

@@ -9,12 +9,25 @@ require('dotenv').config();
 
 const app = express();
 
-// Security Middlewares
-app.use(helmet());
+// Trust reverse proxy (Essential for Render, Heroku, Cloudflare, AWS)
+app.set('trust proxy', 1);
+
+// Security Middlewares - allow cross-origin requests from Hostinger / external domains
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  crossOriginEmbedderPolicy: false
+}));
+
 app.use(cors({
   origin: true,
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Idempotency-Key', 'x-idempotency-key']
 }));
+
+// Explicit OPTIONS preflight handling for cross-origin browsers
+app.options('*', cors());
+
 app.use(express.json());
 
 // Set up Session Management
@@ -32,10 +45,10 @@ app.use(session({
 // Set up rate limiter using express-rate-limit
 const apiLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
-  max: 200, // Limit each IP to 200 requests per minute
+  max: 1000, // Generous limit to prevent false positives with dashboards, SWR polling & Render reverse proxy
   standardHeaders: true,
   legacyHeaders: false,
-  message: 'Too Many Requests'
+  message: { success: false, message: 'Too many requests, please slow down.' }
 });
 
 // Apply the rate limiting middleware to all requests
