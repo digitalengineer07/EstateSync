@@ -27,13 +27,10 @@ const STANDARD_ACCOUNTS = [
   { code: '2061', name: 'Output SGST Payable', type: 'LIABILITY', description: 'State GST collected on taxable real estate development demands' }
 ];
 
-let accountsInitialized = false;
-
 /**
- * Ensure default Chart of Accounts exist in the database (cached in-memory)
+ * Ensure default Chart of Accounts exist in the database (idempotent)
  */
 async function ensureStandardAccounts(db = prisma) {
-  if (accountsInitialized) return;
   try {
     const existing = await db.account.findMany({
       select: { code: true }
@@ -47,7 +44,6 @@ async function ensureStandardAccounts(db = prisma) {
         skipDuplicates: true
       });
     }
-    accountsInitialized = true;
   } catch (err) {
     console.error('Account seeding error:', err);
   }
@@ -133,31 +129,33 @@ async function postJournalEntry(tx, {
     throw new Error(`Double-entry bookkeeping mismatch: Total Debits (₹${totalDebit.toFixed(2)}) must equal Total Credits (₹${totalCredit.toFixed(2)})`);
   }
 
-  // Fetch account IDs for codes with in-memory caching
-  const codes = lines.map(l => l.accountCode);
-  if (!global._estatesyncAccountMap) {
-    global._estatesyncAccountMap = new Map();
-  }
+  // Fetch fresh, valid account IDs for required codes directly within this transaction
+  const requiredCodes = [...new Set(lines.map(l => l.accountCode))];
+  let accounts = await tx.account.findMany({
+    where: { code: { in: requiredCodes } }
+  });
 
-  const missingCodes = codes.filter(c => !global._estatesyncAccountMap.has(c));
+  const existingCodes = new Set(accounts.map(a => a.code));
+  const missingCodes = requiredCodes.filter(c => !existingCodes.has(c));
+
   if (missingCodes.length > 0) {
-    let accounts = await tx.account.findMany({
-      where: { code: { in: missingCodes } }
+    await ensureStandardAccounts(tx);
+    accounts = await tx.account.findMany({
+      where: { code: { in: requiredCodes } }
     });
+  }
 
-    if (accounts.length === 0) {
-      await ensureStandardAccounts(tx);
-      accounts = await tx.account.findMany({
-        where: { code: { in: missingCodes } }
-      });
-    }
-
-    for (const a of accounts) {
-      global._estatesyncAccountMap.set(a.code, a.id);
+  const accountMap = new Map(accounts.map(a => [a.code, a.id]));
+  for (const code of requiredCodes) {
+    if (!accountMap.has(code)) {
+      throw new Error(`Accounting configuration error: Account code "${code}" does not exist in Chart of Accounts.`);
     }
   }
 
-  const accountMap = global._estatesyncAccountMap;
+  // Clear any legacy global cache if present
+  if (global._estatesyncAccountMap) {
+    delete global._estatesyncAccountMap;
+  }
 
   // Generate sequential unique entry number for today
   const dateStr = effectiveDate.toISOString().slice(0, 10).replace(/-/g, '');
@@ -189,12 +187,18 @@ async function postJournalEntry(tx, {
       createdBy: String(createdBy || 'SYSTEM'),
       status: 'POSTED',
       lines: {
-        create: lines.map(l => ({
-          accountId: accountMap.get(l.accountCode) || accounts[0]?.id,
-          debit: parseFloat(l.debit || 0),
-          credit: parseFloat(l.credit || 0),
-          description: l.description || description
-        }))
+        create: lines.map(l => {
+          const accountId = accountMap.get(l.accountCode);
+          if (!accountId) {
+            throw new Error(`Accounting line error: Account code "${l.accountCode}" not found.`);
+          }
+          return {
+            accountId,
+            debit: parseFloat(l.debit || 0),
+            credit: parseFloat(l.credit || 0),
+            description: l.description || description
+          };
+        })
       }
     }
   });
