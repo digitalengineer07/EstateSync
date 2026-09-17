@@ -161,28 +161,31 @@ function DashboardHeader() {
         <header className="pointer-events-auto w-full max-w-[1800px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-[22px] shadow-[0_4px_24px_-6px_rgba(0,0,0,0.06)] px-3.5 sm:px-6 py-2 transition-all">
           <div className="flex items-center justify-between gap-2 sm:gap-4">
             
-            {/* LEFT: BRAND LOGO */}
-            <div
-              onClick={() => router.push("/dashboards/accounting")}
-              className="flex items-center gap-2.5 cursor-pointer group select-none shrink-0"
-              title="EstateSync Platform"
-            >
-              <div className="w-8 h-8 rounded-xl bg-[#ff6b12] flex items-center justify-center text-white shadow-xs group-hover:bg-[#e05a0b] transition">
-                <Building2 className="w-4 h-4" />
+            {/* LEFT: BRAND LOGO & PRIMARY HUB NAVIGATION */}
+            <div className="flex items-center gap-3 sm:gap-5 min-w-0">
+              <div
+                onClick={() => router.push("/dashboards/accounting")}
+                className="flex items-center gap-2.5 cursor-pointer group select-none shrink-0"
+                title="EstateSync Platform"
+              >
+                <div className="w-8 h-8 rounded-xl bg-[#ff6b12] flex items-center justify-center text-white shadow-xs group-hover:bg-[#e05a0b] transition">
+                  <Building2 className="w-4 h-4" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-base font-bold tracking-tight text-slate-900 flex items-center gap-0.5 leading-none">
+                    Estate<span className="text-[#ff6b12] font-black">Sync</span>
+                  </span>
+                  <span className="text-[9.5px] text-slate-400 font-bold tracking-wider uppercase mt-0.5">
+                    {roleDisplay.dept}
+                  </span>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <span className="text-base font-bold tracking-tight text-slate-900 flex items-center gap-0.5 leading-none">
-                  Estate<span className="text-[#ff6b12] font-black">Sync</span>
-                </span>
-                <span className="text-[9.5px] text-slate-400 font-bold tracking-wider uppercase mt-0.5">
-                  {roleDisplay.dept}
-                </span>
-              </div>
-            </div>
 
-            {/* CENTER: PRIMARY HUB NAVIGATION TABS */}
-            <div className="flex-1 flex items-center justify-center overflow-x-auto no-scrollbar px-2">
-              <nav className="flex items-center gap-1 sm:gap-1.5 whitespace-nowrap py-0.5">
+              {/* Vertical subtle divider */}
+              <div className="hidden md:block h-6 w-px bg-slate-200/80 shrink-0"></div>
+
+              {/* Primary Hub Navigation Tabs (Aligned on Left Hand Side) */}
+              <nav className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-0.5">
                 {visibleHubs.map((hub) => {
                   const Icon = hub.icon;
                   const isActive = hub.path === pathname;
@@ -191,7 +194,7 @@ function DashboardHeader() {
                       key={hub.path}
                       type="button"
                       onClick={() => router.push(hub.path)}
-                      className={`px-3.5 py-1.5 rounded-xl transition-all duration-150 flex items-center gap-1.5 text-xs select-none ${
+                      className={`px-3 sm:px-3.5 py-1.5 rounded-xl transition-all duration-150 flex items-center gap-1.5 text-xs whitespace-nowrap select-none ${
                         isActive
                           ? "bg-[#fff4ed] text-[#ff6b12] border border-orange-200/90 font-bold shadow-xs"
                           : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium"

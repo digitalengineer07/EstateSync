@@ -222,7 +222,7 @@ export default function SoftDashboardShell({
           </div>
 
           {/* Center Quote (Desktop View) */}
-          <div className="hidden xl:flex flex-col justify-center px-6 border-l border-slate-300/60 max-w-[220px]">
+          <div className="hidden xl:flex flex-col justify-center px-6 border-l border-slate-300/60 max-w-[240px]">
             <p className="text-xs italic font-semibold text-slate-700 leading-snug">
               “{roleDetails.quote}”
             </p>
@@ -231,9 +231,8 @@ export default function SoftDashboardShell({
             </p>
           </div>
 
-          {/* Right Floating Frosted Cards */}
-          <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0 self-start lg:self-center">
-            {/* Period Card */}
+          {/* Right Floating Period Card (Role card removed as requested) */}
+          <div className="shrink-0 self-start lg:self-center">
             <div className="flex items-center justify-between gap-3 bg-white/95 backdrop-blur-md border border-white/90 rounded-2xl px-4 py-2.5 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.10)] min-w-[240px] transition hover:shadow-md">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
@@ -249,24 +248,6 @@ export default function SoftDashboardShell({
                 </div>
               </div>
               <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
-            </div>
-
-            {/* Role Card */}
-            <div className="flex items-center gap-3 bg-white/95 backdrop-blur-md border border-white/90 rounded-2xl px-4 py-2.5 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.10)] min-w-[240px] transition hover:shadow-md">
-              <div className="w-8 h-8 rounded-xl bg-[#ff6b12] text-white flex items-center justify-center shadow-xs shrink-0">
-                <Building2 className="w-4 h-4" />
-              </div>
-              <div>
-                <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider leading-none">
-                  Your Role
-                </p>
-                <p className="text-xs font-black text-slate-900 tracking-tight mt-0.5 leading-none">
-                  {roleDetails.roleTitle}
-                </p>
-                <p className="text-[10px] text-slate-500 font-medium mt-0.5">
-                  {roleDetails.department}
-                </p>
-              </div>
             </div>
           </div>
 
@@ -288,7 +269,7 @@ export default function SoftDashboardShell({
                 key={item.id}
                 type="button"
                 onClick={() => onSelect && onSelect(item.id)}
-                className={`px-3.5 py-2 rounded-xl transition-all duration-150 flex items-center gap-2 whitespace-nowrap text-xs select-none ${
+                className={`px-4 py-2.5 rounded-xl transition-all duration-150 flex items-center gap-2 whitespace-nowrap text-xs sm:text-[13px] select-none ${
                   isActive
                     ? "bg-[#fff4ed] text-[#ff6b12] border border-orange-200/90 font-bold shadow-xs"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium"
@@ -307,18 +288,15 @@ export default function SoftDashboardShell({
       {statsType && <DashboardStats type={statsType} />}
 
       {/* 4. ACTIVE PANEL CONTENT CONTAINER */}
-      <section className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-[24px] shadow-[0_12px_36px_-18px_rgba(0,0,0,0.06)] p-5 sm:p-7 transition-all">
-        {/* Active Panel Banner Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-5 border-b border-slate-100">
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-slate-900 text-white flex items-center justify-center shadow-xs shrink-0">
-              <ActiveIcon className="w-5 h-5 text-[#ff6b12]" />
+      <section className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-[22px] shadow-[0_12px_36px_-18px_rgba(0,0,0,0.06)] p-5 sm:p-6 lg:p-7 transition-all">
+        {/* Sleek Active Panel Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-slate-100">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs shrink-0">
+              <ActiveIcon className="w-4 h-4 text-[#ff6b12]" />
             </div>
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#ff6b12]">
-                Active Panel
-              </p>
-              <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-tight">
                 {activeItem?.label || "Workspace Panel"}
               </h2>
               {activeItem?.description && (
@@ -326,10 +304,16 @@ export default function SoftDashboardShell({
               )}
             </div>
           </div>
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/80">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Live View
+            </span>
+          </div>
         </div>
 
         {/* Embedded Panel Views & Tables */}
-        <div className="pt-6">{children}</div>
+        <div className="pt-5">{children}</div>
       </section>
     </div>
   );
