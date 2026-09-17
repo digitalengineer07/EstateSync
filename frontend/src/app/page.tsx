@@ -1,50 +1,79 @@
-import Link from 'next/link';
+import Link from "next/link";
+import { ArrowRight, Building2 } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center relative overflow-hidden">
-      {/* Dynamic Background Gradients */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/30 blur-[120px] rounded-full animate-pulse" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-600/30 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '2s' }} />
+    <main className="h-screen overflow-hidden bg-[#f4f4f5] text-zinc-950">
+      <section className="h-full px-4 sm:px-6 lg:px-10 py-3 sm:py-4 lg:py-6 flex items-center">
+        <div className="max-w-[1500px] mx-auto w-full h-full grid grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(520px,1.1fr)] gap-3 sm:gap-4 lg:gap-6 items-stretch">
+          <div className="bg-white rounded-[20px] sm:rounded-[24px] border border-zinc-200 shadow-[0_20px_42px_-28px_rgba(20,20,20,0.55)] p-4 sm:p-6 lg:p-10 flex flex-col justify-between min-h-0 overflow-hidden">
+            <div>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#ff6b12] text-white flex items-center justify-center shadow-[0_12px_24px_-14px_rgba(255,107,18,0.9)]">
+                  <Building2 className="w-5 h-5 sm:w-6 sm:h-6" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-zinc-400">Devoxa Technologies</p>
+                  <h1 className="text-xl font-black tracking-tight">EstateSync</h1>
+                </div>
+              </div>
 
-      <div className="z-10 text-center px-6 max-w-3xl">
-        <h1 className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300 tracking-tight mb-6">
-          EstateSync
-        </h1>
-        
-        <p className="text-slate-400 text-lg md:text-xl mb-10 leading-relaxed max-w-2xl mx-auto">
-          The unified platform for fund management, secure accounting, and seamless financial operations.
-        </p>
+              <div className="mt-6 sm:mt-8 lg:mt-10 xl:mt-12">
+                <p className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.18em] text-[#ff6b12]">
+                  <span className="w-2 h-2 rounded-full bg-[#ff6b12]" />
+                  Real estate treasury platform
+                </p>
+                <h2 className="mt-3 sm:mt-5 text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black tracking-tight leading-[0.98]">
+                  Control property cashflow from one command room.
+                </h2>
+                <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-[17px] text-zinc-500 leading-6 sm:leading-7 max-w-xl">
+                  EstateSync brings corporate treasury, customer collections, land acquisition payouts, staff wallets, expenses, and double-entry audit trails into one focused workspace.
+                </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link 
-            href="/login"
-            className="group relative inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white transition-all duration-300 ease-in-out bg-blue-600 rounded-full hover:bg-blue-500 hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900"
-          >
-            <span>Sign In to Portal</span>
-            <svg 
-              className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </Link>
-          
-          <Link 
-            href="/dashboards"
-            className="group inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-slate-300 transition-all duration-300 ease-in-out bg-slate-800/50 border border-slate-700 rounded-full hover:bg-slate-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:ring-offset-slate-900"
-          >
-            View Dashboards
-          </Link>
+                <div className="mt-5 sm:mt-7 flex flex-col sm:flex-row gap-3">
+                  <Link
+                    href="/login"
+                    className="inline-flex items-center justify-center gap-2 h-11 sm:h-12 px-6 rounded-xl bg-[#ff6b12] text-white font-extrabold shadow-[0_12px_24px_-16px_rgba(255,107,18,0.9)] hover:bg-[#f25f05] transition"
+                  >
+                    Sign In to Portal
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link
+                    href="/dashboards"
+                    className="inline-flex items-center justify-center h-11 sm:h-12 px-6 rounded-xl bg-[#27272a] text-white font-extrabold hover:bg-zinc-950 transition"
+                  >
+                    View Dashboards
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden lg:block relative min-h-0 rounded-[20px] sm:rounded-[24px] overflow-hidden border border-zinc-200 shadow-[0_20px_42px_-28px_rgba(20,20,20,0.55)] bg-zinc-900">
+            <div
+              aria-label="Modern commercial real estate building"
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage:
+                  "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85')",
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-zinc-950/75 via-zinc-950/25 to-transparent" />
+            <div className="absolute left-3 right-3 bottom-3 sm:left-5 sm:right-5 sm:bottom-5 grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="rounded-2xl bg-white p-3 sm:p-5 shadow-[0_16px_30px_-20px_rgba(20,20,20,0.65)]">
+                <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-zinc-400">Live Control</p>
+                <p className="mt-1 sm:mt-2 text-xl sm:text-3xl font-black text-zinc-950">₹ 1010</p>
+                <p className="hidden sm:block text-sm font-semibold text-zinc-500 mt-1">Treasury account mapped to audit ledger</p>
+              </div>
+              <div className="rounded-2xl bg-[#27272a] text-white p-3 sm:p-5 shadow-[0_16px_30px_-20px_rgba(20,20,20,0.65)]">
+                <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-zinc-400">Workflow</p>
+                <p className="mt-1 sm:mt-2 text-xl sm:text-3xl font-black">One Panel</p>
+                <p className="hidden sm:block text-sm font-semibold text-zinc-300 mt-1">Focused operations with sidebar navigation</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      
-      {/* Decorative glassmorphism card behind text (optional visual flair) */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[800px] h-[400px] bg-slate-900/20 backdrop-blur-3xl border border-white/5 rounded-3xl transform rotate-3 scale-105 opacity-50" />
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

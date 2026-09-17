@@ -61,11 +61,11 @@ export default function UserWalletLedger() {
             placeholder="Search by name, email, role..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="px-3.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 placeholder-gray-400 bg-white"
+            className="px-3.5 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 placeholder-gray-400 bg-white"
           />
           <button
             onClick={() => mutate()}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 rounded-md border border-indigo-200 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-orange-600 hover:text-orange-800 bg-orange-50 hover:bg-orange-100 rounded-md border border-orange-200 transition-colors"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
             <span>Refresh</span>
@@ -74,13 +74,13 @@ export default function UserWalletLedger() {
       </div>
 
       {error && data && (
-        <div className="p-2 mb-4 bg-amber-50 text-amber-800 border border-amber-200 rounded-md text-xs flex items-center justify-between">
+        <div className="p-2 mb-4 bg-orange-50 text-orange-800 border border-orange-200 rounded-md text-xs flex items-center justify-between">
           <span>⚠️ Disconnected - Retrying...</span>
         </div>
       )}
 
       {error && !data && (
-        <div className="p-4 mb-4 bg-red-50 text-red-900 border border-red-200 rounded-md text-sm">
+        <div className="p-4 mb-4 bg-orange-50 text-orange-900 border border-orange-200 rounded-md text-sm">
           {error}
         </div>
       )}
@@ -126,9 +126,9 @@ export default function UserWalletLedger() {
                   </td>
                   <td className="px-5 py-3.5">
                     <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-full ${
-                      u.role?.name === 'ADMIN' ? 'bg-purple-100 text-purple-800 border border-purple-200' :
-                      u.role?.name === 'MANAGER' ? 'bg-blue-100 text-blue-800 border border-blue-200' :
-                      u.role?.name === 'ACCOUNTING' ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' :
+                      u.role?.name === 'ADMIN' ? 'bg-orange-100 text-orange-800 border border-orange-200' :
+                      u.role?.name === 'MANAGER' ? 'bg-orange-100 text-orange-800 border border-orange-200' :
+                      u.role?.name === 'ACCOUNTING' ? 'bg-orange-100 text-orange-800 border border-orange-200' :
                       'bg-gray-100 text-gray-800 border border-gray-200'
                     }`}>
                       {u.role?.name || 'USER'}
@@ -138,13 +138,13 @@ export default function UserWalletLedger() {
                     <div>₹{allocated.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
                     <div className="text-[10px] text-gray-500 mt-0.5">L: ₹{allocatedLiquid.toLocaleString('en-IN')} | C: ₹{allocatedCash.toLocaleString('en-IN')}</div>
                   </td>
-                  <td className="px-5 py-3.5 font-bold text-indigo-700">
+                  <td className="px-5 py-3.5 font-bold text-orange-700">
                     <div>₹{balance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
-                    <div className="text-[10px] text-indigo-400 mt-0.5 font-normal">L: ₹{balanceLiquid.toLocaleString('en-IN')} | C: ₹{balanceCash.toLocaleString('en-IN')}</div>
+                    <div className="text-[10px] text-orange-400 mt-0.5 font-normal">L: ₹{balanceLiquid.toLocaleString('en-IN')} | C: ₹{balanceCash.toLocaleString('en-IN')}</div>
                   </td>
-                  <td className="px-5 py-3.5 font-semibold text-rose-700">
+                  <td className="px-5 py-3.5 font-semibold text-orange-700">
                     <div>{spentExpenses > 0 ? `₹${spentExpenses.toLocaleString('en-IN', { minimumFractionDigits: 2 })}` : '—'}</div>
-                    {spentExpenses > 0 && <div className="text-[10px] text-rose-400 mt-0.5 font-normal">L: ₹{spentLiquid.toLocaleString('en-IN')} | C: ₹{spentCash.toLocaleString('en-IN')}</div>}
+                    {spentExpenses > 0 && <div className="text-[10px] text-orange-400 mt-0.5 font-normal">L: ₹{spentLiquid.toLocaleString('en-IN')} | C: ₹{spentCash.toLocaleString('en-IN')}</div>}
                   </td>
                   <td className="px-5 py-3.5 text-gray-600">
                     {disbursed > 0 ? `₹${disbursed.toLocaleString('en-IN', { minimumFractionDigits: 2 })}` : '—'}
@@ -154,7 +154,7 @@ export default function UserWalletLedger() {
                       <div className="w-20 bg-gray-200 rounded-full h-2 overflow-hidden">
                         <div
                           className={`h-2 rounded-full ${
-                            utilization > 85 ? 'bg-red-500' : utilization > 40 ? 'bg-amber-500' : 'bg-emerald-500'
+                            utilization > 85 ? 'bg-orange-500' : utilization > 40 ? 'bg-orange-500' : 'bg-orange-500'
                           }`}
                           style={{ width: `${utilization}%` }}
                         ></div>
@@ -164,11 +164,11 @@ export default function UserWalletLedger() {
                   </td>
                   <td className="px-5 py-3.5 text-center">
                     {balance > 0 ? (
-                      <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-green-100 text-green-800 border border-green-200">
+                      <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-orange-100 text-orange-800 border border-orange-200">
                         Active
                       </span>
                     ) : allocated > 0 ? (
-                      <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-red-100 text-red-800 border border-red-200">
+                      <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-orange-100 text-orange-800 border border-orange-200">
                         Exhausted
                       </span>
                     ) : (
@@ -181,10 +181,10 @@ export default function UserWalletLedger() {
                     {isAdmin ? (
                       <button
                         onClick={() => setSelectedUserForAdjustment(u)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-300 border border-slate-300 shadow-2xs transition active:scale-95"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-orange-50 hover:text-orange-700 hover:border-orange-300 border border-slate-300 shadow-2xs transition active:scale-95"
                         title="Adjust or edit wallet balance directly"
                       >
-                        <SlidersHorizontal className="w-3.5 h-3.5 text-indigo-600" />
+                        <SlidersHorizontal className="w-3.5 h-3.5 text-orange-600" />
                         <span>Adjust</span>
                       </button>
                     ) : (
@@ -199,8 +199,8 @@ export default function UserWalletLedger() {
             <tr>
               <td className="px-5 py-3" colSpan="2">TOTALS ({filteredUsers.length} Users)</td>
               <td className="px-5 py-3 text-gray-900">₹{totalAllocatedSum.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-              <td className="px-5 py-3 text-indigo-700 font-bold">₹{totalBalanceSum.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-              <td className="px-5 py-3 text-rose-700 font-bold">₹{totalSpentSum.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+              <td className="px-5 py-3 text-orange-700 font-bold">₹{totalBalanceSum.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+              <td className="px-5 py-3 text-orange-700 font-bold">₹{totalSpentSum.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
               <td className="px-5 py-3 text-gray-600" colSpan="4">
                 <span className="text-gray-500 font-normal">All figures synced live with PostgreSQL database</span>
               </td>

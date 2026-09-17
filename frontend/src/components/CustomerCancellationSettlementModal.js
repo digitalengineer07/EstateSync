@@ -98,15 +98,15 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
       <div className="bg-white rounded-2xl shadow-2xl max-w-xl w-full max-h-[95vh] flex flex-col overflow-hidden border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
         
         {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-amber-50/70">
+        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-orange-50/70">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center shadow-xs">
+            <div className="w-10 h-10 rounded-xl bg-orange-600 text-white flex items-center justify-center shadow-xs">
               <Receipt className="w-5 h-5" />
             </div>
             <div>
               <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
                 Cancellation & Refund Settlement
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-200 text-amber-900 font-black tracking-wider uppercase">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange-200 text-orange-900 font-black tracking-wider uppercase">
                   Accounting Verification
                 </span>
               </h3>
@@ -127,14 +127,14 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
         <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-4">
           
           {error && (
-            <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl flex items-start gap-2.5 text-rose-700 text-xs animate-in fade-in">
+            <div className="p-3 bg-orange-50 border border-orange-200 rounded-xl flex items-start gap-2.5 text-orange-700 text-xs animate-in fade-in">
               <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
           )}
 
           {successMsg && (
-            <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center gap-2.5 text-emerald-800 text-xs font-semibold animate-in fade-in">
+            <div className="p-3 bg-orange-50 border border-orange-200 rounded-xl flex items-center gap-2.5 text-orange-800 text-xs font-semibold animate-in fade-in">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>{successMsg}</span>
             </div>
@@ -144,7 +144,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
           <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
             <div className="flex items-center justify-between text-xs font-bold text-slate-700">
               <span>Reason for Booking Cancellation</span>
-              <span className="text-[10px] text-amber-700 font-medium">Pending Settlement</span>
+              <span className="text-[10px] text-orange-700 font-medium">Pending Settlement</span>
             </div>
             <p className="text-xs text-slate-600 italic bg-white p-2 rounded border border-slate-100">
               "{customer.cancellationReason || "Customer cancelled contract booking."}"
@@ -154,35 +154,35 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
           {/* Pricing & Refund Calculator */}
           <div className="bg-slate-900 text-white rounded-xl p-4 space-y-3">
             <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <Wallet className="w-3.5 h-3.5 text-amber-400" />
+              <Wallet className="w-3.5 h-3.5 text-orange-400" />
               <span>Settlement Financial Breakdown</span>
             </div>
 
             <div className="grid grid-cols-3 gap-2 text-center">
               <div className="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700">
                 <span className="text-[10px] text-slate-400 block font-sans">Total Collected</span>
-                <span className="text-sm font-bold text-emerald-400 font-mono">
+                <span className="text-sm font-bold text-orange-400 font-mono">
                   {formatINR(totalPaid)}
                 </span>
               </div>
 
               <div className="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700">
                 <span className="text-[10px] text-slate-400 block font-sans">Company Costing</span>
-                <span className="text-sm font-bold text-rose-400 font-mono">
+                <span className="text-sm font-bold text-orange-400 font-mono">
                   -{formatINR(deduction)}
                 </span>
               </div>
 
-              <div className="bg-amber-500/20 p-2.5 rounded-lg border border-amber-500/40">
-                <span className="text-[10px] text-amber-300 block font-sans">Net Refund Payable</span>
-                <span className="text-sm font-black text-amber-300 font-mono">
+              <div className="bg-orange-500/20 p-2.5 rounded-lg border border-orange-500/40">
+                <span className="text-[10px] text-orange-300 block font-sans">Net Refund Payable</span>
+                <span className="text-sm font-black text-orange-300 font-mono">
                   {formatINR(netRefund)}
                 </span>
               </div>
             </div>
 
             <p className="text-[10px] text-slate-400 leading-tight">
-              * Note: Upon approval, exactly <span className="text-amber-300 font-bold">{formatINR(netRefund)}</span> will be deducted from Corporate Treasury (Main Balance). The retained costing ({formatINR(deduction)}) will remain in company books.
+              * Note: Upon approval, exactly <span className="text-orange-300 font-bold">{formatINR(netRefund)}</span> will be deducted from Corporate Treasury (Main Balance). The retained costing ({formatINR(deduction)}) will remain in company books.
             </p>
           </div>
 
@@ -203,7 +203,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
                   value={deductionAmount}
                   onChange={(e) => setDeductionAmount(e.target.value)}
                   placeholder="e.g. 250000 (0 if full refund)"
-                  className="w-full text-xs font-mono font-bold border border-slate-200 rounded-lg pl-7 pr-3 py-2.5 focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 focus:outline-none bg-slate-50/50"
+                  className="w-full text-xs font-mono font-bold border border-slate-200 rounded-lg pl-7 pr-3 py-2.5 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-slate-50/50"
                 />
               </div>
               <p className="text-[10px] text-slate-500 mt-1">
@@ -219,7 +219,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
                     <select
                       value={refundMode}
                       onChange={(e) => setRefundMode(e.target.value)}
-                      className="w-full text-xs font-semibold border border-slate-200 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 focus:outline-none bg-white"
+                      className="w-full text-xs font-semibold border border-slate-200 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-white"
                     >
                       <option value="NEFT">NEFT Transfer</option>
                       <option value="RTGS">RTGS Transfer</option>
@@ -250,7 +250,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
                     value={referenceNo}
                     onChange={(e) => setReferenceNo(e.target.value)}
                     placeholder="e.g. UTR-889912003 or CHQ-001290"
-                    className="w-full text-xs font-mono border border-slate-200 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 focus:outline-none bg-slate-50/50"
+                    className="w-full text-xs font-mono border border-slate-200 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-slate-50/50"
                   />
                 </div>
               </>
@@ -263,7 +263,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Optional verification remarks regarding client refund and costing approval..."
-                className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 focus:outline-none bg-slate-50/50"
+                className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-slate-50/50"
               />
             </div>
           </div>
@@ -280,7 +280,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-2.5 text-xs font-bold text-white bg-amber-600 hover:bg-amber-700 active:scale-95 rounded-lg transition shadow-xs disabled:opacity-50 flex items-center gap-1.5"
+              className="px-5 py-2.5 text-xs font-bold text-white bg-orange-600 hover:bg-orange-700 active:scale-95 rounded-lg transition shadow-xs disabled:opacity-50 flex items-center gap-1.5"
             >
               <ShieldCheck className="w-4 h-4" />
               {loading ? "Processing Refund..." : `Approve & Disburse Refund (${formatINR(netRefund)})`}

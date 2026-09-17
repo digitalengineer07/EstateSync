@@ -85,8 +85,8 @@ export default function EmployeeLinkUserModal({
           <div className="flex items-center gap-3">
             <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
               isLinked
-                ? "bg-rose-50 border border-rose-100 text-rose-600"
-                : "bg-indigo-50 border border-indigo-100 text-indigo-600"
+                ? "bg-orange-50 border border-orange-100 text-orange-600"
+                : "bg-orange-50 border border-orange-100 text-orange-600"
             }`}>
               {isLinked ? <Unlink className="w-4 h-4" /> : <Link2 className="w-4 h-4" />}
             </div>
@@ -110,8 +110,8 @@ export default function EmployeeLinkUserModal({
         {/* Body */}
         <div className="p-6 space-y-4">
           {error && (
-            <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-start gap-2">
-              <AlertTriangle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+            <div className="p-3 rounded-xl bg-orange-50 border border-orange-200 text-xs text-orange-700 flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
           )}
@@ -128,7 +128,7 @@ export default function EmployeeLinkUserModal({
               <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-2">
                 <div className="text-slate-500">Currently Linked User:</div>
                 <div className="font-semibold text-slate-900 flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-indigo-600" />
+                  <ShieldCheck className="w-4 h-4 text-orange-600" />
                   <span>{employee.user?.name || "Linked User"}</span>
                 </div>
                 <div className="text-[11px] text-slate-500 font-mono">
@@ -153,7 +153,7 @@ export default function EmployeeLinkUserModal({
                   type="button"
                   onClick={handleUnlink}
                   disabled={submitting}
-                  className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-xs font-semibold text-white shadow-xs transition flex items-center gap-2 disabled:opacity-50"
+                  className="px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-xs font-semibold text-white shadow-xs transition flex items-center gap-2 disabled:opacity-50"
                 >
                   {submitting ? (
                     <>
@@ -170,18 +170,18 @@ export default function EmployeeLinkUserModal({
             <form onSubmit={handleLink} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Select System User Account <span className="text-rose-500">*</span>
+                  Select System User Account <span className="text-orange-500">*</span>
                 </label>
                 {loadingUsers ? (
                   <div className="p-3 text-xs text-slate-500 flex items-center gap-2">
-                    <Loader2 className="w-4 h-4 animate-spin text-indigo-600" />
+                    <Loader2 className="w-4 h-4 animate-spin text-orange-600" />
                     <span>Loading system accounts...</span>
                   </div>
                 ) : (
                   <select
                     value={selectedUserId}
                     onChange={(e) => setSelectedUserId(e.target.value)}
-                    className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                    className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                     required
                   >
                     <option value="">-- Choose User Login Account --</option>
@@ -209,7 +209,7 @@ export default function EmployeeLinkUserModal({
                 <button
                   type="submit"
                   disabled={submitting || loadingUsers}
-                  className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-xs font-semibold text-white shadow-xs transition flex items-center gap-2 disabled:opacity-50"
+                  className="px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-xs font-semibold text-white shadow-xs transition flex items-center gap-2 disabled:opacity-50"
                 >
                   {submitting ? (
                     <>

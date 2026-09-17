@@ -79,7 +79,7 @@ export default function UserRegistrationForm() {
       {/* Header */}
       <div className="flex items-start justify-between gap-3 pb-4 border-b border-slate-100">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold shadow-2xs shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-700 flex items-center justify-center font-bold shadow-2xs shrink-0">
             <UserPlus className="w-5 h-5" />
           </div>
           <div>
@@ -89,7 +89,7 @@ export default function UserRegistrationForm() {
             </p>
           </div>
         </div>
-        <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full border border-emerald-200 shrink-0">
+        <span className="px-2.5 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full border border-orange-200 shrink-0">
           System Provisioning
         </span>
       </div>
@@ -98,14 +98,14 @@ export default function UserRegistrationForm() {
         <div
           className={`p-3.5 rounded-xl text-xs flex items-center gap-2.5 border ${
             message.type === "success"
-              ? "bg-emerald-50 text-emerald-800 border-emerald-200"
-              : "bg-rose-50 text-rose-800 border-rose-200"
+              ? "bg-orange-50 text-orange-800 border-orange-200"
+              : "bg-orange-50 text-orange-800 border-orange-200"
           }`}
         >
           {message.type === "success" ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
           ) : (
-            <XCircle className="w-4 h-4 text-rose-600 shrink-0" />
+            <XCircle className="w-4 h-4 text-orange-600 shrink-0" />
           )}
           <span className="font-medium">{message.text}</span>
         </div>
@@ -124,7 +124,7 @@ export default function UserRegistrationForm() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 outline-none transition"
+                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 outline-none transition"
                 placeholder="Jane Doe"
               />
             </div>
@@ -138,7 +138,7 @@ export default function UserRegistrationForm() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 outline-none transition"
+                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 outline-none transition"
                 placeholder="jane@estatesync.local"
               />
             </div>
@@ -155,7 +155,7 @@ export default function UserRegistrationForm() {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 outline-none transition"
+                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 outline-none transition"
                 placeholder="••••••••"
               />
             </div>
@@ -168,7 +168,7 @@ export default function UserRegistrationForm() {
                 value={formData.roleId}
                 onChange={handleChange}
                 required
-                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm text-slate-900 bg-slate-50/50 outline-none transition"
+                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-xs sm:text-sm text-slate-900 bg-slate-50/50 outline-none transition"
               >
                 <option value="" disabled>Select a role...</option>
                 {roles.map((role) => (
@@ -182,7 +182,7 @@ export default function UserRegistrationForm() {
 
           {/* Automatic Wallet Provisioning Notice to balance card height */}
           <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 flex items-start gap-3">
-            <div className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center shrink-0 mt-0.5">
+            <div className="w-7 h-7 rounded-lg bg-orange-50 text-orange-700 flex items-center justify-center shrink-0 mt-0.5">
               <Wallet className="w-3.5 h-3.5" />
             </div>
             <div className="text-xs text-slate-600 leading-relaxed">
@@ -195,7 +195,7 @@ export default function UserRegistrationForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition-all duration-150 active:scale-95 text-xs sm:text-sm flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-xl shadow-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:opacity-50 transition-all duration-150 active:scale-95 text-xs sm:text-sm flex items-center justify-center gap-2"
           >
             <UserPlus className="w-4 h-4" />
             <span>{loading ? "Registering..." : "Create User"}</span>

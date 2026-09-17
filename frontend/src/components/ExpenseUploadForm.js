@@ -81,7 +81,7 @@ export default function ExpenseUploadForm() {
     <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7 space-y-5">
       <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
         <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
-          <CreditCard className="w-5 h-5 text-indigo-400" />
+          <CreditCard className="w-5 h-5 text-orange-400" />
         </div>
         <div>
           <h3 className="text-lg font-bold text-slate-900 tracking-tight">Record Wallet Expense</h3>
@@ -90,7 +90,7 @@ export default function ExpenseUploadForm() {
       </div>
 
       {message && (
-        <div className={`p-3.5 rounded-xl text-xs flex flex-col gap-0.5 ${message.type === 'success' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
+        <div className={`p-3.5 rounded-xl text-xs flex flex-col gap-0.5 ${message.type === 'success' ? 'bg-orange-50 text-orange-800 border border-orange-200' : 'bg-orange-50 text-orange-800 border border-orange-200'}`}>
           <span className="font-bold">{message.type === 'error' ? 'Transaction Failed' : 'Success'}</span>
           <span>{message.text}</span>
         </div>
@@ -107,7 +107,7 @@ export default function ExpenseUploadForm() {
               value={formData.amount}
               onChange={handleChange}
               required
-              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition text-slate-900 font-medium"
               placeholder="e.g. 1500.00"
             />
           </div>
@@ -117,7 +117,7 @@ export default function ExpenseUploadForm() {
               name="fundMode"
               value={formData.fundMode}
               onChange={handleChange}
-              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition text-slate-900 font-medium"
             >
               <option value="LIQUID">Liquid (Online / Bank)</option>
               <option value="CASH">Cash (Physical)</option>
@@ -131,7 +131,7 @@ export default function ExpenseUploadForm() {
               value={formData.date}
               onChange={handleChange}
               required
-              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition text-slate-900 font-medium"
             />
           </div>
           <div>
@@ -141,7 +141,7 @@ export default function ExpenseUploadForm() {
               value={formData.categoryId}
               onChange={handleChange}
               required
-              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition text-slate-900 font-medium"
             >
               <option value="" disabled>Select category...</option>
               {categories.map((cat) => (
@@ -159,7 +159,7 @@ export default function ExpenseUploadForm() {
               value={formData.description}
               onChange={handleChange}
               required
-              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition text-slate-900 font-medium"
               placeholder="What was this expense for? (e.g. Travel, Client Lunch, Office Stationary)"
             />
           </div>
@@ -170,7 +170,7 @@ export default function ExpenseUploadForm() {
               name="reference"
               value={formData.reference}
               onChange={handleChange}
-              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-900 font-medium"
+              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition text-slate-900 font-medium"
               placeholder="e.g. INV-10294 / Bill ref"
             />
           </div>
@@ -180,7 +180,7 @@ export default function ExpenseUploadForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-xs font-semibold rounded-xl shadow-xs transition active:scale-95 disabled:opacity-50"
+            className="w-full sm:w-auto px-5 py-2.5 bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white text-xs font-semibold rounded-xl shadow-xs transition active:scale-95 disabled:opacity-50"
           >
             {loading ? "Recording Expense..." : "Submit Expense"}
           </button>

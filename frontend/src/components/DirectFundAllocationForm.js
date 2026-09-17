@@ -89,7 +89,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
       {/* Header */}
       <div className="flex items-start justify-between gap-3 pb-4 border-b border-slate-100">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold shadow-2xs shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-700 flex items-center justify-center font-bold shadow-2xs shrink-0">
             <Coins className="w-5 h-5" />
           </div>
           <div>
@@ -99,7 +99,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
             </p>
           </div>
         </div>
-        <span className="px-2.5 py-1 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-full border border-indigo-200 shrink-0">
+        <span className="px-2.5 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full border border-orange-200 shrink-0">
           Admin Only
         </span>
       </div>
@@ -108,14 +108,14 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
         <div
           className={`p-3.5 rounded-xl text-xs flex items-center gap-2.5 border ${
             message.type === "success"
-              ? "bg-emerald-50 text-emerald-800 border-emerald-200"
-              : "bg-rose-50 text-rose-800 border-rose-200"
+              ? "bg-orange-50 text-orange-800 border-orange-200"
+              : "bg-orange-50 text-orange-800 border-orange-200"
           }`}
         >
           {message.type === "success" ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
           ) : (
-            <XCircle className="w-4 h-4 text-rose-600 shrink-0" />
+            <XCircle className="w-4 h-4 text-orange-600 shrink-0" />
           )}
           <span className="font-medium">{message.text}</span>
         </div>
@@ -133,7 +133,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
               onChange={handleChange}
               required
               disabled={loadingUsers}
-              className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm text-slate-900 bg-slate-50/50 outline-none transition"
+              className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-xs sm:text-sm text-slate-900 bg-slate-50/50 outline-none transition"
             >
               <option value="" disabled>
                 {loadingUsers ? "Loading users..." : "Select recipient to allocate funds..."}
@@ -176,7 +176,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
                 name="fundMode"
                 value={formData.fundMode}
                 onChange={handleChange}
-                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm text-slate-900 bg-slate-50/50 outline-none transition"
+                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-xs sm:text-sm text-slate-900 bg-slate-50/50 outline-none transition"
               >
                 <option value="LIQUID">Liquid (Online / Bank)</option>
                 <option value="CASH">Cash (Physical)</option>
@@ -200,7 +200,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
                   onChange={handleChange}
                   required
                   placeholder="50000.00"
-                  className="w-full pl-8 pr-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 font-medium outline-none transition"
+                  className="w-full pl-8 pr-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 font-medium outline-none transition"
                 />
               </div>
             </div>
@@ -214,7 +214,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
                   type="button"
                   key={val}
                   onClick={() => handleQuickAmount(val)}
-                  className="px-2.5 py-1 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg border border-slate-200/80 transition active:scale-95"
+                  className="px-2.5 py-1 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-orange-50 hover:text-orange-700 rounded-lg border border-slate-200/80 transition active:scale-95"
                 >
                   +₹{val.toLocaleString('en-IN')}
                 </button>
@@ -232,7 +232,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
               value={formData.description}
               onChange={handleChange}
               placeholder="e.g. Q3 Sales Team operational budget top-up"
-              className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 outline-none transition"
+              className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 outline-none transition"
             />
           </div>
         </div>
@@ -241,7 +241,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
           <button
             type="submit"
             disabled={submitting || loadingUsers}
-            className="w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition-all duration-150 active:scale-95 text-xs sm:text-sm flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-xl shadow-xs focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:opacity-50 transition-all duration-150 active:scale-95 text-xs sm:text-sm flex items-center justify-center gap-2"
           >
             <ShieldCheck className="w-4 h-4" />
             <span>{submitting ? "Allocating Funds..." : "Confirm & Allocate Funds"}</span>

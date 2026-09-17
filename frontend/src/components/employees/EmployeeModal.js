@@ -183,7 +183,7 @@ export default function EmployeeModal({
         {/* Modal Header */}
         <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/60">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-100 text-orange-600 flex items-center justify-center">
               {isEditing ? <Edit3 className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
             </div>
             <div>
@@ -206,8 +206,8 @@ export default function EmployeeModal({
         {/* Modal Form Content */}
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-5">
           {error && (
-            <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-start gap-2.5">
-              <AlertTriangle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+            <div className="p-3.5 rounded-xl bg-orange-50 border border-orange-200 text-xs text-orange-700 flex items-start gap-2.5">
+              <AlertTriangle className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
           )}
@@ -218,7 +218,7 @@ export default function EmployeeModal({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Full Name <span className="text-rose-500">*</span>
+                  Full Name <span className="text-orange-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -226,7 +226,7 @@ export default function EmployeeModal({
                   value={formData.fullName}
                   onChange={handleChange}
                   placeholder="e.g. John Doe"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                   required
                 />
               </div>
@@ -239,13 +239,13 @@ export default function EmployeeModal({
                   value={formData.displayName}
                   onChange={handleChange}
                   placeholder="e.g. Johnny"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Mobile Number <span className="text-rose-500">*</span>
+                  Mobile Number <span className="text-orange-500">*</span>
                 </label>
                 <input
                   type="tel"
@@ -253,7 +253,7 @@ export default function EmployeeModal({
                   value={formData.mobile}
                   onChange={handleChange}
                   placeholder="10-digit mobile number"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                   required
                 />
               </div>
@@ -266,7 +266,7 @@ export default function EmployeeModal({
                   value={formData.alternatePhone}
                   onChange={handleChange}
                   placeholder="Optional alternate contact"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                 />
               </div>
 
@@ -278,7 +278,7 @@ export default function EmployeeModal({
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="e.g. employee@company.com"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                 />
               </div>
 
@@ -290,7 +290,7 @@ export default function EmployeeModal({
                   onChange={handleChange}
                   rows={2}
                   placeholder="Street address, city, pin code"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                 />
               </div>
             </div>
@@ -311,14 +311,14 @@ export default function EmployeeModal({
                     value={formData.employeeCode}
                     onChange={handleChange}
                     placeholder="e.g. EMP-000001"
-                    className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition uppercase"
+                    className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition uppercase"
                   />
                 </div>
               )}
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Department <span className="text-rose-500">*</span>
+                  Department <span className="text-orange-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -326,14 +326,14 @@ export default function EmployeeModal({
                   value={formData.department}
                   onChange={handleChange}
                   placeholder="e.g. Sales, Accounts, Engineering"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                   required
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Designation <span className="text-rose-500">*</span>
+                  Designation <span className="text-orange-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -341,7 +341,7 @@ export default function EmployeeModal({
                   value={formData.designation}
                   onChange={handleChange}
                   placeholder="e.g. Senior Accountant"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                   required
                 />
               </div>
@@ -352,7 +352,7 @@ export default function EmployeeModal({
                   name="employmentType"
                   value={formData.employmentType}
                   onChange={handleChange}
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                 >
                   <option value="FULL_TIME">Full Time</option>
                   <option value="PART_TIME">Part Time</option>
@@ -363,14 +363,14 @@ export default function EmployeeModal({
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Joining Date <span className="text-rose-500">*</span>
+                  Joining Date <span className="text-orange-500">*</span>
                 </label>
                 <input
                   type="date"
                   name="joiningDate"
                   value={formData.joiningDate}
                   onChange={handleChange}
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                   required
                 />
               </div>
@@ -384,7 +384,7 @@ export default function EmployeeModal({
                   name="confirmationDate"
                   value={formData.confirmationDate}
                   onChange={handleChange}
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                 />
               </div>
 
@@ -396,7 +396,7 @@ export default function EmployeeModal({
                   value={formData.workLocation}
                   onChange={handleChange}
                   placeholder="e.g. Head Office, Site Office"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                 />
               </div>
 
@@ -406,7 +406,7 @@ export default function EmployeeModal({
                   name="reportingManagerId"
                   value={formData.reportingManagerId}
                   onChange={handleChange}
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                 >
                   <option value="">-- No Reporting Manager --</option>
                   {managersList
@@ -424,7 +424,7 @@ export default function EmployeeModal({
           {/* Compensation & Banking Details */}
           <div className="space-y-3 pt-3 border-t border-slate-100">
             <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-              <IndianRupee className="w-3.5 h-3.5 text-indigo-600" />
+              <IndianRupee className="w-3.5 h-3.5 text-orange-600" />
               <span>Compensation & Banking Details (Optional)</span>
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -444,7 +444,7 @@ export default function EmployeeModal({
                     value={formData.baseSalary || ""}
                     onChange={handleChange}
                     placeholder="e.g. 50000"
-                    className="w-full text-xs pl-7 pr-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                    className="w-full text-xs pl-7 pr-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                   />
                 </div>
               </div>
@@ -457,7 +457,7 @@ export default function EmployeeModal({
                   value={formData.bankName || ""}
                   onChange={handleChange}
                   placeholder="e.g. HDFC Bank, SBI"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                 />
               </div>
 
@@ -469,7 +469,7 @@ export default function EmployeeModal({
                   value={formData.bankAccountNo || ""}
                   onChange={handleChange}
                   placeholder="e.g. 50100234567890"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 font-mono focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                 />
               </div>
 
@@ -482,7 +482,7 @@ export default function EmployeeModal({
                   onChange={(e) => setFormData((prev) => ({ ...prev, ifscCode: e.target.value.toUpperCase() }))}
                   placeholder="e.g. HDFC0001234"
                   maxLength={11}
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 font-mono uppercase focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 font-mono uppercase focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                 />
               </div>
 
@@ -494,7 +494,7 @@ export default function EmployeeModal({
                   value={formData.upiId || ""}
                   onChange={handleChange}
                   placeholder="e.g. rohit.verma@okhdfcbank"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
                 />
               </div>
             </div>
@@ -515,7 +515,7 @@ export default function EmployeeModal({
             type="button"
             onClick={handleSubmit}
             disabled={loading}
-            className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-xs font-semibold text-white shadow-xs transition flex items-center gap-2 disabled:opacity-50"
+            className="px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-xs font-semibold text-white shadow-xs transition flex items-center gap-2 disabled:opacity-50"
           >
             {loading ? (
               <>

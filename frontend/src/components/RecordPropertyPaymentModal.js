@@ -117,10 +117,10 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
       <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full flex flex-col overflow-hidden border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
         
         {/* Modal Header */}
-        <div className="px-6 py-4 bg-gradient-to-r from-amber-800 to-orange-900 text-white flex justify-between items-center">
+        <div className="px-6 py-4 bg-gradient-to-r from-orange-800 to-orange-900 text-white flex justify-between items-center">
           <div>
             <h3 className="text-lg font-bold">Record Land Owner Payout</h3>
-            <p className="text-xs text-amber-200">Fixed Asset Capital Outflow & Journal Posting (PRD §20.3)</p>
+            <p className="text-xs text-orange-200">Fixed Asset Capital Outflow & Journal Posting (PRD §20.3)</p>
           </div>
           <button
             onClick={onClose}
@@ -131,30 +131,30 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
         </div>
 
         {/* Land Parcel Snapshot Banner */}
-        <div className="bg-amber-50/70 border-b border-amber-100 px-6 py-3.5">
+        <div className="bg-orange-50/70 border-b border-orange-100 px-6 py-3.5">
           <div className="flex justify-between items-start">
             <div>
               <div className="font-bold text-gray-900 text-sm">{property.landOwnerName}</div>
-              <div className="text-xs text-gray-600">Khata <span className="font-semibold">{property.khataNo}</span> • Plot <span className="font-semibold text-amber-900">{property.plotNo}</span></div>
+              <div className="text-xs text-gray-600">Khata <span className="font-semibold">{property.khataNo}</span> • Plot <span className="font-semibold text-orange-900">{property.plotNo}</span></div>
               <div className="text-[11px] text-gray-500">{property.projectLocation}</div>
             </div>
-            <span className={`px-2 py-0.5 text-xs font-bold rounded ${property.status === 'FULLY_PAID' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`}>
+            <span className={`px-2 py-0.5 text-xs font-bold rounded ${property.status === 'FULLY_PAID' ? 'bg-orange-100 text-orange-800' : 'bg-orange-100 text-orange-800'}`}>
               {property.status}
             </span>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 mt-3 text-center pt-2 border-t border-amber-200/60">
+          <div className="grid grid-cols-3 gap-2 mt-3 text-center pt-2 border-t border-orange-200/60">
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold">Total Land Value</span>
               <p className="text-xs font-bold text-gray-800">₹{totalValue.toLocaleString('en-IN')}</p>
             </div>
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold">Paid To Date</span>
-              <p className="text-xs font-bold text-emerald-700">₹{totalPaid.toLocaleString('en-IN')}</p>
+              <p className="text-xs font-bold text-orange-700">₹{totalPaid.toLocaleString('en-IN')}</p>
             </div>
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold">Remaining Liability</span>
-              <p className="text-xs font-bold text-amber-900">₹{balanceRemaining.toLocaleString('en-IN')}</p>
+              <p className="text-xs font-bold text-orange-900">₹{balanceRemaining.toLocaleString('en-IN')}</p>
             </div>
           </div>
         </div>
@@ -162,22 +162,22 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
         {/* Payout Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {error && (
-            <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-lg font-medium">
+            <div className="p-3 bg-orange-50 border border-orange-200 text-orange-700 text-xs rounded-lg font-medium">
               <span className="font-bold">Error:</span> {error}
             </div>
           )}
 
           {successMsg && (
-            <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-lg font-medium">
+            <div className="p-3 bg-orange-50 border border-orange-200 text-orange-800 text-xs rounded-lg font-medium">
               <span className="font-bold">Success:</span> {successMsg}
             </div>
           )}
 
           {/* Treasury Liquidity Alert */}
           {availableFunds !== null && (
-            <div className="flex justify-between items-center px-3 py-2 bg-indigo-50/70 border border-indigo-100 rounded-lg text-xs">
-              <span className="text-indigo-800 font-medium">Available Treasury {paymentMode === 'CASH' ? 'Cash' : 'Liquid Funds'}:</span>
-              <span className="font-bold text-indigo-900">₹{availableFunds.toLocaleString('en-IN')}</span>
+            <div className="flex justify-between items-center px-3 py-2 bg-orange-50/70 border border-orange-100 rounded-lg text-xs">
+              <span className="text-orange-800 font-medium">Available Treasury {paymentMode === 'CASH' ? 'Cash' : 'Liquid Funds'}:</span>
+              <span className="font-bold text-orange-900">₹{availableFunds.toLocaleString('en-IN')}</span>
             </div>
           )}
 
@@ -187,7 +187,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
               <button
                 type="button"
                 onClick={() => setAmount(maxPayable.toString())}
-                className="text-[11px] font-semibold text-amber-800 hover:underline"
+                className="text-[11px] font-semibold text-orange-800 hover:underline"
               >
                 Max Payable (₹{maxPayable.toLocaleString('en-IN')})
               </button>
@@ -203,12 +203,12 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
               placeholder="e.g. 500000"
               className={`w-full text-base font-bold text-gray-900 border rounded-lg px-3 py-2 focus:outline-none transition ${
                 numAmount > balanceRemaining || (availableFunds !== null && numAmount > availableFunds)
-                  ? "border-red-400 bg-red-50/40 text-red-900 focus:ring-2 focus:ring-red-500"
-                  : "border-gray-300 focus:ring-2 focus:ring-amber-500"
+                  ? "border-orange-400 bg-orange-50/40 text-orange-900 focus:ring-2 focus:ring-orange-500"
+                  : "border-gray-300 focus:ring-2 focus:ring-orange-500"
               }`}
             />
             {numAmount > balanceRemaining && (
-              <div className="mt-1.5 p-2 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-1.5 font-medium">
+              <div className="mt-1.5 p-2 rounded-lg bg-orange-50 border border-orange-200 text-orange-700 text-xs flex items-center gap-1.5 font-medium">
                 <span>⚠️</span>
                 <span>
                   Entered amount (<strong>₹{numAmount.toLocaleString('en-IN')}</strong>) exceeds remaining land liability (<strong>₹{balanceRemaining.toLocaleString('en-IN')}</strong>). Maximum you can pay is <strong>₹{balanceRemaining.toLocaleString('en-IN')}</strong>.
@@ -216,7 +216,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
               </div>
             )}
             {numAmount <= balanceRemaining && availableFunds !== null && numAmount > availableFunds && (
-              <div className="mt-1.5 p-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center gap-1.5 font-medium">
+              <div className="mt-1.5 p-2 rounded-lg bg-orange-50 border border-orange-200 text-orange-800 text-xs flex items-center gap-1.5 font-medium">
                 <span>⚠️</span>
                 <span>
                   Insufficient Treasury {paymentMode === 'CASH' ? 'cash' : 'liquid funds'}. Available: <strong>₹{availableFunds.toLocaleString('en-IN')}</strong>.
@@ -231,7 +231,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
               <select
                 value={paymentMode}
                 onChange={(e) => setPaymentMode(e.target.value)}
-                className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none bg-white"
+                className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none bg-white"
               >
                 <option value="RTGS">RTGS Transfer</option>
                 <option value="NEFT">NEFT Transfer</option>
@@ -249,9 +249,9 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
                 required
                 value={dateOfPayment}
                 onChange={(e) => setDateOfPayment(e.target.value)}
-                className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none bg-white font-medium"
+                className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none bg-white font-medium"
               />
-              <span className="text-[10.5px] text-amber-700 font-semibold mt-1 block">
+              <span className="text-[10.5px] text-orange-700 font-semibold mt-1 block">
                 Selected: {formatDate(dateOfPayment, { format: 'dd-mmm-yyyy' })}
               </span>
             </div>
@@ -267,7 +267,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
                   onChange={(e) => setReferenceNo(e.target.value)}
                   placeholder="e.g. RTGS-HDFC-88990011"
                   maxLength={22}
-                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none font-mono"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none font-mono"
                 />
               </div>
 
@@ -290,7 +290,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="e.g. First tranche on registration deed signing"
-              className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+              className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
             />
           </div>
 
@@ -307,7 +307,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
             <button
               type="submit"
               disabled={loading || numAmount <= 0 || numAmount > balanceRemaining || (availableFunds !== null && numAmount > availableFunds)}
-              className="px-5 py-2 text-xs font-bold text-white bg-amber-800 hover:bg-amber-900 active:scale-95 rounded-lg shadow-md transition disabled:opacity-50"
+              className="px-5 py-2 text-xs font-bold text-white bg-orange-800 hover:bg-orange-900 active:scale-95 rounded-lg shadow-md transition disabled:opacity-50"
             >
               {loading ? "Posting Disbursement..." : `Disburse ₹${numAmount ? numAmount.toLocaleString('en-IN') : "0"}`}
             </button>

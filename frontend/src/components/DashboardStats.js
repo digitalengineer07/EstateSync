@@ -5,17 +5,15 @@ import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { 
   Landmark, 
-  CreditCard, 
   TrendingUp,
   Receipt,
-  Users, 
   MapPin,
   Clock, 
   CheckCircle2,
   Coins
 } from "lucide-react";
 export default function DashboardStats({ type }) {
-  const { data, error, isLoading, mutate } = useSWR(`/api/v1/dashboard/${type}`, fetcher, { 
+  const { data, isLoading, mutate } = useSWR(`/api/v1/dashboard/${type}`, fetcher, { 
     refreshInterval: 10000,
     revalidateOnFocus: true
   });
@@ -49,11 +47,11 @@ export default function DashboardStats({ type }) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Treasury Liquidity (Corporate Main Balance) */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300/80 transition-all duration-200 flex flex-col justify-between">
+        <div className="bg-[#ff6b12] text-white p-5 rounded-2xl border border-[#ff6b12] shadow-[0_16px_30px_-20px_rgba(255,107,18,0.95)] hover:shadow-md transition-all duration-200 flex flex-col justify-between [&_.text-slate-500]:!text-white/80 [&_.text-slate-900]:!text-white [&_.text-slate-700]:!text-white/90 [&_.border-slate-100]:!border-white/20">
           <div>
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Treasury Liquidity</span>
-              <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-white text-[#27272a] flex items-center justify-center">
                 <Landmark className="w-4 h-4" />
               </div>
             </div>
@@ -80,11 +78,11 @@ export default function DashboardStats({ type }) {
         </div>
 
         {/* Card 2: Customer Collections */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300/80 transition-all duration-200 flex flex-col justify-between">
+        <div className="bg-[#27272a] text-white p-5 rounded-2xl border border-[#27272a] shadow-[0_16px_30px_-20px_rgba(20,20,20,0.85)] hover:shadow-md transition-all duration-200 flex flex-col justify-between [&_.text-slate-500]:!text-white/75 [&_.text-slate-900]:!text-white [&_.border-slate-100]:!border-white/15">
           <div>
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Customer Collections</span>
-              <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-white text-[#27272a] flex items-center justify-center">
                 <TrendingUp className="w-4 h-4" />
               </div>
             </div>
@@ -98,16 +96,16 @@ export default function DashboardStats({ type }) {
 
           <div className="flex items-center justify-between text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100">
             <span>{stats.totalCustomers || 0} Clients</span>
-            <span className="text-rose-600 font-semibold font-digital">{formatCurrency(stats.totalCustomerReceivables || 0)} due</span>
+            <span className="text-[#ff6b12] font-semibold font-digital">{formatCurrency(stats.totalCustomerReceivables || 0)} due</span>
           </div>
         </div>
 
         {/* Card 3: Land Acquisitions (Asset 1510) */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300/80 transition-all duration-200 flex flex-col justify-between">
+        <div className="bg-[#27272a] text-white p-5 rounded-2xl border border-[#27272a] shadow-[0_16px_30px_-20px_rgba(20,20,20,0.85)] hover:shadow-md transition-all duration-200 flex flex-col justify-between [&_.text-slate-500]:!text-white/75 [&_.text-slate-900]:!text-white [&_.text-slate-700]:!text-white/90 [&_.border-slate-100]:!border-white/15">
           <div>
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Land Assets (1510)</span>
-              <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-white text-[#27272a] flex items-center justify-center">
                 <MapPin className="w-4 h-4" />
               </div>
             </div>
@@ -121,7 +119,7 @@ export default function DashboardStats({ type }) {
 
           <div className="flex items-center justify-between text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100">
             <span>{stats.totalProperties || 0} Parcels</span>
-            <span className="text-emerald-700 font-semibold font-digital">{formatCurrency(stats.totalLandPayouts || 0)} paid</span>
+            <span className="text-[#ff6b12] font-semibold font-digital">{formatCurrency(stats.totalLandPayouts || 0)} paid</span>
           </div>
         </div>
 
@@ -130,7 +128,7 @@ export default function DashboardStats({ type }) {
           <div>
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Operating Expenses</span>
-              <div className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-[#fff4ed] text-[#ff6b12] flex items-center justify-center">
                 <Receipt className="w-4 h-4" />
               </div>
             </div>
@@ -159,7 +157,7 @@ export default function DashboardStats({ type }) {
           <div>
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Corporate Main Balance</span>
-              <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-white text-[#27272a] flex items-center justify-center">
                 <Landmark className="w-4 h-4" />
               </div>
             </div>
@@ -181,18 +179,18 @@ export default function DashboardStats({ type }) {
           </div>
 
           <div className="flex items-center justify-between text-xs text-slate-500 mt-3 pt-2.5 border-t border-slate-100">
-            <span className="text-emerald-600 font-medium flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Treasury Liquidity
+            <span className="text-[#ff6b12] font-medium flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ff6b12]"></span> Treasury Liquidity
             </span>
           </div>
         </div>
 
         {/* Card 2: Departmental Budget / Manager Float */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-300/80 transition-all duration-200 flex flex-col justify-between">
+        <div className="bg-[#ff6b12] text-white p-5 rounded-2xl border border-[#ff6b12] shadow-[0_16px_30px_-20px_rgba(255,107,18,0.95)] hover:shadow-md transition-all duration-200 flex flex-col justify-between [&_.text-slate-500]:!text-white/80 [&_.text-slate-900]:!text-white [&_.text-slate-700]:!text-white/90 [&_.border-slate-100]:!border-white/20">
           <div>
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Departmental Budget</span>
-              <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-white text-[#27272a] flex items-center justify-center">
                 <Coins className="w-4 h-4" />
               </div>
             </div>
@@ -223,7 +221,7 @@ export default function DashboardStats({ type }) {
           <div>
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pending Approvals</span>
-              <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-[#fff4ed] text-[#ff6b12] flex items-center justify-center">
                 <Clock className="w-4 h-4" />
               </div>
             </div>
@@ -244,7 +242,7 @@ export default function DashboardStats({ type }) {
           <div>
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Disbursed</span>
-              <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-[#fff4ed] text-[#ff6b12] flex items-center justify-center">
                 <CheckCircle2 className="w-4 h-4" />
               </div>
             </div>
@@ -265,10 +263,10 @@ export default function DashboardStats({ type }) {
   if (type === 'wallet') {
     return (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md transition">
+        <div className="bg-[#ff6b12] text-white p-5 rounded-2xl border border-[#ff6b12] shadow-[0_16px_30px_-20px_rgba(255,107,18,0.95)] hover:shadow-md transition [&_.text-slate-500]:!text-white/80 [&_.text-slate-900]:!text-white [&_.border-slate-100]:!border-white/20">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Available Wallet Balance</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-white text-[#27272a] flex items-center justify-center">
               <Coins className="w-4 h-4" />
             </div>
           </div>
@@ -282,15 +280,15 @@ export default function DashboardStats({ type }) {
               <span className="font-digital">{formatCurrency(stats.availableBalanceCash)}</span>
             </p>
           </div>
-          <p className="text-xs text-emerald-600 font-medium mt-2 pt-2 border-t border-slate-100 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active field liquidity
+          <p className="text-xs text-white/85 font-medium mt-2 pt-2 border-t border-slate-100 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-white"></span> Active field liquidity
           </p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md transition">
+        <div className="bg-[#27272a] text-white p-5 rounded-2xl border border-[#27272a] shadow-[0_16px_30px_-20px_rgba(20,20,20,0.85)] hover:shadow-md transition [&_.text-slate-500]:!text-white/75 [&_.text-slate-900]:!text-white [&_.border-slate-100]:!border-white/15">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Spent / Realized</span>
-            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-white text-[#27272a] flex items-center justify-center">
               <Receipt className="w-4 h-4" />
             </div>
           </div>
@@ -310,7 +308,7 @@ export default function DashboardStats({ type }) {
         <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-md transition">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pending Fund Requests</span>
-            <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-[#fff4ed] text-[#ff6b12] flex items-center justify-center">
               <Clock className="w-4 h-4" />
             </div>
           </div>

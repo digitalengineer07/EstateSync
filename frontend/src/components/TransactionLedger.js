@@ -2,9 +2,8 @@
 
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
-import { API_URL } from "@/config/api";
 import { RefreshCw } from "lucide-react";
-import { formatDateTime, formatINR } from "@/utils/formatters";
+import { formatDateTime } from "@/utils/formatters";
 
 export default function TransactionLedger({ embedded = false, showHeader = true }) {
   const { data, error, isLoading, mutate } = useSWR(`/api/v1/transactions/all`, fetcher, {
@@ -32,7 +31,7 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
         );
       case "FUND_ALLOCATION":
         return (
-          <span className="px-2.5 py-0.5 inline-flex text-xs font-bold rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200">
+          <span className="px-2.5 py-0.5 inline-flex text-xs font-bold rounded-full bg-orange-100 text-orange-800 border border-orange-200">
             TRANSFER
           </span>
         );
@@ -55,7 +54,7 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
             <h3 className="text-xl font-bold text-gray-800">Global Transaction Ledger</h3>
             <p className="text-xs text-gray-500 mt-0.5">Immutable audit record with Credit/Debit classification (PRD §4.4)</p>
           </div>
-          <button onClick={() => mutate()} className="inline-flex items-center gap-1.5 text-sm text-blue-600 hover:underline">
+          <button onClick={() => mutate()} className="inline-flex items-center gap-1.5 text-sm text-orange-600 hover:underline">
             <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
             Refresh Ledger
           </button>
@@ -63,7 +62,7 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
       )}
 
       {error && data && (
-        <div className="p-2 mb-4 bg-amber-50 text-amber-800 border border-amber-200 rounded-md text-xs flex items-center justify-between">
+        <div className="p-2 mb-4 bg-orange-50 text-orange-800 border border-orange-200 rounded-md text-xs flex items-center justify-between">
           <span>⚠️ Disconnected - Retrying...</span>
         </div>
       )}

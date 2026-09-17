@@ -86,20 +86,20 @@ export default function AccountingSalaryView() {
     <div className="space-y-6">
       {/* Alert Banner */}
       {successMsg && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between shadow-xs animate-in fade-in duration-200">
+        <div className="p-4 rounded-xl bg-orange-50 border border-orange-200 text-xs text-orange-800 flex items-center justify-between shadow-xs animate-in fade-in duration-200">
           <div className="flex items-center gap-2.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
             <span className="font-semibold">{successMsg}</span>
           </div>
-          <button onClick={() => setSuccessMsg(null)} className="text-emerald-600 hover:text-emerald-800 text-xs">
+          <button onClick={() => setSuccessMsg(null)} className="text-orange-600 hover:text-orange-800 text-xs">
             ✕
           </button>
         </div>
       )}
 
       {error && (
-        <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 flex items-center gap-2.5">
-          <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+        <div className="p-4 rounded-xl bg-orange-50 border border-orange-200 text-xs text-orange-800 flex items-center gap-2.5">
+          <AlertCircle className="w-4 h-4 text-orange-600 shrink-0" />
           <span>{error}</span>
         </div>
       )}
@@ -112,7 +112,7 @@ export default function AccountingSalaryView() {
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
               Monthly Payroll Liability
             </span>
-            <div className="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+            <div className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-600">
               <IndianRupee className="w-4 h-4" />
             </div>
           </div>
@@ -130,11 +130,11 @@ export default function AccountingSalaryView() {
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
               Disbursed ({selectedMonth})
             </span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+            <div className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-600">
               <CheckCircle2 className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-emerald-700 mt-2 font-sans">
+          <div className="text-2xl font-bold text-orange-700 mt-2 font-sans">
             ₹{summary ? Number(summary.totalDisbursedThisMonth || 0).toLocaleString("en-IN") : "--"}
           </div>
           <p className="text-[11px] text-slate-400 mt-1">
@@ -148,7 +148,7 @@ export default function AccountingSalaryView() {
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
               Pending Payouts
             </span>
-            <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
+            <div className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-600">
               <Clock className="w-4 h-4" />
             </div>
           </div>
@@ -166,7 +166,7 @@ export default function AccountingSalaryView() {
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
               Treasury Bank Liquidity
             </span>
-            <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+            <div className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-600">
               <Landmark className="w-4 h-4" />
             </div>
           </div>
@@ -200,7 +200,7 @@ export default function AccountingSalaryView() {
                 type="month"
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(e.target.value)}
-                className="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-800 focus:outline-none focus:border-indigo-600"
+                className="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-800 focus:outline-none focus:border-orange-600"
               />
             </div>
 
@@ -212,7 +212,7 @@ export default function AccountingSalaryView() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search staff..."
-                className="pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-indigo-600 w-44"
+                className="pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-orange-600 w-44"
               />
             </div>
 
@@ -230,7 +230,7 @@ export default function AccountingSalaryView() {
         {/* Table */}
         {loading ? (
           <div className="p-12 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-2">
-            <RefreshCw className="w-5 h-5 animate-spin text-indigo-600" />
+            <RefreshCw className="w-5 h-5 animate-spin text-orange-600" />
             <span>Loading staff salary records...</span>
           </div>
         ) : filteredEmployees.length === 0 ? (
@@ -257,13 +257,13 @@ export default function AccountingSalaryView() {
                       {/* Name & Code */}
                       <td className="px-5 py-3.5">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-7 h-7 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-700 font-bold text-xs flex items-center justify-center shrink-0">
+                          <div className="w-7 h-7 rounded-lg bg-orange-50 border border-orange-100 text-orange-700 font-bold text-xs flex items-center justify-center shrink-0">
                             {emp.fullName?.charAt(0)?.toUpperCase() || "E"}
                           </div>
                           <div>
                             <Link
                               href={`/dashboards/employees/${emp.id}`}
-                              className="font-bold text-slate-900 hover:text-indigo-600 transition"
+                              className="font-bold text-slate-900 hover:text-orange-600 transition"
                             >
                               {emp.fullName}
                             </Link>
@@ -289,7 +289,7 @@ export default function AccountingSalaryView() {
                             {canEditSalary && (
                               <button
                                 onClick={() => setEmployeeToEditSalary(emp)}
-                                className="text-[11px] text-indigo-600 hover:text-indigo-800 font-semibold underline"
+                                className="text-[11px] text-orange-600 hover:text-orange-800 font-semibold underline"
                                 title="Edit Base Salary"
                               >
                                 Edit
@@ -299,7 +299,7 @@ export default function AccountingSalaryView() {
                         ) : canEditSalary ? (
                           <button
                             onClick={() => setEmployeeToEditSalary(emp)}
-                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold border border-indigo-200 transition shadow-xs"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-orange-50 hover:bg-orange-100 text-orange-700 text-xs font-semibold border border-orange-200 transition shadow-xs"
                           >
                             <IndianRupee className="w-3 h-3" />
                             <span>+ Add Salary</span>
@@ -336,7 +336,7 @@ export default function AccountingSalaryView() {
                           {canEditSalary && (
                             <button
                               onClick={() => setEmployeeToEditSalary(emp)}
-                              className="p-1.5 rounded-lg border border-indigo-200 hover:bg-indigo-50 text-indigo-600 transition"
+                              className="p-1.5 rounded-lg border border-orange-200 hover:bg-orange-50 text-orange-600 transition"
                               title="Configure Salary & Banking"
                             >
                               <Edit3 className="w-3.5 h-3.5" />
@@ -346,7 +346,7 @@ export default function AccountingSalaryView() {
                           <button
                             onClick={() => setEmployeeToPay(emp)}
                             disabled={!hasSalary}
-                            className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs shadow-xs transition flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
+                            className="px-3.5 py-1.5 rounded-lg bg-orange-600 hover:bg-orange-700 text-white font-semibold text-xs shadow-xs transition flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
                             title="Disburse Monthly Salary from Treasury"
                           >
                             <Send className="w-3 h-3" />

@@ -143,7 +143,7 @@ export default function EmployeeDetailView({ id }) {
   if (loading && !employee) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[450px] space-y-3">
-        <RefreshCw className="w-8 h-8 animate-spin text-indigo-600" />
+        <RefreshCw className="w-8 h-8 animate-spin text-orange-600" />
         <p className="text-xs text-slate-500 font-medium">Loading employee profile...</p>
       </div>
     );
@@ -152,7 +152,7 @@ export default function EmployeeDetailView({ id }) {
   if (error || !employee) {
     return (
       <div className="max-w-xl mx-auto mt-12 p-6 bg-white rounded-2xl border border-slate-200/90 shadow-sm text-center space-y-4">
-        <div className="w-12 h-12 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mx-auto">
+        <div className="w-12 h-12 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center mx-auto">
           <AlertTriangle className="w-6 h-6" />
         </div>
         <h3 className="text-sm font-bold text-slate-900">Unable to Load Profile</h3>
@@ -174,12 +174,12 @@ export default function EmployeeDetailView({ id }) {
     <div className="space-y-6">
       {/* Toast Alert */}
       {successMsg && (
-        <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl text-xs font-semibold flex items-center justify-between animate-in fade-in duration-200 shadow-sm">
+        <div className="p-4 bg-orange-50 border border-orange-200 text-orange-900 rounded-xl text-xs font-semibold flex items-center justify-between animate-in fade-in duration-200 shadow-sm">
           <div className="flex items-center space-x-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
             <span>{successMsg}</span>
           </div>
-          <button onClick={() => setSuccessMsg(null)} className="text-emerald-700 hover:text-emerald-900">✕</button>
+          <button onClick={() => setSuccessMsg(null)} className="text-orange-700 hover:text-orange-900">✕</button>
         </div>
       )}
 
@@ -187,7 +187,7 @@ export default function EmployeeDetailView({ id }) {
       <div className="bg-white rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] p-6 sm:p-7">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
           <div className="flex items-start gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-indigo-600 text-white font-bold text-xl flex items-center justify-center shadow-md shadow-indigo-600/20 shrink-0">
+            <div className="w-14 h-14 rounded-2xl bg-orange-600 text-white font-bold text-xl flex items-center justify-center shadow-md shadow-orange-600/20 shrink-0">
               {employee.fullName?.charAt(0).toUpperCase() || "E"}
             </div>
             <div className="space-y-1">
@@ -201,10 +201,10 @@ export default function EmployeeDetailView({ id }) {
                 <span
                   className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${
                     employee.status === "ACTIVE"
-                      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                      ? "bg-orange-50 text-orange-700 border-orange-200"
                       : isArchived
-                      ? "bg-rose-50 text-rose-700 border-rose-200"
-                      : "bg-amber-50 text-amber-700 border-amber-200"
+                      ? "bg-orange-50 text-orange-700 border-orange-200"
+                      : "bg-orange-50 text-orange-700 border-orange-200"
                   }`}
                 >
                   {employee.status}
@@ -245,7 +245,7 @@ export default function EmployeeDetailView({ id }) {
             {canUpdate && !employee.userId && !isArchived && (
               <button
                 onClick={() => setIsLinkOpen(true)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 active:scale-95 text-xs font-semibold text-indigo-700 transition shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-orange-200 bg-orange-50 hover:bg-orange-100 active:scale-95 text-xs font-semibold text-orange-700 transition shadow-2xs"
               >
                 <Link2 className="w-3.5 h-3.5" />
                 <span>Link Login User</span>
@@ -255,7 +255,7 @@ export default function EmployeeDetailView({ id }) {
             {canArchive && !isArchived && (
               <button
                 onClick={() => setIsArchiveOpen(true)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-rose-200 hover:bg-rose-50 active:bg-rose-100 text-xs font-semibold text-rose-700 transition shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-orange-200 hover:bg-orange-50 active:bg-orange-100 text-xs font-semibold text-orange-700 transition shadow-2xs"
               >
                 <UserX className="w-3.5 h-3.5" />
                 <span>Archive</span>
@@ -275,7 +275,7 @@ export default function EmployeeDetailView({ id }) {
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
               }`}
             >
-              <IndianRupee className="w-3.5 h-3.5 text-emerald-400" />
+              <IndianRupee className="w-3.5 h-3.5 text-orange-400" />
               <span>Salary & Payouts</span>
             </button>
           )}
@@ -288,7 +288,7 @@ export default function EmployeeDetailView({ id }) {
                 : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
             }`}
           >
-            <Users className="w-3.5 h-3.5 text-indigo-400" />
+            <Users className="w-3.5 h-3.5 text-orange-400" />
             <span>Employee Overview & System Account</span>
           </button>
         </div>
@@ -302,7 +302,7 @@ export default function EmployeeDetailView({ id }) {
             {/* Personal & Contact Details */}
             <div className="bg-white rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] p-6 space-y-4">
               <h3 className="text-sm font-bold text-slate-900 pb-3 border-b border-slate-100 flex items-center gap-2">
-                <Users className="w-4 h-4 text-indigo-600" />
+                <Users className="w-4 h-4 text-orange-600" />
                 <span>Contact & Personal Details</span>
               </h3>
 
@@ -332,7 +332,7 @@ export default function EmployeeDetailView({ id }) {
             {/* Employment Timeline & Hierarchy */}
             <div className="bg-white rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] p-6 space-y-4">
               <h3 className="text-sm font-bold text-slate-900 pb-3 border-b border-slate-100 flex items-center gap-2">
-                <Briefcase className="w-4 h-4 text-indigo-600" />
+                <Briefcase className="w-4 h-4 text-orange-600" />
                 <span>Employment Timeline & Hierarchy</span>
               </h3>
 
@@ -386,11 +386,11 @@ export default function EmployeeDetailView({ id }) {
           <div className="bg-white rounded-2xl border border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)] p-6 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-indigo-600" />
+                <ShieldCheck className="w-4 h-4 text-orange-600" />
                 <span>System Login Account & Dashboard Access</span>
               </h3>
               {employee.user && (
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-50 text-orange-700 border border-orange-200">
                   Active Login Linked
                 </span>
               )}
@@ -404,7 +404,7 @@ export default function EmployeeDetailView({ id }) {
                       <div className="text-xs font-bold text-slate-900">{employee.user.name}</div>
                       <div className="text-xs font-mono text-slate-500">{employee.user.email}</div>
                     </div>
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 self-start sm:self-auto">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-50 text-orange-700 border border-orange-200 self-start sm:self-auto">
                       Role: {employee.user.role?.name || "STAFF"}
                     </span>
                   </div>
@@ -431,7 +431,7 @@ export default function EmployeeDetailView({ id }) {
                   <div className="flex justify-end">
                     <button
                       onClick={handleUnlink}
-                      className="px-3.5 py-1.5 rounded-xl border border-rose-200 hover:bg-rose-50 text-xs font-semibold text-rose-700 transition flex items-center gap-1.5"
+                      className="px-3.5 py-1.5 rounded-xl border border-orange-200 hover:bg-orange-50 text-xs font-semibold text-orange-700 transition flex items-center gap-1.5"
                     >
                       <Unlink className="w-3.5 h-3.5" />
                       <span>Unlink Login Account</span>
@@ -449,7 +449,7 @@ export default function EmployeeDetailView({ id }) {
                 {canUpdate && (
                   <button
                     onClick={() => setIsLinkOpen(true)}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-xs font-semibold text-white shadow-xs transition"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-700 text-xs font-semibold text-white shadow-xs transition"
                   >
                     <Link2 className="w-3.5 h-3.5" />
                     <span>Link Existing System User</span>
@@ -473,7 +473,7 @@ export default function EmployeeDetailView({ id }) {
                   <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                     Monthly Base Salary
                   </span>
-                  <div className="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+                  <div className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-600">
                     <IndianRupee className="w-4 h-4" />
                   </div>
                 </div>
@@ -535,7 +535,7 @@ export default function EmployeeDetailView({ id }) {
                   <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                     Corporate Treasury
                   </span>
-                  <div className="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+                  <div className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-600">
                     <Send className="w-4 h-4" />
                   </div>
                 </div>
@@ -552,7 +552,7 @@ export default function EmployeeDetailView({ id }) {
                   <button
                     onClick={() => setIsPaySalaryOpen(true)}
                     disabled={!employee.baseSalary || employee.baseSalary <= 0 || employee.status !== "ACTIVE"}
-                    className="w-full py-2.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-xs font-semibold text-white shadow-xs transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-2.5 px-3 rounded-lg bg-orange-600 hover:bg-orange-700 text-xs font-semibold text-white shadow-xs transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Send className="w-3.5 h-3.5" />
                     <span>Pay Monthly Salary</span>
@@ -587,7 +587,7 @@ export default function EmployeeDetailView({ id }) {
 
             {loadingPayments ? (
               <div className="p-8 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-2">
-                <RefreshCw className="w-5 h-5 animate-spin text-indigo-600" />
+                <RefreshCw className="w-5 h-5 animate-spin text-orange-600" />
                 <span>Loading salary history...</span>
               </div>
             ) : salaryPayments.length === 0 ? (
@@ -632,9 +632,9 @@ export default function EmployeeDetailView({ id }) {
                           {formatDate(pay.paidAt, { format: 'dd-mmm-yyyy' })}
                         </td>
                         <td className="px-4 py-3 text-slate-600">{pay.paidBy}</td>
-                        <td className="px-4 py-3 font-mono text-indigo-600 font-semibold">{pay.journalNumber || "—"}</td>
+                        <td className="px-4 py-3 font-mono text-orange-600 font-semibold">{pay.journalNumber || "—"}</td>
                         <td className="px-4 py-3 text-right">
-                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-700 border border-orange-200">
                             {pay.status}
                           </span>
                         </td>

@@ -81,7 +81,7 @@ export default function CustomerStatementModal({
         {/* Modal Top Control Bar (Hidden on print) */}
         <div className="px-5 py-3 bg-slate-900 text-white flex justify-between items-center print:hidden border-b border-slate-800">
           <div className="flex items-center gap-2">
-            <Building2 className="w-4 h-4 text-indigo-400" />
+            <Building2 className="w-4 h-4 text-orange-400" />
             <span className="font-bold text-sm">Customer Master Statement (Excel Sheet Format)</span>
             <span className="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">Plot {customer.plotNo}</span>
           </div>
@@ -95,7 +95,7 @@ export default function CustomerStatementModal({
                 className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-md text-xs font-semibold flex items-center gap-1.5 transition border border-slate-700"
                 title="Edit Customer Profile & Plot Info"
               >
-                <Edit3 className="w-3.5 h-3.5 text-indigo-400" />
+                <Edit3 className="w-3.5 h-3.5 text-orange-400" />
                 <span>Edit Profile</span>
               </button>
             )}
@@ -122,7 +122,7 @@ export default function CustomerStatementModal({
                   onClose();
                   onOpenPayment?.(customer);
                 }}
-                className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md text-xs font-bold flex items-center gap-1.5 transition shadow-xs"
+                className="px-3.5 py-1.5 bg-orange-600 hover:bg-orange-500 text-white rounded-md text-xs font-bold flex items-center gap-1.5 transition shadow-xs"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>+ Record Payment</span>
@@ -185,7 +185,7 @@ export default function CustomerStatementModal({
                 {/* Row 2 */}
                 <tr className="divide-x divide-slate-300">
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-24 text-[10px] uppercase">PLOT NO</td>
-                  <td className="py-1.5 px-2.5 font-black text-indigo-950 font-mono border-r border-slate-800">{customer.plotNo}</td>
+                  <td className="py-1.5 px-2.5 font-black text-orange-950 font-mono border-r border-slate-800">{customer.plotNo}</td>
                   
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-24 text-[10px] uppercase">IDENTITY</td>
                   <td className="py-1.5 px-2.5 font-mono text-slate-800 text-[11px] border-r border-slate-800">
@@ -210,13 +210,13 @@ export default function CustomerStatementModal({
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-24 text-[10px] uppercase">ADD</td>
                   <td className="py-1.5 px-2.5 text-slate-700 text-[11px] leading-tight border-r border-slate-800">{customer.customerAddress || "N/A"}</td>
                   
-                  <td className="py-1.5 px-2.5 bg-indigo-50/60 font-black text-indigo-900 w-28 text-[10px] uppercase">DEV. CHARGES</td>
-                  <td className="py-1.5 px-2.5 font-bold text-indigo-950 text-right font-mono border-r border-slate-800">₹{otherCharges.toLocaleString('en-IN')}</td>
+                  <td className="py-1.5 px-2.5 bg-orange-50/60 font-black text-orange-900 w-28 text-[10px] uppercase">DEV. CHARGES</td>
+                  <td className="py-1.5 px-2.5 font-bold text-orange-950 text-right font-mono border-r border-slate-800">₹{otherCharges.toLocaleString('en-IN')}</td>
                   
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-28 text-[10px] uppercase">DISCOUNT ALLOWED</td>
                   <td className="py-1.5 px-2.5 font-mono text-slate-800 text-right">
                     {discount > 0 ? (
-                      <span className="text-rose-600 font-bold">-₹{discount.toLocaleString('en-IN')}</span>
+                      <span className="text-orange-600 font-bold">-₹{discount.toLocaleString('en-IN')}</span>
                     ) : (
                       "₹0"
                     )}
@@ -229,13 +229,13 @@ export default function CustomerStatementModal({
                   <td className="py-1.5 px-2.5 font-bold text-slate-900 border-r border-slate-800">{areaSqft.toLocaleString('en-IN')} sq.ft</td>
                   
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-24 text-[10px] uppercase">SALES REP</td>
-                  <td className="py-1.5 px-2.5 font-semibold text-indigo-700 text-[11px] border-r border-slate-800">{customer.salesOwner?.name || "System"}</td>
+                  <td className="py-1.5 px-2.5 font-semibold text-orange-700 text-[11px] border-r border-slate-800">{customer.salesOwner?.name || "System"}</td>
                   
                   <td className="py-1.5 px-2.5 bg-slate-50 font-bold text-slate-700 w-28 text-[10px] uppercase">REGISTRY COST</td>
                   <td className="py-1.5 px-2.5 font-bold text-slate-900 text-right font-mono border-r border-slate-800">₹{registryCost.toLocaleString('en-IN')}</td>
                   
-                  <td className="py-1.5 px-2.5 bg-emerald-50/70 font-black text-emerald-800 w-28 text-[10px] uppercase">TOTAL RECEIVED</td>
-                  <td className="py-1.5 px-2.5 font-black text-emerald-700 text-right font-mono">₹{totalPaid.toLocaleString('en-IN')}</td>
+                  <td className="py-1.5 px-2.5 bg-orange-50/70 font-black text-orange-800 w-28 text-[10px] uppercase">TOTAL RECEIVED</td>
+                  <td className="py-1.5 px-2.5 font-black text-orange-700 text-right font-mono">₹{totalPaid.toLocaleString('en-IN')}</td>
                 </tr>
 
                 {/* Row 5 (Summary Row) */}
@@ -246,7 +246,7 @@ export default function CustomerStatementModal({
                   <td className="py-1.5 px-2.5 bg-slate-200/80 font-bold text-slate-700 w-24 text-[10px] uppercase">STATUS</td>
                   <td className="py-1.5 px-2.5 border-r border-slate-800">
                     <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${
-                      balanceDue <= 0 ? "bg-emerald-100 text-emerald-800 border border-emerald-300" : "bg-amber-100 text-amber-900 border border-amber-300"
+                      balanceDue <= 0 ? "bg-orange-100 text-orange-800 border border-orange-300" : "bg-orange-100 text-orange-900 border border-orange-300"
                     }`}>
                       {balanceDue <= 0 ? "FULLY PAID" : "ACTIVE DUE"}
                     </span>
@@ -255,8 +255,8 @@ export default function CustomerStatementModal({
                   <td className="py-1.5 px-2.5 bg-slate-200/80 font-black text-slate-900 w-28 text-[10px] uppercase">TOTAL CONTRACT</td>
                   <td className="py-1.5 px-2.5 font-black text-slate-950 text-right font-mono border-r border-slate-800">₹{totalContract.toLocaleString('en-IN')}</td>
                   
-                  <td className="py-1.5 px-2.5 bg-rose-100/90 font-black text-rose-900 w-28 text-[10px] uppercase">NET CREDIT DUE</td>
-                  <td className="py-1.5 px-2.5 font-black text-rose-700 text-right font-mono">₹{balanceDue.toLocaleString('en-IN')}</td>
+                  <td className="py-1.5 px-2.5 bg-orange-100/90 font-black text-orange-900 w-28 text-[10px] uppercase">NET CREDIT DUE</td>
+                  <td className="py-1.5 px-2.5 font-black text-orange-700 text-right font-mono">₹{balanceDue.toLocaleString('en-IN')}</td>
                 </tr>
               </tbody>
             </table>
@@ -264,9 +264,9 @@ export default function CustomerStatementModal({
 
           {/* Cancelled Account Banner */}
           {customer.status === 'CANCELLED' && (
-            <div className="bg-amber-500/10 border-2 border-amber-500/30 rounded-xl p-3 mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-amber-950">
+            <div className="bg-orange-500/10 border-2 border-orange-500/30 rounded-xl p-3 mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-orange-950">
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 bg-amber-600 text-white rounded text-[10px] font-black uppercase tracking-wider shrink-0">
+                <span className="px-2.5 py-0.5 bg-orange-600 text-white rounded text-[10px] font-black uppercase tracking-wider shrink-0">
                   Cancelled Account
                 </span>
                 <span className="text-xs font-bold">
@@ -274,11 +274,11 @@ export default function CustomerStatementModal({
                 </span>
               </div>
               {customer.cancellationStatus === 'SETTLED' ? (
-                <div className="text-xs font-mono font-bold bg-white/80 px-2.5 py-1 rounded border border-amber-200 text-slate-900">
-                  Costing Retained: <span className="text-rose-700">₹{parseFloat(customer.deductionAmount || 0).toLocaleString('en-IN')}</span> • Refund: <span className="text-emerald-700">₹{parseFloat(customer.refundAmount || 0).toLocaleString('en-IN')}</span>
+                <div className="text-xs font-mono font-bold bg-white/80 px-2.5 py-1 rounded border border-orange-200 text-slate-900">
+                  Costing Retained: <span className="text-orange-700">₹{parseFloat(customer.deductionAmount || 0).toLocaleString('en-IN')}</span> • Refund: <span className="text-orange-700">₹{parseFloat(customer.refundAmount || 0).toLocaleString('en-IN')}</span>
                 </div>
               ) : (
-                <span className="text-xs font-bold text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded border border-amber-300">
+                <span className="text-xs font-bold text-orange-800 bg-orange-100/80 px-2 py-0.5 rounded border border-orange-300">
                   Pending Accounting Refund Settlement
                 </span>
               )}
@@ -316,14 +316,14 @@ export default function CustomerStatementModal({
                   </tr>
                 ) : (
                   payments.map((p, idx) => (
-                    <tr key={p.id || idx} className={`divide-x divide-slate-300 ${p.status === 'REFUND_DISBURSED' ? 'bg-rose-50/40' : 'hover:bg-slate-50'}`}>
+                    <tr key={p.id || idx} className={`divide-x divide-slate-300 ${p.status === 'REFUND_DISBURSED' ? 'bg-orange-50/40' : 'hover:bg-slate-50'}`}>
                       <td className="py-1.5 px-3 text-center font-mono text-slate-500">{idx + 1}</td>
                       <td className="py-1.5 px-3 font-mono font-bold text-slate-900">
                         {formatDate(p.dateOfPayment, { format: 'dd/mm/yyyy' })}
                       </td>
                       <td className="py-1.5 px-3 font-bold text-slate-900">
                         {p.status === 'REFUND_DISBURSED' ? (
-                          <span className="text-rose-700 font-extrabold">{p.paymentMode} (REFUND)</span>
+                          <span className="text-orange-700 font-extrabold">{p.paymentMode} (REFUND)</span>
                         ) : p.referenceNo ? (
                           `${p.paymentMode}-${p.referenceNo}`
                         ) : (
@@ -331,7 +331,7 @@ export default function CustomerStatementModal({
                         )}
                       </td>
                       <td className="py-1.5 px-3 text-slate-700">{p.sourceAccount || "Direct"}</td>
-                      <td className={`py-1.5 px-3 text-right font-mono font-black ${p.status === 'REFUND_DISBURSED' ? 'text-rose-700' : 'text-slate-950'}`}>
+                      <td className={`py-1.5 px-3 text-right font-mono font-black ${p.status === 'REFUND_DISBURSED' ? 'text-orange-700' : 'text-slate-950'}`}>
                         {p.status === 'REFUND_DISBURSED' ? `-₹${parseFloat(p.amount).toLocaleString('en-IN')}` : `₹${parseFloat(p.amount).toLocaleString('en-IN')}`}
                       </td>
                       <td className="py-1.5 px-3 text-slate-800 font-semibold">
@@ -342,11 +342,11 @@ export default function CustomerStatementModal({
                       </td>
                       <td className="py-1.5 px-3 text-[11px]">
                         {p.status === 'REFUND_DISBURSED' ? (
-                          <span className="text-rose-800 font-bold">
+                          <span className="text-orange-800 font-bold">
                             REFUND DISBURSED (Ref: {p.referenceNo || "N/A"})
                           </span>
                         ) : currentCustomer.status === 'CANCELLED' ? (
-                          <span className="text-amber-800 font-semibold">
+                          <span className="text-orange-800 font-semibold">
                             Recorded on Cancelled Account (by {p.recordedBy?.name || "Accounts"})
                           </span>
                         ) : (
@@ -365,7 +365,7 @@ export default function CustomerStatementModal({
                             <button
                               type="button"
                               onClick={() => setSelectedPaymentForEdit(p)}
-                              className="p-1 rounded text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition"
+                              className="p-1 rounded text-slate-500 hover:text-orange-600 hover:bg-orange-50 transition"
                               title={userRole === 'ADMIN' ? "Admin: Edit payment amount, date, bank details, or UTR" : "Edit payment date, bank details, or UTR (Amount locked to Admin)"}
                             >
                               <Pencil className="w-3.5 h-3.5" />
@@ -384,7 +384,7 @@ export default function CustomerStatementModal({
                   <td colSpan={4} className="py-2 px-4 text-right uppercase tracking-wider text-slate-900">
                     TOTAL AMT RECEIVED:
                   </td>
-                  <td className="py-2 px-3 text-right font-mono text-sm text-emerald-700 font-black">
+                  <td className="py-2 px-3 text-right font-mono text-sm text-orange-700 font-black">
                     {totalPaid.toLocaleString('en-IN')}
                   </td>
                   <td colSpan={3} className="py-2 px-3 text-slate-500 font-normal italic">
@@ -393,10 +393,10 @@ export default function CustomerStatementModal({
                   {canRecordPayment && <td className="print:hidden"></td>}
                 </tr>
                 <tr className="divide-x divide-slate-800 bg-slate-200/90">
-                  <td colSpan={4} className="py-2 px-4 text-right uppercase tracking-wider text-rose-900">
+                  <td colSpan={4} className="py-2 px-4 text-right uppercase tracking-wider text-orange-900">
                     NET CREDIT DUE:
                   </td>
-                  <td className="py-2 px-3 text-right font-mono text-sm text-rose-700 font-black">
+                  <td className="py-2 px-3 text-right font-mono text-sm text-orange-700 font-black">
                     {balanceDue.toLocaleString('en-IN')}
                   </td>
                   <td colSpan={3} className="py-2 px-3 text-slate-600 font-normal">

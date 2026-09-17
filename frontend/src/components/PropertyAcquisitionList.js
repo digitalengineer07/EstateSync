@@ -114,7 +114,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
           </div>
           <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
             <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Total Paid to Owners</span>
-            <p className="text-2xl font-extrabold text-emerald-600 mt-0.5">₹{parseFloat(summary.totalPaidToOwners || 0).toLocaleString('en-IN')}</p>
+            <p className="text-2xl font-extrabold text-orange-600 mt-0.5">₹{parseFloat(summary.totalPaidToOwners || 0).toLocaleString('en-IN')}</p>
           </div>
           <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80">
             <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Pending Liabilities</span>
@@ -132,7 +132,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by owner, khata, plot, or location..."
-            className="w-full text-xs border border-slate-200 rounded-lg pl-8 pr-8 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none bg-slate-50/50"
+            className="w-full text-xs border border-slate-200 rounded-lg pl-8 pr-8 py-2 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-slate-50/50"
           />
           {search && (
             <button
@@ -192,7 +192,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
                     <td className="px-4 py-3.5">
                       <div className="font-bold text-slate-900">Plot {prop.plotNo}</div>
                       <div className="text-[11px] text-slate-500">{prop.projectLocation}</div>
-                      <div className="text-[10px] text-indigo-600 font-mono">Khata: {prop.khataNo} • {prop.areaDescription || "N/A"}</div>
+                      <div className="text-[10px] text-orange-600 font-mono">Khata: {prop.khataNo} • {prop.areaDescription || "N/A"}</div>
                     </td>
 
                     <td className="px-4 py-3.5">
@@ -208,12 +208,12 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
 
                     <td className="px-4 py-3.5 min-w-[160px]">
                       <div className="flex justify-between text-[11px] font-semibold mb-1 font-mono">
-                        <span className="text-emerald-700">₹{paid.toLocaleString('en-IN')}</span>
+                        <span className="text-orange-700">₹{paid.toLocaleString('en-IN')}</span>
                         <span className="text-slate-500">Rem: ₹{balance.toLocaleString('en-IN')}</span>
                       </div>
                       <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
                         <div
-                          className={`h-1.5 rounded-full transition-all ${pct === 100 ? "bg-emerald-500" : "bg-indigo-600"}`}
+                          className={`h-1.5 rounded-full transition-all ${pct === 100 ? "bg-orange-500" : "bg-orange-600"}`}
                           style={{ width: `${pct}%` }}
                         ></div>
                       </div>
@@ -221,7 +221,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
                     </td>
 
                     <td className="px-4 py-3.5 text-center">
-                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${prop.status === 'FULLY_PAID' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-100 text-slate-700'}`}>
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${prop.status === 'FULLY_PAID' ? 'bg-orange-50 text-orange-700 border border-orange-200' : 'bg-slate-100 text-slate-700'}`}>
                         {prop.status}
                       </span>
                     </td>
@@ -231,7 +231,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
                         {canRecordPayout && prop.status !== 'FULLY_PAID' && (
                           <button
                             onClick={() => handleOpenPayment(prop)}
-                            className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-amber-700 hover:bg-amber-800 text-white rounded text-[11px] font-semibold transition"
+                            className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-orange-700 hover:bg-orange-800 text-white rounded text-[11px] font-semibold transition"
                           >
                             <Coins className="w-3 h-3" />
                             <span>Record Payout</span>
@@ -311,7 +311,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
                         <td className="px-3 py-2 font-sans font-medium text-slate-800">{p.paymentMode}</td>
                         <td className="px-3 py-2 text-slate-500 text-[11px] font-sans">{p.paidFromAccount}</td>
                         <td className="px-3 py-2 text-slate-500 text-[11px]">{p.referenceNo || "N/A"}</td>
-                        <td className="px-3 py-2 text-right font-bold text-rose-600">₹{parseFloat(p.amount).toLocaleString('en-IN')}</td>
+                        <td className="px-3 py-2 text-right font-bold text-orange-600">₹{parseFloat(p.amount).toLocaleString('en-IN')}</td>
                       </tr>
                     ))}
                   </tbody>

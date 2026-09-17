@@ -147,10 +147,10 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
       <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
         
         {/* Modal Header */}
-        <div className="px-6 py-5 bg-gradient-to-r from-indigo-700 to-indigo-900 text-white flex justify-between items-center">
+        <div className="px-6 py-5 bg-gradient-to-r from-orange-700 to-orange-900 text-white flex justify-between items-center">
           <div>
             <h3 className="text-xl font-bold">Register Customer & Sale Contract</h3>
-            <p className="text-xs text-indigo-200 mt-0.5">Plot booking master registration with frozen commercial terms (PRD §19)</p>
+            <p className="text-xs text-orange-200 mt-0.5">Plot booking master registration with frozen commercial terms (PRD §19)</p>
           </div>
           <button
             onClick={handleClose}
@@ -163,13 +163,13 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
         {/* Modal Form */}
         <form onSubmit={handleSubmit} className="p-6 overflow-y-auto flex-grow space-y-6">
           {error && (
-            <div className="p-3.5 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg flex items-center gap-2">
+            <div className="p-3.5 bg-orange-50 border border-orange-200 text-orange-700 text-sm rounded-lg flex items-center gap-2">
               <span className="font-bold">Error:</span> {error}
             </div>
           )}
 
           {successMsg && (
-            <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm rounded-lg flex items-center gap-2">
+            <div className="p-3.5 bg-orange-50 border border-orange-200 text-orange-800 text-sm rounded-lg flex items-center gap-2">
               <span className="font-bold">Success:</span> {successMsg}
             </div>
           )}
@@ -177,7 +177,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
           {/* Section 1: Customer Master Information */}
           <div>
             <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-indigo-600"></span> 1. Customer Master Information
+              <span className="w-2 h-2 rounded-full bg-orange-600"></span> 1. Customer Master Information
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -189,7 +189,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.customerName}
                   onChange={handleChange}
                   placeholder="e.g. Ramesh Kumar"
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -202,7 +202,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.customerContact}
                   onChange={handleChange}
                   placeholder="e.g. +91 98765 43210"
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -214,7 +214,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.customerAddress}
                   onChange={handleChange}
                   placeholder="Street, City, State, PIN"
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -224,7 +224,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   name="identityType"
                   value={formData.identityType}
                   onChange={handleChange}
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none bg-white"
                 >
                   <option value="Aadhaar">Aadhaar Card</option>
                   <option value="PAN">PAN Card</option>
@@ -243,7 +243,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.identityNumber}
                   onChange={handleChange}
                   placeholder="e.g. 5489-1234-8890"
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -252,7 +252,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
           {/* Section 2: Property & Land Allocation */}
           <div className="pt-2 border-t border-gray-200">
             <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-indigo-600"></span> 2. Property & Plot Details
+              <span className="w-2 h-2 rounded-full bg-orange-600"></span> 2. Property & Plot Details
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="sm:col-span-2">
@@ -264,7 +264,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.projectLocation}
                   onChange={handleChange}
                   placeholder="e.g. Palm Meadows Phase 2"
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -277,7 +277,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.plotNo}
                   onChange={handleChange}
                   placeholder="e.g. PM-204"
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none font-semibold text-indigo-700"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none font-semibold text-orange-700"
                 />
               </div>
 
@@ -290,7 +290,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.khataNo}
                   onChange={handleChange}
                   placeholder="e.g. KH-8849/2026"
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -305,7 +305,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.areaSqft}
                   onChange={handleChange}
                   placeholder="e.g. 2400"
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -319,7 +319,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.ratePerSqft}
                   onChange={handleChange}
                   placeholder="e.g. 1250"
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -328,7 +328,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
           {/* Section 3: Commercial Terms Calculator */}
           <div className="pt-2 border-t border-gray-200">
             <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-indigo-600"></span> 3. Commercial Terms & Pricing Breakdown (₹)
+              <span className="w-2 h-2 rounded-full bg-orange-600"></span> 3. Commercial Terms & Pricing Breakdown (₹)
             </h4>
             
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
@@ -341,7 +341,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.landCost}
                   onChange={handleChange}
                   placeholder={area && rate ? `${area * rate}` : "0"}
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-indigo-500"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-orange-500"
                 />
                 <span className="text-[10px] text-gray-400">Auto: Area × Rate if empty</span>
               </div>
@@ -355,7 +355,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.registryCost}
                   onChange={handleChange}
                   placeholder="0"
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-indigo-500"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
@@ -368,7 +368,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.otherCharges}
                   onChange={handleChange}
                   placeholder="0"
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-indigo-500"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
@@ -381,12 +381,12 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.taxes}
                   onChange={handleChange}
                   placeholder="0"
-                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-indigo-500"
+                  className="w-full text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-rose-600 mb-1">Discount Allowed (₹)</label>
+                <label className="block text-xs font-semibold text-orange-600 mb-1">Discount Allowed (₹)</label>
                 <input
                   type="number"
                   name="discount"
@@ -394,19 +394,19 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
                   value={formData.discount}
                   onChange={handleChange}
                   placeholder="0"
-                  className="w-full text-sm border border-rose-200 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-rose-500 bg-rose-50/30"
+                  className="w-full text-sm border border-orange-200 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-orange-500 bg-orange-50/30"
                 />
               </div>
             </div>
 
             {/* Frozen Total Preview Banner */}
-            <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-300 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div className="bg-gradient-to-r from-orange-500/10 to-teal-500/10 border border-orange-300 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">Final Frozen Contract Value</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-orange-800">Final Frozen Contract Value</span>
                 <p className="text-xs text-gray-500 mt-0.5">Calculated once and frozen upon profile submission (PRD §19.3)</p>
               </div>
               <div className="text-right">
-                <span className="text-2xl font-black text-emerald-700">₹{totalContractValue.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                <span className="text-2xl font-black text-orange-700">₹{totalContractValue.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
               </div>
             </div>
           </div>
@@ -424,7 +424,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
             <button
               type="submit"
               disabled={loading || totalContractValue <= 0}
-              className="px-6 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] rounded-lg shadow-md transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-2 text-sm font-semibold text-white bg-orange-600 hover:bg-orange-700 active:scale-[0.98] rounded-lg shadow-md transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Registering..." : "Confirm & Freeze Contract"}
             </button>

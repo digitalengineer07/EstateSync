@@ -4,7 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { Building2, ShieldCheck, Layers, Landmark, Wallet, LogOut, Users } from "lucide-react";
-import { hasPermission, hasAnyPermission } from "@/utils/permissions";
+import { hasPermission } from "@/utils/permissions";
 
 export default function DashboardsLayout({ children }) {
   const { user, loading, logout } = useAuth();
@@ -20,7 +20,7 @@ export default function DashboardsLayout({ children }) {
   if (loading || !user) {
     return (
       <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center text-slate-900">
-        <div className="w-10 h-10 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <div className="w-10 h-10 border-3 border-orange-600 border-t-transparent rounded-full animate-spin mb-4"></div>
         <p className="text-xs font-semibold tracking-wider text-slate-500 uppercase">Loading EstateSync Platform...</p>
       </div>
     );
@@ -85,12 +85,12 @@ export default function DashboardsLayout({ children }) {
                 onClick={() => router.push("/dashboards/wallet")}
                 className="flex items-center gap-2.5 cursor-pointer group select-none shrink-0"
               >
-                <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-xs group-hover:bg-indigo-700 transition">
+                <div className="w-8 h-8 rounded-xl bg-orange-600 flex items-center justify-center text-white shadow-xs group-hover:bg-orange-700 transition">
                   <Building2 className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-base font-bold tracking-tight text-slate-900 flex items-center gap-0.5 leading-none">
-                    Estate<span className="text-indigo-600 font-extrabold">Sync</span>
+                    Estate<span className="text-orange-600 font-extrabold">Sync</span>
                   </span>
                   <span className="text-[9.5px] text-slate-400 font-bold tracking-wider uppercase mt-0.5">
                     Treasury & Accounting
@@ -116,7 +116,7 @@ export default function DashboardsLayout({ children }) {
                           : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium"
                       }`}
                     >
-                      <Icon className={`w-3.5 h-3.5 ${isActive ? "text-indigo-400" : "text-slate-400"}`} />
+                      <Icon className={`w-3.5 h-3.5 ${isActive ? "text-orange-400" : "text-slate-400"}`} />
                       <span>{nav.name}</span>
                     </button>
                   );
@@ -136,7 +136,7 @@ export default function DashboardsLayout({ children }) {
                       {displayName.charAt(0).toUpperCase()}
                     </div>
                     <div className="flex items-center gap-1.5 font-bold text-slate-900 text-xs leading-none">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                      <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse shrink-0"></span>
                       <span>{displayName}</span>
                     </div>
                   </div>
@@ -145,11 +145,11 @@ export default function DashboardsLayout({ children }) {
 
               <button
                 onClick={logout}
-                className="bg-rose-50/90 hover:bg-rose-100 text-rose-600 hover:text-rose-700 border border-rose-200/90 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs active:scale-95"
+                className="bg-orange-50/90 hover:bg-orange-100 text-orange-600 hover:text-orange-700 border border-orange-200/90 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs active:scale-95"
                 title="Logout session"
               >
                 <span>Logout</span>
-                <LogOut className="w-3.5 h-3.5 text-rose-600" />
+                <LogOut className="w-3.5 h-3.5 text-orange-600" />
               </button>
             </div>
 
@@ -169,19 +169,19 @@ export default function DashboardsLayout({ children }) {
             
             {/* Left: Product & Company Legal Entity */}
             <div className="flex items-center gap-3.5 text-center md:text-left">
-              <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-xs shrink-0">
+              <div className="w-9 h-9 rounded-xl bg-orange-600 text-white flex items-center justify-center font-bold shadow-xs shrink-0">
                 <Building2 className="w-4 h-4" />
               </div>
               <div>
                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
                   <span className="text-sm font-bold text-slate-900 tracking-tight">
-                    Estate<span className="text-indigo-600 font-extrabold">Sync</span>™
+                    Estate<span className="text-orange-600 font-extrabold">Sync</span>™
                   </span>
                   <span className="text-slate-300 hidden sm:inline">•</span>
                   <span className="text-xs font-semibold text-slate-600">
                     A Product of <span className="font-bold text-slate-900">Devoxa Technologies Pvt. Ltd.</span>
                   </span>
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-700 border border-orange-200">
                     Registered Trademark ®
                   </span>
                 </div>
@@ -194,7 +194,7 @@ export default function DashboardsLayout({ children }) {
             {/* Right: Copyright & Compliance */}
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6 text-center sm:text-right">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
                 <span className="text-xs font-semibold text-slate-600">System v2.4 Enterprise</span>
               </div>
               <div className="text-[11px] text-slate-500 font-medium">

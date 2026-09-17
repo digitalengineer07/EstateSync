@@ -133,9 +133,9 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
       <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
         
         {/* Modal Header */}
-        <div className="px-6 py-4 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex justify-between items-center border-b border-slate-800">
+        <div className="px-6 py-4 bg-gradient-to-r from-slate-900 via-orange-950 to-slate-900 text-white flex justify-between items-center border-b border-slate-800">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center border border-indigo-500/30">
+            <div className="w-8 h-8 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center border border-orange-500/30">
               <Edit3 className="w-4 h-4" />
             </div>
             <div>
@@ -154,15 +154,15 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
         {/* Modal Body / Form */}
         <form onSubmit={handleSubmit} className="p-6 overflow-y-auto flex-grow space-y-5">
           {error && (
-            <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-xl flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+            <div className="p-3.5 bg-orange-50 border border-orange-200 text-orange-700 text-xs rounded-xl flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-orange-600" />
               <span><strong>Error:</strong> {error}</span>
             </div>
           )}
 
           {successMsg && (
-            <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-xl flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+            <div className="p-3.5 bg-orange-50 border border-orange-200 text-orange-800 text-xs rounded-xl flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-orange-600" />
               <span><strong>Success:</strong> {successMsg}</span>
             </div>
           )}
@@ -170,7 +170,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
           {/* Section 1: Customer Personal Details */}
           <div>
             <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-indigo-600"></span> 1. Customer Personal Profile
+              <span className="w-2 h-2 rounded-full bg-orange-600"></span> 1. Customer Personal Profile
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -182,7 +182,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                   value={formData.customerName}
                   onChange={handleChange}
                   placeholder="e.g. Ramesh Kumar"
-                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none bg-slate-50/50"
+                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-slate-50/50"
                 />
               </div>
 
@@ -195,7 +195,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                   value={formData.customerContact}
                   onChange={handleChange}
                   placeholder="+91 9876543210 / email@domain.com"
-                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none bg-slate-50/50"
+                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-slate-50/50"
                 />
               </div>
 
@@ -207,7 +207,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                   value={formData.customerAddress}
                   onChange={handleChange}
                   placeholder="e.g. Flat 402, Green Valley Apartments, Bangalore"
-                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none bg-slate-50/50"
+                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-slate-50/50"
                 />
               </div>
 
@@ -217,7 +217,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                   name="identityType"
                   value={formData.identityType}
                   onChange={handleChange}
-                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none bg-white"
+                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-white"
                 >
                   <option value="Aadhaar">Aadhaar Card</option>
                   <option value="PAN">PAN Card</option>
@@ -235,7 +235,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                   value={formData.identityNumber}
                   onChange={handleChange}
                   placeholder="e.g. XXXX-XXXX-1234"
-                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none bg-slate-50/50 font-mono"
+                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-slate-50/50 font-mono"
                 />
               </div>
             </div>
@@ -244,7 +244,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
           {/* Section 2: Property Allotment Details */}
           <div className="pt-2 border-t border-slate-100">
             <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-indigo-600"></span> 2. Property & Plot Allotment
+              <span className="w-2 h-2 rounded-full bg-orange-600"></span> 2. Property & Plot Allotment
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -256,7 +256,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                   value={formData.projectLocation}
                   onChange={handleChange}
                   placeholder="e.g. Green Acres Phase 1"
-                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none bg-slate-50/50"
+                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-slate-50/50"
                 />
               </div>
 
@@ -269,7 +269,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                   value={formData.plotNo}
                   onChange={handleChange}
                   placeholder="e.g. 104-A"
-                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none bg-slate-50/50 font-mono"
+                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-slate-50/50 font-mono"
                 />
               </div>
 
@@ -282,7 +282,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                   value={formData.khataNo}
                   onChange={handleChange}
                   placeholder="e.g. KH-8892"
-                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none bg-slate-50/50 font-mono"
+                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-slate-50/50 font-mono"
                 />
               </div>
 
@@ -296,7 +296,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                   value={formData.areaSqft}
                   onChange={handleChange}
                   placeholder="e.g. 1500"
-                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none bg-slate-50/50 font-mono"
+                  className="w-full text-xs border border-slate-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-slate-50/50 font-mono"
                 />
               </div>
 
@@ -308,8 +308,8 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                   onChange={handleChange}
                   className={`w-full text-xs border rounded-lg px-3 py-2 focus:ring-2 focus:outline-none font-medium ${
                     isCancellingNow
-                      ? 'border-rose-300 bg-rose-50 text-rose-700 focus:ring-rose-500/20 focus:border-rose-500'
-                      : 'border-slate-200 bg-white focus:ring-indigo-500/20 focus:border-indigo-500'
+                      ? 'border-orange-300 bg-orange-50 text-orange-700 focus:ring-orange-500/20 focus:border-orange-500'
+                      : 'border-slate-200 bg-white focus:ring-orange-500/20 focus:border-orange-500'
                   }`}
                 >
                   <option value="ACTIVE">ACTIVE</option>
@@ -320,14 +320,14 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
 
             {/* Cancellation Confirmation Panel */}
             {isCancellingNow && showCancelConfirm && (
-              <div className="mt-4 p-4 bg-rose-50 rounded-xl border-2 border-rose-200 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+              <div className="mt-4 p-4 bg-orange-50 rounded-xl border-2 border-orange-200 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
                 <div className="flex items-start gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-rose-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center shrink-0 mt-0.5">
                     <AlertTriangle className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-rose-800">⚠️ Confirm Booking Cancellation</h4>
-                    <p className="text-xs text-rose-600 mt-0.5 leading-relaxed">
+                    <h4 className="text-sm font-bold text-orange-800">⚠️ Confirm Booking Cancellation</h4>
+                    <p className="text-xs text-orange-600 mt-0.5 leading-relaxed">
                       You are about to cancel the booking for <strong>{customer.customerName}</strong> — Plot {customer.plotNo} ({customer.projectLocation}).
                       This action will mark the customer account as CANCELLED.
                     </p>
@@ -337,7 +337,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                 {/* What will happen next */}
                 <div className={`p-3 rounded-lg border text-xs leading-relaxed ${
                   customerTotalPaid > 0
-                    ? 'bg-amber-50 border-amber-200 text-amber-800'
+                    ? 'bg-orange-50 border-orange-200 text-orange-800'
                     : 'bg-slate-50 border-slate-200 text-slate-600'
                 }`}>
                   <span className="font-bold block mb-1">
@@ -355,7 +355,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
 
                 {/* Cancellation Reason - Required */}
                 <div>
-                  <label className="block text-xs font-bold text-rose-800 mb-1">Cancellation Reason *</label>
+                  <label className="block text-xs font-bold text-orange-800 mb-1">Cancellation Reason *</label>
                   <textarea
                     name="cancellationReason"
                     rows={2}
@@ -363,10 +363,10 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
                     value={formData.cancellationReason}
                     onChange={handleChange}
                     placeholder="e.g. Customer requested cancellation due to personal reasons / financial constraints / relocated to another city..."
-                    className="w-full text-xs border border-rose-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 focus:outline-none bg-white placeholder:text-rose-300"
+                    className="w-full text-xs border border-orange-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none bg-white placeholder:text-orange-300"
                   />
                   {!formData.cancellationReason?.trim() && (
-                    <p className="text-[10px] text-rose-500 mt-1 font-medium">⚠ A reason is mandatory before cancellation can proceed.</p>
+                    <p className="text-[10px] text-orange-500 mt-1 font-medium">⚠ A reason is mandatory before cancellation can proceed.</p>
                   )}
                 </div>
               </div>
@@ -377,7 +377,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
           <div className="pt-2 border-t border-slate-100 bg-slate-50/80 p-3.5 rounded-xl border border-slate-200">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
-                <ShieldAlert className="w-3.5 h-3.5 text-indigo-600" />
+                <ShieldAlert className="w-3.5 h-3.5 text-orange-600" />
                 <span>Financial Ledger Snapshot (Read-Only)</span>
               </div>
               <span className="text-[10px] text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200 font-mono">
@@ -391,7 +391,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
               </div>
               <div className="bg-white p-2 rounded-lg border border-slate-200 text-center">
                 <span className="text-[10px] text-slate-400 block font-sans">Total Collected</span>
-                <span className="font-bold text-emerald-600">₹{parseFloat(customer.totalPaid || 0).toLocaleString('en-IN')}</span>
+                <span className="font-bold text-orange-600">₹{parseFloat(customer.totalPaid || 0).toLocaleString('en-IN')}</span>
               </div>
               <div className="bg-white p-2 rounded-lg border border-slate-200 text-center">
                 <span className="text-[10px] text-slate-400 block font-sans">Balance Due</span>
@@ -424,8 +424,8 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
               disabled={loading || (isCancellingNow && showCancelConfirm && !formData.cancellationReason?.trim())}
               className={`px-5 py-2 text-xs font-bold text-white active:scale-95 rounded-lg transition shadow-xs disabled:opacity-50 flex items-center gap-1.5 ${
                 isCancellingNow && showCancelConfirm
-                  ? 'bg-rose-600 hover:bg-rose-700'
-                  : 'bg-indigo-600 hover:bg-indigo-700'
+                  ? 'bg-orange-600 hover:bg-orange-700'
+                  : 'bg-orange-600 hover:bg-orange-700'
               }`}
             >
               {loading

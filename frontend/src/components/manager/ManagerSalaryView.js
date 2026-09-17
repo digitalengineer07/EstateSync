@@ -34,29 +34,29 @@ export default function ManagerSalaryView() {
   return (
     <div className="space-y-4">
       {/* Informational Read-Only Header */}
-      <div className="p-4 rounded-xl bg-purple-50/70 border border-purple-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-purple-900">
+      <div className="p-4 rounded-xl bg-orange-50/70 border border-orange-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-orange-900">
         <div className="flex items-center gap-2.5">
-          <ShieldCheck className="w-4 h-4 text-purple-600 shrink-0" />
+          <ShieldCheck className="w-4 h-4 text-orange-600 shrink-0" />
           <span>
             <strong className="font-semibold">Manager Oversight Mode:</strong> You have supervisory view rights for team salaries. Base compensation updates are restricted to Admin, and Treasury disbursements are authorized by Admin & Accounting.
           </span>
         </div>
         <div className="text-right whitespace-nowrap">
-          <span className="text-purple-600 font-medium">Team Base Payroll: </span>
-          <span className="font-bold text-sm text-purple-950">₹{totalMonthlyLiability.toLocaleString("en-IN")} / mo</span>
+          <span className="text-orange-600 font-medium">Team Base Payroll: </span>
+          <span className="font-bold text-sm text-orange-950">₹{totalMonthlyLiability.toLocaleString("en-IN")} / mo</span>
         </div>
       </div>
 
       {error && (
-        <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 text-rose-600" />
+        <div className="p-3 rounded-xl bg-orange-50 border border-orange-200 text-xs text-orange-800 flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 text-orange-600" />
           <span>{error}</span>
         </div>
       )}
 
       {loading ? (
         <div className="p-12 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-2">
-          <RefreshCw className="w-5 h-5 animate-spin text-purple-600" />
+          <RefreshCw className="w-5 h-5 animate-spin text-orange-600" />
           <span>Loading team salaries...</span>
         </div>
       ) : employees.length === 0 ? (
@@ -81,13 +81,13 @@ export default function ManagerSalaryView() {
                   {/* Name & Code */}
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-purple-50 border border-purple-100 text-purple-700 font-bold text-xs flex items-center justify-center shrink-0">
+                      <div className="w-7 h-7 rounded-lg bg-orange-50 border border-orange-100 text-orange-700 font-bold text-xs flex items-center justify-center shrink-0">
                         {emp.fullName?.charAt(0)?.toUpperCase() || "E"}
                       </div>
                       <div>
                         <Link
                           href={`/dashboards/employees/${emp.id}`}
-                          className="font-bold text-slate-900 hover:text-purple-600 transition"
+                          className="font-bold text-slate-900 hover:text-orange-600 transition"
                         >
                           {emp.fullName}
                         </Link>

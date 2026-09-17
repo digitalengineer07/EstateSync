@@ -8,7 +8,7 @@ import { formatDate } from "@/utils/formatters";
 
 const PAGE_SIZE = 10;
 
-export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
+export default function TreasuryInflowList() {
   const [cashflows, setCashflows] = useState([]);
   const [summary, setSummary] = useState({ totalInflow: 0, totalOutflow: 0, netCashflow: 0 });
   const [loading, setLoading] = useState(true);
@@ -38,12 +38,9 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
   };
 
   useEffect(() => {
-    fetchCashflow();
+    const timeoutId = setTimeout(fetchCashflow, 0);
+    return () => clearTimeout(timeoutId);
   }, []);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search, flowFilter]);
 
   const handleInflowSuccess = (data) => {
     setToastMessage(data.message || "Bank inflow successfully posted to Corporate Treasury.");
@@ -75,12 +72,12 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
     <div className="bg-white rounded-2xl border border-slate-200/80 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 space-y-6">
       {/* Toast Alert */}
       {toastMessage && (
-        <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl text-xs font-semibold flex items-center justify-between animate-in fade-in duration-200 shadow-2xs">
+        <div className="p-4 bg-orange-50 border border-orange-200 text-orange-900 rounded-xl text-xs font-semibold flex items-center justify-between animate-in fade-in duration-200 shadow-2xs">
           <div className="flex items-center space-x-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+            <ShieldCheck className="w-4 h-4 text-orange-600 shrink-0" />
             <span>{toastMessage}</span>
           </div>
-          <button onClick={() => setToastMessage(null)} className="text-emerald-700 hover:text-emerald-900">✕</button>
+          <button onClick={() => setToastMessage(null)} className="text-orange-700 hover:text-orange-900">✕</button>
         </div>
       )}
 
@@ -92,7 +89,7 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
             <h3 className="text-lg font-bold text-slate-900 tracking-tight">
               Corporate Treasury & Cashflow Audit
             </h3>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-50 text-orange-700 border border-orange-200">
               <Landmark className="w-3.5 h-3.5" />
               <span>Main Treasury</span>
             </span>
@@ -107,7 +104,10 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
           {/* Approach 1: 3-Way Flow Toggle Switch */}
           <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold">
             <button
-              onClick={() => setFlowFilter("all")}
+              onClick={() => {
+                setFlowFilter("all");
+                setCurrentPage(1);
+              }}
               className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
                 flowFilter === "all"
                   ? "bg-white text-slate-900 shadow-xs font-bold"
@@ -118,25 +118,31 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
               <span>All Cashflow</span>
             </button>
             <button
-              onClick={() => setFlowFilter("inflows")}
+              onClick={() => {
+                setFlowFilter("inflows");
+                setCurrentPage(1);
+              }}
               className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
                 flowFilter === "inflows"
-                  ? "bg-white text-emerald-700 shadow-xs font-bold"
-                  : "text-slate-600 hover:text-emerald-700"
+                  ? "bg-white text-slate-900 shadow-xs font-bold"
+                  : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span className="w-2 h-2 rounded-full bg-orange-500"></span>
               <span>Money In</span>
             </button>
             <button
-              onClick={() => setFlowFilter("outflows")}
+              onClick={() => {
+                setFlowFilter("outflows");
+                setCurrentPage(1);
+              }}
               className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
                 flowFilter === "outflows"
-                  ? "bg-white text-rose-700 shadow-xs font-bold"
-                  : "text-slate-600 hover:text-rose-700"
+                  ? "bg-white text-slate-900 shadow-xs font-bold"
+                  : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              <span className="w-2 h-2 rounded-full bg-rose-500"></span>
+              <span className="w-2 h-2 rounded-full bg-slate-900"></span>
               <span>Money Out</span>
             </button>
           </div>
@@ -147,16 +153,19 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
             <input
               type="text"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setCurrentPage(1);
+              }}
               placeholder="Search UTR, name, flow..."
-              className="w-full text-xs pl-9 pr-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
+              className="w-full text-xs pl-9 pr-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition"
             />
           </div>
 
           {/* Record Inflow Primary Button */}
           <button
             onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-xs font-semibold text-white shadow-xs transition active:scale-95 whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-orange-600 hover:bg-orange-700 text-xs font-semibold text-white shadow-xs transition active:scale-95 whitespace-nowrap"
           >
             <Plus className="w-4 h-4" />
             <span>Record Bank Inflow</span>
@@ -169,7 +178,7 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
             className="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 hover:text-slate-900 transition disabled:opacity-50"
             title="Refresh Treasury Ledger"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-indigo-600" : ""}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-orange-600" : ""}`} />
           </button>
         </div>
       </div>
@@ -229,7 +238,7 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
               {loading ? (
                 <tr>
                   <td colSpan="8" className="px-5 py-10 text-center text-slate-400">
-                    <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-indigo-600" />
+                    <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-orange-600" />
                     Loading Corporate Treasury Cashflows...
                   </td>
                 </tr>
@@ -286,23 +295,23 @@ export default function TreasuryInflowList({ userRole = "ACCOUNTING" }) {
                       <td className="px-5 py-4">
                         <span className={`px-2 py-0.5 text-[10px] font-bold uppercase rounded-md border ${
                           item.fundMode === "CASH"
-                            ? "bg-amber-50 text-amber-700 border-amber-200"
-                            : "bg-blue-50 text-blue-700 border-blue-200"
+                            ? "bg-orange-50 text-orange-700 border-orange-200"
+                            : "bg-orange-50 text-orange-700 border-orange-200"
                         }`}>
                           {item.fundMode || "LIQUID"}
                         </span>
                       </td>
                       <td className="px-5 py-4 text-slate-600 font-medium text-[11px]">
                         <span className="inline-flex items-center gap-1.5">
-                          <span className="w-5 h-5 rounded-full bg-indigo-100 text-indigo-700 font-bold text-[10px] flex items-center justify-center">
+                          <span className="w-5 h-5 rounded-full bg-orange-100 text-orange-700 font-bold text-[10px] flex items-center justify-center">
                             {(item.createdBy || "U").charAt(0).toUpperCase()}
                           </span>
                           <span>{item.createdBy}</span>
                         </span>
                       </td>
                       <td className="px-5 py-4 text-center">
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10.5px] font-bold rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10.5px] font-bold rounded-full bg-orange-50 text-orange-800 border border-orange-200/80">
+                          <span className="w-1.5 h-1.5 rounded-full bg-orange-600"></span>
                           {item.status || "COMPLETED"}
                         </span>
                       </td>

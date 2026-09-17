@@ -154,7 +154,7 @@ export default function EditCustomerPaymentModal({
         {/* Header */}
         <div className="px-6 py-4 bg-slate-900 text-white flex justify-between items-center">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center border border-indigo-500/30">
+            <div className="w-8 h-8 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center border border-orange-500/30">
               <Calendar className="w-4 h-4" />
             </div>
             <div>
@@ -185,7 +185,7 @@ export default function EditCustomerPaymentModal({
           </div>
           <div className="text-right">
             <span className="text-slate-500 font-medium">Original Amount: </span>
-            <span className="font-mono font-black text-emerald-700 text-sm">
+            <span className="font-mono font-black text-orange-700 text-sm">
               ₹{oldAmount.toLocaleString("en-IN")}
             </span>
           </div>
@@ -194,15 +194,15 @@ export default function EditCustomerPaymentModal({
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs">
           {error && (
-            <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
+            <div className="p-3 bg-orange-50 border border-orange-200 text-orange-700 rounded-lg flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-orange-600" />
               <span>{error}</span>
             </div>
           )}
 
           {successMsg && (
-            <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+            <div className="p-3 bg-orange-50 border border-orange-200 text-orange-800 rounded-lg flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-orange-600" />
               <span>{successMsg}</span>
             </div>
           )}
@@ -215,8 +215,8 @@ export default function EditCustomerPaymentModal({
                 Payment Amount (₹) *
               </label>
               {isAdmin ? (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200">
-                  <ShieldCheck className="w-3 h-3 text-amber-700" />
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-800 border border-orange-200">
+                  <ShieldCheck className="w-3 h-3 text-orange-700" />
                   Admin Authorized
                 </span>
               ) : (
@@ -241,8 +241,8 @@ export default function EditCustomerPaymentModal({
                   !isAdmin
                     ? "bg-slate-100 text-slate-500 border-slate-200 cursor-not-allowed"
                     : isAmountChanged
-                    ? "bg-amber-50/50 text-slate-900 border-amber-400 ring-2 ring-amber-300/40"
-                    : "bg-white text-slate-900 border-slate-300 focus:ring-2 focus:ring-indigo-500"
+                    ? "bg-orange-50/50 text-slate-900 border-orange-400 ring-2 ring-orange-300/40"
+                    : "bg-white text-slate-900 border-slate-300 focus:ring-2 focus:ring-orange-500"
                 }`}
               />
             </div>
@@ -255,12 +255,12 @@ export default function EditCustomerPaymentModal({
             ) : isAmountChanged && (
               <div className={`p-2.5 rounded-lg border text-xs flex flex-col gap-1 ${
                 delta > 0 
-                  ? "bg-emerald-50 border-emerald-200 text-emerald-900" 
-                  : "bg-amber-50 border-amber-200 text-amber-900"
+                  ? "bg-orange-50 border-orange-200 text-orange-900" 
+                  : "bg-orange-50 border-orange-200 text-orange-900"
               }`}>
                 <div className="flex items-center justify-between font-bold">
                   <span>Adjustment Impact (Δ):</span>
-                  <span className={`font-mono text-sm font-black ${delta > 0 ? "text-emerald-700" : "text-amber-700"}`}>
+                  <span className={`font-mono text-sm font-black ${delta > 0 ? "text-orange-700" : "text-orange-700"}`}>
                     {delta > 0 ? `+₹${delta.toLocaleString("en-IN")}` : `-₹${Math.abs(delta).toLocaleString("en-IN")}`}
                   </span>
                 </div>
@@ -283,11 +283,11 @@ export default function EditCustomerPaymentModal({
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
                   placeholder="e.g. Typo error by accountant: entered 500000 instead of 50000 per bank slip..."
-                  className="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                  className="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
                 <div className="flex justify-between items-center text-[10px] text-slate-500 mt-0.5">
                   <span>Required for audit log & General Ledger journal</span>
-                  <span className={reason.trim().length >= 10 ? "text-emerald-600 font-bold" : "text-amber-600"}>
+                  <span className={reason.trim().length >= 10 ? "text-orange-600 font-bold" : "text-orange-600"}>
                     {reason.trim().length}/10 chars
                   </span>
                 </div>
@@ -306,10 +306,10 @@ export default function EditCustomerPaymentModal({
                 required
                 value={dateOfPayment}
                 onChange={(e) => setDateOfPayment(e.target.value)}
-                className="w-full text-xs font-mono font-medium border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white"
+                className="w-full text-xs font-mono font-medium border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none bg-white"
               />
               <span className="text-[10px] text-slate-500 mt-1 block">
-                Will display as: <strong className="text-indigo-700">{formatDate(dateOfPayment)}</strong>
+                Will display as: <strong className="text-orange-700">{formatDate(dateOfPayment)}</strong>
               </span>
             </div>
 
@@ -321,7 +321,7 @@ export default function EditCustomerPaymentModal({
               <select
                 value={paymentMode}
                 onChange={(e) => setPaymentMode(e.target.value)}
-                className="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white font-medium"
+                className="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none bg-white font-medium"
               >
                 <option value="NEFT">NEFT Transfer</option>
                 <option value="RTGS">RTGS Transfer</option>
@@ -345,7 +345,7 @@ export default function EditCustomerPaymentModal({
                   value={referenceNo}
                   onChange={(e) => setReferenceNo(e.target.value)}
                   placeholder="e.g. 618253429249 or RTGS-12345"
-                  className="w-full font-mono text-xs border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full font-mono text-xs border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -359,7 +359,7 @@ export default function EditCustomerPaymentModal({
                   value={sourceAccount}
                   onChange={(e) => setSourceAccount(e.target.value)}
                   placeholder="e.g. INDIAN BANK or HDFC A/C"
-                  className="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -373,7 +373,7 @@ export default function EditCustomerPaymentModal({
                   value={destinationAccount}
                   onChange={(e) => setDestinationAccount(e.target.value)}
                   placeholder="e.g. BOI AG HOMES or Corporate Bank (1010)"
-                  className="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
             </>
@@ -393,8 +393,8 @@ export default function EditCustomerPaymentModal({
               disabled={loading}
               className={`px-5 py-2 text-xs font-bold text-white rounded-lg transition shadow-xs disabled:opacity-50 ${
                 isAdmin && isAmountChanged
-                  ? "bg-amber-600 hover:bg-amber-700"
-                  : "bg-indigo-600 hover:bg-indigo-700"
+                  ? "bg-orange-600 hover:bg-orange-700"
+                  : "bg-orange-600 hover:bg-orange-700"
               }`}
             >
               {loading 

@@ -113,10 +113,10 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
       <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full flex flex-col overflow-hidden border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
         
         {/* Modal Header */}
-        <div className="px-6 py-5 bg-gradient-to-r from-amber-700 via-orange-700 to-amber-900 text-white flex justify-between items-center">
+        <div className="px-6 py-5 bg-gradient-to-r from-orange-700 via-orange-700 to-orange-900 text-white flex justify-between items-center">
           <div>
             <h3 className="text-xl font-bold">New Land / Property Acquisition</h3>
-            <p className="text-xs text-amber-200 mt-0.5">Register land parcel and owner liability terms (PRD §20.2)</p>
+            <p className="text-xs text-orange-200 mt-0.5">Register land parcel and owner liability terms (PRD §20.2)</p>
           </div>
           <button
             onClick={handleClose}
@@ -129,13 +129,13 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
         {/* Modal Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
           {error && (
-            <div className="p-3.5 bg-red-50 border border-red-200 text-red-700 text-xs rounded-lg font-medium">
+            <div className="p-3.5 bg-orange-50 border border-orange-200 text-orange-700 text-xs rounded-lg font-medium">
               <span className="font-bold">Error:</span> {error}
             </div>
           )}
 
           {successMsg && (
-            <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-lg font-medium">
+            <div className="p-3.5 bg-orange-50 border border-orange-200 text-orange-800 text-xs rounded-lg font-medium">
               <span className="font-bold">Success:</span> {successMsg}
             </div>
           )}
@@ -143,7 +143,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
           {/* Section 1: Land Parcel Details */}
           <div>
             <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-600"></span> 1. Land Parcel Identification
+              <span className="w-2 h-2 rounded-full bg-orange-600"></span> 1. Land Parcel Identification
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
@@ -155,7 +155,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
                   value={formData.khataNo}
                   onChange={handleChange}
                   placeholder="e.g. KH-5502/2026"
-                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -168,7 +168,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
                   value={formData.plotNo}
                   onChange={handleChange}
                   placeholder="e.g. LA-902"
-                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none font-semibold text-amber-800"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none font-semibold text-orange-800"
                 />
               </div>
 
@@ -182,7 +182,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
                   value={formData.areaSqft}
                   onChange={handleChange}
                   placeholder="e.g. 15000"
-                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -195,7 +195,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
                   value={formData.projectLocation}
                   onChange={handleChange}
                   placeholder="e.g. Green Horizon Township, Sector 12"
-                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -204,7 +204,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
           {/* Section 2: Land Owner Details */}
           <div className="pt-3 border-t border-gray-200">
             <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-600"></span> 2. Land Owner Information
+              <span className="w-2 h-2 rounded-full bg-orange-600"></span> 2. Land Owner Information
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
@@ -216,7 +216,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
                   value={formData.landOwnerName}
                   onChange={handleChange}
                   placeholder="e.g. Balram Yadav"
-                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -229,7 +229,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
                   value={formData.landOwnerContact}
                   onChange={handleChange}
                   placeholder="e.g. +91 91234 56789"
-                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -241,7 +241,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
                   value={formData.landOwnerAddress}
                   onChange={handleChange}
                   placeholder="Village, Tehsil, District, State"
-                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -250,7 +250,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
           {/* Section 3: Financial Terms & Total Valuation */}
           <div className="pt-3 border-t border-gray-200">
             <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-600"></span> 3. Valuation & Agreement Date
+              <span className="w-2 h-2 rounded-full bg-orange-600"></span> 3. Valuation & Agreement Date
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
@@ -264,10 +264,10 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
                   value={formData.totalLandValue}
                   onChange={handleChange}
                   placeholder="e.g. 2000000"
-                  className="w-full text-sm font-bold border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none text-gray-900"
+                  className="w-full text-sm font-bold border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none text-gray-900"
                 />
                 {numArea > 0 && numValue > 0 && (
-                  <span className="text-[11px] text-amber-700 font-semibold mt-1 block">
+                  <span className="text-[11px] text-orange-700 font-semibold mt-1 block">
                     Calculated Rate: ₹{ratePerSqft} / sq.ft
                   </span>
                 )}
@@ -281,19 +281,19 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
                   required
                   value={formData.agreementDate}
                   onChange={handleChange}
-                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
             </div>
 
             {/* Valuation Banner */}
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3.5 mt-3 flex justify-between items-center">
+            <div className="bg-orange-50 border border-orange-200 rounded-xl p-3.5 mt-3 flex justify-between items-center">
               <div>
-                <span className="text-xs font-bold text-amber-900 uppercase">Fixed Asset Land Valuation</span>
-                <p className="text-[11px] text-amber-700">Posts to Chart of Accounts (Account 1510) upon payment</p>
+                <span className="text-xs font-bold text-orange-900 uppercase">Fixed Asset Land Valuation</span>
+                <p className="text-[11px] text-orange-700">Posts to Chart of Accounts (Account 1510) upon payment</p>
               </div>
               <div className="text-right">
-                <span className="text-xl font-black text-amber-900">₹{numValue.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                <span className="text-xl font-black text-orange-900">₹{numValue.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
               </div>
             </div>
           </div>
@@ -311,7 +311,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
             <button
               type="submit"
               disabled={loading || numValue <= 0}
-              className="px-5 py-2 text-xs font-bold text-white bg-amber-700 hover:bg-amber-800 active:scale-95 rounded-lg shadow-md transition disabled:opacity-50"
+              className="px-5 py-2 text-xs font-bold text-white bg-orange-700 hover:bg-orange-800 active:scale-95 rounded-lg shadow-md transition disabled:opacity-50"
             >
               {loading ? "Registering..." : "Record Land Acquisition"}
             </button>

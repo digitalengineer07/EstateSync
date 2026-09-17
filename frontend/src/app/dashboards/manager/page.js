@@ -1,105 +1,57 @@
 "use client";
 
 import { useState } from "react";
-import FundRequestList from "@/components/FundRequestList";
-import DashboardStats from "@/components/DashboardStats";
 import ExpenseList from "@/components/ExpenseList";
+import FundRequestList from "@/components/FundRequestList";
 import ManagerSalaryView from "@/components/manager/ManagerSalaryView";
-import { Layers, FileCheck, Receipt, IndianRupee } from "lucide-react";
+import SoftDashboardShell from "@/components/SoftDashboardShell";
+import { FileCheck, IndianRupee, Receipt } from "lucide-react";
+
+const MANAGER_PANELS = [
+  {
+    id: "approvals",
+    label: "Incoming Team Fund Requests",
+    shortLabel: "Approvals",
+    description: "Review and approve pending team fund allocations.",
+    icon: FileCheck,
+  },
+  {
+    id: "expenses",
+    label: "Team Expense Submissions",
+    shortLabel: "Team Expenses",
+    description: "Monitor itemized receipts and expenditures filed by the team.",
+    icon: Receipt,
+  },
+  {
+    id: "salaries",
+    label: "Department Team Salaries & Compensation",
+    shortLabel: "Team Salaries",
+    description: "Read-only salary governance and compensation oversight.",
+    icon: IndianRupee,
+  },
+];
 
 export default function ManagerDashboard() {
-  const [managerTab, setManagerTab] = useState("approvals");
+  const [activePanel, setActivePanel] = useState("approvals");
+
+  const renderPanel = () => {
+    if (activePanel === "expenses") return <ExpenseList type="team" />;
+    if (activePanel === "salaries") return <ManagerSalaryView />;
+    return <FundRequestList type="incoming" embedded={true} showHeader={false} />;
+  };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-              Operations & Management Hub
-            </h1>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">
-              <Layers className="w-3.5 h-3.5" />
-              Operations Authority
-            </span>
-          </div>
-          <p className="text-slate-500 text-xs sm:text-sm mt-1">
-            Supervise departmental workflows, approve field team fund requisitions, monitor expenditures, and oversee operations.
-          </p>
-        </div>
-      </div>
-
-      {/* 4 Clean Stats */}
-      <DashboardStats type="manager" />
-
-      {/* Toggled Operations Container */}
-      <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-5 border-b border-slate-100">
-          <div>
-            <h3 className="text-lg font-bold text-slate-900">
-              {managerTab === "approvals"
-                ? "Incoming Team Fund Requests"
-                : managerTab === "expenses"
-                ? "Team Expense Submissions"
-                : "Department Team Salaries & Compensation"}
-            </h3>
-            <p className="text-xs text-slate-500 mt-0.5">
-              {managerTab === "approvals"
-                ? "Review and one-click approve pending fund allocations to team members."
-                : managerTab === "expenses"
-                ? "Monitor itemized receipts and expenditures filed by your team."
-                : "Supervisory read-only view of team member salary configurations and bank details."}
-            </p>
-          </div>
-
-          <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs font-semibold overflow-x-auto">
-            <button
-              onClick={() => setManagerTab("approvals")}
-              className={`px-3.5 py-1.5 rounded-md transition flex items-center gap-1.5 whitespace-nowrap ${
-                managerTab === "approvals"
-                  ? "bg-white text-slate-900 shadow-xs font-bold"
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              <FileCheck className="w-3.5 h-3.5" />
-              Pending Approvals
-            </button>
-            <button
-              onClick={() => setManagerTab("expenses")}
-              className={`px-3.5 py-1.5 rounded-md transition flex items-center gap-1.5 whitespace-nowrap ${
-                managerTab === "expenses"
-                  ? "bg-white text-slate-900 shadow-xs font-bold"
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              <Receipt className="w-3.5 h-3.5" />
-              Team Expenses
-            </button>
-            <button
-              onClick={() => setManagerTab("salaries")}
-              className={`px-3.5 py-1.5 rounded-md transition flex items-center gap-1.5 whitespace-nowrap ${
-                managerTab === "salaries"
-                  ? "bg-white text-slate-900 shadow-xs font-bold"
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              <IndianRupee className="w-3.5 h-3.5" />
-              Team Salaries
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-4">
-          {managerTab === "approvals" ? (
-            <FundRequestList type="incoming" embedded={true} showHeader={false} />
-          ) : managerTab === "expenses" ? (
-            <ExpenseList type="team" />
-          ) : (
-            <ManagerSalaryView />
-          )}
-        </div>
-      </div>
-    </div>
+    <SoftDashboardShell
+      title="Operations & Management Hub"
+      description="Supervise departmental workflows, approve field team fund requisitions, monitor expenditures, and oversee operations."
+      badge="Operations Authority"
+      navItems={MANAGER_PANELS}
+      activeId={activePanel}
+      onSelect={setActivePanel}
+      statsType="manager"
+      helperText="Switch between approvals, team expenses, and salary oversight without leaving the manager workspace."
+    >
+      {renderPanel()}
+    </SoftDashboardShell>
   );
 }

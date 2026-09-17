@@ -93,10 +93,10 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
       <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full flex flex-col overflow-hidden border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
         
         {/* Modal Header */}
-        <div className="px-6 py-4 bg-gradient-to-r from-emerald-700 to-teal-800 text-white flex justify-between items-center">
+        <div className="px-6 py-4 bg-gradient-to-r from-orange-700 to-teal-800 text-white flex justify-between items-center">
           <div>
             <h3 className="text-lg font-bold">Record Customer Payment</h3>
-            <p className="text-xs text-emerald-200">Accounting Collection & Inflow Journal (PRD §19.4)</p>
+            <p className="text-xs text-orange-200">Accounting Collection & Inflow Journal (PRD §19.4)</p>
           </div>
           <button
             onClick={onClose}
@@ -107,29 +107,29 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
         </div>
 
         {/* Customer Snapshot Banner */}
-        <div className="bg-emerald-50/70 border-b border-emerald-100 px-6 py-3.5">
+        <div className="bg-orange-50/70 border-b border-orange-100 px-6 py-3.5">
           <div className="flex justify-between items-start">
             <div>
               <div className="font-bold text-gray-900 text-sm">{customer.customerName}</div>
-              <div className="text-xs text-gray-500">Plot <span className="font-semibold text-emerald-800">{customer.plotNo}</span> • {customer.projectLocation}</div>
+              <div className="text-xs text-gray-500">Plot <span className="font-semibold text-orange-800">{customer.plotNo}</span> • {customer.projectLocation}</div>
             </div>
-            <span className="px-2 py-0.5 text-xs font-semibold rounded bg-emerald-100 text-emerald-800">
+            <span className="px-2 py-0.5 text-xs font-semibold rounded bg-orange-100 text-orange-800">
               {customer.status}
             </span>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 mt-3 text-center pt-2 border-t border-emerald-200/60">
+          <div className="grid grid-cols-3 gap-2 mt-3 text-center pt-2 border-t border-orange-200/60">
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold">Contract</span>
               <p className="text-xs font-bold text-gray-800">₹{totalContract.toLocaleString('en-IN')}</p>
             </div>
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold">Paid</span>
-              <p className="text-xs font-bold text-emerald-700">₹{totalPaid.toLocaleString('en-IN')}</p>
+              <p className="text-xs font-bold text-orange-700">₹{totalPaid.toLocaleString('en-IN')}</p>
             </div>
             <div>
               <span className="text-[10px] text-gray-500 uppercase font-semibold">Balance Due</span>
-              <p className="text-xs font-bold text-rose-700">₹{balanceDue.toLocaleString('en-IN')}</p>
+              <p className="text-xs font-bold text-orange-700">₹{balanceDue.toLocaleString('en-IN')}</p>
             </div>
           </div>
         </div>
@@ -137,13 +137,13 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
         {/* Payment Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {error && (
-            <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-lg">
+            <div className="p-3 bg-orange-50 border border-orange-200 text-orange-700 text-xs rounded-lg">
               <span className="font-bold">Error:</span> {error}
             </div>
           )}
 
           {successMsg && (
-            <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-lg">
+            <div className="p-3 bg-orange-50 border border-orange-200 text-orange-800 text-xs rounded-lg">
               <span className="font-bold">Success:</span> {successMsg}
             </div>
           )}
@@ -154,7 +154,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
               <button
                 type="button"
                 onClick={() => setAmount(balanceDue.toString())}
-                className="text-[11px] font-semibold text-emerald-700 hover:underline"
+                className="text-[11px] font-semibold text-orange-700 hover:underline"
               >
                 Pay Full Due (₹{balanceDue.toLocaleString('en-IN')})
               </button>
@@ -168,7 +168,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="e.g. 500000"
-              className="w-full text-base font-bold text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+              className="w-full text-base font-bold text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
             />
           </div>
 
@@ -178,7 +178,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
               <select
                 value={paymentMode}
                 onChange={(e) => setPaymentMode(e.target.value)}
-                className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
+                className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none bg-white"
               >
                 <option value="NEFT">NEFT Transfer</option>
                 <option value="RTGS">RTGS Transfer</option>
@@ -196,9 +196,9 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
                 required
                 value={dateOfPayment}
                 onChange={(e) => setDateOfPayment(e.target.value)}
-                className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white font-medium"
+                className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none bg-white font-medium"
               />
-              <span className="text-[10.5px] text-emerald-700 font-semibold mt-1 block">
+              <span className="text-[10.5px] text-orange-700 font-semibold mt-1 block">
                 Selected: {formatDate(dateOfPayment, { format: 'dd-mmm-yyyy' })}
               </span>
             </div>
@@ -216,12 +216,12 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
                   maxLength={22}
                   className={`w-full text-xs border rounded-lg px-3 py-2 focus:outline-none font-mono ${
                     referenceNo?.trim() && Array.isArray(customer.payments) && customer.payments.some(p => p.referenceNo && p.referenceNo.trim().toUpperCase() === referenceNo.trim().toUpperCase())
-                      ? 'border-amber-400 bg-amber-50/50 focus:ring-2 focus:ring-amber-400'
-                      : 'border-gray-300 focus:ring-2 focus:ring-emerald-500'
+                      ? 'border-orange-400 bg-orange-50/50 focus:ring-2 focus:ring-orange-400'
+                      : 'border-gray-300 focus:ring-2 focus:ring-orange-500'
                   }`}
                 />
                 {referenceNo?.trim() && Array.isArray(customer.payments) && customer.payments.some(p => p.referenceNo && p.referenceNo.trim().toUpperCase() === referenceNo.trim().toUpperCase()) && (
-                  <span className="text-[11px] text-amber-700 font-semibold mt-1 block">
+                  <span className="text-[11px] text-orange-700 font-semibold mt-1 block">
                     ⚠️ Note: Reference No. &ldquo;{referenceNo.trim()}&rdquo; has already been recorded for this customer. Please enter a new UTR.
                   </span>
                 )}
@@ -234,7 +234,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
                   value={sourceAccount}
                   onChange={(e) => setSourceAccount(e.target.value)}
                   placeholder="e.g. HDFC Bank Client A/C ...9081"
-                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                  className="w-full text-xs border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -263,7 +263,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
             <button
               type="submit"
               disabled={loading || numAmount <= 0 || numAmount > balanceDue}
-              className="px-5 py-2 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] rounded-lg shadow-md transition disabled:opacity-50"
+              className="px-5 py-2 text-xs font-semibold text-white bg-orange-600 hover:bg-orange-700 active:scale-[0.98] rounded-lg shadow-md transition disabled:opacity-50"
             >
               {loading ? "Posting Payment..." : `Post Credit of ₹${numAmount ? numAmount.toLocaleString('en-IN') : "0"}`}
             </button>
