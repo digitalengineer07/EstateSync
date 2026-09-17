@@ -231,8 +231,9 @@ export default function SoftDashboardShell({
             </p>
           </div>
 
-          {/* Right Floating Period Card (Role card removed as requested) */}
-          <div className="shrink-0 self-start lg:self-center">
+          {/* Right Floating Frosted Cards */}
+          <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0 self-start lg:self-center">
+            {/* Period Card */}
             <div className="flex items-center justify-between gap-3 bg-white/95 backdrop-blur-md border border-white/90 rounded-2xl px-4 py-2.5 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.10)] min-w-[240px] transition hover:shadow-md">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
@@ -248,6 +249,21 @@ export default function SoftDashboardShell({
                 </div>
               </div>
               <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+            </div>
+
+            {/* Profile Identity Card (Without "Your Role" text) */}
+            <div className="flex items-center gap-3 bg-white/95 backdrop-blur-md border border-white/90 rounded-2xl px-4 py-2.5 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.10)] min-w-[240px] transition hover:shadow-md">
+              <div className="w-8 h-8 rounded-xl bg-[#ff6b12] text-white flex items-center justify-center shadow-xs shrink-0">
+                <Building2 className="w-4 h-4" />
+              </div>
+              <div>
+                <p className="text-xs font-black text-slate-900 tracking-tight leading-tight">
+                  {roleDetails.roleTitle}
+                </p>
+                <p className="text-[10px] text-slate-500 font-medium mt-0.5 leading-tight">
+                  {roleDetails.department}
+                </p>
+              </div>
             </div>
           </div>
 
