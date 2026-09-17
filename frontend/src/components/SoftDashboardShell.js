@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useDashboardNav } from "@/context/DashboardContext";
 import DashboardStats from "@/components/DashboardStats";
 import {
   Building2,
   Calendar,
+  ChevronLeft,
   ChevronRight,
   ShieldCheck,
   TrendingUp,
@@ -164,6 +165,52 @@ export default function SoftDashboardShell({
   const activeItem = navItems.find((item) => item.id === activeId) || navItems[0];
   const ActiveIcon = activeItem?.icon || LayoutDashboard;
 
+  // Horizontal Scroll Navigation Controls
+  const scrollRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkScroll = useCallback(() => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+    setCanScrollLeft(scrollLeft > 2);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 2);
+  }, []);
+
+  useEffect(() => {
+    checkScroll();
+    const el = scrollRef.current;
+    if (el) {
+      el.addEventListener("scroll", checkScroll, { passive: true });
+    }
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      if (el) el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [checkScroll, navItems]);
+
+  useEffect(() => {
+    if (scrollRef.current && activeId) {
+      const activeEl = scrollRef.current.querySelector(`[data-nav-id="${activeId}"]`);
+      if (activeEl) {
+        activeEl.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+      }
+    }
+  }, [activeId]);
+
+  const handleScrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -260, behavior: "smooth" });
+    }
+  };
+
+  const handleScrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 260, behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="w-full space-y-5 antialiased">
       {/* 1. PANORAMIC LUXURY HERO BANNER */}
@@ -270,34 +317,71 @@ export default function SoftDashboardShell({
         </div>
       </section>
 
-      {/* 2. HORIZONTAL SUB-NAVIGATION BAR (Sticky & Responsive) */}
+      {/* 2. HORIZONTAL SUB-NAVIGATION BAR (With Scroll Left / Right Buttons) */}
       {navItems.length > 0 && (
-        <nav
-          className="w-full bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-1.5 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.05)] flex items-center gap-1.5 overflow-x-auto no-scrollbar"
-          aria-label="Panel Navigation"
-        >
-          {navItems.map((item) => {
-            const Icon = item.icon || LayoutDashboard;
-            const isActive = activeId === item.id;
+        <div className="relative w-full bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-1.5 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.05)] flex items-center gap-1.5">
+          {/* Scroll Left Button */}
+          <button
+            type="button"
+            onClick={handleScrollLeft}
+            disabled={!canScrollLeft}
+            aria-label="Scroll navigation left"
+            className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition select-none ${
+              canScrollLeft
+                ? "bg-slate-50 hover:bg-orange-50 text-slate-700 hover:text-[#ff6b12] border border-slate-200/90 shadow-xs cursor-pointer active:scale-95"
+                : "opacity-30 text-slate-300 cursor-not-allowed border border-transparent"
+            }`}
+            title="Scroll Left"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
 
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => onSelect && onSelect(item.id)}
-                className={`px-4 py-2.5 rounded-xl transition-all duration-150 flex items-center gap-2 whitespace-nowrap text-xs sm:text-[13px] select-none ${
-                  isActive
-                    ? "bg-[#fff4ed] text-[#ff6b12] border border-orange-200/90 font-bold shadow-xs"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium"
-                }`}
-                aria-pressed={isActive}
-              >
-                <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-[#ff6b12]" : "text-slate-400"}`} />
-                <span>{item.shortLabel || item.label}</span>
-              </button>
-            );
-          })}
-        </nav>
+          {/* Scrollable Sub-Navigation Tabs */}
+          <nav
+            ref={scrollRef}
+            className="flex-1 flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth"
+            aria-label="Panel Navigation"
+          >
+            {navItems.map((item) => {
+              const Icon = item.icon || LayoutDashboard;
+              const isActive = activeId === item.id;
+
+              return (
+                <button
+                  key={item.id}
+                  data-nav-id={item.id}
+                  type="button"
+                  onClick={() => onSelect && onSelect(item.id)}
+                  className={`px-4 py-2.5 rounded-xl transition-all duration-150 flex items-center gap-2 whitespace-nowrap text-xs sm:text-[13px] select-none ${
+                    isActive
+                      ? "bg-[#fff4ed] text-[#ff6b12] border border-orange-200/90 font-bold shadow-xs"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium"
+                  }`}
+                  aria-pressed={isActive}
+                >
+                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-[#ff6b12]" : "text-slate-400"}`} />
+                  <span>{item.shortLabel || item.label}</span>
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Scroll Right Button */}
+          <button
+            type="button"
+            onClick={handleScrollRight}
+            disabled={!canScrollRight}
+            aria-label="Scroll navigation right"
+            className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition select-none ${
+              canScrollRight
+                ? "bg-slate-50 hover:bg-orange-50 text-slate-700 hover:text-[#ff6b12] border border-slate-200/90 shadow-xs cursor-pointer active:scale-95"
+                : "opacity-30 text-slate-300 cursor-not-allowed border border-transparent"
+            }`}
+            title="Scroll Right"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
       )}
 
       {/* 3. OPTIONAL METRIC STATS */}
