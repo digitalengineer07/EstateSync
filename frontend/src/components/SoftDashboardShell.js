@@ -167,7 +167,7 @@ export default function SoftDashboardShell({
   return (
     <div className="w-full space-y-5 antialiased">
       {/* 1. PANORAMIC LUXURY HERO BANNER */}
-      <section className="relative w-full rounded-2xl sm:rounded-[26px] overflow-hidden border border-slate-200/90 shadow-[0_12px_36px_-12px_rgba(0,0,0,0.08)] bg-slate-900 min-h-[220px] lg:min-h-[240px]">
+      <section className="relative w-full rounded-2xl sm:rounded-[24px] overflow-hidden border border-slate-200/90 shadow-[0_8px_30px_-10px_rgba(0,0,0,0.06)] bg-slate-900">
         {/* Estate Background Image */}
         <img
           src="/images/luxury_estate_banner.jpg"
@@ -179,33 +179,33 @@ export default function SoftDashboardShell({
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 via-50% to-white/20 sm:to-transparent"></div>
 
         {/* Decorative Blue Vertical Pill / Notch */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-16 bg-[#0284c7] rounded-r-full hidden sm:block"></div>
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-12 bg-[#0284c7] rounded-r-full hidden sm:block"></div>
 
-        {/* Content Container */}
-        <div className="relative z-10 px-5 sm:px-8 py-5 sm:py-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        {/* Content Container (Symmetric, compact vertical padding eliminating empty bottom space) */}
+        <div className="relative z-10 px-5 sm:px-7 py-4 sm:py-4.5 flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6">
           
           {/* Left Hero Text Column */}
           <div className="max-w-2xl">
             {/* Greeting */}
-            <div className="flex items-center gap-1 text-xs sm:text-sm font-semibold text-slate-600">
+            <div className="flex items-center gap-1 text-xs font-semibold text-slate-600">
               <span>{greetingText}</span>
               <span className="animate-wiggle">👋</span>
             </div>
 
             {/* Bold Title */}
-            <h1 className="text-2xl sm:text-3xl lg:text-[32px] font-black text-slate-900 tracking-tight leading-tight mt-1">
+            <h1 className="text-2xl sm:text-[28px] lg:text-[30px] font-black text-slate-900 tracking-tight leading-tight mt-0.5">
               {title}
             </h1>
 
             {/* Description */}
             {description && (
-              <p className="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed max-w-xl">
+              <p className="text-xs sm:text-[13px] text-slate-600 mt-1 leading-relaxed max-w-xl">
                 {description}
               </p>
             )}
 
             {/* 3 Value Feature Badges */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mt-3.5">
+            <div className="flex flex-wrap items-center gap-2 mt-2.5">
               {roleDetails.badges.map((badge, idx) => {
                 const Icon = badge.icon;
                 return (
@@ -222,7 +222,7 @@ export default function SoftDashboardShell({
           </div>
 
           {/* Center Quote (Desktop View) */}
-          <div className="hidden xl:flex flex-col justify-center px-6 border-l border-slate-300/60 max-w-[240px]">
+          <div className="hidden xl:flex flex-col justify-center px-5 border-l border-slate-300/60 max-w-[220px]">
             <p className="text-xs italic font-semibold text-slate-700 leading-snug">
               “{roleDetails.quote}”
             </p>
@@ -232,29 +232,29 @@ export default function SoftDashboardShell({
           </div>
 
           {/* Right Floating Frosted Cards */}
-          <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0 self-start lg:self-center">
+          <div className="flex flex-col sm:flex-row lg:flex-col gap-2 shrink-0 self-start lg:self-center">
             {/* Period Card */}
-            <div className="flex items-center justify-between gap-3 bg-white/95 backdrop-blur-md border border-white/90 rounded-2xl px-4 py-2.5 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.10)] min-w-[240px] transition hover:shadow-md">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
-                  <Calendar className="w-4 h-4" />
+            <div className="flex items-center justify-between gap-3 bg-white/95 backdrop-blur-md border border-white/90 rounded-2xl px-3.5 py-2 shadow-[0_6px_20px_-8px_rgba(0,0,0,0.10)] min-w-[230px] transition hover:shadow-md">
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
+                  <Calendar className="w-3.5 h-3.5" />
                 </div>
                 <div>
-                  <p className="text-xs font-black text-slate-900 tracking-tight flex items-center gap-1 leading-none">
+                  <p className="text-xs font-black text-slate-900 tracking-tight leading-none">
                     <span>{formattedPeriod}</span>
                   </p>
-                  <p className="text-[10px] text-slate-500 font-semibold mt-1">
+                  <p className="text-[10px] text-slate-500 font-semibold mt-0.5 leading-none">
                     {roleDetails.cycleName}
                   </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+              <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             </div>
 
             {/* Profile Identity Card (Without "Your Role" text) */}
-            <div className="flex items-center gap-3 bg-white/95 backdrop-blur-md border border-white/90 rounded-2xl px-4 py-2.5 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.10)] min-w-[240px] transition hover:shadow-md">
-              <div className="w-8 h-8 rounded-xl bg-[#ff6b12] text-white flex items-center justify-center shadow-xs shrink-0">
-                <Building2 className="w-4 h-4" />
+            <div className="flex items-center gap-2.5 bg-white/95 backdrop-blur-md border border-white/90 rounded-2xl px-3.5 py-2 shadow-[0_6px_20px_-8px_rgba(0,0,0,0.10)] min-w-[230px] transition hover:shadow-md">
+              <div className="w-7 h-7 rounded-xl bg-[#ff6b12] text-white flex items-center justify-center shadow-xs shrink-0">
+                <Building2 className="w-3.5 h-3.5" />
               </div>
               <div>
                 <p className="text-xs font-black text-slate-900 tracking-tight leading-tight">
