@@ -25,8 +25,6 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'Idempotency-Key', 'x-idempotency-key']
 }));
 
-// Explicit OPTIONS preflight handling for cross-origin browsers
-app.options('*', cors());
 
 app.use(express.json());
 
