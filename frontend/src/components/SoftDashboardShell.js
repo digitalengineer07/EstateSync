@@ -25,19 +25,15 @@ export default function SoftDashboardShell({
         backgroundSize: "32px 32px, 32px 32px, 96px 96px",
       }}
     >
-      <div className="grid grid-cols-1 xl:grid-cols-[304px_minmax(0,1fr)] gap-5 max-w-[1800px] mx-auto">
-        <aside className="xl:sticky xl:top-28 self-start bg-white border border-zinc-950/10 rounded-[18px] shadow-[0_18px_42px_-24px_rgba(0,0,0,0.55)] p-4 xl:max-h-[calc(100vh-8rem)] xl:overflow-y-auto">
-          <div className="flex items-center gap-3 px-2 py-2 mb-5">
-            <div className="w-11 h-11 rounded-2xl bg-[#ff6b12] text-white flex items-center justify-center shadow-[0_10px_22px_-12px_rgba(255,107,18,0.9)]">
+      <div className="grid grid-cols-1 xl:grid-cols-[210px_minmax(0,1fr)] gap-5 max-w-[1800px] mx-auto">
+        <aside className="xl:sticky xl:top-28 self-start bg-white border border-zinc-950/10 rounded-[18px] shadow-[0_18px_42px_-24px_rgba(0,0,0,0.55)] p-3 xl:max-h-[calc(100vh-8rem)] xl:overflow-y-auto">
+          <div className="flex items-center justify-center py-1 mb-3">
+            <div className="w-10 h-10 rounded-xl bg-[#ff6b12] text-white flex items-center justify-center shadow-[0_8px_18px_-10px_rgba(255,107,18,0.85)]">
               <Building2 className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-500">EstateSync</p>
-              <h1 className="text-base font-extrabold text-zinc-900 tracking-tight">Dashboard</h1>
             </div>
           </div>
 
-          <nav className="flex xl:flex-col gap-2 overflow-x-auto xl:overflow-visible pb-2 xl:pb-0 pr-1">
+          <nav className="flex xl:flex-col gap-1.5 overflow-x-auto xl:overflow-visible pb-2 xl:pb-0 pr-1">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeId === item.id;
@@ -47,29 +43,24 @@ export default function SoftDashboardShell({
                   key={item.id}
                   type="button"
                   onClick={() => onSelect(item.id)}
-                  className={`group min-w-[220px] xl:min-w-0 w-full rounded-[14px] px-3 py-3 text-left transition-all duration-150 flex items-center gap-3 ${
+                  className={`group min-w-[150px] xl:min-w-0 w-full rounded-xl px-2.5 py-2 text-left transition-all duration-150 flex items-center gap-2.5 ${
                     isActive
-                      ? "bg-white text-zinc-950 shadow-[0_12px_26px_-18px_rgba(0,0,0,0.75)] ring-1 ring-zinc-950/15"
+                      ? "bg-white text-zinc-950 shadow-[0_10px_22px_-16px_rgba(0,0,0,0.65)] ring-1 ring-zinc-950/15"
                       : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-950"
                   }`}
                   aria-pressed={isActive}
                 >
                   <span
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                    className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
                       isActive
-                        ? "bg-[#ff6b12] text-white shadow-[0_10px_18px_-12px_rgba(255,107,18,0.95)]"
+                        ? "bg-[#ff6b12] text-white shadow-[0_8px_16px_-10px_rgba(255,107,18,0.95)]"
                         : "bg-white text-zinc-950 border border-zinc-950/10 group-hover:border-[#ff6b12] group-hover:text-[#ff6b12]"
                     }`}
                   >
                     <Icon className="w-4 h-4" />
                   </span>
-                  <span className="min-w-0">
-                    <span className="block text-sm font-extrabold truncate">{item.shortLabel || item.label}</span>
-                    {item.description && (
-                      <span className="block text-[11px] font-semibold text-zinc-500 truncate">
-                        {item.description}
-                      </span>
-                    )}
+                  <span className="min-w-0 truncate text-[13px] font-bold">
+                    {item.shortLabel || item.label}
                   </span>
                 </button>
               );
