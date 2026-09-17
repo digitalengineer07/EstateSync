@@ -1,111 +1,336 @@
 "use client";
 
+import { useEffect, useMemo } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useDashboardNav } from "@/context/DashboardContext";
 import DashboardStats from "@/components/DashboardStats";
-import { Building2, LayoutDashboard } from "lucide-react";
+import {
+  Building2,
+  Calendar,
+  ChevronRight,
+  ShieldCheck,
+  TrendingUp,
+  Layers,
+  Zap,
+  Target,
+  DollarSign,
+  HeartHandshake,
+  Sparkles,
+  Megaphone,
+  Scale,
+  Users,
+  CheckCircle2,
+  LayoutDashboard,
+} from "lucide-react";
 
 export default function SoftDashboardShell({
   title,
   eyebrow = "Pages / Dashboard",
   description,
-  navItems,
+  navItems = [],
   activeId,
   onSelect,
   statsType,
   children,
 }) {
+  const { user } = useAuth();
+  const dashboardNav = useDashboardNav();
+
+  // Register sub-panels with the global top navigation bar
+  useEffect(() => {
+    if (dashboardNav?.registerPanels) {
+      dashboardNav.registerPanels({
+        items: navItems,
+        activeId,
+        onSelect,
+        title,
+      });
+    }
+  }, [dashboardNav, navItems, activeId, onSelect, title]);
+
+  const userRole = (typeof user?.role === "object" ? user?.role?.name : user?.role) || "";
+
+  // Dynamic greeting based on time of day
+  const greetingText = useMemo(() => {
+    const hour = new Date().getHours();
+    const timeGreeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
+    
+    let roleLabel = "Accounting Officer";
+    if (userRole === "MANAGER") roleLabel = "Operations Manager";
+    else if (userRole === "SALES") roleLabel = "Sales Specialist";
+    else if (userRole === "MARKETING") roleLabel = "Marketing Specialist";
+    else if (userRole === "ADMIN") roleLabel = "System Administrator";
+    else if (user?.name) roleLabel = user.name;
+
+    return `${timeGreeting}, ${roleLabel}`;
+  }, [userRole, user]);
+
+  // Role display details
+  const roleDetails = useMemo(() => {
+    if (userRole === "MANAGER" || title?.toLowerCase().includes("operation") || title?.toLowerCase().includes("management")) {
+      return {
+        roleTitle: "Operations Manager",
+        department: "AG Homes India Pvt. Ltd.",
+        cycleName: "Current Operational Cycle",
+        quote: "Operational excellence. Stronger foundations.",
+        badges: [
+          { icon: Zap, label: "High Velocity", color: "text-amber-600 bg-amber-50 border-amber-200" },
+          { icon: Target, label: "Team Alignment", color: "text-blue-600 bg-blue-50 border-blue-200" },
+          { icon: TrendingUp, label: "Real-time Insights", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
+        ],
+      };
+    }
+
+    if (userRole === "SALES" || title?.toLowerCase().includes("sales")) {
+      return {
+        roleTitle: "Sales Specialist",
+        department: "AG Homes India Pvt. Ltd.",
+        cycleName: "Current Sales Cycle",
+        quote: "Connecting aspirations with landmark estates.",
+        badges: [
+          { icon: DollarSign, label: "Revenue Focused", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
+          { icon: HeartHandshake, label: "Customer First", color: "text-orange-600 bg-orange-50 border-orange-200" },
+          { icon: TrendingUp, label: "Real-time Insights", color: "text-blue-600 bg-blue-50 border-blue-200" },
+        ],
+      };
+    }
+
+    if (userRole === "MARKETING" || title?.toLowerCase().includes("marketing")) {
+      return {
+        roleTitle: "Marketing Specialist",
+        department: "AG Homes India Pvt. Ltd.",
+        cycleName: "Current Campaign Period",
+        quote: "Building brands. Inspiring communities.",
+        badges: [
+          { icon: Sparkles, label: "Brand Elevation", color: "text-purple-600 bg-purple-50 border-purple-200" },
+          { icon: Megaphone, label: "Active Outreach", color: "text-pink-600 bg-pink-50 border-pink-200" },
+          { icon: TrendingUp, label: "Real-time Insights", color: "text-blue-600 bg-blue-50 border-blue-200" },
+        ],
+      };
+    }
+
+    if (userRole === "ADMIN" || title?.toLowerCase().includes("governance") || title?.toLowerCase().includes("admin")) {
+      return {
+        roleTitle: "System Administrator",
+        department: "AG Homes India Pvt. Ltd.",
+        cycleName: "Current Fiscal Cycle",
+        quote: "Total governance. Uncompromising integrity.",
+        badges: [
+          { icon: ShieldCheck, label: "Enterprise Governed", color: "text-indigo-600 bg-indigo-50 border-indigo-200" },
+          { icon: Scale, label: "Audit Compliant", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
+          { icon: TrendingUp, label: "Real-time Insights", color: "text-blue-600 bg-blue-50 border-blue-200" },
+        ],
+      };
+    }
+
+    if (title?.toLowerCase().includes("workforce") || title?.toLowerCase().includes("staff") || title?.toLowerCase().includes("employee")) {
+      return {
+        roleTitle: "Workforce Administrator",
+        department: "AG Homes India Pvt. Ltd.",
+        cycleName: "Current Payroll Cycle",
+        quote: "Empowering teams to achieve great milestones.",
+        badges: [
+          { icon: Users, label: "People First", color: "text-blue-600 bg-blue-50 border-blue-200" },
+          { icon: CheckCircle2, label: "Compliance Ready", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
+          { icon: TrendingUp, label: "Real-time Insights", color: "text-purple-600 bg-purple-50 border-purple-200" },
+        ],
+      };
+    }
+
+    // Default: Accounting Officer (as in screenshot)
+    return {
+      roleTitle: "Accounting Officer",
+      department: "AG Homes India Pvt. Ltd.",
+      cycleName: "Current Accounting Period",
+      quote: "Accurate records. Stronger foundations.",
+      badges: [
+        { icon: ShieldCheck, label: "Financially Accurate", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
+        { icon: TrendingUp, label: "Real-time Insights", color: "text-teal-600 bg-teal-50 border-teal-200" },
+        { icon: Layers, label: "Better Decisions", color: "text-emerald-700 bg-emerald-50 border-emerald-200" },
+      ],
+    };
+  }, [userRole, title]);
+
+  // Formatted date period (e.g., "01 Sept 2026 - 30 Sept 2026")
+  const formattedPeriod = useMemo(() => {
+    const now = new Date();
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    const monthName = months[now.getMonth()];
+    const year = now.getFullYear();
+    const lastDay = new Date(year, now.getMonth() + 1, 0).getDate();
+    return `01 ${monthName} ${year} - ${lastDay} ${monthName} ${year}`;
+  }, []);
+
   const activeItem = navItems.find((item) => item.id === activeId) || navItems[0];
   const ActiveIcon = activeItem?.icon || LayoutDashboard;
 
   return (
-    <div
-      className="-mx-4 sm:-mx-6 lg:-mx-8 -my-5 sm:-my-6 min-h-[calc(100vh-180px)] bg-white px-4 sm:px-6 lg:px-8 py-5 sm:py-7"
-      style={{
-        backgroundImage:
-          "linear-gradient(90deg, rgba(39,39,42,0.045) 1px, transparent 1px), linear-gradient(0deg, rgba(39,39,42,0.045) 1px, transparent 1px), linear-gradient(135deg, transparent 0 72%, rgba(255,107,18,0.08) 72% 73%, transparent 73%)",
-        backgroundSize: "32px 32px, 32px 32px, 96px 96px",
-      }}
-    >
-      <div className="grid grid-cols-1 xl:grid-cols-[210px_minmax(0,1fr)] gap-5 max-w-[1800px] mx-auto">
-        <aside className="xl:sticky xl:top-28 self-start bg-white border border-zinc-950/10 rounded-[18px] shadow-[0_18px_42px_-24px_rgba(0,0,0,0.55)] p-3 xl:max-h-[calc(100vh-8rem)] xl:overflow-y-auto">
-          <div className="flex items-center justify-center py-1 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-[#ff6b12] text-white flex items-center justify-center shadow-[0_8px_18px_-10px_rgba(255,107,18,0.85)]">
-              <Building2 className="w-5 h-5" />
+    <div className="w-full space-y-5 antialiased">
+      {/* 1. PANORAMIC LUXURY HERO BANNER */}
+      <section className="relative w-full rounded-2xl sm:rounded-[26px] overflow-hidden border border-slate-200/90 shadow-[0_12px_36px_-12px_rgba(0,0,0,0.08)] bg-slate-900 min-h-[220px] lg:min-h-[240px]">
+        {/* Estate Background Image */}
+        <img
+          src="/images/luxury_estate_banner.jpg"
+          alt="EstateSync Luxury Architecture"
+          className="absolute inset-0 w-full h-full object-cover object-right md:object-center select-none"
+        />
+
+        {/* Left-to-Right Glassmorphism & Translucent Fade Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 via-50% to-white/20 sm:to-transparent"></div>
+
+        {/* Decorative Blue Vertical Pill / Notch */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-16 bg-[#0284c7] rounded-r-full hidden sm:block"></div>
+
+        {/* Content Container */}
+        <div className="relative z-10 px-5 sm:px-8 py-5 sm:py-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          
+          {/* Left Hero Text Column */}
+          <div className="max-w-2xl">
+            {/* Greeting */}
+            <div className="flex items-center gap-1 text-xs sm:text-sm font-semibold text-slate-600">
+              <span>{greetingText}</span>
+              <span className="animate-wiggle">👋</span>
+            </div>
+
+            {/* Bold Title */}
+            <h1 className="text-2xl sm:text-3xl lg:text-[32px] font-black text-slate-900 tracking-tight leading-tight mt-1">
+              {title}
+            </h1>
+
+            {/* Description */}
+            {description && (
+              <p className="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed max-w-xl">
+                {description}
+              </p>
+            )}
+
+            {/* 3 Value Feature Badges */}
+            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mt-3.5">
+              {roleDetails.badges.map((badge, idx) => {
+                const Icon = badge.icon;
+                return (
+                  <span
+                    key={idx}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/90 backdrop-blur-sm border border-slate-200/80 text-[11px] font-bold text-slate-700 shadow-2xs"
+                  >
+                    <Icon className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>{badge.label}</span>
+                  </span>
+                );
+              })}
             </div>
           </div>
 
-          <nav className="flex xl:flex-col gap-1.5 overflow-x-auto xl:overflow-visible pb-2 xl:pb-0 pr-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = activeId === item.id;
+          {/* Center Quote (Desktop View) */}
+          <div className="hidden xl:flex flex-col justify-center px-6 border-l border-slate-300/60 max-w-[220px]">
+            <p className="text-xs italic font-semibold text-slate-700 leading-snug">
+              “{roleDetails.quote}”
+            </p>
+            <p className="text-[11px] font-bold text-slate-500 mt-1 flex items-center gap-1">
+              <span className="text-[#ff6b12] font-black">—</span> EstateSync
+            </p>
+          </div>
 
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => onSelect(item.id)}
-                  className={`group min-w-[150px] xl:min-w-0 w-full rounded-xl px-2.5 py-2 text-left transition-all duration-150 flex items-center gap-2.5 ${
-                    isActive
-                      ? "bg-white text-zinc-950 shadow-[0_10px_22px_-16px_rgba(0,0,0,0.65)] ring-1 ring-zinc-950/15"
-                      : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-950"
-                  }`}
-                  aria-pressed={isActive}
-                >
-                  <span
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
-                      isActive
-                        ? "bg-[#ff6b12] text-white shadow-[0_8px_16px_-10px_rgba(255,107,18,0.95)]"
-                        : "bg-white text-zinc-950 border border-zinc-950/10 group-hover:border-[#ff6b12] group-hover:text-[#ff6b12]"
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" />
-                  </span>
-                  <span className="min-w-0 truncate text-[13px] font-bold">
-                    {item.shortLabel || item.label}
-                  </span>
-                </button>
-              );
-            })}
-          </nav>
-
-        </aside>
-
-        <main className="space-y-5 min-w-0">
-          <section className="bg-white border border-zinc-950/10 rounded-[20px] shadow-[0_18px_42px_-28px_rgba(0,0,0,0.55)] p-5 sm:p-6">
-            <div>
-              <div className="flex items-center gap-2 text-sm font-semibold text-zinc-500">
-                {eyebrow.split("/").map((part, index, arr) => (
-                  <span key={`${part}-${index}`} className={index === arr.length - 1 ? "text-zinc-900" : ""}>
-                    {part.trim()}{index < arr.length - 1 ? " /" : ""}
-                  </span>
-                ))}
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight mt-2">{title}</h2>
-              {description && <p className="text-sm text-zinc-700 mt-1 max-w-2xl">{description}</p>}
-            </div>
-          </section>
-
-          {statsType && <DashboardStats type={statsType} />}
-
-          <section className="bg-white border border-zinc-950/10 rounded-[20px] shadow-[0_18px_42px_-28px_rgba(0,0,0,0.55)] p-4 sm:p-5">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-4 border-b border-zinc-950/10">
-              <div className="flex items-start gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-[#27272a] text-white flex items-center justify-center shadow-[0_12px_22px_-18px_rgba(20,20,20,0.85)]">
-                  <ActiveIcon className="w-5 h-5 text-[#ff6b12]" />
+          {/* Right Floating Frosted Cards */}
+          <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0 self-start lg:self-center">
+            {/* Period Card */}
+            <div className="flex items-center justify-between gap-3 bg-white/95 backdrop-blur-md border border-white/90 rounded-2xl px-4 py-2.5 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.10)] min-w-[240px] transition hover:shadow-md">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
+                  <Calendar className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#ff6b12]">
-                    Active Panel
+                  <p className="text-xs font-black text-slate-900 tracking-tight flex items-center gap-1 leading-none">
+                    <span>{formattedPeriod}</span>
                   </p>
-                  <h3 className="text-xl font-extrabold text-zinc-950 tracking-tight">{activeItem.label}</h3>
-                  {activeItem.description && <p className="text-sm text-zinc-700 mt-1">{activeItem.description}</p>}
+                  <p className="text-[10px] text-slate-500 font-semibold mt-1">
+                    {roleDetails.cycleName}
+                  </p>
                 </div>
               </div>
+              <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
             </div>
 
-            <div className="pt-5">{children}</div>
-          </section>
-        </main>
-      </div>
+            {/* Role Card */}
+            <div className="flex items-center gap-3 bg-white/95 backdrop-blur-md border border-white/90 rounded-2xl px-4 py-2.5 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.10)] min-w-[240px] transition hover:shadow-md">
+              <div className="w-8 h-8 rounded-xl bg-[#ff6b12] text-white flex items-center justify-center shadow-xs shrink-0">
+                <Building2 className="w-4 h-4" />
+              </div>
+              <div>
+                <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider leading-none">
+                  Your Role
+                </p>
+                <p className="text-xs font-black text-slate-900 tracking-tight mt-0.5 leading-none">
+                  {roleDetails.roleTitle}
+                </p>
+                <p className="text-[10px] text-slate-500 font-medium mt-0.5">
+                  {roleDetails.department}
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 2. HORIZONTAL SUB-NAVIGATION BAR (Sticky & Responsive) */}
+      {navItems.length > 0 && (
+        <nav
+          className="w-full bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-1.5 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.05)] flex items-center gap-1.5 overflow-x-auto no-scrollbar"
+          aria-label="Panel Navigation"
+        >
+          {navItems.map((item) => {
+            const Icon = item.icon || LayoutDashboard;
+            const isActive = activeId === item.id;
+
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => onSelect && onSelect(item.id)}
+                className={`px-3.5 py-2 rounded-xl transition-all duration-150 flex items-center gap-2 whitespace-nowrap text-xs select-none ${
+                  isActive
+                    ? "bg-[#fff4ed] text-[#ff6b12] border border-orange-200/90 font-bold shadow-xs"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium"
+                }`}
+                aria-pressed={isActive}
+              >
+                <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-[#ff6b12]" : "text-slate-400"}`} />
+                <span>{item.shortLabel || item.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+      )}
+
+      {/* 3. OPTIONAL METRIC STATS */}
+      {statsType && <DashboardStats type={statsType} />}
+
+      {/* 4. ACTIVE PANEL CONTENT CONTAINER */}
+      <section className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-[24px] shadow-[0_12px_36px_-18px_rgba(0,0,0,0.06)] p-5 sm:p-7 transition-all">
+        {/* Active Panel Banner Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-5 border-b border-slate-100">
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-2xl bg-slate-900 text-white flex items-center justify-center shadow-xs shrink-0">
+              <ActiveIcon className="w-5 h-5 text-[#ff6b12]" />
+            </div>
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#ff6b12]">
+                Active Panel
+              </p>
+              <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
+                {activeItem?.label || "Workspace Panel"}
+              </h2>
+              {activeItem?.description && (
+                <p className="text-xs text-slate-500 mt-0.5">{activeItem.description}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Embedded Panel Views & Tables */}
+        <div className="pt-6">{children}</div>
+      </section>
     </div>
   );
 }
