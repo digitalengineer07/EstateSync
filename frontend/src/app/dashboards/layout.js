@@ -25,7 +25,14 @@ import {
   ExternalLink,
   Sliders,
   Sparkles,
+  Lock,
+  KeyRound,
+  Eye,
+  EyeOff,
+  AlertCircle,
+  Loader2,
 } from "lucide-react";
+import { API_URL } from "@/config/api";
 
 function DashboardHeader() {
   const { user, logout } = useAuth();
@@ -38,6 +45,74 @@ function DashboardHeader() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeModal, setActiveModal] = useState(null); // 'profile' | 'settings' | 'help' | null
+
+  // Settings & Security State
+  const [settingsTab, setSettingsTab] = useState("security"); // 'security' | 'preferences'
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [showPasswords, setShowPasswords] = useState({
+    current: false,
+    new: false,
+    confirm: false,
+  });
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordSuccess, setPasswordSuccess] = useState("");
+
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    setPasswordError("");
+    setPasswordSuccess("");
+
+    if (!passwordForm.currentPassword || !passwordForm.newPassword || !passwordForm.confirmPassword) {
+      setPasswordError("Please fill in all password fields.");
+      return;
+    }
+    if (passwordForm.newPassword.length < 6) {
+      setPasswordError("New password must be at least 6 characters long.");
+      return;
+    }
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setPasswordError("New password and confirm password do not match.");
+      return;
+    }
+    if (passwordForm.currentPassword === passwordForm.newPassword) {
+      setPasswordError("New password must be different from current password.");
+      return;
+    }
+
+    try {
+      setPasswordLoading(true);
+      const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+      const res = await fetch(`${API_URL}/api/v1/auth/change-password`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          currentPassword: passwordForm.currentPassword,
+          newPassword: passwordForm.newPassword,
+          confirmPassword: passwordForm.confirmPassword,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to update password.");
+      }
+
+      setPasswordSuccess(data.message || "Password changed successfully! Your credentials are up to date.");
+      setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
+    } catch (err) {
+      setPasswordError(err.message || "Something went wrong while updating password.");
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
 
   // Notifications State
   const [notifications, setNotifications] = useState([
@@ -328,12 +403,16 @@ function DashboardHeader() {
                       type="button"
                       onClick={() => {
                         setProfileOpen(false);
+                        setSettingsTab("security");
+                        setPasswordError("");
+                        setPasswordSuccess("");
+                        setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
                         setActiveModal("settings");
                       }}
                       className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-2.5 transition"
                     >
                       <Settings className="w-4 h-4 text-slate-500" />
-                      <span>Settings</span>
+                      <span>Settings & Security</span>
                     </button>
 
                     <button
@@ -444,11 +523,24 @@ function DashboardHeader() {
                 </span>
               </div>
             </div>
-            <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+            <div className="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveModal("settings");
+                  setSettingsTab("security");
+                  setPasswordError("");
+                  setPasswordSuccess("");
+                }}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#ff6b12] hover:bg-orange-50 border border-slate-200 transition active:scale-95"
+              >
+                <KeyRound className="w-3.5 h-3.5" />
+                Change Password
+              </button>
               <button
                 type="button"
                 onClick={() => setActiveModal(null)}
-                className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition"
+                className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition active:scale-95"
               >
                 Done
               </button>
@@ -457,57 +549,260 @@ function DashboardHeader() {
         </div>
       )}
 
-      {/* SETTINGS MODAL */}
+      {/* SETTINGS & CHANGE PASSWORD MODAL */}
       {activeModal === "settings" && (
         <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200/90 w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <div className="p-5 border-b border-slate-100 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-orange-50 text-[#ff6b12] flex items-center justify-center">
-                  <Settings className="w-4 h-4" />
+          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200/90 w-full max-w-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            {/* Modal Header */}
+            <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-orange-50 text-[#ff6b12] flex items-center justify-center font-bold">
+                  <Settings className="w-5 h-5" />
                 </div>
-                <h3 className="text-sm font-bold text-slate-900">Workspace Settings</h3>
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900">Account & System Settings</h3>
+                  <p className="text-[11px] text-slate-500">Manage security credentials and workspace preferences</p>
+                </div>
               </div>
               <button
                 type="button"
-                onClick={() => setActiveModal(null)}
-                className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400"
+                onClick={() => {
+                  setActiveModal(null);
+                  setPasswordError("");
+                  setPasswordSuccess("");
+                }}
+                className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 transition"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
-            <div className="p-5 space-y-4 text-xs">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-bold text-slate-900">Number Formatting</p>
-                  <p className="text-[11px] text-slate-500">Indian Lakhs & Crores (₹)</p>
-                </div>
-                <span className="px-2 py-1 bg-slate-100 rounded-lg font-bold text-slate-700">Enabled</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-bold text-slate-900">Real-time Sound Alerts</p>
-                  <p className="text-[11px] text-slate-500">Chime on inbound customer payments</p>
-                </div>
-                <span className="px-2 py-1 bg-slate-100 rounded-lg font-bold text-slate-700">Active</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-bold text-slate-900">Double-Entry Balance Check</p>
-                  <p className="text-[11px] text-slate-500">Strict debit=credit verification</p>
-                </div>
-                <span className="px-2 py-1 bg-emerald-50 text-emerald-700 rounded-lg font-bold">Enforced</span>
-              </div>
-            </div>
-            <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+
+            {/* Navigation Tabs */}
+            <div className="flex border-b border-slate-100 px-5 pt-2 bg-white">
               <button
                 type="button"
-                onClick={() => setActiveModal(null)}
-                className="px-4 py-2 bg-[#ff6b12] text-white rounded-xl text-xs font-bold hover:bg-[#e05a0b] transition"
+                onClick={() => {
+                  setSettingsTab("security");
+                  setPasswordError("");
+                }}
+                className={`flex items-center gap-2 pb-2.5 px-3 text-xs font-bold border-b-2 transition -mb-px ${
+                  settingsTab === "security"
+                    ? "border-[#ff6b12] text-[#ff6b12]"
+                    : "border-transparent text-slate-500 hover:text-slate-800"
+                }`}
               >
-                Save Preferences
+                <KeyRound className="w-3.5 h-3.5" />
+                <span>Security & Password</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setSettingsTab("preferences")}
+                className={`flex items-center gap-2 pb-2.5 px-3 text-xs font-bold border-b-2 transition -mb-px ${
+                  settingsTab === "preferences"
+                    ? "border-[#ff6b12] text-[#ff6b12]"
+                    : "border-transparent text-slate-500 hover:text-slate-800"
+                }`}
+              >
+                <Sliders className="w-3.5 h-3.5" />
+                <span>Workspace Preferences</span>
               </button>
             </div>
+
+            {/* Modal Body */}
+            {settingsTab === "security" ? (
+              <form onSubmit={handleChangePassword}>
+                <div className="p-5 space-y-4 text-xs max-h-[70vh] overflow-y-auto">
+                  {/* Profile Summary Badge */}
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-between">
+                    <div>
+                      <p className="font-bold text-slate-800">{roleDisplay.title}</p>
+                      <p className="text-[11px] text-slate-500">{user?.email || "user@estatesync.local"}</p>
+                    </div>
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-orange-50 text-[#ff6b12] border border-orange-200">
+                      Self-Service Security
+                    </span>
+                  </div>
+
+                  {/* Feedback Banners */}
+                  {passwordError && (
+                    <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 flex items-start gap-2 text-xs animate-in fade-in">
+                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-600" />
+                      <span>{passwordError}</span>
+                    </div>
+                  )}
+
+                  {passwordSuccess && (
+                    <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-start gap-2 text-xs animate-in fade-in">
+                      <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" />
+                      <span>{passwordSuccess}</span>
+                    </div>
+                  )}
+
+                  {/* Current Password Field */}
+                  <div className="space-y-1.5">
+                    <label className="block font-bold text-slate-700">
+                      Current Password <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <Lock className="w-3.5 h-3.5" />
+                      </div>
+                      <input
+                        type={showPasswords.current ? "text" : "password"}
+                        value={passwordForm.currentPassword}
+                        onChange={(e) =>
+                          setPasswordForm({ ...passwordForm, currentPassword: e.target.value })
+                        }
+                        placeholder="Enter your current password"
+                        required
+                        className="w-full pl-9 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-orange-500/20 focus:border-[#ff6b12] transition"
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setShowPasswords({ ...showPasswords, current: !showPasswords.current })
+                        }
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
+                      >
+                        {showPasswords.current ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* New Password Field */}
+                  <div className="space-y-1.5">
+                    <label className="block font-bold text-slate-700">
+                      New Password <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <KeyRound className="w-3.5 h-3.5" />
+                      </div>
+                      <input
+                        type={showPasswords.new ? "text" : "password"}
+                        value={passwordForm.newPassword}
+                        onChange={(e) =>
+                          setPasswordForm({ ...passwordForm, newPassword: e.target.value })
+                        }
+                        placeholder="Minimum 6 characters"
+                        required
+                        className="w-full pl-9 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-orange-500/20 focus:border-[#ff6b12] transition"
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setShowPasswords({ ...showPasswords, new: !showPasswords.new })
+                        }
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
+                      >
+                        {showPasswords.new ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      </button>
+                    </div>
+                    <p className="text-[10px] text-slate-400">
+                      Must be at least 6 characters and different from your current password.
+                    </p>
+                  </div>
+
+                  {/* Confirm New Password Field */}
+                  <div className="space-y-1.5">
+                    <label className="block font-bold text-slate-700">
+                      Confirm New Password <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <KeyRound className="w-3.5 h-3.5" />
+                      </div>
+                      <input
+                        type={showPasswords.confirm ? "text" : "password"}
+                        value={passwordForm.confirmPassword}
+                        onChange={(e) =>
+                          setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })
+                        }
+                        placeholder="Re-enter your new password"
+                        required
+                        className="w-full pl-9 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-orange-500/20 focus:border-[#ff6b12] transition"
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setShowPasswords({ ...showPasswords, confirm: !showPasswords.confirm })
+                        }
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
+                      >
+                        {showPasswords.confirm ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Security Tab Footer */}
+                <div className="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveModal(null);
+                      setPasswordError("");
+                      setPasswordSuccess("");
+                    }}
+                    className="px-4 py-2 text-xs font-bold text-slate-600 hover:text-slate-800 transition cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={passwordLoading}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#ff6b12] text-white rounded-xl text-xs font-bold hover:bg-[#e05a0b] active:scale-95 disabled:opacity-50 disabled:pointer-events-none shadow-xs transition cursor-pointer"
+                  >
+                    {passwordLoading ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Updating Password...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Check className="w-3.5 h-3.5" />
+                        <span>Update Password</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div>
+                <div className="p-5 space-y-4 text-xs">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-bold text-slate-900">Number Formatting</p>
+                      <p className="text-[11px] text-slate-500">Indian Lakhs & Crores (₹)</p>
+                    </div>
+                    <span className="px-2 py-1 bg-slate-100 rounded-lg font-bold text-slate-700">Enabled</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-bold text-slate-900">Real-time Sound Alerts</p>
+                      <p className="text-[11px] text-slate-500">Chime on inbound customer payments</p>
+                    </div>
+                    <span className="px-2 py-1 bg-slate-100 rounded-lg font-bold text-slate-700">Active</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-bold text-slate-900">Double-Entry Balance Check</p>
+                      <p className="text-[11px] text-slate-500">Strict debit=credit verification</p>
+                    </div>
+                    <span className="px-2 py-1 bg-emerald-50 text-emerald-700 rounded-lg font-bold">Enforced</span>
+                  </div>
+                </div>
+                <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setActiveModal(null)}
+                    className="px-4 py-2 bg-[#ff6b12] text-white rounded-xl text-xs font-bold hover:bg-[#e05a0b] transition active:scale-95 cursor-pointer"
+                  >
+                    Save Preferences
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
