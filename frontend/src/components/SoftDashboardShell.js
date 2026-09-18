@@ -317,29 +317,26 @@ export default function SoftDashboardShell({
         </div>
       </section>
 
-      {/* 2. HORIZONTAL SUB-NAVIGATION BAR (With Scroll Left / Right Buttons) */}
+      {/* 2. HORIZONTAL SUB-NAVIGATION BAR (With Scroll Left / Right Buttons & Zero Gap at Start) */}
       {navItems.length > 0 && (
         <div className="relative w-full bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-1.5 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.05)] flex items-center gap-1.5">
-          {/* Scroll Left Button */}
-          <button
-            type="button"
-            onClick={handleScrollLeft}
-            disabled={!canScrollLeft}
-            aria-label="Scroll navigation left"
-            className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition select-none ${
-              canScrollLeft
-                ? "bg-slate-50 hover:bg-orange-50 text-slate-700 hover:text-[#ff6b12] border border-slate-200/90 shadow-xs cursor-pointer active:scale-95"
-                : "opacity-30 text-slate-300 cursor-not-allowed border border-transparent"
-            }`}
-            title="Scroll Left"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
+          {/* Scroll Left Button - Appears only when scrolled right, leaving zero empty space at start */}
+          {canScrollLeft && (
+            <button
+              type="button"
+              onClick={handleScrollLeft}
+              aria-label="Scroll navigation left"
+              className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 bg-white hover:bg-orange-50 text-slate-700 hover:text-[#ff6b12] border border-slate-200/90 shadow-xs cursor-pointer hover:scale-105 active:scale-90 active:bg-orange-100 transition-all duration-150 select-none animate-in fade-in zoom-in-75 duration-200"
+              title="Scroll Left"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+          )}
 
           {/* Scrollable Sub-Navigation Tabs */}
           <nav
             ref={scrollRef}
-            className="flex-1 flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth"
+            className="flex-1 flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth px-0.5"
             aria-label="Panel Navigation"
           >
             {navItems.map((item) => {
@@ -352,35 +349,39 @@ export default function SoftDashboardShell({
                   data-nav-id={item.id}
                   type="button"
                   onClick={() => onSelect && onSelect(item.id)}
-                  className={`px-4 py-2.5 rounded-xl transition-all duration-150 flex items-center gap-2 whitespace-nowrap text-xs sm:text-[13px] select-none ${
+                  className={`group relative px-4 py-2.5 rounded-xl transition-all duration-200 flex items-center gap-2 whitespace-nowrap text-xs sm:text-[13px] select-none cursor-pointer active:scale-95 hover:scale-[1.02] ${
                     isActive
-                      ? "bg-[#fff4ed] text-[#ff6b12] border border-orange-200/90 font-bold shadow-xs"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium"
+                      ? "bg-[#fff4ed] text-[#ff6b12] border border-orange-300 font-bold shadow-[0_4px_14px_-2px_rgba(255,107,18,0.25)] ring-2 ring-orange-200/60"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 border border-transparent font-medium"
                   }`}
                   aria-pressed={isActive}
                 >
-                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-[#ff6b12]" : "text-slate-400"}`} />
+                  <Icon
+                    className={`w-4 h-4 shrink-0 transition-transform duration-200 group-hover:scale-110 ${
+                      isActive ? "text-[#ff6b12] scale-105" : "text-slate-400 group-hover:text-slate-600"
+                    }`}
+                  />
                   <span>{item.shortLabel || item.label}</span>
+                  {isActive && (
+                    <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#ff6b12] rounded-full animate-pulse"></span>
+                  )}
                 </button>
               );
             })}
           </nav>
 
-          {/* Scroll Right Button */}
-          <button
-            type="button"
-            onClick={handleScrollRight}
-            disabled={!canScrollRight}
-            aria-label="Scroll navigation right"
-            className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition select-none ${
-              canScrollRight
-                ? "bg-slate-50 hover:bg-orange-50 text-slate-700 hover:text-[#ff6b12] border border-slate-200/90 shadow-xs cursor-pointer active:scale-95"
-                : "opacity-30 text-slate-300 cursor-not-allowed border border-transparent"
-            }`}
-            title="Scroll Right"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
+          {/* Scroll Right Button - Appears only when content overflows to the right */}
+          {canScrollRight && (
+            <button
+              type="button"
+              onClick={handleScrollRight}
+              aria-label="Scroll navigation right"
+              className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 bg-white hover:bg-orange-50 text-slate-700 hover:text-[#ff6b12] border border-slate-200/90 shadow-xs cursor-pointer hover:scale-105 active:scale-90 active:bg-orange-100 transition-all duration-150 select-none animate-in fade-in zoom-in-75 duration-200"
+              title="Scroll Right"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          )}
         </div>
       )}
 

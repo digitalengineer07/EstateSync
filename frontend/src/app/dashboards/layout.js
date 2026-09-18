@@ -194,13 +194,13 @@ function DashboardHeader() {
                       key={hub.path}
                       type="button"
                       onClick={() => router.push(hub.path)}
-                      className={`px-3 sm:px-3.5 py-1.5 rounded-xl transition-all duration-150 flex items-center gap-1.5 text-xs whitespace-nowrap select-none ${
+                      className={`px-3 sm:px-3.5 py-1.5 rounded-xl transition-all duration-200 flex items-center gap-1.5 text-xs whitespace-nowrap select-none cursor-pointer active:scale-95 hover:scale-[1.02] ${
                         isActive
-                          ? "bg-[#fff4ed] text-[#ff6b12] border border-orange-200/90 font-bold shadow-xs"
+                          ? "bg-[#fff4ed] text-[#ff6b12] border border-orange-300 font-bold shadow-xs ring-1 ring-orange-200/60"
                           : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium"
                       }`}
                     >
-                      <Icon className={`w-3.5 h-3.5 ${isActive ? "text-[#ff6b12]" : "text-slate-400"}`} />
+                      <Icon className={`w-3.5 h-3.5 transition-transform duration-200 ${isActive ? "text-[#ff6b12] scale-105" : "text-slate-400"}`} />
                       <span>{hub.name}</span>
                     </button>
                   );
