@@ -8,15 +8,22 @@ const session = require('express-session');
 require('dotenv').config();
 
 const app = express();
+app.set('trust proxy', 1); // Trust first proxy (Hostinger/Render load balancer)
 
-// Trust reverse proxy (Essential for Render, Heroku, Cloudflare, AWS)
-app.set('trust proxy', 1);
-
-// Security Middlewares - allow cross-origin requests from Hostinger / external domains
+// Security Middlewares - allow cross-origin requests from Hostinger / Render / local dev
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" },
+  crossOriginOpenerPolicy: { policy: "unsafe-none" },
   crossOriginEmbedderPolicy: false
 }));
+
+// Log OPTIONS requests to test if Hostinger is dropping them before they reach Node
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    console.log('OPTIONS request received:', req.headers.origin);
+  }
+  next();
+});
 
 app.use(cors({
   origin: true,
@@ -24,8 +31,6 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Idempotency-Key', 'x-idempotency-key']
 }));
-
-
 app.use(express.json());
 
 // Set up Session Management
@@ -93,6 +98,28 @@ app.get('/', (req, res) => {
   res.send('EstateSync API is running with Full Accounting & Idempotency Engine');
 });
 
+app.post('/test-post', (req, res) => {
+  console.log('Received POST to /test-post with body:', req.body);
+  res.json({ success: true, message: 'POST body received', body: req.body });
+});
+
+app.get('/test-db', async (req, res) => {
+  try {
+    const { Pool } = require('pg');
+    const pool = new Pool({ 
+      connectionString: process.env.DATABASE_URL,
+      connectionTimeoutMillis: 5000 
+    });
+    const client = await pool.connect();
+    const result = await client.query('SELECT NOW()');
+    client.release();
+    await pool.end();
+    res.json({ success: true, time: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message, stack: err.stack });
+  }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Unhandled Application Error:', err.stack);
@@ -118,20 +145,6 @@ const server = app.listen(PORT, async () => {
   } catch (err) {
     console.warn('Database schema integrity check skipped:', err.message);
   }
-
-  // Keep-alive ping mechanism to prevent Render sleep
-  const BACKEND_URL = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
-  const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
-
-  setInterval(async () => {
-    try {
-      if (BACKEND_URL) await fetch(BACKEND_URL);
-      if (FRONTEND_URL) await fetch(FRONTEND_URL);
-      console.log('Keep-alive ping sent to prevent sleep');
-    } catch (err) {
-      console.error('Keep-alive ping failed:', err.message);
-    }
-  }, 14 * 60 * 1000); // 14 minutes
 });
 
 process.on('uncaughtException', (err) => {

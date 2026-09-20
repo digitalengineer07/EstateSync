@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { hasPermission } from "@/utils/permissions";
+import { API_URL } from "@/config/api";
 import { getEmployeeById, getSalaryPayments } from "@/services/employeeService";
 import EmployeeModal from "./EmployeeModal";
 import EmployeeArchiveModal from "./EmployeeArchiveModal";
@@ -122,7 +123,7 @@ export default function EmployeeDetailView({ id }) {
     }
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/api/v1/employees/${id}/link-user`, {
+      const res = await fetch(`${API_URL}/api/v1/employees/${id}/link-user`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`

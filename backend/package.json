@@ -7,7 +7,8 @@
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "audit:db": "node scripts/audit_database_integrity.js",
-    "test": "node scripts/github_action_validation_suite.js"
+    "test": "node scripts/github_action_validation_suite.js",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -19,7 +20,8 @@
     "express-session": "^1.19.0",
     "helmet": "^8.3.0",
     "jsonwebtoken": "^9.0.3",
-    "pg": "^8.23.0"
+    "pg": "^8.23.0",
+    "@prisma/adapter-pg": "^5.22.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14",
