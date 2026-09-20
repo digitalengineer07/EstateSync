@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 });
 
 const corsOptions = {
-    origin: ['https://estatesync.devoxa.in/', 'http://localhost:3000'],
+  origin: ['https://estatesync.devoxa.in', 'http://localhost:3000'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: [
