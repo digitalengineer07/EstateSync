@@ -8,7 +8,7 @@ import { formatDateTime, formatINR } from "@/utils/formatters";
 
 export default function TransactionLedger({ embedded = false, showHeader = true }) {
   const { data, error, isLoading, mutate } = useSWR(`/api/v1/transactions/all`, fetcher, {
-    refreshInterval: 10000,
+    refreshInterval: 45000,
     revalidateOnFocus: true
   });
 

@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
     config.resolve.alias = { ...config.resolve.alias, "@": path.join(__dirname, "src") };
     return config;
   },
+  experimental: {
+    cpus: 1,
+  },
 };
 
 export default nextConfig;

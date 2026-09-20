@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 export default function DashboardStats({ type }) {
   const { data, error, isLoading, mutate } = useSWR(`/api/v1/dashboard/${type}`, fetcher, { 
-    refreshInterval: 10000,
+    refreshInterval: 45000,
     revalidateOnFocus: true
   });
 
