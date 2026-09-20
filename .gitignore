@@ -6,6 +6,7 @@ backend/src/generated/
 backend/src/prisma-client/
 *.exe
 *.tmp*
+*.zip
 EstateSync_Developer_Master_Blueprint_v3.1.pdf
 backend/backups/
 *.sql
