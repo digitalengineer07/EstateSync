@@ -12,11 +12,17 @@ const handle = app.getRequestHandler();
 const port = process.env.PORT || 3000;
 
 app.prepare().then(() => {
-  createServer((req, res) => {
+  const server = createServer((req, res) => {
     const parsedUrl = parse(req.url, true);
     handle(req, res, parsedUrl);
-  }).listen(port, (err) => {
-    if (err) throw err;
-    console.log(`> Next.js Production Server Ready on port ${port}`);
   });
+
+  if (typeof(PhusionPassenger) !== 'undefined') {
+    server.listen('passenger');
+  } else {
+    server.listen(port, (err) => {
+      if (err) throw err;
+      console.log(`> Next.js Production Server Ready on port ${port}`);
+    });
+  }
 });

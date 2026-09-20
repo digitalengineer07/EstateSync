@@ -131,9 +131,10 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 4000;
+const listenTarget = typeof(PhusionPassenger) !== 'undefined' ? 'passenger' : PORT;
 
-const server = app.listen(PORT, async () => {
-  console.log(`Server running on port ${PORT}`);
+const server = app.listen(listenTarget, async () => {
+  console.log(`Server running on ${listenTarget}`);
 
   // Proactive Database Schema Integrity Check
   try {
