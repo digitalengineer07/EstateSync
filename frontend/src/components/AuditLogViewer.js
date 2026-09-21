@@ -16,7 +16,7 @@ export default function AuditLogViewer() {
   if (filterAction) url += `&action=${filterAction}`;
 
   const { data, error, isLoading, mutate } = useSWR(url, fetcher, {
-    refreshInterval: 10000,
+    refreshInterval: 45000,
     revalidateOnFocus: true
   });
 

@@ -13,8 +13,8 @@ import {
   Coins
 } from "lucide-react";
 export default function DashboardStats({ type }) {
-  const { data, isLoading, mutate } = useSWR(`/api/v1/dashboard/${type}`, fetcher, { 
-    refreshInterval: 10000,
+  const { data, error, isLoading, mutate } = useSWR(`/api/v1/dashboard/${type}`, fetcher, { 
+    refreshInterval: 45000,
     revalidateOnFocus: true
   });
 

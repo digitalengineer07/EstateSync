@@ -25,12 +25,54 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors({
-  origin: true,
+const allowedOrigins = [
+  'https://estatesync.devoxa.in',
+  'http://estatesync.devoxa.in',
+  'https://www.estatesync.devoxa.in',
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'http://localhost:3002',
+  'http://127.0.0.1:3000'
+];
+
+if (process.env.CORS_ORIGIN) {
+  process.env.CORS_ORIGIN.split(',').forEach(o => {
+    const trimmed = o.trim();
+    if (trimmed && !allowedOrigins.includes(trimmed)) allowedOrigins.push(trimmed);
+  });
+}
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.endsWith('.devoxa.in') ||
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1') ||
+      process.env.CORS_ORIGIN === '*' ||
+      process.env.NODE_ENV !== 'production'
+    ) {
+      return callback(null, true);
+    }
+    return callback(null, false);
+  },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Idempotency-Key', 'x-idempotency-key']
-}));
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'Idempotency-Key',
+    'idempotency-key',
+    'x-idempotency-key',
+    'X-Idempotency-Key',
+    'Accept',
+    'Origin',
+    'X-Requested-With'
+  ]
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Set up Session Management
@@ -127,9 +169,10 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 4000;
+const listenTarget = typeof(PhusionPassenger) !== 'undefined' ? 'passenger' : PORT;
 
-const server = app.listen(PORT, async () => {
-  console.log(`Server running on port ${PORT}`);
+const server = app.listen(listenTarget, async () => {
+  console.log(`Server running on ${listenTarget}`);
 
   // Proactive Database Schema Integrity Check
   try {

@@ -33,7 +33,7 @@ export default function ExpenseList({ type = "my", embedded = false, showHeader 
   if (type === "all") endpoint = `/api/v1/expenses/all`;
 
   const { data, error: fetchError, isLoading, mutate } = useSWR(endpoint, fetcher, { 
-    refreshInterval: 10000,
+    refreshInterval: 45000,
     revalidateOnFocus: true
   });
 

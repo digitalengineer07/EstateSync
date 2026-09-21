@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint",
-    "postinstall": "npm run build"
+    "lint": "eslint"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4",

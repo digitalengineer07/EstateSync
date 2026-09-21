@@ -4,7 +4,14 @@
  * bypassing browser CORS and Hostinger's WAF OPTIONS block entirely.
  */
 
-const BACKEND_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000').replace(/\/+$/, '');
+const PRODUCTION_BACKEND_URL = 'https://lightcoral-turtle-931044.hostingersite.com';
+
+// Ensure in production we ALWAYS point to the live backend URL, never falling back to dead localhost:4000
+const BACKEND_URL = (
+  (process.env.NEXT_PUBLIC_API_URL && process.env.NEXT_PUBLIC_API_URL !== 'http://localhost:4000' && process.env.NEXT_PUBLIC_API_URL !== '')
+    ? process.env.NEXT_PUBLIC_API_URL
+    : (process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : PRODUCTION_BACKEND_URL)
+).replace(/\/+$/, '');
 
 async function proxyRequest(request, { params }) {
   const path = (await params).path.join('/');
@@ -37,12 +44,17 @@ async function proxyRequest(request, { params }) {
     body = await request.text();
   }
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000); // 15-second safeguard
+
   try {
     const backendResponse = await fetch(fullUrl, {
       method: request.method,
       headers: forwardHeaders,
       body: body || undefined,
+      signal: controller.signal,
     });
+    clearTimeout(timeoutId);
 
     const responseText = await backendResponse.text();
     console.log(`[Proxy] Response: ${backendResponse.status}`);
@@ -54,12 +66,27 @@ async function proxyRequest(request, { params }) {
       },
     });
   } catch (err) {
+    clearTimeout(timeoutId);
     console.error('[Proxy] Error:', err.message);
-    return new Response(JSON.stringify({ error: 'Proxy error', detail: err.message }), {
+    return new Response(JSON.stringify({ 
+      success: false, 
+      message: `Backend proxy error: ${err.message}` 
+    }), {
       status: 502,
       headers: { 'Content-Type': 'application/json' },
     });
   }
+}
+
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, Idempotency-Key, x-idempotency-key',
+    },
+  });
 }
 
 export const GET = proxyRequest;
