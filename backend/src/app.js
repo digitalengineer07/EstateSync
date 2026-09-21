@@ -175,7 +175,8 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 4000;
-const listenTarget = typeof(PhusionPassenger) !== 'undefined' ? 'passenger' : PORT;
+const isPassenger = typeof(PhusionPassenger) !== 'undefined' || !!process.env.PASSENGER_APP_ENV;
+const listenTarget = isPassenger ? 'passenger' : PORT;
 
 const server = app.listen(listenTarget, async () => {
   console.log(`Server running on ${listenTarget}`);
@@ -198,8 +199,20 @@ const server = app.listen(listenTarget, async () => {
   }
 });
 
+server.on('error', (err) => {
+  console.error('[Backend Server Listen Error]:', err.message);
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${listenTarget} is already in use. Waiting 5s before exiting to prevent Passenger spawn loop...`);
+    setTimeout(() => process.exit(1), 5000);
+  }
+});
+
 process.on('uncaughtException', (err) => {
-  console.error('Uncaught Exception:', err);
+  console.error('[Backend Uncaught Exception]:', err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('[Backend Unhandled Rejection]:', reason);
 });
 
 module.exports = app;
