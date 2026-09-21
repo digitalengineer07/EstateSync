@@ -91,7 +91,11 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("[AuthContext] Fetch network error:", error);
-      return { success: false, message: error.message || "Network error" };
+      const isLocal = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
+      const hint = isLocal 
+        ? "Cannot connect to local backend (http://localhost:4000). Please ensure your backend is running ('npm start' in backend directory)."
+        : "Cannot connect to backend server. Please verify backend status or network connection.";
+      return { success: false, message: error.message === "Failed to fetch" ? hint : (error.message || "Network error") };
     }
   };
 
