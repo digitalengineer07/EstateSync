@@ -4,7 +4,12 @@
  * bypassing browser CORS and Hostinger's WAF OPTIONS block entirely.
  */
 
-const BACKEND_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000').replace(/\/+$/, '');
+const PRODUCTION_BACKEND_URL = 'https://lightcoral-turtle-931044.hostingersite.com';
+
+const BACKEND_URL = (
+  process.env.NEXT_PUBLIC_API_URL ||
+  (process.env.NODE_ENV === 'production' ? PRODUCTION_BACKEND_URL : 'http://localhost:4000')
+).replace(/\/+$/, '');
 
 async function proxyRequest(request, { params }) {
   const path = (await params).path.join('/');
@@ -55,7 +60,10 @@ async function proxyRequest(request, { params }) {
     });
   } catch (err) {
     console.error('[Proxy] Error:', err.message);
-    return new Response(JSON.stringify({ error: 'Proxy error', detail: err.message }), {
+    return new Response(JSON.stringify({ 
+      success: false, 
+      message: `Backend proxy error: ${err.message}` 
+    }), {
       status: 502,
       headers: { 'Content-Type': 'application/json' },
     });

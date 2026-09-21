@@ -58,7 +58,16 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (jsonErr) {
+        console.error("[AuthContext] JSON parse error:", jsonErr);
+        return { 
+          success: false, 
+          message: `Server returned invalid response (HTTP ${response.status}). Please check backend status.` 
+        };
+      }
 
       if (data.success) {
         setUser(data.user);
@@ -78,10 +87,11 @@ export const AuthProvider = ({ children }) => {
         }
         return { success: true };
       } else {
-        return { success: false, message: data.message };
+        return { success: false, message: data.message || "Login failed" };
       }
     } catch (error) {
-      return { success: false, message: "Network error" };
+      console.error("[AuthContext] Fetch network error:", error);
+      return { success: false, message: error.message || "Network error" };
     }
   };
 
