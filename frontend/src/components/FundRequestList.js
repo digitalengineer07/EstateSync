@@ -25,8 +25,8 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
   if (type === "all") endpoint = `/api/v1/fund-requests/all`;
 
   const { data, error, isLoading, mutate } = useSWR(endpoint, fetcher, { 
-    refreshInterval: 45000,
-    revalidateOnFocus: true
+    refreshInterval: 180000,
+    revalidateOnFocus: false
   });
 
   const requests = data?.requests || [];

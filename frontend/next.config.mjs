@@ -8,7 +8,9 @@ const __dirname = path.dirname(__filename);
 const nextConfig = {
   // Use pure JavaScript config so build environments without modern GLIBC (e.g. Hostinger shared hosting)
   // do not fail transpiling next.config.ts on-the-fly.
-  reactStrictMode: true,
+  reactStrictMode: false,
+  poweredByHeader: false,
+  compress: false,
   outputFileTracingRoot: path.join(__dirname),
   turbopack: {
     root: path.join(__dirname),
@@ -20,6 +22,7 @@ const nextConfig = {
   },
   experimental: {
     cpus: 1,
+    workerThreads: false,
   },
 };
 

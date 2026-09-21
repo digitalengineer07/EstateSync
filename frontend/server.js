@@ -1,3 +1,7 @@
+// Constrain libuv worker threads to prevent process & thread exhaustion on CloudLinux/Hostinger
+if (!process.env.UV_THREADPOOL_SIZE) {
+  process.env.UV_THREADPOOL_SIZE = '1';
+}
 process.env.NODE_ENV = 'production';
 
 const { createServer } = require('http');

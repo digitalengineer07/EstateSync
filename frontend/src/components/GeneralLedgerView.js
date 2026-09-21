@@ -10,8 +10,8 @@ import { RefreshCw } from "lucide-react";
 export default function GeneralLedgerView() {
   const [activeTab, setActiveTab] = useState("journals"); // "journals" or "accounts"
 
-  const { data: jData, error: jError, isLoading: jLoading, mutate: jMutate } = useSWR(`/api/v1/journals`, fetcher, { refreshInterval: 60000, revalidateOnFocus: true });
-  const { data: aData, error: aError, isLoading: aLoading, mutate: aMutate } = useSWR(`/api/v1/accounts`, fetcher, { refreshInterval: 60000, revalidateOnFocus: true });
+  const { data: jData, error: jError, isLoading: jLoading, mutate: jMutate } = useSWR(`/api/v1/journals`, fetcher, { refreshInterval: 180000, revalidateOnFocus: false });
+  const { data: aData, error: aError, isLoading: aLoading, mutate: aMutate } = useSWR(`/api/v1/accounts`, fetcher, { refreshInterval: 180000, revalidateOnFocus: false });
 
   const loading = jLoading || aLoading;
   const error = jError || aError;

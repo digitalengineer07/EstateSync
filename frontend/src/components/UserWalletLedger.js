@@ -15,8 +15,8 @@ export default function UserWalletLedger() {
   const [search, setSearch] = useState("");
   const [selectedUserForAdjustment, setSelectedUserForAdjustment] = useState(null);
   const { data, error, isLoading, mutate } = useSWR(`/api/v1/users/all`, fetcher, {
-    refreshInterval: 45000,
-    revalidateOnFocus: true
+    refreshInterval: 180000,
+    revalidateOnFocus: false
   });
 
   const users = data?.users || [];

@@ -1,3 +1,8 @@
+// Constrain libuv worker threads to prevent process & thread exhaustion on CloudLinux/Hostinger
+if (!process.env.UV_THREADPOOL_SIZE) {
+  process.env.UV_THREADPOOL_SIZE = '1';
+}
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -48,6 +53,7 @@ const corsOptions = {
     if (
       allowedOrigins.includes(origin) ||
       origin.endsWith('.devoxa.in') ||
+      origin.endsWith('.hostingersite.com') ||
       origin.includes('localhost') ||
       origin.includes('127.0.0.1') ||
       process.env.CORS_ORIGIN === '*' ||
@@ -174,19 +180,21 @@ const listenTarget = typeof(PhusionPassenger) !== 'undefined' ? 'passenger' : PO
 const server = app.listen(listenTarget, async () => {
   console.log(`Server running on ${listenTarget}`);
 
-  // Proactive Database Schema Integrity Check
-  try {
-    const { auditDatabaseIntegrity } = require('../scripts/audit_database_integrity');
-    const result = await auditDatabaseIntegrity({ silent: true });
-    if (!result.success) {
-      console.warn(`\n⚠️  [DATABASE INTEGRITY WARNING] ${result.issues.length} schema mismatches detected!`);
-      result.issues.slice(0, 5).forEach(iss => console.warn(`   • ${iss}`));
-      console.warn('👉 Run `npx prisma db push` or `npm run audit:db` to align database schema.\n');
-    } else {
-      console.log('✅ Database schema parity verified: All tables & columns intact.');
+  // Proactive Database Schema Integrity Check (opt-in via AUDIT_DB_ON_START to prevent startup lag on Hostinger)
+  if (process.env.AUDIT_DB_ON_START === 'true') {
+    try {
+      const { auditDatabaseIntegrity } = require('../scripts/audit_database_integrity');
+      const result = await auditDatabaseIntegrity({ silent: true });
+      if (!result.success) {
+        console.warn(`\n⚠️  [DATABASE INTEGRITY WARNING] ${result.issues.length} schema mismatches detected!`);
+        result.issues.slice(0, 5).forEach(iss => console.warn(`   • ${iss}`));
+        console.warn('👉 Run `npx prisma db push` or `npm run audit:db` to align database schema.\n');
+      } else {
+        console.log('✅ Database schema parity verified: All tables & columns intact.');
+      }
+    } catch (err) {
+      console.warn('Database schema integrity check skipped:', err.message);
     }
-  } catch (err) {
-    console.warn('Database schema integrity check skipped:', err.message);
   }
 });
 

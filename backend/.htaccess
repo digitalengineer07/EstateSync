@@ -1,0 +1,26 @@
+# ==============================================================================
+# ESTATESYNC HOSTINGER PROCESS LIMIT & PERFORMANCE OPTIMIZATION (BACKEND)
+# ==============================================================================
+# Caps Phusion Passenger worker instances to 1 to eliminate
+# Hostinger CloudLinux Max Process (124/125 NPROC) exhaustion errors.
+# ==============================================================================
+
+<IfModule mod_passenger.c>
+    PassengerMaxInstances 1
+    PassengerMinInstances 1
+    PassengerPoolIdleTime 300
+    PassengerMaxRequests 2000
+    PassengerStatThrottleRate 10
+</IfModule>
+
+# Reduce LiteSpeed concurrency
+<IfModule Litespeed>
+    LSPHP_Workers 1
+</IfModule>
+
+# Set Environment Variables to minimize Node.js threads and memory
+<IfModule mod_env.c>
+    SetEnv UV_THREADPOOL_SIZE 1
+    SetEnv NODE_ENV production
+    SetEnv NODE_OPTIONS "--max-old-space-size=384 --v8-pool-size=1"
+</IfModule>
