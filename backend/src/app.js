@@ -23,18 +23,46 @@ app.use((req, res, next) => {
   next();
 });
 
+const allowedOrigins = [
+  'https://estatesync.devoxa.in',
+  'http://estatesync.devoxa.in',
+  'https://www.estatesync.devoxa.in',
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'http://localhost:3002',
+  'http://127.0.0.1:3000'
+];
+
 const corsOptions = {
-  origin: ['https://estatesync.devoxa.in', 'http://localhost:3000'],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: [
-        'Content-Type',
-        'Authorization',
-        'Idempotency-Key'
-    ]
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.endsWith('.devoxa.in') ||
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1')
+    ) {
+      return callback(null, true);
+    }
+    return callback(null, false);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'Idempotency-Key',
+    'idempotency-key',
+    'x-idempotency-key',
+    'X-Idempotency-Key',
+    'Accept',
+    'Origin',
+    'X-Requested-With'
+  ]
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 // Set up Session Management
