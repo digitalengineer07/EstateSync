@@ -1,335 +1,619 @@
 # EstateSync™ — Comprehensive Administrator & Master Control User Manual
-**Version:** `v2.4 Production Release`  
-**Portal URL:** [https://estatesync.devoxa.in](https://estatesync.devoxa.in)  
-**Target Audience:** System Administrators, Managing Directors, Chief Operating Officers (COO), Executive Leadership, and IT/Audit Leads  
+**Document Release:** `Version 2.4 (Enterprise Production)`  
+**Portal Access URL:** [https://estatesync.devoxa.in](https://estatesync.devoxa.in)  
+**Security Classification:** `CONFIDENTIAL — Internal Enterprise Document`  
+**Target Audience:** Chief Executive Officers (CEO), Managing Directors, Chief Operating Officers (COO), System Administrators, and Internal Audit Leads  
 
 ---
 
-## 📌 Executive Summary & Master Control Access
-
-EstateSync™ is an enterprise-class Fund Management, Real Estate Accounting, and Corporate Treasury Governance platform. The **Admin Hub** represents the central command and master authority of the entire ecosystem. 
-
-As an Administrator, you possess unilateral oversight across all operational divisions—including corporate treasury, user account provisioning, employee HR master records, customer unit collections, land acquisitions, department wallet allocations, and forensic audit logging.
-
-### 🌐 Live Portal Access
-- **Official Live Website Link:** [https://estatesync.devoxa.in](https://estatesync.devoxa.in)
-- **Login Credentials:** Sign in using your registered administrative email (e.g., `admin@estatesync.local`) and your master password.
-- **Master Control Clearance:** Users with the `ADMIN` role have unrestricted access across every dashboard tab:
-  - 🛡️ **Admin Hub** (`/dashboards/admin`)
-  - 🏛️ **Accounting Hub** (`/dashboards/accounting`)
-  - ⚡ **Operations Hub** (`/dashboards/manager`)
-  - 👥 **Employees Master** (`/dashboards/employees`)
-  - 💼 **My Wallet & Approvals** (`/dashboards/wallet`)
-
-> [!NOTE]
-> **Current Version:** You are operating on **EstateSync v2.4**.  
-> **Upcoming Release (v3.0 Roadmap):** The engineering team is currently finishing development on the next major milestone (**v3.0**), which includes:
-> 1. 🔐 **In-App Password Management**: Self-service password change for all users plus administrative one-click password reset capabilities for staff accounts.
-> 2. 📝 **Personal Admin Notes & Sticky Memos**: Private pinboards and internal administrative commentary on transactions, employee files, and land agreements.
-> 3. 🎨 **Brand-New Next-Gen UI Design**: Ultra-fluid responsive layouts, glassmorphic status surfaces, enhanced data tables, and advanced dark/light visual modes.
-> 4. 📑 **1-Click Executive Data Export**: Bulk export of User Directories, Audit Logs, and Comprehensive Balance Sheets into formatted Excel and PDF formats.
-
----
-
-## 🏗️ Core Administrative Governance Principles
-
-```mermaid
-graph TD
-    ADMIN[Administrator / Master Control: estatesync.devoxa.in] --> AUTH[1. User Provisioning & RBAC]
-    ADMIN --> TREASURY[2. Treasury & Capital Allocation]
-    ADMIN --> WALLETS[3. Team Wallets & Balance Adjustments]
-    ADMIN --> REQUESTS[4. Fund Request Approval Engine]
-    ADMIN --> HR[5. Staff & Employee Master Directory]
-    ADMIN --> CUST[6. Customer Portfolios & Unit Bookings]
-    ADMIN --> LAND[7. Land Acquisitions & Vendor Payouts]
-    ADMIN --> LEDGER[8. Double-Entry General Ledger Dr=Cr]
-    ADMIN --> AUDIT[9. Forensic Audit Trail & JSON Inspector]
-```
-
-1. **Unilateral Master Authority:**  
-   The Administrator can initiate, approve, adjust, or reverse any financial or operational transaction across the organization.
-2. **Immutable Audit Logging:**  
-   Every single action—from user logins and fund allocations to balance adjustments and status changes—is automatically captured with actor IP, timestamp, and before/after state diffs (`oldValues` vs `newValues`).
-3. **Double-Entry Financial Integrity:**  
-   Capital cannot be created out of thin air. Every direct allocation debits the Corporate Treasury and credits the employee wallet, keeping the organization's trial balance in exact mathematical parity ($\text{Debits} = \text{Credits}$).
-4. **Idempotency Protection:**  
-   All capital distribution and user creation actions are protected by cryptographic idempotency tokens, preventing accidental duplicate disbursements.
+## 📑 Table of Contents
+1. [Document Control & Platform Metadata](#1-document-control--platform-metadata)
+2. [Executive Overview & Master Control Philosophy](#2-executive-overview--master-control-philosophy)
+3. [Portal Access, Authentication & Session Security](#3-portal-access-authentication--session-security)
+4. [Navigation Shell & Command Island Architecture](#4-navigation-shell--command-island-architecture)
+5. [Real-Time Executive KPI Engine](#5-real-time-executive-kpi-engine)
+6. [Detailed Operating Manual: Core Modules](#6-detailed-operating-manual-core-modules)
+   - [6.1 User Provisioning & Role-Based Access Control (RBAC)](#61-user-provisioning--role-based-access-control-rbac)
+   - [6.2 Direct Treasury Capital Allocation Engine](#62-direct-treasury-capital-allocation-engine)
+   - [6.3 Circulating Team Wallets & Balance Adjustments](#63-circulating-team-wallets--balance-adjustments)
+   - [6.4 Enterprise Fund Request Approval Queue](#64-enterprise-fund-request-approval-queue)
+   - [6.5 Workforce Master Directory & HR Governance (`/dashboards/employees`)](#65-workforce-master-directory--hr-governance)
+   - [6.6 Customer Portfolios, Unit Bookings & Revenue Collections](#66-customer-portfolios-unit-bookings--revenue-collections)
+   - [6.7 Land & Property Acquisitions Management](#67-land--property-acquisitions-management)
+   - [6.8 Corporate Treasury & Bank Inflow Governance](#68-corporate-treasury--bank-inflow-governance)
+   - [6.9 Staff Salaries & Monthly Payroll Synchronization](#69-staff-salaries--monthly-payroll-synchronization)
+   - [6.10 Double-Entry General Ledger & Real-Time Parity Proof](#610-double-entry-general-ledger--real-time-parity-proof)
+   - [6.11 Forensic Audit Trail & JSON Terminal Inspector](#611-forensic-audit-trail--json-terminal-inspector)
+7. [Real-World Operational Playbooks & Step-by-Step Scenarios](#7-real-world-operational-playbooks--step-by-step-scenarios)
+   - [Scenario A: Onboarding a Regional Sales Manager & Seeding Wallet](#scenario-a-onboarding-a-regional-sales-manager--seeding-wallet)
+   - [Scenario B: Handling an Emergency Site Fund Request](#scenario-b-handling-an-emergency-site-fund-request)
+   - [Scenario C: Reversing a Fraudulent or Mistaken Expense Claim](#scenario-c-reversing-a-fraudulent-or-mistaken-expense-claim)
+   - [Scenario D: Executing a High-Value Land Milestone Payout](#scenario-d-executing-a-high-value-land-milestone-payout)
+   - [Scenario E: Customer Booking Cancellation & Forfeiture Settlement](#scenario-e-customer-booking-cancellation--forfeiture-settlement)
+   - [Scenario F: Conducting an End-of-Month Payroll Settlement](#scenario-f-conducting-an-end-of-month-payroll-settlement)
+   - [Scenario G: Investigating a Security Incident via Audit Logs](#scenario-g-investigating-a-security-incident-via-audit-logs)
+8. [Master Data Dictionary & Field Reference](#8-master-data-dictionary--field-reference)
+9. [Administrative Troubleshooting, Security Hardening & Disaster Recovery](#9-administrative-troubleshooting-security-hardening--disaster-recovery)
+10. [Roadmap & Version 3.0 Major Release Preview](#10-roadmap--version-30-major-release-preview)
 
 ---
 
-## 🚀 Getting Started: Logging In & Navigating the Admin Suite
+## 1. Document Control & Platform Metadata
 
-### Step 1: Logging In
-1. Open your browser and navigate to [https://estatesync.devoxa.in/login](https://estatesync.devoxa.in/login).
-2. Enter your administrative email (e.g., `admin@estatesync.local`).
-3. Enter your password. (Toggle the eye icon to verify spelling).
-4. Click **Sign In to Dashboard**.
-5. Once authenticated, the system automatically redirects you to the **Admin Hub** at `/dashboards/admin`.
-
-### Step 2: The Top Navigation Island & Multi-Dashboard Access
-The persistent top navigation header allows administrators to seamlessly switch between operational lenses:
-- **Admin Hub:** Primary command center for capital allocation, user creation, and audit trails.
-- **Operations Hub:** Operational view for departmental project approvals and field expenses.
-- **Accounting Hub:** Full double-entry general ledger, customer installments, and landowner payouts.
-- **Employees:** Master workforce directory, designations, and salary structures.
-- **My Wallet & Approvals:** Personal corporate wallet and personal expense submission.
-
-### Step 3: Top-Level Admin Metric Cards
-At the top of `/dashboards/admin`, four real-time KPI metrics give an instantaneous bird's-eye view:
-1. **Total Corporate Treasury (Liquid):** Aggregate unencumbered capital available across corporate bank accounts.
-2. **Total Capital Allocated:** Total funds currently circulating inside employee and manager wallets.
-3. **Pending Approval Requests:** Number of open fund requests and unapproved staff claims requiring executive sign-off.
-4. **Total System Users:** Total active registered user accounts across all organizational roles.
+| Attribute | Specification |
+| :--- | :--- |
+| **Product Name** | EstateSync™ Fund Management & Accounting System |
+| **Current Live Version** | **v2.4 Production Release** |
+| **Official Live Portal** | [https://estatesync.devoxa.in](https://estatesync.devoxa.in) |
+| **Backend API Host** | `https://lightcoral-turtle-931044.hostingersite.com` |
+| **Framework Stack** | Next.js 16 (Turbopack, App Router) + Express 5 + Prisma ORM + PostgreSQL |
+| **Accounting Standard** | Balanced Double-Entry ($\text{Debits} = \text{Credits}$), RERA & Indian Accounting Compliant |
+| **Document Version** | `2.4.0-DEEP-DOC` |
+| **Published Date** | September 2026 |
 
 ---
 
-## 📖 Feature-by-Feature Administrator Operating Guide
+## 2. Executive Overview & Master Control Philosophy
 
----
+EstateSync™ is built from the ground up for real estate conglomerates, land developers, and multi-tier construction organizations. In an industry characterized by high-velocity cash movements, fragmented site advance requests, complex land milestone disbursements, and multi-crore customer booking installments, conventional generic ERPs fall short.
 
-### FEATURE 1: Administrative Operations Hub (Allocation & User Provisioning)
-
-Located immediately below the KPI stats, this interactive container features a **segmented toggle control** that lets you operate in four distinct modes:
-1. **Direct Fund Allocation**
-2. **Register New User**
-3. **Adjust & Audit Wallets**
-4. **Side-by-Side (Both)**: Displays Fund Allocation and User Registration side by side for rapid onboarding.
+EstateSync solves this through an integrated, closed-loop financial architecture. As a **System Administrator** (`ADMIN` role), you hold **Master Control Authority**.
 
 ```
-[ Coins: Direct Fund Allocation ] [ UserPlus: Register New User ] [ Sliders: Adjust & Audit Wallets ] [ Columns2: Side-by-Side (Both) ]
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           ESTATESYNC MASTER CONTROL                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   [ CORPORATE TREASURY ]  ──────>  [ DIRECT CAPITAL ALLOCATION ]           │
+│            │                                      │                         │
+│            ▼                                      ▼                         │
+│   [ LAND ACQUISITIONS ]                 [ CIRCULATING WALLETS ]             │
+│            │                                      │                         │
+│            ▼                                      ▼                         │
+│   [ CUSTOMER COLLECTIONS ] <──── [ EXPENSE AUDITING & REVERSALS ]           │
+│                                                   │                         │
+│                                                   ▼                         │
+│   [ FORENSIC AUDIT LOG ]  <─────  [ DOUBLE-ENTRY GENERAL LEDGER ]          │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
----
-
-### FEATURE 2: User Account Provisioning & Role-Based Access Control (RBAC)
-
-**Component:** `UserRegistrationForm`  
-**Purpose:** Create and activate system credentials for new employees, managers, accountants, and field agents.
-
-#### Available System Roles:
-- **`ADMIN` (Master Control):** Complete access to all financial, operational, and audit controls.
-- **`MANAGER` (Operations Head):** Reviews team fund requests, tracks project field wallets, and approves subordinate claims.
-- **`ACCOUNTING` (Finance & Treasury):** Manages bank inflows, customer installments, land acquisition milestones, payroll, and double-entry journals.
-- **`SALES` (Sales Executive):** Access to Customer Portfolio and personal sales expense wallet.
-- **`MARKETING` (Marketing Executive):** Campaign expense management and personal marketing wallet.
-- **`EMPLOYEE` (Standard Staff):** Personal operational wallet and expense claim submission.
-
-#### How to Register a New Staff Account:
-1. In the Administrative Operations Hub, select **`Register New User`** (or **`Side-by-Side`**).
-2. Fill out the registration form:
-   - **Full Name:** Enter employee's formal name (e.g., *"Rajesh Verma"*).
-   - **Corporate Email:** Enter unique login email (e.g., *"rajesh.verma@estatesync.local"*).
-   - **Initial Password:** Set a secure initial password (minimum 6 characters).
-   - **Assign System Role:** Select appropriate role from the dropdown (`ADMIN`, `MANAGER`, `ACCOUNTING`, etc.).
-3. Click **`Provision Account`**.
-4. **Automated System Impact:**
-   - The user account is instantly saved with bcrypt password encryption.
-   - An individual corporate wallet is **automatically initialized** for this user with a starting balance of ₹0.00.
-   - The action is permanently recorded in the Security Audit Log (`USER_REGISTER`).
-   - The user can immediately log in at [https://estatesync.devoxa.in](https://estatesync.devoxa.in) with their assigned credentials.
+### The Three Core Governance Pillars for Administrators:
+1. **Mathematical Zero-Sum Integrity:**  
+   No capital enters or leaves the system without balanced double-entry accounting. An allocation from Treasury to an employee wallet debits `1040 (Staff Wallets)` and credits `1010 (Corporate Bank)`. The system never allows single-sided adjustments.
+2. **Idempotent State Protection:**  
+   Every state mutation (allocations, payouts, collections, reversals) is tagged with a unique `Idempotency-Key`. Double clicks, cellular network drops, and browser reloads can never trigger duplicate debits or payouts.
+3. **Unbroken Forensic Audit Trail:**  
+   The Administrator has continuous visibility into who did what, when, from which IP address, and what exact data changed before and after every single transaction.
 
 ---
 
-### FEATURE 3: Direct Treasury Fund Allocation
+## 3. Portal Access, Authentication & Session Security
 
-**Component:** `DirectFundAllocationForm`  
-**Purpose:** Push operational funds directly from the Corporate Treasury into any employee or manager wallet without requiring a prior request.
+### 3.1 Portal URL and Login Requirements
+- **Live Portal Link:** [https://estatesync.devoxa.in/login](https://estatesync.devoxa.in/login)
+- **Supported Web Browsers:** Google Chrome (recommended), Mozilla Firefox, Apple Safari, Microsoft Edge.
+- **Login Credentials:** Enter your authorized corporate email (e.g., `admin@estatesync.local`) and your master password.
 
-#### How to Allocate Capital to Staff:
-1. In the Administrative Operations Hub, select **`Direct Fund Allocation`**.
-2. Fill out the allocation parameters:
-   - **Target Staff / Manager:** Select recipient from the searchable dropdown list.
-   - **Allocation Amount (₹):** Enter the amount or click one of the quick-amount pill buttons (`₹5,000`, `₹10,000`, `₹25,000`, `₹50,000`, `₹1,000,000`).
-   - **Disbursement Mode:** Choose **`LIQUID`** (Bank Transfer from Treasury Account 1010) or **`CASH`** (Cash in Hand from Account 1020).
-   - **Purpose / Description:** Provide the organizational justification (e.g., *"Advance disbursement for site office electrical wiring and materials"*).
+### 3.2 Authentication Flow & Role Verification
+1. Navigate to the login page.
+2. Enter your email and password. Click the eye icon (**Show/Hide**) to verify password accuracy.
+3. Click **Sign In to Dashboard**.
+4. The system transmits your credentials over TLS/HTTPS directly to the live backend API.
+5. Upon successful verification:
+   - A cryptographically signed **JSON Web Token (JWT)** with 24-hour expiration is issued.
+   - Your user role is verified as `ADMIN`.
+   - You are redirected to `/dashboards/admin`.
+
+> [!IMPORTANT]
+> **Session Security:** If you remain inactive or your session exceeds 24 hours, the JWT token expires automatically. The system will safely route you back to `/login` to prevent unauthorized physical terminal access. Always click the red **Logout** button when leaving your workstation.
+
+---
+
+## 4. Navigation Shell & Command Island Architecture
+
+The EstateSync interface is designed with a persistent, floating island navigation shell. As an administrator, you have unrestricted access to all functional portals:
+
+```
+[ EstateSync Logo ] ──── [ Admin Hub ] ─ [ Operations Hub ] ─ [ Accounting Hub ] ─ [ Employees ] ─ [ My Wallet ] ──── [ Profile Chip ] [ Logout ]
+```
+
+### Portal Directory:
+| Portal Tab | URL Route | Target Audience | Primary Functionality |
+| :--- | :--- | :--- | :--- |
+| **Admin Hub** | `/dashboards/admin` | System Admin / Managing Director | Master capital allocation, user provisioning, global request approvals, audit logs. |
+| **Operations Hub** | `/dashboards/manager` | Operations Heads / Project Managers | Departmental fund requests, field team supervision, expense validation. |
+| **Accounting Hub** | `/dashboards/accounting` | CFO / Senior Accountants | Double-entry general ledger, customer installments, land payouts, bank inflows, payroll. |
+| **Employees** | `/dashboards/employees` | HR Leads / Directors | Workforce master directory, salary structures, user account binding, archive status. |
+| **My Wallet** | `/dashboards/wallet` | All Staff & Executives | Personal circulating wallet balance, expense claim submission, personal claim history. |
+
+---
+
+## 5. Real-Time Executive KPI Engine
+
+Located immediately below the header on `/dashboards/admin`, the Executive KPI engine calculates real-time organizational health metrics:
+
+### 1. Total Corporate Treasury (Liquid)
+- **Metric Definition:** Sum of all unencumbered liquid balances currently available in corporate bank accounts (`Account 1010`).
+- **Calculation:** $\sum (\text{Bank Inflows} + \text{Customer Collections}) - \sum (\text{Allocations} + \text{Land Payouts} + \text{Salaries})$.
+- **Operational Rule:** Direct allocations and landowner milestone payouts cannot exceed this figure.
+
+### 2. Total Capital Allocated
+- **Metric Definition:** Total capital currently active and circulating across all employee and department wallets (`Account 1040`).
+- **Significance:** Represents operational advance exposure. If this number is excessively high, it indicates unspent advances in the field.
+
+### 3. Pending Approval Requests
+- **Metric Definition:** Count of open, unapproved fund requests awaiting managerial or executive approval.
+- **Action Required:** When this badge exceeds zero, the administrator should inspect the Fund Request Queue.
+
+### 4. Total System Users
+- **Metric Definition:** Count of active registered user accounts provisioned in the system across all six organizational roles.
+
+---
+
+## 6. Detailed Operating Manual: Core Modules
+
+---
+
+### 6.1 User Provisioning & Role-Based Access Control (RBAC)
+
+**Component:** `UserRegistrationForm.js`  
+**Access:** Admin Hub -> Administrative Operations Hub -> **`Register New User`** (or **`Side-by-Side`**)
+
+#### Detailed Role Hierarchy Matrix:
+| Role Code | Role Name | System Permissions & Access Scope |
+| :--- | :--- | :--- |
+| **`ADMIN`** | System Administrator | **Unrestricted Master Authority.** Full access to Admin, Accounting, Operations, Employees, Treasury, General Ledger, Audit Logs, and User Management. |
+| **`MANAGER`** | Operations Manager | Access to Operations Hub, Employee Directory, Subordinate Fund Request Approvals, Department Expense Review, and Personal Wallet. |
+| **`ACCOUNTING`** | Finance Officer / Accountant | Access to Accounting Hub, General Ledger, Treasury Inflows, Customer Installments, Land Acquisitions, Payroll Disbursements, and Wallet Audits. |
+| **`SALES`** | Sales Executive | Access to Customer Collections Portfolio, unit bookings, and Personal Sales Expense Wallet. |
+| **`MARKETING`** | Marketing Executive | Access to Marketing Campaign Expenses and Personal Marketing Wallet. |
+| **`EMPLOYEE`** | Field Staff / Site Engineer | Access to Personal Wallet, Expense Upload with receipts, and Fund Request Submissions. |
+
+#### Step-by-Step Operating Instructions:
+1. In the **Administrative Operations Hub**, click the **`Register New User`** toggle button.
+2. Complete the form fields:
+   - **Full Name:** Enter the staff member's official name (e.g., *"Amitabh Saxena"*).
+   - **Corporate Email:** Enter their unique work email address (e.g., *"amitabh.saxena@estatesync.local"*).
+   - **Initial Password:** Enter a secure starting password (minimum 6 characters).
+   - **Assign Role:** Select the exact role from the dropdown (`ADMIN`, `MANAGER`, `ACCOUNTING`, etc.).
+3. Click the blue button: **`Provision Account`**.
+4. **Automated Verification:**
+   - A green confirmation banner displays: *"Account successfully provisioned for [Name] with [Role] authority."*
+   - An individual corporate wallet is initialized automatically with ₹0.00.
+   - The Security Audit Log writes a `USER_REGISTER` record.
+   - Provide the credentials to the employee; they can log in immediately.
+
+---
+
+### 6.2 Direct Treasury Capital Allocation Engine
+
+**Component:** `DirectFundAllocationForm.js`  
+**Access:** Admin Hub -> Administrative Operations Hub -> **`Direct Fund Allocation`**
+
+#### Operating Concept:
+In fast-moving construction projects, executive management frequently needs to push operational funds to site managers, liaison officers, or purchasing agents without waiting for an advance voucher request. The Direct Allocation Engine pulls directly from the Corporate Treasury and seeds the target wallet instantaneously.
+
+#### Step-by-Step Operating Instructions:
+1. In the Operations Hub container, click **`Direct Fund Allocation`**.
+2. Fill out the allocation fields:
+   - **Target Staff / Manager:** Select the recipient from the searchable dropdown.
+   - **Allocation Amount (₹):** Enter the amount manually or click a quick-fill pill:
+     - `₹5,000` | `₹10,000` | `₹25,000` | `₹50,000` | `₹1,00,000`
+   - **Disbursement Mode:**
+     - **`LIQUID` (Bank Transfer):** Debited from Corporate Bank Current Account (`1010`).
+     - **`CASH` (Cash Advance):** Debited from Corporate Cash in Hand (`1020`).
+   - **Business Justification / Notes:** Mandatory explanation (e.g., *"Mobilization advance for Sector 82 boundary wall construction contractor"*).
 3. Click **`Allocate Capital to Wallet`**.
 4. **Automated System Impact:**
-   - Corporate Treasury is immediately debited by the entered amount.
-   - The recipient employee's wallet balance increases instantly in real time.
-   - A double-entry journal transaction is posted: **Debit Employee Wallet (1040)**, **Credit Corporate Treasury Bank (1010)**.
-   - A permanent record is created in the **Global Transaction Ledger** with a unique `Idempotency-Key`.
+   - Real-time deduction from Corporate Treasury.
+   - Real-time credit to recipient's wallet balance.
+   - Permanent double-entry journal entry: **Debit Staff Wallet (1040)**, **Credit Bank/Cash (1010/1020)**.
+   - Logged in the **Global Transaction Ledger** with a unique `Idempotency-Key`.
 
 ---
 
-### FEATURE 4: Circulating Wallet Governance & Balance Adjustments
+### 6.3 Circulating Team Wallets & Balance Adjustments
 
-**Component:** `UserWalletLedger` & `AdjustWalletBalanceModal`  
-**Purpose:** Monitor every circulating wallet balance across the enterprise and perform administrative manual corrections.
+**Component:** `UserWalletLedger.js` & `AdjustWalletBalanceModal.js`  
+**Access:** Admin Hub -> **`User Wallet Balances & Circulating Advances`**
 
-#### Features & Oversight:
-- **Wallet Overview Grid:** Displays every user's Name, Role, Email, **Available Balance (₹)**, **Total Allocated (₹)**, and **Total Spent (₹)**.
-- **Action Buttons on Each Card:**
-  - **`Allocate Funds`:** Opens direct allocation dialog pre-selected to this user.
-  - **`Adjust Balance`:** Opens the administrative balance correction modal.
+#### Operating Concept:
+Every user in EstateSync has an isolated digital wallet ledger. As funds are allocated or expenses are filed, the wallet ledger tracks three critical numbers:
+1. **Available Balance:** Funds currently available for the user to spend.
+2. **Total Allocated:** Cumulative funds ever granted to this user.
+3. **Total Spent:** Cumulative approved expenses filed by this user.
 
-#### How to Perform an Administrative Balance Adjustment:
-1. Locate the employee wallet card you wish to adjust.
-2. Click the **`Adjust Balance`** button.
+#### How to Execute an Administrative Balance Adjustment:
+If a user returns physical unspent cash, or if an audit reconciliation requires correcting a wallet figure:
+1. Locate the employee's wallet card in the ledger.
+2. Click the yellow button: **`Adjust Balance`**.
 3. In the modal:
-   - **Current Wallet Balance:** Displayed prominently for reference.
-   - **Adjustment Type:** Select **`CREDIT`** (Add funds) or **`DEBIT`** (Deduct funds).
-   - **Adjustment Delta (₹):** Enter the amount to add or subtract.
-   - **Mandatory Administrative Reason:** Enter the official audit justification (e.g., *"Adjustment for unspent field advance returned via cash receipt #4819"*).
+   - Verify the displayed **Current Wallet Balance**.
+   - Select **Adjustment Direction**:
+     - **`CREDIT` (Add Funds):** Increases user's wallet without debiting Treasury.
+     - **`DEBIT` (Deduct Funds):** Decreases user's wallet (e.g., returning unspent advances).
+   - Enter **Adjustment Delta Amount (₹)**.
+   - Enter **Mandatory Audit Reason:** State why the adjustment is required (e.g., *"Return of unspent site advance via Cash Voucher #1049"*).
 4. Click **`Confirm Adjustment`**.
-5. **Automated System Impact:**
-   - Employee wallet balance updates immediately.
-   - Compensating double-entry ledger lines are generated.
-   - Audit trail records the administrator ID, timestamp, adjustment delta, and justification.
+5. The wallet is updated immediately, and the action is saved in the audit log with the administrator's signature.
 
 ---
 
-### FEATURE 5: Organization-Wide Fund Requests & Approval Queue
+### 6.4 Enterprise Fund Request Approval Queue
 
-**Component:** `FundRequestList` (`type="all"`)  
-**Purpose:** Review, approve, or reject capital requests submitted by staff and department managers across the organization.
+**Component:** `FundRequestList.js` (`type="all"`)  
+**Access:** Admin Hub -> **`All Organization Fund Requests`**
 
-#### Understanding Request Statuses:
-- **`PENDING` (Yellow Badge):** Awaiting executive review.
-- **`APPROVED` (Green Badge):** Funds disbursed to requester's wallet.
-- **`REJECTED` (Red Badge):** Request declined with audit reason.
+#### Operating Concept:
+Field employees and department managers submit formal requests for capital. As an administrator, you have complete authority to approve or reject any request across all departments.
 
-#### How to Approve or Reject a Fund Request:
-1. In the Admin Dashboard, locate the **All Organization Fund Requests** section.
-2. Review the incoming request card:
-   - Requester Name, Designation, and Department.
-   - Requested Amount (₹) and Category (Site Development, Client Hospitality, Fuel, Legal, etc.).
-   - Justification / Business Purpose.
-   - Supporting quote or receipt attachment (if provided).
+#### Step-by-Step Approval Workflow:
+1. Under the **All Organization Fund Requests** section, locate requests with a yellow **`PENDING`** badge.
+2. Review the request details:
+   - Requester Name, Email, and Department.
+   - Amount Requested (₹) and Category (e.g., *Site Fuel, Machinery Rental, Hospitality*).
+   - Business Purpose / Description.
+   - Attached vendor quotation or pro-forma invoice (if uploaded).
 3. **To Approve:**
    - Click the green **`Approve`** button.
-   - The system validates that Corporate Treasury has sufficient liquidity.
-   - Funds are instantly credited to the requester's wallet, and Corporate Treasury is debited.
+   - The system checks Treasury balance in real time.
+   - The requester's wallet is credited instantly, and the request status updates to **`APPROVED`**.
 4. **To Reject:**
    - Click the red **`Reject`** button.
-   - Enter an administrative rejection comment (e.g., *"Please provide itemized quote from vendor before resubmitting"*).
-   - The request is closed with no fund movement.
+   - Enter the reason for rejection (e.g., *"Vendor quote exceeds authorized project threshold. Resubmit with 3 comparative bids."*).
+   - Status transitions to **`REJECTED`**; no funds move.
 
 ---
 
-### FEATURE 6: Workforce Master Directory (`/dashboards/employees`)
+### 6.5 Workforce Master Directory & HR Governance
 
-**Component:** `EmployeeList` & `EmployeeModal`  
-**Purpose:** Manage organizational human capital, employee records, job designations, salary structures, and system user account linkings.
+**Component:** `EmployeeList.js`, `EmployeeModal.js`, `EditSalaryModal.js`, `EmployeeLinkUserModal.js`  
+**Access:** Top Navigation -> **`Employees`** (`/dashboards/employees`)
 
-#### Administrative Capabilities:
-1. **Add New Employee (`+ Add Employee`):**
-   - Personal Details: First Name, Last Name, Official Email, Phone, Date of Birth.
-   - Employment Details: Employee Code (e.g., `EMP-0042`), Department (Sales, Engineering, Accounts, Legal, Management), Designation, Employment Type (`FULL_TIME`, `PART_TIME`, `CONTRACT`), Date of Joining, Work Location.
-2. **Link Employee to User Login Account (`Link User`):**
-   - Binds an HR employee profile to an existing login credential in the `User` table, allowing automated salary sync and wallet identity binding.
-3. **Configure Employee Salary Structure (`Edit Salary`):**
-   - Set Monthly Base Salary (₹), Fixed Allowances (HRA, Travel, Performance), and Deductions (PF, TDS).
+#### Key Administrative Actions:
+1. **Create Employee Profile (`+ Add Employee`):**
+   - **Personal:** First Name, Last Name, Email, Phone, Date of Birth.
+   - **Professional:** Employee ID/Code (e.g., `EMP-108`), Designation (e.g., *Site Supervisor*), Department (*Civil Engineering*), Employment Type (*Full-Time, Contract*), Date of Joining, Work Location (*Gurugram Sector 88 Site Office*).
+2. **Link to System Login Account (`Link User`):**
+   - Connects an HR employee record to an existing login identity in the `User` table. This links payroll slips, attendance, and corporate wallet transactions into a unified profile.
+3. **Configure Salary Structure (`Edit Salary`):**
+   - Configure **Monthly Base Salary (₹)**.
+   - Configure **Fixed Allowances** (House Rent Allowance, Site Conveyance, Medical).
+   - Configure **Standard Deductions** (Provident Fund, Professional Tax, TDS).
 4. **Archive Employee Profile (`Archive`):**
-   - Safely deactivates an employee profile upon departure while preserving historical payroll and expense auditing.
+   - When an employee departs, deactivating their profile prevents new allocations or logins while preserving all historical financial records for statutory tax audits.
 
 ---
 
-### FEATURE 7: Customer Portfolios & Unit Booking Oversight
+### 6.6 Customer Portfolios, Unit Bookings & Revenue Collections
 
-**Component:** `CustomerPortfolioList`  
-**Purpose:** Executive supervision of real estate buyers, payment milestones, collections, and contract cancellations.
+**Component:** `CustomerPortfolioList.js`, `RecordCustomerPaymentModal.js`, `CustomerCancellationSettlementModal.js`  
+**Access:** Admin Hub -> **`Customer Portfolios & Payment Schedules`**
 
-#### Key Admin Operations:
-- **Register New Customer (`+ Register Customer`):**
-  - Name, Contact, PAN, Aadhaar, Permanent Address.
-  - Assign Property & Unit Number.
-  - Set Total Contract Consideration (₹).
-- **Record Customer Installment (`Record Payment`):**
-  - Log buyer installment payments received via RTGS, Cheque, or Cash.
-  - Automatically posts double-entry receipt into Treasury Bank.
-- **Process Booking Cancellation & Financial Settlement (`Cancel Booking & Settle`):**
-  - Compute agreed forfeiture fee (%) retained by the company.
-  - Disburse net refund from Treasury and release the unit back to inventory.
-
----
-
-### FEATURE 8: Land & Property Acquisition Governance
-
-**Component:** `PropertyAcquisitionList`  
-**Purpose:** Complete management of raw land purchases, parcel sizes, owner agreements, milestone payouts, and asset capitalization.
-
-#### Key Admin Operations:
-- **Create New Property Asset (`+ Add Property`):**
-  - Property Title (e.g., *"Green Valley Phase 2 - 15.4 Acres"*).
-  - Location, Landowner Name, Contact Details.
-  - Total Agreed Consideration (₹).
-- **Disburse Landowner Payout (`Record Owner Payout`):**
-  - Authorize milestone disbursements (Token, Registry, Possession).
-  - Validates liquid treasury reserves before allowing payment release.
-  - Automatically capitalizes land asset in the General Ledger.
+#### Key Administrative Actions:
+1. **Onboard New Property Buyer (`+ Register Customer`):**
+   - Customer Full Name, Primary Phone, Email Address.
+   - Government Identification (PAN / Aadhaar / CNIC) and Residential Address.
+   - Assigned Real Estate Project & Unit Number (e.g., *"Tower C, Penthouse 1401"*).
+   - Total Agreed Contract Value (e.g., `₹1,25,00,000`).
+2. **Log Buyer Installment (`Record Payment`):**
+   - Select payment mode: `NEFT`, `RTGS`, `IMPS`, `CHEQUE`, `UPI`, or `CASH`.
+   - Enter UTR / Cheque Reference Number and Payment Date.
+   - Automated double-entry posting: **Debit Corporate Bank (1010)**, **Credit Customer Accounts Receivable / Revenue (4010)**.
+   - Generates an immediate printable receipt with a unique transaction voucher.
+3. **Execute Contract Cancellation & Financial Settlement (`Cancel Booking & Settle`):**
+   - Enter the **Forfeiture Penalty Percentage** (e.g., `10%`).
+   - The engine automatically calculates retained revenue and net refund payable.
+   - Authorize disbursement; the property unit is automatically unlocked and restored to available inventory.
 
 ---
 
-### FEATURE 9: Double-Entry General Ledger & Real-Time Balance Proof
+### 6.7 Land & Property Acquisitions Management
 
-**Component:** `GeneralLedgerView`  
-**Purpose:** Executive financial verification that organizational books satisfy strict mathematical double-entry equilibrium.
+**Component:** `PropertyAcquisitionList.js`, `PropertyAcquisitionModal.js`, `RecordPropertyPaymentModal.js`  
+**Access:** Admin Hub -> **`Land Acquisitions & Property Registry`**
 
-#### What to Verify as an Administrator:
-- **Balanced Badge:** Look at the badge at top right:
-  - `✓ Balanced (Debit = Credit)`: Confirms zero-sum perfection across all company accounts.
-  - `⚠️ Ledger Imbalance`: Alerts to any data discrepancy (mathematically barred by system schema).
-- **Journal Entries Tab:** Inspect chronologically generated journal vouchers with account numbers, debit/credit breakdowns, and idempotency references.
-- **Chart of Accounts Tab:** Audit real-time running balances across Assets (1000s), Liabilities (2000s), Equity (3000s), Revenue (4000s), and Expenses (5000s).
-
----
-
-### FEATURE 10: Forensic Security Audit Trail & JSON Inspector
-
-**Component:** `AuditLogViewer`  
-**Purpose:** Complete compliance logging and forensic tracking of every sensitive state mutation across EstateSync.
-
-#### How to Inspect System Activity:
-1. Scroll to the **Security & Audit Trail** section at the bottom of the Admin Hub.
-2. **Filter by Action:** Use the action dropdown to isolate specific events:
-   - `USER_LOGIN` / `USER_REGISTER`
-   - `FUND_DIRECT_ALLOCATE` / `FUND_REQUEST_APPROVE`
-   - `EXPENSE_CREATE` / `EXPENSE_REVERSE`
-   - `CUSTOMER_PAYMENT_RECORD` / `PROPERTY_PAYMENT_RECORD`
-   - `SALARY_PAYMENT_DISBURSED`
-3. **Inspect Detailed JSON Payload:**
-   - Click the **`View Details`** icon on any audit log row.
-   - An interactive terminal window opens displaying:
-     - **Actor Email & User ID**
-     - **Client IP Address & User Agent**
-     - **Entity Type & ID**
-     - **Full State Snapshot:** Displays exact `oldValues` before mutation and `newValues` after mutation.
+#### Key Administrative Actions:
+1. **Register New Land Acquisition (`+ Add Property`):**
+   - Property Title (e.g., *"Sohna Road Commercial Belt — Parcel 4B"*).
+   - Physical Location, Land Registry Khasra/Survey Numbers, Total Acreage.
+   - Landowner / Seller Entity Name and Authorized Contact.
+   - Total Agreed Consideration (e.g., `₹18,50,00,000`).
+2. **Release Landowner Milestone Payout (`Record Owner Payout`):**
+   - Select acquisition milestone: Token Advance, Registry Milestone, Mutation / Possession Milestone.
+   - System confirms liquid funds in Treasury before releasing payment.
+   - Posts capital entry: **Debit Land Fixed Assets (1510)**, **Credit Corporate Bank (1010)**.
 
 ---
 
-## 🔒 Security Best Practices for Administrators
+### 6.8 Corporate Treasury & Bank Inflow Governance
 
-1. **Protect Master Credentials:** Never share admin login credentials. Create individual `ADMIN` accounts for co-directors rather than sharing a single login.
-2. **Periodic Wallet Audits:** Routinely inspect the `UserWalletLedger` to ensure circulating balances in field wallets match operational needs.
-3. **Verify UTR References:** When reviewing large bank inflows or landowner payouts, cross-check the entered UTR against corporate bank statements.
-4. **Session Discipline:** Always click **`Logout`** (red button at top right) when stepping away from your terminal. Sessions automatically time out after 24 hours.
+**Component:** `TreasuryInflowList.js`, `RecordBankInflowModal.js`  
+**Access:** Admin Hub -> **`Corporate Treasury & Bank Inflow Audit`**
+
+#### Key Administrative Actions:
+1. **Monitor Real-Time Cashflow:**
+   - Inspect daily inflows, outflows, and net liquidity across all institutional accounts.
+2. **Record New Bank Capital Inflow (`+ Record Bank Inflow`):**
+   - Enter Deposit Amount (₹).
+   - Select Inflow Classification:
+     - `CAPITAL_INFUSION` (Equity / Shareholder investment)
+     - `DIRECTOR_LOAN` (Unsecured promisor note)
+     - `BANK_LOAN` (Credit facility drawdown)
+     - `REFUND_RECEIVED` (Statutory or vendor refund)
+   - Enter Receiving Bank, Corporate Account Number, and Bank UTR.
+   - Immediately reflects in liquid treasury reserves.
 
 ---
 
-## 🛠️ Quick Troubleshooting Guide for Admins
+### 6.9 Staff Salaries & Monthly Payroll Synchronization
 
-| Issue Encountered | Root Cause | Administrator Resolution |
-| :--- | :--- | :--- |
-| **"User already exists" during registration** | The email address entered is already registered in the system. | Verify if the staff member already has an account. Use a different email or update their role. |
-| **"Insufficient Treasury Balance" when allocating** | Corporate Treasury liquid funds are lower than requested amount. | Navigate to Treasury module and record an incoming capital infusion before distributing funds. |
-| **Employee cannot see Admin Hub** | User is assigned a non-admin role (`MANAGER`, `SALES`, etc.). | Check user's assigned role in the workforce directory and upgrade to `ADMIN` if authorized. |
-| **Accidental double click on allocation** | Network lag caused multiple clicks. | Idempotency engine automatically rejects duplicate submissions within the same window. Only one allocation will be posted. |
-| **Audit log shows unfamiliar IP** | Remote access or dynamic mobile network IP. | Review the action performed in the JSON inspector. If suspicious, reset user password immediately. |
+**Component:** `AccountingSalaryView.js`, `PaySalaryModal.js`  
+**Access:** Accounting Hub -> **`Staff Salaries & Payouts`**
+
+#### Key Administrative Actions:
+1. Select the operational payroll month (e.g., `2026-09`).
+2. Review the organizational payroll liability vs amount already disbursed.
+3. Click **`Pay Salary`** on any pending employee voucher.
+4. Review computed breakdown: Base Pay + Allowances - Deductions = Net Payable.
+5. Authorize payout via Bank Transfer (NEFT) or Cash.
+6. The system debits Treasury (`1010`) and posts salary expense (`5010`) automatically.
 
 ---
 
-## 🔮 What's Coming in Release v3.0
+### 6.10 Double-Entry General Ledger & Real-Time Parity Proof
+
+**Component:** `GeneralLedgerView.js`  
+**Access:** Admin Hub -> **`Double-Entry General Ledger & Accounts`**
+
+#### Verification Protocols for Administrators:
+- **Zero-Sum Equilibrium Badge:** Ensure the status badge displays **`✓ Balanced (Debit = Credit)`** in green.
+- **Journal Entries Tab:** Chronological register of every voucher created. Inspect line-by-line debits and credits.
+- **Chart of Accounts Tab:** Review real-time balances across:
+  - **1000s:** Assets (Bank, Cash, Receivables, Land Inventory, Staff Wallets)
+  - **2000s:** Liabilities (Vendor Payables, Landowner Debt, Director Loans)
+  - **3000s:** Equity (Share Capital, Retained Reserves)
+  - **4000s:** Revenue (Property Sales, Booking Inflows, Forfeiture Income)
+  - **5000s:** Expenses (Land Development, Salaries, Marketing, Utilities)
+
+---
+
+### 6.11 Forensic Security Audit Trail & JSON Terminal Inspector
+
+**Component:** `AuditLogViewer.js`  
+**Access:** Admin Hub -> **`Security & Audit Trail`**
+
+#### Forensic Inspection Capabilities:
+1. **Action Filter:** Filter events by `USER_LOGIN`, `USER_REGISTER`, `FUND_DIRECT_ALLOCATE`, `FUND_REQUEST_APPROVE`, `EXPENSE_REVERSE`, `PROPERTY_PAYMENT_RECORD`, `CUSTOMER_PAYMENT_RECORD`, etc.
+2. **Interactive JSON Terminal:** Click the **`View Details`** icon on any row to open the inspect window:
+   - **Actor:** Full email and user ID of the person who executed the action.
+   - **Network Metadata:** Client IPv4/IPv6 address and User-Agent browser fingerprint.
+   - **State Mutation Snapshot:** Side-by-side view of `oldValues` before the transaction vs `newValues` after the transaction.
+
+---
+
+## 7. Real-World Operational Playbooks & Step-by-Step Scenarios
+
+---
+
+### Scenario A: Onboarding a Regional Sales Manager & Seeding Wallet
+**Objective:** Provision a new manager account, create their HR record, configure compensation, and seed their wallet with ₹50,000 for field operations.
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                     ESTATESYNC ADMIN ROADMAP v3.0                      │
-├──────────────────────────┬─────────────────────────────────────────────┤
-│ 🔐 Admin Password Reset  │ Reset forgotten passwords for any staff     │
-│ 📝 Master Sticky Notes   │ Private admin annotations on deals & staff  │
-│ 🎨 Next-Gen UI System    │ Modern glassmorphism, responsive data grid  │
-│ 📊 1-Click Data Exporter │ Bulk export all tables to Excel / PDF       │
-│ 🚨 Real-Time Webhooks    │ Instant WhatsApp/Email alerts on allocations│
-└──────────────────────────┴─────────────────────────────────────────────┘
+Step 1: User Registration
+├── Go to: Admin Hub -> Register New User
+├── Enter Name: "Vikram Malhotra", Email: "vikram@estatesync.local"
+├── Set Role: "MANAGER", Password: "TempPassword#2026"
+└── Click "Provision Account" -> Wallet initialized with ₹0.00
+
+Step 2: HR Master Record & Linking
+├── Go to: Top Navigation -> Employees -> "+ Add Employee"
+├── Enter designation: "Regional Sales Manager", Dept: "Sales & Marketing"
+├── Click "Link User" -> Select "vikram@estatesync.local"
+└── Click "Edit Salary" -> Base: ₹85,000, Allowances: ₹15,000 -> Save
+
+Step 3: Seeding Initial Operating Wallet
+├── Go to: Admin Hub -> Direct Fund Allocation
+├── Select: "Vikram Malhotra"
+├── Amount: Click "₹50,000" pill -> Mode: "LIQUID"
+├── Description: "Initial regional site advance for client hosting & fuel"
+└── Click "Allocate Capital to Wallet" -> Verified in UserWalletLedger
+```
+
+---
+
+### Scenario B: Handling an Emergency Site Fund Request
+**Objective:** A site civil engineer requests ₹75,000 for emergency excavation equipment repairs.
+
+1. Navigate to Admin Hub -> **`All Organization Fund Requests`**.
+2. Locate the request card for the site engineer marked **`PENDING`**.
+3. Review the description and attached repair estimate quotation.
+4. Verify that Corporate Treasury Liquid balance is sufficient.
+5. Click **`Approve`**.
+6. The engineer's wallet balance increases by ₹75,000 immediately. The engineer can now pay the repair vendor and upload the tax invoice.
+
+---
+
+### Scenario C: Reversing a Fraudulent or Mistaken Expense Claim
+**Objective:** An employee accidentally uploaded a duplicate ₹12,500 fuel voucher that was already reimbursed last week.
+
+1. Navigate to **Accounting Hub** -> **`Wallets & Expenses`** tab -> **`All Expenses`** sub-tab.
+2. Search by employee name or category (`Fuel`).
+3. Click **`View Receipt`** to verify the bill number and date.
+4. Having confirmed the duplicate submission, click the red button: **`Reverse Expense`**.
+5. In the modal, enter the mandatory reason: *"Duplicate fuel receipt #7741 submitted in error. Denied by internal audit."*
+6. Click **`Confirm Reversal`**.
+7. **Result:**
+   - The expense status updates to `REVERSED`.
+   - The employee's wallet is credited back ₹12,500 immediately.
+   - An offsetting journal voucher is created in the General Ledger.
+   - The audit log permanently records the administrator's ID and timestamp.
+
+---
+
+### Scenario D: Executing a High-Value Land Milestone Payout
+**Objective:** Release a ₹50,00,000 agreement milestone payment to a landowner for a new commercial parcel.
+
+1. Navigate to Admin Hub -> **`Land Acquisitions & Property Registry`**.
+2. Locate the parcel: *"Sohna Road Commercial Belt — Parcel 4B"*.
+3. Verify that remaining balance due is greater than or equal to ₹50,00,000.
+4. Click **`Record Owner Payout`**.
+5. The system performs a real-time liquidity check:
+   - If Corporate Treasury balance < ₹50,00,000, the system blocks the transaction and warns: *"Insufficient Treasury Liquidity"*.
+   - If balance is sufficient, enter:
+     - Amount: `5000000`
+     - Mode: `RTGS`
+     - Source Bank: `Corporate Bank HDFC (1010)`
+     - UTR Reference: `HDFCR52026092100889`
+     - Milestone Notes: *"Execution of formal registry agreement — Tranche 2"*
+6. Click **`Disburse Milestone Payout`**.
+7. **Result:**
+   - Treasury liquid reserves decrement by ₹50,00,000.
+   - Land asset capitalization increments by ₹50,00,000.
+   - Remaining seller liability decrements by ₹50,00,000.
+
+---
+
+### Scenario E: Customer Booking Cancellation & Forfeiture Settlement
+**Objective:** A customer cancels their apartment booking after paying ₹10,00,000. As per agreement, company retains 10% (₹1,00,000) and refunds ₹9,00,000.
+
+1. Navigate to Admin Hub -> **`Customer Portfolios & Payment Schedules`**.
+2. Locate the customer card and click **`Cancel Booking & Settle`**.
+3. Verify total paid to date: `₹10,00,000`.
+4. Enter **Cancellation Deduction:** `10%`.
+5. The engine computes:
+   - Company Forfeiture Income: `₹1,00,000`.
+   - Customer Refund Payable: `₹9,00,000`.
+6. Enter the refund UTR number and select Corporate Treasury account.
+7. Click **`Approve Cancellation & Disburse Refund`**.
+8. **Result:**
+   - ₹9,00,000 is disbursed out of Treasury.
+   - ₹1,00,000 is credited to Forfeiture Revenue (`4030`).
+   - The apartment unit is unlocked and restored to `AVAILABLE` for resale.
+
+---
+
+### Scenario F: Conducting an End-of-Month Payroll Settlement
+**Objective:** Process and disburse monthly salaries for all active organizational staff.
+
+1. Navigate to **Accounting Hub** -> **`Staff Salaries & Payouts`**.
+2. Select payroll month: `2026-09`.
+3. The KPI card displays Total Payroll Liability (e.g., `₹18,40,000`).
+4. In the employee table, locate staff with status **`PENDING`**.
+5. Click **`Pay Salary`**.
+6. Review calculated salary slip (Base Pay, Allowances, PF/TDS Deductions).
+7. Select payout mode (`NEFT`) and enter bank disbursement UTR.
+8. Click **`Confirm & Disburse Salary`**.
+9. Status transitions to **`PAID`** with green checkmark. Double-entry salary expense is booked.
+
+---
+
+### Scenario G: Investigating a Security Incident via Audit Logs
+**Objective:** An unexpected balance adjustment of ₹25,000 was noticed on an executive wallet.
+
+1. Navigate to Admin Hub -> Scroll to **`Security & Audit Trail`**.
+2. Set Action Filter dropdown to: `WALLET_ADJUST_BALANCE` (or `FUND_DIRECT_ALLOCATE`).
+3. Locate the row matching the ₹25,000 transaction.
+4. Click the blue **`View Details`** icon.
+5. In the terminal pop-up, inspect:
+   - **Actor:** `admin@estatesync.local`
+   - **Client IP:** `103.21.144.18`
+   - **Timestamp:** `2026-09-21T14:32:10Z`
+   - **Justification Note:** *"Reimbursement for urgent structural consultant site visit"*
+   - **Before/After State:** Confirms exact delta applied.
+6. The audit log provides absolute legal and operational accountability.
+
+---
+
+## 8. Master Data Dictionary & Field Reference
+
+### 8.1 User Entity (`User`)
+| Field Name | Data Type | Description & Validation Rules |
+| :--- | :--- | :--- |
+| `id` | UUID | Primary Key, auto-generated unique user identifier. |
+| `email` | String | Unique work email address, must contain `@` and valid corporate domain. |
+| `passwordHash` | String | Bcrypt one-way hash (12 salt rounds), plain text never stored. |
+| `name` | String | Employee legal full name. |
+| `roleId` | UUID | Foreign Key linking to `Role` entity (`ADMIN`, `MANAGER`, etc.). |
+| `createdAt` | DateTime | Timestamp when account was provisioned. |
+
+### 8.2 Wallet Entity (`Wallet`)
+| Field Name | Data Type | Description & Validation Rules |
+| :--- | :--- | :--- |
+| `id` | UUID | Primary Key, auto-generated unique wallet identifier. |
+| `userId` | UUID | Foreign Key linking 1-to-1 to `User`. |
+| `balance` | Decimal(14,2)| Available unspent funds, cannot be negative. |
+| `totalAllocated` | Decimal(14,2)| Cumulative lifetime funds received from Treasury. |
+| `totalSpent` | Decimal(14,2)| Cumulative lifetime expenses approved and liquidated. |
+
+### 8.3 Property Entity (`Property`)
+| Field Name | Data Type | Description & Validation Rules |
+| :--- | :--- | :--- |
+| `id` | UUID | Primary Key, auto-generated unique property identifier. |
+| `title` | String | Project name or land parcel name. |
+| `location` | String | Geographical address, survey numbers, city, state. |
+| `totalLandValue` | Decimal(14,2)| Total agreed contractual consideration. |
+| `totalPaidToOwner`| Decimal(14,2)| Cumulative milestone funds disbursed to landowner. |
+| `balanceRemaining`| Decimal(14,2)| Outstanding debt liability owed to landowner. |
+
+### 8.4 Customer Entity (`Customer`)
+| Field Name | Data Type | Description & Validation Rules |
+| :--- | :--- | :--- |
+| `id` | UUID | Primary Key, auto-generated unique customer identifier. |
+| `name` | String | Full legal name of buyer. |
+| `phone` | String | Primary 10-digit mobile contact number. |
+| `email` | String | Billing email address for receipts. |
+| `unitNumber` | String | Assigned flat, villa, or commercial unit number. |
+| `totalContractValue`| Decimal(14,2)| Total sales price agreed in the builder-buyer agreement. |
+| `totalPaid` | Decimal(14,2)| Cumulative installments received and verified in bank. |
+| `status` | Enum | `ACTIVE`, `FULLY_PAID`, `CANCELLED`, `SETTLED`. |
+
+---
+
+## 9. Administrative Troubleshooting, Security Hardening & Disaster Recovery
+
+### 9.1 Common Operational Issues & Administrator Solutions
+
+| Symptom | Root Cause | Administrator Resolution |
+| :--- | :--- | :--- |
+| **"Email already registered"** | Attempting to provision a user with an email already present in database. | Check User Directory. If user exists, update their role or provide password reset. |
+| **"Insufficient Treasury Balance"** | Liquid bank reserves (`Account 1010`) are lower than the allocation or payout amount. | Go to Treasury module -> Click `+ Record Bank Inflow` to record incoming capital or customer collections before disbursing. |
+| **User cannot access Admin Hub** | User's role is set to `MANAGER`, `ACCOUNTING`, or `EMPLOYEE`. | Go to Employee Master, inspect user profile, and update role to `ADMIN` if authorized by board resolution. |
+| **Expense receipt attachment won't display** | Browser popup blocker is active on `estatesync.devoxa.in`. | Instruct user to click the lock/settings icon in the browser address bar and enable "Popups and Redirects". |
+| **Accidental double-click during fund allocation** | Cellular or network latency caused multiple submit events. | **Protected by Idempotency Engine:** The backend rejects identical idempotency tokens. Only one allocation will be posted. |
+| **Session expired abruptly** | JWT token reached its 24-hour lifetime limit. | Re-enter master credentials at `/login` to acquire a fresh cryptographically signed session token. |
+
+### 9.2 Administrative Security Protocols
+1. **Master Password Hygiene:** Use a complex passphrase with at least 12 characters combining uppercase, lowercase, numbers, and symbols.
+2. **Device Locking:** Always lock your computer screen when leaving your desk (`Windows Key + L`).
+3. **Audit Log Reviews:** Perform weekly reviews of the Security Audit Trail, specifically filtering for `USER_REGISTER` and `EXPENSE_REVERSE` to ensure no unauthorized activities occurred.
+
+---
+
+## 10. Roadmap & Version 3.0 Major Release Preview
+
+The engineering team is finalizing the **EstateSync v3.0** upgrade. Here is what is arriving in the next release:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       ESTATESYNC ROADMAP — VERSION 3.0                      │
+├────────────────────────────┬────────────────────────────────────────────────┤
+│ 🔐 In-App Password Change  │ Self-service password updates for all users    │
+│                            │ plus administrative one-click password reset.  │
+├────────────────────────────┼────────────────────────────────────────────────┤
+│ 📝 Personal Sticky Notes   │ Private administrative pinboard & memos        │
+│                            │ attachable to land deals, staff, and vouchers. │
+├────────────────────────────┼────────────────────────────────────────────────┤
+│ 🎨 Next-Gen UI Design      │ Ultra-modern glassmorphic design system,       │
+│                            │ enhanced contrast, refined typography & tables.│
+├────────────────────────────┼────────────────────────────────────────────────┤
+│ 📊 1-Click Data Exporters  │ Instant Excel & PDF export for Balance Sheet,  │
+│                            │ Trial Balance, General Ledger, and Users.      │
+├────────────────────────────┼────────────────────────────────────────────────┤
+│ 🚨 Real-Time Webhook Alerts│ Instant SMS & WhatsApp notifications for large  │
+│                            │ bank inflows, milestone payouts, and reversals.│
+└────────────────────────────┴────────────────────────────────────────────────┘
 ```
 
 ---
