@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 };
 
 import { AuthProvider } from "@/context/AuthContext";
+import { SWRProvider } from "@/context/SWRProvider";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -33,7 +34,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="min-h-full flex flex-col">
         <AuthProvider>
-          {children}
+          <SWRProvider>
+            {children}
+          </SWRProvider>
         </AuthProvider>
       </body>
     </html>
