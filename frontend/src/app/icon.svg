@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="7" fill="#ff6b12"/>
+  <!-- Central main tower -->
+  <path d="M10 26V7a1.5 1.5 0 0 1 1.5-1.5h9A1.5 1.5 0 0 1 22 7v19" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Left wing -->
+  <path d="M10 16H8a1.5 1.5 0 0 0-1.5 1.5V24A1.5 1.5 0 0 0 8 25.5h2" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Right wing -->
+  <path d="M22 13h2a1.5 1.5 0 0 1 1.5 1.5V24a1.5 1.5 0 0 1-1.5 1.5h-2" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Window lines -->
+  <line x1="13.5" y1="10" x2="18.5" y2="10" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="13.5" y1="14" x2="18.5" y2="14" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="13.5" y1="18" x2="18.5" y2="18" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="13.5" y1="22" x2="18.5" y2="22" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

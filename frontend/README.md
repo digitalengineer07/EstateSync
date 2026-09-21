@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EstateSync Frontend
+
+Real estate treasury, customer collections, and financial operations platform by Devoxa Technologies.
 
 ## Getting Started
 
