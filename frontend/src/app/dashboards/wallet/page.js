@@ -147,7 +147,7 @@ export default function WalletDashboard() {
   const renderWalletPanel = () => (
     <div className="space-y-5">
       {isAdmin ? (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 items-start">
           <div className="xl:col-span-2 bg-white rounded-[16px] border border-zinc-200 p-5 shadow-[0_10px_24px_-20px_rgba(20,20,20,0.45)]">
             <div className="pb-4 mb-4 border-b border-zinc-100">
               <h3 className="text-lg font-extrabold text-zinc-950">Incoming Organization Fund Requests</h3>
@@ -160,7 +160,7 @@ export default function WalletDashboard() {
           <ExpenseUploadForm />
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
           <FundRequestForm />
           <ExpenseUploadForm />
         </div>
