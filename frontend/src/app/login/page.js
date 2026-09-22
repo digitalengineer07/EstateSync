@@ -20,6 +20,8 @@ import {
   Loader2,
   AlertCircle,
   Building2,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 function EstateSyncLogoMark({ className = "w-10 h-10" }) {
@@ -146,36 +148,22 @@ export default function LoginPage() {
   ];
 
   return (
-    <main className="min-h-screen lg:h-screen lg:max-h-screen w-full bg-[#0c1015] relative flex items-center justify-center p-2 sm:p-4 lg:p-5 xl:p-6 lg:overflow-hidden font-sans selection:bg-[#ff6b12]/30 selection:text-white">
-      {/* Ambient background blur elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-35 scale-105 filter blur-xl"
-          style={{ backgroundImage: "url('/images/login/luxury-office-sunset.jpg')" }}
-        />
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-2xl" />
-      </div>
+    <main
+      className="min-h-screen lg:h-screen lg:max-h-screen w-full relative flex items-center justify-center p-3 sm:p-5 lg:p-6 xl:p-8 lg:overflow-hidden font-sans select-none bg-cover bg-center"
+      style={{ backgroundImage: "url('/images/login/luxury-office-sunset.jpg')" }}
+    >
+      {/* Subtle full-page atmospheric darkening so composition stands out */}
+      <div className="absolute inset-0 bg-black/35 pointer-events-none" />
 
-      {/* Main Split-Screen Container - Wider & Viewport-Constrained */}
-      <div className="relative z-10 w-full max-w-[1560px] 2xl:max-w-[1680px] lg:h-[min(840px,93vh)] xl:h-[min(810px,91vh)] rounded-[22px] sm:rounded-[28px] lg:rounded-[32px] overflow-hidden border border-white/10 shadow-[0_25px_80px_rgba(0,0,0,0.7)] grid grid-cols-1 lg:grid-cols-[1.22fr_1fr] bg-[#12161f]">
+      {/* Main Composition Container holding the two separated sections */}
+      <div className="relative z-10 w-full max-w-[1540px] 2xl:max-w-[1640px] lg:h-[min(820px,92vh)] flex flex-col lg:flex-row items-stretch">
         
         {/* ================================================================ */}
-        {/* LEFT VISUAL PANEL (Corporate Office Skyline + Feature Highlights) */}
+        {/* LEFT VISUAL PANEL (Translucent Glass Card with Hidden Right Border)*/}
         {/* ================================================================ */}
-        <section className="relative hidden lg:flex flex-col justify-between p-6 sm:p-8 lg:p-8 xl:p-10 overflow-hidden select-none min-h-0">
-          {/* Background image */}
-          <div
-            role="img"
-            aria-label="EstateSync corporate executive workspace overlooking sunset skyline"
-            className="absolute inset-0 bg-cover bg-center transform scale-[1.01] transition-transform duration-1000 ease-out"
-            style={{
-              backgroundImage: "url('/images/login/luxury-office-sunset.jpg')",
-            }}
-          />
-
-          {/* Dark gradient & atmospheric overlays to guarantee contrast */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/60 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/30 to-transparent pointer-events-none" />
+        <section className="relative flex-1 hidden lg:flex flex-col justify-between p-6 sm:p-8 lg:p-9 xl:p-11 rounded-l-[28px] sm:rounded-l-[32px] border border-white/20 border-r-0 backdrop-blur-md bg-black/40 overflow-hidden min-h-0">
+          {/* Subtle gradient overlay to guarantee text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent pointer-events-none" />
 
           {/* Top Row: Brand Header + Micro Navigation */}
           <header className="relative z-10 flex items-center justify-between">
@@ -221,7 +209,7 @@ export default function LoginPage() {
             </p>
 
             {/* 2x2 Feature Highlights Grid */}
-            <div className="grid grid-cols-2 gap-2.5 lg:gap-3 mt-5 lg:mt-6 max-w-[500px]">
+            <div className="grid grid-cols-2 gap-2.5 lg:gap-3 mt-5 lg:mt-6 max-w-[480px]">
               {featureItems.map((item, index) => {
                 const IconComponent = item.icon;
                 return (
@@ -259,9 +247,9 @@ export default function LoginPage() {
         </section>
 
         {/* ================================================================ */}
-        {/* RIGHT AUTHENTICATION PANEL (Clean Light Aesthetic)               */}
+        {/* RIGHT AUTHENTICATION PANEL (Distinct Elevated Rounded Card)       */}
         {/* ================================================================ */}
-        <section className="relative flex flex-col justify-between p-5 sm:p-7 lg:p-7 xl:p-9 bg-[#fdfdfd] overflow-hidden min-h-0">
+        <section className="relative w-full lg:w-[460px] xl:w-[490px] 2xl:w-[520px] flex-shrink-0 flex flex-col justify-between p-5 sm:p-7 lg:p-7 xl:p-9 bg-[#fdfdfd] rounded-[28px] sm:rounded-[32px] shadow-[0_25px_70px_rgba(0,0,0,0.65)] border border-white/90 overflow-hidden min-h-0 lg:-ml-2 z-20">
           {/* Light wave abstract background */}
           <div
             className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-90"
@@ -274,10 +262,25 @@ export default function LoginPage() {
             style={{ backgroundImage: "url('/images/login/orange-wave-ribbon.png')" }}
           />
 
-          {/* Top Brand Header for Authentication */}
+          {/* Top Row: Brand Header + Theme Pill Control */}
           <div className="relative z-10">
+            {/* Top Row with Theme Pill in top-right */}
+            <div className="flex items-center justify-between mb-1">
+              <div className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-zinc-400">
+                WELCOME TO
+              </div>
+
+              {/* Theme Pill Control */}
+              <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-zinc-100/90 border border-zinc-200/80 shadow-xs">
+                <Sun className="w-3.5 h-3.5 text-zinc-500" />
+                <div className="w-5 h-5 rounded-full bg-zinc-900 text-white flex items-center justify-center shadow-xs">
+                  <Moon className="w-3 h-3" />
+                </div>
+              </div>
+            </div>
+
             {/* Mobile-only logo display */}
-            <div className="flex lg:hidden items-center gap-3 mb-4">
+            <div className="flex lg:hidden items-center gap-3 mb-3">
               <EstateSyncLogoMark className="w-8 h-8" />
               <div>
                 <span className="text-lg font-black text-zinc-950">
@@ -289,9 +292,6 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-zinc-400">
-              WELCOME TO
-            </div>
             <div className="mt-0.5">
               <span className="text-2xl lg:text-[28px] font-black text-zinc-950 tracking-tight leading-none">
                 Estate<span className="text-[#ff6b12]">Sync</span>
@@ -501,8 +501,6 @@ export default function LoginPage() {
           </footer>
         </section>
       </div>
-
-
 
       {/* ================================================================ */}
       {/* SUPPORT DESK MODAL                                               */}
