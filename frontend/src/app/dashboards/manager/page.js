@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ExpenseList from "@/components/ExpenseList";
 import FundRequestList from "@/components/FundRequestList";
 import ManagerSalaryView from "@/components/manager/ManagerSalaryView";
@@ -41,6 +41,14 @@ const MANAGER_PANELS = [
 
 export default function ManagerDashboard() {
   const [activePanel, setActivePanel] = useState("approvals");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get("tab");
+      if (tab) setActivePanel(tab);
+    }
+  }, []);
 
   const renderPanel = () => {
     if (activePanel === "expenses") return <ExpenseList type="team" />;

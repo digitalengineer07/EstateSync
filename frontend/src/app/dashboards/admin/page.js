@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import AuditLogViewer from "@/components/AuditLogViewer";
 import CustomerPortfolioList from "@/components/CustomerPortfolioList";
@@ -125,6 +125,14 @@ const ADMIN_PANELS = [
 
 export default function AdminDashboard() {
   const [activePanel, setActivePanel] = useState("treasury");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get("tab");
+      if (tab) setActivePanel(tab);
+    }
+  }, []);
 
   const renderPanel = () => {
     if (activePanel === "allocation") return <DirectFundAllocationForm />;

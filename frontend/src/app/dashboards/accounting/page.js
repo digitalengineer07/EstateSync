@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AccountingSalaryView from "@/components/accounting/AccountingSalaryView";
 import CustomerPortfolioList from "@/components/CustomerPortfolioList";
 import ExpenseList from "@/components/ExpenseList";
@@ -68,6 +68,14 @@ const ACCOUNTING_PANELS = [
 export default function AccountingDashboard() {
   const [activePanel, setActivePanel] = useState("treasury");
   const [walletSubTab, setWalletSubTab] = useState("expenses");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get("tab");
+      if (tab) setActivePanel(tab);
+    }
+  }, []);
 
   const renderWalletPanel = () => (
     <div className="space-y-5">

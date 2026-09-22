@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { DashboardProvider } from "@/context/DashboardContext";
+import { DashboardProvider, useDashboardNav } from "@/context/DashboardContext";
 import { hasPermission } from "@/utils/permissions";
 import {
   Building2,
@@ -38,6 +38,7 @@ function DashboardHeader() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
+  const dashboardNav = useDashboardNav();
 
   // Dropdowns & Modals State
   const [profileOpen, setProfileOpen] = useState(false);
@@ -114,33 +115,86 @@ function DashboardHeader() {
     }
   };
 
-  // Notifications State
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      title: "Corporate Treasury Disbursement",
-      desc: "Monthly payroll batch recorded and balanced with bank statement.",
-      time: "12m ago",
-      unread: true,
-      category: "Treasury",
-    },
-    {
-      id: 2,
-      title: "Customer Collection Received",
-      desc: "₹12,50,000 received for Palm Residency Plot #42 (UTR: HDFC882910).",
-      time: "1h ago",
-      unread: true,
-      category: "Collections",
-    },
-    {
-      id: 3,
-      title: "Accounting Period Active",
-      desc: "September 2026 reconciliation cycle open for entry submission.",
-      time: "3h ago",
-      unread: true,
-      category: "Period",
-    },
-  ]);
+  // Live Notifications State
+  const [notifications, setNotifications] = useState([]);
+  const [readNotifIds, setReadNotifIds] = useState(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      return JSON.parse(localStorage.getItem("estatesync_read_notifs") || "[]");
+    } catch {
+      return [];
+    }
+  });
+
+  const fetchNotifications = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      if (!token) return;
+      const res = await fetch(`${API_URL}/api/v1/notifications`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (data.success && Array.isArray(data.notifications)) {
+        setNotifications(data.notifications);
+      }
+    } catch (err) {
+      console.warn("Could not fetch notifications:", err.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 45000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const unreadCount = useMemo(() => {
+    return notifications.filter((n) => !readNotifIds.includes(n.id)).length;
+  }, [notifications, readNotifIds]);
+
+  const markAllRead = () => {
+    const allIds = notifications.map((n) => n.id);
+    const combined = Array.from(new Set([...readNotifIds, ...allIds]));
+    setReadNotifIds(combined);
+    try {
+      localStorage.setItem("estatesync_read_notifs", JSON.stringify(combined));
+    } catch {}
+  };
+
+  const handleNotificationClick = (n) => {
+    if (!readNotifIds.includes(n.id)) {
+      const updated = [...readNotifIds, n.id];
+      setReadNotifIds(updated);
+      try {
+        localStorage.setItem("estatesync_read_notifs", JSON.stringify(updated));
+      } catch {}
+    }
+    setNotificationsOpen(false);
+
+    if (n.targetTab && dashboardNav?.handleSelect) {
+      dashboardNav.handleSelect(n.targetTab);
+    }
+    if (n.link) {
+      router.push(n.link);
+    }
+  };
+
+  const getCategoryBadgeClass = (category) => {
+    switch (category) {
+      case "Collections":
+        return "bg-emerald-50 text-emerald-700 border-emerald-200";
+      case "Approvals":
+        return "bg-amber-50 text-amber-700 border-amber-200";
+      case "Treasury":
+        return "bg-blue-50 text-blue-700 border-blue-200";
+      case "Expenses":
+        return "bg-orange-50 text-orange-700 border-orange-200";
+      case "Period":
+        return "bg-purple-50 text-purple-700 border-purple-200";
+      default:
+        return "bg-slate-100 text-slate-700 border-slate-200";
+    }
+  };
 
   const profileRef = useRef(null);
   const notifRef = useRef(null);
@@ -222,12 +276,6 @@ function DashboardHeader() {
   const visibleHubs = hubItems.filter((item) => item.visible);
   const currentHub = visibleHubs.find((h) => h.path === pathname) || visibleHubs[0];
   const HubIcon = currentHub?.icon || Landmark;
-
-  const unreadCount = notifications.filter((n) => n.unread).length;
-
-  const markAllRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, unread: false })));
-  };
 
   return (
     <>
@@ -334,21 +382,44 @@ function DashboardHeader() {
                         </button>
                       )}
                     </div>
-                    <div className="divide-y divide-slate-100 max-h-72 overflow-y-auto mt-1">
-                      {notifications.map((n) => (
-                        <div
-                          key={n.id}
-                          className={`p-2.5 rounded-xl hover:bg-slate-50 transition cursor-pointer ${
-                            n.unread ? "bg-orange-50/40" : ""
-                          }`}
-                        >
-                          <div className="flex items-start justify-between gap-2">
-                            <p className="text-xs font-bold text-slate-900">{n.title}</p>
-                            <span className="text-[10px] text-slate-400 whitespace-nowrap">{n.time}</span>
-                          </div>
-                          <p className="text-[11px] text-slate-600 mt-0.5">{n.desc}</p>
+                    <div className="divide-y divide-slate-100 max-h-80 overflow-y-auto mt-1">
+                      {notifications.length === 0 ? (
+                        <div className="p-6 text-center text-xs text-slate-400">
+                          <Bell className="w-5 h-5 mx-auto mb-2 text-slate-300" />
+                          <p className="font-semibold text-slate-600">All caught up!</p>
+                          <p className="text-[11px] mt-0.5">No recent notifications</p>
                         </div>
-                      ))}
+                      ) : (
+                        notifications.map((n) => {
+                          const isUnread = !readNotifIds.includes(n.id);
+                          return (
+                            <div
+                              key={n.id}
+                              onClick={() => handleNotificationClick(n)}
+                              className={`p-2.5 rounded-xl hover:bg-slate-50 transition cursor-pointer ${
+                                isUnread ? "bg-orange-50/40" : ""
+                              }`}
+                            >
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="flex items-center gap-1.5 flex-wrap">
+                                  <p className="text-xs font-bold text-slate-900">{n.title}</p>
+                                  {n.category && (
+                                    <span
+                                      className={`px-1.5 py-0.2 rounded text-[9px] font-bold border ${getCategoryBadgeClass(
+                                        n.category
+                                      )}`}
+                                    >
+                                      {n.category}
+                                    </span>
+                                  )}
+                                </div>
+                                <span className="text-[10px] text-slate-400 whitespace-nowrap shrink-0">{n.time}</span>
+                              </div>
+                              <p className="text-[11px] text-slate-600 mt-0.5 leading-snug">{n.desc}</p>
+                            </div>
+                          );
+                        })
+                      )}
                     </div>
                   </div>
                 )}
