@@ -148,12 +148,15 @@ export default function LoginPage() {
   ];
 
   return (
-    <main
-      className="min-h-screen lg:h-screen lg:max-h-screen w-full relative flex items-center justify-center p-3 sm:p-5 lg:p-6 xl:p-8 lg:overflow-hidden font-sans select-none bg-cover bg-center"
-      style={{ backgroundImage: "url('/images/login/luxury-office-sunset.jpg')" }}
-    >
-      {/* Subtle full-page atmospheric darkening so composition stands out */}
-      <div className="absolute inset-0 bg-black/35 pointer-events-none" />
+    <main className="min-h-screen lg:h-screen lg:max-h-screen w-full relative flex items-center justify-center p-3 sm:p-5 lg:p-6 xl:p-8 lg:overflow-hidden font-sans select-none bg-[#0a0d14]">
+      {/* Ambient background blur elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-30 scale-105 filter blur-3xl"
+          style={{ backgroundImage: "url('/images/login/luxury-office-sunset.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-black/55" />
+      </div>
 
       {/* Main Composition Container holding the two separated sections */}
       <div className="relative z-10 w-full max-w-[1540px] 2xl:max-w-[1640px] lg:h-[min(820px,92vh)] flex flex-col lg:flex-row items-stretch">
@@ -161,9 +164,21 @@ export default function LoginPage() {
         {/* ================================================================ */}
         {/* LEFT VISUAL PANEL (Translucent Glass Card with Hidden Right Border)*/}
         {/* ================================================================ */}
-        <section className="relative flex-1 hidden lg:flex flex-col justify-between p-6 sm:p-8 lg:p-9 xl:p-11 rounded-l-[28px] sm:rounded-l-[32px] border border-white/20 border-r-0 backdrop-blur-md bg-black/40 overflow-hidden min-h-0">
-          {/* Subtle gradient overlay to guarantee text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent pointer-events-none" />
+        <section className="relative flex-1 hidden lg:flex flex-col justify-between p-6 sm:p-8 lg:p-9 xl:p-11 rounded-l-[28px] sm:rounded-l-[32px] border border-white/20 border-r-0 overflow-hidden min-h-0">
+          {/* Sharp photographic background image positioned so laptop, notebook & plant are perfectly framed */}
+          <div
+            role="img"
+            aria-label="EstateSync corporate executive workspace overlooking sunset skyline"
+            className="absolute inset-0 bg-cover transform scale-[1.01]"
+            style={{
+              backgroundImage: "url('/images/login/luxury-office-sunset.jpg')",
+              backgroundPosition: "20% center",
+            }}
+          />
+
+          {/* Gradient overlay: dark on left for text legibility, transparent on right for laptop & sunset */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 via-50% to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none" />
 
           {/* Top Row: Brand Header + Micro Navigation */}
           <header className="relative z-10 flex items-center justify-between">
