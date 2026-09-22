@@ -376,10 +376,10 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                     key={cust.id} 
                     id={`customer-${cust.id}`}
                     onClick={() => setStatementCustomer(cust)}
-                    className={`cursor-pointer transition-all duration-700 group ${
+                    className={`cursor-pointer transition-all duration-700 group border-l-4 ${
                       highlightedId === cust.id
-                        ? "bg-amber-100/90 ring-2 ring-orange-500 shadow-md border-l-4 border-l-[#ff6b12]"
-                        : "hover:bg-orange-50/40"
+                        ? "bg-[#fff3ea] border-l-[#ff6b12]"
+                        : "border-l-transparent hover:bg-orange-50/40"
                     }`}
                   >
                     <td className="px-4 py-3.5">
@@ -389,14 +389,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                     </td>
 
                     <td className="px-4 py-3.5">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-slate-900">{cust.customerName}</span>
-                        {highlightedId === cust.id && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#ff6b12] text-white shadow-xs animate-pulse">
-                            Matched Record ✨
-                          </span>
-                        )}
-                      </div>
+                      <div className="font-semibold text-slate-900">{cust.customerName}</div>
                       <div className="text-[11px] text-slate-500">{cust.customerContact}</div>
                       <div className="text-[10px] text-slate-400 font-mono">{cust.identityType}: {cust.identityNumber}</div>
                     </td>

@@ -150,22 +150,15 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
                   <tr
                     key={txn.id}
                     id={`txn-${txn.id}`}
-                    className={`transition-all duration-700 ${
+                    className={`transition-all duration-700 border-l-4 ${
                       isMatch
-                        ? "bg-amber-100/90 ring-2 ring-orange-500 shadow-md border-l-4 border-l-[#ff6b12]"
-                        : "hover:bg-gray-50"
+                        ? "bg-[#fff3ea] border-l-[#ff6b12]"
+                        : "border-l-transparent hover:bg-gray-50"
                     }`}
                   >
                     <td className="px-6 py-4 text-slate-700 font-mono text-xs">{formatDateTime(txn.createdAt)}</td>
                     <td className="px-6 py-4">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        {getEntryBadge(txn.type)}
-                        {isMatch && (
-                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-[#ff6b12] text-white shadow-xs animate-pulse">
-                            Matched Txn ✨
-                          </span>
-                        )}
-                      </div>
+                      {getEntryBadge(txn.type)}
                     </td>
                     <td className="px-6 py-4">
                       <span className="font-semibold text-gray-800">

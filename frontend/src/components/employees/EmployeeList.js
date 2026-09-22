@@ -425,10 +425,10 @@ export default function EmployeeList() {
                       <tr 
                         key={emp.id} 
                         id={`employee-${emp.id}`}
-                        className={`transition-all duration-700 ${
+                        className={`transition-all duration-700 border-l-4 ${
                           highlightedId === emp.id
-                            ? "bg-amber-100/90 ring-2 ring-orange-500 shadow-md border-l-4 border-l-[#ff6b12]"
-                            : "hover:bg-slate-50/70"
+                            ? "bg-[#fff3ea] border-l-[#ff6b12]"
+                            : "border-l-transparent hover:bg-slate-50/70"
                         }`}
                       >
                         {/* Employee Name & Code */}
@@ -438,19 +438,12 @@ export default function EmployeeList() {
                               {emp.fullName?.charAt(0)?.toUpperCase() || "E"}
                             </div>
                             <div>
-                              <div className="flex items-center gap-2 flex-wrap">
-                                <Link
-                                  href={`/dashboards/employees/${emp.id}`}
-                                  className="font-bold text-slate-900 hover:text-orange-600 transition"
-                                >
-                                  {emp.fullName}
-                                </Link>
-                                {highlightedId === emp.id && (
-                                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#ff6b12] text-white shadow-xs animate-pulse">
-                                    Matched Staff ✨
-                                  </span>
-                                )}
-                              </div>
+                              <Link
+                                href={`/dashboards/employees/${emp.id}`}
+                                className="font-bold text-slate-900 hover:text-orange-600 transition"
+                              >
+                                {emp.fullName}
+                              </Link>
                               <div className="text-[11px] font-mono text-slate-400 mt-0.5">
                                 {emp.employeeCode}
                               </div>
@@ -644,10 +637,10 @@ export default function EmployeeList() {
                   <div 
                     key={emp.id} 
                     id={`employee-mobile-${emp.id}`}
-                    className={`p-4 space-y-3 transition-all duration-700 ${
+                    className={`p-4 space-y-3 transition-all duration-700 border-l-4 ${
                       highlightedId === emp.id
-                        ? "bg-amber-100/90 ring-2 ring-orange-500 shadow-md rounded-xl border-l-4 border-l-[#ff6b12]"
-                        : ""
+                        ? "bg-[#fff3ea] border-l-[#ff6b12] rounded-xl"
+                        : "border-l-transparent"
                     }`}
                   >
                     <div className="flex items-start justify-between">
@@ -656,19 +649,12 @@ export default function EmployeeList() {
                           {emp.fullName?.charAt(0)?.toUpperCase() || "E"}
                         </div>
                         <div>
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <Link
-                              href={`/dashboards/employees/${emp.id}`}
-                              className="font-bold text-slate-900 hover:text-orange-600 transition text-xs"
-                            >
-                              {emp.fullName}
-                            </Link>
-                            {highlightedId === emp.id && (
-                              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-[#ff6b12] text-white shadow-xs animate-pulse">
-                                Matched ✨
-                              </span>
-                            )}
-                          </div>
+                          <Link
+                            href={`/dashboards/employees/${emp.id}`}
+                            className="font-bold text-slate-900 hover:text-orange-600 transition text-xs"
+                          >
+                            {emp.fullName}
+                          </Link>
                           <div className="text-[10px] font-mono text-slate-400">{emp.employeeCode}</div>
                         </div>
                       </div>

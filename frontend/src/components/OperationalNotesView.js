@@ -633,10 +633,10 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
                     <tr
                       key={note.id}
                       id={`note-${note.id}`}
-                      className={`transition-all duration-700 group ${
+                      className={`transition-all duration-700 group border-l-4 ${
                         highlightedId === note.id
-                          ? "bg-amber-100/90 ring-2 ring-orange-500 shadow-md border-l-4 border-l-[#ff6b12]"
-                          : "hover:bg-zinc-50/70"
+                          ? "bg-[#fff3ea] border-l-[#ff6b12]"
+                          : "border-l-transparent hover:bg-zinc-50/70"
                       }`}
                     >
                       {/* Date & Time */}
@@ -677,16 +677,9 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
 
                       {/* Subject & Reference */}
                       <td className="py-3.5 px-4 max-w-xs">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <p className="font-bold text-zinc-900 truncate">
-                            {note.title}
-                          </p>
-                          {highlightedId === note.id && (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#ff6b12] text-white shadow-xs animate-pulse">
-                              Matched Note ✨
-                            </span>
-                          )}
-                        </div>
+                        <p className="font-bold text-zinc-900 truncate">
+                          {note.title}
+                        </p>
                         <div className="flex items-center gap-2 text-[11px] text-zinc-500 mt-0.5">
                           {note.referenceNo && (
                             <span className="px-1.5 py-0.5 rounded bg-zinc-100 text-zinc-600 font-mono text-[10px]">
