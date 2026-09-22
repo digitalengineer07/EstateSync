@@ -83,6 +83,7 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("ALL");
   const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [toastMessage, setToastMessage] = useState(null);
   const [highlightedId, setHighlightedId] = useState(null);
 
@@ -185,7 +186,7 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
 
   useEffect(() => {
     fetchNotes();
-  }, [selectedCategory]);
+  }, [selectedCategory, startDate, endDate]);
 
   // Smooth scroll to highlighted note
   useEffect(() => {
