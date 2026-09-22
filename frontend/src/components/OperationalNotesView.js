@@ -185,7 +185,7 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
 
   useEffect(() => {
     fetchNotes();
-  }, [selectedCategory, startDate, endDate]);
+  }, [selectedCategory]);
 
   // Smooth scroll to highlighted note
   useEffect(() => {
