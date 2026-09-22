@@ -136,6 +136,7 @@ export default function AccountingDashboard() {
   return (
     <SoftDashboardShell
       title="Accounting & Financial Hub"
+      heroImage="/images/accounting_financial_banner.png"
       description="Corporate treasury inflows, customer collections, land acquisitions, balanced double-entry ledger, and expense governance."
       badge="Full Audit Authority"
       navItems={ACCOUNTING_PANELS}
