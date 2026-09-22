@@ -107,14 +107,30 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
       }
     }
 
-    const timer = setTimeout(() => {
+    // Immediate fast scroll
+    const scrollTimer = setTimeout(() => {
       const el = document.getElementById(`customer-${highlightedId}`);
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-    }, 350);
+    }, 60);
 
-    return () => clearTimeout(timer);
+    // Auto-fade highlight back to normal after 3.5 seconds
+    const fadeTimer = setTimeout(() => {
+      setHighlightedId(null);
+      if (typeof window !== "undefined") {
+        const url = new URL(window.location.href);
+        if (url.searchParams.has("highlight")) {
+          url.searchParams.delete("highlight");
+          window.history.replaceState({}, "", url.toString());
+        }
+      }
+    }, 3500);
+
+    return () => {
+      clearTimeout(scrollTimer);
+      clearTimeout(fadeTimer);
+    };
   }, [highlightedId, loading, customers]);
 
   const handleOpenPayment = (customer) => {

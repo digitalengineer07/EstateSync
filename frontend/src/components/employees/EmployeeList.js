@@ -40,12 +40,77 @@ export default function EmployeeList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
+  const [highlightedId, setHighlightedId] = useState(null);
 
   // Filters & Search
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [departmentFilter, setDepartmentFilter] = useState("ALL");
   const [employmentTypeFilter, setEmploymentTypeFilter] = useState("ALL");
+
+  useEffect(() => {
+    const checkHighlight = () => {
+      if (typeof window === "undefined") return;
+      const params = new URLSearchParams(window.location.search);
+      const hId = params.get("highlight");
+      if (hId) setHighlightedId(hId);
+    };
+
+    checkHighlight();
+
+    const onHighlightEvent = (e) => {
+      if (e.detail?.id) setHighlightedId(e.detail.id);
+    };
+
+    window.addEventListener("estatesync:highlight-record", onHighlightEvent);
+    return () => window.removeEventListener("estatesync:highlight-record", onHighlightEvent);
+  }, []);
+
+  // Smooth scroll and focus on highlighted employee record
+  useEffect(() => {
+    if (!highlightedId || loading || employees.length === 0) return;
+
+    const matched = employees.find((e) => e.id === highlightedId);
+    if (matched) {
+      if (statusFilter !== "ALL" && matched.status !== statusFilter) {
+        setStatusFilter("ALL");
+      }
+      if (
+        searchTerm &&
+        !matched.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        !matched.employeeCode?.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        setSearchTerm("");
+      }
+    }
+
+    // Immediate fast scroll
+    const scrollTimer = setTimeout(() => {
+      const el =
+        document.getElementById(`employee-${highlightedId}`) ||
+        document.getElementById(`employee-mobile-${highlightedId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 60);
+
+    // Auto-fade highlight back to normal after 3.5 seconds
+    const fadeTimer = setTimeout(() => {
+      setHighlightedId(null);
+      if (typeof window !== "undefined") {
+        const url = new URL(window.location.href);
+        if (url.searchParams.has("highlight")) {
+          url.searchParams.delete("highlight");
+          window.history.replaceState({}, "", url.toString());
+        }
+      }
+    }, 3500);
+
+    return () => {
+      clearTimeout(scrollTimer);
+      clearTimeout(fadeTimer);
+    };
+  }, [highlightedId, loading, employees]);
 
   // Modals state
   const [isAddOpen, setIsAddOpen] = useState(false);
@@ -357,7 +422,15 @@ export default function EmployeeList() {
                   {employees.map((emp) => {
                     const isArchived = ["ARCHIVED", "RESIGNED", "TERMINATED"].includes(emp.status);
                     return (
-                      <tr key={emp.id} className="hover:bg-slate-50/70 transition-colors">
+                      <tr 
+                        key={emp.id} 
+                        id={`employee-${emp.id}`}
+                        className={`transition-all duration-700 ${
+                          highlightedId === emp.id
+                            ? "bg-amber-100/90 ring-2 ring-orange-500 shadow-md border-l-4 border-l-[#ff6b12]"
+                            : "hover:bg-slate-50/70"
+                        }`}
+                      >
                         {/* Employee Name & Code */}
                         <td className="px-5 py-3.5">
                           <div className="flex items-center gap-3">
@@ -365,12 +438,19 @@ export default function EmployeeList() {
                               {emp.fullName?.charAt(0)?.toUpperCase() || "E"}
                             </div>
                             <div>
-                              <Link
-                                href={`/dashboards/employees/${emp.id}`}
-                                className="font-bold text-slate-900 hover:text-orange-600 transition"
-                              >
-                                {emp.fullName}
-                              </Link>
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <Link
+                                  href={`/dashboards/employees/${emp.id}`}
+                                  className="font-bold text-slate-900 hover:text-orange-600 transition"
+                                >
+                                  {emp.fullName}
+                                </Link>
+                                {highlightedId === emp.id && (
+                                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#ff6b12] text-white shadow-xs animate-pulse">
+                                    Matched Staff ✨
+                                  </span>
+                                )}
+                              </div>
                               <div className="text-[11px] font-mono text-slate-400 mt-0.5">
                                 {emp.employeeCode}
                               </div>
@@ -561,19 +641,34 @@ export default function EmployeeList() {
               {employees.map((emp) => {
                 const isArchived = ["ARCHIVED", "RESIGNED", "TERMINATED"].includes(emp.status);
                 return (
-                  <div key={emp.id} className="p-4 space-y-3">
+                  <div 
+                    key={emp.id} 
+                    id={`employee-mobile-${emp.id}`}
+                    className={`p-4 space-y-3 transition-all duration-700 ${
+                      highlightedId === emp.id
+                        ? "bg-amber-100/90 ring-2 ring-orange-500 shadow-md rounded-xl border-l-4 border-l-[#ff6b12]"
+                        : ""
+                    }`}
+                  >
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-2.5">
                         <div className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-100 text-orange-700 font-bold text-xs flex items-center justify-center shrink-0">
                           {emp.fullName?.charAt(0)?.toUpperCase() || "E"}
                         </div>
                         <div>
-                          <Link
-                            href={`/dashboards/employees/${emp.id}`}
-                            className="font-bold text-slate-900 hover:text-orange-600 transition text-xs"
-                          >
-                            {emp.fullName}
-                          </Link>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <Link
+                              href={`/dashboards/employees/${emp.id}`}
+                              className="font-bold text-slate-900 hover:text-orange-600 transition text-xs"
+                            >
+                              {emp.fullName}
+                            </Link>
+                            {highlightedId === emp.id && (
+                              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-[#ff6b12] text-white shadow-xs animate-pulse">
+                                Matched ✨
+                              </span>
+                            )}
+                          </div>
                           <div className="text-[10px] font-mono text-slate-400">{emp.employeeCode}</div>
                         </div>
                       </div>

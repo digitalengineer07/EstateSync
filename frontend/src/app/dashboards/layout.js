@@ -115,7 +115,7 @@ function DashboardHeader() {
     if (typeof window !== "undefined") {
       window.dispatchEvent(
         new CustomEvent("estatesync:highlight-record", {
-          detail: { id: item.id || item.targetId, category: item.category, title: item.title },
+          detail: { id: item.targetId || item.id, category: item.category, title: item.title },
         })
       );
     }
