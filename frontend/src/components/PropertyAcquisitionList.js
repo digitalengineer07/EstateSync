@@ -19,8 +19,26 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [selectedPropertyForPayment, setSelectedPropertyForPayment] = useState(null);
 
-  // History detail drawer/modal state
   const [historyProperty, setHistoryProperty] = useState(null);
+  const [highlightedId, setHighlightedId] = useState(null);
+
+  useEffect(() => {
+    const checkHighlight = () => {
+      if (typeof window === "undefined") return;
+      const params = new URLSearchParams(window.location.search);
+      const hId = params.get("highlight");
+      if (hId) setHighlightedId(hId);
+    };
+
+    checkHighlight();
+
+    const onHighlightEvent = (e) => {
+      if (e.detail?.id) setHighlightedId(e.detail.id);
+    };
+
+    window.addEventListener("estatesync:highlight-record", onHighlightEvent);
+    return () => window.removeEventListener("estatesync:highlight-record", onHighlightEvent);
+  }, []);
 
   const fetchProperties = async () => {
     setLoading(true);
@@ -44,6 +62,30 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
   useEffect(() => {
     fetchProperties();
   }, []);
+
+  // Smooth scroll and focus on highlighted land property
+  useEffect(() => {
+    if (!highlightedId || loading || properties.length === 0) return;
+
+    const matched = properties.find((p) => p.id === highlightedId);
+    if (matched) {
+      if (statusFilter !== "ALL" && matched.status !== statusFilter) {
+        setStatusFilter("ALL");
+      }
+      if (search && !matched.landOwnerName?.toLowerCase().includes(search.toLowerCase())) {
+        setSearch("");
+      }
+    }
+
+    const timer = setTimeout(() => {
+      const el = document.getElementById(`property-${highlightedId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 350);
+
+    return () => clearTimeout(timer);
+  }, [highlightedId, loading, properties]);
 
   const handleOpenPayment = (property) => {
     setSelectedPropertyForPayment(property);

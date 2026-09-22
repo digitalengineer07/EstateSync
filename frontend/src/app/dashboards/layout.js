@@ -111,6 +111,14 @@ function DashboardHeader() {
     if (item.targetTab && dashboardNav?.handleSelect) {
       dashboardNav.handleSelect(item.targetTab);
     }
+    // Dispatch instant visual highlight event
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("estatesync:highlight-record", {
+          detail: { id: item.id || item.targetId, category: item.category, title: item.title },
+        })
+      );
+    }
     if (item.link) {
       router.push(item.link);
     }

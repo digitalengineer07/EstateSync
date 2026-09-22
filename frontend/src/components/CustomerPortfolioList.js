@@ -28,6 +28,30 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
   
   // Cancellation Settlement Modal State
   const [settlementCustomer, setSettlementCustomer] = useState(null);
+  const [highlightedId, setHighlightedId] = useState(null);
+
+  // Detect highlight from URL parameter and custom events
+  useEffect(() => {
+    const checkHighlight = () => {
+      if (typeof window === "undefined") return;
+      const params = new URLSearchParams(window.location.search);
+      const hId = params.get("highlight");
+      if (hId) {
+        setHighlightedId(hId);
+      }
+    };
+
+    checkHighlight();
+
+    const onHighlightEvent = (e) => {
+      if (e.detail?.id) {
+        setHighlightedId(e.detail.id);
+      }
+    };
+
+    window.addEventListener("estatesync:highlight-record", onHighlightEvent);
+    return () => window.removeEventListener("estatesync:highlight-record", onHighlightEvent);
+  }, []);
 
   useEffect(() => {
     const userStr = localStorage.getItem("user");
@@ -67,6 +91,31 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
   useEffect(() => {
     fetchCustomers();
   }, []);
+
+  // Smooth scroll and focus on highlighted customer record
+  useEffect(() => {
+    if (!highlightedId || loading || customers.length === 0) return;
+
+    // Ensure matched customer isn't hidden by statusFilter or search
+    const matched = customers.find((c) => c.id === highlightedId);
+    if (matched) {
+      if (statusFilter !== "ALL" && matched.status !== statusFilter) {
+        setStatusFilter("ALL");
+      }
+      if (search && !matched.customerName?.toLowerCase().includes(search.toLowerCase())) {
+        setSearch("");
+      }
+    }
+
+    const timer = setTimeout(() => {
+      const el = document.getElementById(`customer-${highlightedId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 350);
+
+    return () => clearTimeout(timer);
+  }, [highlightedId, loading, customers]);
 
   const handleOpenPayment = (customer) => {
     setSelectedCustomerForPayment(customer);
@@ -309,8 +358,13 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                 return (
                   <tr 
                     key={cust.id} 
+                    id={`customer-${cust.id}`}
                     onClick={() => setStatementCustomer(cust)}
-                    className="hover:bg-orange-50/40 cursor-pointer transition-colors group"
+                    className={`cursor-pointer transition-all duration-700 group ${
+                      highlightedId === cust.id
+                        ? "bg-amber-100/90 ring-2 ring-orange-500 shadow-md border-l-4 border-l-[#ff6b12]"
+                        : "hover:bg-orange-50/40"
+                    }`}
                   >
                     <td className="px-4 py-3.5">
                       <div className="font-bold text-slate-900 group-hover:text-orange-600 transition-colors">Plot {cust.plotNo}</div>
@@ -319,7 +373,14 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                     </td>
 
                     <td className="px-4 py-3.5">
-                      <div className="font-semibold text-slate-900">{cust.customerName}</div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-semibold text-slate-900">{cust.customerName}</span>
+                        {highlightedId === cust.id && (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#ff6b12] text-white shadow-xs animate-pulse">
+                            Matched Record ✨
+                          </span>
+                        )}
+                      </div>
                       <div className="text-[11px] text-slate-500">{cust.customerContact}</div>
                       <div className="text-[10px] text-slate-400 font-mono">{cust.identityType}: {cust.identityNumber}</div>
                     </td>

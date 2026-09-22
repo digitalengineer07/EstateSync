@@ -170,15 +170,16 @@ exports.globalSearch = async (req, res) => {
       }).catch(() => []),
     ]);
 
-    // Format & attach navigation targets
+    // Format & attach navigation targets with highlight anchor
     const formattedCustomers = customers.map((c) => ({
       id: c.id,
       title: c.customerName,
       subtitle: `Plot #${c.plotNo} • ${c.projectLocation}`,
       extra: `Paid: ₹${c.totalPaid ? parseFloat(c.totalPaid).toLocaleString('en-IN') : 0}`,
       category: 'Customers',
-      link: userRole === 'ADMIN' ? '/dashboards/admin?tab=customers' : '/dashboards/accounting?tab=collections',
+      link: userRole === 'ADMIN' ? `/dashboards/admin?tab=customers&highlight=${c.id}` : `/dashboards/accounting?tab=collections&highlight=${c.id}`,
       targetTab: userRole === 'ADMIN' ? 'customers' : 'collections',
+      targetId: c.id,
     }));
 
     const customerTransactions = payments.map((p) => ({
@@ -187,8 +188,9 @@ exports.globalSearch = async (req, res) => {
       subtitle: `${p.customer?.customerName || 'Customer'} (Plot #${p.customer?.plotNo || '—'}) • ${p.paymentMode}`,
       extra: `₹${parseFloat(p.amount).toLocaleString('en-IN')}`,
       category: 'Transactions',
-      link: userRole === 'ADMIN' ? '/dashboards/admin?tab=transactions' : '/dashboards/accounting?tab=collections',
+      link: userRole === 'ADMIN' ? `/dashboards/admin?tab=transactions&highlight=${p.id}` : `/dashboards/accounting?tab=collections&highlight=${p.id}`,
       targetTab: userRole === 'ADMIN' ? 'transactions' : 'collections',
+      targetId: p.id,
     }));
 
     const expenseTransactions = expenses.map((exp) => ({
@@ -197,8 +199,9 @@ exports.globalSearch = async (req, res) => {
       subtitle: `${exp.category?.name || 'General'} • ${exp.fundMode} • Ref: ${exp.reference || '—'}`,
       extra: `₹${parseFloat(exp.amount).toLocaleString('en-IN')}`,
       category: 'Transactions',
-      link: userRole === 'ADMIN' ? '/dashboards/admin?tab=transactions' : (userRole === 'MANAGER' ? '/dashboards/manager?tab=expenses' : '/dashboards/accounting?tab=ledger'),
+      link: userRole === 'ADMIN' ? `/dashboards/admin?tab=transactions&highlight=${exp.id}` : (userRole === 'MANAGER' ? `/dashboards/manager?tab=expenses&highlight=${exp.id}` : `/dashboards/accounting?tab=ledger&highlight=${exp.id}`),
       targetTab: userRole === 'ADMIN' ? 'transactions' : (userRole === 'MANAGER' ? 'expenses' : 'ledger'),
+      targetId: exp.id,
     }));
 
     const formattedTransactions = [...customerTransactions, ...expenseTransactions].slice(0, 5);
@@ -209,8 +212,9 @@ exports.globalSearch = async (req, res) => {
       subtitle: `${e.employeeCode} • ${e.designation} (${e.department})`,
       extra: e.status,
       category: 'Staff',
-      link: '/dashboards/employees',
+      link: `/dashboards/employees?highlight=${e.id}`,
       targetTab: 'staff',
+      targetId: e.id,
     }));
 
     const formattedProperties = properties.map((pr) => ({
@@ -219,8 +223,9 @@ exports.globalSearch = async (req, res) => {
       subtitle: `Owner: ${pr.landOwnerName} • Khata: ${pr.khataNo}`,
       extra: `Val: ₹${parseFloat(pr.totalLandValue).toLocaleString('en-IN')}`,
       category: 'Properties',
-      link: userRole === 'ADMIN' ? '/dashboards/admin?tab=properties' : '/dashboards/accounting?tab=properties',
+      link: userRole === 'ADMIN' ? `/dashboards/admin?tab=properties&highlight=${pr.id}` : `/dashboards/accounting?tab=properties&highlight=${pr.id}`,
       targetTab: 'properties',
+      targetId: pr.id,
     }));
 
     const formattedNotes = notes.map((n) => ({
@@ -229,8 +234,9 @@ exports.globalSearch = async (req, res) => {
       subtitle: `${n.partyName ? `Party: ${n.partyName} • ` : ''}${n.referenceNo ? `Ref: ${n.referenceNo}` : 'Cash Diary'}`,
       extra: n.amount ? `₹${parseFloat(n.amount).toLocaleString('en-IN')}` : '',
       category: 'Notes',
-      link: userRole === 'ADMIN' ? '/dashboards/admin?tab=notes' : (userRole === 'ACCOUNTING' ? '/dashboards/accounting?tab=notes' : '/dashboards/manager?tab=notes'),
+      link: userRole === 'ADMIN' ? `/dashboards/admin?tab=notes&highlight=${n.id}` : (userRole === 'ACCOUNTING' ? `/dashboards/accounting?tab=notes&highlight=${n.id}` : `/dashboards/manager?tab=notes&highlight=${n.id}`),
       targetTab: 'notes',
+      targetId: n.id,
     }));
 
     const totalResults =
