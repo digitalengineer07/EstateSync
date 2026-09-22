@@ -1,0 +1,151 @@
+# Operational Cash Notes & Daily Diary Feature (Knowledge Record Only)
+
+## Background & Objectives
+The user requested a **"Note / Cash Memo"** feature accessible to **Admin**, **Manager**, and **Accounting** roles.
+- **Primary Goal**: Allow authorized staff to record cash transactions (e.g., cash received from customers, cash payouts for land acquisitions, site expenses, cash handovers) and operational reminders with date, time, party name, and notes.
+- **CRITICAL REQUIREMENT**: **Strictly NO system financial calculations**. Entries in this notebook must **never** touch corporate treasury balance, customer ledger accounts, double-entry journals, wallets, or financial statements. It serves strictly as a **knowledge record / operational memory log** (yaad-dahani).
+- **Core Principle**: Existing accounting, treasury, billing, customer, and wallet business logic remains **100% untouched and unchanged**.
+- **UI Design**: Seamlessly integrated into `Admin Hub`, `Accounting Hub`, and `Operations Hub` (Manager) with matching design aesthetics, badges, filters, and modals.
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Complete Financial Isolation Guarantee**:
+> Records saved in this feature are stored in a dedicated `OperationalNote` table. No triggers, hooks, or journal line postings are attached to this model. System treasury balances, customer receivables, and general ledgers remain completely decoupled and untouched.
+
+> [!NOTE]
+> **Access Permissions**:
+> Accessible to `ADMIN`, `MANAGER`, and `ACCOUNTING` roles.
+
+---
+
+## Proposed Changes
+
+### 1. Database Schema Layer
+#### [MODIFY] [backend/prisma/schema.prisma](file:///d:/EstateSync/backend/prisma/schema.prisma)
+Add a standalone `OperationalNote` model:
+```prisma
+model OperationalNote {
+  id            String    @id @default(uuid())
+  title         String
+  category      String    // CASH_RECEIVED_CUSTOMER, CASH_PAID_LAND, CASH_PAID_EXPENSE, CASH_HANDOVER, GENERAL_NOTE, OTHER
+  partyName     String?   // Customer, Landowner, Vendor, Staff name
+  amount        Decimal?  @db.Decimal(15, 2) @default(0) // Purely informational reference, never posted to ledgers
+  referenceNo   String?   // Receipt No, Plot No, Voucher No, Contact
+  description   String?   // Detailed remarks / notes
+  noteDate      DateTime  @default(now()) // Transaction / note date-time
+  createdById   String
+  createdByName String?
+  createdByRole String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([noteDate])
+  @@index([category])
+  @@index([createdById])
+}
+```
+Run `npx prisma db push` and `npx prisma generate` to create the table in PostgreSQL without affecting any existing tables.
+
+---
+
+### 2. Backend Controller & Routes Layer
+#### [NEW] [backend/src/controller/noteController.js](file:///d:/EstateSync/backend/src/controller/noteController.js)
+Implement clean, safe CRUD operations:
+- `getNotes`: Fetch notes with search filter, category filter, date-range filtering, and pagination.
+- `createNote`: Save note with current user metadata (`createdById`, `createdByName`, `createdByRole`).
+- `updateNote`: Update an existing note.
+- `deleteNote`: Delete note (Admin, or creator).
+- `getNoteStats`: Summary counts (Total Notes, Total Cash Received Logged, Total Cash Paid Logged) for informational KPI display only.
+
+#### [NEW] [backend/src/routes/noteRoutes.js](file:///d:/EstateSync/backend/src/routes/noteRoutes.js)
+Define endpoints guarded by `verifyJWT` and role check:
+- `['ADMIN', 'MANAGER', 'ACCOUNTING'].includes(req.user?.role)`
+
+#### [MODIFY] [backend/src/app.js](file:///d:/EstateSync/backend/src/app.js)
+Mount the new route:
+```javascript
+const noteRoutes = require('./routes/noteRoutes');
+app.use('/api/v1/notes', noteRoutes);
+```
+
+---
+
+### 3. Frontend UI Component Layer
+#### [NEW] [frontend/src/components/OperationalNotesView.js](file:///d:/EstateSync/frontend/src/components/OperationalNotesView.js)
+A comprehensive, responsive component matching the design language of `TreasuryInflowList`:
+- **Top Notice Banner**: Clear warning badge: *"Informational Knowledge Record Only: Entries here are recorded strictly for operational reference and memory. They do NOT calculate into corporate treasury, journal lines, wallet balances, or customer statements."*
+- **KPI Summary Cards**:
+  - Total Notes Recorded
+  - Cash Received Logged (Informational)
+  - Cash Paid Logged (Informational)
+  - General Notes / Reminders
+- **Action Bar**:
+  - `+ Add New Note` button (opens clean modal)
+  - Search bar (party name, title, reference, remarks)
+  - Category Filter Pill / Dropdown (All, Customer Cash, Land Cash, Expense Cash, Handover, General)
+  - Refresh button
+- **Notes Table / Cards**:
+  - Date & Time
+  - Category Badge (distinct colors: Green for Received, Amber for Land Paid, Purple for Expenses, Blue for General)
+  - Party Name
+  - Informational Amount (`₹` with "Non-Ledger" indicator)
+  - Title & Remarks
+  - Recorded By (User & Role pill)
+  - Action menu (View Details, Edit, Delete)
+- **Modals**:
+  - `CreateNoteModal`: Date & Time selector, Category dropdown, Party Name, Amount, Reference, Title, Description.
+  - `EditNoteModal`: Modify existing note.
+  - `ViewNoteModal`: Full screen view of note details.
+
+---
+
+### 4. Dashboard Integration Layer
+#### [MODIFY] [frontend/src/app/dashboards/admin/page.js](file:///d:/EstateSync/frontend/src/app/dashboards/admin/page.js)
+- Add `{ id: "notes", label: "Cash Memos & Operational Diary", shortLabel: "Cash Notes", icon: NotebookPen }` to `ADMIN_PANELS`.
+- Render `<OperationalNotesView userRole="ADMIN" />` when `activePanel === "notes"`.
+
+#### [MODIFY] [frontend/src/app/dashboards/accounting/page.js](file:///d:/EstateSync/frontend/src/app/dashboards/accounting/page.js)
+- Add `{ id: "notes", label: "Daily Cash Memos & Operational Diary", shortLabel: "Cash Notes", icon: NotebookPen }` to `ACCOUNTING_PANELS`.
+- Render `<OperationalNotesView userRole="ACCOUNTING" />` when `activePanel === "notes"`.
+
+#### [MODIFY] [frontend/src/app/dashboards/manager/page.js](file:///d:/EstateSync/frontend/src/app/dashboards/manager/page.js)
+- Add `{ id: "notes", label: "Site Cash & Operational Diary", shortLabel: "Cash Notes", icon: NotebookPen }` to `MANAGER_PANELS`.
+- Render `<OperationalNotesView userRole="MANAGER" />` when `activePanel === "notes"`.
+
+---
+
+## Verification Plan
+
+### Automated Verification
+1. Verify Prisma schema and migration:
+   ```powershell
+   npx prisma db push
+   npx prisma generate
+   ```
+2. Verify Database Parity:
+   ```powershell
+   node scripts/audit_database_integrity.js
+   ```
+3. Verify backend syntax & lint:
+   ```powershell
+   node -c backend/src/app.js
+   node -c backend/src/controller/noteController.js
+   ```
+4. Verify frontend build & TypeScript:
+   ```powershell
+   npx tsc --noEmit
+   ```
+
+### Manual Verification
+1. Open Admin Hub (`/dashboards/admin`), Accounting Hub (`/dashboards/accounting`), and Operations Hub (`/dashboards/manager`).
+2. Verify the new **"Cash Notes"** tab appears in the horizontal navigation on all three dashboards.
+3. Click `+ Add New Note`:
+   - Enter a test customer cash receipt note (e.g., "Received ₹50,000 cash from Mr. Sharma for Plot A-12").
+   - Enter a land cash payment note (e.g., "Paid ₹1,00,000 cash advance to Landowner Mr. Verma for Survey 45").
+4. Verify:
+   - Notes are saved and displayed with correct timestamp, party, and category.
+   - **Financial Verification**: Check Treasury balance, Customer statement, General ledger, and Wallet balance. Confirm **0 balance changes or journal entries were created**.
+5. Test search, category filtering, editing, and deleting notes.

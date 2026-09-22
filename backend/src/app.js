@@ -122,6 +122,7 @@ const employeeRoutes = require('./routes/employeeRoutes');
 const accountingPeriodRoutes = require('./routes/accountingPeriodRoutes');
 const customerBillingRoutes = require('./routes/customerBillingRoutes');
 const walletRoutes = require('./routes/walletRoutes');
+const noteRoutes = require('./routes/noteRoutes');
 
 // Mount Routes
 app.use('/api/v1/auth', authRoutes);
@@ -140,6 +141,7 @@ app.use('/api/v1/employees', employeeRoutes);
 app.use('/api/v1/accounting/periods', accountingPeriodRoutes);
 app.use('/api/v1/billing', customerBillingRoutes);
 app.use('/api/v1/wallets', walletRoutes);
+app.use('/api/v1/notes', noteRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {

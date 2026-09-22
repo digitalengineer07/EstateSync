@@ -13,6 +13,7 @@ import TreasuryInflowList from "@/components/TreasuryInflowList";
 import TransactionLedger from "@/components/TransactionLedger";
 import UserRegistrationForm from "@/components/UserRegistrationForm";
 import UserWalletLedger from "@/components/UserWalletLedger";
+import OperationalNotesView from "@/components/OperationalNotesView";
 import {
   ArrowLeftRight,
   ClipboardCheck,
@@ -20,6 +21,7 @@ import {
   Coins,
   Landmark,
   MapPin,
+  NotebookPen,
   Scale,
   ShieldCheck,
   SlidersHorizontal,
@@ -106,6 +108,13 @@ const ADMIN_PANELS = [
     icon: ShieldCheck,
   },
   {
+    id: "notes",
+    label: "Cash & Operational Notes Diary",
+    shortLabel: "Cash Notes",
+    description: "Informational memory logs for cash received, land payouts, and daily operations.",
+    icon: NotebookPen,
+  },
+  {
     id: "both",
     label: "Side-by-Side (Both)",
     shortLabel: "Side-by-Side",
@@ -166,6 +175,7 @@ export default function AdminDashboard() {
     if (activePanel === "requests") return <FundRequestList type="all" embedded={true} showHeader={false} />;
     if (activePanel === "transactions") return <TransactionLedger embedded={true} showHeader={false} />;
     if (activePanel === "audit") return <AuditLogViewer />;
+    if (activePanel === "notes") return <OperationalNotesView userRole="ADMIN" />;
     if (activePanel === "both") {
       return (
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 items-start">

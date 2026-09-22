@@ -10,7 +10,8 @@ import SoftDashboardShell from "@/components/SoftDashboardShell";
 import TransactionLedger from "@/components/TransactionLedger";
 import TreasuryInflowList from "@/components/TreasuryInflowList";
 import UserWalletLedger from "@/components/UserWalletLedger";
-import { ArrowLeftRight, IndianRupee, Landmark, MapPin, Receipt, Scale, Users, Wallet } from "lucide-react";
+import OperationalNotesView from "@/components/OperationalNotesView";
+import { ArrowLeftRight, IndianRupee, Landmark, MapPin, NotebookPen, Receipt, Scale, Users, Wallet } from "lucide-react";
 
 const ACCOUNTING_PANELS = [
   {
@@ -54,6 +55,13 @@ const ACCOUNTING_PANELS = [
     shortLabel: "Reports",
     description: "Audit staff wallets, expenses, and transactions.",
     icon: Wallet,
+  },
+  {
+    id: "notes",
+    label: "Cash & Operational Notes Diary",
+    shortLabel: "Cash Notes",
+    description: "Knowledge memory logs for cash collections, land payments, and operations.",
+    icon: NotebookPen,
   },
 ];
 
@@ -121,6 +129,7 @@ export default function AccountingDashboard() {
     if (activePanel === "salaries") return <AccountingSalaryView />;
     if (activePanel === "ledger") return <GeneralLedgerView />;
     if (activePanel === "wallets") return renderWalletPanel();
+    if (activePanel === "notes") return <OperationalNotesView userRole="ACCOUNTING" />;
     return <TreasuryInflowList userRole="ACCOUNTING" />;
   };
 

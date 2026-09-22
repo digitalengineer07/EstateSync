@@ -964,6 +964,30 @@ model EmployeeSalaryPayment {
   @@index([referenceNo])
 }
 
+// -------------------------------------------------------------
+// Operational Notes & Cash Memory Diary (Informational Only - No Ledger Impact)
+// -------------------------------------------------------------
+model OperationalNote {
+  id            String    @id @default(uuid())
+  title         String
+  category      String    // CASH_RECEIVED_CUSTOMER, CASH_PAID_LAND, CASH_PAID_EXPENSE, CASH_HANDOVER, GENERAL_NOTE, OTHER
+  partyName     String?   // Customer, Landowner, Contractor, Staff name
+  amount        Decimal?  @db.Decimal(15, 2) @default(0) // Purely informational reference, never posted to ledgers
+  referenceNo   String?   // Receipt No, Plot No, Voucher No, Contact
+  description   String?   // Detailed remarks / notes
+  noteDate      DateTime  @default(now()) // Transaction / note date-time
+  createdById   String
+  createdByName String?
+  createdByRole String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([noteDate])
+  @@index([category])
+  @@index([createdById])
+}
+
+
 
 
 

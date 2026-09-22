@@ -4,8 +4,9 @@ import { useState } from "react";
 import ExpenseList from "@/components/ExpenseList";
 import FundRequestList from "@/components/FundRequestList";
 import ManagerSalaryView from "@/components/manager/ManagerSalaryView";
+import OperationalNotesView from "@/components/OperationalNotesView";
 import SoftDashboardShell from "@/components/SoftDashboardShell";
-import { FileCheck, IndianRupee, Receipt } from "lucide-react";
+import { FileCheck, IndianRupee, NotebookPen, Receipt } from "lucide-react";
 
 const MANAGER_PANELS = [
   {
@@ -29,6 +30,13 @@ const MANAGER_PANELS = [
     description: "Read-only salary governance and compensation oversight.",
     icon: IndianRupee,
   },
+  {
+    id: "notes",
+    label: "Cash & Operational Notes Diary",
+    shortLabel: "Cash Notes",
+    description: "Knowledge memory logs for customer cash, site payments, and field operations.",
+    icon: NotebookPen,
+  },
 ];
 
 export default function ManagerDashboard() {
@@ -37,6 +45,7 @@ export default function ManagerDashboard() {
   const renderPanel = () => {
     if (activePanel === "expenses") return <ExpenseList type="team" />;
     if (activePanel === "salaries") return <ManagerSalaryView />;
+    if (activePanel === "notes") return <OperationalNotesView userRole="MANAGER" />;
     return <FundRequestList type="incoming" embedded={true} showHeader={false} />;
   };
 
