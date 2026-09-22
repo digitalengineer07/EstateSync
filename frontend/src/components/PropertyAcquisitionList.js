@@ -230,7 +230,15 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
                 const pct = total > 0 ? Math.min(100, Math.round((paid / total) * 100)) : 0;
 
                 return (
-                  <tr key={prop.id} className="hover:bg-slate-50/70 transition-colors">
+                  <tr 
+                    key={prop.id} 
+                    id={`property-${prop.id}`}
+                    className={`transition-all duration-700 ${
+                      highlightedId === prop.id
+                        ? "bg-amber-100/90 ring-2 ring-orange-500 shadow-md border-l-4 border-l-[#ff6b12]"
+                        : "hover:bg-slate-50/70"
+                    }`}
+                  >
                     <td className="px-4 py-3.5">
                       <div className="font-bold text-slate-900">Plot {prop.plotNo}</div>
                       <div className="text-[11px] text-slate-500">{prop.projectLocation}</div>
@@ -238,7 +246,14 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
                     </td>
 
                     <td className="px-4 py-3.5">
-                      <div className="font-semibold text-slate-900">{prop.landOwnerName}</div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-semibold text-slate-900">{prop.landOwnerName}</span>
+                        {highlightedId === prop.id && (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#ff6b12] text-white shadow-xs animate-pulse">
+                            Matched Land Record ✨
+                          </span>
+                        )}
+                      </div>
                       <div className="text-[11px] text-slate-500">{prop.landOwnerContact}</div>
                       <div className="text-[10px] text-slate-400">Owner A/C: {prop.ownerBankAccount || "Direct"}</div>
                     </td>

@@ -83,8 +83,26 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("ALL");
   const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
   const [toastMessage, setToastMessage] = useState(null);
+  const [highlightedId, setHighlightedId] = useState(null);
+
+  useEffect(() => {
+    const checkHighlight = () => {
+      if (typeof window === "undefined") return;
+      const params = new URLSearchParams(window.location.search);
+      const hId = params.get("highlight");
+      if (hId) setHighlightedId(hId);
+    };
+
+    checkHighlight();
+
+    const onHighlightEvent = (e) => {
+      if (e.detail?.id) setHighlightedId(e.detail.id);
+    };
+
+    window.addEventListener("estatesync:highlight-record", onHighlightEvent);
+    return () => window.removeEventListener("estatesync:highlight-record", onHighlightEvent);
+  }, []);
 
   // Modals state
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -163,6 +181,30 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
   useEffect(() => {
     fetchNotes();
   }, [selectedCategory, startDate, endDate]);
+
+  // Smooth scroll to highlighted note
+  useEffect(() => {
+    if (!highlightedId || loading || notes.length === 0) return;
+
+    const matched = notes.find((n) => n.id === highlightedId);
+    if (matched) {
+      if (selectedCategory !== "ALL" && matched.category !== selectedCategory) {
+        setSelectedCategory("ALL");
+      }
+      if (search && !matched.title?.toLowerCase().includes(search.toLowerCase())) {
+        setSearch("");
+      }
+    }
+
+    const timer = setTimeout(() => {
+      const el = document.getElementById(`note-${highlightedId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 350);
+
+    return () => clearTimeout(timer);
+  }, [highlightedId, loading, notes]);
 
   const showToast = (msg, type = "success") => {
     setToastMessage({ text: msg, type });
@@ -574,7 +616,12 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
                   return (
                     <tr
                       key={note.id}
-                      className="hover:bg-zinc-50/70 transition group"
+                      id={`note-${note.id}`}
+                      className={`transition-all duration-700 group ${
+                        highlightedId === note.id
+                          ? "bg-amber-100/90 ring-2 ring-orange-500 shadow-md border-l-4 border-l-[#ff6b12]"
+                          : "hover:bg-zinc-50/70"
+                      }`}
                     >
                       {/* Date & Time */}
                       <td className="py-3.5 px-4 whitespace-nowrap">
@@ -614,9 +661,16 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
 
                       {/* Subject & Reference */}
                       <td className="py-3.5 px-4 max-w-xs">
-                        <p className="font-bold text-zinc-900 truncate">
-                          {note.title}
-                        </p>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <p className="font-bold text-zinc-900 truncate">
+                            {note.title}
+                          </p>
+                          {highlightedId === note.id && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#ff6b12] text-white shadow-xs animate-pulse">
+                              Matched Note ✨
+                            </span>
+                          )}
+                        </div>
                         <div className="flex items-center gap-2 text-[11px] text-zinc-500 mt-0.5">
                           {note.referenceNo && (
                             <span className="px-1.5 py-0.5 rounded bg-zinc-100 text-zinc-600 font-mono text-[10px]">
