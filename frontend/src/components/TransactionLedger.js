@@ -14,7 +14,12 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
       if (typeof window === "undefined") return;
       const params = new URLSearchParams(window.location.search);
       const hId = params.get("highlight");
-      if (hId) setHighlightedId(hId);
+      const storedId = sessionStorage.getItem("estatesync_pending_highlight");
+      if (hId) {
+        setHighlightedId(hId);
+      } else if (storedId) {
+        setHighlightedId(storedId);
+      }
     };
 
     checkHighlight();
@@ -38,19 +43,39 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
   useEffect(() => {
     if (!highlightedId || isLoading || transactions.length === 0) return;
 
-    const scrollTimer = setTimeout(() => {
+    const scrollToTxn = () => {
       const el =
         document.getElementById(`txn-${highlightedId}`) ||
         document.getElementById(`pay-${highlightedId}`) ||
         document.getElementById(`exp-${highlightedId}`);
-      if (el) {
+      if (!el) return false;
+
+      const rect = el.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const targetY = rect.top + scrollTop - (window.innerHeight / 2) + (rect.height / 2);
+
+      window.scrollTo({
+        top: Math.max(0, targetY),
+        behavior: "smooth",
+      });
+
+      try {
         el.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }, 60);
+      } catch (e) {}
+
+      return true;
+    };
+
+    // Staggered attempts to guarantee scroll after route change, layout reflow, and images settling
+    scrollToTxn();
+    const t1 = setTimeout(scrollToTxn, 120);
+    const t2 = setTimeout(scrollToTxn, 350);
+    const t3 = setTimeout(scrollToTxn, 700);
 
     const fadeTimer = setTimeout(() => {
       setHighlightedId(null);
       if (typeof window !== "undefined") {
+        sessionStorage.removeItem("estatesync_pending_highlight");
         const url = new URL(window.location.href);
         if (url.searchParams.has("highlight")) {
           url.searchParams.delete("highlight");
@@ -60,7 +85,9 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
     }, 3500);
 
     return () => {
-      clearTimeout(scrollTimer);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
       clearTimeout(fadeTimer);
     };
   }, [highlightedId, isLoading, transactions]);

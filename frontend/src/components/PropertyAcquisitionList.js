@@ -27,7 +27,12 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
       if (typeof window === "undefined") return;
       const params = new URLSearchParams(window.location.search);
       const hId = params.get("highlight");
-      if (hId) setHighlightedId(hId);
+      const storedId = sessionStorage.getItem("estatesync_pending_highlight");
+      if (hId) {
+        setHighlightedId(hId);
+      } else if (storedId) {
+        setHighlightedId(storedId);
+      }
     };
 
     checkHighlight();
@@ -77,18 +82,37 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
       }
     }
 
-    // Immediate fast scroll
-    const scrollTimer = setTimeout(() => {
+    const scrollToProperty = () => {
       const el = document.getElementById(`property-${highlightedId}`);
-      if (el) {
+      if (!el) return false;
+
+      const rect = el.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const targetY = rect.top + scrollTop - (window.innerHeight / 2) + (rect.height / 2);
+
+      window.scrollTo({
+        top: Math.max(0, targetY),
+        behavior: "smooth",
+      });
+
+      try {
         el.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }, 60);
+      } catch (e) {}
+
+      return true;
+    };
+
+    // Staggered attempts to guarantee scroll after route change, layout reflow, and images settling
+    scrollToProperty();
+    const t1 = setTimeout(scrollToProperty, 120);
+    const t2 = setTimeout(scrollToProperty, 350);
+    const t3 = setTimeout(scrollToProperty, 700);
 
     // Auto-fade highlight back to normal after 3.5 seconds
     const fadeTimer = setTimeout(() => {
       setHighlightedId(null);
       if (typeof window !== "undefined") {
+        sessionStorage.removeItem("estatesync_pending_highlight");
         const url = new URL(window.location.href);
         if (url.searchParams.has("highlight")) {
           url.searchParams.delete("highlight");
@@ -98,7 +122,9 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
     }, 3500);
 
     return () => {
-      clearTimeout(scrollTimer);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
       clearTimeout(fadeTimer);
     };
   }, [highlightedId, loading, properties]);
@@ -109,6 +135,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
   };
 
   const filteredProperties = properties.filter(p => {
+    if (highlightedId && p.id === highlightedId) return true;
     const matchesSearch =
       p.landOwnerName?.toLowerCase().includes(search.toLowerCase()) ||
       p.khataNo?.toLowerCase().includes(search.toLowerCase()) ||

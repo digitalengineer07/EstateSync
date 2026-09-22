@@ -108,19 +108,35 @@ function DashboardHeader() {
     setSearchOpen(false);
     setSearchQuery("");
     setSearchResults(null);
+
+    const recordId = item.targetId || item.id;
+    if (typeof window !== "undefined" && recordId) {
+      sessionStorage.setItem("estatesync_pending_highlight", recordId);
+    }
+
     if (item.targetTab && dashboardNav?.handleSelect) {
       dashboardNav.handleSelect(item.targetTab);
     }
+
     // Dispatch instant visual highlight event
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && recordId) {
       window.dispatchEvent(
         new CustomEvent("estatesync:highlight-record", {
-          detail: { id: item.targetId || item.id, category: item.category, title: item.title },
+          detail: { id: recordId, category: item.category, title: item.title },
         })
       );
+      // Re-dispatch after mounting tick for newly mounted dashboard pages
+      setTimeout(() => {
+        window.dispatchEvent(
+          new CustomEvent("estatesync:highlight-record", {
+            detail: { id: recordId, category: item.category, title: item.title },
+          })
+        );
+      }, 200);
     }
+
     if (item.link) {
-      router.push(item.link);
+      router.push(item.link, { scroll: false });
     }
   };
 

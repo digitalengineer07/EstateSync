@@ -70,11 +70,17 @@ export default function AccountingDashboard() {
   const [walletSubTab, setWalletSubTab] = useState("expenses");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    const updateTab = () => {
+      if (typeof window === "undefined") return;
       const params = new URLSearchParams(window.location.search);
       const tab = params.get("tab");
       if (tab) setActivePanel(tab);
-    }
+    };
+
+    updateTab();
+
+    window.addEventListener("popstate", updateTab);
+    return () => window.removeEventListener("popstate", updateTab);
   }, []);
 
   const renderWalletPanel = () => (
