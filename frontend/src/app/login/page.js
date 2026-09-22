@@ -159,12 +159,12 @@ export default function LoginPage() {
       </div>
 
       {/* Main Composition Container holding the two separated sections */}
-      <div className="relative z-10 w-full max-w-[1600px] 2xl:max-w-[1720px] lg:h-[min(820px,92vh)] flex flex-col lg:flex-row items-stretch gap-4 sm:gap-5 lg:gap-6">
+      <div className="relative z-10 w-full max-w-[1540px] 2xl:max-w-[1640px] lg:h-[min(820px,92vh)] flex flex-col lg:flex-row items-stretch">
         
         {/* ================================================================ */}
-        {/* LEFT VISUAL PANEL (Separated Glass Container with Full Border)    */}
+        {/* LEFT VISUAL PANEL (Translucent Glass Card with Hidden Right Border)*/}
         {/* ================================================================ */}
-        <section className="relative flex-1 hidden lg:flex flex-col justify-between p-6 sm:p-8 lg:p-9 xl:p-11 rounded-[26px] sm:rounded-[30px] lg:rounded-[34px] border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.55)] overflow-hidden min-h-0">
+        <section className="relative flex-1 hidden lg:flex flex-col justify-between p-6 sm:p-8 lg:p-9 xl:p-11 rounded-l-[28px] sm:rounded-l-[32px] border border-white/20 border-r-0 overflow-hidden min-h-0">
           {/* Sharp photographic background image positioned so laptop, notebook & plant are perfectly framed */}
           <div
             role="img"
@@ -264,7 +264,7 @@ export default function LoginPage() {
         {/* ================================================================ */}
         {/* RIGHT AUTHENTICATION PANEL (Distinct Elevated Rounded Card)       */}
         {/* ================================================================ */}
-        <section className="relative w-full lg:w-[460px] xl:w-[490px] 2xl:w-[520px] flex-shrink-0 flex flex-col justify-between p-5 sm:p-7 lg:p-7 xl:p-9 bg-[#fdfdfd] rounded-[28px] sm:rounded-[32px] shadow-[0_25px_70px_rgba(0,0,0,0.65)] border border-white/90 overflow-hidden min-h-0 z-20">
+        <section className="relative w-full lg:w-[460px] xl:w-[490px] 2xl:w-[520px] flex-shrink-0 flex flex-col justify-between p-5 sm:p-7 lg:p-7 xl:p-9 bg-[#fdfdfd] rounded-[28px] sm:rounded-[32px] shadow-[0_25px_70px_rgba(0,0,0,0.65)] border border-white/90 overflow-hidden min-h-0 lg:-ml-2 z-20">
           {/* Light wave abstract background */}
           <div
             className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-90"
