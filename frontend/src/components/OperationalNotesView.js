@@ -20,7 +20,6 @@ import {
   Clock,
   ArrowDownLeft,
   ArrowUpRight,
-  ShieldAlert,
   ArrowRightLeft,
   Filter,
 } from "lucide-react";
@@ -745,17 +744,6 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
                   <span>{formError}</span>
                 </div>
               )}
-
-              {/* Informational Warning Inside Form */}
-              <div className="p-3 rounded-xl bg-amber-50 border border-amber-200/70 text-amber-900 text-xs flex items-start gap-2.5">
-                <ShieldAlert className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
-                <div>
-                  <strong className="font-semibold">Knowledge Purpose Only:</strong>{" "}
-                  Saving this note will not impact system accounting calculations,
-                  wallet debits/credits, or customer balances. It is stored solely
-                  as a diary record for your reference.
-                </div>
-              </div>
 
               {/* Category */}
               <div>
