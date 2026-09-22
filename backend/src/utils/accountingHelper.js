@@ -555,6 +555,55 @@ async function postCustomerPaymentAdjustmentJournal(tx, {
   });
 }
 
+/**
+ * Double-Entry Post: Land Acquisition Payout Adjustment
+ * When delta > 0 (Increased land payout):
+ *   Debit: Land & Real Estate Property Assets (1510) (Asset +) |delta|
+ *   Credit: Corporate Bank / Primary Treasury (1010) (Asset -) |delta|
+ * When delta < 0 (Decreased land payout / Refund to Treasury):
+ *   Debit: Corporate Bank / Primary Treasury (1010) (Asset +) |delta|
+ *   Credit: Land & Real Estate Property Assets (1510) (Asset -) |delta|
+ */
+async function postPropertyPaymentAdjustmentJournal(tx, {
+  delta,
+  landOwnerName,
+  khataNo,
+  plotNo,
+  paymentId,
+  oldAmount,
+  newAmount,
+  reason,
+  createdBy
+}) {
+  const numDelta = parseFloat(delta);
+  if (isNaN(numDelta) || Math.abs(numDelta) < 0.01) return null;
+
+  const isIncrease = numDelta > 0;
+  const absDelta = Math.abs(numDelta);
+
+  const debitCode = isIncrease ? '1510' : '1010';
+  const creditCode = isIncrease ? '1010' : '1510';
+
+  const debitDesc = isIncrease
+    ? `Fixed Asset Inflow: Additional land payout adjustment for ${landOwnerName} (Khata ${khataNo}, Plot ${plotNo})`
+    : `Treasury Bank Inflow: Clawback/refund of over-recorded land payout for ${landOwnerName} (Plot ${plotNo})`;
+
+  const creditDesc = isIncrease
+    ? `Bank Outflow: Additional land payout disbursed to ${landOwnerName}`
+    : `Fixed Asset Reduction: De-capitalization of over-recorded land cost for Plot ${plotNo}`;
+
+  return await postJournalEntry(tx, {
+    description: `Admin Land Payment Adjustment: ${landOwnerName} (Khata ${khataNo}, Plot ${plotNo}) payment corrected from ₹${Number(oldAmount).toLocaleString('en-IN')} to ₹${Number(newAmount).toLocaleString('en-IN')} (${isIncrease ? '+' : '-'}₹${absDelta.toLocaleString('en-IN')}). Reason: ${reason || 'Payment adjustment'}`,
+    referenceType: 'PROPERTY_PAYMENT_ADJUSTMENT',
+    referenceId: paymentId,
+    createdBy,
+    lines: [
+      { accountCode: debitCode, debit: absDelta, credit: 0, description: debitDesc },
+      { accountCode: creditCode, debit: 0, credit: absDelta, description: creditDesc }
+    ]
+  });
+}
+
 module.exports = {
   ensureStandardAccounts,
   postJournalEntry,
@@ -565,6 +614,7 @@ module.exports = {
   postCustomerPaymentAdjustmentJournal,
   postCustomerRefundJournal,
   postPropertyPaymentJournal,
+  postPropertyPaymentAdjustmentJournal,
   postCapitalInfusionJournal,
   postSalaryPaymentSettlementJournal,
   postSalaryPaymentReversalJournal,

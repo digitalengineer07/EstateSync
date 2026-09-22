@@ -30,7 +30,22 @@ router.get(
   propertyController.getPropertyById
 );
 
-// 4. Update non-financial fields of a Property Acquisition
+// 4. Edit/Correct a Property Payout Disbursement (Admin only, Idempotent)
+router.put(
+  '/payments/:paymentId',
+  verifyJWT,
+  idempotencyMiddleware,
+  propertyController.updatePropertyPayment
+);
+
+router.put(
+  '/:id/payments/:paymentId',
+  verifyJWT,
+  idempotencyMiddleware,
+  propertyController.updatePropertyPayment
+);
+
+// 5. Update non-financial fields of a Property Acquisition
 router.put(
   '/:id',
   verifyJWT,

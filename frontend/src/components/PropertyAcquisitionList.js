@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import PropertyAcquisitionModal from "./PropertyAcquisitionModal";
 import RecordPropertyPaymentModal from "./RecordPropertyPaymentModal";
-import { MapPin, Search, RefreshCw, Plus, Building2, Coins, TrendingDown, Clock } from "lucide-react";
+import EditPropertyPaymentModal from "./EditPropertyPaymentModal";
+import { MapPin, Search, RefreshCw, Plus, Building2, Coins, TrendingDown, Clock, Edit2 } from "lucide-react";
 import { API_URL } from "@/config/api";
 import { formatDate } from "@/utils/formatters";
 
@@ -21,6 +22,10 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
 
   const [historyProperty, setHistoryProperty] = useState(null);
   const [highlightedId, setHighlightedId] = useState(null);
+
+  // Edit payment modal state
+  const [isEditPaymentOpen, setIsEditPaymentOpen] = useState(false);
+  const [selectedPaymentForEdit, setSelectedPaymentForEdit] = useState(null);
 
   useEffect(() => {
     const checkHighlight = () => {
@@ -145,8 +150,43 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
     return matchesSearch && matchesStatus;
   });
 
-  const canManage = ["ACCOUNTING", "ADMIN"].includes(userRole);
-  const canRecordPayout = ["ACCOUNTING", "ADMIN"].includes(userRole);
+  const [effectiveRole, setEffectiveRole] = useState(userRole);
+
+  useEffect(() => {
+    if (userRole) {
+      setEffectiveRole(userRole);
+    } else {
+      try {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          const parsed = JSON.parse(storedUser);
+          setEffectiveRole(parsed.role?.name || parsed.role || "ACCOUNTING");
+        }
+      } catch (e) {}
+    }
+  }, [userRole]);
+
+  const isAdmin = effectiveRole === "ADMIN";
+  const canManage = ["ACCOUNTING", "ADMIN"].includes(effectiveRole);
+  const canRecordPayout = ["ACCOUNTING", "ADMIN"].includes(effectiveRole);
+
+  const handlePaymentUpdated = async () => {
+    await fetchProperties();
+    if (historyProperty) {
+      try {
+        const token = localStorage.getItem("accessToken");
+        const res = await fetch(`${API_URL}/api/v1/properties/${historyProperty.id}`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.success && data.property) {
+          setHistoryProperty(data.property);
+        }
+      } catch (e) {
+        console.error("Failed to refresh active ledger property:", e);
+      }
+    }
+  };
 
   return (
     <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-6 sm:p-7">
@@ -366,6 +406,19 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
         />
       )}
 
+      {selectedPaymentForEdit && (
+        <EditPropertyPaymentModal
+          isOpen={isEditPaymentOpen}
+          onClose={() => {
+            setIsEditPaymentOpen(false);
+            setSelectedPaymentForEdit(null);
+          }}
+          payment={selectedPaymentForEdit}
+          property={historyProperty || selectedPropertyForPayment}
+          onPaymentUpdated={handlePaymentUpdated}
+        />
+      )}
+
       {/* History Drawer */}
       {historyProperty && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
@@ -395,16 +448,33 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
                       <th className="px-3 py-2">Source Account</th>
                       <th className="px-3 py-2">Reference</th>
                       <th className="px-3 py-2 text-right">Amount</th>
+                      {isAdmin && <th className="px-3 py-2 text-center w-16">Action</th>}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 font-mono">
                     {historyProperty.payments.map((p) => (
-                      <tr key={p.id} className="hover:bg-slate-50">
+                      <tr key={p.id} className="hover:bg-slate-50 transition">
                         <td className="px-3 py-2 text-slate-700 font-bold">{formatDate(p.dateOfPayment, { format: 'dd/mm/yyyy' })}</td>
                         <td className="px-3 py-2 font-sans font-medium text-slate-800">{p.paymentMode}</td>
-                        <td className="px-3 py-2 text-slate-500 text-[11px] font-sans">{p.paidFromAccount}</td>
+                        <td className="px-3 py-2 text-slate-500 text-[11px] font-sans">{p.paidFromAccount || "N/A"}</td>
                         <td className="px-3 py-2 text-slate-500 text-[11px]">{p.referenceNo || "N/A"}</td>
                         <td className="px-3 py-2 text-right font-bold text-orange-600">₹{parseFloat(p.amount).toLocaleString('en-IN')}</td>
+                        {isAdmin && (
+                          <td className="px-3 py-2 text-center font-sans">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedPaymentForEdit(p);
+                                setIsEditPaymentOpen(true);
+                              }}
+                              className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 rounded-md shadow-2xs active:scale-95 transition"
+                              title="Edit payment details (Admin only)"
+                            >
+                              <Edit2 className="w-3 h-3" />
+                              <span>Edit</span>
+                            </button>
+                          </td>
+                        )}
                       </tr>
                     ))}
                   </tbody>
