@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { API_URL } from "@/config/api";
-import { CreditCard } from "lucide-react";
+import { CreditCard, ShieldCheck, CheckCircle2, Receipt } from "lucide-react";
 
 export default function ExpenseUploadForm() {
   const { user } = useAuth();
@@ -78,8 +78,8 @@ export default function ExpenseUploadForm() {
   };
 
   return (
-    <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7 space-y-5">
-      <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
+    <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7 flex flex-col justify-between h-full space-y-4">
+      <div className="flex items-center gap-3 pb-4 border-b border-slate-100 shrink-0">
         <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
           <CreditCard className="w-5 h-5 text-orange-400" />
         </div>
@@ -90,14 +90,14 @@ export default function ExpenseUploadForm() {
       </div>
 
       {message && (
-        <div className={`p-3.5 rounded-xl text-xs flex flex-col gap-0.5 ${message.type === 'success' ? 'bg-orange-50 text-orange-800 border border-orange-200' : 'bg-orange-50 text-orange-800 border border-orange-200'}`}>
+        <div className={`p-3.5 rounded-xl text-xs flex flex-col gap-0.5 shrink-0 ${message.type === 'success' ? 'bg-orange-50 text-orange-800 border border-orange-200' : 'bg-orange-50 text-orange-800 border border-orange-200'}`}>
           <span className="font-bold">{message.type === 'error' ? 'Transaction Failed' : 'Success'}</span>
           <span>{message.text}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col justify-between flex-1 space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           <div>
             <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Amount (₹)</label>
             <input
@@ -152,15 +152,15 @@ export default function ExpenseUploadForm() {
             </select>
           </div>
           <div className="sm:col-span-2">
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Description</label>
-            <input
-              type="text"
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Description / Narration</label>
+            <textarea
+              rows={2}
               name="description"
               value={formData.description}
               onChange={handleChange}
               required
-              className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition text-slate-900 font-medium"
-              placeholder="What was this expense for? (e.g. Travel, Client Lunch, Office Stationary)"
+              className="w-full text-xs sm:text-sm px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition text-slate-900 font-medium resize-none"
+              placeholder="What was this expense for? (e.g. Travel, Client Lunch, Office Stationary, Fuel...)"
             />
           </div>
           <div className="sm:col-span-2">
@@ -171,19 +171,47 @@ export default function ExpenseUploadForm() {
               value={formData.reference}
               onChange={handleChange}
               className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition text-slate-900 font-medium"
-              placeholder="e.g. INV-10294 / Bill ref"
+              placeholder="e.g. INV-10294 / Bill receipt ref"
             />
           </div>
         </div>
 
-        <div className="pt-2">
+        {/* Voucher Compliance & Settlement Protocol Card */}
+        <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2 text-xs">
+          <div className="flex items-center justify-between text-slate-800 font-bold text-[11px]">
+            <span className="flex items-center gap-1.5 text-orange-700">
+              <ShieldCheck className="w-3.5 h-3.5 text-orange-600 shrink-0" />
+              Voucher Compliance & Audit Protocol
+            </span>
+            <span className="text-[10px] font-mono text-emerald-700 bg-white px-2 py-0.5 rounded-full border border-emerald-200/80 font-semibold">
+              Auto-Settled
+            </span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-slate-600">
+            <div className="flex items-start gap-1.5">
+              <Receipt className="w-3 h-3 text-orange-600 mt-0.5 shrink-0" />
+              <span><strong>Invoice Retention:</strong> Retain original vendor invoice/receipt for periodic financial audit.</span>
+            </div>
+            <div className="flex items-start gap-1.5">
+              <CheckCircle2 className="w-3 h-3 text-emerald-600 mt-0.5 shrink-0" />
+              <span><strong>Instant Settlement:</strong> Amount is deducted immediately from your selected wallet balance.</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Row */}
+        <div className="pt-1 flex items-center justify-between">
           <button
             type="submit"
             disabled={loading}
-            className="w-full sm:w-auto px-5 py-2.5 bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white text-xs font-semibold rounded-xl shadow-xs transition active:scale-95 disabled:opacity-50"
+            className="w-full sm:w-auto px-5 py-2.5 bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white text-xs font-semibold rounded-xl shadow-xs transition active:scale-95 disabled:opacity-50 flex items-center justify-center gap-1.5"
           >
-            {loading ? "Recording Expense..." : "Submit Expense"}
+            <CreditCard className="w-3.5 h-3.5" />
+            <span>{loading ? "Recording Expense..." : "Submit Expense"}</span>
           </button>
+          <span className="text-[11px] text-slate-400 hidden sm:inline font-medium">
+            Real-time balance settlement
+          </span>
         </div>
       </form>
     </div>
