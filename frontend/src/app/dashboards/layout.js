@@ -34,6 +34,8 @@ import {
   ArrowLeftRight,
   MapPin,
   NotebookPen,
+  Mail,
+  Phone,
 } from "lucide-react";
 import { API_URL } from "@/config/api";
 
@@ -1245,14 +1247,37 @@ function DashboardHeader() {
                 <X className="w-4 h-4" />
               </button>
             </div>
-            <div className="p-5 space-y-3 text-xs">
+            <div className="p-5 space-y-3.5 text-xs">
               <p className="text-slate-600 leading-relaxed">
-                Need assistance with ledger reconciliation, customer vouchers, or staff disbursements? Contact the AG Homes Technical Support Desk.
+                Need assistance with ledger reconciliation, customer vouchers, or staff disbursements? Contact the Devoxa Technologies Technical Support Desk.
               </p>
-              <div className="p-3 bg-slate-50 rounded-xl space-y-1">
-                <p className="font-bold text-slate-900">Internal Support Desk</p>
-                <p className="text-slate-500">Email: support@estatesync.local</p>
-                <p className="text-slate-500">Helpline: +91 11 4982 3000</p>
+              <div className="p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl space-y-2">
+                <p className="font-bold text-slate-900 text-xs flex items-center justify-between">
+                  <span>Devoxa Technologies Support Team</span>
+                  <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Active</span>
+                </p>
+                <div className="space-y-1.5 pt-1 text-slate-600 text-[11px]">
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="font-medium text-slate-500">Email:</span>
+                    <a
+                      href="mailto:devoxatechnologies@gmail.com"
+                      className="font-semibold text-[#ff6b12] hover:underline"
+                    >
+                      devoxatechnologies@gmail.com
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="font-medium text-slate-500">Phone:</span>
+                    <a
+                      href="tel:+918544005858"
+                      className="font-semibold text-slate-800 hover:text-[#ff6b12] font-mono tracking-tight hover:underline"
+                    >
+                      +91 8544005858
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
