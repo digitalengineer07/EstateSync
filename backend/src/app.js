@@ -124,6 +124,7 @@ const customerBillingRoutes = require('./routes/customerBillingRoutes');
 const walletRoutes = require('./routes/walletRoutes');
 const noteRoutes = require('./routes/noteRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
+const searchRoutes = require('./routes/searchRoutes');
 
 // Mount Routes
 app.use('/api/v1/auth', authRoutes);
@@ -144,6 +145,7 @@ app.use('/api/v1/billing', customerBillingRoutes);
 app.use('/api/v1/wallets', walletRoutes);
 app.use('/api/v1/notes', noteRoutes);
 app.use('/api/v1/notifications', notificationRoutes);
+app.use('/api/v1/search', searchRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {

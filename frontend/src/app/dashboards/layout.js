@@ -31,6 +31,9 @@ import {
   EyeOff,
   AlertCircle,
   Loader2,
+  ArrowLeftRight,
+  MapPin,
+  NotebookPen,
 } from "lucide-react";
 import { API_URL } from "@/config/api";
 
@@ -45,7 +48,73 @@ function DashboardHeader() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState(null);
+  const [searchLoading, setSearchLoading] = useState(false);
   const [activeModal, setActiveModal] = useState(null); // 'profile' | 'settings' | 'help' | null
+
+  // Live Enterprise Spotlight Search Effect (Debounced 250ms)
+  useEffect(() => {
+    if (!searchOpen) return;
+    if (!searchQuery || searchQuery.trim().length < 2) {
+      setSearchResults(null);
+      setSearchLoading(false);
+      return;
+    }
+
+    setSearchLoading(true);
+    const timer = setTimeout(async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        const res = await fetch(`${API_URL}/api/v1/search?q=${encodeURIComponent(searchQuery.trim())}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
+            setSearchResults(data.results);
+          } else {
+            setSearchResults({ customers: [], transactions: [], employees: [], properties: [], notes: [] });
+          }
+        } else {
+          setSearchResults({ customers: [], transactions: [], employees: [], properties: [], notes: [] });
+        }
+      } catch (err) {
+        console.warn("Search error:", err.message);
+        setSearchResults({ customers: [], transactions: [], employees: [], properties: [], notes: [] });
+      } finally {
+        setSearchLoading(false);
+      }
+    }, 250);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, searchOpen]);
+
+  // Global Keyboard Shortcuts: Ctrl+K / Cmd+K to open, Esc to close
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+      if (e.key === "Escape") {
+        setSearchOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const handleSearchResultClick = (item) => {
+    setSearchOpen(false);
+    setSearchQuery("");
+    setSearchResults(null);
+    if (item.targetTab && dashboardNav?.handleSelect) {
+      dashboardNav.handleSelect(item.targetTab);
+    }
+    if (item.link) {
+      router.push(item.link);
+    }
+  };
 
   // Settings & Security State
   const [settingsTab, setSettingsTab] = useState("security"); // 'security' | 'preferences'
@@ -524,29 +593,284 @@ function DashboardHeader() {
 
       {/* SEARCH SPOTLIGHT MODAL */}
       {searchOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-start justify-center pt-24 px-4">
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200/90 w-full max-w-xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <div className="p-3 border-b border-slate-100 flex items-center gap-3">
-              <Search className="w-5 h-5 text-slate-400" />
+        <div
+          className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-start justify-center pt-20 px-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setSearchOpen(false);
+          }}
+        >
+          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200/90 w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150 flex flex-col max-h-[80vh]">
+            {/* Input Header */}
+            <div className="p-3.5 border-b border-slate-100 flex items-center gap-3 bg-white">
+              <Search className="w-5 h-5 text-slate-400 shrink-0" />
               <input
                 type="text"
                 autoFocus
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search ledger vouchers, transactions, customer files, staff..."
+                placeholder="Search ledger vouchers, UTR, customer files, plot #, staff, land..."
                 className="w-full text-sm outline-hidden text-slate-900 placeholder:text-slate-400 bg-transparent"
               />
+              {searchLoading && (
+                <Loader2 className="w-4 h-4 text-[#ff6b12] animate-spin shrink-0" />
+              )}
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSearchResults(null);
+                  }}
+                  className="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 shrink-0"
+                  title="Clear search query"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
               <button
                 type="button"
                 onClick={() => setSearchOpen(false)}
-                className="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600"
+                className="px-2 py-1 text-[11px] font-bold rounded-lg bg-slate-100 text-slate-500 hover:bg-slate-200 transition shrink-0"
               >
-                <X className="w-4 h-4" />
+                ESC
               </button>
             </div>
-            <div className="p-3 bg-slate-50 text-xs text-slate-500 flex items-center justify-between">
-              <span>Press <b>Esc</b> to exit</span>
-              <span>EstateSync Enterprise Search</span>
+
+            {/* Results Container / Quick Suggestions */}
+            <div className="overflow-y-auto p-3 space-y-4 max-h-[60vh]">
+              {/* If user hasn't typed enough */}
+              {!searchQuery || searchQuery.trim().length < 2 ? (
+                <div className="p-4 space-y-3">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                    Quick Search Hints
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                    <div
+                      onClick={() => setSearchQuery("Plot")}
+                      className="p-2.5 rounded-xl bg-slate-50 hover:bg-orange-50/60 border border-slate-200/80 hover:border-orange-200 cursor-pointer transition flex items-center gap-2.5"
+                    >
+                      <span className="p-1.5 rounded-lg bg-white text-[#ff6b12] shadow-2xs">
+                        <Users className="w-3.5 h-3.5" />
+                      </span>
+                      <div>
+                        <span className="font-bold text-slate-900 block">Customer & Plot Files</span>
+                        <span className="text-[10px] text-slate-500">Search by plot #, customer name, contact</span>
+                      </div>
+                    </div>
+
+                    <div
+                      onClick={() => setSearchQuery("UTR")}
+                      className="p-2.5 rounded-xl bg-slate-50 hover:bg-orange-50/60 border border-slate-200/80 hover:border-orange-200 cursor-pointer transition flex items-center gap-2.5"
+                    >
+                      <span className="p-1.5 rounded-lg bg-white text-emerald-600 shadow-2xs">
+                        <ArrowLeftRight className="w-3.5 h-3.5" />
+                      </span>
+                      <div>
+                        <span className="font-bold text-slate-900 block">Transactions & UTR</span>
+                        <span className="text-[10px] text-slate-500">Search by UTR number, voucher receipt</span>
+                      </div>
+                    </div>
+
+                    <div
+                      onClick={() => setSearchQuery("EMP")}
+                      className="p-2.5 rounded-xl bg-slate-50 hover:bg-orange-50/60 border border-slate-200/80 hover:border-orange-200 cursor-pointer transition flex items-center gap-2.5"
+                    >
+                      <span className="p-1.5 rounded-lg bg-white text-indigo-600 shadow-2xs">
+                        <User className="w-3.5 h-3.5" />
+                      </span>
+                      <div>
+                        <span className="font-bold text-slate-900 block">Staff & Workforce</span>
+                        <span className="text-[10px] text-slate-500">Search employee code, designation</span>
+                      </div>
+                    </div>
+
+                    <div
+                      onClick={() => setSearchQuery("Land")}
+                      className="p-2.5 rounded-xl bg-slate-50 hover:bg-orange-50/60 border border-slate-200/80 hover:border-orange-200 cursor-pointer transition flex items-center gap-2.5"
+                    >
+                      <span className="p-1.5 rounded-lg bg-white text-amber-600 shadow-2xs">
+                        <MapPin className="w-3.5 h-3.5" />
+                      </span>
+                      <div>
+                        <span className="font-bold text-slate-900 block">Land Acquisitions</span>
+                        <span className="text-[10px] text-slate-500">Search by land owner, khata number</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : searchResults &&
+                (searchResults.customers?.length > 0 ||
+                  searchResults.transactions?.length > 0 ||
+                  searchResults.employees?.length > 0 ||
+                  searchResults.properties?.length > 0 ||
+                  searchResults.notes?.length > 0) ? (
+                <div className="space-y-3">
+                  {/* Customers Section */}
+                  {searchResults.customers?.length > 0 && (
+                    <div>
+                      <div className="flex items-center gap-1.5 px-2 mb-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        <Users className="w-3 h-3 text-[#ff6b12]" />
+                        <span>Customers & Plot Files ({searchResults.customers.length})</span>
+                      </div>
+                      <div className="space-y-1">
+                        {searchResults.customers.map((c) => (
+                          <div
+                            key={c.id}
+                            onClick={() => handleSearchResultClick(c)}
+                            className="p-2.5 rounded-xl hover:bg-orange-50/60 border border-transparent hover:border-orange-200 transition cursor-pointer flex items-center justify-between gap-3 group"
+                          >
+                            <div className="min-w-0">
+                              <p className="text-xs font-bold text-slate-900 group-hover:text-[#ff6b12] truncate">
+                                {c.title}
+                              </p>
+                              <p className="text-[11px] text-slate-500 truncate">{c.subtitle}</p>
+                            </div>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+                              {c.extra}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Transactions Section */}
+                  {searchResults.transactions?.length > 0 && (
+                    <div>
+                      <div className="flex items-center gap-1.5 px-2 mb-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        <ArrowLeftRight className="w-3 h-3 text-emerald-600" />
+                        <span>Transactions & UTR Vouchers ({searchResults.transactions.length})</span>
+                      </div>
+                      <div className="space-y-1">
+                        {searchResults.transactions.map((t) => (
+                          <div
+                            key={t.id}
+                            onClick={() => handleSearchResultClick(t)}
+                            className="p-2.5 rounded-xl hover:bg-emerald-50/60 border border-transparent hover:border-emerald-200 transition cursor-pointer flex items-center justify-between gap-3 group"
+                          >
+                            <div className="min-w-0">
+                              <p className="text-xs font-bold text-slate-900 group-hover:text-emerald-700 truncate">
+                                {t.title}
+                              </p>
+                              <p className="text-[11px] text-slate-500 truncate">{t.subtitle}</p>
+                            </div>
+                            <span className="text-xs font-black text-emerald-600 shrink-0">
+                              {t.extra}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Employees Section */}
+                  {searchResults.employees?.length > 0 && (
+                    <div>
+                      <div className="flex items-center gap-1.5 px-2 mb-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        <User className="w-3 h-3 text-indigo-600" />
+                        <span>Staff Directory ({searchResults.employees.length})</span>
+                      </div>
+                      <div className="space-y-1">
+                        {searchResults.employees.map((e) => (
+                          <div
+                            key={e.id}
+                            onClick={() => handleSearchResultClick(e)}
+                            className="p-2.5 rounded-xl hover:bg-indigo-50/60 border border-transparent hover:border-indigo-200 transition cursor-pointer flex items-center justify-between gap-3 group"
+                          >
+                            <div className="min-w-0">
+                              <p className="text-xs font-bold text-slate-900 group-hover:text-indigo-700 truncate">
+                                {e.title}
+                              </p>
+                              <p className="text-[11px] text-slate-500 truncate">{e.subtitle}</p>
+                            </div>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">
+                              {e.extra}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Properties Section */}
+                  {searchResults.properties?.length > 0 && (
+                    <div>
+                      <div className="flex items-center gap-1.5 px-2 mb-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        <MapPin className="w-3 h-3 text-amber-600" />
+                        <span>Land & Property Acquisitions ({searchResults.properties.length})</span>
+                      </div>
+                      <div className="space-y-1">
+                        {searchResults.properties.map((p) => (
+                          <div
+                            key={p.id}
+                            onClick={() => handleSearchResultClick(p)}
+                            className="p-2.5 rounded-xl hover:bg-amber-50/60 border border-transparent hover:border-amber-200 transition cursor-pointer flex items-center justify-between gap-3 group"
+                          >
+                            <div className="min-w-0">
+                              <p className="text-xs font-bold text-slate-900 group-hover:text-amber-700 truncate">
+                                {p.title}
+                              </p>
+                              <p className="text-[11px] text-slate-500 truncate">{p.subtitle}</p>
+                            </div>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200 shrink-0">
+                              {p.extra}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Notes Section */}
+                  {searchResults.notes?.length > 0 && (
+                    <div>
+                      <div className="flex items-center gap-1.5 px-2 mb-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        <NotebookPen className="w-3 h-3 text-[#ff6b12]" />
+                        <span>Cash Diary & Notes ({searchResults.notes.length})</span>
+                      </div>
+                      <div className="space-y-1">
+                        {searchResults.notes.map((n) => (
+                          <div
+                            key={n.id}
+                            onClick={() => handleSearchResultClick(n)}
+                            className="p-2.5 rounded-xl hover:bg-orange-50/60 border border-transparent hover:border-orange-200 transition cursor-pointer flex items-center justify-between gap-3 group"
+                          >
+                            <div className="min-w-0">
+                              <p className="text-xs font-bold text-slate-900 group-hover:text-[#ff6b12] truncate">
+                                {n.title}
+                              </p>
+                              <p className="text-[11px] text-slate-500 truncate">{n.subtitle}</p>
+                            </div>
+                            {n.extra && (
+                              <span className="text-xs font-bold text-slate-700 shrink-0">
+                                {n.extra}
+                              </span>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : !searchLoading ? (
+                <div className="p-8 text-center text-xs text-slate-400 space-y-1">
+                  <Search className="w-6 h-6 mx-auto mb-2 text-slate-300" />
+                  <p className="font-bold text-slate-700">No records found</p>
+                  <p className="text-slate-400">
+                    No customers, vouchers, staff, or plots matched &ldquo;{searchQuery}&rdquo;.
+                  </p>
+                </div>
+              ) : null}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-3 bg-slate-50 text-[11px] text-slate-500 border-t border-slate-100 flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <span>Press <b>Esc</b> to exit</span>
+                <span>•</span>
+                <span><b>Ctrl+K</b> to open</span>
+              </span>
+              <span className="font-bold text-slate-600">EstateSync Enterprise Search</span>
             </div>
           </div>
         </div>
