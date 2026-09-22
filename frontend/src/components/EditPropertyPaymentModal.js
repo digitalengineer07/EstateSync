@@ -291,6 +291,31 @@ export default function EditPropertyPaymentModal({
                 </div>
               </div>
             )}
+
+            {/* Fund Mode Reclassification Preview */}
+            {isModeChanged && (
+              <div className="mt-2 p-2.5 bg-blue-50/70 border border-blue-200/80 rounded-xl space-y-1.5 text-[11px] text-blue-950 animate-in fade-in duration-150">
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold text-blue-900">Payment Mode Reclassification:</span>
+                  <span className="font-mono font-bold px-2 py-0.5 rounded text-[10px] bg-blue-100 text-blue-800 border border-blue-300">
+                    {oldFMode} → {newFMode}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center text-slate-600 text-[11px]">
+                  <span>Previous {oldFMode} Account:</span>
+                  <span className="font-mono font-semibold text-emerald-700">+{formatINR(oldAmount)} (Refunded)</span>
+                </div>
+                <div className="flex justify-between items-center text-slate-600 text-[11px]">
+                  <span>New {newFMode} Account:</span>
+                  <span className="font-mono font-semibold text-amber-700">-{formatINR(newAmountNum || oldAmount)} (Debited)</span>
+                </div>
+                <p className="text-[10px] text-blue-700/90 pt-0.5 leading-normal">
+                  {oldFMode === "CASH" 
+                    ? `Note: Because this payout was previously charged to Cash, changing it to RTGS/Bank refunds ₹${oldAmount.toLocaleString('en-IN')} back to Cash balance and debits Bank instead.`
+                    : `Note: Changing this bank payout to Cash debits your Cash balance by ₹${(newAmountNum || oldAmount).toLocaleString('en-IN')} and refunds the Bank account.`}
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-3.5">
