@@ -211,12 +211,6 @@ export default function LandingPage() {
               >
                 Sign In to Portal →
               </Link>
-              <Link
-                href="/dashboards"
-                className="w-full py-2.5 text-center text-xs font-bold text-slate-800 bg-slate-100 rounded-xl"
-              >
-                View Dashboards
-              </Link>
             </div>
           </div>
         )}
@@ -256,21 +250,14 @@ export default function LandingPage() {
                 EstateSync unifies property collections, land acquisitions, expenses, staff wallets and double-entry accounting — so you can manage everything with confidence.
               </p>
 
-              {/* Primary & Secondary CTAs */}
-              <div className="mt-4 sm:mt-5 flex items-center gap-3 sm:gap-3.5">
+              {/* Primary CTA */}
+              <div className="mt-4 sm:mt-5 flex items-center">
                 <Link
                   href="/login"
                   className="inline-flex items-center justify-center gap-2 h-11 sm:h-11.5 px-6 sm:px-7 rounded-xl bg-[#ff6b12] text-white font-extrabold text-xs sm:text-[13px] shadow-[0_12px_24px_-4px_rgba(255,107,18,0.55)] hover:bg-[#f25f05] hover:shadow-[0_16px_28px_-4px_rgba(255,107,18,0.7)] hover:-translate-y-0.5 transition-all duration-200 group"
                 >
                   <span>Sign In to Portal</span>
                   <span className="text-sm font-bold group-hover:translate-x-1 transition-transform">→</span>
-                </Link>
-                
-                <Link
-                  href="/dashboards"
-                  className="inline-flex items-center justify-center h-11 sm:h-11.5 px-6 sm:px-7 rounded-xl bg-white border border-slate-300 text-slate-800 font-extrabold text-xs sm:text-[13px] hover:bg-slate-50 hover:border-slate-400 hover:-translate-y-0.5 transition-all duration-200 shadow-2xs"
-                >
-                  View Dashboards
                 </Link>
               </div>
             </div>
