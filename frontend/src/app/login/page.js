@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import {
@@ -8,6 +9,7 @@ import {
   Eye,
   EyeOff,
   ArrowRight,
+  ArrowLeft,
   TrendingUp,
   ShieldCheck,
   Users,
@@ -20,8 +22,6 @@ import {
   Loader2,
   AlertCircle,
   Building2,
-  Sun,
-  Moon,
 } from "lucide-react";
 
 function EstateSyncLogoMark({ className = "w-10 h-10" }) {
@@ -84,6 +84,18 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [showSupportModal, setShowSupportModal] = useState(false);
   const [policyModal, setPolicyModal] = useState({ open: false, title: "", content: "" });
+  const [backRipples, setBackRipples] = useState([]);
+
+  const handleBackClick = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const id = Date.now();
+    setBackRipples((prev) => [...prev, { id, x, y }]);
+    setTimeout(() => {
+      setBackRipples((prev) => prev.filter((r) => r.id !== id));
+    }, 600);
+  };
 
   const { login } = useAuth();
 
@@ -289,13 +301,30 @@ export default function LoginPage() {
                 WELCOME TO
               </div>
 
-              {/* Theme Pill Control */}
-              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-slate-300 shadow-xs">
-                <Sun className="w-5 h-5 text-slate-700" />
-                <div className="w-10 h-9 rounded-full bg-slate-700 text-white flex items-center justify-center shadow-xs">
-                  <Moon className="w-5 h-5" />
-                </div>
-              </div>
+              {/* Back to Home Button with Tactile Click & Ripple Animation */}
+              <Link
+                href="/"
+                onClick={handleBackClick}
+                className="relative overflow-hidden inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 hover:bg-white border border-slate-300 text-slate-700 hover:text-slate-950 font-bold text-xs shadow-xs hover:shadow-sm active:scale-[0.94] active:translate-y-0.5 active:bg-slate-100 transition-all duration-200 active:duration-75 group select-none cursor-pointer"
+                title="Back to Home"
+              >
+                {/* Expanding Click Ripple Wave */}
+                <span className="absolute inset-0 pointer-events-none overflow-hidden rounded-full">
+                  {backRipples.map((ripple) => (
+                    <span
+                      key={ripple.id}
+                      className="absolute w-10 h-10 -ml-5 -mt-5 rounded-full bg-[#ff6b12]/30 animate-btn-ripple pointer-events-none"
+                      style={{
+                        left: ripple.x,
+                        top: ripple.y,
+                      }}
+                    />
+                  ))}
+                </span>
+
+                <ArrowLeft className="relative z-10 w-4 h-4 text-[#ff6b12] transition-transform duration-200 group-hover:-translate-x-1 active:-translate-x-1.5" />
+                <span className="relative z-10 transition-transform duration-150 active:scale-95">Home</span>
+              </Link>
             </div>
 
             {/* Mobile-only logo display */}
