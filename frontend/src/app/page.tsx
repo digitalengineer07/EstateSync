@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   Menu,
   X,
-  ChevronDown,
   TrendingUp,
   Home,
   MoreHorizontal,
@@ -483,14 +482,14 @@ export default function LandingPage() {
 
             {/* Desktop Lower Right Brand Statement */}
             <div className="hidden lg:flex items-center gap-2.5 self-end pr-0 -mr-2 lg:-mr-6 xl:-mr-10 pb-1 select-none pointer-events-auto">
-              <div className="w-[2px] h-9 bg-slate-900/80 rounded-full" />
+              <div className="w-[2.5px] h-10 bg-slate-950 rounded-full shadow-[0_1px_2px_rgba(255,255,255,0.85)]" />
               <div className="flex flex-col">
-                <span className="text-[9.5px] xl:text-[10px] font-black tracking-[0.22em] text-slate-900 uppercase leading-snug drop-shadow-xs">
+                <span className="text-[11px] xl:text-[12px] font-black tracking-[0.24em] text-slate-950 uppercase leading-snug drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
                   BUILDING<br />
                   A BRIGHTER<br />
                   TOMORROW
                 </span>
-                <span className="w-7 h-[2px] bg-[#ff6b12] rounded-full mt-1 inline-block" />
+                <span className="w-8 h-[2.5px] bg-[#ff6b12] rounded-full mt-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.15)] inline-block" />
               </div>
             </div>
 
@@ -498,7 +497,7 @@ export default function LandingPage() {
         </div>
 
         {/* ========================================================================= */}
-        {/* FOOTER (Left-Hand Side Centered Legal & Support Links + Scroll Down Cue)  */}
+        {/* FOOTER (Left-Hand Side Centered Legal & Support Links)                    */}
         {/* ========================================================================= */}
         <div className="pb-3 sm:pb-4 pt-1 flex items-center justify-between text-xs text-slate-500 shrink-0">
           
@@ -537,28 +536,6 @@ export default function LandingPage() {
             >
               Support
             </button>
-          </div>
-
-          {/* Right: Scroll Down Cue */}
-          <div className="flex items-center gap-2 text-slate-500 font-semibold select-none group cursor-pointer hover:text-slate-900 transition ml-auto">
-            {/* Custom Mouse SVG Icon with downward chevron */}
-            <div className="flex flex-col items-center">
-              <svg
-                className="w-3.5 h-4 text-slate-500 group-hover:text-[#ff6b12] transition-colors"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="6" y="2" width="12" height="18" rx="6" />
-                <line x1="12" y1="6" x2="12" y2="9" />
-              </svg>
-              <ChevronDown className="w-3 h-3 -mt-0.5 text-slate-400 group-hover:text-[#ff6b12] transition-colors" />
-            </div>
-            <span className="text-[11px] font-semibold text-slate-600">Scroll Down</span>
-            <span className="text-[11px] text-slate-400 group-hover:translate-x-0.5 transition-transform">→</span>
           </div>
         </div>
       </main>
