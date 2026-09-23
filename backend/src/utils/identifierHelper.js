@@ -13,11 +13,13 @@ function cleanPlotNumber(val) {
   return val
     .trim()
     .replace(/^(plot\s*(no\.?|number|#|:|-)?\s*)/i, '')
+    .replace(/[-_ ]*(CORRECT|CORRECTED|VERIFIED)/gi, '')
     .trim();
 }
 
 /**
  * Remove redundant user-typed prefixes like 'Khata', 'Khata No.', 'Khata:', etc.
+ * and strip unnecessary status suffixes like '-VERIFIED'.
  * @param {string} val 
  * @returns {string} Cleaned khata number (e.g. 'KH-6602/2026')
  */
@@ -26,6 +28,7 @@ function cleanKhataNumber(val) {
   return val
     .trim()
     .replace(/^(khata\s*(no\.?|number|#|:|-)?\s*)/i, '')
+    .replace(/[-_ ]*(VERIFIED|VERIFY)/gi, '')
     .trim();
 }
 

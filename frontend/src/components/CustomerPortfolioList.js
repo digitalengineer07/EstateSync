@@ -377,15 +377,15 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
           <table className="min-w-full divide-y divide-slate-200 text-left text-xs whitespace-nowrap">
             <thead className="bg-slate-50/90 font-semibold text-slate-500 uppercase tracking-wider text-[11px]">
               <tr>
-                <th className="px-4 py-3">Plot & Location</th>
-                <th className="px-4 py-3">Customer Info</th>
+                <th className="px-3.5 py-2.5">Plot & Location</th>
+                <th className="px-3.5 py-2.5">Customer Info</th>
                 {["ACCOUNTING", "ADMIN"].includes(userRole) && (
-                  <th className="px-4 py-3">Sales Agent</th>
+                  <th className="px-3.5 py-2.5">Sales Agent</th>
                 )}
-                <th className="px-4 py-3 text-right">Contract Value</th>
-                <th className="px-4 py-3">Payment Progress</th>
-                <th className="px-4 py-3 text-center">Status</th>
-                <th className="px-4 py-3 text-right">Actions</th>
+                <th className="px-3.5 py-2.5 text-right">Contract Value</th>
+                <th className="px-3.5 py-2.5">Payment Progress</th>
+                <th className="px-3.5 py-2.5 text-center">Status</th>
+                <th className="px-3.5 py-2.5 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 bg-white">
@@ -395,6 +395,8 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                 const due = parseFloat(cust.balanceDue || 0);
                 const pct = contract > 0 ? Math.min(100, Math.round((paid / contract) * 100)) : 0;
                 const userCanEdit = canEditCustomer(cust);
+                const displayPlot = String(cust.plotNo || "").replace(/[-_ ]*(CORRECT|CORRECTED|VERIFIED)/gi, "").trim();
+                const displayKhata = String(cust.khataNo || "").replace(/[-_ ]*(VERIFIED|VERIFY)/gi, "").trim();
 
                 return (
                   <tr 
@@ -407,32 +409,32 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                         : "border-l-transparent hover:bg-orange-50/40"
                     }`}
                   >
-                    <td className="px-4 py-3.5">
-                      <div className="font-bold text-slate-900 group-hover:text-orange-600 transition-colors">Plot {cust.plotNo}</div>
-                      <div className="text-[11px] text-slate-500">{cust.projectLocation}</div>
-                      <div className="text-[10px] text-orange-600 font-mono">Khata: {cust.khataNo} • {cust.areaSqft} sq.ft</div>
+                    <td className="px-3.5 py-2.5">
+                      <div className="font-bold text-slate-900 group-hover:text-orange-600 transition-colors leading-tight">Plot {displayPlot}</div>
+                      <div className="text-[11px] text-slate-500 leading-tight mt-0.5">{cust.projectLocation}</div>
+                      <div className="text-[10px] text-orange-600 font-mono leading-tight mt-0.5">Khata: {displayKhata} • {cust.areaSqft} sq.ft</div>
                     </td>
 
-                    <td className="px-4 py-3.5">
-                      <div className="font-semibold text-slate-900">{cust.customerName}</div>
-                      <div className="text-[11px] text-slate-500">{cust.customerContact}</div>
-                      <div className="text-[10px] text-slate-400 font-mono">{cust.identityType}: {cust.identityNumber}</div>
+                    <td className="px-3.5 py-2.5">
+                      <div className="font-semibold text-slate-900 leading-tight">{cust.customerName}</div>
+                      <div className="text-[11px] text-slate-500 leading-tight mt-0.5">{cust.customerContact}</div>
+                      <div className="text-[10px] text-slate-400 font-mono leading-tight mt-0.5">{cust.identityType}: {cust.identityNumber}</div>
                     </td>
 
                     {["ACCOUNTING", "ADMIN"].includes(userRole) && (
-                      <td className="px-4 py-3.5 text-slate-600">
-                        <div className="font-medium text-slate-800">{cust.salesOwner?.name || "System"}</div>
-                        <div className="text-[10px] text-slate-400">{cust.salesOwner?.email}</div>
+                      <td className="px-3.5 py-2.5 text-slate-600">
+                        <div className="font-medium text-slate-800 leading-tight">{cust.salesOwner?.name || "System"}</div>
+                        <div className="text-[10px] text-slate-400 leading-tight mt-0.5">{cust.salesOwner?.email}</div>
                       </td>
                     )}
 
-                    <td className="px-4 py-3.5 text-right font-mono">
-                      <div className="font-bold text-slate-900 text-sm">₹{contract.toLocaleString('en-IN')}</div>
-                      <div className="text-[10px] text-slate-400 font-sans">Rate: ₹{cust.ratePerSqft}/sqft</div>
+                    <td className="px-3.5 py-2.5 text-right font-mono">
+                      <div className="font-bold text-slate-900 text-sm leading-tight">₹{contract.toLocaleString('en-IN')}</div>
+                      <div className="text-[10px] text-slate-400 font-sans leading-tight mt-0.5">Rate: ₹{cust.ratePerSqft}/sqft</div>
                     </td>
 
-                    <td className="px-4 py-3.5 min-w-[160px]">
-                      <div className="flex justify-between text-[11px] font-semibold mb-1 font-mono">
+                    <td className="px-3.5 py-2.5 min-w-[150px]">
+                      <div className="flex justify-between text-[11px] font-semibold mb-1 font-mono leading-tight">
                         <span className="text-orange-700">₹{paid.toLocaleString('en-IN')}</span>
                         <span className="text-slate-500">Due: ₹{due.toLocaleString('en-IN')}</span>
                       </div>
@@ -442,10 +444,10 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                           style={{ width: `${pct}%` }}
                         ></div>
                       </div>
-                      <div className="text-[10px] text-slate-400 text-right mt-0.5 font-medium">{pct}% Paid</div>
+                      <div className="text-[10px] text-slate-400 text-right mt-0.5 font-medium leading-tight">{pct}% Paid</div>
                     </td>
 
-                    <td className="px-4 py-3.5 text-center">
+                    <td className="px-3.5 py-2.5 text-center">
                       {cust.status === 'ACTIVE' ? (
                         <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-700 border border-orange-200">
                           ACTIVE
@@ -465,7 +467,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                       )}
                     </td>
 
-                    <td className="px-4 py-3.5 text-right space-x-1.5" onClick={(e) => e.stopPropagation()}>
+                    <td className="px-3.5 py-2.5 text-right space-x-1.5" onClick={(e) => e.stopPropagation()}>
                       {userCanEdit && (
                         <button
                           onClick={() => handleOpenEdit(cust)}
