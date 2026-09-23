@@ -386,19 +386,19 @@ export default function LandingPage() {
 
               <div className="absolute bottom-3 left-3 right-3 bg-slate-900/85 backdrop-blur-md border border-white/20 rounded-xl p-3 text-white shadow-lg">
                 <div className="flex justify-between items-center text-[11px]">
-                  <span className="font-semibold text-slate-300">Total Portfolio Value</span>
-                  <span className="font-bold text-emerald-400">↗ +12.5%</span>
+                  <span className="font-semibold text-slate-300">Automated Reconciliation</span>
+                  <span className="font-bold text-emerald-400">↗ 99.9%</span>
                 </div>
                 <div className="mt-0.5 text-xl font-black font-digital text-white">
-                  ₹ 102.4 Cr
+                  Live Sync
                 </div>
               </div>
             </div>
 
-            {/* Desktop Floating Glassmorphic Metric Cards (Shifted rightwards) */}
-            <div className="hidden lg:flex flex-col items-end space-y-3.5 xl:space-y-4 my-auto pr-0 -mr-2 lg:-mr-6 xl:-mr-10 select-none pointer-events-auto">
+            {/* Desktop Floating Glassmorphic Metric Cards (Moved upwards & shifted rightwards) */}
+            <div className="hidden lg:flex flex-col items-end space-y-3 xl:space-y-3.5 -mt-2 lg:-mt-3 xl:-mt-1 mb-auto pr-0 -mr-2 lg:-mr-6 xl:-mr-10 select-none pointer-events-auto">
               
-              {/* Metric Card 1: Total Portfolio Value (Dark Frosted Glass) */}
+              {/* Metric Card 1: Automated Reconciliation (Dark Frosted Glass) */}
               <Link
                 href="/dashboards"
                 className="w-full max-w-[285px] xl:max-w-[315px] 2xl:max-w-[335px] bg-slate-900/40 hover:bg-slate-900/50 backdrop-blur-xl border border-white/25 rounded-3xl p-4 sm:p-4.5 text-white shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:-translate-y-1 hover:border-orange-400/50 transition duration-200 group block"
@@ -410,10 +410,10 @@ export default function LandingPage() {
                     </div>
                     <div>
                       <p className="text-[12px] font-semibold text-slate-200 tracking-wide leading-tight">
-                        Total Portfolio Value
+                        Automated Reconciliation
                       </p>
                       <p className="text-xl xl:text-2xl font-black text-white font-mono tracking-tight mt-0.5">
-                        ₹ 102.4 Cr
+                        99.9%
                       </p>
                     </div>
                   </div>
@@ -421,12 +421,11 @@ export default function LandingPage() {
                 </div>
 
                 <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px] font-bold text-emerald-400">
-                  <span>↗ +12.5%</span>
-                  <span className="text-[10.5px] text-slate-300/80 font-normal">vs last quarter</span>
+                  <span>↗ Real-time ledger audit</span>
                 </div>
               </Link>
 
-              {/* Metric Card 2: Total Properties (Light Frosted Glass) */}
+              {/* Metric Card 2: Multi-Entity Treasury (Light Frosted Glass) */}
               <Link
                 href="/dashboards"
                 className="w-full max-w-[285px] xl:max-w-[315px] 2xl:max-w-[335px] bg-white/20 hover:bg-white/25 backdrop-blur-xl border border-white/30 rounded-3xl p-4 sm:p-4.5 text-white shadow-[0_20px_40px_rgba(0,0,0,0.25)] hover:-translate-y-1 hover:border-orange-400/60 transition duration-200 group block"
@@ -438,10 +437,10 @@ export default function LandingPage() {
                     </div>
                     <div>
                       <p className="text-[12px] font-semibold text-white/90 tracking-wide leading-tight">
-                        Total Properties
+                        Multi-Entity Treasury
                       </p>
                       <p className="text-xl xl:text-2xl font-black text-white font-mono tracking-tight mt-0.5">
-                        500+
+                        Live Sync
                       </p>
                     </div>
                   </div>
@@ -449,8 +448,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px] font-bold text-emerald-400">
-                  <span>↗ +8%</span>
-                  <span className="text-[10.5px] text-white/80 font-normal">vs last quarter</span>
+                  <span>↗ Double-entry verification</span>
                 </div>
               </Link>
             </div>
