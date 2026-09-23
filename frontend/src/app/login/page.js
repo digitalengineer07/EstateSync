@@ -89,15 +89,19 @@ export default function LoginPage() {
 
   // Retrieve remembered email on initial mount
   useEffect(() => {
-    try {
-      const savedEmail = localStorage.getItem("estatesync_remembered_email");
-      if (savedEmail) {
-        setEmail(savedEmail);
-        setRememberMe(true);
+    const restoreRememberedEmail = window.setTimeout(() => {
+      try {
+        const savedEmail = localStorage.getItem("estatesync_remembered_email");
+        if (savedEmail) {
+          setEmail(savedEmail);
+          setRememberMe(true);
+        }
+      } catch {
+        // Ignore storage access issues
       }
-    } catch {
-      // Ignore storage access issues
-    }
+    }, 0);
+
+    return () => window.clearTimeout(restoreRememberedEmail);
   }, []);
 
   const handleSubmit = async (event) => {
@@ -148,7 +152,7 @@ export default function LoginPage() {
   ];
 
   return (
-    <main className="min-h-screen lg:h-screen lg:max-h-screen w-full relative flex items-center justify-center p-3 sm:p-5 lg:p-6 xl:p-8 lg:overflow-hidden font-sans select-none bg-[#0a0d14]">
+    <main className="login-page min-h-screen lg:h-screen lg:max-h-screen w-full relative flex items-center justify-center p-3 sm:p-5 lg:p-[30px_42px_38px] lg:overflow-hidden font-sans select-none bg-[#0a0d14]">
       {/* Ambient background blur elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
@@ -159,12 +163,12 @@ export default function LoginPage() {
       </div>
 
       {/* Main Composition Container holding the two separated sections */}
-      <div className="relative z-10 w-full max-w-[1540px] 2xl:max-w-[1640px] lg:h-[min(820px,92vh)] flex flex-col lg:flex-row items-stretch">
+      <div className="login-composition relative z-10 w-full max-w-[1672px] lg:h-[calc(100vh-68px)] flex flex-col lg:flex-row items-stretch">
         
         {/* ================================================================ */}
         {/* LEFT VISUAL PANEL (Translucent Glass Card with Hidden Right Border)*/}
         {/* ================================================================ */}
-        <section className="relative flex-1 hidden lg:flex flex-col justify-between p-6 sm:p-8 lg:p-9 xl:p-11 rounded-l-[28px] sm:rounded-l-[32px] border border-white/20 border-r-0 overflow-hidden min-h-0">
+        <section className="login-left relative flex-1 hidden lg:flex flex-col justify-between p-6 sm:p-8 lg:px-[clamp(48px,4.35vw,76px)] lg:py-[46px] rounded-l-[22px] border-2 border-white/55 border-r-0 overflow-hidden min-h-0">
           {/* Sharp photographic background image positioned so laptop, notebook & plant are perfectly framed */}
           <div
             role="img"
@@ -172,7 +176,7 @@ export default function LoginPage() {
             className="absolute inset-0 bg-cover transform scale-[1.01]"
             style={{
               backgroundImage: "url('/images/login/luxury-office-sunset.jpg')",
-              backgroundPosition: "20% center",
+              backgroundPosition: "center center",
             }}
           />
 
@@ -184,14 +188,14 @@ export default function LoginPage() {
           <header className="relative z-10 flex items-center justify-between">
             {/* EstateSync Logo */}
             <div className="flex items-center gap-3">
-              <div className="shadow-lg shadow-orange-950/40 rounded-xl overflow-hidden flex-shrink-0">
-                <EstateSyncLogoMark className="w-10 h-10" />
+              <div className="shadow-lg shadow-orange-950/40 rounded-2xl overflow-hidden flex-shrink-0">
+                <EstateSyncLogoMark className="w-[70px] h-[70px]" />
               </div>
               <div className="flex flex-col">
-                <span className="text-xl lg:text-2xl font-black tracking-tight text-white leading-none">
+                <span className="text-[36px] font-black tracking-tight text-white leading-none">
                   Estate<span className="text-[#ff6b12]">Sync</span>
                 </span>
-                <span className="text-[9.5px] font-bold tracking-[0.24em] text-zinc-300 uppercase mt-1">
+                <span className="text-[13px] font-bold tracking-[0.24em] text-zinc-200 uppercase mt-2">
                   TREASURY & ACCOUNTING
                 </span>
               </div>
@@ -200,7 +204,7 @@ export default function LoginPage() {
             {/* Micro Navigation */}
             <nav
               aria-label="Core Values"
-              className="text-[10px] lg:text-[10.5px] font-semibold text-zinc-300/80 tracking-[0.22em] flex items-center gap-2 uppercase select-none"
+              className="text-[14px] font-semibold text-zinc-100 tracking-[0.2em] flex items-center gap-4 uppercase select-none"
             >
               <span className="hover:text-white transition-colors">TRUST</span>
               <span className="text-zinc-500/80">|</span>
@@ -212,34 +216,34 @@ export default function LoginPage() {
 
           {/* Middle Section: Main Headline + Platform Description + 4 Features */}
           <div className="relative z-10 my-auto py-3 lg:py-4">
-            <h1 className="text-3xl lg:text-[38px] xl:text-[43px] font-black text-white leading-[1.14] tracking-tight">
+            <h1 className="text-3xl lg:text-[47px] font-black text-white leading-[1.035] tracking-tight">
               Turning<br />
               Real Estate Vision<br />
               into <span className="text-[#ff6b12]">Financial Clarity</span>
             </h1>
 
-            <p className="text-xs lg:text-[13.5px] text-zinc-200/90 font-normal leading-relaxed max-w-lg mt-3.5">
+            <p className="text-[17px] text-zinc-100/90 font-normal leading-[1.45] max-w-[550px] mt-4">
               A unified platform for treasury management, customer collections, property acquisitions,
               expenses and double-entry accounting.
             </p>
 
             {/* 2x2 Feature Highlights Grid */}
-            <div className="grid grid-cols-2 gap-2.5 lg:gap-3 mt-5 lg:mt-6 max-w-[480px]">
+            <div className="grid grid-cols-2 gap-x-14 gap-y-8 mt-8 max-w-[560px]">
               {featureItems.map((item, index) => {
                 const IconComponent = item.icon;
                 return (
                   <div
                     key={index}
-                    className="group bg-black/40 hover:bg-black/55 backdrop-blur-md border border-white/10 hover:border-white/20 rounded-xl lg:rounded-2xl p-2.5 lg:p-3 flex items-center gap-3 transition-all duration-200"
+                    className="group flex items-center gap-4 transition-all duration-200"
                   >
-                    <div className="w-8 h-8 lg:w-9 lg:h-9 rounded-lg lg:rounded-xl bg-[#ff6b12]/15 border border-[#ff6b12]/25 flex items-center justify-center text-[#ff6b12] flex-shrink-0 group-hover:scale-105 transition-transform">
-                      <IconComponent className="w-4 h-4" />
+                    <div className="w-16 h-16 rounded-[14px] bg-white/10 backdrop-blur-md border border-white/20 shadow-[inset_0_0_22px_rgba(255,255,255,0.08)] flex items-center justify-center text-[#ff6b12] flex-shrink-0 group-hover:scale-105 transition-transform">
+                      <IconComponent className="w-8 h-8" strokeWidth={2.3} />
                     </div>
                     <div>
-                      <div className="text-[10px] lg:text-[10.5px] font-medium text-zinc-300/80 leading-tight">
+                      <div className="text-[15px] font-normal text-zinc-100 leading-tight">
                         {item.title}
                       </div>
-                      <div className="text-[11px] lg:text-xs font-bold text-white leading-tight mt-0.5">
+                      <div className="text-[15px] font-normal text-white leading-tight mt-1">
                         {item.subtitle}
                       </div>
                     </div>
@@ -251,12 +255,12 @@ export default function LoginPage() {
 
           {/* Bottom Statement Quote */}
           <footer className="relative z-10 pt-2">
-            <p className="text-xs lg:text-[13px] font-semibold text-zinc-200 italic tracking-wide">
-              &ldquo;Strong Finances. Stronger Foundations.&rdquo;
+            <p className="text-[19px] leading-[1.25] font-medium text-white italic tracking-wide max-w-[280px]">
+              &ldquo;Strong Finances.<br />Stronger Foundations.&rdquo;
             </p>
-            <div className="flex items-center gap-2 mt-1.5">
-              <span className="w-5 h-[2px] bg-[#ff6b12] rounded-full inline-block" />
-              <span className="text-[11px] font-bold text-zinc-400 tracking-wider">EstateSync</span>
+            <div className="flex items-center gap-4 mt-4">
+              <span className="w-6 h-[2px] bg-[#ff6b12] rounded-full inline-block" />
+              <span className="text-[14px] font-medium text-zinc-100">EstateSync</span>
             </div>
           </footer>
         </section>
@@ -264,7 +268,7 @@ export default function LoginPage() {
         {/* ================================================================ */}
         {/* RIGHT AUTHENTICATION PANEL (Distinct Elevated Rounded Card)       */}
         {/* ================================================================ */}
-        <section className="relative w-full lg:w-[460px] xl:w-[490px] 2xl:w-[520px] flex-shrink-0 flex flex-col justify-between p-5 sm:p-7 lg:p-7 xl:p-9 bg-[#fdfdfd] rounded-[28px] sm:rounded-[32px] shadow-[0_25px_70px_rgba(0,0,0,0.65)] border border-white/90 overflow-hidden min-h-0 lg:-ml-2 z-20">
+        <section className="login-right relative w-full lg:w-[clamp(460px,38.4vw,675px)] flex-shrink-0 flex flex-col justify-between p-5 sm:p-7 lg:px-[clamp(50px,4.45vw,78px)] lg:py-[52px] bg-[#fdfdfd] rounded-[22px] shadow-[0_25px_70px_rgba(0,0,0,0.45)] border-2 border-white overflow-hidden min-h-0 lg:-ml-1 z-20">
           {/* Light wave abstract background */}
           <div
             className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-90"
@@ -281,15 +285,15 @@ export default function LoginPage() {
           <div className="relative z-10">
             {/* Top Row with Theme Pill in top-right */}
             <div className="flex items-center justify-between mb-1">
-              <div className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-zinc-400">
+              <div className="text-[14px] font-bold uppercase tracking-[0.25em] text-slate-500">
                 WELCOME TO
               </div>
 
               {/* Theme Pill Control */}
-              <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-zinc-100/90 border border-zinc-200/80 shadow-xs">
-                <Sun className="w-3.5 h-3.5 text-zinc-500" />
-                <div className="w-5 h-5 rounded-full bg-zinc-900 text-white flex items-center justify-center shadow-xs">
-                  <Moon className="w-3 h-3" />
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-slate-300 shadow-xs">
+                <Sun className="w-5 h-5 text-slate-700" />
+                <div className="w-10 h-9 rounded-full bg-slate-700 text-white flex items-center justify-center shadow-xs">
+                  <Moon className="w-5 h-5" />
                 </div>
               </div>
             </div>
@@ -308,18 +312,18 @@ export default function LoginPage() {
             </div>
 
             <div className="mt-0.5">
-              <span className="text-2xl lg:text-[28px] font-black text-zinc-950 tracking-tight leading-none">
+              <span className="text-2xl lg:text-[42px] font-black text-slate-950 tracking-tight leading-none">
                 Estate<span className="text-[#ff6b12]">Sync</span>
               </span>
             </div>
-            <div className="text-[9px] font-extrabold uppercase tracking-[0.22em] text-zinc-400 mt-0.5">
+            <div className="text-[15px] font-bold uppercase tracking-[0.22em] text-slate-600 mt-1">
               TREASURY & ACCOUNTING
             </div>
 
             {/* Subtle orange divider */}
-            <div className="w-8 h-[3px] bg-[#ff6b12] rounded-full mt-2.5 mb-2" />
+            <div className="w-8 h-[3px] bg-[#ff6b12] rounded-full mt-4 mb-5" />
 
-            <p className="text-xs text-zinc-600 font-medium">
+            <p className="text-[16px] text-slate-500 font-normal">
               Sign in to access your organizational dashboard.
             </p>
 
@@ -341,17 +345,17 @@ export default function LoginPage() {
           </div>
 
           {/* Authentication Form */}
-          <form onSubmit={handleSubmit} className="relative z-10 my-auto py-2 space-y-3">
+          <form onSubmit={handleSubmit} className="relative z-10 my-auto py-3 space-y-5">
             {/* Email Address */}
             <div>
               <label
                 htmlFor="email-input"
-                className="block text-[11px] font-bold text-zinc-700 mb-1 uppercase tracking-[0.08em]"
+                className="block text-[15px] font-semibold text-slate-800 mb-2"
               >
                 Email Address
               </label>
-              <div className="relative flex items-center rounded-xl border border-zinc-200/90 bg-white/90 backdrop-blur-xs transition shadow-xs focus-within:border-[#ff6b12] focus-within:ring-2 focus-within:ring-[#ff6b12]/20">
-                <Mail className="w-4 h-4 text-zinc-400 absolute left-3.5 pointer-events-none" />
+              <div className="relative flex items-center rounded-xl border border-slate-300 bg-white/70 backdrop-blur-xs transition shadow-xs focus-within:border-[#ff6b12] focus-within:ring-2 focus-within:ring-[#ff6b12]/20">
+                <Mail className="w-5 h-5 text-slate-600 absolute left-5 pointer-events-none" />
                 <input
                   id="email-input"
                   type="email"
@@ -361,30 +365,30 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@estatesync.local"
-                  className="w-full h-11 pl-10 pr-4 text-xs lg:text-sm text-zinc-900 placeholder:text-zinc-400 bg-transparent rounded-xl outline-none font-medium"
+                  className="w-full h-[52px] pl-14 pr-4 text-[15px] text-slate-900 placeholder:text-slate-400 bg-transparent rounded-xl outline-none font-normal"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <div className="flex items-center justify-between mb-1">
+              <div className="flex items-center justify-between mb-2">
                 <label
                   htmlFor="password-input"
-                  className="text-[11px] font-bold text-zinc-700 uppercase tracking-[0.08em]"
+                  className="text-[15px] font-semibold text-slate-800"
                 >
                   Password
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowSupportModal(true)}
-                  className="text-[11px] font-bold text-[#ff6b12] hover:text-[#ea580c] transition cursor-pointer"
+                  className="text-[14px] font-medium text-[#ff5b0a] hover:text-[#ea580c] transition cursor-pointer"
                 >
                   Forgot Password?
                 </button>
               </div>
-              <div className="relative flex items-center rounded-xl border border-zinc-200/90 bg-white/90 backdrop-blur-xs transition shadow-xs focus-within:border-[#ff6b12] focus-within:ring-2 focus-within:ring-[#ff6b12]/20">
-                <Lock className="w-4 h-4 text-zinc-400 absolute left-3.5 pointer-events-none" />
+              <div className="relative flex items-center rounded-xl border border-slate-300 bg-white/70 backdrop-blur-xs transition shadow-xs focus-within:border-[#ff6b12] focus-within:ring-2 focus-within:ring-[#ff6b12]/20">
+                <Lock className="w-5 h-5 text-slate-600 absolute left-5 pointer-events-none" />
                 <input
                   id="password-input"
                   type={showPassword ? "text" : "password"}
@@ -394,15 +398,15 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className="w-full h-11 pl-10 pr-10 text-xs lg:text-sm text-zinc-900 placeholder:text-zinc-400 bg-transparent rounded-xl outline-none font-medium"
+                  className="w-full h-[52px] pl-14 pr-12 text-[15px] text-slate-900 placeholder:text-slate-400 bg-transparent rounded-xl outline-none font-normal"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? "Hide password" : "Show password"}
-                  className="absolute right-3.5 p-1 text-zinc-400 hover:text-zinc-700 transition"
+                  className="absolute right-4 p-1 text-slate-500 hover:text-slate-700 transition"
                 >
-                  {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
             </div>
@@ -414,9 +418,9 @@ export default function LoginPage() {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-3.5 h-3.5 rounded border-zinc-300 text-[#ff6b12] focus:ring-[#ff6b12] accent-[#ff6b12] cursor-pointer"
+                  className="w-5 h-5 rounded border-zinc-300 text-[#ff6b12] focus:ring-[#ff6b12] accent-[#ff6b12] cursor-pointer"
                 />
-                <span className="text-xs font-semibold text-zinc-700">Remember me</span>
+                <span className="text-[14px] font-medium text-slate-700">Remember me</span>
               </label>
             </div>
 
@@ -424,7 +428,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full h-[46px] lg:h-[48px] rounded-xl bg-gradient-to-r from-[#ff6b12] to-[#ff5100] hover:from-[#f25f05] hover:to-[#e64700] text-white font-bold text-xs lg:text-sm tracking-wide shadow-[0_10px_22px_-6px_rgba(255,107,18,0.7)] active:scale-[0.99] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full h-[58px] rounded-xl bg-gradient-to-r from-[#ff7a18] to-[#ff4817] hover:from-[#f25f05] hover:to-[#e64700] text-white font-semibold text-[19px] shadow-[0_10px_22px_-6px_rgba(255,107,18,0.4)] active:scale-[0.99] transition-all flex items-center justify-center gap-5 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
             >
               {isLoading ? (
                 <>
@@ -434,7 +438,7 @@ export default function LoginPage() {
               ) : (
                 <>
                   <span>Sign In to Dashboard</span>
-                  <ArrowRight className="w-4 h-4 text-white" />
+                  <ArrowRight className="w-6 h-6 text-white" strokeWidth={1.5} />
                 </>
               )}
             </button>
@@ -442,7 +446,7 @@ export default function LoginPage() {
             {/* OR Divider */}
             <div className="relative py-1 flex items-center justify-center">
               <div className="border-t border-zinc-200/90 w-full" />
-              <span className="absolute bg-[#f9f9fa] px-3 text-[10px] font-bold tracking-wider uppercase text-zinc-400">
+              <span className="absolute bg-[#f9f9fa] px-5 text-[14px] font-semibold uppercase text-slate-500">
                 OR
               </span>
             </div>
@@ -451,15 +455,15 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => setShowSupportModal(true)}
-              className="w-full h-[42px] lg:h-[44px] rounded-xl border border-zinc-200/90 bg-white/80 hover:bg-white text-zinc-700 hover:text-zinc-950 font-semibold text-xs transition flex items-center justify-between px-3.5 shadow-xs group cursor-pointer"
+              className="w-full h-[58px] rounded-xl border border-slate-300 bg-white/70 hover:bg-white text-slate-800 hover:text-zinc-950 font-medium text-[14px] transition flex items-center justify-between px-5 shadow-xs group cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <div className="w-5 h-5 rounded-md bg-zinc-100 flex items-center justify-center text-zinc-600 group-hover:text-[#ff6b12] transition-colors">
-                  <Building2 className="w-3.5 h-3.5" />
+                  <Building2 className="w-6 h-6" />
                 </div>
                 <span>Need Help? Contact Support</span>
               </div>
-              <ChevronRight className="w-3.5 h-3.5 text-zinc-400 group-hover:translate-x-0.5 transition-transform" />
+              <ChevronRight className="w-5 h-5 text-slate-500 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </form>
 
