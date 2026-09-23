@@ -6,6 +6,11 @@ import {
   Menu,
   X,
   ChevronDown,
+  TrendingUp,
+  Home,
+  MoreHorizontal,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 /**
@@ -58,6 +63,7 @@ function EstateSyncLogoMark({ className = "w-10 h-10" }: { className?: string })
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [activeSlide, setActiveSlide] = useState(1);
 
   return (
@@ -141,12 +147,28 @@ export default function LandingPage() {
             </nav>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 md:hidden">
+          {/* Right Controls: Dark Mode Toggle & Mobile Menu */}
+          <div className="flex items-center gap-3">
+            {/* Dark Mode Pill Button */}
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle Theme Mode"
+              className="hidden md:inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#101522]/85 hover:bg-[#1a2236] text-white text-[11.5px] font-semibold tracking-wide border border-white/20 shadow-sm backdrop-blur-md transition active:scale-95 cursor-pointer"
+            >
+              {isDarkMode ? (
+                <Sun className="w-3.5 h-3.5 text-amber-400" />
+              ) : (
+                <Moon className="w-3.5 h-3.5 text-slate-200" />
+              )}
+              <span>{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
+            </button>
+
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Close Menu" : "Open Menu"}
-              className="p-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition"
+              className="md:hidden p-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -348,9 +370,9 @@ export default function LandingPage() {
           </div>
 
           {/* ===================================================================== */}
-          {/* RIGHT VISUAL AREA (Clean backdrop on desktop, responsive for mobile) */}
+          {/* RIGHT VISUAL AREA (Floating Glassmorphic KPI Cards on Desktop)       */}
           {/* ===================================================================== */}
-          <div className="lg:col-span-6 xl:col-span-6 relative w-full flex flex-col justify-between min-h-0 pointer-events-none">
+          <div className="lg:col-span-6 xl:col-span-6 relative w-full flex flex-col justify-between min-h-0 pointer-events-none self-stretch py-1">
             
             {/* Mobile/Tablet Fallback Card (<lg screens) */}
             <div className="lg:hidden relative w-full h-72 sm:h-80 rounded-2xl overflow-hidden shadow-xl border border-slate-200 my-4 pointer-events-auto">
@@ -379,6 +401,86 @@ export default function LandingPage() {
                 <div className="mt-0.5 text-xl font-black font-digital text-white">
                   ₹ 102.4 Cr
                 </div>
+              </div>
+            </div>
+
+            {/* Desktop Top Right Label */}
+            <div className="hidden lg:flex justify-end pr-2 xl:pr-6 pt-1 select-none pointer-events-auto">
+              <span className="text-[10px] xl:text-[11px] font-extrabold tracking-[0.24em] text-white/90 uppercase drop-shadow-md">
+                LAND &nbsp;|&nbsp; PEOPLE &nbsp;|&nbsp; FINANCE &nbsp;|&nbsp; GROWTH
+              </span>
+            </div>
+
+            {/* Desktop Floating Glassmorphic Metric Cards */}
+            <div className="hidden lg:flex flex-col items-end space-y-3.5 xl:space-y-4 my-auto pr-2 xl:pr-6 select-none pointer-events-auto">
+              
+              {/* Metric Card 1: Total Portfolio Value (Dark Frosted Glass) */}
+              <Link
+                href="/dashboards"
+                className="w-full max-w-[285px] xl:max-w-[315px] 2xl:max-w-[335px] bg-slate-900/40 hover:bg-slate-900/50 backdrop-blur-xl border border-white/25 rounded-3xl p-4 sm:p-4.5 text-white shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:-translate-y-1 hover:border-orange-400/50 transition duration-200 group block"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-2xl bg-[#ff6b12] flex items-center justify-center text-white shadow-md shrink-0">
+                      <TrendingUp className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-[12px] font-semibold text-slate-200 tracking-wide leading-tight">
+                        Total Portfolio Value
+                      </p>
+                      <p className="text-xl xl:text-2xl font-black text-white font-mono tracking-tight mt-0.5">
+                        ₹ 102.4 Cr
+                      </p>
+                    </div>
+                  </div>
+                  <MoreHorizontal className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+                </div>
+
+                <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px] font-bold text-emerald-400">
+                  <span>↗ +12.5%</span>
+                  <span className="text-[10.5px] text-slate-300/80 font-normal">vs last quarter</span>
+                </div>
+              </Link>
+
+              {/* Metric Card 2: Total Properties (Light Frosted Glass) */}
+              <Link
+                href="/dashboards"
+                className="w-full max-w-[285px] xl:max-w-[315px] 2xl:max-w-[335px] bg-white/20 hover:bg-white/25 backdrop-blur-xl border border-white/30 rounded-3xl p-4 sm:p-4.5 text-white shadow-[0_20px_40px_rgba(0,0,0,0.25)] hover:-translate-y-1 hover:border-orange-400/60 transition duration-200 group block"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-2xl bg-white flex items-center justify-center text-[#ff6b12] shadow-[0_0_18px_rgba(255,255,255,0.7)] shrink-0">
+                      <Home className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-[12px] font-semibold text-white/90 tracking-wide leading-tight">
+                        Total Properties
+                      </p>
+                      <p className="text-xl xl:text-2xl font-black text-white font-mono tracking-tight mt-0.5">
+                        500+
+                      </p>
+                    </div>
+                  </div>
+                  <MoreHorizontal className="w-4 h-4 text-white/60 group-hover:text-white transition-colors" />
+                </div>
+
+                <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px] font-bold text-emerald-400">
+                  <span>↗ +8%</span>
+                  <span className="text-[10.5px] text-white/80 font-normal">vs last quarter</span>
+                </div>
+              </Link>
+            </div>
+
+            {/* Desktop Lower Right Brand Statement */}
+            <div className="hidden lg:flex items-center gap-2.5 self-end pr-2 xl:pr-6 pb-1 select-none pointer-events-auto">
+              <div className="w-[2px] h-9 bg-slate-900/80 rounded-full" />
+              <div className="flex flex-col">
+                <span className="text-[9.5px] xl:text-[10px] font-black tracking-[0.22em] text-slate-900 uppercase leading-snug drop-shadow-xs">
+                  BUILDING<br />
+                  A BRIGHTER<br />
+                  TOMORROW
+                </span>
+                <span className="w-7 h-[2px] bg-[#ff6b12] rounded-full mt-1 inline-block" />
               </div>
             </div>
 
