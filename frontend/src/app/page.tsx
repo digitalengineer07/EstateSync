@@ -63,8 +63,6 @@ function EstateSyncLogoMark({ className = "w-10 h-10" }: { className?: string })
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [activeSlide, setActiveSlide] = useState(1);
 
   return (
     <div className="relative min-h-screen lg:h-screen lg:max-h-screen w-full bg-[#FAF9F7] text-slate-900 font-sans overflow-x-hidden lg:overflow-hidden flex flex-col justify-between selection:bg-[#ff6b12]/20 selection:text-[#ff6b12]">
@@ -275,7 +273,7 @@ export default function LandingPage() {
             </div>
 
             {/* 4 Feature Highlights Row (No divider line, soft peach squircle icons) */}
-            <div className="mt-5 sm:mt-6">
+            <div className="mt-8 sm:mt-9 lg:mt-11 xl:mt-12">
               <div className="grid grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5 xl:gap-4">
                 
                 {/* 1: Real-time Financial Insights */}
@@ -349,7 +347,7 @@ export default function LandingPage() {
             </div>
 
             {/* Brand Quote (2 Lines, Vertical Accent) */}
-            <div className="mt-4 sm:mt-5 border-l-[2.5px] border-[#ff6b12] pl-3.5 sm:pl-4">
+            <div className="mt-6 sm:mt-7 lg:mt-9 xl:mt-10 border-l-[2.5px] border-[#ff6b12] pl-3.5 sm:pl-4">
               <p className="text-[11px] sm:text-[12px] text-slate-600 italic font-medium leading-snug">
                 “Data today.<br />Stronger developments tomorrow.”
               </p>
@@ -470,44 +468,9 @@ export default function LandingPage() {
         </div>
 
         {/* ========================================================================= */}
-        {/* FOOTER INDICATORS (No dividing line, Carousel Numbers & Scroll Down Cue)  */}
+        {/* FOOTER (Scroll Down Cue on the right)                                     */}
         {/* ========================================================================= */}
-        <div className="pb-3 sm:pb-4 pt-1 flex items-center justify-between text-xs text-slate-500 shrink-0">
-          
-          {/* Carousel Slide Indicators */}
-          <div className="flex items-center gap-4 font-mono font-bold tracking-wider select-none text-[11px] sm:text-xs">
-            <button
-              onClick={() => setActiveSlide(1)}
-              className={`relative pb-1 transition cursor-pointer ${
-                activeSlide === 1
-                  ? "text-slate-900 font-black after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#ff6b12] after:rounded-full"
-                  : "text-slate-400 hover:text-slate-700"
-              }`}
-            >
-              01
-            </button>
-            <button
-              onClick={() => setActiveSlide(2)}
-              className={`relative pb-1 transition cursor-pointer ${
-                activeSlide === 2
-                  ? "text-slate-900 font-black after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#ff6b12] after:rounded-full"
-                  : "text-slate-400 hover:text-slate-700"
-              }`}
-            >
-              02
-            </button>
-            <button
-              onClick={() => setActiveSlide(3)}
-              className={`relative pb-1 transition cursor-pointer ${
-                activeSlide === 3
-                  ? "text-slate-900 font-black after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#ff6b12] after:rounded-full"
-                  : "text-slate-400 hover:text-slate-700"
-              }`}
-            >
-              03
-            </button>
-          </div>
-
+        <div className="pb-3 sm:pb-4 pt-1 flex items-center justify-end text-xs text-slate-500 shrink-0">
           {/* Scroll Down Cue */}
           <div className="flex items-center gap-2 text-slate-500 font-semibold select-none group cursor-pointer hover:text-slate-900 transition">
             {/* Custom Mouse SVG Icon with downward chevron */}
