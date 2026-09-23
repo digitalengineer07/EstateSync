@@ -231,49 +231,53 @@ export default function LandingPage() {
           {/* ===================================================================== */}
           {/* LEFT CONTENT AREA (Exact Pixel Alignment Matching Uploaded Image)     */}
           {/* ===================================================================== */}
-          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center max-w-[490px] xl:max-w-[530px] 2xl:max-w-[560px] py-1">
+          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-between self-stretch max-w-[490px] xl:max-w-[530px] 2xl:max-w-[560px] py-1">
             
-            {/* Eyebrow Label with Orange Accent Dash */}
-            <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3">
-              <span className="w-7 h-[2.5px] bg-[#ff6b12] rounded-full inline-block" />
-              <p className="text-[10px] sm:text-[10.5px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
-                REAL ESTATE TREASURY PLATFORM
+            {/* Top Hero Narrative Group */}
+            <div className="flex flex-col">
+              {/* Eyebrow Label with Orange Accent Dash */}
+              <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3">
+                <span className="w-7 h-[2.5px] bg-[#ff6b12] rounded-full inline-block" />
+                <p className="text-[10px] sm:text-[10.5px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
+                  REAL ESTATE TREASURY PLATFORM
+                </p>
+              </div>
+
+              {/* Editorial Headline */}
+              <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] 2xl:text-[52px] font-black text-slate-950 tracking-tight leading-[1.04]">
+                Properties<br />
+                create value.<br />
+                <span className="text-[#ff6b12]">Clarity</span> keeps it<br />
+                growing.
+              </h1>
+
+              {/* Value Proposition Description */}
+              <p className="mt-3 sm:mt-3.5 text-xs sm:text-[13px] lg:text-[13.5px] xl:text-[14.5px] text-slate-500 leading-relaxed font-normal max-w-[460px] xl:max-w-[490px]">
+                EstateSync unifies property collections, land acquisitions, expenses, staff wallets and double-entry accounting — so you can manage everything with confidence.
               </p>
+
+              {/* Primary & Secondary CTAs */}
+              <div className="mt-4 sm:mt-5 flex items-center gap-3 sm:gap-3.5">
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center gap-2 h-11 sm:h-11.5 px-6 sm:px-7 rounded-xl bg-[#ff6b12] text-white font-extrabold text-xs sm:text-[13px] shadow-[0_12px_24px_-4px_rgba(255,107,18,0.55)] hover:bg-[#f25f05] hover:shadow-[0_16px_28px_-4px_rgba(255,107,18,0.7)] hover:-translate-y-0.5 transition-all duration-200 group"
+                >
+                  <span>Sign In to Portal</span>
+                  <span className="text-sm font-bold group-hover:translate-x-1 transition-transform">→</span>
+                </Link>
+                
+                <Link
+                  href="/dashboards"
+                  className="inline-flex items-center justify-center h-11 sm:h-11.5 px-6 sm:px-7 rounded-xl bg-white border border-slate-300 text-slate-800 font-extrabold text-xs sm:text-[13px] hover:bg-slate-50 hover:border-slate-400 hover:-translate-y-0.5 transition-all duration-200 shadow-2xs"
+                >
+                  View Dashboards
+                </Link>
+              </div>
             </div>
 
-            {/* Editorial Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] 2xl:text-[52px] font-black text-slate-950 tracking-tight leading-[1.04]">
-              Properties<br />
-              create value.<br />
-              <span className="text-[#ff6b12]">Clarity</span> keeps it<br />
-              growing.
-            </h1>
-
-            {/* Value Proposition Description */}
-            <p className="mt-3 sm:mt-3.5 text-xs sm:text-[13px] lg:text-[13.5px] xl:text-[14.5px] text-slate-500 leading-relaxed font-normal max-w-[460px] xl:max-w-[490px]">
-              EstateSync unifies property collections, land acquisitions, expenses, staff wallets and double-entry accounting — so you can manage everything with confidence.
-            </p>
-
-            {/* Primary & Secondary CTAs */}
-            <div className="mt-4 sm:mt-5 flex items-center gap-3 sm:gap-3.5">
-              <Link
-                href="/login"
-                className="inline-flex items-center justify-center gap-2 h-11 sm:h-11.5 px-6 sm:px-7 rounded-xl bg-[#ff6b12] text-white font-extrabold text-xs sm:text-[13px] shadow-[0_12px_24px_-4px_rgba(255,107,18,0.55)] hover:bg-[#f25f05] hover:shadow-[0_16px_28px_-4px_rgba(255,107,18,0.7)] hover:-translate-y-0.5 transition-all duration-200 group"
-              >
-                <span>Sign In to Portal</span>
-                <span className="text-sm font-bold group-hover:translate-x-1 transition-transform">→</span>
-              </Link>
-              
-              <Link
-                href="/dashboards"
-                className="inline-flex items-center justify-center h-11 sm:h-11.5 px-6 sm:px-7 rounded-xl bg-white border border-slate-300 text-slate-800 font-extrabold text-xs sm:text-[13px] hover:bg-slate-50 hover:border-slate-400 hover:-translate-y-0.5 transition-all duration-200 shadow-2xs"
-              >
-                View Dashboards
-              </Link>
-            </div>
-
-            {/* 4 Feature Highlights Row (No divider line, soft peach squircle icons) */}
-            <div className="mt-10 sm:mt-12 lg:mt-14 xl:mt-16">
+            {/* Bottom Proof & Capabilities Group (Shifted Downwards to Occupy Lower Space) */}
+            <div className="flex flex-col mt-8 sm:mt-10 lg:mt-12">
+              {/* 4 Feature Highlights Row (No divider line, soft peach squircle icons) */}
               <div className="grid grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5 xl:gap-4">
                 
                 {/* 1: Real-time Financial Insights */}
@@ -344,17 +348,17 @@ export default function LandingPage() {
                   </span>
                 </div>
               </div>
-            </div>
 
-            {/* Brand Quote (2 Lines, Vertical Accent) */}
-            <div className="mt-8 sm:mt-9 lg:mt-11 xl:mt-13 border-l-[3px] border-[#ff6b12] pl-4 sm:pl-4.5">
-              <p className="text-[13px] sm:text-[13.5px] lg:text-[14.5px] text-slate-600 italic font-medium leading-relaxed">
-                “Data today.<br />Stronger developments tomorrow.”
-              </p>
-              <p className="text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-500 font-semibold tracking-wide mt-1.5 flex items-center gap-1.5">
-                <span>—</span>
-                <span>EstateSync</span>
-              </p>
+              {/* Brand Quote (2 Lines, Vertical Accent) */}
+              <div className="mt-7 sm:mt-8 lg:mt-9 xl:mt-11 border-l-[3px] border-[#ff6b12] pl-4 sm:pl-4.5">
+                <p className="text-[13px] sm:text-[13.5px] lg:text-[14.5px] text-slate-600 italic font-medium leading-relaxed">
+                  “Data today.<br />Stronger developments tomorrow.”
+                </p>
+                <p className="text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-500 font-semibold tracking-wide mt-1.5 flex items-center gap-1.5">
+                  <span>—</span>
+                  <span>EstateSync</span>
+                </p>
+              </div>
             </div>
           </div>
 
