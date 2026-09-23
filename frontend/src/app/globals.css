@@ -206,3 +206,20 @@ input[type="number"] {
     padding-top: 8px;
   }
 }
+
+/* Button Click Ripple Animation */
+@keyframes btn-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.animate-btn-ripple {
+  animation: btn-ripple 600ms cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+

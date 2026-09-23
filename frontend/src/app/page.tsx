@@ -63,6 +63,18 @@ function EstateSyncLogoMark({ className = "w-10 h-10" }: { className?: string })
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [ripples, setRipples] = useState<{ id: number; x: number; y: number }[]>([]);
+
+  const handleButtonClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const id = Date.now();
+    setRipples((prev) => [...prev, { id, x, y }]);
+    setTimeout(() => {
+      setRipples((prev) => prev.filter((r) => r.id !== id));
+    }, 600);
+  };
 
   return (
     <div className="relative min-h-screen lg:h-screen lg:max-h-screen w-full bg-[#FAF9F7] text-slate-900 font-sans overflow-x-hidden lg:overflow-hidden flex flex-col justify-between selection:bg-[#ff6b12]/20 selection:text-[#ff6b12]">
@@ -250,14 +262,29 @@ export default function LandingPage() {
                 EstateSync unifies property collections, land acquisitions, expenses, staff wallets and double-entry accounting — so you can manage everything with confidence.
               </p>
 
-              {/* Primary CTA */}
+              {/* Primary CTA with Tactile Click Animation & Expanding Ripple */}
               <div className="mt-4 sm:mt-5 flex items-center">
                 <Link
                   href="/login"
-                  className="inline-flex items-center justify-center gap-2 h-11 sm:h-11.5 px-6 sm:px-7 rounded-xl bg-[#ff6b12] text-white font-extrabold text-xs sm:text-[13px] shadow-[0_12px_24px_-4px_rgba(255,107,18,0.55)] hover:bg-[#f25f05] hover:shadow-[0_16px_28px_-4px_rgba(255,107,18,0.7)] hover:-translate-y-0.5 transition-all duration-200 group"
+                  onClick={handleButtonClick}
+                  className="relative overflow-hidden inline-flex items-center justify-center gap-2 h-11 sm:h-11.5 px-6 sm:px-7 rounded-xl bg-[#ff6b12] text-white font-extrabold text-xs sm:text-[13px] shadow-[0_12px_24px_-4px_rgba(255,107,18,0.55)] hover:bg-[#f25f05] hover:shadow-[0_16px_28px_-4px_rgba(255,107,18,0.7)] hover:-translate-y-0.5 active:translate-y-1 active:scale-[0.95] active:shadow-[0_4px_10px_-2px_rgba(255,107,18,0.45)] transition-all duration-200 active:duration-75 group select-none cursor-pointer"
                 >
-                  <span>Sign In to Portal</span>
-                  <span className="text-sm font-bold group-hover:translate-x-1 transition-transform">→</span>
+                  {/* Expanding Click Ripple Wave */}
+                  <span className="absolute inset-0 pointer-events-none overflow-hidden rounded-xl">
+                    {ripples.map((ripple) => (
+                      <span
+                        key={ripple.id}
+                        className="absolute w-12 h-12 -ml-6 -mt-6 rounded-full bg-white/45 animate-btn-ripple pointer-events-none"
+                        style={{
+                          left: ripple.x,
+                          top: ripple.y,
+                        }}
+                      />
+                    ))}
+                  </span>
+
+                  <span className="relative z-10 transition-transform duration-150 active:scale-95">Sign In to Portal</span>
+                  <span className="relative z-10 text-sm font-bold transition-transform duration-200 group-hover:translate-x-1.5 active:translate-x-2.5">→</span>
                 </Link>
               </div>
             </div>
