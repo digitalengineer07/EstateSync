@@ -93,19 +93,20 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="relative min-h-screen w-full bg-[#F7F6F2] text-slate-900 font-sans overflow-x-hidden selection:bg-[#ff6b12]/20 selection:text-[#ff6b12]">
+    <div className="relative min-h-screen lg:h-screen lg:max-h-screen w-full bg-[#F7F6F2] text-slate-900 font-sans overflow-x-hidden lg:overflow-hidden flex flex-col justify-between selection:bg-[#ff6b12]/20 selection:text-[#ff6b12]">
       
       {/* ========================================================================= */}
       {/* DESKTOP HERO ARCHITECTURAL BACKGROUND (Right 55% with Organic S-Curve)    */}
       {/* ========================================================================= */}
       <div className="hidden lg:block absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Architectural Image */}
+        {/* Architectural Image aligned to top matching exact 16:9 crop */}
         <div
           role="img"
           aria-label="EstateSync luxury rooftop terrace overlooking sunset skyline"
-          className="absolute inset-0 bg-cover bg-right-top transform scale-[1.01]"
+          className="absolute inset-0 bg-cover bg-no-repeat"
           style={{
             backgroundImage: "url('/images/landing/luxury-terrace-sunset.jpg')",
+            backgroundPosition: "center top",
           }}
         />
 
@@ -209,19 +210,19 @@ export default function LandingPage() {
       {/* ========================================================================= */}
       {/* TOP NAVIGATION BAR                                                        */}
       {/* ========================================================================= */}
-      <header className="relative z-30 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 pt-5 pb-4">
+      <header className="relative z-30 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 pt-3 sm:pt-4 pb-2 shrink-0">
         <div className="flex items-center justify-between">
           
           {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-3.5 group select-none">
+          <Link href="/" className="flex items-center gap-3 group select-none">
             <div className="shadow-md shadow-orange-900/10 rounded-xl overflow-hidden transition-transform duration-200 group-hover:scale-105">
-              <EstateSyncLogoMark className="w-10 h-10" />
+              <EstateSyncLogoMark className="w-9 h-9" />
             </div>
             <div className="flex flex-col">
-              <span className="text-[21px] font-black tracking-tight text-slate-900 leading-none">
+              <span className="text-lg sm:text-[19px] font-black tracking-tight text-slate-900 leading-none">
                 Estate<span className="text-[#ff6b12]">Sync</span>
               </span>
-              <span className="text-[9.5px] font-extrabold tracking-[0.22em] text-slate-400 uppercase mt-1.5">
+              <span className="text-[9px] font-extrabold tracking-[0.2em] text-slate-400 uppercase mt-1">
                 BY DEVOXA TECHNOLOGIES
               </span>
             </div>
@@ -230,7 +231,7 @@ export default function LandingPage() {
           {/* Center Navigation Links (Desktop) */}
           <nav
             aria-label="Primary Navigation"
-            className="hidden md:flex items-center gap-8 lg:gap-10 text-[13.5px] font-semibold tracking-wide"
+            className="hidden md:flex items-center gap-7 lg:gap-9 text-[13px] font-semibold tracking-wide"
           >
             <Link
               href="/"
@@ -271,7 +272,7 @@ export default function LandingPage() {
               onClick={() => setIsDarkMode(!isDarkMode)}
               title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
               aria-label="Toggle Theme Mode"
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#101522] hover:bg-[#1a2236] text-white text-xs font-semibold tracking-wide border border-white/10 shadow-sm transition active:scale-95"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#101522] hover:bg-[#1a2236] text-white text-[11.5px] font-semibold tracking-wide border border-white/10 shadow-sm transition active:scale-95"
             >
               {isDarkMode ? (
                 <Sun className="w-3.5 h-3.5 text-amber-400" />
@@ -351,26 +352,26 @@ export default function LandingPage() {
       </header>
 
       {/* ========================================================================= */}
-      {/* MAIN HERO SECTION                                                         */}
+      {/* MAIN HERO SECTION (Single Viewport Frame, No Scrolling on Desktop)        */}
       {/* ========================================================================= */}
-      <main className="relative z-10 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 pt-2 pb-12 lg:pb-6 lg:min-h-[calc(100vh-92px)] flex flex-col justify-between">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center flex-1 my-auto">
+      <main className="relative z-10 w-full max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 flex-1 flex flex-col justify-between py-1 lg:py-2 min-h-0">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center flex-1 my-auto">
           
           {/* ===================================================================== */}
-          {/* LEFT CONTENT AREA (45-50% on Desktop)                                 */}
+          {/* LEFT CONTENT AREA (Zoomed out & adjusted to fit single frame)         */}
           {/* ===================================================================== */}
-          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center max-w-[620px] py-4 lg:py-6">
+          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center max-w-[500px] xl:max-w-[540px] py-1">
             
             {/* Eyebrow Label */}
-            <div className="flex items-center gap-2.5 mb-4 sm:mb-6">
-              <span className="w-5 h-[2px] bg-[#ff6b12] rounded-full inline-block" />
-              <p className="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.22em] text-slate-500">
+            <div className="flex items-center gap-2 mb-2 sm:mb-2.5">
+              <span className="w-4 h-[2px] bg-[#ff6b12] rounded-full inline-block" />
+              <p className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.2em] text-slate-500">
                 REAL ESTATE TREASURY PLATFORM
               </p>
             </div>
 
             {/* Editorial Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[52px] xl:text-[58px] 2xl:text-[64px] font-black text-slate-900 tracking-tight leading-[1.04]">
+            <h1 className="text-3xl sm:text-4xl lg:text-[38px] xl:text-[44px] 2xl:text-[48px] font-black text-slate-900 tracking-tight leading-[1.06]">
               Properties<br />
               create value.<br />
               <span className="text-[#ff6b12]">Clarity</span> keeps it<br />
@@ -378,42 +379,42 @@ export default function LandingPage() {
             </h1>
 
             {/* Value Proposition Description */}
-            <p className="mt-5 sm:mt-6 text-sm sm:text-base lg:text-[16.5px] text-slate-600 leading-relaxed max-w-[540px]">
+            <p className="mt-3 sm:mt-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] text-slate-600 leading-relaxed max-w-[480px]">
               EstateSync unifies property collections, land acquisitions, expenses, staff wallets and double-entry accounting — so your team can manage everything with confidence.
             </p>
 
             {/* Primary & Secondary CTAs */}
-            <div className="mt-7 sm:mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4">
+            <div className="mt-4 sm:mt-5 flex flex-wrap items-center gap-3">
               <Link
                 href="/login"
-                className="inline-flex items-center justify-center gap-2 h-12 sm:h-[50px] px-7 rounded-xl bg-[#ff6b12] text-white font-extrabold text-sm shadow-[0_12px_28px_-10px_rgba(255,107,18,0.7)] hover:bg-[#f25f05] hover:shadow-[0_16px_32px_-10px_rgba(255,107,18,0.85)] hover:-translate-y-0.5 transition-all duration-200 group"
+                className="inline-flex items-center justify-center gap-2 h-10 sm:h-11 px-6 rounded-xl bg-[#ff6b12] text-white font-extrabold text-xs sm:text-[13px] shadow-[0_10px_24px_-8px_rgba(255,107,18,0.7)] hover:bg-[#f25f05] hover:shadow-[0_14px_28px_-8px_rgba(255,107,18,0.85)] hover:-translate-y-0.5 transition-all duration-200 group"
               >
                 <span>Sign In to Portal</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </Link>
               
               <Link
                 href="/dashboards"
-                className="inline-flex items-center justify-center h-12 sm:h-[50px] px-7 rounded-xl bg-white border border-slate-300 text-slate-800 font-extrabold text-sm hover:bg-slate-50 hover:border-slate-400 hover:-translate-y-0.5 transition-all duration-200 shadow-2xs"
+                className="inline-flex items-center justify-center h-10 sm:h-11 px-6 rounded-xl bg-white border border-slate-300 text-slate-800 font-extrabold text-xs sm:text-[13px] hover:bg-slate-50 hover:border-slate-400 hover:-translate-y-0.5 transition-all duration-200 shadow-2xs"
               >
                 View Dashboards
               </Link>
             </div>
 
             {/* 4 Feature Highlights Strip */}
-            <div className="mt-9 sm:mt-11 pt-6 border-t border-slate-200/80">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-3 lg:gap-4">
+            <div className="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-slate-200/80">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-2.5 lg:gap-3.5">
                 {featureItems.map((item, index) => {
                   const IconComponent = item.icon;
                   return (
                     <div key={index} className="flex flex-col group">
-                      <div className="w-9 h-9 rounded-xl bg-orange-50 border border-orange-200/70 text-[#ff6b12] flex items-center justify-center mb-2.5 transition-transform duration-150 group-hover:scale-105 shadow-2xs">
-                        <IconComponent className="w-4 h-4" />
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-orange-50 border border-orange-200/70 text-[#ff6b12] flex items-center justify-center mb-1.5 transition-transform duration-150 group-hover:scale-105 shadow-2xs">
+                        <IconComponent className="w-3.5 h-3.5" />
                       </div>
-                      <span className="text-xs font-extrabold text-slate-900 leading-tight">
+                      <span className="text-[11px] sm:text-xs font-extrabold text-slate-900 leading-tight">
                         {item.title}
                       </span>
-                      <span className="text-[11px] text-slate-500 font-medium leading-tight mt-0.5">
+                      <span className="text-[9.5px] sm:text-[10px] text-slate-500 font-medium leading-tight mt-0.5">
                         {item.subtitle}
                       </span>
                     </div>
@@ -423,11 +424,11 @@ export default function LandingPage() {
             </div>
 
             {/* Brand Quote */}
-            <div className="mt-8 pt-5 border-l-2 border-[#ff6b12] pl-3.5">
-              <p className="text-xs sm:text-[13px] text-slate-600 italic font-medium leading-normal">
+            <div className="mt-4 sm:mt-4.5 pt-2 border-l-2 border-[#ff6b12] pl-3">
+              <p className="text-[11px] sm:text-xs text-slate-600 italic font-medium leading-normal">
                 “Data today. Stronger developments tomorrow.”
               </p>
-              <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider mt-1">
+              <p className="text-[9.5px] sm:text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">
                 — EstateSync
               </p>
             </div>
@@ -436,134 +437,135 @@ export default function LandingPage() {
           {/* ===================================================================== */}
           {/* RIGHT VISUAL AREA (Floating Metrics & Brand Accents)                  */}
           {/* ===================================================================== */}
-          <div className="lg:col-span-6 xl:col-span-6 relative w-full flex flex-col justify-between min-h-[380px] sm:min-h-[460px] lg:min-h-[580px] p-2 sm:p-4 lg:p-6">
+          <div className="lg:col-span-6 xl:col-span-6 relative w-full flex flex-col justify-between min-h-[340px] sm:min-h-[420px] lg:min-h-[500px] p-2 sm:p-4">
             
             {/* Mobile/Tablet Fallback Image Card (<lg screens) */}
-            <div className="lg:hidden relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden shadow-xl border border-slate-200 mb-6">
+            <div className="lg:hidden relative w-full h-72 sm:h-80 rounded-2xl overflow-hidden shadow-xl border border-slate-200 mb-4">
               <div
                 role="img"
                 aria-label="EstateSync luxury rooftop terrace overlooking sunset skyline"
-                className="absolute inset-0 bg-cover bg-center"
+                className="absolute inset-0 bg-cover bg-no-repeat"
                 style={{
                   backgroundImage: "url('/images/landing/luxury-terrace-sunset.jpg')",
+                  backgroundPosition: "center top",
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
               
               {/* Top Right Label on mobile image */}
-              <div className="absolute top-4 right-4">
-                <span className="text-[10px] font-extrabold tracking-[0.2em] text-white/90 uppercase drop-shadow-md">
+              <div className="absolute top-3.5 right-3.5">
+                <span className="text-[9.5px] font-extrabold tracking-[0.2em] text-white/90 uppercase drop-shadow-md">
                   LAND | PEOPLE | FINANCE | GROWTH
                 </span>
               </div>
 
               {/* Overlaid metric card on mobile */}
-              <div className="absolute bottom-4 left-4 right-4 bg-slate-900/80 backdrop-blur-md border border-white/20 rounded-xl p-3.5 text-white shadow-lg">
-                <div className="flex justify-between items-center text-xs">
+              <div className="absolute bottom-3 left-3 right-3 bg-slate-900/85 backdrop-blur-md border border-white/20 rounded-xl p-3 text-white shadow-lg">
+                <div className="flex justify-between items-center text-[11px]">
                   <span className="font-semibold text-slate-300">Total Portfolio Value</span>
                   <span className="font-bold text-emerald-400">↗ +12.5%</span>
                 </div>
-                <div className="mt-1 text-2xl font-black font-digital text-white">
+                <div className="mt-0.5 text-xl font-black font-digital text-white">
                   ₹ 102.4 Cr
                 </div>
               </div>
             </div>
 
             {/* Desktop Top Right Label */}
-            <div className="hidden lg:flex justify-end pr-2 pt-1">
-              <span className="text-[11px] font-extrabold tracking-[0.24em] text-slate-200/90 uppercase drop-shadow-md select-none">
+            <div className="hidden lg:flex justify-end pr-2 pt-0.5">
+              <span className="text-[10.5px] font-extrabold tracking-[0.22em] text-slate-200/90 uppercase drop-shadow-md select-none">
                 LAND &nbsp;|&nbsp; PEOPLE &nbsp;|&nbsp; FINANCE &nbsp;|&nbsp; GROWTH
               </span>
             </div>
 
             {/* Desktop Floating Metric Cards Container */}
-            <div className="hidden lg:flex flex-col items-end space-y-4 my-auto pr-2 xl:pr-6">
+            <div className="hidden lg:flex flex-col items-end space-y-3.5 my-auto pr-1 xl:pr-4">
               
               {/* Metric Card 1: Total Portfolio Value */}
-              <div className="w-full max-w-[280px] xl:max-w-[300px] bg-slate-900/65 backdrop-blur-md border border-white/25 rounded-2xl p-4 sm:p-5 text-white shadow-[0_20px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition duration-200 group">
+              <div className="w-full max-w-[260px] xl:max-w-[275px] bg-slate-900/65 backdrop-blur-md border border-white/25 rounded-2xl p-3.5 sm:p-4 text-white shadow-[0_16px_40px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition duration-200 group">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-[#ff6b12] flex items-center justify-center text-white shadow-sm">
-                      <TrendingUp className="w-4 h-4" />
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-lg bg-[#ff6b12] flex items-center justify-center text-white shadow-sm">
+                      <TrendingUp className="w-3.5 h-3.5" />
                     </div>
-                    <span className="text-xs font-semibold text-slate-300 tracking-wide">
+                    <span className="text-[11.5px] font-semibold text-slate-300 tracking-wide">
                       Total Portfolio Value
                     </span>
                   </div>
                   <MoreHorizontal className="w-4 h-4 text-slate-400" />
                 </div>
 
-                <div className="mt-3 text-2xl xl:text-3xl font-black text-white font-digital tracking-tight">
+                <div className="mt-2.5 text-xl xl:text-2xl font-black text-white font-digital tracking-tight">
                   ₹ 102.4 Cr
                 </div>
 
-                <div className="mt-2 flex items-center gap-1.5 text-xs font-bold text-emerald-400">
+                <div className="mt-1.5 flex items-center gap-1.5 text-[11px] font-bold text-emerald-400">
                   <span>↗ +12.5%</span>
-                  <span className="text-[11px] text-slate-400 font-normal">vs last quarter</span>
+                  <span className="text-[10px] text-slate-400 font-normal">vs last quarter</span>
                 </div>
               </div>
 
               {/* Metric Card 2: Total Properties */}
-              <div className="w-full max-w-[280px] xl:max-w-[300px] bg-slate-900/65 backdrop-blur-md border border-white/25 rounded-2xl p-4 sm:p-5 text-white shadow-[0_20px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition duration-200 group">
+              <div className="w-full max-w-[260px] xl:max-w-[275px] bg-slate-900/65 backdrop-blur-md border border-white/25 rounded-2xl p-3.5 sm:p-4 text-white shadow-[0_16px_40px_rgba(0,0,0,0.35)] hover:-translate-y-1 transition duration-200 group">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-[#ff6b12] flex items-center justify-center text-white shadow-sm">
-                      <Home className="w-4 h-4" />
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-lg bg-[#ff6b12] flex items-center justify-center text-white shadow-sm">
+                      <Home className="w-3.5 h-3.5" />
                     </div>
-                    <span className="text-xs font-semibold text-slate-300 tracking-wide">
+                    <span className="text-[11.5px] font-semibold text-slate-300 tracking-wide">
                       Total Properties
                     </span>
                   </div>
                   <MoreHorizontal className="w-4 h-4 text-slate-400" />
                 </div>
 
-                <div className="mt-3 text-2xl xl:text-3xl font-black text-white tracking-tight">
+                <div className="mt-2.5 text-xl xl:text-2xl font-black text-white tracking-tight">
                   500+
                 </div>
 
-                <div className="mt-2 flex items-center gap-1.5 text-xs font-bold text-emerald-400">
+                <div className="mt-1.5 flex items-center gap-1.5 text-[11px] font-bold text-emerald-400">
                   <span>↗ +8%</span>
-                  <span className="text-[11px] text-slate-400 font-normal">vs last quarter</span>
+                  <span className="text-[10px] text-slate-400 font-normal">vs last quarter</span>
                 </div>
               </div>
             </div>
 
             {/* Lower-right Brand Statement */}
-            <div className="hidden lg:flex flex-col items-end text-right pr-2 pb-1 select-none">
-              <span className="text-[10.5px] font-black tracking-[0.24em] text-white/95 uppercase leading-tight drop-shadow-md">
+            <div className="hidden lg:flex flex-col items-end text-right pr-2 pb-0.5 select-none">
+              <span className="text-[9.5px] font-black tracking-[0.24em] text-white/95 uppercase leading-tight drop-shadow-md">
                 BUILDING<br />
                 A BRIGHTER<br />
                 TOMORROW
               </span>
-              <span className="w-8 h-[2px] bg-[#ff6b12] rounded-full mt-1.5 inline-block" />
+              <span className="w-7 h-[2px] bg-[#ff6b12] rounded-full mt-1 inline-block" />
             </div>
 
           </div>
         </div>
 
-        {/* ===================================================================== */}
-        {/* FOOTER INDICATORS (Carousel Numbers & Scroll Down)                    */}
-        {/* ===================================================================== */}
-        <div className="pt-6 border-t border-slate-200/60 flex items-center justify-between text-xs text-slate-500">
+        {/* ========================================================================= */}
+        {/* FOOTER INDICATORS (Carousel Numbers & Scroll Down Cue)                    */}
+        {/* ========================================================================= */}
+        <div className="pt-2.5 pb-2 border-t border-slate-200/60 flex items-center justify-between text-xs text-slate-500 shrink-0">
           
           {/* Subtle Carousel Indicator */}
-          <div className="flex items-center gap-4 font-mono font-bold tracking-wider select-none">
-            <span className="relative text-slate-900 font-extrabold pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#ff6b12]">
+          <div className="flex items-center gap-3.5 font-mono font-bold tracking-wider select-none text-[11px]">
+            <span className="relative text-slate-900 font-extrabold pb-0.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#ff6b12]">
               01
             </span>
-            <span className="text-slate-400 hover:text-slate-700 transition cursor-pointer pb-1">
+            <span className="text-slate-400 hover:text-slate-700 transition cursor-pointer pb-0.5">
               02
             </span>
-            <span className="text-slate-400 hover:text-slate-700 transition cursor-pointer pb-1">
+            <span className="text-slate-400 hover:text-slate-700 transition cursor-pointer pb-0.5">
               03
             </span>
           </div>
 
           {/* Scroll Down Cue */}
-          <div className="flex items-center gap-2 text-slate-500 font-semibold select-none group cursor-pointer hover:text-slate-800 transition">
+          <div className="flex items-center gap-1.5 text-slate-500 font-semibold select-none group cursor-pointer hover:text-slate-800 transition">
             {/* Custom Mouse SVG Icon */}
             <svg
-              className="w-4 h-4 text-slate-400 group-hover:text-[#ff6b12] transition-colors"
+              className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#ff6b12] transition-colors"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -574,8 +576,8 @@ export default function LandingPage() {
               <rect x="5" y="2" width="14" height="20" rx="7" />
               <path d="M12 6v4" />
             </svg>
-            <span className="text-[11px] uppercase tracking-wider">Scroll Down</span>
-            <ChevronDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
+            <span className="text-[10.5px] uppercase tracking-wider">Scroll Down</span>
+            <ChevronDown className="w-3 h-3 group-hover:translate-y-0.5 transition-transform" />
           </div>
         </div>
       </main>
