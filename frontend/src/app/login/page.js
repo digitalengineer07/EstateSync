@@ -293,9 +293,9 @@ export default function LoginPage() {
             style={{ backgroundImage: "url('/images/login/orange-wave-ribbon.png')" }}
           />
 
-          {/* Top Row: Brand Header + Theme Pill Control */}
-          <div className="relative z-10">
-            {/* Top Row with Theme Pill in top-right */}
+          {/* Top Row: Brand Header + Back to Home Control */}
+          <div className="relative z-10 pt-2.5 sm:pt-3.5 lg:pt-5">
+            {/* Top Row with Back to Home Button in top-right */}
             <div className="flex items-center justify-between mb-1">
               <div className="text-[14px] font-bold uppercase tracking-[0.25em] text-slate-500">
                 WELCOME TO
