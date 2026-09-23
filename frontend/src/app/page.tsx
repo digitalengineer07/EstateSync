@@ -276,7 +276,7 @@ export default function LandingPage() {
             </div>
 
             {/* Bottom Proof & Capabilities Group (Shifted Downwards to Occupy Lower Space) */}
-            <div className="flex flex-col mt-8 sm:mt-10 lg:mt-12">
+            <div className="flex flex-col mt-12 sm:mt-14 lg:mt-18 xl:mt-22">
               {/* 4 Feature Highlights Row (No divider line, soft peach squircle icons) */}
               <div className="grid grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5 xl:gap-4">
                 
@@ -350,7 +350,7 @@ export default function LandingPage() {
               </div>
 
               {/* Brand Quote (2 Lines, Vertical Accent) */}
-              <div className="mt-7 sm:mt-8 lg:mt-9 xl:mt-11 border-l-[3px] border-[#ff6b12] pl-4 sm:pl-4.5">
+              <div className="mt-8 sm:mt-9 lg:mt-11 xl:mt-13 border-l-[3px] border-[#ff6b12] pl-4 sm:pl-4.5">
                 <p className="text-[13px] sm:text-[13.5px] lg:text-[14.5px] text-slate-600 italic font-medium leading-relaxed">
                   “Data today.<br />Stronger developments tomorrow.”
                 </p>
