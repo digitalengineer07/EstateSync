@@ -273,73 +273,73 @@ export default function LandingPage() {
             </div>
 
             {/* 4 Feature Highlights Row (No divider line, soft peach squircle icons) */}
-            <div className="mt-8 sm:mt-9 lg:mt-11 xl:mt-12">
+            <div className="mt-10 sm:mt-12 lg:mt-14 xl:mt-16">
               <div className="grid grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5 xl:gap-4">
                 
                 {/* 1: Real-time Financial Insights */}
                 <div className="flex flex-col group">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFF6ED] border border-orange-200/70 text-[#ff6b12] flex items-center justify-center mb-1.5 transition-transform duration-150 group-hover:scale-105 shadow-[0_4px_12px_rgba(255,107,18,0.12)]">
-                    <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <div className="w-11 h-11 sm:w-11.5 sm:h-11.5 lg:w-12 lg:h-12 rounded-xl sm:rounded-2xl bg-[#FFF6ED] border border-orange-200/80 text-[#ff6b12] flex items-center justify-center mb-2 transition-transform duration-150 group-hover:scale-105 shadow-[0_4px_14px_rgba(255,107,18,0.15)]">
+                    <svg className="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M6 19v-4" />
                       <path d="M12 19v-9" />
                       <path d="M18 19v-14" />
                     </svg>
                   </div>
-                  <span className="text-[11.5px] sm:text-[12px] font-black text-slate-900 leading-tight">
+                  <span className="text-[13px] sm:text-[13.5px] lg:text-[14px] font-black text-slate-900 leading-tight">
                     Real-time
                   </span>
-                  <span className="text-[9.5px] sm:text-[10px] text-slate-500 font-medium leading-tight mt-0.5">
+                  <span className="text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-500 font-medium leading-snug mt-0.5">
                     Financial Insights
                   </span>
                 </div>
 
                 {/* 2: Secure Role Based Access */}
                 <div className="flex flex-col group">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFF6ED] border border-orange-200/70 text-[#ff6b12] flex items-center justify-center mb-1.5 transition-transform duration-150 group-hover:scale-105 shadow-[0_4px_12px_rgba(255,107,18,0.12)]">
-                    <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <div className="w-11 h-11 sm:w-11.5 sm:h-11.5 lg:w-12 lg:h-12 rounded-xl sm:rounded-2xl bg-[#FFF6ED] border border-orange-200/80 text-[#ff6b12] flex items-center justify-center mb-2 transition-transform duration-150 group-hover:scale-105 shadow-[0_4px_14px_rgba(255,107,18,0.15)]">
+                    <svg className="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                       <path d="m9 12 2 2 4-4" />
                     </svg>
                   </div>
-                  <span className="text-[11.5px] sm:text-[12px] font-black text-slate-900 leading-tight">
+                  <span className="text-[13px] sm:text-[13.5px] lg:text-[14px] font-black text-slate-900 leading-tight">
                     Secure
                   </span>
-                  <span className="text-[9.5px] sm:text-[10px] text-slate-500 font-medium leading-tight mt-0.5">
+                  <span className="text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-500 font-medium leading-snug mt-0.5">
                     Role Based Access
                   </span>
                 </div>
 
                 {/* 3: Better Team Collaboration */}
                 <div className="flex flex-col group">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFF6ED] border border-orange-200/70 text-[#ff6b12] flex items-center justify-center mb-1.5 transition-transform duration-150 group-hover:scale-105 shadow-[0_4px_12px_rgba(255,107,18,0.12)]">
-                    <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <div className="w-11 h-11 sm:w-11.5 sm:h-11.5 lg:w-12 lg:h-12 rounded-xl sm:rounded-2xl bg-[#FFF6ED] border border-orange-200/80 text-[#ff6b12] flex items-center justify-center mb-2 transition-transform duration-150 group-hover:scale-105 shadow-[0_4px_14px_rgba(255,107,18,0.15)]">
+                    <svg className="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                       <circle cx="9" cy="7" r="4" />
                       <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
                   </div>
-                  <span className="text-[11.5px] sm:text-[12px] font-black text-slate-900 leading-tight">
+                  <span className="text-[13px] sm:text-[13.5px] lg:text-[14px] font-black text-slate-900 leading-tight">
                     Better
                   </span>
-                  <span className="text-[9.5px] sm:text-[10px] text-slate-500 font-medium leading-tight mt-0.5">
+                  <span className="text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-500 font-medium leading-snug mt-0.5">
                     Team Collaboration
                   </span>
                 </div>
 
                 {/* 4: Accurate Accounting & Audit */}
                 <div className="flex flex-col group">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFF6ED] border border-orange-200/70 text-[#ff6b12] flex items-center justify-center mb-1.5 transition-transform duration-150 group-hover:scale-105 shadow-[0_4px_12px_rgba(255,107,18,0.12)]">
-                    <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <div className="w-11 h-11 sm:w-11.5 sm:h-11.5 lg:w-12 lg:h-12 rounded-xl sm:rounded-2xl bg-[#FFF6ED] border border-orange-200/80 text-[#ff6b12] flex items-center justify-center mb-2 transition-transform duration-150 group-hover:scale-105 shadow-[0_4px_14px_rgba(255,107,18,0.15)]">
+                    <svg className="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="m12 2 9 4.5-9 4.5-9-4.5z" />
                       <path d="m3 11.5 9 4.5 9-4.5" />
                       <path d="m3 16.5 9 4.5 9-4.5" />
                     </svg>
                   </div>
-                  <span className="text-[11.5px] sm:text-[12px] font-black text-slate-900 leading-tight">
+                  <span className="text-[13px] sm:text-[13.5px] lg:text-[14px] font-black text-slate-900 leading-tight">
                     Accurate
                   </span>
-                  <span className="text-[9.5px] sm:text-[10px] text-slate-500 font-medium leading-tight mt-0.5">
+                  <span className="text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-500 font-medium leading-snug mt-0.5">
                     Accounting & Audit
                   </span>
                 </div>
@@ -347,11 +347,11 @@ export default function LandingPage() {
             </div>
 
             {/* Brand Quote (2 Lines, Vertical Accent) */}
-            <div className="mt-6 sm:mt-7 lg:mt-9 xl:mt-10 border-l-[2.5px] border-[#ff6b12] pl-3.5 sm:pl-4">
-              <p className="text-[11px] sm:text-[12px] text-slate-600 italic font-medium leading-snug">
+            <div className="mt-8 sm:mt-9 lg:mt-11 xl:mt-13 border-l-[3px] border-[#ff6b12] pl-4 sm:pl-4.5">
+              <p className="text-[13px] sm:text-[13.5px] lg:text-[14.5px] text-slate-600 italic font-medium leading-relaxed">
                 “Data today.<br />Stronger developments tomorrow.”
               </p>
-              <p className="text-[9.5px] sm:text-[10px] text-slate-500 font-semibold tracking-wide mt-1 flex items-center gap-1.5">
+              <p className="text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-500 font-semibold tracking-wide mt-1.5 flex items-center gap-1.5">
                 <span>—</span>
                 <span>EstateSync</span>
               </p>
