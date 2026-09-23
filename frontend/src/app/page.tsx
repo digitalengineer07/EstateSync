@@ -147,22 +147,13 @@ export default function LandingPage() {
             </nav>
           </div>
 
-          {/* Right Controls: Dark Mode Toggle & Mobile Menu */}
+          {/* Right Header: LAND | PEOPLE | FINANCE | GROWTH (Aligned horizontally with nav links) */}
           <div className="flex items-center gap-3">
-            {/* Dark Mode Pill Button */}
-            <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-              aria-label="Toggle Theme Mode"
-              className="hidden md:inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#101522]/85 hover:bg-[#1a2236] text-white text-[11.5px] font-semibold tracking-wide border border-white/20 shadow-sm backdrop-blur-md transition active:scale-95 cursor-pointer"
-            >
-              {isDarkMode ? (
-                <Sun className="w-3.5 h-3.5 text-amber-400" />
-              ) : (
-                <Moon className="w-3.5 h-3.5 text-slate-200" />
-              )}
-              <span>{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
-            </button>
+            <div className="hidden lg:flex items-center select-none pointer-events-auto">
+              <span className="text-[10px] xl:text-[11px] font-extrabold tracking-[0.24em] text-white/95 uppercase drop-shadow-md">
+                LAND &nbsp;|&nbsp; PEOPLE &nbsp;|&nbsp; FINANCE &nbsp;|&nbsp; GROWTH
+              </span>
+            </div>
 
             {/* Mobile Menu Button */}
             <button
@@ -404,15 +395,8 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Desktop Top Right Label */}
-            <div className="hidden lg:flex justify-end pr-2 xl:pr-6 pt-1 select-none pointer-events-auto">
-              <span className="text-[10px] xl:text-[11px] font-extrabold tracking-[0.24em] text-white/90 uppercase drop-shadow-md">
-                LAND &nbsp;|&nbsp; PEOPLE &nbsp;|&nbsp; FINANCE &nbsp;|&nbsp; GROWTH
-              </span>
-            </div>
-
-            {/* Desktop Floating Glassmorphic Metric Cards */}
-            <div className="hidden lg:flex flex-col items-end space-y-3.5 xl:space-y-4 my-auto pr-2 xl:pr-6 select-none pointer-events-auto">
+            {/* Desktop Floating Glassmorphic Metric Cards (Shifted rightwards) */}
+            <div className="hidden lg:flex flex-col items-end space-y-3.5 xl:space-y-4 my-auto pr-0 -mr-2 lg:-mr-6 xl:-mr-10 select-none pointer-events-auto">
               
               {/* Metric Card 1: Total Portfolio Value (Dark Frosted Glass) */}
               <Link
@@ -472,7 +456,7 @@ export default function LandingPage() {
             </div>
 
             {/* Desktop Lower Right Brand Statement */}
-            <div className="hidden lg:flex items-center gap-2.5 self-end pr-2 xl:pr-6 pb-1 select-none pointer-events-auto">
+            <div className="hidden lg:flex items-center gap-2.5 self-end pr-0 -mr-2 lg:-mr-6 xl:-mr-10 pb-1 select-none pointer-events-auto">
               <div className="w-[2px] h-9 bg-slate-900/80 rounded-full" />
               <div className="flex flex-col">
                 <span className="text-[9.5px] xl:text-[10px] font-black tracking-[0.22em] text-slate-900 uppercase leading-snug drop-shadow-xs">
