@@ -92,6 +92,7 @@ exports.createExpense = async (req, res) => {
       });
 
       // 5. Create Ledger Transaction
+      const expRef = `EXP-${expense.id.replace(/-/g, '').slice(0, 8).toUpperCase()}`;
       await tx.walletTransaction.create({
         data: {
           type: 'EXPENSE',
@@ -99,7 +100,7 @@ exports.createExpense = async (req, res) => {
           amount: expenseAmount,
           fundMode: fMode,
           referenceType: 'EXPENSE',
-          referenceId: expense.id,
+          referenceId: expRef,
           description: `Expense: ${description}`,
           createdBy: userId,
           status: 'COMPLETED'
@@ -112,7 +113,7 @@ exports.createExpense = async (req, res) => {
         userRole: user?.role?.name || 'TEAM',
         amount: expenseAmount,
         description: `Expense [${category?.name || 'General'}]: ${description}`,
-        referenceId: expense.id,
+        referenceId: expRef,
         createdBy: userId
       });
 
@@ -197,7 +198,8 @@ exports.reverseExpense = async (req, res) => {
         }
       });
 
-      // 3. Create EXPENSE_REVERSAL ledger entry
+      // 3. Create EXPENSE_REVERSAL ledger entry with clean reference
+      const revExpRef = `REV-EXP-${expense.id.replace(/-/g, '').slice(0, 8).toUpperCase()}`;
       const transaction = await tx.walletTransaction.create({
         data: {
           type: 'EXPENSE_REVERSAL',
@@ -205,7 +207,7 @@ exports.reverseExpense = async (req, res) => {
           amount: expenseAmount,
           fundMode: fMode,
           referenceType: 'EXPENSE_REVERSAL',
-          referenceId: expense.id,
+          referenceId: revExpRef,
           description: `Reversal of Expense #${expense.id.slice(0, 8)}: ${expense.description} (Reason: ${reason || 'Correction'})`,
           createdBy: actorId,
           status: 'COMPLETED'
@@ -218,7 +220,7 @@ exports.reverseExpense = async (req, res) => {
         userRole: expense.user?.role?.name || 'TEAM',
         amount: expenseAmount,
         description: `Reversal of Expense: ${expense.description}`,
-        referenceId: expense.id,
+        referenceId: revExpRef,
         createdBy: actorId
       });
 

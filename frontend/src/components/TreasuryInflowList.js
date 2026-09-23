@@ -8,6 +8,19 @@ import { formatDate } from "@/utils/formatters";
 
 const PAGE_SIZE = 10;
 
+const formatReference = (ref, refType) => {
+  if (!ref) {
+    if (refType === "DIRECT_ALLOCATION") return "DIR-ALLOC";
+    return refType || "N/A";
+  }
+  const clean = String(ref).trim();
+  // Format raw UUIDs to clean UTR format
+  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(clean)) {
+    return `UTR-REQ-${clean.replace(/-/g, "").slice(0, 8).toUpperCase()}`;
+  }
+  return clean;
+};
+
 export default function TreasuryInflowList() {
   const [cashflows, setCashflows] = useState([]);
   const [summary, setSummary] = useState({ totalInflow: 0, totalOutflow: 0, netCashflow: 0 });
@@ -55,9 +68,11 @@ export default function TreasuryInflowList() {
 
     // 2. Search Filter
     const q = search.toLowerCase();
+    const formattedRef = formatReference(item.referenceId, item.referenceType).toLowerCase();
     return (
       item.description?.toLowerCase().includes(q) ||
       item.referenceId?.toLowerCase().includes(q) ||
+      formattedRef.includes(q) ||
       item.type?.toLowerCase().includes(q) ||
       item.categoryLabel?.toLowerCase().includes(q) ||
       item.createdBy?.toLowerCase().includes(q)
@@ -259,10 +274,10 @@ export default function TreasuryInflowList() {
                   const isInflow = item.direction === "INFLOW";
                   return (
                     <tr key={item.id} className="hover:bg-slate-50/70 transition-colors group">
-                      <td className="px-5 py-4 font-semibold text-slate-700 font-mono text-xs">
+                      <td className="px-5 py-3 font-semibold text-slate-700 font-mono text-xs whitespace-nowrap">
                         {formatDate(item.createdAt, { format: 'dd-mmm-yyyy' })}
                       </td>
-                      <td className="px-5 py-4">
+                      <td className="px-5 py-3 whitespace-nowrap">
                         {isInflow ? (
                           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10.5px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/70 shadow-2xs">
                             <ArrowDownRight className="w-3.5 h-3.5 text-emerald-600" />
@@ -275,15 +290,18 @@ export default function TreasuryInflowList() {
                           </span>
                         )}
                       </td>
-                      <td className="px-5 py-4">
-                        <span className="font-mono text-xs font-bold text-slate-800 bg-slate-100/90 px-2.5 py-1 rounded-md border border-slate-200/80 tracking-wide select-all">
-                          {item.referenceId || item.referenceType || "N/A"}
+                      <td className="px-5 py-3 whitespace-nowrap">
+                        <span 
+                          className="font-mono text-xs font-bold text-slate-800 bg-slate-100/90 px-2.5 py-1 rounded-md border border-slate-200/80 tracking-wide select-all inline-block max-w-[190px] truncate align-middle"
+                          title={item.referenceId || item.referenceType || "N/A"}
+                        >
+                          {formatReference(item.referenceId, item.referenceType)}
                         </span>
                       </td>
-                      <td className="px-5 py-4 text-slate-700 max-w-sm truncate font-medium" title={item.description}>
+                      <td className="px-5 py-3 text-slate-700 max-w-sm truncate font-medium" title={item.description}>
                         {item.description}
                       </td>
-                      <td className="px-5 py-4 text-right">
+                      <td className="px-5 py-3 text-right whitespace-nowrap">
                         <span className={`font-digital font-bold text-sm px-3 py-1 rounded-lg border inline-block shadow-2xs tracking-wide ${
                           isInflow
                             ? "text-emerald-700 bg-emerald-50/80 border-emerald-200/60"
@@ -292,16 +310,12 @@ export default function TreasuryInflowList() {
                           {isInflow ? "+" : "-"}₹{parseFloat(item.amount).toLocaleString("en-IN", { minimumFractionDigits: 2 })}
                         </span>
                       </td>
-                      <td className="px-5 py-4">
-                        <span className={`px-2 py-0.5 text-[10px] font-bold uppercase rounded-md border ${
-                          item.fundMode === "CASH"
-                            ? "bg-orange-50 text-orange-700 border-orange-200"
-                            : "bg-orange-50 text-orange-700 border-orange-200"
-                        }`}>
+                      <td className="px-5 py-3 whitespace-nowrap">
+                        <span className="px-2 py-0.5 text-[10px] font-bold uppercase rounded-md border bg-orange-50 text-orange-700 border-orange-200">
                           {item.fundMode || "LIQUID"}
                         </span>
                       </td>
-                      <td className="px-5 py-4 text-slate-600 font-medium text-[11px]">
+                      <td className="px-5 py-3 text-slate-600 font-medium text-[11px] whitespace-nowrap">
                         <span className="inline-flex items-center gap-1.5">
                           <span className="w-5 h-5 rounded-full bg-orange-100 text-orange-700 font-bold text-[10px] flex items-center justify-center">
                             {(item.createdBy || "U").charAt(0).toUpperCase()}
@@ -309,7 +323,7 @@ export default function TreasuryInflowList() {
                           <span>{item.createdBy}</span>
                         </span>
                       </td>
-                      <td className="px-5 py-4 text-center">
+                      <td className="px-5 py-3 text-center whitespace-nowrap">
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10.5px] font-bold rounded-full bg-orange-50 text-orange-800 border border-orange-200/80">
                           <span className="w-1.5 h-1.5 rounded-full bg-orange-600"></span>
                           {item.status || "COMPLETED"}

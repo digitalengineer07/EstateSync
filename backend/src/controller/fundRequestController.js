@@ -188,7 +188,8 @@ exports.approveRequest = async (req, res) => {
         }
       });
 
-      // 5. Create Transaction Ledger entry
+      // 5. Create Transaction Ledger entry with clean formatted reference
+      const refCode = `UTR-REQ-${request.id.replace(/-/g, '').slice(0, 8).toUpperCase()}`;
       const transaction = await tx.walletTransaction.create({
         data: {
           type: 'FUND_ALLOCATION',
@@ -197,7 +198,7 @@ exports.approveRequest = async (req, res) => {
           amount: reqAmount,
           fundMode: fMode,
           referenceType: 'FUND_REQUEST',
-          referenceId: request.id,
+          referenceId: refCode,
           description: `Fund request approved: ${request.reason}`,
           createdBy: approverId,
           status: 'COMPLETED'
@@ -211,7 +212,7 @@ exports.approveRequest = async (req, res) => {
         recipientWalletType: recipientType,
         amount: reqAmount,
         description: `Fund Request Approval for ${request.requester.name} (${request.reason})`,
-        referenceId: request.id,
+        referenceId: refCode,
         createdBy: approverId
       });
 
@@ -379,7 +380,8 @@ exports.directAllocateFunds = async (req, res) => {
         }
       });
 
-      // 4. Create immutable transaction entry
+      // 4. Create immutable transaction entry with clean formatted reference
+      const directRef = `UTR-DIR-${Date.now().toString().slice(-6)}`;
       const transaction = await tx.walletTransaction.create({
         data: {
           type: 'FUND_ALLOCATION',
@@ -388,7 +390,7 @@ exports.directAllocateFunds = async (req, res) => {
           amount: allocAmount,
           fundMode: fMode,
           referenceType: 'DIRECT_ALLOCATION',
-          referenceId: null,
+          referenceId: directRef,
           description: description || `Direct fund allocation to ${targetUser.name} (${targetUser.role.name})`,
           createdBy: adminId,
           status: 'COMPLETED'
@@ -402,7 +404,7 @@ exports.directAllocateFunds = async (req, res) => {
         recipientWalletType: recipientType,
         amount: allocAmount,
         description: `Direct Fund Allocation to ${targetUser.name} (${targetUser.role.name}) - ${description || 'Operational Budget'}`,
-        referenceId: transaction.id,
+        referenceId: directRef,
         createdBy: adminId
       });
 

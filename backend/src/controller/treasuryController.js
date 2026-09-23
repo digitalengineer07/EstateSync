@@ -208,10 +208,17 @@ exports.getTreasuryInflows = async (req, res) => {
     });
     const userMap = new Map(users.map(u => [u.id, u.email]));
 
-    const formattedInflows = inflows.map(i => ({
-      ...i,
-      createdBy: userMap.get(i.createdBy) || i.createdBy || 'System'
-    }));
+    const formattedInflows = inflows.map(i => {
+      let cleanRef = i.referenceId;
+      if (cleanRef && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(cleanRef)) {
+        cleanRef = `UTR-${cleanRef.replace(/-/g, '').slice(0, 8).toUpperCase()}`;
+      }
+      return {
+        ...i,
+        referenceId: cleanRef,
+        createdBy: userMap.get(i.createdBy) || i.createdBy || 'System'
+      };
+    });
 
     return res.json({
       success: true,
@@ -284,8 +291,17 @@ exports.getTreasuryCashflow = async (req, res) => {
 
       const resolvedCreatedBy = userMap.get(t.createdBy) || t.createdBy || 'System';
 
+      // Format referenceId if it is a raw UUID
+      let cleanReferenceId = t.referenceId;
+      if (cleanReferenceId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(cleanReferenceId)) {
+        cleanReferenceId = `UTR-REQ-${cleanReferenceId.replace(/-/g, '').slice(0, 8).toUpperCase()}`;
+      } else if (!cleanReferenceId && t.referenceType === 'DIRECT_ALLOCATION') {
+        cleanReferenceId = 'DIR-ALLOCATION';
+      }
+
       return {
         ...t,
+        referenceId: cleanReferenceId,
         createdBy: resolvedCreatedBy,
         direction: isInflow ? 'INFLOW' : 'OUTFLOW',
         categoryLabel
