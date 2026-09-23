@@ -228,7 +228,7 @@ export default function LandingPage() {
           <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-between self-stretch max-w-[490px] xl:max-w-[530px] 2xl:max-w-[560px] py-1">
             
             {/* Top Hero Narrative Group (Shifted downwards from header) */}
-            <div className="flex flex-col pt-3 sm:pt-4 lg:pt-6 xl:pt-8">
+            <div className="flex flex-col pt-6 sm:pt-8 lg:pt-12 xl:pt-14">
               {/* Eyebrow Label with Orange Accent Dash */}
               <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3">
                 <span className="w-7 h-[2.5px] bg-[#ff6b12] rounded-full inline-block" />
