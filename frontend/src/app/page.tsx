@@ -502,8 +502,8 @@ export default function LandingPage() {
         {/* ========================================================================= */}
         <div className="pb-3 sm:pb-4 pt-1 flex items-center justify-between text-xs text-slate-500 shrink-0">
           
-          {/* Left-Hand Side Center: Privacy, Terms & Conditions, Support Buttons */}
-          <div className="w-full max-w-[490px] xl:max-w-[530px] 2xl:max-w-[560px] flex items-center justify-center gap-1.5 sm:gap-2.5 text-[11px] sm:text-[11.5px] font-semibold text-slate-500 select-none">
+          {/* Left-Hand Side Center: Privacy, Terms & Conditions, Support Buttons (Shifted upwards via transform) */}
+          <div className="w-full max-w-[490px] xl:max-w-[530px] 2xl:max-w-[560px] flex items-center justify-center gap-1.5 sm:gap-2.5 text-[11px] sm:text-[11.5px] font-semibold text-slate-500 select-none transform -translate-y-2 sm:-translate-y-3 lg:-translate-y-4">
             <button
               type="button"
               onClick={() =>
