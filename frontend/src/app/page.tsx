@@ -114,7 +114,7 @@ export default function LandingPage() {
 
         {/* ===================================================================== */}
         {/* ORGANIC ARCHITECTURAL S-CURVE TRANSITION OVERLAY                      */}
-        {/* Ultra-crisp resolution-independent vector curve with layered glow     */}
+        {/* Multi-layered organic division with luminous aura and ambient depth   */}
         {/* ===================================================================== */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none"
@@ -124,40 +124,83 @@ export default function LandingPage() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            {/* Ambient warm drop shadow filter */}
-            <filter id="curveDepthShadow" x="-10%" y="-10%" width="130%" height="130%">
-              <feDropShadow dx="14" dy="0" stdDeviation="22" floodColor="#0c111d" floodOpacity="0.16" />
-              <feDropShadow dx="4" dy="0" stdDeviation="8" floodColor="#ff6b12" floodOpacity="0.06" />
+            {/* Deep Ambient Dual-Stage Drop Shadow */}
+            <filter id="organicCurveShadow" x="-20%" y="-20%" width="150%" height="150%">
+              <feDropShadow dx="18" dy="0" stdDeviation="28" floodColor="#080c14" floodOpacity="0.22" />
+              <feDropShadow dx="6" dy="0" stdDeviation="14" floodColor="#ff7a1a" floodOpacity="0.14" />
+              <feDropShadow dx="2" dy="0" stdDeviation="4" floodColor="#ffffff" floodOpacity="0.4" />
             </filter>
 
-            {/* Subtle layered translucent wave contour */}
-            <linearGradient id="waveGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
-              <stop offset="50%" stopColor="#ffeedd" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#ffffff" stopOpacity="0.6" />
+            {/* Soft Frosted Wave Glow Filter */}
+            <filter id="softFrostedGlow" x="-20%" y="-20%" width="150%" height="150%">
+              <feGaussianBlur stdDeviation="16" />
+            </filter>
+
+            {/* Translucent Aura Gradient along the curve */}
+            <linearGradient id="curveAuraGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.55" />
+              <stop offset="35%" stopColor="#fff3e6" stopOpacity="0.32" />
+              <stop offset="70%" stopColor="#ffeedd" stopOpacity="0.16" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0.0" />
+            </linearGradient>
+
+            {/* Top Right Ethereal Flare Gradient */}
+            <linearGradient id="topFlareGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.7" />
+              <stop offset="45%" stopColor="#ffeedd" stopOpacity="0.32" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0.0" />
+            </linearGradient>
+
+            {/* Luminous Edge Highlight Gradient */}
+            <linearGradient id="edgeLineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+              <stop offset="25%" stopColor="#ffffff" stopOpacity="0.9" />
+              <stop offset="55%" stopColor="#ffe8d1" stopOpacity="0.85" />
+              <stop offset="80%" stopColor="#ffffff" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0.75" />
             </linearGradient>
           </defs>
 
-          {/* Secondary subtle frosted glow contour behind the main edge */}
+          {/* Layer 1: Ethereal Top-Right Translucent Flare (arcs gracefully past Contact) */}
           <path
-            d="M 0 0 L 1095 0 C 1070 190 855 330 890 530 C 918 730 1105 890 1080 1080 L 0 1080 Z"
-            fill="rgba(255, 255, 255, 0.28)"
-            stroke="url(#waveGlow)"
-            strokeWidth="2"
+            d="M 960 160 C 1040 90 1150 30 1300 0 L 1120 0 C 1030 50 980 110 960 160 Z"
+            fill="url(#topFlareGradient)"
+            filter="url(#softFrostedGlow)"
           />
 
-          {/* Primary Solid Warm White Organic S-Curve Surface */}
+          {/* Layer 2: Wide Translucent Outer Aura Wave extending into the photo */}
           <path
-            d="M 0 0 L 1065 0 C 1035 190 825 330 860 530 C 890 730 1075 890 1050 1080 L 0 1080 Z"
+            d="M 0 0 L 1180 0 C 1060 180 820 380 800 600 C 780 800 1020 950 1110 1080 L 0 1080 Z"
+            fill="url(#curveAuraGradient)"
+            filter="url(#softFrostedGlow)"
+          />
+
+          {/* Layer 3: Secondary Mid-range Frosted Ribbon Contour */}
+          <path
+            d="M 0 0 L 1145 0 C 1025 180 785 380 765 600 C 745 800 985 950 1075 1080 L 0 1080 Z"
+            fill="rgba(255, 255, 255, 0.42)"
+          />
+
+          {/* Layer 4: Primary Solid Warm Off-White Organic S-Curve Panel */}
+          <path
+            d="M 0 0 L 1120 0 C 1000 180 760 380 740 600 C 720 800 960 950 1050 1080 L 0 1080 Z"
             fill="#F7F6F2"
-            filter="url(#curveDepthShadow)"
+            filter="url(#organicCurveShadow)"
           />
 
-          {/* Subtle luminous architectural edge line */}
+          {/* Layer 5: Luminous Ultra-Crisp Architectural Rim Highlight */}
           <path
-            d="M 1065 0 C 1035 190 825 330 860 530 C 890 730 1075 890 1050 1080"
-            stroke="rgba(255, 255, 255, 0.9)"
-            strokeWidth="1.5"
+            d="M 1120 0 C 1000 180 760 380 740 600 C 720 800 960 950 1050 1080"
+            stroke="url(#edgeLineGradient)"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+
+          {/* Layer 6: Delicate Warm Golden Rim Accent (1.5px) */}
+          <path
+            d="M 1120 0 C 1000 180 760 380 740 600 C 720 800 960 950 1050 1080"
+            stroke="rgba(255, 122, 26, 0.35)"
+            strokeWidth="1.2"
             strokeLinecap="round"
           />
         </svg>
