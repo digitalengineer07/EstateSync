@@ -425,10 +425,9 @@ export default function LandingPage() {
             {/* Desktop Floating Glassmorphic Metric Cards (Moved upwards & shifted rightwards) */}
             <div className="hidden lg:flex flex-col items-end space-y-3 xl:space-y-3.5 -mt-2 lg:-mt-3 xl:-mt-1 mb-auto pr-0 -mr-2 lg:-mr-6 xl:-mr-10 select-none pointer-events-auto">
               
-              {/* Metric Card 1: Automated Reconciliation (Dark Frosted Glass) */}
-              <Link
-                href="/dashboards"
-                className="w-full max-w-[285px] xl:max-w-[315px] 2xl:max-w-[335px] bg-slate-900/40 hover:bg-slate-900/50 backdrop-blur-xl border border-white/25 rounded-3xl p-4 sm:p-4.5 text-white shadow-[0_20px_40px_rgba(0,0,0,0.3)] hover:-translate-y-1 hover:border-orange-400/50 transition duration-200 group block"
+              {/* Metric Card 1: Automated Reconciliation (Dark Frosted Glass - Display Only) */}
+              <div
+                className="w-full max-w-[285px] xl:max-w-[315px] 2xl:max-w-[335px] bg-slate-900/40 backdrop-blur-xl border border-white/25 rounded-3xl p-4 sm:p-4.5 text-white shadow-[0_20px_40px_rgba(0,0,0,0.3)] cursor-default select-none block"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
@@ -444,18 +443,17 @@ export default function LandingPage() {
                       </p>
                     </div>
                   </div>
-                  <MoreHorizontal className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+                  <MoreHorizontal className="w-4 h-4 text-slate-400" />
                 </div>
 
                 <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px] font-bold text-emerald-400">
                   <span>↗ Real-time ledger audit</span>
                 </div>
-              </Link>
+              </div>
 
-              {/* Metric Card 2: Multi-Entity Treasury (Light Frosted Glass) */}
-              <Link
-                href="/dashboards"
-                className="w-full max-w-[285px] xl:max-w-[315px] 2xl:max-w-[335px] bg-white/20 hover:bg-white/25 backdrop-blur-xl border border-white/30 rounded-3xl p-4 sm:p-4.5 text-white shadow-[0_20px_40px_rgba(0,0,0,0.25)] hover:-translate-y-1 hover:border-orange-400/60 transition duration-200 group block"
+              {/* Metric Card 2: Multi-Entity Treasury (Light Frosted Glass - Display Only) */}
+              <div
+                className="w-full max-w-[285px] xl:max-w-[315px] 2xl:max-w-[335px] bg-white/20 backdrop-blur-xl border border-white/30 rounded-3xl p-4 sm:p-4.5 text-white shadow-[0_20px_40px_rgba(0,0,0,0.25)] cursor-default select-none block"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
@@ -471,13 +469,13 @@ export default function LandingPage() {
                       </p>
                     </div>
                   </div>
-                  <MoreHorizontal className="w-4 h-4 text-white/60 group-hover:text-white transition-colors" />
+                  <MoreHorizontal className="w-4 h-4 text-white/60" />
                 </div>
 
                 <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px] font-bold text-emerald-400">
                   <span>↗ Double-entry verification</span>
                 </div>
-              </Link>
+              </div>
             </div>
 
             {/* Desktop Lower Right Brand Statement */}
