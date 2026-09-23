@@ -9,6 +9,7 @@ import {
   Users,
   Layers,
   Home,
+  MoreHorizontal,
   Moon,
   Sun,
   Menu,
@@ -376,20 +377,82 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Desktop Invisible Interactive Click Hotspots for the 2 Metric Cards */}
-            <div className="hidden lg:flex flex-col items-end space-y-4 my-auto pr-1 xl:pr-6 pointer-events-auto">
+            {/* Desktop Top Right Label */}
+            <div className="hidden lg:flex justify-end pr-2 pt-0.5 select-none">
+              <span className="text-[10px] xl:text-[11px] font-extrabold tracking-[0.24em] text-white/95 uppercase drop-shadow-md">
+                LAND &nbsp;|&nbsp; PEOPLE &nbsp;|&nbsp; FINANCE &nbsp;|&nbsp; GROWTH
+              </span>
+            </div>
+
+            {/* Desktop Floating Glassmorphic Metric Cards */}
+            <div className="hidden lg:flex flex-col items-end space-y-3.5 my-auto pr-1 xl:pr-5 select-none pointer-events-auto">
+              
+              {/* Metric Card 1: Total Portfolio Value (Dark Frosted Glass) */}
               <Link
                 href="/dashboards"
-                title="View Portfolio Analytics"
-                className="w-full max-w-[260px] xl:max-w-[280px] h-[95px] rounded-2xl transition duration-200 hover:ring-2 hover:ring-orange-400/50 cursor-pointer"
-                aria-label="Navigate to Total Portfolio Value Dashboard"
-              />
+                className="w-full max-w-[265px] xl:max-w-[280px] bg-slate-900/65 backdrop-blur-md border border-white/25 rounded-2xl p-3.5 sm:p-4 text-white shadow-[0_16px_36px_rgba(0,0,0,0.35)] hover:-translate-y-1 hover:border-orange-400/50 transition duration-200 group block"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-lg bg-[#ff6b12] flex items-center justify-center text-white shadow-xs">
+                      <TrendingUp className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="text-[11.5px] font-semibold text-slate-300 tracking-wide">
+                      Total Portfolio Value
+                    </span>
+                  </div>
+                  <MoreHorizontal className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+                </div>
+
+                <div className="mt-2 text-xl xl:text-2xl font-black text-white font-digital tracking-tight">
+                  ₹ 102.4 Cr
+                </div>
+
+                <div className="mt-1 flex items-center gap-1.5 text-[11px] font-bold text-emerald-400">
+                  <span>↗ +12.5%</span>
+                  <span className="text-[10px] text-slate-400 font-normal">vs last quarter</span>
+                </div>
+              </Link>
+
+              {/* Metric Card 2: Total Properties (Light Frosted Glass) */}
               <Link
                 href="/dashboards"
-                title="View Properties Management"
-                className="w-full max-w-[260px] xl:max-w-[280px] h-[95px] rounded-2xl transition duration-200 hover:ring-2 hover:ring-orange-400/50 cursor-pointer"
-                aria-label="Navigate to Total Properties Dashboard"
-              />
+                className="w-full max-w-[265px] xl:max-w-[280px] bg-white/80 backdrop-blur-md border border-white/70 rounded-2xl p-3.5 sm:p-4 text-slate-800 shadow-[0_16px_36px_rgba(0,0,0,0.22)] hover:-translate-y-1 hover:border-orange-400/60 transition duration-200 group block"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-lg bg-orange-100/90 border border-orange-200 text-[#ff6b12] flex items-center justify-center shadow-xs">
+                      <Home className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="text-[11.5px] font-semibold text-slate-600 tracking-wide">
+                      Total Properties
+                    </span>
+                  </div>
+                  <MoreHorizontal className="w-4 h-4 text-slate-400 group-hover:text-slate-800 transition-colors" />
+                </div>
+
+                <div className="mt-2 text-xl xl:text-2xl font-black text-slate-900 tracking-tight">
+                  500+
+                </div>
+
+                <div className="mt-1 flex items-center gap-1.5 text-[11px] font-bold text-emerald-600">
+                  <span>↗ +8%</span>
+                  <span className="text-[10px] text-slate-500 font-normal">vs last quarter</span>
+                </div>
+              </Link>
+            </div>
+
+            {/* Desktop Lower Right Brand Statement */}
+            <div className="hidden lg:flex items-center gap-2.5 self-end pr-2 pb-0.5 select-none">
+              <div className="w-[2px] h-9 bg-slate-900/70 rounded-full" />
+              <div className="flex flex-col">
+                <span className="text-[9.5px] font-black tracking-[0.22em] text-slate-900 uppercase leading-snug drop-shadow-xs">
+                  BUILDING<br />
+                  A BRIGHTER<br />
+                  TOMORROW
+                </span>
+                <span className="w-7 h-[2px] bg-[#ff6b12] rounded-full mt-1 inline-block" />
+              </div>
             </div>
 
           </div>
