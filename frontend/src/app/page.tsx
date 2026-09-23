@@ -225,7 +225,7 @@ export default function LandingPage() {
           {/* ===================================================================== */}
           {/* LEFT CONTENT AREA (Exact Pixel Alignment Matching Uploaded Image)     */}
           {/* ===================================================================== */}
-          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-between self-stretch max-w-[490px] xl:max-w-[530px] 2xl:max-w-[560px] py-1">
+          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-between self-stretch max-w-[490px] xl:max-w-[530px] 2xl:max-w-[560px] pt-1 pb-4 sm:pb-5 lg:pb-7 xl:pb-8">
             
             {/* Top Hero Narrative Group (Shifted downwards while preserving bottom content position) */}
             <div className="flex flex-col pt-5 sm:pt-7 lg:pt-10 xl:pt-12">
@@ -262,8 +262,8 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Bottom Proof & Capabilities Group (Shifted Downwards to Occupy Lower Space) */}
-            <div className="flex flex-col mt-12 sm:mt-14 lg:mt-18 xl:mt-22">
+            {/* Bottom Proof & Capabilities Group (Shifted upwards with clean bottom clearance) */}
+            <div className="flex flex-col mt-6 sm:mt-8 lg:mt-10 xl:mt-12">
               {/* 4 Feature Highlights Row (No divider line, soft peach squircle icons) */}
               <div className="grid grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5 xl:gap-4">
                 
@@ -337,7 +337,7 @@ export default function LandingPage() {
               </div>
 
               {/* Brand Quote (2 Lines, Vertical Accent) */}
-              <div className="mt-8 sm:mt-9 lg:mt-11 xl:mt-13 border-l-[3px] border-[#ff6b12] pl-4 sm:pl-4.5">
+              <div className="mt-5 sm:mt-6 lg:mt-7 xl:mt-8 border-l-[3px] border-[#ff6b12] pl-4 sm:pl-4.5">
                 <p className="text-[13px] sm:text-[13.5px] lg:text-[14.5px] text-slate-600 italic font-medium leading-relaxed">
                   “Data today.<br />Stronger developments tomorrow.”
                 </p>
