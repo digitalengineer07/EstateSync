@@ -9,8 +9,10 @@ import {
   TrendingUp,
   Home,
   MoreHorizontal,
-  Moon,
-  Sun,
+  Mail,
+  Phone,
+  Clock,
+  Headphones,
 } from "lucide-react";
 
 /**
@@ -64,6 +66,16 @@ function EstateSyncLogoMark({ className = "w-10 h-10" }: { className?: string })
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [ripples, setRipples] = useState<{ id: number; x: number; y: number }[]>([]);
+  const [policyModal, setPolicyModal] = useState<{ open: boolean; title: string; content: string }>({
+    open: false,
+    title: "",
+    content: "",
+  });
+  const [showSupportModal, setShowSupportModal] = useState(false);
+
+  const openPolicyModal = (title: string, content: string) => {
+    setPolicyModal({ open: true, title, content });
+  };
 
   const handleButtonClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -486,11 +498,49 @@ export default function LandingPage() {
         </div>
 
         {/* ========================================================================= */}
-        {/* FOOTER (Scroll Down Cue on the right)                                     */}
+        {/* FOOTER (Left-Hand Side Centered Legal & Support Links + Scroll Down Cue)  */}
         {/* ========================================================================= */}
-        <div className="pb-3 sm:pb-4 pt-1 flex items-center justify-end text-xs text-slate-500 shrink-0">
-          {/* Scroll Down Cue */}
-          <div className="flex items-center gap-2 text-slate-500 font-semibold select-none group cursor-pointer hover:text-slate-900 transition">
+        <div className="pb-3 sm:pb-4 pt-1 flex items-center justify-between text-xs text-slate-500 shrink-0">
+          
+          {/* Left-Hand Side Center: Privacy, Terms & Conditions, Support Buttons */}
+          <div className="w-full max-w-[490px] xl:max-w-[530px] 2xl:max-w-[560px] flex items-center justify-center gap-1.5 sm:gap-2.5 text-[11px] sm:text-[11.5px] font-semibold text-slate-500 select-none">
+            <button
+              type="button"
+              onClick={() =>
+                openPolicyModal(
+                  "Privacy Policy",
+                  "EstateSync respects your organizational privacy. All financial records, customer collections, and treasury balances are stored securely in compliant enterprise vaults with strict RBAC boundaries and encrypted multi-entity ledgers."
+                )
+              }
+              className="px-2.5 py-1 rounded-lg hover:bg-black/5 hover:text-slate-900 transition-colors cursor-pointer"
+            >
+              Privacy
+            </button>
+            <span className="text-slate-300">·</span>
+            <button
+              type="button"
+              onClick={() =>
+                openPolicyModal(
+                  "Terms & Conditions",
+                  "Access to the EstateSync Treasury & Accounting platform is authorized exclusively for verified personnel of licensed organizations. Traceable double-entry auditing and immutable financial audit trails apply to all transactions."
+                )
+              }
+              className="px-2.5 py-1 rounded-lg hover:bg-black/5 hover:text-slate-900 transition-colors cursor-pointer"
+            >
+              Terms &amp; Conditions
+            </button>
+            <span className="text-slate-300">·</span>
+            <button
+              type="button"
+              onClick={() => setShowSupportModal(true)}
+              className="px-2.5 py-1 rounded-lg hover:bg-black/5 hover:text-slate-900 transition-colors cursor-pointer"
+            >
+              Support
+            </button>
+          </div>
+
+          {/* Right: Scroll Down Cue */}
+          <div className="flex items-center gap-2 text-slate-500 font-semibold select-none group cursor-pointer hover:text-slate-900 transition ml-auto">
             {/* Custom Mouse SVG Icon with downward chevron */}
             <div className="flex flex-col items-center">
               <svg
@@ -512,6 +562,110 @@ export default function LandingPage() {
           </div>
         </div>
       </main>
+
+      {/* Terms & Privacy Policy Modal */}
+      {policyModal.open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+          <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden">
+            <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
+              <h3 className="text-sm font-bold">{policyModal.title}</h3>
+              <button
+                type="button"
+                onClick={() => setPolicyModal({ open: false, title: "", content: "" })}
+                className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+            <div className="p-6 text-xs text-slate-600 leading-relaxed whitespace-pre-line">
+              {policyModal.content}
+            </div>
+            <div className="px-6 py-3 bg-slate-50 border-t border-slate-100 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setPolicyModal({ open: false, title: "", content: "" })}
+                className="px-4 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Support Modal */}
+      {showSupportModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+          <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden">
+            <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-lg bg-[#ff6b12] flex items-center justify-center text-white">
+                  <Headphones className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold">EstateSync Client Support</h3>
+                  <p className="text-[10px] text-slate-400">Enterprise Treasury &amp; Platform Inquiries</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowSupportModal(false)}
+                className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+            <div className="p-6 space-y-3">
+              <a
+                href="mailto:devoxatechnologies@gmail.com"
+                className="p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-orange-50 hover:border-orange-200 transition flex items-center gap-3 group"
+              >
+                <div className="w-8 h-8 rounded-lg bg-orange-100 text-[#ff6b12] flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Email Support</div>
+                  <div className="text-xs font-bold text-slate-900 group-hover:text-[#ff6b12] transition">
+                    devoxatechnologies@gmail.com
+                  </div>
+                </div>
+              </a>
+              <a
+                href="tel:+918544005858"
+                className="p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-orange-50 hover:border-orange-200 transition flex items-center gap-3 group"
+              >
+                <div className="w-8 h-8 rounded-lg bg-orange-100 text-[#ff6b12] flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Direct Helpline</div>
+                  <div className="text-xs font-bold text-slate-900 group-hover:text-[#ff6b12] transition">
+                    +91 8544005858
+                  </div>
+                </div>
+              </a>
+              <div className="p-3 rounded-xl border border-slate-100 bg-slate-50/70 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-slate-200 text-slate-600 flex items-center justify-center flex-shrink-0">
+                  <Clock className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Operational Hours</div>
+                  <div className="text-xs font-semibold text-slate-700">Mon &ndash; Sat, 9:00 AM &ndash; 7:00 PM IST</div>
+                </div>
+              </div>
+            </div>
+            <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-100 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setShowSupportModal(false)}
+                className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
