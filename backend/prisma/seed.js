@@ -1,6 +1,6 @@
-const { PrismaClient } = require('../src/prisma-client');
+require('dotenv').config();
+const prisma = require('../src/config/db');
 const bcrypt = require('bcrypt');
-const prisma = new PrismaClient();
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
