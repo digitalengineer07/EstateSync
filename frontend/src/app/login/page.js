@@ -508,43 +508,26 @@ export default function LoginPage() {
             </div>
 
             <div className="flex items-center gap-2 text-[10.5px] font-medium text-zinc-500">
-              <button
-                type="button"
-                onClick={() =>
-                  setPolicyModal({
-                    open: true,
-                    title: "Privacy Policy",
-                    content:
-                      "EstateSync respects your organizational privacy. All financial records, customer collections, and treasury balances are stored securely in compliant enterprise vaults with strict RBAC boundaries.",
-                  })
-                }
+              <Link
+                href="/privacy"
                 className="hover:text-zinc-900 transition underline-offset-2 hover:underline cursor-pointer"
               >
                 Privacy
-              </button>
+              </Link>
               <span className="text-zinc-300">|</span>
-              <button
-                type="button"
-                onClick={() =>
-                  setPolicyModal({
-                    open: true,
-                    title: "Terms of Service",
-                    content:
-                      "Access to the EstateSync Treasury & Accounting platform is authorized exclusively for verified personnel of licensed organizations. Traceable double-entry auditing applies to all operational entries.",
-                  })
-                }
+              <Link
+                href="/terms"
                 className="hover:text-zinc-900 transition underline-offset-2 hover:underline cursor-pointer"
               >
                 Terms
-              </button>
+              </Link>
               <span className="text-zinc-300">|</span>
-              <button
-                type="button"
-                onClick={() => setShowSupportModal(true)}
+              <Link
+                href="/support"
                 className="hover:text-zinc-900 transition underline-offset-2 hover:underline cursor-pointer"
               >
                 Support
-              </button>
+              </Link>
             </div>
           </footer>
         </section>

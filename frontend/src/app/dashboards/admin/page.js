@@ -14,11 +14,13 @@ import TransactionLedger from "@/components/TransactionLedger";
 import UserRegistrationForm from "@/components/UserRegistrationForm";
 import UserWalletLedger from "@/components/UserWalletLedger";
 import OperationalNotesView from "@/components/OperationalNotesView";
+import UserPasswordManagement from "@/components/UserPasswordManagement";
 import {
   ArrowLeftRight,
   ClipboardCheck,
   Columns2,
   Coins,
+  KeyRound,
   Landmark,
   MapPin,
   NotebookPen,
@@ -36,6 +38,13 @@ const ADMIN_PANELS = [
     shortLabel: "Treasury Audit",
     description: "Bank inflows, outflows, and treasury cashflow controls.",
     icon: Landmark,
+  },
+  {
+    id: "passwords",
+    label: "User Accounts & Password Reset",
+    shortLabel: "Reset Passwords",
+    description: "Admin password reset without current password, unlock accounts, and manage logins.",
+    icon: KeyRound,
   },
   {
     id: "allocation",
@@ -141,8 +150,9 @@ export default function AdminDashboard() {
   }, []);
 
   const renderPanel = () => {
+    if (activePanel === "passwords") return <UserPasswordManagement onNavigateToRegistration={() => setActivePanel("registration")} />;
     if (activePanel === "allocation") return <DirectFundAllocationForm />;
-    if (activePanel === "registration") return <UserRegistrationForm />;
+    if (activePanel === "registration") return <UserRegistrationForm onNavigateToPasswords={() => setActivePanel("passwords")} />;
     if (activePanel === "wallets") return <UserWalletLedger />;
     if (activePanel === "staff") {
       return (

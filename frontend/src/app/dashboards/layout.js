@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { DashboardProvider, useDashboardNav } from "@/context/DashboardContext";
 import { hasPermission } from "@/utils/permissions";
+import { validatePasswordStrength } from "@/utils/passwordValidator";
 import {
   Building2,
   ShieldCheck,
@@ -167,10 +168,12 @@ function DashboardHeader() {
       setPasswordError("Please fill in all password fields.");
       return;
     }
-    if (passwordForm.newPassword.length < 6) {
-      setPasswordError("New password must be at least 6 characters long.");
+    const val = validatePasswordStrength(passwordForm.newPassword);
+    if (!val.isValid) {
+      setPasswordError(val.error);
       return;
     }
+
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
       setPasswordError("New password and confirm password do not match.");
       return;
@@ -944,24 +947,40 @@ function DashboardHeader() {
                 </span>
               </div>
             </div>
-            <div className="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
-              <button
-                type="button"
-                onClick={() => {
-                  setActiveModal("settings");
-                  setSettingsTab("security");
-                  setPasswordError("");
-                  setPasswordSuccess("");
-                }}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#ff6b12] hover:bg-orange-50 border border-slate-200 transition active:scale-95"
-              >
-                <KeyRound className="w-3.5 h-3.5" />
-                Change Password
-              </button>
+            <div className="p-4 bg-slate-50 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveModal("settings");
+                    setSettingsTab("security");
+                    setPasswordError("");
+                    setPasswordSuccess("");
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#ff6b12] hover:bg-orange-50 border border-slate-200 transition active:scale-95 cursor-pointer"
+                >
+                  <KeyRound className="w-3.5 h-3.5" />
+                  Change Password
+                </button>
+                {isAdmin && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveModal(null);
+                      router.push("/dashboards/admin?tab=passwords");
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-[#ff6b12] bg-orange-50 hover:bg-orange-100 border border-orange-200 transition active:scale-95 cursor-pointer"
+                    title="Reset any team member's password directly"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    Reset User Passwords
+                  </button>
+                )}
+              </div>
               <button
                 type="button"
                 onClick={() => setActiveModal(null)}
-                className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition active:scale-95"
+                className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition active:scale-95 cursor-pointer"
               >
                 Done
               </button>
@@ -1044,6 +1063,31 @@ function DashboardHeader() {
                     </span>
                   </div>
 
+                  {/* Admin Direct User Passwords Console Link */}
+                  {isAdmin && (
+                    <div className="p-3 bg-orange-50/90 rounded-xl border border-orange-200/90 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-7 h-7 rounded-lg bg-orange-100 text-[#ff6b12] flex items-center justify-center shrink-0">
+                          <KeyRound className="w-3.5 h-3.5" />
+                        </div>
+                        <div>
+                          <p className="font-bold text-slate-900 text-xs">Admin: Reset Other Users&apos; Passwords</p>
+                          <p className="text-[10.5px] text-slate-500">Reset any user password directly without knowing current credentials</p>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActiveModal(null);
+                          router.push("/dashboards/admin?tab=passwords");
+                        }}
+                        className="px-3 py-1.5 rounded-lg bg-[#ff6b12] hover:bg-[#ea580c] text-white font-bold text-xs shadow-2xs transition active:scale-95 shrink-0 cursor-pointer"
+                      >
+                        Open Console &rarr;
+                      </button>
+                    </div>
+                  )}
+
                   {/* Feedback Banners */}
                   {passwordError && (
                     <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 flex items-start gap-2 text-xs animate-in fade-in">
@@ -1105,7 +1149,7 @@ function DashboardHeader() {
                         onChange={(e) =>
                           setPasswordForm({ ...passwordForm, newPassword: e.target.value })
                         }
-                        placeholder="Minimum 6 characters"
+                        placeholder="Minimum 8 characters (letters + numbers/symbols)"
                         required
                         className="w-full pl-9 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-orange-500/20 focus:border-[#ff6b12] transition"
                       />
@@ -1120,7 +1164,7 @@ function DashboardHeader() {
                       </button>
                     </div>
                     <p className="text-[10px] text-slate-400">
-                      Must be at least 6 characters and different from your current password.
+                      Must be at least 8 characters, include letters and numbers/symbols, and not be easily guessable.
                     </p>
                   </div>
 

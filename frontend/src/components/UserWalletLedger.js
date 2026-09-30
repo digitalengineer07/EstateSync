@@ -5,8 +5,9 @@ import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { API_URL } from "@/config/api";
 import { useAuth } from "@/context/AuthContext";
-import { RefreshCw, SlidersHorizontal } from "lucide-react";
+import { RefreshCw, SlidersHorizontal, KeyRound } from "lucide-react";
 import AdjustWalletBalanceModal from "./AdjustWalletBalanceModal";
+import AdminResetPasswordModal from "./AdminResetPasswordModal";
 
 export default function UserWalletLedger() {
   const { user } = useAuth();
@@ -14,6 +15,7 @@ export default function UserWalletLedger() {
   const isAdmin = userRole.toUpperCase() === "ADMIN" || user?.permissions?.includes("fund.allocate") || user?.permissions?.includes("user.manage");
   const [search, setSearch] = useState("");
   const [selectedUserForAdjustment, setSelectedUserForAdjustment] = useState(null);
+  const [selectedUserForPasswordReset, setSelectedUserForPasswordReset] = useState(null);
   const { data, error, isLoading, mutate } = useSWR(`/api/v1/users/all`, fetcher, {
     refreshInterval: 180000,
     revalidateOnFocus: false
@@ -121,7 +123,14 @@ export default function UserWalletLedger() {
               return (
                 <tr key={u.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-5 py-3.5">
-                    <div className="font-semibold text-gray-900">{u.name}</div>
+                    <div className="font-semibold text-gray-900 flex items-center gap-1.5">
+                      <span>{u.name}</span>
+                      {u.isActive === false && (
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
+                          Deactivated
+                        </span>
+                      )}
+                    </div>
                     <div className="text-xs text-gray-500">{u.email}</div>
                   </td>
                   <td className="px-5 py-3.5">
@@ -179,14 +188,26 @@ export default function UserWalletLedger() {
                   </td>
                   <td className="px-5 py-3.5 text-right">
                     {isAdmin ? (
-                      <button
-                        onClick={() => setSelectedUserForAdjustment(u)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-orange-50 hover:text-orange-700 hover:border-orange-300 border border-slate-300 shadow-2xs transition active:scale-95"
-                        title="Adjust or edit wallet balance directly"
-                      >
-                        <SlidersHorizontal className="w-3.5 h-3.5 text-orange-600" />
-                        <span>Adjust</span>
-                      </button>
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedUserForPasswordReset(u)}
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-orange-50 hover:text-orange-700 hover:border-orange-300 border border-slate-300 shadow-2xs transition active:scale-95 cursor-pointer"
+                          title="Reset account password without knowing current password"
+                        >
+                          <KeyRound className="w-3.5 h-3.5 text-[#ff6b12]" />
+                          <span>Reset Password</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedUserForAdjustment(u)}
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-orange-50 hover:text-orange-700 hover:border-orange-300 border border-slate-300 shadow-2xs transition active:scale-95 cursor-pointer"
+                          title="Adjust or edit wallet balance directly"
+                        >
+                          <SlidersHorizontal className="w-3.5 h-3.5 text-orange-600" />
+                          <span>Adjust</span>
+                        </button>
+                      </div>
                     ) : (
                       <span className="text-slate-400 text-xs">—</span>
                     )}
@@ -215,6 +236,18 @@ export default function UserWalletLedger() {
           isOpen={Boolean(selectedUserForAdjustment)}
           onClose={() => setSelectedUserForAdjustment(null)}
           user={selectedUserForAdjustment}
+          onSuccess={() => {
+            mutate();
+          }}
+        />
+      )}
+
+      {/* Admin Password Reset Modal */}
+      {selectedUserForPasswordReset && (
+        <AdminResetPasswordModal
+          user={selectedUserForPasswordReset}
+          isOpen={Boolean(selectedUserForPasswordReset)}
+          onClose={() => setSelectedUserForPasswordReset(null)}
           onSuccess={() => {
             mutate();
           }}

@@ -84,6 +84,21 @@ export async function apiRequest(endpoint, {
     data = { success: response.ok, message: response.statusText };
   }
 
+  // Handle account deactivation: immediately purge session and redirect to login
+  if (response.status === 403 && data?.isDeactivated) {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("user");
+      sessionStorage.setItem(
+        "authMessage",
+        data.message || "Your account has been deactivated. Please contact your system administrator."
+      );
+      window.location.href = "/login";
+    }
+    return new Promise(() => {});
+  }
+
   // Handle token expiry: redirect to login instead of crashing
   if (response.status === 401) {
     if (typeof window !== "undefined") {

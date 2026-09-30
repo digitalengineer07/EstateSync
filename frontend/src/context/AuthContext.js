@@ -87,7 +87,7 @@ export const AuthProvider = ({ children }) => {
         }
         return { success: true };
       } else {
-        return { success: false, message: data.message || "Login failed" };
+        return { success: false, message: data.message || "Login failed", isDeactivated: Boolean(data.isDeactivated) };
       }
     } catch (error) {
       console.error("[AuthContext] Fetch network error:", error);

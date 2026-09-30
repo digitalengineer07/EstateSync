@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const prisma = require('../config/db');
 const { logAudit } = require('../utils/auditLogger');
+const { isRestricted, recordFailedAttempt, recordSuccess } = require('../utils/loginRateLimiter');
+const { validatePassword } = require('../utils/passwordValidator');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecretjwtkey';
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'supersecretrefreshkey';
@@ -25,6 +27,36 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: 'Email and password are required' });
+    }
+
+    // 1. Check Login Rate Limiter (IP & Account level brute-force protection)
+    const clientIp = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    const restriction = isRestricted(clientIp, email);
+
+    if (restriction.restricted) {
+      await logAudit({
+        actorEmail: email,
+        action: 'USER_LOGIN_BLOCKED_RATE_LIMIT',
+        entityType: 'USER',
+        newValues: {
+          reason: `Temporarily restricted due to repeated failed login attempts (${restriction.reason})`,
+          retryMinutes: restriction.retryMinutes,
+          clientIp,
+        },
+        req,
+      });
+
+      return res.status(429).json({
+        success: false,
+        message: `Too many failed login attempts. This ${
+          restriction.reason === 'account' ? 'account' : 'IP address'
+        } is temporarily restricted for ${restriction.retryMinutes} minute(s). Please try again later.`,
+        retryAfterMinutes: restriction.retryMinutes,
+      });
+    }
+
     console.log('[Login Route] Querying Prisma for user...');
     const user = await prisma.user.findUnique({
       where: { email },
@@ -43,14 +75,47 @@ exports.login = async (req, res) => {
     console.log('[Login Route] Prisma query finished. User found:', !!user);
 
     if (!user) {
+      const failStatus = recordFailedAttempt(clientIp, email);
       await logAudit({
         actorEmail: email,
         action: 'USER_LOGIN_FAILED',
         entityType: 'USER',
-        newValues: { reason: 'User not found' },
+        newValues: { reason: 'User not found', attemptsLeft: failStatus.attemptsLeft },
         req
       });
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+
+      if (failStatus.restricted) {
+        return res.status(429).json({
+          success: false,
+          message: 'Too many failed login attempts. This account / IP is now temporarily restricted for 15 minutes.',
+          retryAfterMinutes: 15,
+        });
+      }
+
+      return res.status(401).json({
+        success: false,
+        message: `Invalid credentials. (${failStatus.attemptsLeft} attempt(s) remaining before temporary lockout)`,
+        attemptsLeft: failStatus.attemptsLeft,
+      });
+    }
+
+    // 2. Check Account Activation Status
+    if (user.isActive === false) {
+      await logAudit({
+        actorId: user.id,
+        actorEmail: user.email,
+        action: 'USER_LOGIN_BLOCKED_DEACTIVATED',
+        entityType: 'USER',
+        entityId: user.id,
+        newValues: { reason: 'User account is deactivated by administrator' },
+        req
+      });
+
+      return res.status(403).json({
+        success: false,
+        isDeactivated: true,
+        message: 'Your account has been deactivated. Please contact your system administrator or support.',
+      });
     }
 
     console.log('[Login Route] Comparing passwords with bcrypt...');
@@ -58,17 +123,34 @@ exports.login = async (req, res) => {
     console.log('[Login Route] Bcrypt compare finished:', isValidPassword);
     
     if (!isValidPassword) {
+      const failStatus = recordFailedAttempt(clientIp, email);
       await logAudit({
         actorId: user.id,
         actorEmail: user.email,
         action: 'USER_LOGIN_FAILED',
         entityType: 'USER',
         entityId: user.id,
-        newValues: { reason: 'Incorrect password' },
+        newValues: { reason: 'Incorrect password', attemptsLeft: failStatus.attemptsLeft },
         req
       });
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+
+      if (failStatus.restricted) {
+        return res.status(429).json({
+          success: false,
+          message: 'Too many failed login attempts. This account / IP is now temporarily restricted for 15 minutes.',
+          retryAfterMinutes: 15,
+        });
+      }
+
+      return res.status(401).json({
+        success: false,
+        message: `Invalid credentials. (${failStatus.attemptsLeft} attempt(s) remaining before temporary lockout)`,
+        attemptsLeft: failStatus.attemptsLeft,
+      });
     }
+
+    // Login succeeded: Clear failed attempts tracking for this IP & email
+    recordSuccess(clientIp, email);
 
     const { accessToken, refreshToken } = generateTokens(user);
 
@@ -96,6 +178,7 @@ exports.login = async (req, res) => {
         email: user.email,
         name: user.name,
         role: user.role.name,
+        isActive: user.isActive,
         permissions: user.role.permissions.map(rp => rp.permission.code)
       }
     });
@@ -139,6 +222,17 @@ exports.refreshToken = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    if (user.isActive === false) {
+      if (req.session) {
+        req.session.destroy(() => {});
+      }
+      return res.status(403).json({
+        success: false,
+        isDeactivated: true,
+        message: 'Your account has been deactivated. Please contact your system administrator.',
+      });
     }
 
     const { accessToken, refreshToken: newRefreshToken } = generateTokens(user);
@@ -203,10 +297,12 @@ exports.changePassword = async (req, res) => {
       });
     }
 
-    if (newPassword.length < 6) {
+    // 8-character rule and rejection of weak / common passwords
+    const passwordValidation = validatePassword(newPassword);
+    if (!passwordValidation.isValid) {
       return res.status(400).json({
         success: false,
-        message: 'New password must be at least 6 characters long',
+        message: passwordValidation.error,
       });
     }
 

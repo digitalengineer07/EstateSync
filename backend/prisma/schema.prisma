@@ -15,6 +15,7 @@ model User {
   name            String
   roleId          String
   role            Role             @relation(fields: [roleId], references: [id])
+  isActive        Boolean          @default(true)
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   wallet          Wallet?

@@ -15,8 +15,21 @@ require('dotenv').config();
 const app = express();
 app.set('trust proxy', 1); // Trust first proxy (Hostinger/Render load balancer)
 
-// Security Middlewares - allow cross-origin requests from Hostinger / Render / local dev
+// Security: Disable express fingerprinting header
+app.disable('x-powered-by');
+
+// Security Middlewares - Comprehensive Helmet configuration
 app.use(helmet({
+  hidePoweredBy: true,
+  noSniff: true,
+  xssFilter: true,
+  hsts: process.env.NODE_ENV === 'production' ? {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
+  } : false,
+  referrerPolicy: { policy: "strict-origin-when-cross-origin" },
+  frameguard: { action: 'deny' },
   crossOriginResourcePolicy: { policy: "cross-origin" },
   crossOriginOpenerPolicy: { policy: "unsafe-none" },
   crossOriginEmbedderPolicy: false
@@ -79,31 +92,32 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(express.json());
 
-// Set up Session Management
+// Payload size limits to prevent volumetric payload DoS
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
+
+// Input sanitization against Prototype Pollution & parameter injection
+const { sanitizeInput } = require('./middleware/sanitizerMiddleware');
+app.use(sanitizeInput);
+
+// Hardened Session Management
 app.use(session({
-  secret: process.env.JWT_SECRET || 'supersecretjwtkey',
+  name: 'estatesync_sid',
+  secret: process.env.SESSION_SECRET || process.env.JWT_SECRET || 'supersecretjwtkey',
   resave: false,
   saveUninitialized: false,
   cookie: {
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
+    sameSite: 'lax',
     maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
   }
 }));
 
-// Set up rate limiter using express-rate-limit
-const apiLimiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  max: 1000, // Generous limit to prevent false positives with dashboards, SWR polling & Render reverse proxy
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { success: false, message: 'Too many requests, please slow down.' }
-});
-
-// Apply the rate limiting middleware to all requests
-app.use(apiLimiter);
+// Global API rate limiting
+const { globalApiLimiter } = require('./middleware/rateLimitMiddleware');
+app.use('/api/', globalApiLimiter);
 
 // Import Routes
 const authRoutes = require('./routes/authRoutes');
@@ -152,33 +166,33 @@ app.get('/', (req, res) => {
   res.send('EstateSync API is running with Full Accounting & Idempotency Engine');
 });
 
-app.post('/test-post', (req, res) => {
-  console.log('Received POST to /test-post with body:', req.body);
-  res.json({ success: true, message: 'POST body received', body: req.body });
-});
+// Development-only diagnostic endpoints (restricted in production)
+if (process.env.NODE_ENV !== 'production') {
+  app.post('/test-post', (req, res) => {
+    res.json({ success: true, message: 'POST body received', body: req.body });
+  });
 
-app.get('/test-db', async (req, res) => {
-  try {
-    const { Pool } = require('pg');
-    const pool = new Pool({ 
-      connectionString: process.env.DATABASE_URL,
-      connectionTimeoutMillis: 5000 
-    });
-    const client = await pool.connect();
-    const result = await client.query('SELECT NOW()');
-    client.release();
-    await pool.end();
-    res.json({ success: true, time: result.rows[0] });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message, stack: err.stack });
-  }
-});
+  app.get('/test-db', async (req, res) => {
+    try {
+      const { Pool } = require('pg');
+      const pool = new Pool({ 
+        connectionString: process.env.DATABASE_URL,
+        connectionTimeoutMillis: 5000 
+      });
+      const client = await pool.connect();
+      const result = await client.query('SELECT NOW()');
+      client.release();
+      await pool.end();
+      res.json({ success: true, time: result.rows[0] });
+    } catch (err) {
+      res.status(500).json({ success: false, message: 'Database test error' });
+    }
+  });
+}
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error('Unhandled Application Error:', err.stack);
-  res.status(500).json({ success: false, message: 'Server Error', error: err.message });
-});
+// Secure centralized error handling middleware
+const { errorHandler } = require('./middleware/errorMiddleware');
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 const isPassenger = typeof(PhusionPassenger) !== 'undefined' || !!process.env.PASSENGER_APP_ENV;

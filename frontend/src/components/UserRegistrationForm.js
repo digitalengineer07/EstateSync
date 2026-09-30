@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
-import { UserPlus, Wallet, CheckCircle2, XCircle } from "lucide-react";
+import { UserPlus, Wallet, CheckCircle2, XCircle, KeyRound } from "lucide-react";
+import { validatePasswordStrength } from "@/utils/passwordValidator";
 
-export default function UserRegistrationForm() {
+export default function UserRegistrationForm({ onNavigateToPasswords }) {
   const [roles, setRoles] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
@@ -48,8 +49,15 @@ export default function UserRegistrationForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setMessage(null);
+
+    const val = validatePasswordStrength(formData.password);
+    if (!val.isValid) {
+      setMessage({ type: "error", text: val.error });
+      return;
+    }
+
+    setLoading(true);
     try {
       const token = localStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/users/register`, {
@@ -77,7 +85,7 @@ export default function UserRegistrationForm() {
   return (
     <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7 flex flex-col justify-between h-full space-y-5">
       {/* Header */}
-      <div className="flex items-start justify-between gap-3 pb-4 border-b border-slate-100">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-700 flex items-center justify-center font-bold shadow-2xs shrink-0">
             <UserPlus className="w-5 h-5" />
@@ -89,23 +97,36 @@ export default function UserRegistrationForm() {
             </p>
           </div>
         </div>
-        <span className="px-2.5 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full border border-orange-200 shrink-0">
-          System Provisioning
-        </span>
+        <div className="flex items-center gap-2">
+          {onNavigateToPasswords && (
+            <button
+              type="button"
+              onClick={onNavigateToPasswords}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-[#ff6b12] border border-orange-200 text-xs font-bold transition active:scale-95 cursor-pointer shrink-0"
+              title="Reset passwords for existing user accounts"
+            >
+              <KeyRound className="w-3.5 h-3.5" />
+              <span>Reset User Passwords</span>
+            </button>
+          )}
+          <span className="px-2.5 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full border border-orange-200 shrink-0">
+            System Provisioning
+          </span>
+        </div>
       </div>
 
       {message && (
         <div
           className={`p-3.5 rounded-xl text-xs flex items-center gap-2.5 border ${
             message.type === "success"
-              ? "bg-orange-50 text-orange-800 border-orange-200"
-              : "bg-orange-50 text-orange-800 border-orange-200"
+              ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+              : "bg-rose-50 text-rose-800 border-rose-200"
           }`}
         >
           {message.type === "success" ? (
-            <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           ) : (
-            <XCircle className="w-4 h-4 text-orange-600 shrink-0" />
+            <XCircle className="w-4 h-4 text-rose-600 shrink-0" />
           )}
           <span className="font-medium">{message.text}</span>
         </div>
@@ -156,8 +177,11 @@ export default function UserRegistrationForm() {
                 onChange={handleChange}
                 required
                 className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 outline-none transition"
-                placeholder="••••••••"
+                placeholder="Min. 8 characters (letters + numbers)"
               />
+              <p className="text-[10px] text-slate-400 mt-1">
+                Must be &ge; 8 characters and not a weak or commonly used password.
+              </p>
             </div>
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
