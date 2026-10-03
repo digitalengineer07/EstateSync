@@ -43,38 +43,12 @@ app.use((req, res, next) => {
   next();
 });
 
-const allowedOrigins = [
-  'https://estatesync.devoxa.in',
-  'http://estatesync.devoxa.in',
-  'https://www.estatesync.devoxa.in',
-  'http://localhost:3000',
-  'http://localhost:3001',
-  'http://localhost:3002',
-  'http://127.0.0.1:3000'
-];
-
-if (process.env.CORS_ORIGIN) {
-  process.env.CORS_ORIGIN.split(',').forEach(o => {
-    const trimmed = o.trim();
-    if (trimmed && !allowedOrigins.includes(trimmed)) allowedOrigins.push(trimmed);
-  });
-}
+const isAllowedOrigin = require('./middleware/corsOrigins').createOriginValidator();
 
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
-    if (
-      allowedOrigins.includes(origin) ||
-      origin.endsWith('.devoxa.in') ||
-      origin.endsWith('.hostingersite.com') ||
-      origin.includes('localhost') ||
-      origin.includes('127.0.0.1') ||
-      process.env.CORS_ORIGIN === '*' ||
-      process.env.NODE_ENV !== 'production'
-    ) {
-      return callback(null, true);
-    }
-    return callback(null, false);
+    return callback(null, isAllowedOrigin(origin));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
@@ -160,6 +134,7 @@ app.use('/api/v1/wallets', walletRoutes);
 app.use('/api/v1/notes', noteRoutes);
 app.use('/api/v1/notifications', notificationRoutes);
 app.use('/api/v1/search', searchRoutes);
+app.use('/api/v1/documents', require('./routes/documentRoutes'));
 
 // Basic route for testing
 app.get('/', (req, res) => {

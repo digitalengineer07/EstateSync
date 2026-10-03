@@ -5,7 +5,7 @@ const prisma = require('../config/db');
  * Prevents double-spending, duplicate allocations, or repeated requests
  * when the client supplies an `Idempotency-Key` or `x-idempotency-key` header.
  */
-function idempotencyMiddleware(req, res, next) {
+function createIdempotencyMiddleware(db = prisma) { return async function idempotencyMiddleware(req, res, next) {
   const idempotencyKey = req.headers['idempotency-key'] || req.headers['x-idempotency-key'];
 
   // If no idempotency key was supplied by the client, proceed normally
@@ -14,14 +14,18 @@ function idempotencyMiddleware(req, res, next) {
   }
 
   const keyString = idempotencyKey.trim();
-  const userId = req.user?.userId || 'ANONYMOUS';
+  if (!keyString || keyString.length > 128) return res.status(400).json({ success: false, message: 'Invalid idempotency key' });
+  const userId = req.user?.userId;
+  if (!userId) return res.status(401).json({ success: false, message: 'Authentication required' });
   const endpoint = `${req.method} ${req.originalUrl || req.url}`;
 
   // 1. Check if this key was already processed
-  prisma.idempotencyKey.findUnique({
-    where: { key: keyString }
-  }).then((cached) => {
+  try {
+    const cached = await db.idempotencyKey.findUnique({ where: { key: keyString } });
     if (cached) {
+      if (cached.userId !== userId || cached.endpoint !== endpoint || cached.expiresAt <= new Date()) {
+        return res.status(409).json({ success: false, message: 'Idempotency key cannot be reused for this request' });
+      }
       // Replay stored response directly
       return res.status(cached.responseStatus).json({
         ...cached.responseBody,
@@ -37,7 +41,7 @@ function idempotencyMiddleware(req, res, next) {
       // Only cache successful or intended business errors (status < 500)
       if (res.statusCode < 500) {
         const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
-        prisma.idempotencyKey.create({
+        db.idempotencyKey.create({
           data: {
             key: keyString,
             userId,
@@ -54,11 +58,12 @@ function idempotencyMiddleware(req, res, next) {
       return originalJson(body);
     };
 
-    next();
-  }).catch((err) => {
+    return next();
+  } catch (err) {
     console.error('Idempotency lookup error:', err);
-    next();
-  });
-}
+    return res.status(503).json({ success: false, message: 'Request safety check is temporarily unavailable' });
+  }
+}; }
 
-module.exports = idempotencyMiddleware;
+module.exports = createIdempotencyMiddleware();
+module.exports.createIdempotencyMiddleware = createIdempotencyMiddleware;

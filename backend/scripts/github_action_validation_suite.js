@@ -382,6 +382,7 @@ async function testExpenseValidation(adminToken, salesToken, salesUserId) {
       date: new Date().toISOString().slice(0, 10),
       vendorId: 'CI Vendor',
       reference: `EXP-${RUN_ID}`,
+      receiptExceptionReason: 'CI fixture: supplier receipt unavailable, pending accounting review.',
       fundMode: 'LIQUID'
     }, salesToken, authHeaders('valid-expense')),
     201
@@ -454,6 +455,7 @@ async function cleanup() {
     where: { key: { in: created.idempotencyKeys } }
   }).catch(() => {});
 
+  await prisma.documentException.deleteMany({ where: { sourceType: 'EXPENSE', sourceId: { in: created.expenseIds } } }).catch(() => {});
   await prisma.expense.deleteMany({
     where: {
       OR: [

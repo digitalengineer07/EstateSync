@@ -35,10 +35,12 @@ The system operates with strict Role-Based Access Control (RBAC) and immutable P
 3. Set your PostgreSQL database connection string and JWT secrets:
    ```env
    DATABASE_URL="postgresql://username:password@localhost:5432/estatesync?schema=public"
-   JWT_SECRET="your_jwt_secret_here"
-   JWT_REFRESH_SECRET="your_refresh_secret_here"
+   JWT_SECRET="replace-with-an-independent-random-32-plus-character-secret"
+   JWT_REFRESH_SECRET="replace-with-a-different-random-32-plus-character-secret"
    PORT=4000
    ```
+
+   Production refuses to start if either JWT secret is missing, shorter than 32 characters, a known default, or identical to the other. Generate both with a cryptographically secure random generator and set them only in backend environment settings. Changing them invalidates existing access and refresh tokens, so coordinate rotation with a maintenance window. Production CORS permits only `https://estatesync.devoxa.in` and `https://www.estatesync.devoxa.in` by default; add other exact origins with comma-separated `CORS_ORIGIN` values (never `*`).
 
 ### 2. Backend Setup
 Open a terminal and run the following commands:

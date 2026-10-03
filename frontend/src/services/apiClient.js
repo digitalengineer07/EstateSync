@@ -21,7 +21,7 @@ export async function apiRequest(endpoint, {
   idempotencyKey = null,
   headers = {}
 } = {}) {
-  const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+  const token = typeof window !== "undefined" ? sessionStorage.getItem("accessToken") : null;
 
   // Build query string if params supplied
   let urlPath = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
@@ -87,9 +87,9 @@ export async function apiRequest(endpoint, {
   // Handle account deactivation: immediately purge session and redirect to login
   if (response.status === 403 && data?.isDeactivated) {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("user");
+      sessionStorage.removeItem("accessToken");
+      sessionStorage.removeItem("refreshToken");
+      sessionStorage.removeItem("user");
       sessionStorage.setItem(
         "authMessage",
         data.message || "Your account has been deactivated. Please contact your system administrator."
@@ -102,9 +102,9 @@ export async function apiRequest(endpoint, {
   // Handle token expiry: redirect to login instead of crashing
   if (response.status === 401) {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("user");
+      sessionStorage.removeItem("accessToken");
+      sessionStorage.removeItem("refreshToken");
+      sessionStorage.removeItem("user");
       sessionStorage.setItem("authMessage", "Your session has expired. Please log in again.");
       window.location.href = "/login";
     }

@@ -15,24 +15,30 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // On mount, check if there's a token (in a real app, you'd check HttpOnly cookies or validate with backend)
-    const storedUser = localStorage.getItem("user");
-    const token = localStorage.getItem("accessToken");
+    // Authentication is tab-scoped. Remove old shared auth keys on upgrade rather
+    // than silently reusing a token that belongs to another open tab.
+    try {
+      for (const key of ["accessToken", "refreshToken", "user"]) localStorage.removeItem(key);
+    } catch {
+      // Storage may be unavailable in privacy-restricted browsers.
+    }
+    const storedUser = sessionStorage.getItem("user");
+    const token = sessionStorage.getItem("accessToken");
 
     if (storedUser && token) {
       try {
         const parsed = JSON.parse(storedUser);
         if (parsed?.email === "manager@estatesync.local" && (parsed?.name === "Sales Manager" || !parsed?.name)) {
           parsed.name = "Operations Manager";
-          localStorage.setItem("user", JSON.stringify(parsed));
+          sessionStorage.setItem("user", JSON.stringify(parsed));
         }
         setUser(parsed);
       } catch (e) {
         // We suppress the error log here because Next.js dev server 
         // intercepts console.error and shows an overlay even for caught errors.
-        localStorage.removeItem("user");
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("accessToken");
+        sessionStorage.removeItem("refreshToken");
         setUser(null);
       }
     }
@@ -71,9 +77,9 @@ export const AuthProvider = ({ children }) => {
 
       if (data.success) {
         setUser(data.user);
-        localStorage.setItem("accessToken", data.accessToken);
-        localStorage.setItem("refreshToken", data.refreshToken);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        sessionStorage.setItem("accessToken", data.accessToken);
+        sessionStorage.setItem("refreshToken", data.refreshToken);
+        sessionStorage.setItem("user", JSON.stringify(data.user));
 
         // Redirect based on role
         if (data.user.role === "ADMIN") {
@@ -101,17 +107,17 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("user");
     router.push("/login");
   };
 
   const logoutWithMessage = (message = "You have been logged out.") => {
     setUser(null);
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("user");
     sessionStorage.setItem("authMessage", message);
     router.push("/login");
   };

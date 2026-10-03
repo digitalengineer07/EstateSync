@@ -10,5 +10,11 @@ backend/src/prisma-client/
 EstateSync_Developer_Master_Blueprint_v3.1.pdf
 backend/backups/
 *.sql
+!backend/prisma/upgrades/*.sql
+backend/private-documents/
 *.dump
 .next
+scratch/document-test-runtime/
+scratch/document-ui-review/
+scratch/npm-document-cache/
+scratch/pg-client/

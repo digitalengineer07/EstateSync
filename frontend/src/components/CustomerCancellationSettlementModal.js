@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { API_URL } from "@/config/api";
+import TransactionDocuments from './TransactionDocuments';
 import { 
   X, 
   AlertTriangle, 
@@ -24,6 +25,8 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
   const [notes, setNotes] = useState("");
   
   const [loading, setLoading] = useState(false);
+  const [documentUploads, setDocumentUploads] = useState([]);
+  const [documentsBusy, setDocumentsBusy] = useState(false);
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
 
@@ -33,6 +36,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (documentsBusy) return;
     setLoading(true);
     setError(null);
     setSuccessMsg(null);
@@ -56,7 +60,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `cust-refund-settle-${customer.id}-${Date.now()}`;
 
       const res = await fetch(`${API_URL}/api/v1/customers/${customer.id}/settle-cancellation`, {
@@ -68,6 +72,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
         },
         body: JSON.stringify({
           deductionAmount: deduction,
+          documentUploadIds: documentUploads.map(d => d.id),
           refundMode,
           payoutAccount,
           referenceNo: referenceNo.trim(),
@@ -80,6 +85,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
         throw new Error(data.message || "Failed to settle cancellation refund.");
       }
 
+      setDocumentUploads([]);
       setSuccessMsg(data.message || "Cancellation settlement & refund completed successfully!");
       setTimeout(() => {
         onSettled?.(data.data?.customer || customer);
@@ -268,6 +274,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
             </div>
           </div>
 
+          {netRefund > 0 && <TransactionDocuments sourceType="REFUND" paymentMode={refundMode} uploads={documentUploads} onChange={setDocumentUploads} onBusyChange={setDocumentsBusy} disabled={loading} />}
           {/* Footer Controls */}
           <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-2.5">
             <button
@@ -279,7 +286,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
             </button>
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || documentsBusy}
               className="px-5 py-2.5 text-xs font-bold text-white bg-orange-600 hover:bg-orange-700 active:scale-95 rounded-lg transition shadow-xs disabled:opacity-50 flex items-center gap-1.5"
             >
               <ShieldCheck className="w-4 h-4" />

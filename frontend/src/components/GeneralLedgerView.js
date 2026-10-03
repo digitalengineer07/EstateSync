@@ -1,4 +1,5 @@
 "use client";
+import TransactionDocumentButton from './TransactionDocumentButton';
 
 import { useState } from "react";
 import useSWR from "swr";
@@ -107,6 +108,7 @@ export default function GeneralLedgerView() {
                 <div className="bg-gray-50 px-4 py-3 border-b border-gray-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                   <div className="flex items-center gap-2">
                     <span className="font-mono font-bold text-sm text-orange-900">{entry.entryNumber}</span>
+                    <TransactionDocumentButton journalId={entry.id} />
                     <span className="text-xs text-gray-500 font-mono">
                       {formatDateTime(entry.createdAt, { format: 'dd-mmm-yyyy' })}
                     </span>

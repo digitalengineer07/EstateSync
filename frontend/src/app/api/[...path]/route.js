@@ -41,29 +41,32 @@ async function proxyRequest(request, { params }) {
   // Read body for methods that have one
   let body = undefined;
   if (!['GET', 'HEAD'].includes(request.method)) {
-    body = await request.text();
+    body = request.body;
   }
 
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 15000); // 15-second safeguard
+  const timeoutId = setTimeout(() => controller.abort(), path.startsWith('v1/documents/') ? 120000 : 15000);
 
   try {
     const backendResponse = await fetch(fullUrl, {
       method: request.method,
       headers: forwardHeaders,
       body: body || undefined,
+      ...(body ? { duplex: 'half' } : {}),
       signal: controller.signal,
     });
     clearTimeout(timeoutId);
 
-    const responseText = await backendResponse.text();
     console.log(`[Proxy] Response: ${backendResponse.status}`);
 
-    return new Response(responseText, {
+    const responseHeaders = new Headers();
+    for (const name of ['content-type', 'content-disposition', 'cache-control', 'x-content-type-options', 'content-security-policy', 'cross-origin-resource-policy', 'retry-after']) {
+      const value = backendResponse.headers.get(name);
+      if (value) responseHeaders.set(name, value);
+    }
+    return new Response(backendResponse.body, {
       status: backendResponse.status,
-      headers: {
-        'Content-Type': backendResponse.headers.get('content-type') || 'application/json',
-      },
+      headers: responseHeaders,
     });
   } catch (err) {
     clearTimeout(timeoutId);

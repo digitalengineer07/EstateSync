@@ -133,7 +133,7 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
   const currentUser = useMemo(() => {
     if (typeof window === "undefined") return null;
     try {
-      const userStr = localStorage.getItem("user");
+      const userStr = sessionStorage.getItem("user");
       return userStr ? JSON.parse(userStr) : null;
     } catch {
       return null;
@@ -143,7 +143,7 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
   const fetchNotes = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const params = new URLSearchParams();
       if (selectedCategory && selectedCategory !== "ALL") {
         params.append("category", selectedCategory);
@@ -299,7 +299,7 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
     setFormError("");
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const url = editingNote
         ? `${API_URL}/api/v1/notes/${editingNote.id}`
         : `${API_URL}/api/v1/notes`;
@@ -338,7 +338,7 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
 
   const handleDelete = async (noteId) => {
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/notes/${noteId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },

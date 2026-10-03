@@ -1,7 +1,7 @@
 import { API_URL } from "@/config/api";
 
 export const fetcher = async (url) => {
-  const token = typeof window !== 'undefined' ? localStorage.getItem("accessToken") : null;
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem("accessToken") : null;
   
   const fullUrl = url.startsWith('http') ? url : `${API_URL}${url}`;
   
@@ -20,9 +20,9 @@ export const fetcher = async (url) => {
   // Handle account deactivation: immediately purge session and redirect to login
   if (res.status === 403 && data?.isDeactivated) {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("user");
+      sessionStorage.removeItem("accessToken");
+      sessionStorage.removeItem("refreshToken");
+      sessionStorage.removeItem("user");
       sessionStorage.setItem(
         "authMessage",
         data.message || "Your account has been deactivated. Please contact your system administrator."
@@ -35,9 +35,9 @@ export const fetcher = async (url) => {
   // Handle token expiry: redirect to login instead of crashing
   if (res.status === 401) {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("user");
+      sessionStorage.removeItem("accessToken");
+      sessionStorage.removeItem("refreshToken");
+      sessionStorage.removeItem("user");
       sessionStorage.setItem("authMessage", "Your session has expired. Please log in again.");
       window.location.href = "/login";
     }

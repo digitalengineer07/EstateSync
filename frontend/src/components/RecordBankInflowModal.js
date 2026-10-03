@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Landmark, ArrowUpRight, X, ShieldCheck, CheckCircle2, AlertCircle } from "lucide-react";
 import { API_URL } from "@/config/api";
+import TransactionDocuments from './TransactionDocuments';
 import { toISTDateInputString, createSafePaymentDateISO, formatDate } from "@/utils/formatters";
 
 export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
@@ -18,6 +19,8 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
   });
 
   const [loading, setLoading] = useState(false);
+  const [documentUploads, setDocumentUploads] = useState([]);
+  const [documentsBusy, setDocumentsBusy] = useState(false);
   const [error, setError] = useState(null);
 
   if (!isOpen) return null;
@@ -29,6 +32,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (documentsBusy) return;
     setLoading(true);
     setError(null);
 
@@ -46,7 +50,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/treasury/inflow`, {
         method: "POST",
         headers: {
@@ -55,6 +59,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
         },
         body: JSON.stringify({
           ...formData,
+          documentUploadIds: documentUploads.map(d => d.id),
           transactionDate: createSafePaymentDateISO(formData.transactionDate),
           bankName: formData.paymentMode === 'CASH' ? 'Cash In Hand' : formData.bankName.trim(),
           accountNo: formData.paymentMode === 'CASH' ? null : (formData.accountNo ? formData.accountNo.trim() : null),
@@ -65,6 +70,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
 
       const data = await res.json();
       if (data.success) {
+        setDocumentUploads([]);
         onSuccess(data);
         onClose();
       } else {
@@ -292,6 +298,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
             </div>
           </div>
 
+          <TransactionDocuments sourceType="BANK_INFLOW" paymentMode={formData.paymentMode} uploads={documentUploads} onChange={setDocumentUploads} onBusyChange={setDocumentsBusy} disabled={loading} />
           {/* Double-Entry Preview Box */}
           <div className="p-3.5 bg-slate-900 text-white rounded-xl border border-slate-800 text-xs space-y-1.5 font-mono">
             <div className="flex items-center justify-between text-slate-400 font-sans text-[11px] pb-1 border-b border-slate-800">
@@ -321,7 +328,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
             </button>
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || documentsBusy}
               className="flex items-center space-x-2 px-5 py-2.5 bg-orange-600 hover:bg-orange-500 active:bg-orange-700 text-white rounded-xl text-xs font-bold shadow-md shadow-orange-900/20 disabled:opacity-50 transition"
             >
               {loading ? (

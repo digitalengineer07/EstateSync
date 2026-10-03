@@ -79,7 +79,7 @@ export default function AdminResetPasswordModal({ user, isOpen, onClose, onSucce
 
     try {
       setLoading(true);
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/users/${user.id}/reset-password`, {
         method: "PUT",
         headers: {

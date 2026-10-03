@@ -1,4 +1,6 @@
 const prisma = require('../config/db');
+const documentEngine = require('../services/documents/service');
+const { actorFrom } = require('../services/documents/sources');
 const { postCapitalInfusionJournal } = require('../utils/accountingHelper');
 const { logAudit } = require('../utils/auditLogger');
 const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
@@ -120,6 +122,9 @@ exports.recordBankInflow = async (req, res) => {
       }
 
       // 4. Generate Balanced Double-Entry General Ledger Voucher (Dr: 1010 | Cr: 3010/3020/4020)
+      await documentEngine.attach(tx, await actorFrom(tx, req.user.userId), 'BANK_INFLOW', walletTxn.id, req.body.documentUploadIds, null, req);
+
+      // 4. Generate Balanced Double-Entry General Ledger Voucher (Dr: 1010 | Cr: 3010/3020/4020)
       const journalEntry = await postCapitalInfusionJournal(tx, {
         amount: parsedAmount,
         inflowType,
@@ -171,6 +176,7 @@ exports.recordBankInflow = async (req, res) => {
     });
   } catch (error) {
     console.error('Error recording bank inflow:', error);
+    if (error.isOperational) return res.status(error.statusCode).json({ success: false, message: error.message });
     return res.status(500).json({
       success: false,
       message: error.message || 'Failed to record bank inflow'

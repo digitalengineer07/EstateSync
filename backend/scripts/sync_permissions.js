@@ -106,6 +106,7 @@ async function syncPerms() {
     console.log('ACCOUNTING permissions:', accountingRole.permissions.map(p => p.permission.code).join(', '));
   });
 
+  await require('../src/services/documents/permissions').syncDocumentPermissions(prisma);
   process.exit(0);
 }
 

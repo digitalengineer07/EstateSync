@@ -100,7 +100,7 @@ export default function AdjustWalletBalanceModal({ isOpen, onClose, user, onSucc
     setError(null);
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `adj_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
 
       const payload = {

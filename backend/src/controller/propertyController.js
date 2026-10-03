@@ -1,4 +1,6 @@
 const prisma = require('../config/db');
+const documentEngine = require('../services/documents/service');
+const { actorFrom } = require('../services/documents/sources');
 const { logAudit } = require('../utils/auditLogger');
 const { postPropertyPaymentJournal, postPropertyPaymentAdjustmentJournal } = require('../utils/accountingHelper');
 const { checkDuplicateReferenceNo, registerBankReference } = require('../utils/referenceValidator');
@@ -379,6 +381,9 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
       }
 
       // 2. Deduct from Organization Treasury Wallet (PRD §20.3)
+      await documentEngine.attach(tx, await actorFrom(tx, accountingUserId), 'LAND_PAYOUT', payment.id, req.body.documentUploadIds, null, req);
+
+      // 2. Deduct from Organization Treasury Wallet (PRD §20.3)
       const updatedOrgWallet = await tx.wallet.update({
         where: { id: treasuryWallet.id },
         data: {
@@ -463,6 +468,7 @@ const { getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
     });
   } catch (error) {
     console.error('Error recording property payment:', error);
+    if (error.isOperational) return res.status(error.statusCode).json({ success: false, message: error.message });
     res.status(500).json({ success: false, message: 'Server error recording property payment', error: error.message });
   }
 };

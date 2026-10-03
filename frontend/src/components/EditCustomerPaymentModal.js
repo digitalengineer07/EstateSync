@@ -36,7 +36,7 @@ export default function EditCustomerPaymentModal({
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
 
-  // Role detection: prioritize prop, fallback to localStorage
+  // Role detection: prioritize prop, fallback to this tab's session storage
   const [effectiveRole, setEffectiveRole] = useState(userRole || "ACCOUNTING");
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function EditCustomerPaymentModal({
       setEffectiveRole(userRole);
     } else {
       try {
-        const storedUser = localStorage.getItem("user");
+        const storedUser = sessionStorage.getItem("user");
         if (storedUser) {
           const parsed = JSON.parse(storedUser);
           setEffectiveRole(parsed.role?.name || parsed.role || "ACCOUNTING");
@@ -105,7 +105,7 @@ export default function EditCustomerPaymentModal({
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const safeDateISO = createSafePaymentDateISO(dateOfPayment);
 
       const payload = {

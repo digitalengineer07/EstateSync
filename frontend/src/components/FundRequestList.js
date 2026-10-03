@@ -36,7 +36,7 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
     setActionSuccess(null);
     setProcessingId(id);
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       
       let bodyData = {};
       if (action === 'reject') {

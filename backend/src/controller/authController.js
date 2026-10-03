@@ -5,8 +5,7 @@ const { logAudit } = require('../utils/auditLogger');
 const { isRestricted, recordFailedAttempt, recordSuccess } = require('../utils/loginRateLimiter');
 const { validatePassword } = require('../utils/passwordValidator');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'supersecretjwtkey';
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'supersecretrefreshkey';
+const { access: JWT_SECRET, refresh: JWT_REFRESH_SECRET } = require('../middleware/authSecrets').authSecrets();
 
 const generateTokens = (user) => {
   const payload = {

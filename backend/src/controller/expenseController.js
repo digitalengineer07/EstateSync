@@ -1,4 +1,6 @@
 const prisma = require('../config/db');
+const documentEngine = require('../services/documents/service');
+const { actorFrom } = require('../services/documents/sources');
 const { logAudit } = require('../utils/auditLogger');
 const { postExpenseJournal, postExpenseReversalJournal } = require('../utils/accountingHelper');
 
@@ -92,6 +94,10 @@ exports.createExpense = async (req, res) => {
       });
 
       // 5. Create Ledger Transaction
+      const documentActor = await actorFrom(tx, userId);
+      await documentEngine.attach(tx, documentActor, 'EXPENSE', expense.id, req.body.documentUploadIds, req.body.receiptExceptionReason, req);
+
+      // 5. Create Ledger Transaction
       const expRef = `EXP-${expense.id.replace(/-/g, '').slice(0, 8).toUpperCase()}`;
       await tx.walletTransaction.create({
         data: {
@@ -139,6 +145,7 @@ exports.createExpense = async (req, res) => {
 
     res.status(201).json({ success: true, expense: result, message: 'Expense recorded successfully' });
   } catch (error) {
+    if (error.isOperational) return res.status(error.statusCode).json({ success: false, message: error.message });
     if (error.message === 'INSUFFICIENT_FUNDS') {
       return res.status(400).json({ success: false, message: 'Insufficient funds in wallet to cover this expense' });
     }

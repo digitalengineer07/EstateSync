@@ -104,7 +104,7 @@ export default function UserPasswordManagement({ onNavigateToRegistration }) {
     try {
       setStatusLoadingId(user.id);
       setActionError("");
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
 
       const res = await fetch(`${API_URL}/api/v1/users/${user.id}/status`, {
         method: "PATCH",

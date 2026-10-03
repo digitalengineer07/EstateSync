@@ -1,0 +1,61 @@
+name: Transaction document security and UI
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  document-backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: documents_test
+          POSTGRES_PASSWORD: documents_test
+          POSTGRES_DB: documents_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U documents_test -d documents_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://documents_test:documents_test@127.0.0.1:5432/documents_test?connection_limit=5
+      DOCUMENT_TEST_DATABASE_URL: postgresql://documents_test:documents_test@127.0.0.1:5432/documents_test?connection_limit=5
+      DOCUMENT_STORAGE_PATH: /tmp/estatesync-ci-document-evidence
+      JWT_SECRET: isolated-ci-only-document-test-secret
+      NODE_ENV: test
+      RUST_LOG: info
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - run: npm ci
+      - run: npx prisma validate
+      - run: npx prisma db push
+      - run: npm run test:documents
+      - run: npm run test:security
+      - run: npm run test:documents:integration
+        timeout-minutes: 3
+
+  document-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run test:documents
+      - run: npx eslint src/components/TransactionDocuments.js src/components/TransactionDocumentButton.js src/app/dashboards/documents/page.js src/services/documentService.js
+      - run: npm run build

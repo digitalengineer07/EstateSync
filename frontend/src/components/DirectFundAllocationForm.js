@@ -19,7 +19,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
   const fetchUsers = async () => {
     setLoadingUsers(true);
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/users/all`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
@@ -51,7 +51,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
     setMessage(null);
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/fund-requests/allocate`, {
         method: "POST",
         headers: {

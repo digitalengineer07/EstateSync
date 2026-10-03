@@ -1,4 +1,5 @@
 "use client";
+import TransactionDocumentButton from './TransactionDocumentButton';
 
 import { useState, useEffect } from "react";
 import useSWR from "swr";
@@ -19,7 +20,7 @@ export default function ExpenseList({ type = "my", embedded = false, showHeader 
   const [reversing, setReversing] = useState(false);
 
   useEffect(() => {
-    const userStr = localStorage.getItem("user");
+    const userStr = sessionStorage.getItem("user");
     if (userStr) {
       try {
         const u = JSON.parse(userStr);
@@ -48,7 +49,7 @@ export default function ExpenseList({ type = "my", embedded = false, showHeader 
     setSuccessMsg(null);
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/expenses/${selectedExpense.id}/reverse`, {
         method: "POST",
         headers: {
@@ -191,6 +192,7 @@ export default function ExpenseList({ type = "my", embedded = false, showHeader 
                     </td>
                     <td className="px-4 py-3 text-slate-800 max-w-xs truncate font-medium" title={item.description}>
                       {item.description}
+                      <div className="mt-1"><TransactionDocumentButton sourceType="EXPENSE" sourceId={item.id} /></div>
                     </td>
                     <td className="px-4 py-3 text-slate-500 font-mono text-[11px]">
                       {item.vendorId || item.reference ? (

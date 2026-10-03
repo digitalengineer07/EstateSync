@@ -6,24 +6,30 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:documents": "vitest run --config vitest.config.mjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4",
     "lucide-react": "^1.35.0",
-    "next": "16.3.2",
+    "next": "^16.3.8",
     "react": "19.2.8",
     "react-dom": "19.2.8",
+    "sharp": "^0.35.5",
     "swr": "^2.5.1",
     "tailwindcss": "^4"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.3.2",
-    "typescript": "^5"
+    "eslint-config-next": "^16.3.8",
+    "jsdom": "^26.1.0",
+    "typescript": "^5",
+    "vitest": "^4.1.11"
   },
   "optionalDependencies": {
     "@next/swc-wasm-nodejs": "^16.3.2"

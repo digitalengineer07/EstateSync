@@ -100,7 +100,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/customers/${customer.id}`, {
         method: "PUT",
         headers: {

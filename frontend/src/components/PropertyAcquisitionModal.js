@@ -67,7 +67,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `prop-create-${Date.now()}`;
 
       const res = await fetch(`${API_URL}/api/v1/properties`, {

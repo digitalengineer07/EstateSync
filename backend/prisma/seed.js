@@ -1,4 +1,4 @@
-const { PrismaClient } = require('../src/prisma-client');
+const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt');
 const prisma = new PrismaClient();
 
@@ -18,6 +18,8 @@ async function main() {
     });
     await delay(50);
   }
+
+  await require('../src/services/documents/permissions').syncDocumentPermissions(prisma);
 
   // 2. Create Permissions
   const permissions = [
@@ -296,4 +298,6 @@ main()
   })
   .finally(async () => {
     await prisma.$disconnect();
+    // accountingHelper also initializes the application's shared client.
+    await require('../src/config/db').$disconnect();
   });

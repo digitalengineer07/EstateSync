@@ -160,9 +160,13 @@ export default function WalletDashboard() {
           <ExpenseUploadForm />
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          <FundRequestForm />
-          <ExpenseUploadForm />
+        <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+          <div className="min-w-0">
+            <FundRequestForm />
+          </div>
+          <div className="min-w-0">
+            <ExpenseUploadForm />
+          </div>
         </div>
       )}
 

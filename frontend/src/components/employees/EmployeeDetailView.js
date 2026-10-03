@@ -122,7 +122,7 @@ export default function EmployeeDetailView({ id }) {
       return;
     }
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/employees/${id}/link-user`, {
         method: "DELETE",
         headers: {

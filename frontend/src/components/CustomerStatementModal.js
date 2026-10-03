@@ -1,4 +1,5 @@
 "use client";
+import TransactionDocumentButton from './TransactionDocumentButton';
 
 import { useRef, useState, useEffect } from "react";
 import { Printer, Download, Plus, X, Building2, Edit3, Pencil, Lock } from "lucide-react";
@@ -330,7 +331,7 @@ export default function CustomerStatementModal({
                           p.paymentMode
                         )}
                       </td>
-                      <td className="py-1.5 px-3 text-slate-700">{p.sourceAccount || "Direct"}</td>
+                      <td className="py-1.5 px-3 text-slate-700">{p.sourceAccount || "Direct"}<div className="mt-1 print:hidden"><TransactionDocumentButton sourceType={p.status === 'REFUND_DISBURSED' ? 'REFUND' : 'CUSTOMER_PAYMENT'} sourceId={p.id} /></div></td>
                       <td className={`py-1.5 px-3 text-right font-mono font-black ${p.status === 'REFUND_DISBURSED' ? 'text-orange-700' : 'text-slate-950'}`}>
                         {p.status === 'REFUND_DISBURSED' ? `-₹${parseFloat(p.amount).toLocaleString('en-IN')}` : `₹${parseFloat(p.amount).toLocaleString('en-IN')}`}
                       </td>

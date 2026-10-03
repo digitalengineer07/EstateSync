@@ -67,7 +67,7 @@ function DashboardHeader() {
     setSearchLoading(true);
     const timer = setTimeout(async () => {
       try {
-        const token = localStorage.getItem("accessToken");
+        const token = sessionStorage.getItem("accessToken");
         const res = await fetch(`${API_URL}/api/v1/search?q=${encodeURIComponent(searchQuery.trim())}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -185,7 +185,7 @@ function DashboardHeader() {
 
     try {
       setPasswordLoading(true);
-      const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+      const token = typeof window !== "undefined" ? sessionStorage.getItem("accessToken") : null;
       const res = await fetch(`${API_URL}/api/v1/auth/change-password`, {
         method: "PUT",
         headers: {
@@ -226,7 +226,7 @@ function DashboardHeader() {
 
   const fetchNotifications = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       if (!token) return;
       const res = await fetch(`${API_URL}/api/v1/notifications`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -346,6 +346,13 @@ function DashboardHeader() {
       visible: ["ADMIN", "ACCOUNTING"].includes(userRole),
       icon: Landmark,
       desc: "Treasury, ledger & collections",
+    },
+    {
+      name: "Document Review",
+      path: "/dashboards/documents",
+      visible: ["ADMIN", "ACCOUNTING"].includes(userRole) && hasPermission(user, "document.review"),
+      icon: ShieldCheck,
+      desc: "Financial evidence & receipt verification",
     },
     {
       name: "Employees",

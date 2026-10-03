@@ -57,7 +57,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
   }, []);
 
   useEffect(() => {
-    const userStr = localStorage.getItem("user");
+    const userStr = sessionStorage.getItem("user");
     if (userStr) {
       try {
         const u = JSON.parse(userStr);
@@ -69,7 +69,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
   const fetchCustomers = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/customers`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
@@ -557,7 +557,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
       )}
 
       {/* Record Payment Modal */}
-      <RecordCustomerPaymentModal
+      {isPaymentOpen && selectedCustomerForPayment && <RecordCustomerPaymentModal
         isOpen={isPaymentOpen}
         customer={selectedCustomerForPayment}
         onClose={() => {
@@ -575,7 +575,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
             }));
           }
         }}
-      />
+      />}
     </div>
   );
 }

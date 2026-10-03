@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
+import TransactionDocuments from './TransactionDocuments';
 import { toISTDateInputString, createSafePaymentDateISO, formatDate } from "@/utils/formatters";
 
 export default function RecordPropertyPaymentModal({ isOpen, onClose, property, onPaymentRecorded }) {
@@ -15,6 +16,8 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
   const [treasuryLiquid, setTreasuryLiquid] = useState(null);
   const [treasuryCash, setTreasuryCash] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [documentUploads, setDocumentUploads] = useState([]);
+  const [documentsBusy, setDocumentsBusy] = useState(false);
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
 
@@ -23,7 +26,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
       // Fetch current Treasury Liquidity
       const fetchTreasury = async () => {
         try {
-          const token = localStorage.getItem("accessToken");
+          const token = sessionStorage.getItem("accessToken");
           const res = await fetch(`${API_URL}/api/v1/dashboard/accounting`, {
             headers: { "Authorization": `Bearer ${token}` }
           });
@@ -52,6 +55,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (documentsBusy) return;
     setLoading(true);
     setError(null);
     setSuccessMsg(null);
@@ -75,7 +79,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `prop-pay-${Date.now()}`;
 
       const res = await fetch(`${API_URL}/api/v1/properties/${property.id}/payments`, {
@@ -87,6 +91,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
         },
         body: JSON.stringify({
           amount: numAmount,
+          documentUploadIds: documentUploads.map(d => d.id),
           paymentMode,
           paidFromAccount: paymentMode === 'CASH' ? 'Cash In Hand' : (paidFromAccount?.trim() || null),
           referenceNo: paymentMode === 'CASH' ? null : (referenceNo?.trim() || null),
@@ -100,6 +105,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
         throw new Error(data.message || "Failed to record land owner payout");
       }
 
+      setDocumentUploads([]);
       setSuccessMsg(`Disbursement of ₹${numAmount.toLocaleString('en-IN')} to ${property.landOwnerName} recorded successfully!`);
       setTimeout(() => {
         onPaymentRecorded?.(data.data);
@@ -294,6 +300,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
             />
           </div>
 
+          <TransactionDocuments sourceType="LAND_PAYOUT" paymentMode={paymentMode} uploads={documentUploads} onChange={setDocumentUploads} onBusyChange={setDocumentsBusy} disabled={loading} />
           {/* Actions */}
           <div className="flex justify-end gap-3 pt-3 border-t border-gray-200">
             <button
@@ -306,7 +313,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
             </button>
             <button
               type="submit"
-              disabled={loading || numAmount <= 0 || numAmount > balanceRemaining || (availableFunds !== null && numAmount > availableFunds)}
+              disabled={loading || documentsBusy || numAmount <= 0 || numAmount > balanceRemaining || (availableFunds !== null && numAmount > availableFunds)}
               className="px-5 py-2 text-xs font-bold text-white bg-orange-800 hover:bg-orange-900 active:scale-95 rounded-lg shadow-md transition disabled:opacity-50"
             >
               {loading ? "Posting Disbursement..." : `Disburse ₹${numAmount ? numAmount.toLocaleString('en-IN') : "0"}`}

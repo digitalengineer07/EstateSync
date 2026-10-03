@@ -19,7 +19,7 @@ export default function UserRegistrationForm({ onNavigateToPasswords }) {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const token = localStorage.getItem("accessToken");
+        const token = sessionStorage.getItem("accessToken");
         const res = await fetch(`${API_URL}/api/v1/users/roles`, {
           headers: {
             "Authorization": `Bearer ${token}`
@@ -59,7 +59,7 @@ export default function UserRegistrationForm({ onNavigateToPasswords }) {
 
     setLoading(true);
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/users/register`, {
         method: "POST",
         headers: {

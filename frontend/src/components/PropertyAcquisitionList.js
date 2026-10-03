@@ -1,4 +1,5 @@
 "use client";
+import TransactionDocumentButton from './TransactionDocumentButton';
 
 import { useState, useEffect } from "react";
 import PropertyAcquisitionModal from "./PropertyAcquisitionModal";
@@ -53,7 +54,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
   const fetchProperties = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/properties`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
@@ -157,7 +158,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
       setEffectiveRole(userRole);
     } else {
       try {
-        const storedUser = localStorage.getItem("user");
+        const storedUser = sessionStorage.getItem("user");
         if (storedUser) {
           const parsed = JSON.parse(storedUser);
           setEffectiveRole(parsed.role?.name || parsed.role || "ACCOUNTING");
@@ -174,7 +175,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
     await fetchProperties();
     if (historyProperty) {
       try {
-        const token = localStorage.getItem("accessToken");
+        const token = sessionStorage.getItem("accessToken");
         const res = await fetch(`${API_URL}/api/v1/properties/${historyProperty.id}`, {
           headers: { "Authorization": `Bearer ${token}` }
         });
@@ -363,6 +364,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
 
                     <td className="px-3.5 py-2.5 text-right">
                       <div className="flex items-center justify-end gap-2">
+                        <TransactionDocumentButton sourceType="PROPERTY" sourceId={prop.id} label="Legal documents" />
                         {canRecordPayout && prop.status !== 'FULLY_PAID' && (
                           <button
                             onClick={() => handleOpenPayment(prop)}
@@ -459,7 +461,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
                         <td className="px-3 py-2 text-slate-700 font-bold">{formatDate(p.dateOfPayment, { format: 'dd/mm/yyyy' })}</td>
                         <td className="px-3 py-2 font-sans font-medium text-slate-800">{p.paymentMode}</td>
                         <td className="px-3 py-2 text-slate-500 text-[11px] font-sans">{p.paidFromAccount || "N/A"}</td>
-                        <td className="px-3 py-2 text-slate-500 text-[11px]">{p.referenceNo || "N/A"}</td>
+                        <td className="px-3 py-2 text-slate-500 text-[11px]">{p.referenceNo || "N/A"}<div className="mt-1"><TransactionDocumentButton sourceType="LAND_PAYOUT" sourceId={p.id} /></div></td>
                         <td className="px-3 py-2 text-right font-bold text-orange-600">₹{parseFloat(p.amount).toLocaleString('en-IN')}</td>
                         {isAdmin && (
                           <td className="px-3 py-2 text-center font-sans">

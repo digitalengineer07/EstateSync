@@ -1,4 +1,5 @@
 "use client";
+import TransactionDocumentButton from './TransactionDocumentButton';
 
 import { useState, useEffect } from "react";
 import RecordBankInflowModal from "./RecordBankInflowModal";
@@ -34,7 +35,7 @@ export default function TreasuryInflowList() {
   const fetchCashflow = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/treasury/cashflow`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
@@ -300,6 +301,7 @@ export default function TreasuryInflowList() {
                       </td>
                       <td className="px-5 py-3 text-slate-700 max-w-sm truncate font-medium" title={item.description}>
                         {item.description}
+                        {item.referenceType === 'BANK_STATEMENT' && <div className="mt-1"><TransactionDocumentButton sourceType="BANK_INFLOW" sourceId={item.id} /></div>}
                       </td>
                       <td className="px-5 py-3 text-right whitespace-nowrap">
                         <span className={`font-digital font-bold text-sm px-3 py-1 rounded-lg border inline-block shadow-2xs tracking-wide ${
@@ -375,11 +377,11 @@ export default function TreasuryInflowList() {
       </div>
 
       {/* Record Inflow Modal */}
-      <RecordBankInflowModal
+      {isModalOpen && <RecordBankInflowModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSuccess={handleInflowSuccess}
-      />
+      />}
     </div>
   );
 }

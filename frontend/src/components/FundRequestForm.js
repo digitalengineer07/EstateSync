@@ -20,7 +20,7 @@ export default function FundRequestForm() {
   useEffect(() => {
     const fetchManagers = async () => {
       try {
-        const token = localStorage.getItem("accessToken");
+        const token = sessionStorage.getItem("accessToken");
         const res = await fetch(`${API_URL}/api/v1/users/managers`, {
           headers: { "Authorization": `Bearer ${token}` }
         });
@@ -48,7 +48,7 @@ export default function FundRequestForm() {
     setLoading(true);
     setMessage(null);
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/fund-requests`, {
         method: "POST",
         headers: {
@@ -72,7 +72,7 @@ export default function FundRequestForm() {
   };
 
   return (
-    <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7 space-y-5 flex flex-col justify-between">
+    <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7">
       <div className="space-y-4">
         <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
           <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
@@ -197,7 +197,7 @@ export default function FundRequestForm() {
               </div>
               <div className="flex items-start gap-1.5">
                 <CheckCircle2 className="w-3 h-3 text-orange-600 mt-0.5 shrink-0" />
-                <span><strong>Expense Audit:</strong> Submit vendor invoices under "Record Wallet Expense" once utilized.</span>
+                <span><strong>Expense Audit:</strong> Submit vendor invoices under &ldquo;Record Wallet Expense&rdquo; once utilized.</span>
               </div>
             </div>
           </div>

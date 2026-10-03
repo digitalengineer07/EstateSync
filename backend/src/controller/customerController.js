@@ -1,4 +1,6 @@
 const prisma = require('../config/db');
+const documentEngine = require('../services/documents/service');
+const { actorFrom } = require('../services/documents/sources');
 const { logAudit } = require('../utils/auditLogger');
 const { postCustomerPaymentJournal, postCustomerPaymentAdjustmentJournal, postCustomerRefundJournal } = require('../utils/accountingHelper');
 const { getPrimaryTreasuryWallet, getPrimaryTreasuryAdmin } = require('../utils/treasuryHelper');
@@ -537,6 +539,8 @@ exports.settleCustomerCancellationRefund = async (req, res) => {
           }
         });
 
+        await documentEngine.attach(tx, await actorFrom(tx, accountingUserId), 'REFUND', refundPaymentRecord.id, req.body.documentUploadIds, null, req);
+
         if (referenceNo) {
           await registerBankReference(tx, {
             referenceNo,
@@ -604,6 +608,7 @@ exports.settleCustomerCancellationRefund = async (req, res) => {
     });
   } catch (error) {
     console.error('Error settling customer cancellation refund:', error);
+    if (error.isOperational) return res.status(error.statusCode).json({ success: false, message: error.message });
     res.status(500).json({ success: false, message: 'Server error settling customer cancellation refund', error: error.message });
   }
 };
@@ -720,6 +725,8 @@ exports.recordPayment = async (req, res) => {
         });
       }
 
+      await documentEngine.attach(tx, await actorFrom(tx, accountingUserId), 'CUSTOMER_PAYMENT', payment.id, req.body.documentUploadIds, null, req);
+
       // 2. Increment Organization Wallet available balance & treasury funds (PRD §19.4)
       const updatedOrgWallet = await tx.wallet.update({
         where: { id: treasuryWallet.id },
@@ -802,6 +809,7 @@ exports.recordPayment = async (req, res) => {
     });
   } catch (error) {
     console.error('Error recording customer payment:', error);
+    if (error.isOperational) return res.status(error.statusCode).json({ success: false, message: error.message });
     const statusCode = error.status || (error.code === 'P2002' || error.code === 'DUPLICATE_REFERENCE_NO' ? 400 : (error.message?.includes('timeout') ? 504 : 500));
     const message = error.message?.includes('timeout')
       ? 'Database operation timed out due to network latency. Please check customer statement or try again.'

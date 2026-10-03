@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { API_URL } from "@/config/api";
+import TransactionDocuments from './TransactionDocuments';
 import { toISTDateInputString, createSafePaymentDateISO, formatDate } from "@/utils/formatters";
 
 export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, onPaymentRecorded }) {
@@ -13,6 +14,8 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
   const [dateOfPayment, setDateOfPayment] = useState(toISTDateInputString());
   
   const [loading, setLoading] = useState(false);
+  const [documentUploads, setDocumentUploads] = useState([]);
+  const [documentsBusy, setDocumentsBusy] = useState(false);
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
 
@@ -29,6 +32,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (documentsBusy) return;
     setLoading(true);
     setError(null);
     setSuccessMsg(null);
@@ -46,7 +50,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `cust-pay-${Date.now()}`;
 
       const res = await fetch(`${API_URL}/api/v1/customers/${customer.id}/payments`, {
@@ -58,6 +62,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
         },
         body: JSON.stringify({
           amount: numAmount,
+          documentUploadIds: documentUploads.map(d => d.id),
           paymentMode,
           sourceAccount: paymentMode === 'CASH' ? 'Cash In Hand' : (sourceAccount?.trim() || null),
           destinationAccount: paymentMode === 'CASH' ? 'Cash In Hand' : (destinationAccount?.trim() || null),
@@ -71,6 +76,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
         throw new Error(data.message || "Failed to record customer payment");
       }
 
+      setDocumentUploads([]);
       setSuccessMsg(`Payment of ₹${numAmount.toLocaleString('en-IN')} recorded successfully! Organization Wallet credited.`);
       setTimeout(() => {
         onPaymentRecorded?.(data.data);
@@ -250,6 +256,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
             </>
           )}
 
+          <TransactionDocuments sourceType="CUSTOMER_PAYMENT" paymentMode={paymentMode} uploads={documentUploads} onChange={setDocumentUploads} onBusyChange={setDocumentsBusy} disabled={loading} />
           {/* Actions */}
           <div className="flex justify-end gap-3 pt-3 border-t border-gray-200">
             <button
@@ -262,7 +269,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
             </button>
             <button
               type="submit"
-              disabled={loading || numAmount <= 0 || numAmount > balanceDue}
+              disabled={loading || documentsBusy || numAmount <= 0 || numAmount > balanceDue}
               className="px-5 py-2 text-xs font-semibold text-white bg-orange-600 hover:bg-orange-700 active:scale-[0.98] rounded-lg shadow-md transition disabled:opacity-50"
             >
               {loading ? "Posting Payment..." : `Post Credit of ₹${numAmount ? numAmount.toLocaleString('en-IN') : "0"}`}

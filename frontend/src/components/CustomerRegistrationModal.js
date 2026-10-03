@@ -92,7 +92,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `cust-create-${Date.now()}`;
 
       const payload = {

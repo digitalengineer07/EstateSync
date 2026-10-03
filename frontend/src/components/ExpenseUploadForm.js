@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { API_URL } from "@/config/api";
 import { CreditCard, ShieldCheck } from "lucide-react";
+import TransactionDocuments from './TransactionDocuments';
 
 export default function ExpenseUploadForm() {
   const { user } = useAuth();
@@ -18,12 +19,15 @@ export default function ExpenseUploadForm() {
     fundMode: "LIQUID"
   });
   const [loading, setLoading] = useState(false);
+  const [documentUploads, setDocumentUploads] = useState([]);
+  const [documentsBusy, setDocumentsBusy] = useState(false);
+  const [receiptExceptionReason, setReceiptExceptionReason] = useState('');
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const token = localStorage.getItem("accessToken");
+        const token = sessionStorage.getItem("accessToken");
         const res = await fetch(`${API_URL}/api/v1/expenses/categories`, {
           headers: {
             "Authorization": `Bearer ${token}`
@@ -51,22 +55,25 @@ export default function ExpenseUploadForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (documentsBusy) return;
     setLoading(true);
     setMessage(null);
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const res = await fetch(`${API_URL}/api/v1/expenses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({ ...formData, documentUploadIds: documentUploads.map(d => d.id), receiptExceptionReason })
       });
 
       const data = await res.json();
       if (res.ok && data.success) {
         setMessage({ type: "success", text: "Expense recorded successfully!" });
+        setDocumentUploads([]);
+        setReceiptExceptionReason('');
         setFormData({ ...formData, amount: "", description: "", reference: "", fundMode: "LIQUID" });
       } else {
         setMessage({ type: "error", text: data.message || "Failed to record expense." });
@@ -78,7 +85,7 @@ export default function ExpenseUploadForm() {
   };
 
   return (
-    <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7 flex flex-col justify-between h-full space-y-4">
+    <div className="bg-white rounded-2xl sm:rounded-[22px] border border-slate-200/90 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-7 space-y-4">
       <div className="flex items-center gap-3 pb-4 border-b border-slate-100 shrink-0">
         <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
           <CreditCard className="w-5 h-5 text-orange-400" />
@@ -96,36 +103,9 @@ export default function ExpenseUploadForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="flex flex-col justify-between flex-1 gap-4">
-        <div className="space-y-3.5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Amount (₹)</label>
-              <input
-                type="number"
-                step="0.01"
-                name="amount"
-                value={formData.amount}
-                onChange={handleChange}
-                required
-                className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition text-slate-900 font-medium"
-                placeholder="e.g. 1500.00"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Payment Mode</label>
-              <select
-                name="fundMode"
-                value={formData.fundMode}
-                onChange={handleChange}
-                className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 transition text-slate-900 font-medium"
-              >
-                <option value="LIQUID">Liquid (Online / Bank)</option>
-                <option value="CASH">Cash (Physical)</option>
-              </select>
-            </div>
-          </div>
-
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <fieldset className="min-w-0 space-y-3.5" disabled={loading}>
+          <legend className="mb-3 text-sm font-semibold text-slate-900">1. Basic details</legend>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Date</label>
@@ -169,7 +149,24 @@ export default function ExpenseUploadForm() {
               placeholder="What was this expense for? (e.g. Travel, Client Lunch, Office Stationary)"
             />
           </div>
-
+          <label className="block text-xs font-medium text-slate-700">Vendor / payee (optional)
+            <input name="vendorId" value={formData.vendorId} onChange={handleChange} className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm" placeholder="Supplier or payee reference" />
+          </label>
+        </fieldset>
+        <div className="grid grid-cols-1 items-start gap-5 sm:grid-cols-2">
+          <fieldset className="space-y-3" disabled={loading}>
+          <legend className="mb-3 text-sm font-semibold text-slate-900">2. Amount</legend>
+          <label className="block text-xs font-medium text-slate-700">Total expense (₹)
+            <input type="number" min="0.01" step="0.01" name="amount" value={formData.amount} onChange={handleChange} required className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm" placeholder="e.g. 1500.00" />
+          </label>
+          </fieldset>
+          <fieldset className="space-y-3.5" disabled={loading}>
+          <legend className="mb-3 text-sm font-semibold text-slate-900">3. Payment details</legend>
+          <label className="block text-xs font-medium text-slate-700">Wallet / payment mode
+            <select name="fundMode" value={formData.fundMode} onChange={handleChange} className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm">
+              <option value="LIQUID">Liquid wallet (Online / Bank)</option><option value="CASH">Cash wallet (Physical)</option>
+            </select>
+          </label>
           <div>
             <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Reference / Invoice # (Optional)</label>
             <input
@@ -181,6 +178,11 @@ export default function ExpenseUploadForm() {
               placeholder="e.g. INV-10294 / Bill ref"
             />
           </div>
+          </fieldset>
+        </div>
+
+        <div className="min-w-0">
+          <TransactionDocuments sourceType="EXPENSE" paymentMode={formData.fundMode} uploads={documentUploads} onChange={setDocumentUploads} onBusyChange={setDocumentsBusy} exceptionReason={receiptExceptionReason} onExceptionReasonChange={setReceiptExceptionReason} disabled={loading} />
         </div>
 
         {/* Compact Settlement Protocol Strip */}
@@ -203,7 +205,7 @@ export default function ExpenseUploadForm() {
         <div>
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || documentsBusy}
             className="w-full py-2.5 bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white text-xs font-semibold rounded-xl shadow-xs transition active:scale-95 disabled:opacity-50 flex items-center justify-center gap-1.5"
           >
             <CreditCard className="w-3.5 h-3.5" />

@@ -105,7 +105,7 @@ export default function EditPropertyPaymentModal({
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `prop-pay-edit-${payment.id}-${Date.now()}`;
 
       const res = await fetch(`${API_URL}/api/v1/properties/payments/${payment.id}`, {

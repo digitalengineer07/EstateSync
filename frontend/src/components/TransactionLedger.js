@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { RefreshCw } from "lucide-react";
 import { formatDateTime } from "@/utils/formatters";
+import TransactionDocumentButton from './TransactionDocumentButton';
 
 export default function TransactionLedger({ embedded = false, showHeader = true }) {
   const [highlightedId, setHighlightedId] = useState(null);
@@ -161,6 +162,7 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
                 <th scope="col" className="px-6 py-3">Dest Wallet</th>
                 <th scope="col" className="px-6 py-3 text-right">Amount</th>
                 <th scope="col" className="px-6 py-3">Description</th>
+                <th scope="col" className="px-6 py-3">Evidence</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 text-gray-900 text-xs">
@@ -207,6 +209,7 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
                       ₹{parseFloat(txn.amount).toLocaleString('en-IN')}
                     </td>
                     <td className="px-6 py-4 text-gray-600 truncate max-w-xs" title={txn.description}>{txn.description}</td>
+                    <td className="px-6 py-4">{(txn.referenceType === 'BANK_STATEMENT' || ['FUND_ALLOCATION', 'FUND_TRANSFER', 'ADJUSTMENT', 'EXPENSE_REVERSAL'].includes(txn.type)) && <TransactionDocumentButton sourceType={txn.referenceType === 'BANK_STATEMENT' ? 'BANK_INFLOW' : ['FUND_ALLOCATION', 'FUND_TRANSFER'].includes(txn.type) ? 'WALLET_ALLOCATION' : 'OTHER_FINANCIAL_TRANSACTION'} sourceId={txn.id} />}</td>
                   </tr>
                 );
               })}

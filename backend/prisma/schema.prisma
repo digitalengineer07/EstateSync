@@ -28,6 +28,87 @@ model User {
   createdProperties PropertyAcquisition[] @relation("CreatedProperties")
   recordedPropertyPayments PropertyPayment[] @relation("RecordedPropertyPayments")
   employee        Employee?        @relation("UserEmployee")
+  transactionDocuments TransactionDocument[]
+  documentUploads DocumentUpload[]
+}
+
+// Private evidence. Source references are validated by the document source registry,
+// not polymorphic database foreign keys. Historical versions are never deleted.
+model TransactionDocument {
+  id                 String   @id @default(uuid())
+  sourceType         String
+  sourceId           String
+  documentType       String
+  originalFileName    String
+  storageKey         String   @unique
+  mimeType           String
+  fileSize           Int
+  sha256             String
+  rootDocumentId     String
+  version            Int      @default(1)
+  replacesDocumentId String?  @unique
+  replaces           TransactionDocument? @relation("DocumentVersions", fields: [replacesDocumentId], references: [id], onDelete: Restrict)
+  replacement        TransactionDocument? @relation("DocumentVersions")
+  status             String   @default("PENDING_REVIEW")
+  uploadedBy         String
+  uploader           User     @relation(fields: [uploadedBy], references: [id], onDelete: Restrict)
+  uploadedAt         DateTime @default(now())
+  verifiedBy         String?
+  verifiedAt         DateTime?
+  rejectedBy         String?
+  rejectedAt         DateTime?
+  rejectionReason    String?
+  archivedBy         String?
+  archivedAt         DateTime?
+  archiveReason      String?
+  notes              String?
+  updatedAt          DateTime @updatedAt
+  upload             DocumentUpload?
+
+  @@unique([rootDocumentId, version])
+  @@index([sourceType, sourceId])
+  @@index([status, uploadedAt])
+  @@index([documentType, uploadedAt])
+  @@index([sha256])
+}
+
+model DocumentUpload {
+  id               String   @id @default(uuid())
+  sourceType       String
+  documentType     String
+  originalFileName String
+  storageKey       String   @unique
+  mimeType         String
+  fileSize         Int
+  sha256           String
+  uploadedBy       String
+  uploader         User     @relation(fields: [uploadedBy], references: [id], onDelete: Restrict)
+  idempotencyKey   String
+  fingerprint     String
+  documentId      String?  @unique
+  document        TransactionDocument? @relation(fields: [documentId], references: [id], onDelete: Restrict)
+  createdAt       DateTime @default(now())
+  expiresAt       DateTime
+  discardedAt     DateTime?
+
+  @@unique([uploadedBy, idempotencyKey])
+  @@index([expiresAt])
+}
+
+model DocumentException {
+  id          String   @id @default(uuid())
+  sourceType  String
+  sourceId    String
+  reason      String
+  requestedBy String
+  requestedAt DateTime @default(now())
+  status      String   @default("PENDING_REVIEW")
+  reviewedBy  String?
+  reviewedAt  DateTime?
+  reviewReason String?
+
+  @@unique([sourceType, sourceId])
+  @@index([status, requestedAt])
 }
 
 model Role {
