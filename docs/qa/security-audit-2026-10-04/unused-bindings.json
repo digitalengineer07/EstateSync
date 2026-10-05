@@ -1,0 +1,2922 @@
+[
+  {
+    "file": "backend/src/app.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'rateLimit' is assigned a value but never used.",
+        "line": 9,
+        "column": 7,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 9,
+        "endColumn": 16,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "rateLimit"
+            },
+            "fix": {
+              "range": [
+                287,
+                335
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'rateLimit'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'res' is defined but never used.",
+        "line": 39,
+        "column": 15,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 39,
+        "endColumn": 18,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "res"
+            },
+            "fix": {
+              "range": [
+                1260,
+                1265
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'res'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 140,
+        "column": 15,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 140,
+        "endColumn": 18,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                5058,
+                5062
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 150,
+        "column": 30,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 150,
+        "endColumn": 33,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                5441,
+                5445
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'err' is defined but never used.",
+        "line": 162,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 162,
+        "endColumn": 17
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'promise' is defined but never used.",
+        "line": 209,
+        "column": 43,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 209,
+        "endColumn": 50,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "promise"
+            },
+            "fix": {
+              "range": [
+                7779,
+                7788
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'promise'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/controller/accountController.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 7,
+        "column": 30,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 7,
+        "endColumn": 33,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                207,
+                211
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/controller/customerBillingController.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 175,
+        "column": 44,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 175,
+        "endColumn": 47,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                6148,
+                6152
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/controller/customerController.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'userRole' is assigned a value but never used.",
+        "line": 255,
+        "column": 11,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 255,
+        "endColumn": 19,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "userRole"
+            },
+            "fix": {
+              "range": [
+                9335,
+                9366
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'userRole'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/controller/dashboardController.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 167,
+        "column": 32,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 167,
+        "endColumn": 35,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                5739,
+                5743
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 269,
+        "column": 37,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 269,
+        "endColumn": 40,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                9878,
+                9882
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/controller/expenseController.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 7,
+        "column": 32,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 7,
+        "endColumn": 35,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                358,
+                362
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 314,
+        "column": 33,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 314,
+        "endColumn": 36,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                11184,
+                11188
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/controller/fundRequestController.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 63,
+        "column": 12,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 63,
+        "endColumn": 17
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 80,
+        "column": 12,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 80,
+        "endColumn": 17
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 86,
+        "column": 33,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 86,
+        "endColumn": 36,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                2878,
+                2882
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 96,
+        "column": 12,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 96,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "backend/src/controller/noteController.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 80,
+        "column": 31,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 80,
+        "endColumn": 34,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                2485,
+                2489
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/controller/propertyController.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 123,
+        "column": 32,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 123,
+        "endColumn": 35,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                4841,
+                4845
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/controller/transactionController.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 4,
+        "column": 37,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 4,
+        "endColumn": 40,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                142,
+                146
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/controller/treasuryController.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'transactionDate' is assigned a value but never used.",
+        "line": 22,
+        "column": 7,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 22,
+        "endColumn": 22,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "transactionDate"
+            },
+            "fix": {
+              "range": [
+                950,
+                1007
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'transactionDate'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 190,
+        "column": 37,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 190,
+        "endColumn": 40,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                7182,
+                7186
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/controller/userController.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 8,
+        "column": 27,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 8,
+        "endColumn": 30,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                384,
+                388
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 60,
+        "column": 30,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 60,
+        "endColumn": 33,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                1797,
+                1801
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/controller/walletController.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'updatedTreasuryWallet' is assigned a value but never used.",
+        "line": 196,
+        "column": 9,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 196,
+        "endColumn": 30
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 289,
+        "column": 36,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 289,
+        "endColumn": 39,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                10542,
+                10546
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/middleware/errorMiddleware.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'next' is defined but never used.",
+        "line": 7,
+        "column": 40,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 7,
+        "endColumn": 44,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "next"
+            },
+            "fix": {
+              "range": [
+                225,
+                231
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'next'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/middleware/sanitizerMiddleware.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'res' is defined but never used.",
+        "line": 32,
+        "column": 31,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 32,
+        "endColumn": 34,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "res"
+            },
+            "fix": {
+              "range": [
+                872,
+                877
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'res'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/routes/documentRoutes.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'res' is defined but never used.",
+        "line": 13,
+        "column": 24,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 13,
+        "endColumn": 27,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "res"
+            },
+            "fix": {
+              "range": [
+                662,
+                667
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'res'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'req' is defined but never used.",
+        "line": 65,
+        "column": 20,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 65,
+        "endColumn": 23,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "req"
+            },
+            "fix": {
+              "range": [
+                6320,
+                6325
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'req'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/services/customerBillingService.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'notes' is defined but never used.",
+        "line": 71,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 71,
+        "endColumn": 8,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "notes"
+            },
+            "fix": {
+              "range": [
+                1926,
+                1936
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'notes'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'isTaxable' is assigned a value but never used.",
+        "line": 131,
+        "column": 7,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 131,
+        "endColumn": 16
+      }
+    ]
+  },
+  {
+    "file": "backend/src/services/paymentAllocationService.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'notes' is defined but never used.",
+        "line": 24,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 24,
+        "endColumn": 8,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "notes"
+            },
+            "fix": {
+              "range": [
+                758,
+                817
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'notes'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'updatedWallet' is assigned a value but never used.",
+        "line": 102,
+        "column": 11,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 102,
+        "endColumn": 24
+      }
+    ]
+  },
+  {
+    "file": "backend/src/services/paymentPlanService.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'actorId' is defined but never used.",
+        "line": 171,
+        "column": 59,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 171,
+        "endColumn": 66,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "actorId"
+            },
+            "fix": {
+              "range": [
+                5032,
+                5041
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'actorId'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "backend/src/utils/accountingHelper.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'lockErr' is defined but never used.",
+        "line": 106,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 106,
+        "endColumn": 21
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'employeeCode' is defined but never used.",
+        "line": 451,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 451,
+        "endColumn": 15,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "employeeCode"
+            },
+            "fix": {
+              "range": [
+                17801,
+                17818
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'employeeCode'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/app/dashboards/layout.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'ExternalLink' is defined but never used.",
+        "line": 26,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 26,
+        "endColumn": 15,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "ExternalLink"
+            },
+            "fix": {
+              "range": [
+                595,
+                612
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'ExternalLink'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Sparkles' is defined but never used.",
+        "line": 28,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 28,
+        "endColumn": 11,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Sparkles"
+            },
+            "fix": {
+              "range": [
+                624,
+                637
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Sparkles'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'HubIcon' is assigned a value but never used.",
+        "line": 383,
+        "column": 9,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 383,
+        "endColumn": 16,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "HubIcon"
+            },
+            "fix": {
+              "range": [
+                12831,
+                12876
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'HubIcon'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/accounting/AccountingSalaryView.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Users' is defined but never used.",
+        "line": 12,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 12,
+        "endColumn": 8,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Users"
+            },
+            "fix": {
+              "range": [
+                442,
+                452
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Users'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'ShieldCheck' is defined but never used.",
+        "line": 19,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 19,
+        "endColumn": 14,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "ShieldCheck"
+            },
+            "fix": {
+              "range": [
+                526,
+                542
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'ShieldCheck'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/AdjustWalletBalanceModal.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Wallet' is defined but never used.",
+        "line": 8,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 8,
+        "endColumn": 9,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Wallet"
+            },
+            "fix": {
+              "range": [
+                139,
+                150
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Wallet'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/AuditLogViewer.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'API_URL' is defined but never used.",
+        "line": 6,
+        "column": 10,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 17,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "API_URL"
+            },
+            "fix": {
+              "range": [
+                123,
+                162
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'API_URL'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Terminal' is defined but never used.",
+        "line": 7,
+        "column": 29,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 7,
+        "endColumn": 37,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Terminal"
+            },
+            "fix": {
+              "range": [
+                190,
+                200
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Terminal'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'ArrowUpRight' is defined but never used.",
+        "line": 7,
+        "column": 39,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 7,
+        "endColumn": 51,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "ArrowUpRight"
+            },
+            "fix": {
+              "range": [
+                200,
+                214
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'ArrowUpRight'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/CustomerCancellationSettlementModal.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'useTransition' is defined but never used.",
+        "line": 3,
+        "column": 20,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 3,
+        "endColumn": 33,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "useTransition"
+            },
+            "fix": {
+              "range": [
+                34,
+                49
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'useTransition'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'ArrowRight' is defined but never used.",
+        "line": 10,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 10,
+        "endColumn": 13,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "ArrowRight"
+            },
+            "fix": {
+              "range": [
+                219,
+                235
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'ArrowRight'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Building2' is defined but never used.",
+        "line": 11,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 11,
+        "endColumn": 12,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Building2"
+            },
+            "fix": {
+              "range": [
+                235,
+                250
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Building2'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'HelpCircle' is defined but never used.",
+        "line": 15,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 15,
+        "endColumn": 13,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "HelpCircle"
+            },
+            "fix": {
+              "range": [
+                292,
+                307
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'HelpCircle'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'FileText' is defined but never used.",
+        "line": 16,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 16,
+        "endColumn": 11,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "FileText"
+            },
+            "fix": {
+              "range": [
+                307,
+                320
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'FileText'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'setPayoutAccount' is assigned a value but never used.",
+        "line": 23,
+        "column": 25,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 23,
+        "endColumn": 41,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "setPayoutAccount"
+            },
+            "fix": {
+              "range": [
+                636,
+                654
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'setPayoutAccount'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/CustomerEditModal.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'FileText' is defined but never used.",
+        "line": 4,
+        "column": 60,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 4,
+        "endColumn": 68,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "FileText"
+            },
+            "fix": {
+              "range": [
+                120,
+                130
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'FileText'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/CustomerPortfolioList.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Eye' is defined but never used.",
+        "line": 9,
+        "column": 59,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 9,
+        "endColumn": 62,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Eye"
+            },
+            "fix": {
+              "range": [
+                469,
+                474
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Eye'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'CreditCard' is defined but never used.",
+        "line": 9,
+        "column": 64,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 9,
+        "endColumn": 74,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "CreditCard"
+            },
+            "fix": {
+              "range": [
+                474,
+                486
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'CreditCard'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 65,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 65,
+        "endColumn": 17
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 128,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 128,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/DashboardStats.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'error' is assigned a value but never used.",
+        "line": 16,
+        "column": 17,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 16,
+        "endColumn": 22,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "error"
+            },
+            "fix": {
+              "range": [
+                314,
+                321
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'error'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/DirectFundAllocationForm.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 79,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 79,
+        "endColumn": 19
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/EditCustomerPaymentModal.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Landmark' is defined but never used.",
+        "line": 8,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 8,
+        "endColumn": 11,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Landmark"
+            },
+            "fix": {
+              "range": [
+                132,
+                146
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Landmark'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'CreditCard' is defined but never used.",
+        "line": 9,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 9,
+        "endColumn": 13,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "CreditCard"
+            },
+            "fix": {
+              "range": [
+                146,
+                162
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'CreditCard'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Hash' is defined but never used.",
+        "line": 10,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 10,
+        "endColumn": 7,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Hash"
+            },
+            "fix": {
+              "range": [
+                162,
+                172
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Hash'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 52,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 52,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/EditPropertyPaymentModal.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'formatDate' is defined but never used.",
+        "line": 17,
+        "column": 58,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 17,
+        "endColumn": 68,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "formatDate"
+            },
+            "fix": {
+              "range": [
+                335,
+                347
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'formatDate'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/employees/EditSalaryModal.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'CreditCard' is defined but never used.",
+        "line": 4,
+        "column": 36,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 4,
+        "endColumn": 46,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "CreditCard"
+            },
+            "fix": {
+              "range": [
+                85,
+                97
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'CreditCard'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/employees/EmployeeDetailView.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Calendar' is defined but never used.",
+        "line": 20,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 20,
+        "endColumn": 11,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Calendar"
+            },
+            "fix": {
+              "range": [
+                740,
+                753
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Calendar'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Phone' is defined but never used.",
+        "line": 21,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 21,
+        "endColumn": 8,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Phone"
+            },
+            "fix": {
+              "range": [
+                753,
+                763
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Phone'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Mail' is defined but never used.",
+        "line": 22,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 22,
+        "endColumn": 7,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Mail"
+            },
+            "fix": {
+              "range": [
+                763,
+                772
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Mail'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'UserCheck' is defined but never used.",
+        "line": 25,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 25,
+        "endColumn": 12,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "UserCheck"
+            },
+            "fix": {
+              "range": [
+                799,
+                813
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'UserCheck'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Wallet' is defined but never used.",
+        "line": 31,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 31,
+        "endColumn": 9,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Wallet"
+            },
+            "fix": {
+              "range": [
+                868,
+                879
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Wallet'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Clock' is defined but never used.",
+        "line": 38,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 38,
+        "endColumn": 8,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Clock"
+            },
+            "fix": {
+              "range": [
+                966,
+                976
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Clock'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'router' is assigned a value but never used.",
+        "line": 42,
+        "column": 9,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 42,
+        "endColumn": 15,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "router"
+            },
+            "fix": {
+              "range": [
+                1060,
+                1087
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'router'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/employees/EmployeeLinkUserModal.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'CheckCircle2' is defined but never used.",
+        "line": 6,
+        "column": 43,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 55,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "CheckCircle2"
+            },
+            "fix": {
+              "range": [
+                223,
+                237
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'CheckCircle2'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/employees/EmployeeList.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Calendar' is defined but never used.",
+        "line": 28,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 28,
+        "endColumn": 11,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Calendar"
+            },
+            "fix": {
+              "range": [
+                715,
+                728
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Calendar'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Briefcase' is defined but never used.",
+        "line": 31,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 31,
+        "endColumn": 12,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Briefcase"
+            },
+            "fix": {
+              "range": [
+                747,
+                761
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Briefcase'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 109,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 109,
+        "endColumn": 17
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'archivedCount' is assigned a value but never used.",
+        "line": 190,
+        "column": 9,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 190,
+        "endColumn": 22,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "archivedCount"
+            },
+            "fix": {
+              "range": [
+                6738,
+                6850
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'archivedCount'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/employees/EmployeeModal.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'CheckCircle2' is defined but never used.",
+        "line": 6,
+        "column": 45,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 57,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "CheckCircle2"
+            },
+            "fix": {
+              "range": [
+                253,
+                267
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'CheckCircle2'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'isAdmin' is assigned a value but never used.",
+        "line": 17,
+        "column": 9,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 17,
+        "endColumn": 16,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "isAdmin"
+            },
+            "fix": {
+              "range": [
+                526,
+                565
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'isAdmin'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/employees/PaySalaryModal.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'IndianRupee' is defined but never used.",
+        "line": 5,
+        "column": 13,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 5,
+        "endColumn": 24,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "IndianRupee"
+            },
+            "fix": {
+              "range": [
+                93,
+                106
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'IndianRupee'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'CheckCircle2' is defined but never used.",
+        "line": 5,
+        "column": 55,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 5,
+        "endColumn": 67,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "CheckCircle2"
+            },
+            "fix": {
+              "range": [
+                135,
+                149
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'CheckCircle2'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/ExpenseList.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 28,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 28,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/ExpenseUploadForm.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'user' is assigned a value but never used.",
+        "line": 10,
+        "column": 11,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 10,
+        "endColumn": 15,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "user"
+            },
+            "fix": {
+              "range": [
+                322,
+                349
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'user'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 81,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 81,
+        "endColumn": 19
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/FundRequestForm.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Clock' is defined but never used.",
+        "line": 6,
+        "column": 46,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 51,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Clock"
+            },
+            "fix": {
+              "range": [
+                197,
+                204
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Clock'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Info' is defined but never used.",
+        "line": 6,
+        "column": 53,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 57,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Info"
+            },
+            "fix": {
+              "range": [
+                204,
+                210
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Info'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'IndianRupee' is defined but never used.",
+        "line": 6,
+        "column": 59,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 70,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "IndianRupee"
+            },
+            "fix": {
+              "range": [
+                210,
+                223
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'IndianRupee'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'user' is assigned a value but never used.",
+        "line": 9,
+        "column": 11,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 9,
+        "endColumn": 15,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "user"
+            },
+            "fix": {
+              "range": [
+                307,
+                334
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'user'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 68,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 68,
+        "endColumn": 19
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/FundRequestList.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 66,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 66,
+        "endColumn": 19
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/GeneralLedgerView.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'API_URL' is defined but never used.",
+        "line": 7,
+        "column": 10,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 7,
+        "endColumn": 17,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "API_URL"
+            },
+            "fix": {
+              "range": [
+                193,
+                232
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'API_URL'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/manager/ManagerSalaryView.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'IndianRupee' is defined but never used.",
+        "line": 6,
+        "column": 10,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 21,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "IndianRupee"
+            },
+            "fix": {
+              "range": [
+                163,
+                175
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'IndianRupee'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Users' is defined but never used.",
+        "line": 6,
+        "column": 23,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 28,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Users"
+            },
+            "fix": {
+              "range": [
+                174,
+                181
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Users'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Landmark' is defined but never used.",
+        "line": 6,
+        "column": 72,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 80,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Landmark"
+            },
+            "fix": {
+              "range": [
+                223,
+                233
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Landmark'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/OperationalNotesView.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'User' is defined but never used.",
+        "line": 11,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 11,
+        "endColumn": 7,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "User"
+            },
+            "fix": {
+              "range": [
+                158,
+                167
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'User'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Filter' is defined but never used.",
+        "line": 24,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 24,
+        "endColumn": 9,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Filter"
+            },
+            "fix": {
+              "range": [
+                320,
+                331
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Filter'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'toISTDateInputString' is defined but never used.",
+        "line": 27,
+        "column": 37,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 27,
+        "endColumn": 57,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "toISTDateInputString"
+            },
+            "fix": {
+              "range": [
+                433,
+                455
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'toISTDateInputString'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 220,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 220,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/PropertyAcquisitionList.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'MapPin' is defined but never used.",
+        "line": 8,
+        "column": 10,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 8,
+        "endColumn": 16,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "MapPin"
+            },
+            "fix": {
+              "range": [
+                350,
+                357
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'MapPin'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'Building2' is defined but never used.",
+        "line": 8,
+        "column": 43,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 8,
+        "endColumn": 52,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "Building2"
+            },
+            "fix": {
+              "range": [
+                381,
+                392
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'Building2'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'TrendingDown' is defined but never used.",
+        "line": 8,
+        "column": 61,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 8,
+        "endColumn": 73,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "TrendingDown"
+            },
+            "fix": {
+              "range": [
+                399,
+                413
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'TrendingDown'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 106,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 106,
+        "endColumn": 17
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 166,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 166,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/RecordBankInflowModal.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'ArrowUpRight' is defined but never used.",
+        "line": 4,
+        "column": 20,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 4,
+        "endColumn": 32,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "ArrowUpRight"
+            },
+            "fix": {
+              "range": [
+                69,
+                83
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'ArrowUpRight'."
+          }
+        ]
+      },
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'formatDate' is defined but never used.",
+        "line": 7,
+        "column": 58,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 7,
+        "endColumn": 68,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "formatDate"
+            },
+            "fix": {
+              "range": [
+                307,
+                319
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'formatDate'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/SoftDashboardShell.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'eyebrow' is assigned a value but never used.",
+        "line": 29,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 29,
+        "endColumn": 10,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "eyebrow"
+            },
+            "fix": {
+              "range": [
+                593,
+                627
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'eyebrow'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/TransactionDocuments.js",
+    "messages": [
+      {
+        "ruleId": "@next/next/no-img-element",
+        "message": "Definition for rule '@next/next/no-img-element' was not found.",
+        "line": 2,
+        "column": 1,
+        "endLine": 2,
+        "endColumn": 110,
+        "severity": 2,
+        "nodeType": null
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/TransactionLedger.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 65,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 65,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/UserPasswordManagement.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'error' is assigned a value but never used.",
+        "line": 37,
+        "column": 17,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 37,
+        "endColumn": 22,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "error"
+            },
+            "fix": {
+              "range": [
+                1216,
+                1223
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'error'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/UserRegistrationForm.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 79,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 79,
+        "endColumn": 19
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/UserWalletLedger.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'API_URL' is defined but never used.",
+        "line": 6,
+        "column": 10,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 17,
+        "suggestions": [
+          {
+            "messageId": "removeVar",
+            "data": {
+              "varName": "API_URL"
+            },
+            "fix": {
+              "range": [
+                123,
+                162
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable 'API_URL'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/context/AuthContext.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 36,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 36,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/services/apiClient.js",
+    "messages": [
+      {
+        "ruleId": "no-unused-vars",
+        "severity": 1,
+        "message": "'parseErr' is defined but never used.",
+        "line": 83,
+        "column": 12,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 83,
+        "endColumn": 20
+      }
+    ]
+  }
+]

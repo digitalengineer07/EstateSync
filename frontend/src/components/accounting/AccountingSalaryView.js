@@ -7,19 +7,7 @@ import PaySalaryModal from "@/components/employees/PaySalaryModal";
 import EditSalaryModal from "@/components/employees/EditSalaryModal";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
-import {
-  IndianRupee,
-  Users,
-  CheckCircle2,
-  Clock,
-  Send,
-  Search,
-  RefreshCw,
-  Landmark,
-  ShieldCheck,
-  AlertCircle,
-  Edit3
-} from "lucide-react";
+import { IndianRupee, CheckCircle2, Clock, Send, Search, RefreshCw, Landmark, AlertCircle, Edit3 } from "lucide-react";
 
 export default function AccountingSalaryView() {
   const { user } = useAuth();

@@ -10,10 +10,6 @@ import {
   EyeOff,
   ArrowRight,
   ArrowLeft,
-  TrendingUp,
-  ShieldCheck,
-  Users,
-  Layers,
   ChevronRight,
   Headphones,
   X,
@@ -75,12 +71,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState("");
-  const [sessionMessage, setSessionMessage] = useState(() => {
-    if (typeof window === "undefined") return "";
-    const msg = sessionStorage.getItem("authMessage") || "";
-    if (msg) sessionStorage.removeItem("authMessage");
-    return msg;
-  });
+  const [sessionMessage, setSessionMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showSupportModal, setShowSupportModal] = useState(false);
   const [policyModal, setPolicyModal] = useState({ open: false, title: "", content: "" });
@@ -102,6 +93,16 @@ export default function LoginPage() {
   // Retrieve remembered email on initial mount
   useEffect(() => {
     const restoreRememberedEmail = window.setTimeout(() => {
+      // Browser-only notices must not change the initial hydration render.
+      try {
+        const message = sessionStorage.getItem("authMessage") || "";
+        if (message) {
+          setSessionMessage(message);
+          sessionStorage.removeItem("authMessage");
+        }
+      } catch {
+        // Login remains available when browser storage is blocked.
+      }
       try {
         const savedEmail = localStorage.getItem("estatesync_remembered_email");
         if (savedEmail) {
@@ -140,28 +141,7 @@ export default function LoginPage() {
     }
   };
 
-  const featureItems = [
-    {
-      icon: TrendingUp,
-      title: "Real-time",
-      subtitle: "Financial Insights",
-    },
-    {
-      icon: ShieldCheck,
-      title: "Secure",
-      subtitle: "& Role Based Access",
-    },
-    {
-      icon: Users,
-      title: "Better",
-      subtitle: "Team Collaboration",
-    },
-    {
-      icon: Layers,
-      title: "Accurate",
-      subtitle: "Accounting & Audit",
-    },
-  ];
+
 
   return (
     <main className="login-page min-h-screen lg:h-screen lg:max-h-screen w-full relative flex items-center justify-center p-3 sm:p-5 lg:p-[30px_42px_38px] lg:overflow-hidden font-sans select-none bg-[#0a0d14]">
@@ -176,7 +156,7 @@ export default function LoginPage() {
 
       {/* Main Composition Container holding the two separated sections */}
       <div className="login-composition relative z-10 w-full max-w-[1672px] lg:h-[calc(100vh-68px)] flex flex-col lg:flex-row items-stretch">
-        
+
         {/* ================================================================ */}
         {/* LEFT VISUAL PANEL (Translucent Glass Card with Hidden Right Border)*/}
         {/* ================================================================ */}
@@ -214,67 +194,37 @@ export default function LoginPage() {
             </div>
 
             {/* Micro Navigation */}
-            <nav
-              aria-label="Core Values"
-              className="text-[14px] font-semibold text-zinc-100 tracking-[0.2em] flex items-center gap-4 uppercase select-none"
-            >
-              <span className="hover:text-white transition-colors">TRUST</span>
-              <span className="text-zinc-500/80">|</span>
-              <span className="hover:text-white transition-colors">TRANSPARENCY</span>
-              <span className="text-zinc-500/80">|</span>
-              <span className="hover:text-white transition-colors">GROWTH</span>
-            </nav>
+
           </header>
 
           {/* Middle Section: Main Headline + Platform Description + 4 Features */}
           <div className="relative z-10 my-auto py-3 lg:py-4">
             <h1 className="text-3xl lg:text-[47px] font-black text-white leading-[1.035] tracking-tight">
-              Turning<br />
-              Real Estate Vision<br />
-              into <span className="text-[#ff6b12]">Financial Clarity</span>
+              EstateSync<br />
+              <span className="text-[#ff6b12]">Workspace</span>
             </h1>
 
             <p className="text-[17px] text-zinc-100/90 font-normal leading-[1.45] max-w-[550px] mt-4">
-              A unified platform for treasury management, customer collections, property acquisitions,
-              expenses and double-entry accounting.
+              AG Homes India Pvt. Ltd.
+              <br />
+              Your workspace for property records, accounts and team operations.
             </p>
 
             {/* 2x2 Feature Highlights Grid */}
-            <div className="grid grid-cols-2 gap-x-14 gap-y-8 mt-8 max-w-[560px]">
-              {featureItems.map((item, index) => {
-                const IconComponent = item.icon;
-                return (
-                  <div
-                    key={index}
-                    className="group flex items-center gap-4 transition-all duration-200"
-                  >
-                    <div className="w-16 h-16 rounded-[14px] bg-white/10 backdrop-blur-md border border-white/20 shadow-[inset_0_0_22px_rgba(255,255,255,0.08)] flex items-center justify-center text-[#ff6b12] flex-shrink-0 group-hover:scale-105 transition-transform">
-                      <IconComponent className="w-8 h-8" strokeWidth={2.3} />
-                    </div>
-                    <div>
-                      <div className="text-[15px] font-normal text-zinc-100 leading-tight">
-                        {item.title}
-                      </div>
-                      <div className="text-[15px] font-normal text-white leading-tight mt-1">
-                        {item.subtitle}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="mt-6 max-w-md border-l-2 border-[#ff6b12]/70 pl-4">
+              <h2 className="font-serif text-xl lg:text-2xl tracking-tight text-white">Your daily accounts desk.</h2>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-200">
+                Review customer receipts, property payments and expenses. Keep transaction references and supporting documents close to each entry.
+              </p>
+              <p className="mt-3 text-xs leading-relaxed text-zinc-300">
+                Use your assigned account to access the records and actions available to your role.
+              </p>
             </div>
+
           </div>
 
           {/* Bottom Statement Quote */}
-          <footer className="relative z-10 pt-2">
-            <p className="text-[19px] leading-[1.25] font-medium text-white italic tracking-wide max-w-[280px]">
-              &ldquo;Strong Finances.<br />Stronger Foundations.&rdquo;
-            </p>
-            <div className="flex items-center gap-4 mt-4">
-              <span className="w-6 h-[2px] bg-[#ff6b12] rounded-full inline-block" />
-              <span className="text-[14px] font-medium text-zinc-100">EstateSync</span>
-            </div>
-          </footer>
+
         </section>
 
         {/* ================================================================ */}
@@ -353,7 +303,7 @@ export default function LoginPage() {
             <div className="w-8 h-[3px] bg-[#ff6b12] rounded-full mt-4 mb-5" />
 
             <p className="text-[16px] text-slate-500 font-normal">
-              Sign in to access your organizational dashboard.
+              Sign in to your AG Homes India Pvt. Ltd. workspace using your assigned account.
             </p>
 
             {/* Session notice */}

@@ -1,6 +1,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const jwt = require('jsonwebtoken');
+const { authVersion } = require('../src/utils/authVersion');
 const { checkPermission } = require('../src/middleware/permissionMiddleware');
 
 const response = () => ({
@@ -10,7 +11,7 @@ const response = () => ({
 });
 
 test('permission guard rejects an unverified admin claim', async () => {
-  const req = { user: { userId: 'user-1', role: 'ADMIN', permissions: ['user.manage'] } };
+  const req = { user: { userId: 'user-1', authVersion: authVersion({ id: 'user-1', passwordHash: 'test-hash' }), role: 'ADMIN', permissions: ['user.manage'] } };
   const res = response();
   let permitted = false;
   await checkPermission('user.manage')(req, res, () => { permitted = true; });
@@ -20,8 +21,8 @@ test('permission guard rejects an unverified admin claim', async () => {
 
 test('a demoted JWT holder gets current database permissions, not old token claims', async () => {
   const { createVerifyJWT } = require('../src/middleware/authMiddleware');
-  const token = jwt.sign({ userId: 'user-1', role: 'ADMIN', permissions: ['user.manage'] }, process.env.JWT_SECRET || 'supersecretjwtkey', { expiresIn: '1h' });
-  const db = { user: { findUnique: async () => ({ id: 'user-1', email: 'staff@example.com', name: 'Staff', isActive: true, role: { name: 'SALES', permissions: [] } }) } };
+  const token = jwt.sign({ userId: 'user-1', authVersion: authVersion({ id: 'user-1', passwordHash: 'test-hash' }), role: 'ADMIN', permissions: ['user.manage'] }, process.env.JWT_SECRET || 'supersecretjwtkey', { expiresIn: '1h' });
+  const db = { user: { findUnique: async () => ({ id: 'user-1', passwordHash: 'test-hash', email: 'staff@example.com', name: 'Staff', isActive: true, role: { name: 'SALES', permissions: [] } }) } };
   const req = { headers: { authorization: `Bearer ${token}` } };
   const res = response();
   let permitted = false;
@@ -33,7 +34,7 @@ test('a demoted JWT holder gets current database permissions, not old token clai
 
 test('deactivated accounts and database outages fail closed on every request', async () => {
   const { createVerifyJWT } = require('../src/middleware/authMiddleware');
-  const token = jwt.sign({ userId: 'user-1', role: 'ADMIN' }, process.env.JWT_SECRET || 'supersecretjwtkey', { expiresIn: '1h' });
+  const token = jwt.sign({ userId: 'user-1', authVersion: authVersion({ id: 'user-1', passwordHash: 'test-hash' }), role: 'ADMIN' }, process.env.JWT_SECRET || 'supersecretjwtkey', { expiresIn: '1h' });
   const req = () => ({ headers: { authorization: `Bearer ${token}` } });
   let nextCalled = false;
   const disabled = { user: { findUnique: async () => ({ id: 'user-1', isActive: false, role: { name: 'ADMIN', permissions: [] } }) } };

@@ -11,8 +11,8 @@ router.get('/my', verifyJWT, checkPermission('fund.request'), fundRequestControl
 
 // Manager specific routes
 router.get('/incoming', verifyJWT, fundRequestController.getIncomingRequests); // Manager view
-router.post('/:id/approve', verifyJWT, idempotencyMiddleware, fundRequestController.approveRequest);
-router.post('/:id/reject', verifyJWT, idempotencyMiddleware, fundRequestController.rejectRequest);
+router.post('/:id/approve', verifyJWT, checkPermission('fund.approve'), idempotencyMiddleware, fundRequestController.approveRequest);
+router.post('/:id/reject', verifyJWT, checkPermission('fund.reject'), idempotencyMiddleware, fundRequestController.rejectRequest);
 
 // Admin specific routes
 router.get('/all', verifyJWT, checkPermission('fund.approve'), fundRequestController.getAllRequests);

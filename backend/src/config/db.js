@@ -39,5 +39,5 @@ if (process.env.USE_PRISMA_ADAPTER === 'true') {
   });
 }
 
-module.exports = prisma;
+module.exports = require('../utils/transactionContext').contextualClient(prisma);
 

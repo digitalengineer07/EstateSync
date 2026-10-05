@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState } from "react";
 import { API_URL } from "@/config/api";
@@ -80,7 +82,7 @@ export default function AdminResetPasswordModal({ user, isOpen, onClose, onSucce
     try {
       setLoading(true);
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/users/${user.id}/reset-password`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/users/${user.id}/reset-password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -9,25 +9,11 @@ import {
   Calendar,
   ChevronLeft,
   ChevronRight,
-  ShieldCheck,
-  TrendingUp,
-  Layers,
-  Zap,
-  Target,
-  DollarSign,
-  HeartHandshake,
-  Sparkles,
-  Megaphone,
-  Scale,
-  Users,
-  CheckCircle2,
   LayoutDashboard,
 } from "lucide-react";
 
 export default function SoftDashboardShell({
   title,
-  eyebrow = "Pages / Dashboard",
-  description,
   navItems = [],
   activeId,
   onSelect,
@@ -56,7 +42,7 @@ export default function SoftDashboardShell({
   const greetingText = useMemo(() => {
     const hour = new Date().getHours();
     const timeGreeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
-    
+
     let roleLabel = "Accounting Officer";
     if (userRole === "MANAGER") roleLabel = "Operations Manager";
     else if (userRole === "SALES") roleLabel = "Sales Specialist";
@@ -74,12 +60,6 @@ export default function SoftDashboardShell({
         roleTitle: "Operations Manager",
         department: "AG Homes India Pvt. Ltd.",
         cycleName: "Current Operational Cycle",
-        quote: "Operational excellence. Stronger foundations.",
-        badges: [
-          { icon: Zap, label: "High Velocity", color: "text-amber-600 bg-amber-50 border-amber-200" },
-          { icon: Target, label: "Team Alignment", color: "text-blue-600 bg-blue-50 border-blue-200" },
-          { icon: TrendingUp, label: "Real-time Insights", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
-        ],
       };
     }
 
@@ -88,12 +68,6 @@ export default function SoftDashboardShell({
         roleTitle: "Sales Specialist",
         department: "AG Homes India Pvt. Ltd.",
         cycleName: "Current Sales Cycle",
-        quote: "Connecting aspirations with landmark estates.",
-        badges: [
-          { icon: DollarSign, label: "Revenue Focused", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
-          { icon: HeartHandshake, label: "Customer First", color: "text-orange-600 bg-orange-50 border-orange-200" },
-          { icon: TrendingUp, label: "Real-time Insights", color: "text-blue-600 bg-blue-50 border-blue-200" },
-        ],
       };
     }
 
@@ -102,12 +76,6 @@ export default function SoftDashboardShell({
         roleTitle: "Marketing Specialist",
         department: "AG Homes India Pvt. Ltd.",
         cycleName: "Current Campaign Period",
-        quote: "Building brands. Inspiring communities.",
-        badges: [
-          { icon: Sparkles, label: "Brand Elevation", color: "text-purple-600 bg-purple-50 border-purple-200" },
-          { icon: Megaphone, label: "Active Outreach", color: "text-pink-600 bg-pink-50 border-pink-200" },
-          { icon: TrendingUp, label: "Real-time Insights", color: "text-blue-600 bg-blue-50 border-blue-200" },
-        ],
       };
     }
 
@@ -116,12 +84,6 @@ export default function SoftDashboardShell({
         roleTitle: "System Administrator",
         department: "AG Homes India Pvt. Ltd.",
         cycleName: "Current Fiscal Cycle",
-        quote: "Total governance. Uncompromising integrity.",
-        badges: [
-          { icon: ShieldCheck, label: "Enterprise Governed", color: "text-indigo-600 bg-indigo-50 border-indigo-200" },
-          { icon: Scale, label: "Audit Compliant", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
-          { icon: TrendingUp, label: "Real-time Insights", color: "text-blue-600 bg-blue-50 border-blue-200" },
-        ],
       };
     }
 
@@ -130,12 +92,6 @@ export default function SoftDashboardShell({
         roleTitle: "Workforce Administrator",
         department: "AG Homes India Pvt. Ltd.",
         cycleName: "Current Payroll Cycle",
-        quote: "Empowering teams to achieve great milestones.",
-        badges: [
-          { icon: Users, label: "People First", color: "text-blue-600 bg-blue-50 border-blue-200" },
-          { icon: CheckCircle2, label: "Compliance Ready", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
-          { icon: TrendingUp, label: "Real-time Insights", color: "text-purple-600 bg-purple-50 border-purple-200" },
-        ],
       };
     }
 
@@ -144,12 +100,6 @@ export default function SoftDashboardShell({
       roleTitle: "Accounting Officer",
       department: "AG Homes India Pvt. Ltd.",
       cycleName: "Current Accounting Period",
-      quote: "Accurate records. Stronger foundations.",
-      badges: [
-        { icon: ShieldCheck, label: "Financially Accurate", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
-        { icon: TrendingUp, label: "Real-time Insights", color: "text-teal-600 bg-teal-50 border-teal-200" },
-        { icon: Layers, label: "Better Decisions", color: "text-emerald-700 bg-emerald-50 border-emerald-200" },
-      ],
     };
   }, [userRole, title]);
 
@@ -250,7 +200,7 @@ export default function SoftDashboardShell({
 
         {/* Content Container (Symmetric, compact vertical padding eliminating empty bottom space) */}
         <div className="relative z-10 px-5 sm:px-7 py-4 sm:py-4.5 flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6">
-          
+
           {/* Left Hero Text Column */}
           <div className="max-w-2xl">
             {/* Greeting */}
@@ -265,38 +215,14 @@ export default function SoftDashboardShell({
             </h1>
 
             {/* Description */}
-            {description && (
-              <p className="text-xs sm:text-[13px] text-slate-600 mt-1 leading-relaxed max-w-xl">
-                {description}
-              </p>
-            )}
+
 
             {/* 3 Value Feature Badges */}
-            <div className="flex flex-wrap items-center gap-2 mt-2.5">
-              {roleDetails.badges.map((badge, idx) => {
-                const Icon = badge.icon;
-                return (
-                  <span
-                    key={idx}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/90 backdrop-blur-sm border border-slate-200/80 text-[11px] font-bold text-slate-700 shadow-2xs"
-                  >
-                    <Icon className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>{badge.label}</span>
-                  </span>
-                );
-              })}
-            </div>
+
           </div>
 
           {/* Center Quote (Desktop View) */}
-          <div className="hidden xl:flex flex-col justify-center px-5 border-l border-slate-300/60 max-w-[220px]">
-            <p className="text-xs italic font-semibold text-slate-700 leading-snug">
-              “{roleDetails.quote}”
-            </p>
-            <p className="text-[11px] font-bold text-slate-500 mt-1 flex items-center gap-1">
-              <span className="text-[#ff6b12] font-black">—</span> EstateSync
-            </p>
-          </div>
+
 
           {/* Right Floating Frosted Cards */}
           <div className="flex flex-col sm:flex-row lg:flex-col gap-2 shrink-0 self-start lg:self-center">
@@ -319,7 +245,7 @@ export default function SoftDashboardShell({
                   </p>
                 </div>
               </div>
-              <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+
             </div>
 
             {/* Profile Identity Card (Without "Your Role" text) */}
@@ -433,12 +359,7 @@ export default function SoftDashboardShell({
               )}
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/80">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              Live View
-            </span>
-          </div>
+
         </div>
 
         {/* Embedded Panel Views & Tables */}

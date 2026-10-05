@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
@@ -14,7 +16,7 @@ import {
   IndianRupee,
   FileText
 } from "lucide-react";
-import { toISTDateInputString, createSafePaymentDateISO, formatDate, formatINR } from "@/utils/formatters";
+import { toISTDateInputString, createSafePaymentDateISO, formatINR } from "@/utils/formatters";
 
 export default function EditPropertyPaymentModal({
   isOpen,
@@ -108,7 +110,7 @@ export default function EditPropertyPaymentModal({
       const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `prop-pay-edit-${payment.id}-${Date.now()}`;
 
-      const res = await fetch(`${API_URL}/api/v1/properties/payments/${payment.id}`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/properties/payments/${payment.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

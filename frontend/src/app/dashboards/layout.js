@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useRouter, usePathname } from "next/navigation";
@@ -6,38 +8,7 @@ import { useAuth } from "@/context/AuthContext";
 import { DashboardProvider, useDashboardNav } from "@/context/DashboardContext";
 import { hasPermission } from "@/utils/permissions";
 import { validatePasswordStrength } from "@/utils/passwordValidator";
-import {
-  Building2,
-  ShieldCheck,
-  Layers,
-  Landmark,
-  Wallet,
-  Users,
-  Search,
-  Bell,
-  ChevronDown,
-  User,
-  Settings,
-  HelpCircle,
-  LogOut,
-  X,
-  Check,
-  CheckCircle2,
-  ExternalLink,
-  Sliders,
-  Sparkles,
-  Lock,
-  KeyRound,
-  Eye,
-  EyeOff,
-  AlertCircle,
-  Loader2,
-  ArrowLeftRight,
-  MapPin,
-  NotebookPen,
-  Mail,
-  Phone,
-} from "lucide-react";
+import { Building2, ShieldCheck, Layers, Landmark, Wallet, Users, Search, Bell, ChevronDown, User, Settings, HelpCircle, LogOut, X, Check, CheckCircle2, Sliders, Lock, KeyRound, Eye, EyeOff, AlertCircle, Loader2, ArrowLeftRight, MapPin, NotebookPen, Mail, Phone } from "lucide-react";
 import { API_URL } from "@/config/api";
 
 function DashboardHeader() {
@@ -68,7 +39,7 @@ function DashboardHeader() {
     const timer = setTimeout(async () => {
       try {
         const token = sessionStorage.getItem("accessToken");
-        const res = await fetch(`${API_URL}/api/v1/search?q=${encodeURIComponent(searchQuery.trim())}`, {
+        const res = await fetchWithTimeout(`${API_URL}/api/v1/search?q=${encodeURIComponent(searchQuery.trim())}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.ok) {
@@ -186,7 +157,7 @@ function DashboardHeader() {
     try {
       setPasswordLoading(true);
       const token = typeof window !== "undefined" ? sessionStorage.getItem("accessToken") : null;
-      const res = await fetch(`${API_URL}/api/v1/auth/change-password`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/auth/change-password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -228,7 +199,7 @@ function DashboardHeader() {
     try {
       const token = sessionStorage.getItem("accessToken");
       if (!token) return;
-      const res = await fetch(`${API_URL}/api/v1/notifications`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/notifications`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -906,7 +877,7 @@ function DashboardHeader() {
                 <span>•</span>
                 <span><b>Ctrl+K</b> to open</span>
               </span>
-              <span className="font-bold text-slate-600">EstateSync Enterprise Search</span>
+              <span className="font-bold text-slate-600">Search</span>
             </div>
           </div>
         </div>
@@ -1362,7 +1333,7 @@ export default function DashboardsLayout({ children }) {
       <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center text-slate-900">
         <div className="w-10 h-10 border-3 border-[#ff6b12] border-t-transparent rounded-full animate-spin mb-4"></div>
         <p className="text-xs font-semibold tracking-wider text-slate-500 uppercase">
-          Loading EstateSync Platform...
+          Loading workspace...
         </p>
       </div>
     );
@@ -1378,48 +1349,8 @@ export default function DashboardsLayout({ children }) {
           {children}
         </main>
 
-        {/* Global Footer */}
-        <footer className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 pb-6 pt-2">
-          <div className="bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-[22px] shadow-[0_4px_24px_-6px_rgba(0,0,0,0.04)] px-5 sm:px-8 py-4 sm:py-5 transition-all">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              
-              {/* Product & Entity */}
-              <div className="flex items-center gap-3.5 text-center md:text-left">
-                <div className="w-9 h-9 rounded-xl bg-[#ff6b12] text-white flex items-center justify-center font-bold shadow-xs shrink-0">
-                  <Building2 className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                    <span className="text-sm font-bold text-slate-900 tracking-tight">
-                      Estate<span className="text-[#ff6b12] font-extrabold">Sync</span>™
-                    </span>
-                    <span className="text-slate-300 hidden sm:inline">•</span>
-                    <span className="text-xs font-semibold text-slate-600">
-                      A Product of <span className="font-bold text-slate-900">Devoxa Technologies Pvt. Ltd.</span>
-                    </span>
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-700 border border-orange-200">
-                      Registered Trademark ®
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-slate-400 mt-0.5">
-                    Enterprise Real Estate Treasury, Double-Entry General Ledger & Workforce Governance Platform
-                  </p>
-                </div>
-              </div>
-
-              {/* Status & Copyright */}
-              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6 text-center sm:text-right">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span className="text-xs font-semibold text-slate-600">System v2.4 Enterprise</span>
-                </div>
-                <div className="text-[11px] text-slate-500 font-medium">
-                  © {new Date().getFullYear()} <span className="font-semibold text-slate-700">Devoxa Technologies Pvt. Ltd.</span> All rights reserved.
-                </div>
-              </div>
-
-            </div>
-          </div>
+        <footer className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-5 text-xs text-slate-400">
+          © {new Date().getFullYear()} EstateSync
         </footer>
       </div>
     </DashboardProvider>

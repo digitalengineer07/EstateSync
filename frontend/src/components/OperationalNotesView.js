@@ -1,30 +1,11 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect, useMemo } from "react";
-import {
-  NotebookPen,
-  Plus,
-  Search,
-  RefreshCw,
-  Calendar,
-  IndianRupee,
-  User,
-  Tag,
-  FileText,
-  AlertCircle,
-  CheckCircle2,
-  Trash2,
-  Edit3,
-  Eye,
-  X,
-  Clock,
-  ArrowDownLeft,
-  ArrowUpRight,
-  ArrowRightLeft,
-  Filter,
-} from "lucide-react";
+import { NotebookPen, Plus, Search, RefreshCw, Calendar, IndianRupee, Tag, FileText, AlertCircle, CheckCircle2, Trash2, Edit3, Eye, X, Clock, ArrowDownLeft, ArrowUpRight, ArrowRightLeft } from "lucide-react";
 import { API_URL } from "@/config/api";
-import { formatINR, formatDateTime, toISTDateInputString } from "@/utils/formatters";
+import { formatINR, formatDateTime } from "@/utils/formatters";
 
 const NOTE_CATEGORIES = [
   {
@@ -160,10 +141,10 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
       params.append("limit", "100");
 
       const [notesRes, statsRes] = await Promise.all([
-        fetch(`${API_URL}/api/v1/notes?${params.toString()}`, {
+        fetchWithTimeout(`${API_URL}/api/v1/notes?${params.toString()}`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        fetch(`${API_URL}/api/v1/notes/stats`, {
+        fetchWithTimeout(`${API_URL}/api/v1/notes/stats`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
@@ -305,7 +286,7 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
         : `${API_URL}/api/v1/notes`;
       const method = editingNote ? "PUT" : "POST";
 
-      const res = await fetch(url, {
+      const res = await fetchWithTimeout(url, {
         method,
         headers: {
           "Content-Type": "application/json",
@@ -339,7 +320,7 @@ export default function OperationalNotesView({ userRole = "ADMIN" }) {
   const handleDelete = async (noteId) => {
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/notes/${noteId}`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/notes/${noteId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

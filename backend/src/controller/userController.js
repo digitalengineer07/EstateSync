@@ -4,6 +4,7 @@ const { logAudit } = require('../utils/auditLogger');
 const { validatePassword } = require('../utils/passwordValidator');
 const { clearRestrictionForAccount } = require('../utils/loginRateLimiter');
 const { invalidateUserAuthCache } = require('../middleware/authMiddleware');
+const canViewWallets = req => req.user.role === 'ADMIN' || req.user.permissions?.some(p => ['wallet.view_all','fund.allocate','accounting.view'].includes(p));
 
 exports.getRoles = async (req, res) => {
   try {
@@ -26,6 +27,7 @@ exports.getManagers = async (req, res) => {
     const currentUserId = req.user?.userId;
     const managers = await prisma.user.findMany({
       where: {
+        isActive: true,
         role: {
           name: { in: ['MANAGER', 'ADMIN'] }
         },
@@ -50,7 +52,7 @@ exports.getManagers = async (req, res) => {
         }
       }
     });
-    res.json({ success: true, managers });
+    res.json({ success: true, managers: canViewWallets(req) ? managers : managers.map(({ wallet, ...user }) => user) });
   } catch (error) {
     console.error('Error fetching managers:', error);
     res.status(500).json({ success: false, message: 'Server error fetching managers' });
@@ -83,7 +85,7 @@ exports.getAllUsers = async (req, res) => {
       },
       orderBy: { name: 'asc' }
     });
-    res.json({ success: true, users });
+    res.json({ success: true, users: canViewWallets(req) ? users : users.map(({ wallet, ...user }) => user) });
   } catch (error) {
     console.error('Error fetching all users:', error);
     res.status(500).json({ success: false, message: 'Server error fetching users' });

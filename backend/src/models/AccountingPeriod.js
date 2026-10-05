@@ -1,3 +1,0 @@
-/**
- * AccountingPeriod Model
- */

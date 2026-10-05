@@ -1,0 +1,1373 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/v1/users/roles",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching roles\"}",
+    "dbCalls": [
+      "role.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/users/managers",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching managers\"}",
+    "dbCalls": [
+      "user.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/users/all",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching users\"}",
+    "dbCalls": [
+      "user.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/users/register",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"All fields are required\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/users/:id/reset-password",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"New password is required\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/users/:id/status",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Invalid or missing \\\"isActive\\\" boolean status\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/users/:id/status",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Invalid or missing \\\"isActive\\\" boolean status\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expenses/categories",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching categories\"}",
+    "dbCalls": [
+      "expenseCategory.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expenses/my",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching my expenses\"}",
+    "dbCalls": [
+      "expense.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expenses/team",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching team expenses\"}",
+    "dbCalls": [
+      "fundRequest.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/expenses/all",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching all expenses\"}",
+    "dbCalls": [
+      "expense.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/expenses/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Amount, description, category, and date are required\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/expenses/:id/reverse",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "expense.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/fund-requests/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Amount, reason, and manager ID are required\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/fund-requests/my",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching requests\"}",
+    "dbCalls": [
+      "fundRequest.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/fund-requests/incoming",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching incoming requests\"}",
+    "dbCalls": [
+      "fundRequest.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/fund-requests/:id/approve",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error during approval: AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "$transaction"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/fund-requests/:id/reject",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error during rejection\"}",
+    "dbCalls": [
+      "fundRequest.findUnique"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/fund-requests/all",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching all requests\"}",
+    "dbCalls": [
+      "fundRequest.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/fund-requests/allocate",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Target user and amount are required\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/transactions/all",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching transactions\"}",
+    "dbCalls": [
+      "walletTransaction.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/wallet",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching wallet stats\"}",
+    "dbCalls": [
+      "wallet.findUnique"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/manager",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching manager stats\"}",
+    "dbCalls": [
+      "wallet.aggregate"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/admin",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching admin stats\"}",
+    "dbCalls": [
+      "wallet.create"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/dashboard/accounting",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching accounting stats\"}",
+    "dbCalls": [
+      "wallet.create"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/accounts/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching Chart of Accounts\"}",
+    "dbCalls": [
+      "account.findMany",
+      "account.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/journals/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching General Ledger Journals\"}",
+    "dbCalls": [
+      "journalEntry.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/audit/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching audit logs\"}",
+    "dbCalls": [
+      "auditLog.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/customers/",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"All master profile fields (Customer Name, Contact, Project Location, Plot No., Khata No., Identity Type & ID Number) are compulsory.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/customers/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching customers\"}",
+    "dbCalls": [
+      "customer.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/customers/:id",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching customer details\"}",
+    "dbCalls": [
+      "customer.findUnique"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/customers/:id",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error updating customer profile\",\"error\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "customer.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/customers/:id/payments",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"A valid positive payment amount is required\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/customers/:id/settle-cancellation",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error settling customer cancellation refund\",\"error\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "customer.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/customers/payments/:paymentId",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\",\"error\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "customerPayment.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/properties/",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Khata No, Plot No, Project Location, Land Owner Name, Contact, and Total Land Value are compulsory.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/properties/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching property acquisitions\"}",
+    "dbCalls": [
+      "propertyAcquisition.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/properties/:id",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching property details\"}",
+    "dbCalls": [
+      "propertyAcquisition.findUnique"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/properties/payments/:paymentId",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error updating property payment\",\"error\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "propertyPayment.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/properties/:id/payments/:paymentId",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error updating property payment\",\"error\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "propertyPayment.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/properties/:id",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error updating property record\"}",
+    "dbCalls": [
+      "propertyAcquisition.findUnique"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/properties/:id/payments",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"A valid positive payment amount is required\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/treasury/inflows",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Failed to fetch treasury inflows\"}",
+    "dbCalls": [
+      "walletTransaction.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/treasury/cashflow",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Failed to fetch treasury cashflow\"}",
+    "dbCalls": [
+      "walletTransaction.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/treasury/inflow",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Valid positive amount is required\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/employees/salary/summary",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "$queryRawUnsafe"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/employees/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Full Name, Mobile Number, Department, Designation, and Joining Date are compulsory.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/employees/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching employees\"}",
+    "dbCalls": [
+      "employee.count",
+      "employee.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/employees/:id",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching employee profile\"}",
+    "dbCalls": [
+      "employee.findFirst"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/v1/employees/:id",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "employee.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/employees/:id/archive",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Exit reason is required to archive an employee.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/employees/:id/link-user",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"User ID is required to link account.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/employees/:id/unlink-user",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "employee.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/employees/:id/salary",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "employee.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/employees/:id/pay-salary",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "$queryRawUnsafe"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/employees/:id/salary-payments",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "$queryRawUnsafe"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/accounting/periods/",
+    "handlers": [
+      "(anonymous)",
+      "listPeriods"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"code\":\"PERIODS_FETCH_FAILED\",\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "accountingPeriod.findMany"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/accounting/periods/:id/close",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "closePeriod"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"code\":\"PERIOD_CLOSE_FAILED\",\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "$transaction"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/accounting/periods/:id/reopen",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "reopenPeriod"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"code\":\"REOPEN_REASON_REQUIRED\",\"message\":\"A detailed mandatory reason (minimum 10 characters) is required to reopen a closed accounting period.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/billing/plans",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "paymentPlan.findMany"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/billing/plans",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Payment plan name is compulsory.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/billing/plans/:id",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "paymentPlan.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/billing/plans/assign",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "customer.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/billing/demands",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "customerDemandNote.findMany"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/billing/demands",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "$transaction"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/billing/demands/:id/cancel",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"A detailed mandatory cancellation reason (minimum 10 characters) is required.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/billing/payments",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Payment amount must be a valid positive number.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/billing/customers/:id/statement",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "customer.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/billing/aging",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "customerDemandNote.findMany"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/billing/reconciliation",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "customerDemandNote.findMany"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/wallets/adjust",
+    "handlers": [
+      "(anonymous)",
+      "idempotencyMiddleware",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Target user ID is required.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/wallets/overview",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Server error fetching wallet overview\"}",
+    "dbCalls": [
+      "user.findMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/notes/",
+    "handlers": [
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Failed to fetch operational notes\",\"error\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "operationalNote.findMany",
+      "operationalNote.count"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/notes/stats",
+    "handlers": [
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Failed to calculate note statistics\",\"error\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "operationalNote.findMany"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/notes/:id",
+    "handlers": [
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Failed to fetch note details\",\"error\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "operationalNote.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/notes/",
+    "handlers": [
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Note title or subject is required\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/notes/:id",
+    "handlers": [
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Failed to update operational note\",\"error\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "operationalNote.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/v1/notes/:id",
+    "handlers": [
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Failed to delete operational note\",\"error\":\"AUDIT_DATABASE_BLOCKED\"}",
+    "dbCalls": [
+      "operationalNote.findUnique"
+    ],
+    "leaksInternalError": true
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/notifications/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 200,
+    "body": "{\"success\":true,\"notifications\":[],\"total\":0}",
+    "dbCalls": [
+      "customerPayment.findMany",
+      "fundRequest.findMany",
+      "auditLog.findMany",
+      "expense.findMany",
+      "accountingPeriod.findFirst"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/search/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 200,
+    "body": "{\"success\":true,\"query\":\"\",\"results\":{\"customers\":[],\"transactions\":[],\"employees\":[],\"properties\":[],\"notes\":[]},\"totalResults\":0}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/documents/policy",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Invalid source type.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/documents/uploads",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)",
+      "rawParser",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Invalid source type.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/documents/uploads/:id/discard",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "documentUpload.updateMany"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/documents/review",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "$queryRaw"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/documents/transactions",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "$queryRaw"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/documents/summary",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "$queryRaw"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/documents/journal/:id",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "journalEntry.findUnique"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/documents/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Invalid source type.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/documents/",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "$transaction"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/documents/exceptions/:id/:action",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 400,
+    "body": "{\"success\":false,\"message\":\"Invalid exception action.\"}",
+    "dbCalls": [],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/documents/:id",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "transactionDocument.findUnique"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/documents/:id/preview",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "transactionDocument.findUnique"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/documents/:id/download",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "transactionDocument.findUnique"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/documents/:id/verify",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "$transaction"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/documents/:id/reject",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "$transaction"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/documents/:id/archive",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "$transaction"
+    ],
+    "leaksInternalError": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/documents/:id/replace",
+    "handlers": [
+      "(anonymous)",
+      "(anonymous)"
+    ],
+    "status": 500,
+    "body": "{\"success\":false,\"message\":\"Document operation could not be completed. Please retry.\"}",
+    "dbCalls": [
+      "$transaction"
+    ],
+    "leaksInternalError": false
+  }
+]

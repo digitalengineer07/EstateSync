@@ -40,6 +40,7 @@ exports.getNotifications = async (req, res) => {
     const userId = req.user?.userId || req.user?.id;
 
     const notifications = [];
+    let unavailable = false;
 
     // 1. Customer Collections (Admin & Accounting)
     if (['ADMIN', 'ACCOUNTING'].includes(userRole)) {
@@ -76,6 +77,7 @@ exports.getNotifications = async (req, res) => {
           });
         }
       } catch (err) {
+        unavailable = true;
         console.warn('Notification fetch error (payments):', err.message);
       }
     }
@@ -159,7 +161,8 @@ exports.getNotifications = async (req, res) => {
         }
       }
     } catch (err) {
-      console.warn('Notification fetch error (fundRequests):', err.message);
+      unavailable = true;
+        console.warn('Notification fetch error (fundRequests):', err.message);
     }
 
     // 3. Corporate Treasury & Capital Inflows (Admin & Accounting)
@@ -203,6 +206,7 @@ exports.getNotifications = async (req, res) => {
           });
         }
       } catch (err) {
+        unavailable = true;
         console.warn('Notification fetch error (treasury):', err.message);
       }
     }
@@ -236,6 +240,7 @@ exports.getNotifications = async (req, res) => {
           });
         }
       } catch (err) {
+        unavailable = true;
         console.warn('Notification fetch error (expenses):', err.message);
       }
     }
@@ -270,9 +275,12 @@ exports.getNotifications = async (req, res) => {
           });
         }
       } catch (err) {
+        unavailable = true;
         console.warn('Notification fetch error (period):', err.message);
       }
     }
+
+    if (unavailable) return res.status(503).json({ success: false, message: 'Notifications are temporarily unavailable' });
 
     // Sort combined events chronologically (newest first)
     notifications.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));

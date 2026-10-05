@@ -79,12 +79,7 @@ exports.getNotes = async (req, res) => {
 // GET /api/v1/notes/stats - Informational KPI summary counts
 exports.getNoteStats = async (req, res) => {
   try {
-    const allNotes = await prisma.operationalNote.findMany({
-      select: {
-        category: true,
-        amount: true,
-      },
-    });
+    const allNotes = await prisma.operationalNote.groupBy({ by: ['category'], _sum: { amount: true }, _count: { _all: true } });
 
     let totalCashReceived = 0;
     let totalCashPaidLand = 0;
@@ -93,7 +88,7 @@ exports.getNoteStats = async (req, res) => {
     let generalNotesCount = 0;
 
     for (const note of allNotes) {
-      const numAmt = note.amount ? parseFloat(note.amount.toString()) : 0;
+      const numAmt = Number(note._sum.amount || 0);
       if (note.category === 'CASH_RECEIVED_CUSTOMER') {
         totalCashReceived += numAmt;
       } else if (note.category === 'CASH_PAID_LAND') {
@@ -103,14 +98,14 @@ exports.getNoteStats = async (req, res) => {
       } else if (note.category === 'CASH_HANDOVER') {
         totalCashHandover += numAmt;
       } else {
-        generalNotesCount += 1;
+        generalNotesCount += note._count._all;
       }
     }
 
     res.json({
       success: true,
       stats: {
-        totalNotes: allNotes.length,
+        totalNotes: allNotes.reduce((total, row) => total + row._count._all, 0),
         totalCashReceived,
         totalCashPaidLand,
         totalCashPaidExpense,

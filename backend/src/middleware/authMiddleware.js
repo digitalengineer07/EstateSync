@@ -23,7 +23,7 @@ const createVerifyJWT = (db = prisma) => async (req, res, next) => {
     user = await db.user.findUnique({
       where: { id: userId },
       select: {
-        id: true, email: true, name: true, isActive: true,
+        id: true, email: true, name: true, isActive: true, passwordHash: true,
         role: { select: { name: true, permissions: { select: { permission: { select: { code: true } } } } } },
       },
     });
@@ -33,6 +33,7 @@ const createVerifyJWT = (db = prisma) => async (req, res, next) => {
   }
   if (!user) return res.status(401).json({ success: false, message: 'User account not found' });
   if (!user.isActive) return res.status(403).json({ success: false, isDeactivated: true, message: 'Your account has been deactivated. Please contact your system administrator.' });
+  if (!require('../utils/authVersion').matchesVersion(user, decoded.authVersion)) return res.status(401).json({ success: false, message: 'Please sign in again' });
   if (!user.role) return res.status(403).json({ success: false, message: 'Account role is unavailable' });
 
   req.user = {

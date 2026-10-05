@@ -96,7 +96,6 @@ async function issueDemandNote({
     let milestoneName = 'Milestone Installment Demand';
     let sequence = 1;
     let dueDays = 15;
-    let isTaxable = false;
     let principalAmount = 0;
 
     if (milestoneId) {
@@ -128,7 +127,6 @@ async function issueDemandNote({
       milestoneName = milestone.name;
       sequence = milestone.sequence;
       dueDays = milestone.dueDaysAfterTrigger || 15;
-      isTaxable = milestone.isTaxable;
 
       if (milestone.calculationType === 'PERCENTAGE' && milestone.percentage) {
         principalAmount = Math.round(((parseFloat(milestone.percentage) / 100) * contractValue) * 100) / 100;
@@ -249,6 +247,7 @@ async function issueDemandNote({
         totalDemandAmount: totalDemand,
         milestoneName,
         dueDate: dueDate.toISOString(),
+        notes: notes || null,
         journalEntryNumber: journal.entryNumber
       },
       tx
@@ -399,8 +398,8 @@ async function cancelDemandNote({
 /**
  * List Demand Notes with filtering
  */
-async function listDemandNotes({ customerId, status } = {}) {
-  const where = {};
+async function listDemandNotes({ customerId, status, customerScope = {} } = {}) {
+  const where = { customer: customerScope };
   if (customerId) where.customerId = customerId;
   if (status) where.status = status;
 

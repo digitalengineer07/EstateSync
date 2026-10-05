@@ -1,0 +1,13 @@
+◇ injected env (5) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+=== RUNNING COMPREHENSIVE DATABASE INTEGRITY AUDIT ===
+
+Found 45 tables in PostgreSQL database:
+Account, AccountingPeriod, AuditLog, AuthSession, Customer, CustomerDemandNote, CustomerLedgerEntry, CustomerPayment, DocumentException, DocumentUpload, Employee, EmployeeSalaryAssignment, EmployeeSalaryPayment, Expense, ExpenseCategory, FundRequest, GlobalBankReference, IdempotencyKey, JournalEntry, JournalLine, OperationalNote, PaymentAllocation, PaymentPlan, PaymentPlanMilestone, PayrollAccountingPosting, PayrollAdjustment, PayrollException, PayrollItem, PayrollLine, PayrollPeriod, PayrollRun, Permission, PropertyAcquisition, PropertyPayment, Role, RolePermission, SalaryComponent, SalaryPayment, SalaryPaymentBatch, SalaryStructure, SalaryStructureLine, TransactionDocument, User, Wallet, WalletTransaction
+
+Found 45 models in schema.prisma.
+
+--- Checking Prisma Models vs DB Tables ---
+✅ All Prisma models and scalar columns exist in PostgreSQL database!
+
+=== AUDIT COMPLETE ===
+

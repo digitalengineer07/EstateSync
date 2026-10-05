@@ -37,6 +37,9 @@ exports.createExpense = async (req, res) => {
     const category = await prisma.expenseCategory.findUnique({
       where: { id: categoryId }
     });
+    if (!category) {
+      return res.status(400).json({ success: false, message: 'Expense category not found' });
+    }
 
     // Run within a Prisma transaction to ensure atomicity
     const result = await prisma.$transaction(async (tx) => {

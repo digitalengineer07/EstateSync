@@ -1,0 +1,1222 @@
+{
+  "routes": 102,
+  "results": [
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 400,
+      "body": "{\"success\":false,\"message\":\"Email and password are required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/refresh",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Refresh token required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "handlers": [
+        "(anonymous)"
+      ],
+      "status": 200,
+      "body": "{\"success\":true,\"message\":\"Logged out successfully\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/auth/change-password",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/users/roles",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/users/managers",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/users/all",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/users/register",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/users/:id/reset-password",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/users/:id/status",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/users/:id/status",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/expenses/categories",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/expenses/my",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/expenses/team",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/expenses/all",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/expenses/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/expenses/:id/reverse",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/fund-requests/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/fund-requests/my",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/fund-requests/incoming",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/fund-requests/:id/approve",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/fund-requests/:id/reject",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/fund-requests/all",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/fund-requests/allocate",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/transactions/all",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/dashboard/wallet",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/dashboard/manager",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/dashboard/admin",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/dashboard/accounting",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/accounts/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/journals/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/audit/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/customers/",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/customers/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/customers/:id",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/customers/:id",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/customers/:id/payments",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/customers/:id/settle-cancellation",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/customers/payments/:paymentId",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/properties/",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/properties/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/properties/:id",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/properties/payments/:paymentId",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/properties/:id/payments/:paymentId",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/properties/:id",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/properties/:id/payments",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/treasury/inflows",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/treasury/cashflow",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/treasury/inflow",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/employees/salary/summary",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/employees/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/employees/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/employees/:id",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/employees/:id",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/employees/:id/archive",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/employees/:id/link-user",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/employees/:id/unlink-user",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/employees/:id/salary",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/employees/:id/pay-salary",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/employees/:id/salary-payments",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/accounting/periods/",
+      "handlers": [
+        "(anonymous)",
+        "listPeriods"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/accounting/periods/:id/close",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "closePeriod"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/accounting/periods/:id/reopen",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "reopenPeriod"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/billing/plans",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/billing/plans",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/billing/plans/:id",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/billing/plans/assign",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/billing/demands",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/billing/demands",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/billing/demands/:id/cancel",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/billing/payments",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/billing/customers/:id/statement",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/billing/aging",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/billing/reconciliation",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/wallets/adjust",
+      "handlers": [
+        "(anonymous)",
+        "idempotencyMiddleware",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/wallets/overview",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/notes/",
+      "handlers": [
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/notes/stats",
+      "handlers": [
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/notes/:id",
+      "handlers": [
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/notes/",
+      "handlers": [
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/notes/:id",
+      "handlers": [
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/notes/:id",
+      "handlers": [
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/notifications/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/search/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/documents/policy",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/documents/uploads",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)",
+        "rawParser",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/documents/uploads/:id/discard",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/documents/review",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/documents/transactions",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/documents/summary",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/documents/journal/:id",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/documents/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/documents/",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/documents/exceptions/:id/:action",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/documents/:id",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/documents/:id/preview",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/documents/:id/download",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/documents/:id/verify",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/documents/:id/reject",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/documents/:id/archive",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/documents/:id/replace",
+      "handlers": [
+        "(anonymous)",
+        "(anonymous)"
+      ],
+      "status": 401,
+      "body": "{\"success\":false,\"message\":\"Authentication required\"}",
+      "dbCalls": []
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "handlers": [
+        "health"
+      ],
+      "status": 200,
+      "body": "EstateSync API is running with Full Accounting & Idempotency Engine",
+      "dbCalls": []
+    },
+    {
+      "name": "malformed-json",
+      "path": "/api/v1/auth/login",
+      "status": 400,
+      "body": "{\"success\":false,\"message\":\"Expected property name or '}' in JSON at position 1 (line 1 column 2)\"}"
+    },
+    {
+      "name": "oversized-json",
+      "path": "/api/v1/auth/login",
+      "status": 413,
+      "body": "{\"success\":false,\"message\":\"An unexpected server error occurred. Please try again later.\"}"
+    },
+    {
+      "name": "missing-body",
+      "path": "/api/v1/auth/login",
+      "status": 500,
+      "body": "{\"success\":false,\"message\":\"An unexpected server error occurred. Please try again later.\"}"
+    },
+    {
+      "name": "wrong-email-type",
+      "path": "/api/v1/auth/login",
+      "status": 500,
+      "body": "{\"success\":false,\"message\":\"Login failed\"}"
+    },
+    {
+      "path": "/test-db",
+      "status": 404,
+      "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /test-db</pre>\n</body>\n</html>\n"
+    },
+    {
+      "path": "/does-not-exist",
+      "status": 404,
+      "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /does-not-exist</pre>\n</body>\n</html>\n"
+    }
+  ],
+  "dbCalls": [
+    "account.findMany",
+    "user.findUnique"
+  ]
+}

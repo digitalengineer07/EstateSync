@@ -1,11 +1,13 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 import TransactionDocumentButton from './TransactionDocumentButton';
 
 import { useState, useEffect } from "react";
 import PropertyAcquisitionModal from "./PropertyAcquisitionModal";
 import RecordPropertyPaymentModal from "./RecordPropertyPaymentModal";
 import EditPropertyPaymentModal from "./EditPropertyPaymentModal";
-import { MapPin, Search, RefreshCw, Plus, Building2, Coins, TrendingDown, Clock, Edit2 } from "lucide-react";
+import { Search, RefreshCw, Plus, Coins, Clock, Edit2 } from "lucide-react";
 import { API_URL } from "@/config/api";
 import { formatDate } from "@/utils/formatters";
 
@@ -55,7 +57,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
     setLoading(true);
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/properties`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/properties`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
       const data = await res.json();
@@ -176,7 +178,7 @@ export default function PropertyAcquisitionList({ userRole = "ACCOUNTING" }) {
     if (historyProperty) {
       try {
         const token = sessionStorage.getItem("accessToken");
-        const res = await fetch(`${API_URL}/api/v1/properties/${historyProperty.id}`, {
+        const res = await fetchWithTimeout(`${API_URL}/api/v1/properties/${historyProperty.id}`, {
           headers: { "Authorization": `Bearer ${token}` }
         });
         const data = await res.json();

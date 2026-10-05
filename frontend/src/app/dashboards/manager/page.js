@@ -60,7 +60,6 @@ export default function ManagerDashboard() {
   return (
     <SoftDashboardShell
       title="Operations & Management Hub"
-      description="Supervise departmental workflows, approve field team fund requisitions, monitor expenditures, and oversee operations."
       badge="Operations Authority"
       navItems={MANAGER_PANELS}
       activeId={activePanel}

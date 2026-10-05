@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
@@ -28,7 +30,7 @@ export default function ExpenseUploadForm() {
     const fetchCategories = async () => {
       try {
         const token = sessionStorage.getItem("accessToken");
-        const res = await fetch(`${API_URL}/api/v1/expenses/categories`, {
+        const res = await fetchWithTimeout(`${API_URL}/api/v1/expenses/categories`, {
           headers: {
             "Authorization": `Bearer ${token}`
           }
@@ -60,7 +62,7 @@ export default function ExpenseUploadForm() {
     setMessage(null);
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/expenses`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/expenses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

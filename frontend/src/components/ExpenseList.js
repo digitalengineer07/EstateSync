@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 import TransactionDocumentButton from './TransactionDocumentButton';
 
 import { useState, useEffect } from "react";
@@ -50,7 +52,7 @@ export default function ExpenseList({ type = "my", embedded = false, showHeader 
 
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/expenses/${selectedExpense.id}/reverse`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/expenses/${selectedExpense.id}/reverse`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

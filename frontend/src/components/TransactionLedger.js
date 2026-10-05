@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { RefreshCw } from "lucide-react";
@@ -38,7 +38,7 @@ export default function TransactionLedger({ embedded = false, showHeader = true 
     revalidateOnFocus: false
   });
 
-  const transactions = data?.transactions || [];
+  const transactions = useMemo(() => data?.transactions || [], [data?.transactions]);
 
   // Fast auto-scroll and auto-fade
   useEffect(() => {

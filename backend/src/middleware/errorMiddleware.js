@@ -5,17 +5,19 @@
  */
 
 exports.errorHandler = (err, req, res, next) => {
+  if (res.headersSent) return next(err);
   // Always log internal error details for server-side debugging
   console.error('[Application Error]:', {
     message: err.message,
-    stack: err.stack,
+    stack: (err.statusCode || err.status) >= 400 && (err.statusCode || err.status) < 500 ? undefined : err.stack,
     path: req.originalUrl,
     method: req.method,
     ip: req.ip,
     userId: req.user?.userId || null,
   });
 
-  const statusCode = err.statusCode || (res.statusCode >= 400 ? res.statusCode : 500);
+  const candidate = err.statusCode || err.status || 500;
+  const statusCode = Number.isInteger(candidate) && candidate >= 400 && candidate <= 599 ? candidate : 500;
 
   // Safe client error message
   let clientMessage = 'An unexpected server error occurred. Please try again later.';

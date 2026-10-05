@@ -1,7 +1,9 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect } from "react";
-import { Edit3, CheckCircle2, AlertCircle, X, ShieldAlert, FileText, AlertTriangle } from "lucide-react";
+import { Edit3, CheckCircle2, AlertCircle, X, ShieldAlert, AlertTriangle } from "lucide-react";
 import { API_URL } from "@/config/api";
 
 export default function CustomerEditModal({ isOpen, onClose, customer, onCustomerUpdated }) {
@@ -101,7 +103,7 @@ export default function CustomerEditModal({ isOpen, onClose, customer, onCustome
 
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/customers/${customer.id}`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/customers/${customer.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

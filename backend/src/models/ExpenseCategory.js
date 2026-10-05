@@ -1,3 +1,0 @@
-/**
- * ExpenseCategory Model
- */

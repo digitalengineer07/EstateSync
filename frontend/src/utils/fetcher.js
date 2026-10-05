@@ -1,3 +1,4 @@
+import { fetchWithTimeout } from "@/utils/http";
 import { API_URL } from "@/config/api";
 
 export const fetcher = async (url) => {
@@ -10,12 +11,14 @@ export const fetcher = async (url) => {
     headers["Authorization"] = `Bearer ${token}`;
   }
   
-  const res = await fetch(fullUrl, {
+  const res = await fetchWithTimeout(fullUrl, {
     method: "GET",
     headers,
   });
 
-  const data = await res.json();
+  let data;
+  try { data = await res.json(); }
+  catch { throw Object.assign(new Error(`Invalid server response (HTTP ${res.status})`), { status: res.status }); }
   
   // Handle account deactivation: immediately purge session and redirect to login
   if (res.status === 403 && data?.isDeactivated) {
@@ -29,7 +32,7 @@ export const fetcher = async (url) => {
       );
       window.location.href = "/login";
     }
-    return new Promise(() => {});
+    throw Object.assign(new Error(data.message || 'Account deactivated'), { status: 403 });
   }
 
   // Handle token expiry: redirect to login instead of crashing
@@ -41,7 +44,7 @@ export const fetcher = async (url) => {
       sessionStorage.setItem("authMessage", "Your session has expired. Please log in again.");
       window.location.href = "/login";
     }
-    return new Promise(() => {});
+    throw Object.assign(new Error('Please sign in again'), { status: 401 });
   }
 
   if (!res.ok || data.success === false) {

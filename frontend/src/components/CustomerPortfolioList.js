@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect } from "react";
 import CustomerRegistrationModal from "./CustomerRegistrationModal";
@@ -6,7 +8,7 @@ import CustomerEditModal from "./CustomerEditModal";
 import RecordCustomerPaymentModal from "./RecordCustomerPaymentModal";
 import CustomerStatementModal from "./CustomerStatementModal";
 import CustomerCancellationSettlementModal from "./CustomerCancellationSettlementModal";
-import { Users, Search, RefreshCw, Plus, FileSpreadsheet, Eye, CreditCard, Edit3, IndianRupee, TrendingUp, Clock } from "lucide-react";
+import { Users, Search, RefreshCw, Plus, FileSpreadsheet, Edit3, IndianRupee, TrendingUp, Clock } from "lucide-react";
 import { API_URL } from "@/config/api";
 
 export default function CustomerPortfolioList({ mode = "sales", userRole = "SALES" }) {
@@ -70,7 +72,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
     setLoading(true);
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/customers`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/customers`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
       const data = await res.json();

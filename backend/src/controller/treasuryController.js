@@ -104,7 +104,8 @@ exports.recordBankInflow = async (req, res) => {
           referenceId: cleanRef,
           description: txnDescription,
           createdBy: req.user?.email || 'Accountant',
-          status: 'COMPLETED'
+          status: 'COMPLETED',
+          createdAt: transactionDate ? new Date(transactionDate) : new Date()
         }
       });
 
@@ -132,6 +133,7 @@ exports.recordBankInflow = async (req, res) => {
         referenceNo: cleanRef,
         description: narration,
         referenceId: walletTxn.id,
+        postingDate: transactionDate ? new Date(transactionDate) : undefined,
         createdBy: req.user?.email || 'Accountant'
       });
 

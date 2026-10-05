@@ -185,11 +185,6 @@ export default function WalletDashboard() {
   return (
     <SoftDashboardShell
       title={walletTitle}
-      description={
-        isAdmin
-          ? "Review and disburse organization fund requests, record executive expenditures, and audit activity."
-          : "Manage wallet balance, request departmental funds, file expense receipts, and register customer contracts."
-      }
       badge={isAdmin ? "Executive Approvals" : "Wallet & Field"}
       navItems={walletPanels}
       activeId={activePanel}

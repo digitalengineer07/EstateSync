@@ -1,10 +1,12 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState } from "react";
-import { Landmark, ArrowUpRight, X, ShieldCheck, CheckCircle2, AlertCircle } from "lucide-react";
+import { Landmark, X, ShieldCheck, CheckCircle2, AlertCircle } from "lucide-react";
 import { API_URL } from "@/config/api";
 import TransactionDocuments from './TransactionDocuments';
-import { toISTDateInputString, createSafePaymentDateISO, formatDate } from "@/utils/formatters";
+import { toISTDateInputString, createSafePaymentDateISO } from "@/utils/formatters";
 
 export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -51,7 +53,7 @@ export default function RecordBankInflowModal({ isOpen, onClose, onSuccess }) {
 
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/treasury/inflow`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/treasury/inflow`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

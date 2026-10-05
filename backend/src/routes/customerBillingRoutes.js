@@ -4,6 +4,7 @@ const customerBillingController = require('../controller/customerBillingControll
 const { verifyJWT } = require('../middleware/authMiddleware');
 const { checkPermission } = require('../middleware/permissionMiddleware');
 const idempotencyMiddleware = require('../middleware/idempotencyMiddleware');
+const { requireCustomerAccess } = require('../middleware/customerAccess');
 
 // All Customer Billing & AR routes require valid JWT authentication
 router.use(verifyJWT);
@@ -31,6 +32,7 @@ router.get(
 router.post(
   '/plans/assign',
   checkPermission(['accounting.view', 'customer.edit']),
+  requireCustomerAccess,
   idempotencyMiddleware,
   customerBillingController.assignPlanToCustomer
 );
@@ -45,6 +47,7 @@ router.get(
 router.post(
   '/demands',
   checkPermission(['accounting.view', 'customer.edit']),
+  requireCustomerAccess,
   idempotencyMiddleware,
   customerBillingController.issueDemandNote
 );
@@ -52,6 +55,7 @@ router.post(
 router.post(
   '/demands/:id/cancel',
   checkPermission(['customer.edit', 'expense.reverse', 'user.manage']),
+  requireCustomerAccess,
   idempotencyMiddleware,
   customerBillingController.cancelDemandNote
 );
@@ -59,7 +63,8 @@ router.post(
 // 3. Payment Receipt & Allocation Route
 router.post(
   '/payments',
-  checkPermission(['customer.payment.record', 'customer.edit']),
+  checkPermission('customer.payment.record'),
+  requireCustomerAccess,
   idempotencyMiddleware,
   customerBillingController.recordCustomerPayment
 );
@@ -68,6 +73,7 @@ router.post(
 router.get(
   '/customers/:id/statement',
   checkPermission(['customer.view', 'customer.view_all', 'accounting.view']),
+  requireCustomerAccess,
   customerBillingController.getCustomerStatement
 );
 

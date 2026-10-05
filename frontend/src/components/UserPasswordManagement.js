@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useMemo } from "react";
 import useSWR from "swr";
@@ -106,7 +108,7 @@ export default function UserPasswordManagement({ onNavigateToRegistration }) {
       setActionError("");
       const token = sessionStorage.getItem("accessToken");
 
-      const res = await fetch(`${API_URL}/api/v1/users/${user.id}/status`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/users/${user.id}/status`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

@@ -1,19 +1,10 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
-import {
-  X,
-  SlidersHorizontal,
-  Wallet,
-  Coins,
-  Banknote,
-  ArrowUpRight,
-  ArrowDownRight,
-  AlertCircle,
-  CheckCircle2,
-  HelpCircle
-} from "lucide-react";
+import { X, SlidersHorizontal, Coins, Banknote, ArrowUpRight, ArrowDownRight, AlertCircle, CheckCircle2, HelpCircle } from "lucide-react";
 
 export default function AdjustWalletBalanceModal({ isOpen, onClose, user, onSuccess }) {
   const [fundMode, setFundMode] = useState("LIQUID"); // "LIQUID" or "CASH"
@@ -112,7 +103,7 @@ export default function AdjustWalletBalanceModal({ isOpen, onClose, user, onSucc
         reason: reason.trim()
       };
 
-      const res = await fetch(`${API_URL}/api/v1/wallets/adjust`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/wallets/adjust`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

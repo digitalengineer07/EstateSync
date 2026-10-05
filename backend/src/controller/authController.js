@@ -10,23 +10,23 @@ const { access: JWT_SECRET, refresh: JWT_REFRESH_SECRET } = require('../middlewa
 const generateTokens = (user) => {
   const payload = {
     userId: user.id,
+    authVersion: require('../utils/authVersion').authVersion(user),
     email: user.email,
     role: user.role.name,
     permissions: user.role.permissions.map(rp => rp.permission.code)
   };
 
   const accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });
-  const refreshToken = jwt.sign({ userId: user.id }, JWT_REFRESH_SECRET, { expiresIn: '7d' });
+  const refreshToken = jwt.sign({ userId: user.id, authVersion: payload.authVersion }, JWT_REFRESH_SECRET, { expiresIn: '7d', jwtid: require('node:crypto').randomUUID() });
 
   return { accessToken, refreshToken };
 };
 
 exports.login = async (req, res) => {
-  console.log('[Login Route] Started login request for email:', req.body.email);
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body || {};
 
-    if (!email || !password) {
+    if (typeof email !== 'string' || typeof password !== 'string' || !email.trim() || !password || email.length > 254 || Buffer.byteLength(password) > 72) {
       return res.status(400).json({ success: false, message: 'Email and password are required' });
     }
 
@@ -154,8 +154,10 @@ exports.login = async (req, res) => {
     const { accessToken, refreshToken } = generateTokens(user);
 
     // Store refresh token in express-session
+    await new Promise((resolve, reject) => req.session.regenerate(error => error ? reject(error) : resolve()));
     req.session.refreshToken = refreshToken;
     req.session.userId = user.id;
+    await new Promise((resolve, reject) => req.session.save(error => error ? reject(error) : resolve()));
 
     // Log successful login
     await logAudit({
@@ -195,7 +197,7 @@ exports.refreshToken = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Refresh token required' });
     }
 
-    const decoded = jwt.verify(token, JWT_REFRESH_SECRET);
+    const decoded = jwt.verify(token, JWT_REFRESH_SECRET, { algorithms: ['HS256'] });
     
     // Check if the token exists in the session
     const storedToken = req.session.refreshToken;
@@ -223,6 +225,8 @@ exports.refreshToken = async (req, res) => {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
+    if (!require('../utils/authVersion').matchesVersion(user, decoded.authVersion)) return res.status(401).json({ success: false, message: 'Please sign in again' });
+
     if (user.isActive === false) {
       if (req.session) {
         req.session.destroy(() => {});
@@ -235,9 +239,15 @@ exports.refreshToken = async (req, res) => {
     }
 
     const { accessToken, refreshToken: newRefreshToken } = generateTokens(user);
+    const rotated = await prisma.authSession.updateMany({
+      where: { id: req.sessionID, expiresAt: { gt: new Date() }, data: { path: ['refreshToken'], equals: token } },
+      data: { data: JSON.parse(JSON.stringify({ ...req.session, refreshToken: newRefreshToken })) },
+    });
+    if (rotated.count !== 1) return res.status(403).json({ success: false, message: 'Refresh token has already been used' });
     
     // Update session with new refresh token
     req.session.refreshToken = newRefreshToken;
+    await new Promise((resolve, reject) => req.session.save(error => error ? reject(error) : resolve()));
 
     res.json({
       success: true,
@@ -269,7 +279,7 @@ exports.logout = async (req, res) => {
         console.error(err);
         return res.status(500).json({ success: false, message: 'Logout failed' });
       }
-      res.clearCookie('connect.sid');
+      res.clearCookie('estatesync_sid', { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax' });
       return res.json({ success: true, message: 'Logged out successfully' });
     });
   } catch (error) {

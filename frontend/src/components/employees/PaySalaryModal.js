@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { mutate } from "swr";
-import { X, IndianRupee, Landmark, Send, AlertCircle, CheckCircle2, ShieldAlert } from "lucide-react";
+import { X, Landmark, Send, AlertCircle, ShieldAlert } from "lucide-react";
 import { paySalary } from "@/services/salaryService";
 
 export default function PaySalaryModal({ isOpen, onClose, employee, onPaid }) {

@@ -33,6 +33,8 @@ async function proxyRequest(request, { params }) {
   // Forward auth token if present
   const authHeader = request.headers.get('authorization');
   if (authHeader) forwardHeaders.set('Authorization', authHeader);
+  const cookie = request.headers.get('cookie');
+  if (cookie) forwardHeaders.set('Cookie', cookie);
 
   // Forward idempotency key if present
   const idempotencyKey = request.headers.get('idempotency-key');
@@ -60,6 +62,7 @@ async function proxyRequest(request, { params }) {
     console.log(`[Proxy] Response: ${backendResponse.status}`);
 
     const responseHeaders = new Headers();
+    for (const cookie of backendResponse.headers.getSetCookie()) responseHeaders.append('Set-Cookie', cookie);
     for (const name of ['content-type', 'content-disposition', 'cache-control', 'x-content-type-options', 'content-security-policy', 'cross-origin-resource-policy', 'retry-after']) {
       const value = backendResponse.headers.get(name);
       if (value) responseHeaders.set(name, value);

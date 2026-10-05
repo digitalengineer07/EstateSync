@@ -32,7 +32,7 @@ test('two tabs retain different accounts and send their own access tokens', asyn
       const email = JSON.parse(options.body).email;
       return { ok: true, json: async () => ({ success: true, accessToken: `token-${email}`, refreshToken: `refresh-${email}`, user: { email, role: 'SALES' } }) };
     }
-    return { ok: true, json: async () => ({ success: true, auth: options.headers.Authorization }) };
+    return { ok: true, json: async () => ({ success: true, auth: new Headers(options.headers).get('Authorization') }) };
   }));
 
   vi.stubGlobal('sessionStorage', firstTab);

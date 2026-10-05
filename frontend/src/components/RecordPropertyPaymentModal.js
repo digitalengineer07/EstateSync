@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
@@ -27,7 +29,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
       const fetchTreasury = async () => {
         try {
           const token = sessionStorage.getItem("accessToken");
-          const res = await fetch(`${API_URL}/api/v1/dashboard/accounting`, {
+          const res = await fetchWithTimeout(`${API_URL}/api/v1/dashboard/accounting`, {
             headers: { "Authorization": `Bearer ${token}` }
           });
           const data = await res.json();
@@ -82,7 +84,7 @@ export default function RecordPropertyPaymentModal({ isOpen, onClose, property, 
       const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `prop-pay-${Date.now()}`;
 
-      const res = await fetch(`${API_URL}/api/v1/properties/${property.id}/payments`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/properties/${property.id}/payments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

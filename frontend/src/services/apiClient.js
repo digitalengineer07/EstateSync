@@ -1,3 +1,4 @@
+import { fetchWithTimeout } from "@/utils/http";
 import { API_URL } from "../config/api.js";
 
 /**
@@ -69,7 +70,7 @@ export async function apiRequest(endpoint, {
 
   let response;
   try {
-    response = await fetch(fullUrl, fetchOptions);
+    response = await fetchWithTimeout(fullUrl, fetchOptions);
   } catch (networkErr) {
     const error = new Error(`Network connectivity error: ${networkErr.message}`);
     error.status = 0;
@@ -80,8 +81,10 @@ export async function apiRequest(endpoint, {
   let data;
   try {
     data = await response.json();
-  } catch (parseErr) {
-    data = { success: response.ok, message: response.statusText };
+  } catch {
+    const error = new Error(`Server returned an invalid response (HTTP ${response.status}). Please try again.`);
+    error.status = response.status;
+    throw error;
   }
 
   // Handle account deactivation: immediately purge session and redirect to login
@@ -96,7 +99,7 @@ export async function apiRequest(endpoint, {
       );
       window.location.href = "/login";
     }
-    return new Promise(() => {});
+    throw Object.assign(new Error(data.message || 'Account deactivated'), { status: 403 });
   }
 
   // Handle token expiry: redirect to login instead of crashing
@@ -109,7 +112,7 @@ export async function apiRequest(endpoint, {
       window.location.href = "/login";
     }
     // Return a never-resolving promise so no downstream code runs after redirect
-    return new Promise(() => {});
+    throw Object.assign(new Error('Please sign in again'), { status: 401 });
   }
 
   if (!response.ok || data.success === false) {

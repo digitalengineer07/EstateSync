@@ -4,7 +4,7 @@ import TransactionDocumentButton from './TransactionDocumentButton';
 import { useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
-import { API_URL } from "@/config/api";
+
 import { formatINR, formatDateTime } from "@/utils/formatters";
 import { RefreshCw } from "lucide-react";
 

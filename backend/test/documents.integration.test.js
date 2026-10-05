@@ -37,7 +37,7 @@ before(async () => {
     }
   }
   await syncDocumentPermissions(db);
-  for (const role of Object.keys(users)) { actors[role] = await A.actorFrom(db, users[role].id); tokens[role] = jwt.sign({ userId: users[role].id, role }, process.env.JWT_SECRET, { expiresIn: '1h' }); }
+  for (const role of Object.keys(users)) { actors[role] = await A.actorFrom(db, users[role].id); tokens[role] = jwt.sign({ userId: users[role].id, authVersion: require('../src/utils/authVersion').authVersion(users[role]), role }, process.env.JWT_SECRET, { expiresIn: '1h' }); }
   category = await db.expenseCategory.create({ data: { name: 'Document test expense' } });
   const makeExpense = user => db.expense.create({ data: { userId: user.id, walletId: user.wallet.id, categoryId: category.id, amount: 50, description: 'Receipt test', date: new Date(), fundMode: 'CASH', status: 'RECORDED' } });
   expense = await makeExpense(users.SALES); otherExpense = await makeExpense(users.OTHER);

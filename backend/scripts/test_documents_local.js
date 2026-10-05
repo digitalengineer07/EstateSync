@@ -34,12 +34,13 @@ async function main() {
     try {
       const sql = await run(process.execPath, [require.resolve('prisma/build/index.js'), 'migrate', 'diff', '--from-empty', '--to-schema-datamodel', 'prisma/schema.prisma', '--script'], { cwd: path.join(__dirname, '..'), env });
       // Establish the old financial schema, then apply the actual shipped upgrade.
-      const baseline = sql.split(';').filter(statement => !/"(TransactionDocument|DocumentUpload|DocumentException)"/.test(statement)).join(';');
+      const baseline = sql.split(';').filter(statement => !/"(TransactionDocument|DocumentUpload|DocumentException|AuthSession)"/.test(statement)).join(';');
       await client.query(baseline);
       await client.query(await fs.readFile(path.join(__dirname, '../prisma/upgrades/20260930_transaction_documents.sql'), 'utf8'));
       console.log('Additive document migration applied to isolated PostgreSQL successfully.');
     } finally { await client.end(); }
-    await run(process.execPath, ['--test', '--test-timeout=120000', 'test/documents.unit.test.js', 'test/documents.integration.test.js'], { cwd: path.join(__dirname, '..'), env, live: true });
+    const suites = process.argv.includes('--security') ? ['test/security.integration.test.js'] : ['test/documents.unit.test.js', 'test/documents.integration.test.js'];
+    await run(process.execPath, ['--test', '--test-timeout=120000', ...suites], { cwd: path.join(__dirname, '..'), env, live: true });
     if (process.argv.includes('--regression')) {
       await run(process.execPath, ['prisma/seed.js'], { cwd: path.join(__dirname, '..'), env });
       const apiPort = await new Promise(resolve => { const s = net.createServer(); s.listen(0, '127.0.0.1', () => { const n = s.address().port; s.close(() => resolve(n)); }); });

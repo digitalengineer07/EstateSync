@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
@@ -114,7 +116,7 @@ export default function CustomerRegistrationModal({ isOpen, onClose, onCustomerC
         taxes: tax
       };
 
-      const res = await fetch(`${API_URL}/api/v1/customers`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/customers`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

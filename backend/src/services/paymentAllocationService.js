@@ -261,6 +261,7 @@ async function recordCustomerReceipt({
       entityType: 'CUSTOMER_PAYMENT',
       entityId: payment.id,
       newValues: {
+        notes: notes || null,
         customerId: customer.id,
         customerName: customer.customerName,
         payAmount,

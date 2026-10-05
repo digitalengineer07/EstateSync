@@ -1,0 +1,26 @@
+[
+  {
+    "finding": "Concurrent identical idempotency keys both enter the mutation",
+    "executed": 2
+  },
+  {
+    "finding": "Invalid note input accepted as successful creation",
+    "status": 201,
+    "amount": 0,
+    "category": "ARBITRARY_CATEGORY",
+    "dateReplacedWithValidDate": true
+  },
+  {
+    "finding": "Fund request accepts numeric prefix, blank reason, self manager and invalid mode",
+    "status": 201,
+    "data": {
+      "id": "audit-row",
+      "requesterId": "audit-user",
+      "managerId": "audit-user",
+      "amount": 100,
+      "fundMode": "LIQUID",
+      "reason": " ",
+      "status": "PENDING"
+    }
+  }
+]

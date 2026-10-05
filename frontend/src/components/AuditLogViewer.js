@@ -3,8 +3,8 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
-import { API_URL } from "@/config/api";
-import { RefreshCw, Shield, Terminal, ArrowUpRight, ChevronLeft, ChevronRight, Clock } from "lucide-react";
+
+import { RefreshCw, Shield, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { formatDate, formatTime } from "@/utils/formatters";
 
 export default function AuditLogViewer() {

@@ -252,7 +252,6 @@ exports.getCustomerById = async (req, res) => {
 exports.updateCustomer = async (req, res) => {
   try {
     const { id } = req.params;
-    const userRole = req.user.role;
     const {
       customerName,
       customerContact,
@@ -270,6 +269,9 @@ exports.updateCustomer = async (req, res) => {
     const existing = await prisma.customer.findUnique({ where: { id } });
     if (!existing) {
       return res.status(404).json({ success: false, message: 'Customer not found' });
+    }
+    if (!require('../middleware/customerAccess').canViewAll(req.user) && existing.salesOwnerId !== req.user.userId) {
+      return res.status(403).json({ success: false, message: 'Access denied to this customer record' });
     }
 
     const trimmedPlotNo = plotNo !== undefined ? cleanPlotNumber(plotNo) : cleanPlotNumber(existing.plotNo);

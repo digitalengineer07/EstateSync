@@ -16,7 +16,7 @@ async function logAudit({
 }) {
   try {
     const db = tx || prisma;
-    const ip = req?.headers ? (req.headers['x-forwarded-for'] || req.socket?.remoteAddress || req.ip || '') : (req?.ip || null);
+    const ip = req?.ip || req?.socket?.remoteAddress || null;
     const agent = req?.headers ? req.headers['user-agent'] || '' : null;
 
     return await db.auditLog.create({
@@ -34,7 +34,8 @@ async function logAudit({
     });
   } catch (error) {
     console.error('Audit Log Error:', error);
-    // Do not crash the entire request if audit logging fails
+    if (tx || require('./transactionContext').context.getStore()) throw Object.assign(new Error('Audit record could not be saved'), { status: 503, statusCode: 503, isOperational: true });
+    // Non-transactional authentication logging must not take down login.
     return null;
   }
 }

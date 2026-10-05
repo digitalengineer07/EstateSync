@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -22,8 +24,11 @@ export const AuthProvider = ({ children }) => {
     } catch {
       // Storage may be unavailable in privacy-restricted browsers.
     }
-    const storedUser = sessionStorage.getItem("user");
-    const token = sessionStorage.getItem("accessToken");
+    let storedUser, token;
+    try {
+      storedUser = sessionStorage.getItem("user");
+      token = sessionStorage.getItem("accessToken");
+    } catch { setLoading(false); return; }
 
     if (storedUser && token) {
       try {
@@ -56,7 +61,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await fetch(`${API_URL}/api/v1/auth/login`, {
+      const response = await fetchWithTimeout(`${API_URL}/api/v1/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

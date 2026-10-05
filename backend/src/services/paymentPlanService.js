@@ -28,7 +28,7 @@ async function createPaymentPlan({
     throw { status: 409, message: `Payment plan with name "${cleanName}" already exists.` };
   }
 
-  if (!milestones || !Array.isArray(milestones) || milestones.length === 0) {
+  if (!milestones || !Array.isArray(milestones) || milestones.length === 0 || milestones.length > 100) {
     throw { status: 400, message: 'At least one milestone is required to create a payment plan.' };
   }
 
@@ -190,7 +190,7 @@ async function assignPlanToCustomer({ customerId, planId, actorId }) {
     throw { status: 400, message: 'Cannot assign an inactive payment plan.' };
   }
 
-  return await prisma.customer.update({
+  const updated = await prisma.customer.update({
     where: { id: customerId },
     data: { paymentPlanId: planId },
     include: {
@@ -199,6 +199,8 @@ async function assignPlanToCustomer({ customerId, planId, actorId }) {
       }
     }
   });
+  await require('../utils/auditLogger').logAudit({ actorId, action: 'CUSTOMER_PLAN_ASSIGNED', entityType: 'CUSTOMER', entityId: customerId, newValues: { planId } });
+  return updated;
 }
 
 module.exports = {

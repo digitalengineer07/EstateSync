@@ -19,6 +19,10 @@ exports.createRequest = async (req, res) => {
     if (isNaN(reqAmount) || reqAmount <= 0) {
       return res.status(400).json({ success: false, message: 'Invalid amount' });
     }
+    const manager = await prisma.user.findUnique({ where: { id: managerId }, include: { role: true } });
+    if (!manager?.isActive || !['ADMIN','MANAGER'].includes(manager.role?.name) || managerId === requesterId) {
+      return res.status(400).json({ success: false, message: 'Select another active manager or administrator' });
+    }
 
     const fundRequest = await prisma.fundRequest.create({
       data: {

@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
@@ -20,7 +22,7 @@ export default function UserRegistrationForm({ onNavigateToPasswords }) {
     const fetchRoles = async () => {
       try {
         const token = sessionStorage.getItem("accessToken");
-        const res = await fetch(`${API_URL}/api/v1/users/roles`, {
+        const res = await fetchWithTimeout(`${API_URL}/api/v1/users/roles`, {
           headers: {
             "Authorization": `Bearer ${token}`
           }
@@ -60,7 +62,7 @@ export default function UserRegistrationForm({ onNavigateToPasswords }) {
     setLoading(true);
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/users/register`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

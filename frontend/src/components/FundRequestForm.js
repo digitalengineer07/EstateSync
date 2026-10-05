@@ -1,9 +1,11 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { API_URL } from "@/config/api";
-import { Receipt, ShieldCheck, CheckCircle2, Clock, Info, IndianRupee, Sparkles } from "lucide-react";
+import { Receipt, ShieldCheck, CheckCircle2, Sparkles } from "lucide-react";
 
 export default function FundRequestForm() {
   const { user } = useAuth();
@@ -21,7 +23,7 @@ export default function FundRequestForm() {
     const fetchManagers = async () => {
       try {
         const token = sessionStorage.getItem("accessToken");
-        const res = await fetch(`${API_URL}/api/v1/users/managers`, {
+        const res = await fetchWithTimeout(`${API_URL}/api/v1/users/managers`, {
           headers: { "Authorization": `Bearer ${token}` }
         });
         const data = await res.json();
@@ -49,7 +51,7 @@ export default function FundRequestForm() {
     setMessage(null);
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/fund-requests`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/fund-requests`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

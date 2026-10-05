@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { createEmployee, updateEmployee, updateSalaryConfig } from "@/services/employeeService";
-import { X, UserPlus, Edit3, AlertTriangle, CheckCircle2, Loader2, IndianRupee } from "lucide-react";
+import { X, UserPlus, Edit3, AlertTriangle, Loader2, IndianRupee } from "lucide-react";
 
 export default function EmployeeModal({
   isOpen,

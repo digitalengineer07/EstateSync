@@ -3,7 +3,7 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
-import { API_URL } from "@/config/api";
+
 import { useAuth } from "@/context/AuthContext";
 import { RefreshCw, SlidersHorizontal, KeyRound } from "lucide-react";
 import AdjustWalletBalanceModal from "./AdjustWalletBalanceModal";

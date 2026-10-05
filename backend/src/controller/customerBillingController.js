@@ -104,7 +104,7 @@ exports.cancelDemandNote = async (req, res) => {
 exports.listDemandNotes = async (req, res) => {
   try {
     const { customerId, status } = req.query;
-    const demands = await customerBillingService.listDemandNotes({ customerId, status });
+    const demands = await customerBillingService.listDemandNotes({ customerId, status, customerScope: require('../middleware/customerAccess').customerScope(req.user) });
     res.status(200).json({ success: true, data: demands });
   } catch (error) {
     res.status(error.status || 500).json({ success: false, message: error.message || 'Server error listing demand notes.' });

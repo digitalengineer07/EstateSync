@@ -10,28 +10,7 @@ import EmployeeArchiveModal from "./EmployeeArchiveModal";
 import EmployeeLinkUserModal from "./EmployeeLinkUserModal";
 import EditSalaryModal from "./EditSalaryModal";
 import PaySalaryModal from "./PaySalaryModal";
-import {
-  Users,
-  Search,
-  RefreshCw,
-  Plus,
-  Edit3,
-  UserX,
-  Link2,
-  Unlink,
-  Eye,
-  ShieldCheck,
-  Building,
-  UserCheck,
-  AlertTriangle,
-  CheckCircle2,
-  Calendar,
-  Phone,
-  Mail,
-  Briefcase,
-  IndianRupee,
-  Send
-} from "lucide-react";
+import { Users, Search, RefreshCw, Plus, Edit3, UserX, Link2, Unlink, Eye, ShieldCheck, Building, UserCheck, AlertTriangle, CheckCircle2, Phone, Mail, IndianRupee, Send } from "lucide-react";
 
 export default function EmployeeList() {
   const { user } = useAuth();

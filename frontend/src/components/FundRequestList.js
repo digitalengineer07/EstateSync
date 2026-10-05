@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState } from "react";
 import useSWR from "swr";
@@ -47,7 +49,7 @@ export default function FundRequestList({ type = "outgoing", embedded = false, s
         }
       }
 
-      const res = await fetch(`${API_URL}/api/v1/fund-requests/${id}/${action}`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/fund-requests/${id}/${action}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

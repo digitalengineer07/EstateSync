@@ -247,17 +247,11 @@ async function getARReconciliationReport() {
 
   let subledgerUnallocatedAdvancesTotal = 0;
   const customerBreakdown = [];
+  const balances = await prisma.customerLedgerEntry.groupBy({ by: ['customerId'], _sum: { debit: true, credit: true } });
+  const balanceByCustomer = new Map(balances.map(row => [row.customerId, Number(row._sum.debit || 0) - Number(row._sum.credit || 0)]));
 
   for (const c of allCustomers) {
-    const entries = await prisma.customerLedgerEntry.findMany({
-      where: { customerId: c.id },
-      select: { debit: true, credit: true }
-    });
-
-    let net = 0;
-    for (const e of entries) {
-      net += (parseFloat(e.debit) - parseFloat(e.credit));
-    }
+    const net = balanceByCustomer.get(c.id) || 0;
 
     if (net > 0.009) {
       customerBreakdown.push({ customer: c, position: 'RECEIVABLE', amount: net });

@@ -1,0 +1,13 @@
+
+> frontend@0.1.0 test:documents
+> vitest run --config vitest.config.mjs
+
+
+ RUN  v4.1.11 D:/devoxa technologies/EstateSync/frontend
+
+
+ Test Files  3 passed (3)
+      Tests  13 passed (13)
+   Start at  13:18:32
+   Duration  3.98s (transform 950ms, setup 0ms, import 2.21s, tests 1.52s, environment 3.70s)
+

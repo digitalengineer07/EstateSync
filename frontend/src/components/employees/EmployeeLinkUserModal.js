@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { linkUser, unlinkUser } from "@/services/employeeService";
 import { apiRequest } from "@/services/apiClient";
-import { X, Link2, Unlink, AlertTriangle, CheckCircle2, Loader2, ShieldCheck } from "lucide-react";
+import { X, Link2, Unlink, AlertTriangle, Loader2, ShieldCheck } from "lucide-react";
 
 export default function EmployeeLinkUserModal({
   isOpen,

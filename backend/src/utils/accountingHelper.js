@@ -46,11 +46,11 @@ async function ensureStandardAccounts(db = prisma) {
     }
   } catch (err) {
     console.error('Account seeding error:', err);
+    throw err;
   }
 }
 
-// Pre-initialize standard accounts in background
-ensureStandardAccounts().catch(console.error);
+// Accounts are initialized explicitly during deployment, not as an import side effect.
 
 /**
  * Post an atomic Double-Entry Journal Entry
@@ -104,7 +104,7 @@ async function postJournalEntry(tx, {
         period = lockedPeriods[0];
       }
     } catch (lockErr) {
-      // If already locked or NOWAIT triggered, proceed with current period state
+      throw Object.assign(new Error('Accounting period is busy. Please retry.'), { status: 409, isOperational: true, cause: lockErr });
     }
   }
 
@@ -365,7 +365,8 @@ async function postCapitalInfusionJournal(tx, {
   referenceNo,
   description,
   referenceId,
-  createdBy
+  createdBy,
+  postingDate
 }) {
   let creditCode = '3010';
   let creditLabel = 'Organizational Capital & Shareholder Equity';
@@ -381,6 +382,7 @@ async function postCapitalInfusionJournal(tx, {
   return await postJournalEntry(tx, {
     description: `Bank Inflow (${bankName || 'Treasury'}): ${description || referenceNo || 'Capital Deposit'}`,
     referenceType: 'CAPITAL_INFUSION',
+    postingDate,
     referenceId,
     createdBy,
     lines: [

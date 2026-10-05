@@ -2,21 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import {
-  ArrowLeft,
-  FileText,
-  ShieldAlert,
-  Building2,
-  Scale,
-  CreditCard,
-  AlertTriangle,
-  CheckCircle2,
-  Clock,
-  Mail,
-  Phone,
-  ChevronRight,
-  HelpCircle,
-} from "lucide-react";
+import { ArrowLeft, ShieldAlert, Scale, AlertTriangle, CheckCircle2, Clock, Mail, Phone, ChevronRight, HelpCircle } from "lucide-react";
 
 /**
  * Official EstateSync Logo Mark

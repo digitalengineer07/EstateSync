@@ -1,0 +1,2802 @@
+[
+  {
+    "file": "frontend/src/app/dashboards/layout.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'ExternalLink' is defined but never used.",
+        "line": 26,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 26,
+        "endColumn": 15,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "ExternalLink"
+            },
+            "fix": {
+              "range": [
+                595,
+                612
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"ExternalLink\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Sparkles' is defined but never used.",
+        "line": 28,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 28,
+        "endColumn": 11,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Sparkles"
+            },
+            "fix": {
+              "range": [
+                624,
+                637
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Sparkles\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  60 |     if (!searchOpen) return;\n  61 |     if (!searchQuery || searchQuery.trim().length < 2) {\n> 62 |       setSearchResults(null);\n     |       ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  63 |       setSearchLoading(false);\n  64 |       return;\n  65 |     }",
+        "line": 62,
+        "column": 7,
+        "nodeType": null,
+        "endLine": 62,
+        "endColumn": 23
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  242 |\n  243 |   useEffect(() => {\n> 244 |     fetchNotifications();\n      |     ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  245 |     const interval = setInterval(fetchNotifications, 45000);\n  246 |     return () => clearInterval(interval);\n  247 |   }, []);",
+        "line": 244,
+        "column": 5,
+        "nodeType": null,
+        "endLine": 244,
+        "endColumn": 23
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'HubIcon' is assigned a value but never used.",
+        "line": 383,
+        "column": 9,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 383,
+        "endColumn": 16
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/app/dashboards/manager/page.js",
+    "messages": [
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  47 |       const params = new URLSearchParams(window.location.search);\n  48 |       const tab = params.get(\"tab\");\n> 49 |       if (tab) setActivePanel(tab);\n     |                ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  50 |     }\n  51 |   }, []);\n  52 |",
+        "line": 49,
+        "column": 16,
+        "nodeType": null,
+        "endLine": 49,
+        "endColumn": 30
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/app/support/page.tsx",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'AlertCircle' is defined but never used.",
+        "line": 14,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 14,
+        "endColumn": 14,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "AlertCircle"
+            },
+            "fix": {
+              "range": [
+                185,
+                201
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"AlertCircle\"."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/app/terms/page.tsx",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'FileText' is defined but never used.",
+        "line": 7,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 7,
+        "endColumn": 11,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "FileText"
+            },
+            "fix": {
+              "range": [
+                104,
+                117
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"FileText\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Building2' is defined but never used.",
+        "line": 9,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 9,
+        "endColumn": 12,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Building2"
+            },
+            "fix": {
+              "range": [
+                133,
+                147
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Building2\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'CreditCard' is defined but never used.",
+        "line": 11,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 11,
+        "endColumn": 13,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "CreditCard"
+            },
+            "fix": {
+              "range": [
+                157,
+                172
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"CreditCard\"."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/accounting/AccountingSalaryView.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Users' is defined but never used.",
+        "line": 12,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 12,
+        "endColumn": 8,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Users"
+            },
+            "fix": {
+              "range": [
+                442,
+                452
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Users\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'ShieldCheck' is defined but never used.",
+        "line": 19,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 19,
+        "endColumn": 14,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "ShieldCheck"
+            },
+            "fix": {
+              "range": [
+                526,
+                542
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"ShieldCheck\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  61 |\n  62 |   useEffect(() => {\n> 63 |     fetchData();\n     |     ^^^^^^^^^ Avoid calling setState() directly within an effect\n  64 |     const handleRefresh = () => fetchData();\n  65 |     window.addEventListener(\"estatesync:data-refresh\", handleRefresh);\n  66 |     return () => window.removeEventListener(\"estatesync:data-refresh\", handleRefresh);",
+        "line": 63,
+        "column": 5,
+        "nodeType": null,
+        "endLine": 63,
+        "endColumn": 14
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/AdjustWalletBalanceModal.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Wallet' is defined but never used.",
+        "line": 8,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 8,
+        "endColumn": 9,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Wallet"
+            },
+            "fix": {
+              "range": [
+                139,
+                150
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Wallet\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  33 |   useEffect(() => {\n  34 |     if (isOpen) {\n> 35 |       setError(null);\n     |       ^^^^^^^^ Avoid calling setState() directly within an effect\n  36 |       setSuccessMsg(null);\n  37 |       setReason(\"\");\n  38 |       setTargetBalance(currentBal.toString());",
+        "line": 35,
+        "column": 7,
+        "nodeType": null,
+        "endLine": 35,
+        "endColumn": 15
+      },
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "severity": 1,
+        "message": "React Hook useEffect has a missing dependency: 'currentBal'. Either include it or remove the dependency array.",
+        "line": 42,
+        "column": 6,
+        "nodeType": "ArrayExpression",
+        "endLine": 42,
+        "endColumn": 30,
+        "suggestions": [
+          {
+            "desc": "Update the dependencies array to be: [isOpen, user, fundMode, currentBal]",
+            "fix": {
+              "range": [
+                1363,
+                1387
+              ],
+              "text": "[isOpen, user, fundMode, currentBal]"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/AuditLogViewer.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'API_URL' is defined but never used.",
+        "line": 6,
+        "column": 10,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 17,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedImportDeclaration",
+            "data": {
+              "varName": "API_URL"
+            },
+            "fix": {
+              "range": [
+                123,
+                164
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused import declaration."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Terminal' is defined but never used.",
+        "line": 7,
+        "column": 29,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 7,
+        "endColumn": 37,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Terminal"
+            },
+            "fix": {
+              "range": [
+                190,
+                200
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Terminal\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'ArrowUpRight' is defined but never used.",
+        "line": 7,
+        "column": 39,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 7,
+        "endColumn": 51,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "ArrowUpRight"
+            },
+            "fix": {
+              "range": [
+                200,
+                214
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"ArrowUpRight\"."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/CustomerCancellationSettlementModal.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'useTransition' is defined but never used.",
+        "line": 3,
+        "column": 20,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 3,
+        "endColumn": 33,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "useTransition"
+            },
+            "fix": {
+              "range": [
+                34,
+                49
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"useTransition\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'ArrowRight' is defined but never used.",
+        "line": 10,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 10,
+        "endColumn": 13,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "ArrowRight"
+            },
+            "fix": {
+              "range": [
+                219,
+                235
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"ArrowRight\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Building2' is defined but never used.",
+        "line": 11,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 11,
+        "endColumn": 12,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Building2"
+            },
+            "fix": {
+              "range": [
+                235,
+                250
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Building2\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'HelpCircle' is defined but never used.",
+        "line": 15,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 15,
+        "endColumn": 13,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "HelpCircle"
+            },
+            "fix": {
+              "range": [
+                292,
+                307
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"HelpCircle\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'FileText' is defined but never used.",
+        "line": 16,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 16,
+        "endColumn": 11,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "FileText"
+            },
+            "fix": {
+              "range": [
+                307,
+                320
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"FileText\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'setPayoutAccount' is assigned a value but never used.",
+        "line": 23,
+        "column": 25,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 23,
+        "endColumn": 41
+      },
+      {
+        "ruleId": "react/no-unescaped-entities",
+        "severity": 2,
+        "message": "`\"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.",
+        "line": 156,
+        "column": 15,
+        "nodeType": "JSXText",
+        "messageId": "unescapedEntityAlts",
+        "suggestions": [
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&quot;"
+            },
+            "fix": {
+              "range": [
+                6220,
+                6237
+              ],
+              "text": "\r\n              &quot;"
+            },
+            "desc": "Replace with `&quot;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&ldquo;"
+            },
+            "fix": {
+              "range": [
+                6220,
+                6237
+              ],
+              "text": "\r\n              &ldquo;"
+            },
+            "desc": "Replace with `&ldquo;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&#34;"
+            },
+            "fix": {
+              "range": [
+                6220,
+                6237
+              ],
+              "text": "\r\n              &#34;"
+            },
+            "desc": "Replace with `&#34;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&rdquo;"
+            },
+            "fix": {
+              "range": [
+                6220,
+                6237
+              ],
+              "text": "\r\n              &rdquo;"
+            },
+            "desc": "Replace with `&rdquo;`."
+          }
+        ]
+      },
+      {
+        "ruleId": "react/no-unescaped-entities",
+        "severity": 2,
+        "message": "`\"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.",
+        "line": 156,
+        "column": 87,
+        "nodeType": "JSXText",
+        "messageId": "unescapedEntityAlts",
+        "suggestions": [
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&quot;"
+            },
+            "fix": {
+              "range": [
+                6308,
+                6323
+              ],
+              "text": "&quot;\r\n            "
+            },
+            "desc": "Replace with `&quot;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&ldquo;"
+            },
+            "fix": {
+              "range": [
+                6308,
+                6323
+              ],
+              "text": "&ldquo;\r\n            "
+            },
+            "desc": "Replace with `&ldquo;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&#34;"
+            },
+            "fix": {
+              "range": [
+                6308,
+                6323
+              ],
+              "text": "&#34;\r\n            "
+            },
+            "desc": "Replace with `&#34;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&rdquo;"
+            },
+            "fix": {
+              "range": [
+                6308,
+                6323
+              ],
+              "text": "&rdquo;\r\n            "
+            },
+            "desc": "Replace with `&rdquo;`."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/CustomerEditModal.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'FileText' is defined but never used.",
+        "line": 4,
+        "column": 60,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 4,
+        "endColumn": 68,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "FileText"
+            },
+            "fix": {
+              "range": [
+                120,
+                130
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"FileText\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  27 |   useEffect(() => {\n  28 |     if (customer) {\n> 29 |       setFormData({\n     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  30 |         customerName: customer.customerName || \"\",\n  31 |         customerContact: customer.customerContact || \"\",\n  32 |         customerAddress: customer.customerAddress || \"\",",
+        "line": 29,
+        "column": 7,
+        "nodeType": null,
+        "endLine": 29,
+        "endColumn": 18
+      },
+      {
+        "ruleId": "react/no-unescaped-entities",
+        "severity": 2,
+        "message": "`\"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.",
+        "line": 349,
+        "column": 101,
+        "nodeType": "JSXText",
+        "messageId": "unescapedEntityAlts",
+        "suggestions": [
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&quot;"
+            },
+            "fix": {
+              "range": [
+                16028,
+                16044
+              ],
+              "text": "&quot;Refund Pending\""
+            },
+            "desc": "Replace with `&quot;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&ldquo;"
+            },
+            "fix": {
+              "range": [
+                16028,
+                16044
+              ],
+              "text": "&ldquo;Refund Pending\""
+            },
+            "desc": "Replace with `&ldquo;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&#34;"
+            },
+            "fix": {
+              "range": [
+                16028,
+                16044
+              ],
+              "text": "&#34;Refund Pending\""
+            },
+            "desc": "Replace with `&#34;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&rdquo;"
+            },
+            "fix": {
+              "range": [
+                16028,
+                16044
+              ],
+              "text": "&rdquo;Refund Pending\""
+            },
+            "desc": "Replace with `&rdquo;`."
+          }
+        ]
+      },
+      {
+        "ruleId": "react/no-unescaped-entities",
+        "severity": 2,
+        "message": "`\"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.",
+        "line": 349,
+        "column": 116,
+        "nodeType": "JSXText",
+        "messageId": "unescapedEntityAlts",
+        "suggestions": [
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&quot;"
+            },
+            "fix": {
+              "range": [
+                16028,
+                16044
+              ],
+              "text": "\"Refund Pending&quot;"
+            },
+            "desc": "Replace with `&quot;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&ldquo;"
+            },
+            "fix": {
+              "range": [
+                16028,
+                16044
+              ],
+              "text": "\"Refund Pending&ldquo;"
+            },
+            "desc": "Replace with `&ldquo;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&#34;"
+            },
+            "fix": {
+              "range": [
+                16028,
+                16044
+              ],
+              "text": "\"Refund Pending&#34;"
+            },
+            "desc": "Replace with `&#34;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&rdquo;"
+            },
+            "fix": {
+              "range": [
+                16028,
+                16044
+              ],
+              "text": "\"Refund Pending&rdquo;"
+            },
+            "desc": "Replace with `&rdquo;`."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/CustomerPortfolioList.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Eye' is defined but never used.",
+        "line": 9,
+        "column": 59,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 9,
+        "endColumn": 62,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Eye"
+            },
+            "fix": {
+              "range": [
+                469,
+                474
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Eye\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'CreditCard' is defined but never used.",
+        "line": 9,
+        "column": 64,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 9,
+        "endColumn": 74,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "CreditCard"
+            },
+            "fix": {
+              "range": [
+                474,
+                486
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"CreditCard\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  62 |       try {\n  63 |         const u = JSON.parse(userStr);\n> 64 |         setCurrentUserId(u.id || null);\n     |         ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  65 |       } catch (e) {}\n  66 |     }\n  67 |   }, []);",
+        "line": 64,
+        "column": 9,
+        "nodeType": null,
+        "endLine": 64,
+        "endColumn": 25
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 65,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 65,
+        "endColumn": 17
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  93 |\n  94 |   useEffect(() => {\n> 95 |     fetchCustomers();\n     |     ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  96 |   }, []);\n  97 |\n  98 |   // Smooth scroll and focus on highlighted customer record",
+        "line": 95,
+        "column": 5,
+        "nodeType": null,
+        "endLine": 95,
+        "endColumn": 19
+      },
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "severity": 1,
+        "message": "React Hook useEffect has a missing dependency: 'fetchCustomers'. Either include it or remove the dependency array.",
+        "line": 96,
+        "column": 6,
+        "nodeType": "ArrayExpression",
+        "endLine": 96,
+        "endColumn": 8,
+        "suggestions": [
+          {
+            "desc": "Update the dependencies array to be: [fetchCustomers]",
+            "fix": {
+              "range": [
+                3560,
+                3562
+              ],
+              "text": "[fetchCustomers]"
+            }
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  104 |     if (matched) {\n  105 |       if (statusFilter !== \"ALL\" && matched.status !== statusFilter) {\n> 106 |         setStatusFilter(\"ALL\");\n      |         ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  107 |       }\n  108 |       if (search && !matched.customerName?.toLowerCase().includes(search.toLowerCase())) {\n  109 |         setSearch(\"\");",
+        "line": 106,
+        "column": 9,
+        "nodeType": null,
+        "endLine": 106,
+        "endColumn": 24
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 128,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 128,
+        "endColumn": 17
+      },
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "severity": 1,
+        "message": "React Hook useEffect has missing dependencies: 'search' and 'statusFilter'. Either include them or remove the dependency array.",
+        "line": 158,
+        "column": 6,
+        "nodeType": "ArrayExpression",
+        "endLine": 158,
+        "endColumn": 41,
+        "suggestions": [
+          {
+            "desc": "Update the dependencies array to be: [highlightedId, loading, customers, statusFilter, search]",
+            "fix": {
+              "range": [
+                5655,
+                5690
+              ],
+              "text": "[highlightedId, loading, customers, statusFilter, search]"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/CustomerRegistrationModal.js",
+    "messages": [
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  39 |   useEffect(() => {\n  40 |     if (isOpen) {\n> 41 |       setFormData(INITIAL_FORM_DATA);\n     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  42 |       setError(null);\n  43 |       setSuccessMsg(null);\n  44 |     }",
+        "line": 41,
+        "column": 7,
+        "nodeType": null,
+        "endLine": 41,
+        "endColumn": 18
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/CustomerStatementModal.js",
+    "messages": [
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  22 |\n  23 |   useEffect(() => {\n> 24 |     setLocalCustomer(customer);\n     |     ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  25 |   }, [customer]);\n  26 |\n  27 |   if (!isOpen || !localCustomer) return null;",
+        "line": 24,
+        "column": 5,
+        "nodeType": null,
+        "endLine": 24,
+        "endColumn": 21
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/DashboardStats.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'error' is assigned a value but never used.",
+        "line": 16,
+        "column": 17,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 16,
+        "endColumn": 22
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/DirectFundAllocationForm.js",
+    "messages": [
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  35 |\n  36 |   useEffect(() => {\n> 37 |     fetchUsers();\n     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect\n  38 |   }, []);\n  39 |\n  40 |   const handleChange = (e) => {",
+        "line": 37,
+        "column": 5,
+        "nodeType": null,
+        "endLine": 37,
+        "endColumn": 15
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 79,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 79,
+        "endColumn": 19
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/EditCustomerPaymentModal.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Landmark' is defined but never used.",
+        "line": 8,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 8,
+        "endColumn": 11,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Landmark"
+            },
+            "fix": {
+              "range": [
+                132,
+                146
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Landmark\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'CreditCard' is defined but never used.",
+        "line": 9,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 9,
+        "endColumn": 13,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "CreditCard"
+            },
+            "fix": {
+              "range": [
+                146,
+                162
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"CreditCard\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Hash' is defined but never used.",
+        "line": 10,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 10,
+        "endColumn": 7,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Hash"
+            },
+            "fix": {
+              "range": [
+                162,
+                172
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Hash\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  42 |   useEffect(() => {\n  43 |     if (userRole) {\n> 44 |       setEffectiveRole(userRole);\n     |       ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  45 |     } else {\n  46 |       try {\n  47 |         const storedUser = sessionStorage.getItem(\"user\");",
+        "line": 44,
+        "column": 7,
+        "nodeType": null,
+        "endLine": 44,
+        "endColumn": 23
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 52,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 52,
+        "endColumn": 17
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  61 |     if (payment) {\n  62 |       const rawDate = payment.dateOfPayment ? toISTDateInputString(payment.dateOfPayment) : toISTDateInputString();\n> 63 |       setDateOfPayment(rawDate);\n     |       ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  64 |       setPaymentMode(payment.paymentMode || \"NEFT\");\n  65 |       setSourceAccount(payment.sourceAccount || \"\");\n  66 |       setDestinationAccount(payment.destinationAccount || \"\");",
+        "line": 63,
+        "column": 7,
+        "nodeType": null,
+        "endLine": 63,
+        "endColumn": 23
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/EditPropertyPaymentModal.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'formatDate' is defined but never used.",
+        "line": 17,
+        "column": 58,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 17,
+        "endColumn": 68,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "formatDate"
+            },
+            "fix": {
+              "range": [
+                335,
+                347
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"formatDate\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  39 |     if (payment) {\n  40 |       const rawDate = payment.dateOfPayment ? toISTDateInputString(payment.dateOfPayment) : toISTDateInputString();\n> 41 |       setDateOfPayment(rawDate);\n     |       ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  42 |       setPaymentMode(payment.paymentMode || \"RTGS\");\n  43 |       setPaidFromAccount(payment.paidFromAccount || \"Corporate Treasury Account (1010)\");\n  44 |       setReferenceNo(payment.referenceNo || \"\");",
+        "line": 41,
+        "column": 7,
+        "nodeType": null,
+        "endLine": 41,
+        "endColumn": 23
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/employees/EditSalaryModal.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'CreditCard' is defined but never used.",
+        "line": 4,
+        "column": 36,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 4,
+        "endColumn": 46,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "CreditCard"
+            },
+            "fix": {
+              "range": [
+                85,
+                97
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"CreditCard\"."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/employees/EmployeeDetailView.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Calendar' is defined but never used.",
+        "line": 20,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 20,
+        "endColumn": 11,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Calendar"
+            },
+            "fix": {
+              "range": [
+                740,
+                753
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Calendar\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Phone' is defined but never used.",
+        "line": 21,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 21,
+        "endColumn": 8,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Phone"
+            },
+            "fix": {
+              "range": [
+                753,
+                763
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Phone\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Mail' is defined but never used.",
+        "line": 22,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 22,
+        "endColumn": 7,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Mail"
+            },
+            "fix": {
+              "range": [
+                763,
+                772
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Mail\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'UserCheck' is defined but never used.",
+        "line": 25,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 25,
+        "endColumn": 12,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "UserCheck"
+            },
+            "fix": {
+              "range": [
+                799,
+                813
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"UserCheck\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Wallet' is defined but never used.",
+        "line": 31,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 31,
+        "endColumn": 9,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Wallet"
+            },
+            "fix": {
+              "range": [
+                868,
+                879
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Wallet\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Clock' is defined but never used.",
+        "line": 38,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 38,
+        "endColumn": 8,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Clock"
+            },
+            "fix": {
+              "range": [
+                966,
+                976
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Clock\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'router' is assigned a value but never used.",
+        "line": 42,
+        "column": 9,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 42,
+        "endColumn": 15
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  82 |   useEffect(() => {\n  83 |     if (activeTab === \"salary\") {\n> 84 |       fetchSalaryHistory();\n     |       ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  85 |     }\n  86 |   }, [activeTab, fetchSalaryHistory]);\n  87 |",
+        "line": 84,
+        "column": 7,
+        "nodeType": null,
+        "endLine": 84,
+        "endColumn": 25
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  106 |\n  107 |   useEffect(() => {\n> 108 |     fetchProfile();\n      |     ^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  109 |   }, [fetchProfile]);\n  110 |\n  111 |   const handleActionSuccess = (msg) => {",
+        "line": 108,
+        "column": 5,
+        "nodeType": null,
+        "endLine": 108,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/employees/EmployeeLinkUserModal.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'CheckCircle2' is defined but never used.",
+        "line": 6,
+        "column": 43,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 55,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "CheckCircle2"
+            },
+            "fix": {
+              "range": [
+                223,
+                237
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"CheckCircle2\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "react/no-unescaped-entities",
+        "severity": 2,
+        "message": "`'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.",
+        "line": 196,
+        "column": 40,
+        "nodeType": "JSXText",
+        "messageId": "unescapedEntityAlts",
+        "suggestions": [
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&apos;"
+            },
+            "fix": {
+              "range": [
+                8078,
+                8210
+              ],
+              "text": "\r\n                  Connects the employee&apos;s HR master record with their active login session and role permissions.\r\n                "
+            },
+            "desc": "Replace with `&apos;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&lsquo;"
+            },
+            "fix": {
+              "range": [
+                8078,
+                8210
+              ],
+              "text": "\r\n                  Connects the employee&lsquo;s HR master record with their active login session and role permissions.\r\n                "
+            },
+            "desc": "Replace with `&lsquo;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&#39;"
+            },
+            "fix": {
+              "range": [
+                8078,
+                8210
+              ],
+              "text": "\r\n                  Connects the employee&#39;s HR master record with their active login session and role permissions.\r\n                "
+            },
+            "desc": "Replace with `&#39;`."
+          },
+          {
+            "messageId": "replaceWithAlt",
+            "data": {
+              "alt": "&rsquo;"
+            },
+            "fix": {
+              "range": [
+                8078,
+                8210
+              ],
+              "text": "\r\n                  Connects the employee&rsquo;s HR master record with their active login session and role permissions.\r\n                "
+            },
+            "desc": "Replace with `&rsquo;`."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/employees/EmployeeList.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Calendar' is defined but never used.",
+        "line": 28,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 28,
+        "endColumn": 11,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Calendar"
+            },
+            "fix": {
+              "range": [
+                715,
+                728
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Calendar\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Briefcase' is defined but never used.",
+        "line": 31,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 31,
+        "endColumn": 12,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Briefcase"
+            },
+            "fix": {
+              "range": [
+                747,
+                761
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Briefcase\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  79 |     if (matched) {\n  80 |       if (statusFilter !== \"ALL\" && matched.status !== statusFilter) {\n> 81 |         setStatusFilter(\"ALL\");\n     |         ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  82 |       }\n  83 |       if (\n  84 |         searchTerm &&",
+        "line": 81,
+        "column": 9,
+        "nodeType": null,
+        "endLine": 81,
+        "endColumn": 24
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 109,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 109,
+        "endColumn": 17
+      },
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "severity": 1,
+        "message": "React Hook useEffect has missing dependencies: 'searchTerm' and 'statusFilter'. Either include them or remove the dependency array.",
+        "line": 139,
+        "column": 6,
+        "nodeType": "ArrayExpression",
+        "endLine": 139,
+        "endColumn": 41,
+        "suggestions": [
+          {
+            "desc": "Update the dependencies array to be: [highlightedId, loading, employees, statusFilter, searchTerm]",
+            "fix": {
+              "range": [
+                4401,
+                4436
+              ],
+              "text": "[highlightedId, loading, employees, statusFilter, searchTerm]"
+            }
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  179 |\n  180 |   useEffect(() => {\n> 181 |     fetchEmployeeData();\n      |     ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  182 |     const handleRefresh = () => fetchEmployeeData();\n  183 |     window.addEventListener(\"estatesync:data-refresh\", handleRefresh);\n  184 |     return () => window.removeEventListener(\"estatesync:data-refresh\", handleRefresh);",
+        "line": 181,
+        "column": 5,
+        "nodeType": null,
+        "endLine": 181,
+        "endColumn": 22
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'archivedCount' is assigned a value but never used.",
+        "line": 190,
+        "column": 9,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 190,
+        "endColumn": 22
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/employees/EmployeeModal.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'CheckCircle2' is defined but never used.",
+        "line": 6,
+        "column": 45,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 57,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "CheckCircle2"
+            },
+            "fix": {
+              "range": [
+                253,
+                267
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"CheckCircle2\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'isAdmin' is assigned a value but never used.",
+        "line": 17,
+        "column": 9,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 17,
+        "endColumn": 16
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  44 |   useEffect(() => {\n  45 |     if (employeeToEdit) {\n> 46 |       setFormData({\n     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  47 |         employeeCode: employeeToEdit.employeeCode || \"\",\n  48 |         fullName: employeeToEdit.fullName || \"\",\n  49 |         displayName: employeeToEdit.displayName || \"\",",
+        "line": 46,
+        "column": 7,
+        "nodeType": null,
+        "endLine": 46,
+        "endColumn": 18
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/employees/PaySalaryModal.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'IndianRupee' is defined but never used.",
+        "line": 5,
+        "column": 13,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 5,
+        "endColumn": 24,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "IndianRupee"
+            },
+            "fix": {
+              "range": [
+                93,
+                106
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"IndianRupee\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'CheckCircle2' is defined but never used.",
+        "line": 5,
+        "column": 55,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 5,
+        "endColumn": 67,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "CheckCircle2"
+            },
+            "fix": {
+              "range": [
+                135,
+                149
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"CheckCircle2\"."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/ExpenseList.js",
+    "messages": [
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  25 |       try {\n  26 |         const u = JSON.parse(userStr);\n> 27 |         setCurrentUserRole(u.role || \"\");\n     |         ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  28 |       } catch (e) {}\n  29 |     }\n  30 |   }, []);",
+        "line": 27,
+        "column": 9,
+        "nodeType": null,
+        "endLine": 27,
+        "endColumn": 27
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 28,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 28,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/ExpenseUploadForm.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'user' is assigned a value but never used.",
+        "line": 10,
+        "column": 11,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 10,
+        "endColumn": 15
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 81,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 81,
+        "endColumn": 19
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/FundRequestForm.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Clock' is defined but never used.",
+        "line": 6,
+        "column": 46,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 51,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Clock"
+            },
+            "fix": {
+              "range": [
+                197,
+                204
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Clock\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Info' is defined but never used.",
+        "line": 6,
+        "column": 53,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 57,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Info"
+            },
+            "fix": {
+              "range": [
+                204,
+                210
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Info\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'IndianRupee' is defined but never used.",
+        "line": 6,
+        "column": 59,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 70,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "IndianRupee"
+            },
+            "fix": {
+              "range": [
+                210,
+                223
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"IndianRupee\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'user' is assigned a value but never used.",
+        "line": 9,
+        "column": 11,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 9,
+        "endColumn": 15
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 68,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 68,
+        "endColumn": 19
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/FundRequestList.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 66,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 66,
+        "endColumn": 19
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/GeneralLedgerView.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'API_URL' is defined but never used.",
+        "line": 7,
+        "column": 10,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 7,
+        "endColumn": 17,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedImportDeclaration",
+            "data": {
+              "varName": "API_URL"
+            },
+            "fix": {
+              "range": [
+                193,
+                234
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused import declaration."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/manager/ManagerSalaryView.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'IndianRupee' is defined but never used.",
+        "line": 6,
+        "column": 10,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 21,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "IndianRupee"
+            },
+            "fix": {
+              "range": [
+                163,
+                175
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"IndianRupee\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Users' is defined but never used.",
+        "line": 6,
+        "column": 23,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 28,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Users"
+            },
+            "fix": {
+              "range": [
+                174,
+                181
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Users\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Landmark' is defined but never used.",
+        "line": 6,
+        "column": 72,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 80,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Landmark"
+            },
+            "fix": {
+              "range": [
+                223,
+                233
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Landmark\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  27 |\n  28 |   useEffect(() => {\n> 29 |     fetchTeam();\n     |     ^^^^^^^^^ Avoid calling setState() directly within an effect\n  30 |   }, []);\n  31 |\n  32 |   const totalMonthlyLiability = employees.reduce((sum, e) => sum + (parseFloat(e.baseSalary) || 0), 0);",
+        "line": 29,
+        "column": 5,
+        "nodeType": null,
+        "endLine": 29,
+        "endColumn": 14
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/OperationalNotesView.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'User' is defined but never used.",
+        "line": 11,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 11,
+        "endColumn": 7,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "User"
+            },
+            "fix": {
+              "range": [
+                158,
+                167
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"User\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Filter' is defined but never used.",
+        "line": 24,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 24,
+        "endColumn": 9,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Filter"
+            },
+            "fix": {
+              "range": [
+                320,
+                331
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Filter\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'toISTDateInputString' is defined but never used.",
+        "line": 27,
+        "column": 37,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 27,
+        "endColumn": 57,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "toISTDateInputString"
+            },
+            "fix": {
+              "range": [
+                433,
+                455
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"toISTDateInputString\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  186 |\n  187 |   useEffect(() => {\n> 188 |     fetchNotes();\n      |     ^^^^^^^^^^ Avoid calling setState() directly within an effect\n  189 |   }, [selectedCategory, startDate, endDate]);\n  190 |\n  191 |   // Smooth scroll to highlighted note",
+        "line": 188,
+        "column": 5,
+        "nodeType": null,
+        "endLine": 188,
+        "endColumn": 15
+      },
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "severity": 1,
+        "message": "React Hook useEffect has a missing dependency: 'fetchNotes'. Either include it or remove the dependency array.",
+        "line": 189,
+        "column": 6,
+        "nodeType": "ArrayExpression",
+        "endLine": 189,
+        "endColumn": 44,
+        "suggestions": [
+          {
+            "desc": "Update the dependencies array to be: [selectedCategory, startDate, endDate, fetchNotes]",
+            "fix": {
+              "range": [
+                5438,
+                5476
+              ],
+              "text": "[selectedCategory, startDate, endDate, fetchNotes]"
+            }
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  196 |     if (matched) {\n  197 |       if (selectedCategory !== \"ALL\" && matched.category !== selectedCategory) {\n> 198 |         setSelectedCategory(\"ALL\");\n      |         ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  199 |       }\n  200 |       if (search && !matched.title?.toLowerCase().includes(search.toLowerCase())) {\n  201 |         setSearch(\"\");",
+        "line": 198,
+        "column": 9,
+        "nodeType": null,
+        "endLine": 198,
+        "endColumn": 28
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 220,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 220,
+        "endColumn": 17
+      },
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "severity": 1,
+        "message": "React Hook useEffect has missing dependencies: 'search' and 'selectedCategory'. Either include them or remove the dependency array.",
+        "line": 250,
+        "column": 6,
+        "nodeType": "ArrayExpression",
+        "endLine": 250,
+        "endColumn": 37,
+        "suggestions": [
+          {
+            "desc": "Update the dependencies array to be: [highlightedId, loading, notes, search, selectedCategory]",
+            "fix": {
+              "range": [
+                7452,
+                7483
+              ],
+              "text": "[highlightedId, loading, notes, search, selectedCategory]"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/PropertyAcquisitionList.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'MapPin' is defined but never used.",
+        "line": 8,
+        "column": 10,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 8,
+        "endColumn": 16,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "MapPin"
+            },
+            "fix": {
+              "range": [
+                350,
+                357
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"MapPin\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'Building2' is defined but never used.",
+        "line": 8,
+        "column": 43,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 8,
+        "endColumn": 52,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "Building2"
+            },
+            "fix": {
+              "range": [
+                381,
+                392
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"Building2\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'TrendingDown' is defined but never used.",
+        "line": 8,
+        "column": 61,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 8,
+        "endColumn": 73,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "TrendingDown"
+            },
+            "fix": {
+              "range": [
+                399,
+                413
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"TrendingDown\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  72 |\n  73 |   useEffect(() => {\n> 74 |     fetchProperties();\n     |     ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  75 |   }, []);\n  76 |\n  77 |   // Smooth scroll and focus on highlighted land property",
+        "line": 74,
+        "column": 5,
+        "nodeType": null,
+        "endLine": 74,
+        "endColumn": 20
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  82 |     if (matched) {\n  83 |       if (statusFilter !== \"ALL\" && matched.status !== statusFilter) {\n> 84 |         setStatusFilter(\"ALL\");\n     |         ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  85 |       }\n  86 |       if (search && !matched.landOwnerName?.toLowerCase().includes(search.toLowerCase())) {\n  87 |         setSearch(\"\");",
+        "line": 84,
+        "column": 9,
+        "nodeType": null,
+        "endLine": 84,
+        "endColumn": 24
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 106,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 106,
+        "endColumn": 17
+      },
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "severity": 1,
+        "message": "React Hook useEffect has missing dependencies: 'search' and 'statusFilter'. Either include them or remove the dependency array.",
+        "line": 136,
+        "column": 6,
+        "nodeType": "ArrayExpression",
+        "endLine": 136,
+        "endColumn": 42,
+        "suggestions": [
+          {
+            "desc": "Update the dependencies array to be: [highlightedId, loading, properties, search, statusFilter]",
+            "fix": {
+              "range": [
+                4829,
+                4865
+              ],
+              "text": "[highlightedId, loading, properties, search, statusFilter]"
+            }
+          }
+        ]
+      },
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  156 |   useEffect(() => {\n  157 |     if (userRole) {\n> 158 |       setEffectiveRole(userRole);\n      |       ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  159 |     } else {\n  160 |       try {\n  161 |         const storedUser = sessionStorage.getItem(\"user\");",
+        "line": 158,
+        "column": 7,
+        "nodeType": null,
+        "endLine": 158,
+        "endColumn": 23
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 166,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 166,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/PropertyAcquisitionModal.js",
+    "messages": [
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  32 |   useEffect(() => {\n  33 |     if (isOpen) {\n> 34 |       setFormData(INITIAL_FORM_DATA);\n     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  35 |       setError(null);\n  36 |       setSuccessMsg(null);\n  37 |     }",
+        "line": 34,
+        "column": 7,
+        "nodeType": null,
+        "endLine": 34,
+        "endColumn": 18
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/RecordBankInflowModal.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'ArrowUpRight' is defined but never used.",
+        "line": 4,
+        "column": 20,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 4,
+        "endColumn": 32,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "ArrowUpRight"
+            },
+            "fix": {
+              "range": [
+                69,
+                83
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"ArrowUpRight\"."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'formatDate' is defined but never used.",
+        "line": 7,
+        "column": 58,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 7,
+        "endColumn": 68,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedVar",
+            "data": {
+              "varName": "formatDate"
+            },
+            "fix": {
+              "range": [
+                307,
+                319
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused variable \"formatDate\"."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/SoftDashboardShell.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'eyebrow' is assigned a value but never used.",
+        "line": 29,
+        "column": 3,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 29,
+        "endColumn": 10
+      },
+      {
+        "ruleId": "@next/next/no-img-element",
+        "severity": 1,
+        "message": "Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element",
+        "line": 225,
+        "column": 9,
+        "nodeType": "JSXOpeningElement",
+        "endLine": 233,
+        "endColumn": 11
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/TransactionLedger.js",
+    "messages": [
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "severity": 1,
+        "message": "The 'transactions' logical expression could make the dependencies of useEffect Hook (at line 94) change on every render. To fix this, wrap the initialization of 'transactions' in its own useMemo() Hook.",
+        "line": 41,
+        "column": 9,
+        "nodeType": "VariableDeclarator",
+        "endLine": 41,
+        "endColumn": 48
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 65,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 65,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/UserPasswordManagement.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'error' is assigned a value but never used.",
+        "line": 37,
+        "column": 17,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 37,
+        "endColumn": 22
+      },
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "severity": 1,
+        "message": "The 'users' logical expression could make the dependencies of useMemo Hook (at line 56) change on every render. To fix this, wrap the initialization of 'users' in its own useMemo() Hook.",
+        "line": 46,
+        "column": 9,
+        "nodeType": "VariableDeclarator",
+        "endLine": 46,
+        "endColumn": 34
+      },
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "severity": 1,
+        "message": "The 'users' logical expression could make the dependencies of useMemo Hook (at line 59) change on every render. To fix this, wrap the initialization of 'users' in its own useMemo() Hook.",
+        "line": 46,
+        "column": 9,
+        "nodeType": "VariableDeclarator",
+        "endLine": 46,
+        "endColumn": 34
+      },
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "severity": 1,
+        "message": "The 'users' logical expression could make the dependencies of useMemo Hook (at line 60) change on every render. To fix this, wrap the initialization of 'users' in its own useMemo() Hook.",
+        "line": 46,
+        "column": 9,
+        "nodeType": "VariableDeclarator",
+        "endLine": 46,
+        "endColumn": 34
+      },
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "severity": 1,
+        "message": "The 'users' logical expression could make the dependencies of useMemo Hook (at line 85) change on every render. To fix this, wrap the initialization of 'users' in its own useMemo() Hook.",
+        "line": 46,
+        "column": 9,
+        "nodeType": "VariableDeclarator",
+        "endLine": 46,
+        "endColumn": 34
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/UserRegistrationForm.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'error' is defined but never used.",
+        "line": 79,
+        "column": 14,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 79,
+        "endColumn": 19
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/components/UserWalletLedger.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'API_URL' is defined but never used.",
+        "line": 6,
+        "column": 10,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 6,
+        "endColumn": 17,
+        "suggestions": [
+          {
+            "messageId": "removeUnusedImportDeclaration",
+            "data": {
+              "varName": "API_URL"
+            },
+            "fix": {
+              "range": [
+                123,
+                164
+              ],
+              "text": ""
+            },
+            "desc": "Remove unused import declaration."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/context/AuthContext.js",
+    "messages": [
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\n  33 |           sessionStorage.setItem(\"user\", JSON.stringify(parsed));\n  34 |         }\n> 35 |         setUser(parsed);\n     |         ^^^^^^^ Avoid calling setState() directly within an effect\n  36 |       } catch (e) {\n  37 |         // We suppress the error log here because Next.js dev server \n  38 |         // intercepts console.error and shows an overlay even for caught errors.",
+        "line": 35,
+        "column": 9,
+        "nodeType": null,
+        "endLine": 35,
+        "endColumn": 16
+      },
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'e' is defined but never used.",
+        "line": 36,
+        "column": 16,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 36,
+        "endColumn": 17
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/services/apiClient.js",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 1,
+        "message": "'parseErr' is defined but never used.",
+        "line": 83,
+        "column": 12,
+        "nodeType": "Identifier",
+        "messageId": "unusedVar",
+        "endLine": 83,
+        "endColumn": 20
+      },
+      {
+        "ruleId": "@next/next/no-location-assign-relative-destination",
+        "severity": 1,
+        "message": "Do not use `window.location.href` to navigate to internal Next.js pages. Use `redirect()` in the render phase, or `useRouter().push()` in Client Components' event handlers instead. See: https://nextjs.org/docs/messages/no-location-assign-relative-destination",
+        "line": 97,
+        "column": 7,
+        "nodeType": "AssignmentExpression",
+        "messageId": "noLocationAssign",
+        "endLine": 97,
+        "endColumn": 38
+      },
+      {
+        "ruleId": "@next/next/no-location-assign-relative-destination",
+        "severity": 1,
+        "message": "Do not use `window.location.href` to navigate to internal Next.js pages. Use `redirect()` in the render phase, or `useRouter().push()` in Client Components' event handlers instead. See: https://nextjs.org/docs/messages/no-location-assign-relative-destination",
+        "line": 109,
+        "column": 7,
+        "nodeType": "AssignmentExpression",
+        "messageId": "noLocationAssign",
+        "endLine": 109,
+        "endColumn": 38
+      }
+    ]
+  },
+  {
+    "file": "frontend/src/utils/fetcher.js",
+    "messages": [
+      {
+        "ruleId": "@next/next/no-location-assign-relative-destination",
+        "severity": 1,
+        "message": "Do not use `window.location.href` to navigate to internal Next.js pages. Use `redirect()` in the render phase, or `useRouter().push()` in Client Components' event handlers instead. See: https://nextjs.org/docs/messages/no-location-assign-relative-destination",
+        "line": 30,
+        "column": 7,
+        "nodeType": "AssignmentExpression",
+        "messageId": "noLocationAssign",
+        "endLine": 30,
+        "endColumn": 38
+      },
+      {
+        "ruleId": "@next/next/no-location-assign-relative-destination",
+        "severity": 1,
+        "message": "Do not use `window.location.href` to navigate to internal Next.js pages. Use `redirect()` in the render phase, or `useRouter().push()` in Client Components' event handlers instead. See: https://nextjs.org/docs/messages/no-location-assign-relative-destination",
+        "line": 42,
+        "column": 7,
+        "nodeType": "AssignmentExpression",
+        "messageId": "noLocationAssign",
+        "endLine": 42,
+        "endColumn": 38
+      }
+    ]
+  }
+]

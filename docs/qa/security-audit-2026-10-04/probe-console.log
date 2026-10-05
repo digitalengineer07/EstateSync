@@ -1,0 +1,548 @@
+Warning: connect.session() MemoryStore is not
+designed for a production environment, as it will leak
+memory, and will not scale past a single process.
+Account seeding error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at ensureStandardAccounts (D:\devoxa technologies\EstateSync\backend\src\utils\accountingHelper.js:35:39)
+    at Object.<anonymous> (D:\devoxa technologies\EstateSync\backend\src\utils\accountingHelper.js:53:1)
+    at Module._compile (node:internal/modules/cjs/loader:1554:14)
+    at Object..js (node:internal/modules/cjs/loader:1706:10)
+    at Module.load (node:internal/modules/cjs/loader:1289:32)
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1108:12)
+    at Module._load (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:29:15)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)
+[Login Route] Started login request for email: undefined
+[Application Error]: {
+  message: "Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+  stack: "SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)\n" +
+    '    at JSON.parse (<anonymous>)\n' +
+    '    at parse (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\body-parser\\lib\\types\\json.js:91:21)\n' +
+    '    at D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\body-parser\\lib\\read.js:162:18\n' +
+    '    at AsyncResource.runInAsyncScope (node:async_hooks:211:14)\n' +
+    '    at invokeCallback (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\raw-body\\index.js:238:16)\n' +
+    '    at done (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\raw-body\\index.js:227:7)\n' +
+    '    at IncomingMessage.onEnd (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\raw-body\\index.js:287:7)\n' +
+    '    at IncomingMessage.emit (node:events:518:28)\n' +
+    '    at endReadableNT (node:internal/streams/readable:1698:12)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)',
+  path: '/api/v1/auth/login',
+  method: 'POST',
+  ip: '127.0.0.1',
+  userId: null
+}
+[Login Route] Started login request for email: { x: 1 }
+[Application Error]: {
+  message: 'request entity too large',
+  stack: 'PayloadTooLargeError: request entity too large\n' +
+    '    at readStream (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\raw-body\\index.js:163:17)\n' +
+    '    at getRawBody (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\raw-body\\index.js:116:12)\n' +
+    '    at read (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\body-parser\\lib\\read.js:113:3)\n' +
+    '    at jsonParser (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\body-parser\\lib\\types\\json.js:60:5)\n' +
+    '    at Layer.handleRequest (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\router\\lib\\layer.js:152:17)\n' +
+    '    at trimPrefix (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\router\\index.js:342:13)\n' +
+    '    at D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\router\\index.js:297:9\n' +
+[Login Route] Querying Prisma for user...
+    '    at processParams (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\router\\index.js:582:12)\n' +
+    '    at next (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\router\\index.js:291:5)\n' +
+    '    at cors (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\cors\\lib\\index.js:188:7)',
+  path: '/api/v1/auth/login',
+  method: 'POST',
+  ip: '127.0.0.1',
+  userId: null
+}
+[Application Error]: {
+  message: "Cannot read properties of undefined (reading 'email')",
+  stack: "TypeError: Cannot read properties of undefined (reading 'email')\n" +
+    '    at exports.login (D:\\devoxa technologies\\EstateSync\\backend\\src\\controller\\authController.js:25:74)\n' +
+    '    at Layer.handleRequest (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\router\\lib\\layer.js:152:17)\n' +
+    '    at next (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\router\\lib\\route.js:157:13)\n' +
+    '    at D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\express-rate-limit\\dist\\index.cjs:1058:7\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\express-rate-limit\\dist\\index.cjs:878:5',
+  path: '/api/v1/auth/login',
+  method: 'POST',
+  ip: '127.0.0.1',
+  userId: null
+}
+Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.login (D:\devoxa technologies\EstateSync\backend\src\controller\authController.js:60:36)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\node_modules\express-rate-limit\dist\index.cjs:1058:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async D:\devoxa technologies\EstateSync\backend\node_modules\express-rate-limit\dist\index.cjs:878:5
+{"routes":102,"statusCounts":{"200":2,"400":2,"401":99,"404":2,"413":1,"500":2},"dbCalls":["account.findMany","user.findUnique"]}
+Error fetching roles: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getRoles (D:\devoxa technologies\EstateSync\backend\src\controller\userController.js:10:37)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching managers: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getManagers (D:\devoxa technologies\EstateSync\backend\src\controller\userController.js:27:40)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching all users: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getAllUsers (D:\devoxa technologies\EstateSync\backend\src\controller\userController.js:62:37)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching categories: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getCategories (D:\devoxa technologies\EstateSync\backend\src\controller\expenseController.js:9:53)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching my expenses: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getMyExpenses (D:\devoxa technologies\EstateSync\backend\src\controller\expenseController.js:265:43)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching team expenses: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getTeamExpenses (D:\devoxa technologies\EstateSync\backend\src\controller\expenseController.js:284:47)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\routes\expenseRoutes.js:17:12
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching all expenses: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getAllExpenses (D:\devoxa technologies\EstateSync\backend\src\controller\expenseController.js:316:43)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error reversing expense: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.reverseExpense (D:\devoxa technologies\EstateSync\backend\src\controller\expenseController.js:164:42)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at idempotencyMiddleware (D:\devoxa technologies\EstateSync\backend\src\middleware\idempotencyMiddleware.js:13:12)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\routes\expenseRoutes.js:31:12
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+Approval Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.approveRequest (D:\devoxa technologies\EstateSync\backend\src\controller\fundRequestController.js:110:33)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at idempotencyMiddleware (D:\devoxa technologies\EstateSync\backend\src\middleware\idempotencyMiddleware.js:13:12)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Rejection Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.rejectRequest (D:\devoxa technologies\EstateSync\backend\src\controller\fundRequestController.js:281:46)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at idempotencyMiddleware (D:\devoxa technologies\EstateSync\backend\src\middleware\idempotencyMiddleware.js:13:12)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching transactions: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getAllTransactions (D:\devoxa technologies\EstateSync\backend\src\controller\transactionController.js:6:57)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching wallet stats: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getWalletStats (D:\devoxa technologies\EstateSync\backend\src\controller\dashboardController.js:8:40)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching manager stats: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getManagerStats (D:\devoxa technologies\EstateSync\backend\src\controller\dashboardController.js:69:46)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching admin stats: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at getPrimaryTreasuryWallet (D:\devoxa technologies\EstateSync\backend\src\utils\treasuryHelper.js:33:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async exports.getAdminStats (D:\devoxa technologies\EstateSync\backend\src\controller\dashboardController.js:170:28)
+Error fetching accounting stats: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at getPrimaryTreasuryWallet (D:\devoxa technologies\EstateSync\backend\src\utils\treasuryHelper.js:33:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async exports.getAccountingStats (D:\devoxa technologies\EstateSync\backend\src\controller\dashboardController.js:271:28)
+Account seeding error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at ensureStandardAccounts (D:\devoxa technologies\EstateSync\backend\src\utils\accountingHelper.js:35:39)
+    at exports.getAccounts (D:\devoxa technologies\EstateSync\backend\src\controller\accountController.js:9:11)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\routes\accountRoutes.js:9:12
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching accounts: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getAccounts (D:\devoxa technologies\EstateSync\backend\src\controller\accountController.js:11:43)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching journal entries: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getJournals (D:\devoxa technologies\EstateSync\backend\src\controller\journalController.js:14:48)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\routes\journalRoutes.js:9:12
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching audit logs: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getAuditLogs (D:\devoxa technologies\EstateSync\backend\src\controller\auditController.js:14:40)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\routes\auditRoutes.js:9:12
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching customers: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getCustomers (D:\devoxa technologies\EstateSync\backend\src\controller\customerController.js:162:45)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching customer by ID: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getCustomerById (D:\devoxa technologies\EstateSync\backend\src\controller\customerController.js:223:44)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error updating customer: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.updateCustomer (D:\devoxa technologies\EstateSync\backend\src\controller\customerController.js:270:44)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error settling customer cancellation refund: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.settleCustomerCancellationRefund (D:\devoxa technologies\EstateSync\backend\src\controller\customerController.js:406:44)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at idempotencyMiddleware (D:\devoxa technologies\EstateSync\backend\src\middleware\idempotencyMiddleware.js:13:12)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+Error updating customer payment: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.updatePayment (D:\devoxa technologies\EstateSync\backend\src\controller\customerController.js:829:58)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching property acquisitions: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getProperties (D:\devoxa technologies\EstateSync\backend\src\controller\propertyController.js:125:57)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching property by ID: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getPropertyById (D:\devoxa technologies\EstateSync\backend\src\controller\propertyController.js:177:55)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error updating property payment: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.updatePropertyPayment (D:\devoxa technologies\EstateSync\backend\src\controller\propertyController.js:499:58)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at idempotencyMiddleware (D:\devoxa technologies\EstateSync\backend\src\middleware\idempotencyMiddleware.js:13:12)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error updating property payment: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.updatePropertyPayment (D:\devoxa technologies\EstateSync\backend\src\controller\propertyController.js:499:58)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at idempotencyMiddleware (D:\devoxa technologies\EstateSync\backend\src\middleware\idempotencyMiddleware.js:13:12)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error updating property: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.updateProperty (D:\devoxa technologies\EstateSync\backend\src\controller\propertyController.js:207:55)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching treasury inflows: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getTreasuryInflows (D:\devoxa technologies\EstateSync\backend\src\controller\treasuryController.js:192:52)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\routes\treasuryRoutes.js:9:12
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Error fetching treasury cashflow: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getTreasuryCashflow (D:\devoxa technologies\EstateSync\backend\src\controller\treasuryController.js:257:57)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\routes\treasuryRoutes.js:17:12
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\authMiddleware.js:47:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Get Salary Summary Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at Object.getSalarySummary (D:\devoxa technologies\EstateSync\backend\src\services\salaryService.js:342:40)
+    at exports.getSalarySummary (D:\devoxa technologies\EstateSync\backend\src\controller\employeeController.js:883:41)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+Get Employees Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getEmployees (D:\devoxa technologies\EstateSync\backend\src\controller\employeeController.js:293:23)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+Get Employee By ID Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getEmployeeById (D:\devoxa technologies\EstateSync\backend\src\controller\employeeController.js:375:44)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+Update Employee Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.updateEmployee (D:\devoxa technologies\EstateSync\backend\src\controller\employeeController.js:482:44)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+Unlink User Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.unlinkUser (D:\devoxa technologies\EstateSync\backend\src\controller\employeeController.js:740:44)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+Update Salary Config Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at Object.updateEmployeeSalaryConfig (D:\devoxa technologies\EstateSync\backend\src\services\salaryService.js:52:42)
+    at exports.updateSalaryConfig (D:\devoxa technologies\EstateSync\backend\src\controller\employeeController.js:801:40)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+Pay Salary Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at Object.disburseEmployeeSalary (D:\devoxa technologies\EstateSync\backend\src\services\salaryService.js:115:39)
+    at exports.paySalary (D:\devoxa technologies\EstateSync\backend\src\controller\employeeController.js:833:40)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at idempotencyMiddleware (D:\devoxa technologies\EstateSync\backend\src\middleware\idempotencyMiddleware.js:13:12)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+Get Salary Payments Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at Object.getEmployeeSalaryPayments (D:\devoxa technologies\EstateSync\backend\src\services\salaryService.js:314:33)
+    at exports.getSalaryPayments (D:\devoxa technologies\EstateSync\backend\src\controller\employeeController.js:863:42)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+List Accounting Periods Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at Object.listAccountingPeriods (D:\devoxa technologies\EstateSync\backend\src\services\accountingPeriodService.js:84:49)
+    at listPeriods (D:\devoxa technologies\EstateSync\backend\src\controller\accountingPeriodController.js:9:51)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+Close Accounting Period Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at Object.closeAccountingPeriod (D:\devoxa technologies\EstateSync\backend\src\services\accountingPeriodService.js:129:23)
+    at closePeriod (D:\devoxa technologies\EstateSync\backend\src\controller\accountingPeriodController.js:27:50)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at idempotencyMiddleware (D:\devoxa technologies\EstateSync\backend\src\middleware\idempotencyMiddleware.js:13:12)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+Reopen Accounting Period Error: {
+  status: 400,
+  code: 'REOPEN_REASON_REQUIRED',
+  message: 'A detailed mandatory reason (minimum 10 characters) is required to reopen a closed accounting period.'
+}
+Wallet Overview Error: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getWalletOverview (D:\devoxa technologies\EstateSync\backend\src\controller\walletController.js:291:37)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at D:\devoxa technologies\EstateSync\backend\src\middleware\permissionMiddleware.js:6:103
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+Error in getNotes: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getNotes (D:\devoxa technologies\EstateSync\backend\src\controller\noteController.js:54:30)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:295:15
+    at processParams (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:582:12)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:291:5)
+Error in getNoteStats: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getNoteStats (D:\devoxa technologies\EstateSync\backend\src\controller\noteController.js:82:51)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:295:15
+    at processParams (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:582:12)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:291:5)
+Error in getNoteById: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.getNoteById (D:\devoxa technologies\EstateSync\backend\src\controller\noteController.js:131:47)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:295:15
+    at param (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:600:14)
+    at param (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:610:14)
+Error in updateNote: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.updateNote (D:\devoxa technologies\EstateSync\backend\src\controller\noteController.js:210:55)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:295:15
+    at param (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:600:14)
+    at param (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:610:14)
+Error in deleteNote: Error: AUDIT_DATABASE_BLOCKED
+    at Proxy.<anonymous> (D:\devoxa technologies\EstateSync\docs\qa\security-route-probe-2026-10-04.cjs:18:65)
+    at exports.deleteNote (D:\devoxa technologies\EstateSync\backend\src\controller\noteController.js:270:55)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at next (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\route.js:117:3)
+    at handle (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (D:\devoxa technologies\EstateSync\backend\node_modules\router\lib\layer.js:152:17)
+    at D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:295:15
+    at param (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:600:14)
+    at param (D:\devoxa technologies\EstateSync\backend\node_modules\router\index.js:610:14)
+Notification fetch error (payments): AUDIT_DATABASE_BLOCKED
+Notification fetch error (fundRequests): AUDIT_DATABASE_BLOCKED
+Notification fetch error (treasury): AUDIT_DATABASE_BLOCKED
+Notification fetch error (expenses): AUDIT_DATABASE_BLOCKED
+Notification fetch error (period): AUDIT_DATABASE_BLOCKED
+{"authenticatedRoutes":97,"internalErrorLeaks":28,"statusCounts":{"200":2,"400":25,"500":70}}

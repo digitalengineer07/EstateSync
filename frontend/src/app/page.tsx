@@ -2,12 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import HomeClock from "@/components/HomeClock";
 import {
   Menu,
   X,
-  TrendingUp,
-  Home,
-  MoreHorizontal,
 } from "lucide-react";
 
 /**
@@ -75,7 +73,7 @@ export default function LandingPage() {
 
   return (
     <div className="relative min-h-screen lg:h-screen lg:max-h-screen w-full bg-[#FAF9F7] text-slate-900 font-sans overflow-x-hidden lg:overflow-hidden flex flex-col justify-between selection:bg-[#ff6b12]/20 selection:text-[#ff6b12]">
-      
+
       {/* ========================================================================= */}
       {/* DESKTOP HERO ARCHITECTURAL BACKGROUND (Pixel-matched composite backdrop) */}
       {/* ========================================================================= */}
@@ -97,10 +95,10 @@ export default function LandingPage() {
       {/* ========================================================================= */}
       <header className="relative z-30 w-full max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 pt-4 sm:pt-5 pb-2 shrink-0">
         <div className="flex items-center justify-between">
-          
+
           {/* Left Header Group: Brand Logo & Navigation Links */}
           <div className="flex items-center gap-7 lg:gap-10 xl:gap-14">
-            
+
             {/* Brand Logo & Name */}
             <Link href="/" className="flex items-center gap-3.5 group select-none">
               <div className="rounded-2xl overflow-hidden shadow-[0_8px_20px_-2px_rgba(255,107,18,0.45)] transition-transform duration-200 group-hover:scale-105">
@@ -127,40 +125,16 @@ export default function LandingPage() {
               >
                 Home
               </Link>
-              <a
-                href="#features"
-                className="text-slate-600 hover:text-slate-950 transition-colors py-1"
-              >
-                Features
-              </a>
-              <a
-                href="#solutions"
-                className="text-slate-600 hover:text-slate-950 transition-colors py-1"
-              >
-                Solutions
-              </a>
-              <a
-                href="#resources"
-                className="text-slate-600 hover:text-slate-950 transition-colors py-1"
-              >
-                Resources
-              </a>
-              <a
-                href="#contact"
-                className="text-slate-600 hover:text-slate-950 transition-colors py-1"
-              >
-                Contact
-              </a>
+
+
+
+
             </nav>
           </div>
 
           {/* Right Header: LAND | PEOPLE | FINANCE | GROWTH (Aligned horizontally with nav links) */}
           <div className="flex items-center gap-3">
-            <div className="hidden lg:flex items-center select-none pointer-events-auto">
-              <span className="text-[10px] xl:text-[11px] font-extrabold tracking-[0.24em] text-white/95 uppercase drop-shadow-md">
-                LAND &nbsp;|&nbsp; PEOPLE &nbsp;|&nbsp; FINANCE &nbsp;|&nbsp; GROWTH
-              </span>
-            </div>
+
 
             {/* Mobile Menu Button */}
             <button
@@ -184,34 +158,10 @@ export default function LandingPage() {
               >
                 Home
               </Link>
-              <a
-                href="#features"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-lg hover:bg-slate-50 transition"
-              >
-                Features
-              </a>
-              <a
-                href="#solutions"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-lg hover:bg-slate-50 transition"
-              >
-                Solutions
-              </a>
-              <a
-                href="#resources"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-lg hover:bg-slate-50 transition"
-              >
-                Resources
-              </a>
-              <a
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-lg hover:bg-slate-50 transition"
-              >
-                Contact
-              </a>
+
+
+
+
             </nav>
             <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
               <Link
@@ -230,34 +180,40 @@ export default function LandingPage() {
       {/* ========================================================================= */}
       <main className="relative z-10 w-full max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 flex-1 flex flex-col justify-between py-1 lg:py-2 min-h-0">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center flex-1 my-auto">
-          
+
           {/* ===================================================================== */}
           {/* LEFT CONTENT AREA (Exact Pixel Alignment Matching Uploaded Image)     */}
           {/* ===================================================================== */}
           <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-between self-stretch max-w-[490px] xl:max-w-[530px] 2xl:max-w-[560px] pt-1 pb-4 sm:pb-5 lg:pb-7 xl:pb-8">
-            
+
             {/* Top Hero Narrative Group (Shifted downwards while preserving bottom content position) */}
             <div className="flex flex-col pt-5 sm:pt-7 lg:pt-10 xl:pt-12">
               {/* Eyebrow Label with Orange Accent Dash */}
               <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3">
                 <span className="w-7 h-[2.5px] bg-[#ff6b12] rounded-full inline-block" />
                 <p className="text-[10px] sm:text-[10.5px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
-                  REAL ESTATE TREASURY PLATFORM
+                  AG HOMES INDIA PVT. LTD.
                 </p>
               </div>
 
               {/* Editorial Headline */}
               <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[46px] 2xl:text-[52px] font-black text-slate-950 tracking-tight leading-[1.04]">
-                Properties<br />
-                create value.<br />
-                <span className="text-[#ff6b12]">Clarity</span> keeps it<br />
-                growing.
-              </h1>
+                EstateSync<br />
+                  <span className="text-[#ff6b12]">Workspace</span>
+                </h1>
 
               {/* Value Proposition Description */}
               <p className="mt-3 sm:mt-3.5 text-xs sm:text-[13px] lg:text-[13.5px] xl:text-[14.5px] text-slate-500 leading-relaxed font-normal max-w-[460px] xl:max-w-[490px]">
-                EstateSync unifies property collections, land acquisitions, expenses, staff wallets and double-entry accounting — so you can manage everything with confidence.
+                The accounts and operations workspace for AG Homes India Pvt. Ltd. Access customer collections, property payments and day-to-day financial records.
               </p>
+
+              <div className="mt-5 max-w-[460px] border-l-2 border-[#ff6b12]/60 pl-4">
+                <h2 className="font-serif text-xl sm:text-2xl tracking-tight text-slate-800">Accounts, with every detail in view.</h2>
+                <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-slate-500">
+                  Review receipts and expenses, follow outstanding balances, and refer to ledger entries and supporting documents as part of your daily accounts work.
+                </p>
+              </div>
+              <HomeClock />
 
               {/* Primary CTA with Tactile Click Animation & Expanding Ripple */}
               <div className="mt-4 sm:mt-5 flex items-center">
@@ -287,97 +243,14 @@ export default function LandingPage() {
             </div>
 
             {/* Bottom Proof & Capabilities Group (Shifted upwards with clean bottom clearance) */}
-            <div className="flex flex-col mt-6 sm:mt-8 lg:mt-10 xl:mt-12">
-              {/* 4 Feature Highlights Row (No divider line, soft peach squircle icons) */}
-              <div className="grid grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5 xl:gap-4">
-                
-                {/* 1: Real-time Financial Insights */}
-                <div className="flex flex-col group">
-                  <div className="w-11 h-11 sm:w-11.5 sm:h-11.5 lg:w-12 lg:h-12 rounded-xl sm:rounded-2xl bg-[#FFF6ED] border border-orange-200/80 text-[#ff6b12] flex items-center justify-center mb-2 transition-transform duration-150 group-hover:scale-105 shadow-[0_4px_14px_rgba(255,107,18,0.15)]">
-                    <svg className="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M6 19v-4" />
-                      <path d="M12 19v-9" />
-                      <path d="M18 19v-14" />
-                    </svg>
-                  </div>
-                  <span className="text-[13px] sm:text-[13.5px] lg:text-[14px] font-black text-slate-900 leading-tight">
-                    Real-time
-                  </span>
-                  <span className="text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-500 font-medium leading-snug mt-0.5">
-                    Financial Insights
-                  </span>
-                </div>
 
-                {/* 2: Secure Role Based Access */}
-                <div className="flex flex-col group">
-                  <div className="w-11 h-11 sm:w-11.5 sm:h-11.5 lg:w-12 lg:h-12 rounded-xl sm:rounded-2xl bg-[#FFF6ED] border border-orange-200/80 text-[#ff6b12] flex items-center justify-center mb-2 transition-transform duration-150 group-hover:scale-105 shadow-[0_4px_14px_rgba(255,107,18,0.15)]">
-                    <svg className="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      <path d="m9 12 2 2 4-4" />
-                    </svg>
-                  </div>
-                  <span className="text-[13px] sm:text-[13.5px] lg:text-[14px] font-black text-slate-900 leading-tight">
-                    Secure
-                  </span>
-                  <span className="text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-500 font-medium leading-snug mt-0.5">
-                    Role Based Access
-                  </span>
-                </div>
-
-                {/* 3: Better Team Collaboration */}
-                <div className="flex flex-col group">
-                  <div className="w-11 h-11 sm:w-11.5 sm:h-11.5 lg:w-12 lg:h-12 rounded-xl sm:rounded-2xl bg-[#FFF6ED] border border-orange-200/80 text-[#ff6b12] flex items-center justify-center mb-2 transition-transform duration-150 group-hover:scale-105 shadow-[0_4px_14px_rgba(255,107,18,0.15)]">
-                    <svg className="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
-                  </div>
-                  <span className="text-[13px] sm:text-[13.5px] lg:text-[14px] font-black text-slate-900 leading-tight">
-                    Better
-                  </span>
-                  <span className="text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-500 font-medium leading-snug mt-0.5">
-                    Team Collaboration
-                  </span>
-                </div>
-
-                {/* 4: Accurate Accounting & Audit */}
-                <div className="flex flex-col group">
-                  <div className="w-11 h-11 sm:w-11.5 sm:h-11.5 lg:w-12 lg:h-12 rounded-xl sm:rounded-2xl bg-[#FFF6ED] border border-orange-200/80 text-[#ff6b12] flex items-center justify-center mb-2 transition-transform duration-150 group-hover:scale-105 shadow-[0_4px_14px_rgba(255,107,18,0.15)]">
-                    <svg className="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="m12 2 9 4.5-9 4.5-9-4.5z" />
-                      <path d="m3 11.5 9 4.5 9-4.5" />
-                      <path d="m3 16.5 9 4.5 9-4.5" />
-                    </svg>
-                  </div>
-                  <span className="text-[13px] sm:text-[13.5px] lg:text-[14px] font-black text-slate-900 leading-tight">
-                    Accurate
-                  </span>
-                  <span className="text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-500 font-medium leading-snug mt-0.5">
-                    Accounting & Audit
-                  </span>
-                </div>
-              </div>
-
-              {/* Brand Quote (2 Lines, Vertical Accent) */}
-              <div className="mt-5 sm:mt-6 lg:mt-7 xl:mt-8 border-l-[3px] border-[#ff6b12] pl-4 sm:pl-4.5">
-                <p className="text-[13px] sm:text-[13.5px] lg:text-[14.5px] text-slate-600 italic font-medium leading-relaxed">
-                  “Data today.<br />Stronger developments tomorrow.”
-                </p>
-                <p className="text-[10.5px] sm:text-[11px] lg:text-[11.5px] text-slate-500 font-semibold tracking-wide mt-1.5 flex items-center gap-1.5">
-                  <span>—</span>
-                  <span>EstateSync</span>
-                </p>
-              </div>
-            </div>
           </div>
 
           {/* ===================================================================== */}
           {/* RIGHT VISUAL AREA (Floating Glassmorphic KPI Cards on Desktop)       */}
           {/* ===================================================================== */}
           <div className="lg:col-span-6 xl:col-span-6 relative w-full flex flex-col justify-between min-h-0 pointer-events-none self-stretch py-1">
-            
+
             {/* Mobile/Tablet Fallback Card (<lg screens) */}
             <div className="lg:hidden relative w-full h-72 sm:h-80 rounded-2xl overflow-hidden shadow-xl border border-slate-200 my-4 pointer-events-auto">
               <div
@@ -390,92 +263,17 @@ export default function LandingPage() {
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-              
-              <div className="absolute top-3.5 right-3.5">
-                <span className="text-[9.5px] font-extrabold tracking-[0.2em] text-white/90 uppercase drop-shadow-md">
-                  IDEAS | INVESTMENTS | PEOPLE | PROGRESS
-                </span>
-              </div>
 
-              <div className="absolute bottom-3 left-3 right-3 bg-slate-900/85 backdrop-blur-md border border-white/20 rounded-xl p-3 text-white shadow-lg">
-                <div className="flex justify-between items-center text-[11px]">
-                  <span className="font-semibold text-slate-300">Automated Reconciliation</span>
-                  <span className="font-bold text-emerald-400">↗ 99.9%</span>
-                </div>
-                <div className="mt-0.5 text-xl font-black font-digital text-white">
-                  Live Sync
-                </div>
-              </div>
+
+
+
             </div>
 
             {/* Desktop Floating Glassmorphic Metric Cards (Moved upwards & shifted rightwards) */}
-            <div className="hidden lg:flex flex-col items-end space-y-3 xl:space-y-3.5 -mt-2 lg:-mt-3 xl:-mt-1 mb-auto pr-0 -mr-2 lg:-mr-6 xl:-mr-10 select-none pointer-events-auto">
-              
-              {/* Metric Card 1: Automated Reconciliation (Dark Frosted Glass - Display Only) */}
-              <div
-                className="w-full max-w-[285px] xl:max-w-[315px] 2xl:max-w-[335px] bg-slate-900/40 backdrop-blur-xl border border-white/25 rounded-3xl p-4 sm:p-4.5 text-white shadow-[0_20px_40px_rgba(0,0,0,0.3)] cursor-default select-none block"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-2xl bg-[#ff6b12] flex items-center justify-center text-white shadow-md shrink-0">
-                      <TrendingUp className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-[12px] font-semibold text-slate-200 tracking-wide leading-tight">
-                        Automated Reconciliation
-                      </p>
-                      <p className="text-xl xl:text-2xl font-black text-white font-mono tracking-tight mt-0.5">
-                        99.9%
-                      </p>
-                    </div>
-                  </div>
-                  <MoreHorizontal className="w-4 h-4 text-slate-400" />
-                </div>
 
-                <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px] font-bold text-emerald-400">
-                  <span>↗ Real-time ledger audit</span>
-                </div>
-              </div>
-
-              {/* Metric Card 2: Multi-Entity Treasury (Light Frosted Glass - Display Only) */}
-              <div
-                className="w-full max-w-[285px] xl:max-w-[315px] 2xl:max-w-[335px] bg-white/20 backdrop-blur-xl border border-white/30 rounded-3xl p-4 sm:p-4.5 text-white shadow-[0_20px_40px_rgba(0,0,0,0.25)] cursor-default select-none block"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-2xl bg-white flex items-center justify-center text-[#ff6b12] shadow-[0_0_18px_rgba(255,255,255,0.7)] shrink-0">
-                      <Home className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-[12px] font-semibold text-white/90 tracking-wide leading-tight">
-                        Multi-Entity Treasury
-                      </p>
-                      <p className="text-xl xl:text-2xl font-black text-white font-mono tracking-tight mt-0.5">
-                        Live Sync
-                      </p>
-                    </div>
-                  </div>
-                  <MoreHorizontal className="w-4 h-4 text-white/60" />
-                </div>
-
-                <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px] font-bold text-emerald-400">
-                  <span>↗ Double-entry verification</span>
-                </div>
-              </div>
-            </div>
 
             {/* Desktop Lower Right Brand Statement */}
-            <div className="hidden lg:flex items-center gap-2.5 self-end pr-0 -mr-2 lg:-mr-6 xl:-mr-10 pb-1 select-none pointer-events-auto">
-              <div className="w-[2.5px] h-10 bg-slate-950 rounded-full shadow-[0_1px_2px_rgba(255,255,255,0.85)]" />
-              <div className="flex flex-col">
-                <span className="text-[11px] xl:text-[12px] font-black tracking-[0.24em] text-slate-950 uppercase leading-snug drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
-                  BUILDING<br />
-                  A BRIGHTER<br />
-                  TOMORROW
-                </span>
-                <span className="w-8 h-[2.5px] bg-[#ff6b12] rounded-full mt-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.15)] inline-block" />
-              </div>
-            </div>
+
 
           </div>
         </div>
@@ -484,7 +282,7 @@ export default function LandingPage() {
         {/* FOOTER (Left-Hand Side Centered Legal & Support Links)                    */}
         {/* ========================================================================= */}
         <div className="pb-3 sm:pb-4 pt-1 flex items-center justify-between text-xs text-slate-500 shrink-0">
-          
+
           {/* Left-Hand Side Center: Privacy, Terms & Conditions, Support Buttons (Shifted upwards via transform) */}
           <div className="w-full max-w-[490px] xl:max-w-[530px] 2xl:max-w-[560px] flex items-center justify-center gap-1.5 sm:gap-2.5 text-[11px] sm:text-[11.5px] font-semibold text-slate-500 select-none transform -translate-y-2 sm:-translate-y-3 lg:-translate-y-4">
             <Link

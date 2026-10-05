@@ -67,6 +67,7 @@ class PrivateS3Storage {
   async list() {
     const objects = [];
     let token;
+    const seenTokens = new Set();
     try {
       do {
         const page = await this.client.send(new ListObjectsV2Command({ Bucket: this.bucket, ContinuationToken: token }));
@@ -75,6 +76,8 @@ class PrivateS3Storage {
         }
         if (page.IsTruncated && !page.NextContinuationToken) throw Error('Incomplete object listing');
         token = page.IsTruncated ? page.NextContinuationToken : undefined;
+        if (token && (seenTokens.has(token) || seenTokens.size >= 10000)) throw Error('Invalid or excessive object pagination');
+        if (token) seenTokens.add(token);
       } while (token);
       return objects;
     } catch { throw unavailable(); }

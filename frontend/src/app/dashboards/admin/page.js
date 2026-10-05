@@ -215,7 +215,6 @@ export default function AdminDashboard() {
   return (
     <SoftDashboardShell
       title="Admin Dashboard"
-      description="Corporate treasury controls, user provisioning, direct allocation, and wallet audits in a focused single-panel workspace."
       badge="Master Control"
       navItems={ADMIN_PANELS}
       activeId={activePanel}

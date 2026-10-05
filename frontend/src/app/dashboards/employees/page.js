@@ -21,7 +21,6 @@ export default function EmployeesDashboardPage() {
   return (
     <SoftDashboardShell
       title="Staff & Workforce Directory"
-      description="Employee master records, staff governance, department allocations, salary configuration, and user login bindings."
       badge="Active Staff"
       navItems={EMPLOYEE_PANELS}
       activeId={activePanel}

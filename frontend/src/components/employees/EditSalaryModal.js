@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, IndianRupee, Landmark, CreditCard, ShieldCheck, AlertCircle } from "lucide-react";
+import { X, IndianRupee, Landmark, ShieldCheck, AlertCircle } from "lucide-react";
 import { updateSalaryConfig } from "@/services/employeeService";
 
 export default function EditSalaryModal({ isOpen, onClose, employee, onUpdated }) {

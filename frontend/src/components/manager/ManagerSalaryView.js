@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { getEmployees } from "@/services/employeeService";
 import Link from "next/link";
-import { IndianRupee, Users, ShieldCheck, Eye, RefreshCw, AlertCircle, Landmark } from "lucide-react";
+import { ShieldCheck, Eye, RefreshCw, AlertCircle } from "lucide-react";
 
 export default function ManagerSalaryView() {
   const [employees, setEmployees] = useState([]);

@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState } from "react";
 import { API_URL } from "@/config/api";
@@ -53,7 +55,7 @@ export default function RecordCustomerPaymentModal({ isOpen, onClose, customer, 
       const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `cust-pay-${Date.now()}`;
 
-      const res = await fetch(`${API_URL}/api/v1/customers/${customer.id}/payments`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/customers/${customer.id}/payments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

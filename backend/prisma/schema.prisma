@@ -239,6 +239,14 @@ model IdempotencyKey {
   responseBody   Json
   createdAt      DateTime  @default(now())
   expiresAt      DateTime
+  @@index([expiresAt])
+}
+
+model AuthSession {
+  id        String   @id
+  data      Json
+  expiresAt DateTime
+  @@index([expiresAt])
 }
 
 // -------------------------------------------------------------

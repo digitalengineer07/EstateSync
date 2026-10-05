@@ -1,0 +1,57 @@
+"file","line","header"
+"backend/src/controller/customerController.js","190","for (const c of customers) {"
+"backend/src/controller/employeeController.js","15","for (const emp of employees) {"
+"backend/src/controller/noteController.js","95","for (const note of allNotes) {"
+"backend/src/controller/notificationController.js","61","for (const p of payments) {"
+"backend/src/controller/notificationController.js","96","for (const fr of pendingRequests) {"
+"backend/src/controller/notificationController.js","119","for (const fr of requests) {"
+"backend/src/controller/notificationController.js","144","for (const fr of myRequests) {"
+"backend/src/controller/notificationController.js","176","for (const log of treasuryLogs) {"
+"backend/src/controller/notificationController.js","221","for (const exp of expenses) {"
+"backend/src/controller/propertyController.js","143","for (const p of properties) {"
+"backend/src/middleware/corsOrigins.js","7","for (const port of [3000, 3001, 3002]) allowed.add(`http://localhost:${port}`);"
+"backend/src/middleware/corsOrigins.js","10","for (const entry of (env.CORS_ORIGIN || '').split(',')) {"
+"backend/src/middleware/sanitizerMiddleware.js","11","for (let i = 0; i < obj.length; i++) {"
+"backend/src/middleware/sanitizerMiddleware.js","19","for (const key of Object.keys(obj)) {"
+"backend/src/routes/documentRoutes.js","58","for (const action of ['preview', 'download']) router.get(`/:id/${action}`, checkPermission(action === 'download' ? 'document.download' : 'document.view'), run(async (req, res) => {"
+"backend/src/routes/documentRoutes.js","63","for (const action of ['verify', 'reject', 'archive']) router.post(`/:id/${action}`, checkPermission(action === 'archive' ? 'document.archive' : 'document.review'), run(async (req, res) => res.json({ s"
+"backend/src/services/accountingPeriodService.js","32","for (let y = startYear; y <= endYear; y++) {"
+"backend/src/services/accountingPeriodService.js","33","for (let m = 1; m <= 12; m++) {"
+"backend/src/services/customerLedgerService.js","37","for (const e of priorEntries) {"
+"backend/src/services/customerLedgerService.js","140","for (const dn of openDemands) {"
+"backend/src/services/customerLedgerService.js","251","for (const c of allCustomers) {"
+"backend/src/services/customerLedgerService.js","258","for (const e of entries) {"
+"backend/src/services/documents/clamav.js","40","for (const part of payload) {"
+"backend/src/services/documents/clamav.js","60","for (let offset = 0; offset < buffer.length; offset += CHUNK_BYTES) {"
+"backend/src/services/documents/files.js","32","for (const [key, value] of object.entries()) {"
+"backend/src/services/documents/files.js","39","for (const [, object] of pdf.context.enumerateIndirectObjects()) inspect(object);"
+"backend/src/services/documents/permissions.js","5","for (const code of codes) await db.permission.upsert({ where: { code }, create: { code, description: `Transaction evidence: ${code.split('.')[1]}` }, update: {} });"
+"backend/src/services/documents/permissions.js","8","for (const role of roles) {"
+"backend/src/services/documents/review.js","34","for (const [key, column] of Object.entries({ sourceType: 'sourceType', sourceId: 'sourceId', customerId: 'customerId', propertyId: 'propertyId', employee: 'createdBy', paymentMode: 'paymentMode' })) {"
+"backend/src/services/documents/review.js","39","for (const key of ['minAmount', 'maxAmount']) if (q[key] !== undefined && q[key] !== '') {"
+"backend/src/services/documents/review.js","43","for (const key of ['from', 'to']) if (q[key]) {"
+"backend/src/services/documents/review.js","49","for (const key of ['status', 'documentType', 'uploadedBy', 'sha256']) if (q[key]) clauses.push(Prisma.sql`${Prisma.raw(`d.""${key}""`)} = ${String(q[key]).slice(0, 100)}`);"
+"backend/src/services/documents/review.js","68","for (const type of Object.keys(P.TYPES)) {"
+"backend/src/services/documents/review.js","69","for (const mode of ['CASH', 'CHEQUE', 'BANK']) {"
+"backend/src/services/documents/review.js","91","for (const row of rows) {"
+"backend/src/services/documents/s3.js","49","for await (const chunk of result.Body) {"
+"backend/src/services/documents/s3.js","71","do {"
+"backend/src/services/documents/s3.js","73","for (const item of page.Contents || []) {"
+"backend/src/services/documents/service.js","67","for (const u of uploads) {"
+"backend/src/services/documents/service.js","89","for (const u of uploads.sort((a, b) => a.id.localeCompare(b.id))) {"
+"backend/src/services/documents/storage.js","39","for (const key of entries.filter(k => /^[0-9a-f-]{36}\.bin$/.test(k))) {"
+"backend/src/services/paymentAllocationService.js","144","for (const dn of candidateDemandNotes) {"
+"backend/src/services/paymentPlanService.js","39","for (let i = 0; i < milestones.length; i++) {"
+"backend/src/services/paymentPlanService.js","89","for (let i = 0; i < milestones.length; i++) {"
+"backend/src/utils/accountingHelper.js","122","for (const line of lines) {"
+"backend/src/utils/accountingHelper.js","149","for (const code of requiredCodes) {"
+"backend/src/utils/loginRateLimiter.js","197","for (const [key, val] of ipBucket.entries()) {"
+"backend/src/utils/loginRateLimiter.js","205","for (const [key, val] of accountBucket.entries()) {"
+"backend/src/utils/passwordValidator.js","109","for (const root of commonRoots) {"
+"backend/src/utils/passwordValidator.js","141","for (const seq of sequentialPatterns) {"
+"frontend/src/app/api/[...path]/route.js","63","for (const name of ['content-type', 'content-disposition', 'cache-control', 'x-content-type-options', 'content-security-policy', 'cross-origin-resource-policy', 'retry-after']) {"
+"frontend/src/components/TransactionDocuments.js","55","for (const id of stagedFiles.current.keys()) if (!uploads.some(u => u.id === id)) stagedFiles.current.delete(id);"
+"frontend/src/context/AuthContext.js","21","for (const key of [""accessToken"", ""refreshToken"", ""user""]) localStorage.removeItem(key);"
+"frontend/src/utils/passwordValidator.js","87","for (const root of commonRoots) {"
+"frontend/src/utils/passwordValidator.js","116","for (const seq of sequentialPatterns) {"
+"frontend/src/utils/passwordValidator.js","155","for (let i = pwd.length; i < length; i++) {"

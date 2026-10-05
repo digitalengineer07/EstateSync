@@ -1,19 +1,10 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
-import { 
-  X, 
-  Calendar, 
-  Landmark, 
-  CreditCard, 
-  Hash, 
-  CheckCircle2, 
-  AlertCircle, 
-  Lock, 
-  ShieldCheck, 
-  IndianRupee 
-} from "lucide-react";
+import { X, Calendar, CheckCircle2, AlertCircle, Lock, ShieldCheck, IndianRupee } from "lucide-react";
 import { toISTDateInputString, createSafePaymentDateISO, formatDate } from "@/utils/formatters";
 
 export default function EditCustomerPaymentModal({
@@ -121,7 +112,7 @@ export default function EditCustomerPaymentModal({
         payload.reason = reason.trim();
       }
 
-      const res = await fetch(`${API_URL}/api/v1/customers/payments/${payment.id}`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/customers/payments/${payment.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

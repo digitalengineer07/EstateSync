@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 import TransactionDocumentButton from './TransactionDocumentButton';
 
 import { useState, useEffect } from "react";
@@ -36,7 +38,7 @@ export default function TreasuryInflowList() {
     setLoading(true);
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/treasury/cashflow`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/treasury/cashflow`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
       const data = await res.json();

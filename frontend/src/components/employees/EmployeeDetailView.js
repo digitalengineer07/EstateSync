@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
@@ -13,30 +15,7 @@ import EmployeeLinkUserModal from "./EmployeeLinkUserModal";
 import EditSalaryModal from "./EditSalaryModal";
 import PaySalaryModal from "./PaySalaryModal";
 import { formatDate } from "@/utils/formatters";
-import {
-  Users,
-  ArrowLeft,
-  Building,
-  Calendar,
-  Phone,
-  Mail,
-  MapPin,
-  ShieldCheck,
-  UserCheck,
-  UserX,
-  Edit3,
-  Link2,
-  Unlink,
-  Briefcase,
-  Wallet,
-  AlertTriangle,
-  CheckCircle2,
-  RefreshCw,
-  IndianRupee,
-  Landmark,
-  Send,
-  Clock
-} from "lucide-react";
+import { Users, ArrowLeft, Building, MapPin, ShieldCheck, UserX, Edit3, Link2, Unlink, Briefcase, AlertTriangle, CheckCircle2, RefreshCw, IndianRupee, Landmark, Send } from "lucide-react";
 
 export default function EmployeeDetailView({ id }) {
   const router = useRouter();
@@ -123,7 +102,7 @@ export default function EmployeeDetailView({ id }) {
     }
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/employees/${id}/link-user`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/employees/${id}/link-user`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`

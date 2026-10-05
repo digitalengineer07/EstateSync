@@ -6,7 +6,6 @@ if (!process.env.UV_THREADPOOL_SIZE) {
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const session = require('express-session');
 
 // Load env vars
@@ -67,13 +66,16 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+const { globalApiLimiter, financialMutationLimiter } = require('./middleware/rateLimitMiddleware');
+app.use('/api/', globalApiLimiter);
+app.use(require('./middleware/responseSafety').responseSafety);
+
 // Payload size limits to prevent volumetric payload DoS
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
 // Input sanitization against Prototype Pollution & parameter injection
-const { sanitizeInput } = require('./middleware/sanitizerMiddleware');
-app.use(sanitizeInput);
+app.use('/api/v1', require('./middleware/inputValidation').validateInput);
 
 // Hardened Session Management
 app.use(session({
@@ -81,17 +83,22 @@ app.use(session({
   secret: process.env.SESSION_SECRET || process.env.JWT_SECRET || 'supersecretjwtkey',
   resave: false,
   saveUninitialized: false,
+  store: new (require('./utils/sessionStore').DatabaseSessionStore)(),
   cookie: {
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
-    sameSite: 'lax',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
   }
 }));
 
 // Global API rate limiting
-const { globalApiLimiter } = require('./middleware/rateLimitMiddleware');
-app.use('/api/', globalApiLimiter);
+const { verifyJWT } = require('./middleware/authMiddleware');
+const { atomicMutation } = require('./middleware/atomicMutation');
+app.use('/api/v1', (req, res, next) => {
+  if (!['POST','PUT','PATCH','DELETE'].includes(req.method) || req.path.startsWith('/auth/') || req.path.startsWith('/documents')) return next();
+  verifyJWT(req, res, () => financialMutationLimiter(req, res, () => atomicMutation(req, res, next)));
+});
 
 // Import Routes
 const authRoutes = require('./routes/authRoutes');
@@ -142,72 +149,94 @@ app.get('/', (req, res) => {
 });
 
 // Development-only diagnostic endpoints (restricted in production)
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development' && !process.env.PASSENGER_APP_ENV) {
   app.post('/test-post', (req, res) => {
     res.json({ success: true, message: 'POST body received', body: req.body });
   });
 
   app.get('/test-db', async (req, res) => {
+    let pool;
+    let client;
     try {
       const { Pool } = require('pg');
-      const pool = new Pool({ 
+      pool = new Pool({
         connectionString: process.env.DATABASE_URL,
-        connectionTimeoutMillis: 5000 
+        connectionTimeoutMillis: 5000
       });
-      const client = await pool.connect();
+      client = await pool.connect();
       const result = await client.query('SELECT NOW()');
-      client.release();
-      await pool.end();
       res.json({ success: true, time: result.rows[0] });
     } catch (err) {
       res.status(500).json({ success: false, message: 'Database test error' });
+    } finally {
+      client?.release();
+      await pool?.end();
     }
   });
 }
 
 // Secure centralized error handling middleware
 const { errorHandler } = require('./middleware/errorMiddleware');
+app.use('/api', (req, res) => res.status(404).json({ success: false, message: 'API endpoint not found' }));
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 const isPassenger = typeof(PhusionPassenger) !== 'undefined' || !!process.env.PASSENGER_APP_ENV;
 const listenTarget = isPassenger ? 'passenger' : PORT;
 
-const server = app.listen(listenTarget, async () => {
-  console.log(`Server running on ${listenTarget}`);
+let server;
+async function startServer() {
+  await require('./utils/securitySchema').ensureSecuritySchema();
+  await require('./utils/accountingHelper').ensureStandardAccounts();
+  server = app.listen(listenTarget, async () => {
+    console.log(`Server running on ${listenTarget}`);
+    require('./utils/securityRetention').startSecurityRetention();
 
-  // Proactive Database Schema Integrity Check (opt-in via AUDIT_DB_ON_START to prevent startup lag on Hostinger)
-  if (process.env.AUDIT_DB_ON_START === 'true') {
-    try {
-      const { auditDatabaseIntegrity } = require('../scripts/audit_database_integrity');
-      const result = await auditDatabaseIntegrity({ silent: true });
-      if (!result.success) {
-        console.warn(`\n⚠️  [DATABASE INTEGRITY WARNING] ${result.issues.length} schema mismatches detected!`);
-        result.issues.slice(0, 5).forEach(iss => console.warn(`   • ${iss}`));
-        console.warn('👉 Run `npx prisma db push` or `npm run audit:db` to align database schema.\n');
-      } else {
-        console.log('✅ Database schema parity verified: All tables & columns intact.');
+    // Proactive Database Schema Integrity Check (opt-in via AUDIT_DB_ON_START to prevent startup lag on Hostinger)
+    if (process.env.AUDIT_DB_ON_START === 'true') {
+      try {
+        const { auditDatabaseIntegrity } = require('../scripts/audit_database_integrity');
+        const result = await auditDatabaseIntegrity({ silent: true });
+        if (!result.success) {
+          console.warn(`\n⚠️  [DATABASE INTEGRITY WARNING] ${result.issues.length} schema mismatches detected!`);
+          result.issues.slice(0, 5).forEach(iss => console.warn(`   • ${iss}`));
+          console.warn('👉 Run `npx prisma db push` or `npm run audit:db` to align database schema.\n');
+        } else {
+          console.log('✅ Database schema parity verified: All tables & columns intact.');
+        }
+      } catch (err) {
+        console.warn('Database schema integrity check skipped:', err.message);
       }
-    } catch (err) {
-      console.warn('Database schema integrity check skipped:', err.message);
     }
-  }
+  });
+
+  server.on('error', (err) => {
+    console.error('[Backend Server Listen Error]:', err.message);
+    if (err.code === 'EADDRINUSE') {
+      console.error(`Port ${listenTarget} is already in use. Waiting 5s before exiting to prevent Passenger spawn loop...`);
+      setTimeout(() => process.exit(1), 5000);
+    }
+  });
+
+  return server;
+}
+app.ready = startServer();
+app.ready.catch(async error => {
+  console.error('Backend startup failed; no requests will be accepted:', error.message);
+  await require('./config/db').$disconnect();
+  process.exitCode = 1;
 });
 
-server.on('error', (err) => {
-  console.error('[Backend Server Listen Error]:', err.message);
-  if (err.code === 'EADDRINUSE') {
-    console.error(`Port ${listenTarget} is already in use. Waiting 5s before exiting to prevent Passenger spawn loop...`);
-    setTimeout(() => process.exit(1), 5000);
-  }
-});
-
-process.on('uncaughtException', (err) => {
-  console.error('[Backend Uncaught Exception]:', err);
-});
-
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('[Backend Unhandled Rejection]:', reason);
-});
+let shuttingDown = false;
+function fatal(error) {
+  console.error('[Backend fatal error]:', error);
+  if (shuttingDown) return;
+  shuttingDown = true;
+  if (!server) return process.exit(1);
+  server.close(() => process.exit(1));
+  setTimeout(() => process.exit(1), 10000).unref();
+}
+process.on('uncaughtException', fatal);
+process.on('unhandledRejection', fatal);
 
 module.exports = app;

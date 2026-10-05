@@ -6,21 +6,8 @@ const salaryService = require('../services/salaryService');
  * Generate next sequential Employee Code (e.g. EMP-000001, EMP-000002)
  */
 async function generateNextEmployeeCode(tx = prisma) {
-  const employees = await tx.employee.findMany({
-    where: { employeeCode: { startsWith: 'EMP-' } },
-    select: { employeeCode: true }
-  });
-
-  let maxSeq = 0;
-  for (const emp of employees) {
-    const parts = emp.employeeCode.split('-');
-    if (parts.length >= 2) {
-      const parsed = parseInt(parts[1], 10);
-      if (!isNaN(parsed) && parsed > maxSeq) {
-        maxSeq = parsed;
-      }
-    }
-  }
+  const [row] = await tx.$queryRaw`SELECT COALESCE(MAX(substring("employeeCode" from '^EMP-([0-9]+)$')::numeric), 0) AS maximum FROM "Employee" WHERE "employeeCode" ~ '^EMP-[0-9]+$'`;
+  const maxSeq = Number(row.maximum);
 
   return `EMP-${String(maxSeq + 1).padStart(6, '0')}`;
 }

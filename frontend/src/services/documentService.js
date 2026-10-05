@@ -1,3 +1,4 @@
+import { fetchWithTimeout } from "@/utils/http";
 import { API_URL } from '../config/api';
 import { apiRequest } from './apiClient';
 export const documentRequest = (path = '', options) => apiRequest(`/api/v1/documents${path}`, options);
@@ -33,7 +34,7 @@ export function uploadDocument(file, { sourceType, sourceId, documentType, key, 
   });
 }
 export async function documentBlob(id, download = false) {
-  const response = await fetch(`${API_URL}/api/v1/documents/${id}/${download ? 'download' : 'preview'}`, { headers: { Authorization: `Bearer ${sessionStorage.getItem('accessToken') || ''}` }, cache: 'no-store' });
+  const response = await fetchWithTimeout(`${API_URL}/api/v1/documents/${id}/${download ? 'download' : 'preview'}`, { headers: { Authorization: `Bearer ${sessionStorage.getItem('accessToken') || ''}` }, cache: 'no-store' });
   if (!response.ok) { const result = await response.json(); throw new Error(result.message || 'Document is unavailable.'); }
   return response.blob();
 }

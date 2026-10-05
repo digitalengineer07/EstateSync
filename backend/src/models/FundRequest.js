@@ -1,3 +1,0 @@
-/**
- * FundRequest Model
- */

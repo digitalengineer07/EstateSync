@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
@@ -70,7 +72,7 @@ export default function PropertyAcquisitionModal({ isOpen, onClose, onPropertyCr
       const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `prop-create-${Date.now()}`;
 
-      const res = await fetch(`${API_URL}/api/v1/properties`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/properties`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

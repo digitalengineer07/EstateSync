@@ -1,20 +1,11 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
 
-import { useState, useTransition } from "react";
+
+import { useState } from "react";
 import { API_URL } from "@/config/api";
 import TransactionDocuments from './TransactionDocuments';
-import { 
-  X, 
-  AlertTriangle, 
-  CheckCircle2, 
-  ArrowRight, 
-  Building2, 
-  Receipt, 
-  ShieldCheck, 
-  Wallet,
-  HelpCircle,
-  FileText
-} from "lucide-react";
+import { X, AlertTriangle, CheckCircle2, Receipt, ShieldCheck, Wallet } from "lucide-react";
 import { formatINR } from "@/utils/formatters";
 
 export default function CustomerCancellationSettlementModal({ customer, onClose, onSettled }) {
@@ -63,7 +54,7 @@ export default function CustomerCancellationSettlementModal({ customer, onClose,
       const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `cust-refund-settle-${customer.id}-${Date.now()}`;
 
-      const res = await fetch(`${API_URL}/api/v1/customers/${customer.id}/settle-cancellation`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/customers/${customer.id}/settle-cancellation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

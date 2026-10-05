@@ -1,4 +1,6 @@
 "use client";
+import { fetchWithTimeout } from "@/utils/http";
+
 
 import { useState, useEffect } from "react";
 import { API_URL } from "@/config/api";
@@ -20,7 +22,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
     setLoadingUsers(true);
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/users/all`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/users/all`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
       const data = await res.json();
@@ -52,7 +54,7 @@ export default function DirectFundAllocationForm({ onAllocationSuccess }) {
 
     try {
       const token = sessionStorage.getItem("accessToken");
-      const res = await fetch(`${API_URL}/api/v1/fund-requests/allocate`, {
+      const res = await fetchWithTimeout(`${API_URL}/api/v1/fund-requests/allocate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
