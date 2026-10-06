@@ -1,8 +1,8 @@
-const { PrismaClient } = require('@prisma/client');
+require('dotenv').config();
+const prisma = require('../src/config/db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecretjwtkey';
 
 async function generateTestToken(email) {

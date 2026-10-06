@@ -1,6 +1,6 @@
-const { PrismaClient } = require('@prisma/client');
+require('dotenv').config();
+const prisma = require('../src/config/db');
 const jwt = require('jsonwebtoken');
-const prisma = new PrismaClient();
 
 const JWT_SECRET = 'super-secret-jwt-key-for-estatesync';
 
