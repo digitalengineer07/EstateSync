@@ -9,7 +9,29 @@ const helmet = require('helmet');
 const session = require('express-session');
 
 // Load env vars
+const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
+
+// Search parent directories if DATABASE_URL is not set (supports Hostinger versioned build directories)
+if (!process.env.DATABASE_URL) {
+  let dir = process.cwd();
+  for (let i = 0; i < 5; i++) {
+    dir = path.dirname(dir);
+    const candidate = path.join(dir, '.env');
+    if (fs.existsSync(candidate)) {
+      require('dotenv').config({ path: candidate });
+      if (process.env.DATABASE_URL) break;
+    }
+  }
+}
+
+if (process.env.DATABASE_URL) {
+  const masked = process.env.DATABASE_URL.replace(/:([^:@]+)@/, ':****@');
+  console.log('[EstateSync DB] Successfully loaded DATABASE_URL:', masked);
+} else {
+  console.error('[EstateSync DB CRITICAL] DATABASE_URL is NOT set! Please configure DATABASE_URL in Hostinger Environment Variables.');
+}
 
 const app = express();
 app.set('trust proxy', 1); // Trust first proxy (Hostinger/Render load balancer)

@@ -10,7 +10,10 @@ function databaseUrlWithDefaults(value) {
   return url.toString();
 }
 function isDatabaseUnavailable(error) {
-  return ['P1001', 'P1002', 'P1008', 'P1017', 'P2024'].includes(error?.code || error?.errorCode);
+  if (!error) return false;
+  if (['P1001', 'P1002', 'P1008', 'P1017', 'P2024'].includes(error?.code || error?.errorCode)) return true;
+  if (typeof error?.message === 'string' && (error.message.includes('ECONNREFUSED') || error.message.includes("Can't reach database server"))) return true;
+  return false;
 }
 const DATABASE_UNAVAILABLE_MESSAGE = 'The database is temporarily unavailable. Please try again shortly.';
 function replyIfDatabaseUnavailable(error, res) {

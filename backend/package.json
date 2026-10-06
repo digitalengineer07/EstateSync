@@ -12,7 +12,7 @@
     "db:wipe": "node scripts/wipe_database_records.js",
     "audit:db": "node scripts/audit_database_integrity.js",
     "test": "node scripts/github_action_validation_suite.js",
-    "postinstall": "prisma generate",
+    "postinstall": "node scripts/generate_prisma.js",
     "test:documents": "node --test test/documents.unit.test.js",
     "test:security": "node --test test/security.auth.test.js test/security.cors.test.js test/security.idempotency.test.js test/databaseConnection.test.js",
     "test:documents:integration": "node --test test/documents.integration.test.js",
