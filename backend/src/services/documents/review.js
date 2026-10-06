@@ -95,15 +95,72 @@ async function transactions(actor, q) {
   }
   return { transactions: items, total: count.total, page, pageSize };
 }
-async function summary(actor) {
-  const where = filters(actor, {}, true);
-  const [counts] = await db.$queryRaw`SELECT count(*) FILTER (WHERE d.status='PENDING_REVIEW')::int AS pending,
+// Missing-evidence counts need only source identity and payment mode.
+// Parent joins used to display names are redundant here: foreign keys guarantee
+// those parents exist. Do not scan source types with no required evidence rules.
+function summarySources(types) {
+  const mode = expression => `,${expression} AS "paymentMode"`;
+  const parts = [];
+  for (const type of types) {
+    if (type === 'EXPENSE') parts.push(`SELECT 'EXPENSE'::text AS "sourceType", id AS "sourceId"${mode('"fundMode"')} FROM "Expense"`);
+    else if (['CUSTOMER_PAYMENT', 'REFUND'].includes(type)) parts.push(`SELECT '${type}', id${mode('"paymentMode"')} FROM "CustomerPayment" WHERE status ${type === 'REFUND' ? '=' : '<>'} 'REFUND_DISBURSED'`);
+    else if (type === 'LAND_PAYOUT') parts.push(`SELECT 'LAND_PAYOUT',id${mode('"paymentMode"')} FROM "PropertyPayment"`);
+    else if (type === 'PROPERTY') parts.push(`SELECT 'PROPERTY',id${mode("'N/A'::text")} FROM "PropertyAcquisition"`);
+    else {
+      const condition = type === 'BANK_INFLOW' ? `w."referenceType"='BANK_STATEMENT'`
+        : type === 'WALLET_ALLOCATION' ? `w."referenceType" IS DISTINCT FROM 'BANK_STATEMENT' AND w.type IN ('FUND_ALLOCATION','FUND_TRANSFER')`
+          : `w."referenceType" IS DISTINCT FROM 'BANK_STATEMENT' AND w.type IN ('ADJUSTMENT','EXPENSE_REVERSAL')`;
+      parts.push(`SELECT '${type}',w.id${mode(`COALESCE((SELECT "paymentMode" FROM "GlobalBankReference" WHERE "sourceRecordId"=w.id ORDER BY "createdAt" DESC LIMIT 1),w."fundMode")`)} FROM "WalletTransaction" w WHERE ${condition}`);
+    }
+  }
+  // Explicit column aliases are necessary when EXPENSE is not permitted.
+  return Prisma.sql`SELECT * FROM (${Prisma.raw(parts.join(' UNION ALL '))}) source("sourceType","sourceId","paymentMode")`;
+}
+function summaryQueries(actor) {
+  filters(actor, {}, true); // Validate review capability and module access.
+  const types = allowedSources(actor);
+  // Drive this count from existing documents. Joining every financial source to
+  // a small document set can sort/scan the entire payment table. PK existence
+  // checks preserve orphan/type exclusion without that full-table union.
+  const exists = types.map(type => {
+    let table, condition = '';
+    if (type === 'EXPENSE') table = 'Expense';
+    else if (['CUSTOMER_PAYMENT', 'REFUND'].includes(type)) {
+      table = 'CustomerPayment'; condition = ` AND p.status ${type === 'REFUND' ? '=' : '<>'} 'REFUND_DISBURSED'`;
+    } else if (type === 'LAND_PAYOUT') table = 'PropertyPayment';
+    else if (type === 'PROPERTY') table = 'PropertyAcquisition';
+    else {
+      table = 'WalletTransaction';
+      condition = type === 'BANK_INFLOW' ? ` AND p."referenceType"='BANK_STATEMENT'`
+        : type === 'WALLET_ALLOCATION' ? ` AND p."referenceType" IS DISTINCT FROM 'BANK_STATEMENT' AND p.type IN ('FUND_ALLOCATION','FUND_TRANSFER')`
+          : ` AND p."referenceType" IS DISTINCT FROM 'BANK_STATEMENT' AND p.type IN ('ADJUSTMENT','EXPENSE_REVERSAL')`;
+    }
+    return Prisma.sql`(d."sourceType"=${type} AND EXISTS (SELECT 1 FROM ${Prisma.raw(`"${table}"`)} p WHERE p.id=d."sourceId" ${Prisma.raw(condition)}))`;
+  });
+  const counts = Prisma.sql`SELECT count(*) FILTER (WHERE d.status='PENDING_REVIEW')::int AS pending,
   count(*) FILTER (WHERE d.status='REJECTED')::int AS rejected,
-  count(*) FILTER (WHERE d.status='VERIFIED' AND d."verifiedAt">=date_trunc('day',now() AT TIME ZONE 'Asia/Kolkata') AT TIME ZONE 'Asia/Kolkata')::int AS "verifiedToday"
-  FROM "TransactionDocument" d JOIN (${SOURCES}) s ON s."sourceType"=d."sourceType" AND s."sourceId"=d."sourceId" WHERE ${where}`;
-  const sourceWhere = filters(actor, {}, false);
-  const [missing] = await db.$queryRaw`SELECT count(*)::int AS missing FROM (${SOURCES}) s WHERE ${sourceWhere} AND (${missingCondition()})`;
-  return { ...counts, ...missing, highValueThreshold: process.env.DOCUMENT_HIGH_VALUE_THRESHOLD || null };
+  count(*) FILTER (WHERE d.status='VERIFIED' AND d."verifiedAt">=(date_trunc('day',now() AT TIME ZONE 'Asia/Kolkata') AT TIME ZONE 'Asia/Kolkata') AT TIME ZONE 'UTC')::int AS "verifiedToday"
+  FROM "TransactionDocument" d WHERE d.status IN ('PENDING_REVIEW','REJECTED','VERIFIED')
+    AND (${Prisma.join(exists, ' OR ')})
+    ${A.has(actor, 'document.sensitive') ? Prisma.empty : Prisma.sql`AND d."documentType" NOT IN ('CHEQUE_FRONT','CHEQUE_BACK')`}`;
+  const requiredTypes = types.filter(type => ['CASH', 'CHEQUE', 'BANK'].some(mode => P.requiredGroups(type, mode).length));
+  const missing = requiredTypes.length
+    ? Prisma.sql`SELECT count(*)::int AS missing FROM (${summarySources(requiredTypes)}) s WHERE ${missingCondition()}`
+    : Prisma.sql`SELECT 0::int AS missing`;
+  return { counts, missing };
+}
+async function summary(actor) {
+  // Check current permissions before looking in the cache; never key by role alone.
+  filters(actor, {}, true);
+  const policyKey = [process.env.DOCUMENT_EXPENSE_RECEIPT_REQUIRED, process.env.DOCUMENT_BANK_PROOF_REQUIRED,
+    process.env.DOCUMENT_CHEQUE_FRONT_REQUIRED, process.env.DOCUMENT_HIGH_VALUE_THRESHOLD];
+  const day = new Date(Date.now() + 19800000).toISOString().slice(0, 10);
+  const key = JSON.stringify(['documents', allowedSources(actor), A.has(actor, 'document.sensitive'), policyKey, day]);
+  return require('../../utils/summaryCache').rememberSummary(key, async () => {
+    const queries = summaryQueries(actor);
+    const [[counts], [missing]] = await Promise.all([db.$queryRaw(queries.counts), db.$queryRaw(queries.missing)]);
+    return { ...counts, ...missing, highValueThreshold: process.env.DOCUMENT_HIGH_VALUE_THRESHOLD || null };
+  });
 }
 async function journalSource(actor, id) {
   if (!A.has(actor, 'accounting.view')) throw P.fail(403, 'Accounting access is required.');
@@ -131,4 +188,4 @@ async function journalSource(actor, id) {
   try { return { source: await A.resolveSource(db, actor, type, sourceId) }; }
   catch (error) { if (error.statusCode === 404 || error.statusCode === 400) return { source: null }; throw error; }
 }
-module.exports = { queue, transactions, summary, journalSource, SOURCES };
+module.exports = { queue, transactions, summary, journalSource, SOURCES, summaryQueries, missingCondition };

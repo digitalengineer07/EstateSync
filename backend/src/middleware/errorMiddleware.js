@@ -4,8 +4,14 @@
  * while returning clean, normalized JSON responses.
  */
 
+const { isDatabaseUnavailable, DATABASE_UNAVAILABLE_MESSAGE } = require('../utils/databaseConnection');
 exports.errorHandler = (err, req, res, next) => {
   if (res.headersSent) return next(err);
+  if (isDatabaseUnavailable(err)) {
+    console.error('[Database unavailable]:', { code: err.code || err.errorCode, path: req.originalUrl });
+    res.setHeader('Retry-After', '5');
+    return res.status(503).json({ success: false, code: 'DATABASE_UNAVAILABLE', message: DATABASE_UNAVAILABLE_MESSAGE });
+  }
   // Always log internal error details for server-side debugging
   console.error('[Application Error]:', {
     message: err.message,

@@ -362,6 +362,8 @@ model Customer {
   ledgerEntries      CustomerLedgerEntry[]
   createdAt          DateTime              @default(now())
   updatedAt          DateTime              @updatedAt
+  @@index([createdAt(sort: Desc), id(sort: Desc)])
+  @@index([salesOwnerId, createdAt(sort: Desc), id(sort: Desc)])
 }
 
 model CustomerPayment {
@@ -379,6 +381,7 @@ model CustomerPayment {
   status             String              @default("RECORDED") // RECORDED, REVERSED
   allocations        PaymentAllocation[]
   createdAt          DateTime            @default(now())
+  @@index([customerId, dateOfPayment(sort: Desc)])
 }
 
 // -------------------------------------------------------------
@@ -1083,3 +1086,9 @@ model OperationalNote {
 
 
 
+
+// Shared invalidation revision for presentation-only summary caches.
+model SummaryRevision {
+  id Int @id
+  revision BigInt @default(0)
+}

@@ -1,0 +1,212 @@
+{
+  "startedAt": "2026-10-05T15:36:23.614Z",
+  "finishedAt": "2026-10-05T15:45:51.921Z",
+  "dataset": {
+    "workloadRows": 10000,
+    "customers": 1000,
+    "journals": 1000,
+    "journalLines": 2000,
+    "notes": 2000,
+    "auditLogs": 4000,
+    "additionalFixtureRows": true,
+    "seedSeconds": 0.484,
+    "databaseBytes": "13850291"
+  },
+  "requestedUsers": 1000,
+  "authenticated": 1000,
+  "peakActive": 1000,
+  "peakInFlight": 808,
+  "total": 30383,
+  "failures": 0,
+  "rateLimited": 0,
+  "elapsedSeconds": 568.3050374000001,
+  "requestsPerSecond": 53.46248581396086,
+  "passed": false,
+  "stopReason": null,
+  "workflowError": null,
+  "stages": [
+    {
+      "target": 10,
+      "activeAtEnd": 10,
+      "requests": 272,
+      "failures": 0,
+      "seconds": 90.12177239999998
+    },
+    {
+      "target": 50,
+      "activeAtEnd": 50,
+      "requests": 1365,
+      "failures": 0,
+      "seconds": 90.60119379999999
+    },
+    {
+      "target": 100,
+      "activeAtEnd": 100,
+      "requests": 2775,
+      "failures": 0,
+      "seconds": 90.3164589
+    },
+    {
+      "target": 250,
+      "activeAtEnd": 250,
+      "requests": 6402,
+      "failures": 0,
+      "seconds": 91.75259480000003
+    },
+    {
+      "target": 500,
+      "activeAtEnd": 500,
+      "requests": 8797,
+      "failures": 0,
+      "seconds": 96.40345520000002
+    },
+    {
+      "target": 1000,
+      "activeAtEnd": 1000,
+      "requests": 10004,
+      "failures": 0,
+      "seconds": 102.83667259999999
+    }
+  ],
+  "summary": [
+    {
+      "route": "/auth/login",
+      "requests": 1000,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 2645,
+      "totalMs": 4962138.179799993,
+      "meanMs": 4962,
+      "p95Ms": 10719,
+      "p99Ms": 11612
+    },
+    {
+      "route": "/customers?page=1&limit=25",
+      "requests": 2901,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 976070,
+      "totalMs": 7016760.8862999985,
+      "meanMs": 2419,
+      "p95Ms": 6892,
+      "p99Ms": 8342
+    },
+    {
+      "route": "/customers/load-c-1",
+      "requests": 2911,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 991,
+      "totalMs": 6504929.675399995,
+      "meanMs": 2235,
+      "p95Ms": 6799,
+      "p99Ms": 8228
+    },
+    {
+      "route": "/accounts",
+      "requests": 2913,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 6924,
+      "totalMs": 8623928.929300003,
+      "meanMs": 2960,
+      "p95Ms": 8888,
+      "p99Ms": 10465
+    },
+    {
+      "route": "/journals?page=1&limit=25",
+      "requests": 2908,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 80974,
+      "totalMs": 6503470.87369999,
+      "meanMs": 2236,
+      "p95Ms": 6865,
+      "p99Ms": 8107
+    },
+    {
+      "route": "/audit?limit=25",
+      "requests": 2908,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 14312,
+      "totalMs": 6290809.628699997,
+      "meanMs": 2163,
+      "p95Ms": 6630,
+      "p99Ms": 8036
+    },
+    {
+      "route": "/notes?page=1&limit=25",
+      "requests": 2935,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 9021,
+      "totalMs": 6448493.187100001,
+      "meanMs": 2197,
+      "p95Ms": 6652,
+      "p99Ms": 8079
+    },
+    {
+      "route": "/notes/stats",
+      "requests": 2950,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 160,
+      "totalMs": 6448242.41580001,
+      "meanMs": 2186,
+      "p95Ms": 6660,
+      "p99Ms": 8094
+    },
+    {
+      "route": "/search?q=load",
+      "requests": 2966,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 1132,
+      "totalMs": 6487313.105099997,
+      "meanMs": 2187,
+      "p95Ms": 6559,
+      "p99Ms": 7998
+    },
+    {
+      "route": "/documents/summary",
+      "requests": 3002,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 98,
+      "totalMs": 11091089.342499997,
+      "meanMs": 3695,
+      "p95Ms": 10726,
+      "p99Ms": 12956
+    },
+    {
+      "route": "/dashboard/admin",
+      "requests": 2989,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 648,
+      "totalMs": 19410963.68670001,
+      "meanMs": 6494,
+      "p95Ms": 19314,
+      "p99Ms": 21090
+    }
+  ],
+  "limitations": [
+    "Local client/server/database share hardware. Not production capacity.",
+    "Read-heavy ADMIN workload only. Distinct accounts and sessions; synthetic proxy client IPs.",
+    "Reads validate status/content type/size, not JSON semantics; functional suite runs first.",
+    "Rate limits stay enabled. Timeouts may leave server-side queries running.",
+    "No 1000-user financial-write or browser-rendering test."
+  ]
+}

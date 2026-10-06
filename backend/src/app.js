@@ -77,8 +77,9 @@ app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 // Input sanitization against Prototype Pollution & parameter injection
 app.use('/api/v1', require('./middleware/inputValidation').validateInput);
 
-// Hardened Session Management
-app.use(session({
+// Refresh-token sessions are used only by auth routes. Business APIs validate
+// bearer tokens/current DB permissions and must not load or touch this session.
+app.use('/api/v1/auth', session({
   name: 'estatesync_sid',
   secret: process.env.SESSION_SECRET || process.env.JWT_SECRET || 'supersecretjwtkey',
   resave: false,
@@ -187,6 +188,7 @@ const listenTarget = isPassenger ? 'passenger' : PORT;
 let server;
 async function startServer() {
   await require('./utils/securitySchema').ensureSecuritySchema();
+  await require('./utils/summarySchema').ensureSummarySchema();
   await require('./utils/accountingHelper').ensureStandardAccounts();
   server = app.listen(listenTarget, async () => {
     console.log(`Server running on ${listenTarget}`);

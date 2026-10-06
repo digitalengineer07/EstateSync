@@ -27,6 +27,7 @@ async function attached(color) {
   return db.transactionDocument.findUnique({ where: { storageKey: (await db.documentUpload.findUnique({ where: { id: u.id } })).storageKey } });
 }
 before(async () => {
+  await require('../src/utils/summarySchema').ensureSummarySchema();
   for (const role of ['ADMIN', 'ACCOUNTING', 'MANAGER', 'SALES', 'MARKETING', 'OTHER']) {
     const r = await db.role.create({ data: { name: role } });
     users[role] = await db.user.create({ data: { email: `${role.toLowerCase()}@documents.test`, name: role, passwordHash: 'test-only-not-a-login', roleId: r.id, wallet: { create: { availableBalanceCash: 1000, availableBalanceLiquid: 1000 } } }, include: { wallet: true } });
@@ -293,4 +294,28 @@ test('source lists paginate retained versions without losing policy coverage', a
   assert.equal(first.documents.length, 50); assert.equal(first.total, 51); assert.equal(second.documents.length, 1);
   assert.equal(first.state, 'DOCUMENT_PENDING'); // Required receipt is on the second page.
   assert.equal(second.documents[0].documentType, 'EXPENSE_RECEIPT');
+});
+
+
+test('summary cache invalidates on document changes and separates module/sensitive scopes', async () => {
+  const before = await R.summary(actors.ADMIN);
+  const d = await attached('#b01234');
+  const pending = await R.summary(actors.ADMIN);
+  assert.equal(pending.pending, before.pending + 1);
+  await S.transition(actors.ADMIN, d.id, 'verify');
+  const verified = await R.summary(actors.ADMIN);
+  assert.equal(verified.pending, pending.pending - 1);
+  assert.equal(verified.verifiedToday, pending.verifiedToday + 1);
+  const limited = { role: 'ACCOUNTING', permissions: ['document.review', 'customer.view_all'] };
+  const queries = R.summaryQueries(limited);
+  const [[expected], [missing]] = await Promise.all([db.$queryRaw(queries.counts), db.$queryRaw(queries.missing)]);
+  assert.deepEqual(await R.summary(limited), { ...expected, ...missing, highValueThreshold: process.env.DOCUMENT_HIGH_VALUE_THRESHOLD || null });
+  assert.ok((await R.summary(limited)).pending < verified.pending);
+  const withoutSensitive = await R.summary(limited);
+  const sensitive = { ...limited, permissions: [...limited.permissions, 'document.sensitive'] };
+  const withSensitive = await R.summary(sensitive);
+  const cheque = await stage('CUSTOMER_PAYMENT', 'CHEQUE_FRONT', '#b05678');
+  await db.$transaction(tx => S.attach(tx, actors.ADMIN, 'CUSTOMER_PAYMENT', payment.id, [cheque.id]));
+  assert.equal((await R.summary(limited)).pending, withoutSensitive.pending);
+  assert.equal((await R.summary(sensitive)).pending, withSensitive.pending + 1);
 });

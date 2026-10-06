@@ -1,0 +1,44 @@
+
+> frontend@0.1.0 build
+> next build --webpack
+
+▲ Next.js 16.3.8 (webpack)
+- Environments: .env.local
+✓ Running next.config.mjs took 38ms
+- Experiments (use with caution):
+  · cpus: 1
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 15.7s
+  Running TypeScript ...
+  Finished TypeScript in 6.0s ...
+  Collecting page data using 1 worker ...
+  Generating static pages using 1 worker (0/14) ...
+  Generating static pages using 1 worker (3/14) 
+  Generating static pages using 1 worker (6/14) 
+  Generating static pages using 1 worker (10/14) 
+✓ Generating static pages using 1 worker (14/14) in 870ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/[...path]
+├ ○ /dashboards/accounting
+├ ○ /dashboards/admin
+├ ○ /dashboards/documents
+├ ○ /dashboards/employees
+├ ƒ /dashboards/employees/[id]
+├ ○ /dashboards/manager
+├ ○ /dashboards/wallet
+├ ○ /icon.svg
+├ ○ /login
+├ ○ /privacy
+├ ○ /support
+└ ○ /terms
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

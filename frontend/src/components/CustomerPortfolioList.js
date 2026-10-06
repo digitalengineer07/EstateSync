@@ -2,7 +2,7 @@
 import { fetchWithTimeout } from "@/utils/http";
 
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import CustomerRegistrationModal from "./CustomerRegistrationModal";
 import CustomerEditModal from "./CustomerEditModal";
 import RecordCustomerPaymentModal from "./RecordCustomerPaymentModal";
@@ -14,6 +14,14 @@ import { API_URL } from "@/config/api";
 export default function CustomerPortfolioList({ mode = "sales", userRole = "SALES" }) {
   const [customers, setCustomers] = useState([]);
   const [summary, setSummary] = useState(null);
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState(null);
+  const [query, setQuery] = useState('');
+  const [error, setError] = useState('');
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [highlightedCustomer, setHighlightedCustomer] = useState(null);
+  const listRequest = useRef(0);
+  const detailRequest = useRef(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("ACTIVE");
@@ -68,49 +76,84 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
     }
   }, []);
 
-  const fetchCustomers = async () => {
-    setLoading(true);
+  const fetchDetail = async (id) => {
+    const token = sessionStorage.getItem('accessToken');
+    const res = await fetchWithTimeout(API_URL + '/api/v1/customers/' + encodeURIComponent(id), {
+      headers: { Authorization: 'Bearer ' + token }
+    });
+    const data = await res.json();
+    if (!res.ok || !data.success) throw Error(data.message || 'Could not load customer details');
+    return data.customer;
+  };
+
+  const openDetail = async (customer, setter) => {
+    const request = ++detailRequest.current;
+    setDetailLoading(true);
+    setError('');
     try {
-      const token = sessionStorage.getItem("accessToken");
-      const res = await fetchWithTimeout(`${API_URL}/api/v1/customers`, {
-        headers: { "Authorization": `Bearer ${token}` }
+      const full = await fetchDetail(customer.id);
+      if (request === detailRequest.current) setter(full);
+    } catch (err) {
+      if (request === detailRequest.current) setError(err.message);
+    } finally {
+      if (request === detailRequest.current) setDetailLoading(false);
+    }
+  };
+
+  const fetchCustomers = async () => {
+    const request = ++listRequest.current;
+    setLoading(true);
+    setError('');
+    try {
+      const token = sessionStorage.getItem('accessToken');
+      const params = new URLSearchParams({ page: String(page), limit: '25', search: query, status: statusFilter });
+      const res = await fetchWithTimeout(API_URL + '/api/v1/customers?' + params, {
+        headers: { Authorization: 'Bearer ' + token }
       });
       const data = await res.json();
-      if (data.success) {
-        setCustomers(data.customers || []);
-        setSummary(data.summary || null);
-
-        // If statement is currently open, keep it updated with latest data
-        if (statementCustomer) {
-          const fresh = (data.customers || []).find(c => c.id === statementCustomer.id);
-          if (fresh) setStatementCustomer(fresh);
-        }
+      if (!res.ok || !data.success) throw Error(data.message || 'Could not load customers');
+      if (request !== listRequest.current) return;
+      if (page > Math.max(1, data.pagination.totalPages)) {
+        setPage(Math.max(1, data.pagination.totalPages));
+        return;
       }
+      setCustomers(data.customers || []);
+      setSummary(data.summary || null);
+      setPagination(data.pagination);
     } catch (err) {
-      console.error("Failed to fetch customer portfolio:", err);
+      if (request === listRequest.current) setError(err.message);
     } finally {
-      setLoading(false);
+      if (request === listRequest.current) setLoading(false);
     }
   };
 
   useEffect(() => {
+    if (search === query) return;
+    const timer = setTimeout(() => { setQuery(search); setPage(1); }, 300);
+    return () => clearTimeout(timer);
+  }, [search, query]);
+
+  useEffect(() => {
     fetchCustomers();
-  }, []);
+    return () => { listRequest.current++; };
+  }, [page, query, statusFilter]);
+
+  // Search links may point outside the current page. Resolve that single record
+  // through the authorized detail endpoint rather than loading the whole list.
+  useEffect(() => {
+    let active = true;
+    setHighlightedCustomer(null);
+    if (highlightedId) fetchDetail(highlightedId).then(customer => {
+      if (active) setHighlightedCustomer(customer);
+    }).catch(err => { if (active) setError(err.message); });
+    return () => { active = false; };
+  }, [highlightedId]);
+
+  useEffect(() => () => { detailRequest.current++; }, []);
 
   // Smooth scroll and focus on highlighted customer record
   useEffect(() => {
-    if (!highlightedId || loading || customers.length === 0) return;
-
-    // Ensure matched customer isn't hidden by statusFilter or search
-    const matched = customers.find((c) => c.id === highlightedId);
-    if (matched) {
-      if (statusFilter !== "ALL" && matched.status !== statusFilter) {
-        setStatusFilter("ALL");
-      }
-      if (search && !matched.customerName?.toLowerCase().includes(search.toLowerCase())) {
-        setSearch("");
-      }
-    }
+    if (!highlightedId || loading || !highlightedCustomer) return;
 
     const scrollToCustomer = () => {
       const el = document.getElementById(`customer-${highlightedId}`);
@@ -157,15 +200,16 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
       clearTimeout(t3);
       clearTimeout(fadeTimer);
     };
-  }, [highlightedId, loading, customers]);
+  }, [highlightedId, highlightedCustomer, loading, customers]);
 
-  const handleOpenPayment = (customer) => {
-    setSelectedCustomerForPayment(customer);
+  const handleOpenPayment = customer => openDetail(customer, full => {
+    setSelectedCustomerForPayment(full);
     setIsPaymentOpen(true);
-  };
-
-  const handleOpenEdit = (customer) => {
-    setEditCustomer(customer);
+  });
+  const handleOpenEdit = customer => openDetail(customer, setEditCustomer);
+  const handleOpenStatement = customer => openDetail(customer, setStatementCustomer);
+  const refreshStatement = () => {
+    if (statementCustomer) openDetail(statementCustomer, setStatementCustomer);
   };
 
   const handleCustomerUpdated = (updatedCust) => {
@@ -174,18 +218,11 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
       setStatementCustomer(prev => ({ ...prev, ...updatedCust }));
     }
     fetchCustomers();
+    refreshStatement();
   };
 
-  const filteredCustomers = customers.filter(c => {
-    if (highlightedId && c.id === highlightedId) return true;
-    const matchesSearch = 
-      c.customerName?.toLowerCase().includes(search.toLowerCase()) ||
-      c.plotNo?.toLowerCase().includes(search.toLowerCase()) ||
-      c.projectLocation?.toLowerCase().includes(search.toLowerCase()) ||
-      c.khataNo?.toLowerCase().includes(search.toLowerCase());
-    const matchesStatus = statusFilter === "ALL" || c.status === statusFilter;
-    return matchesSearch && matchesStatus;
-  });
+  const filteredCustomers = highlightedCustomer && !customers.some(c => c.id === highlightedCustomer.id)
+    ? [highlightedCustomer, ...customers] : customers;
 
   const canRecordPayment = ["ACCOUNTING", "ADMIN"].includes(userRole);
   const canRegisterCustomer = ["SALES", "ADMIN", "MARKETING", "MANAGER"].includes(userRole);
@@ -356,7 +393,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
           <label className="text-xs font-semibold text-slate-500">Status:</label>
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
+            onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
             className="text-xs border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-600 bg-white font-medium text-slate-700 transition"
           >
             <option value="ALL">All Statuses</option>
@@ -366,6 +403,8 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
         </div>
       </div>
 
+      {error && <p role="alert" className="mb-3 text-sm text-red-700">{error}</p>}
+      {detailLoading && <p role="status" className="mb-3 text-sm text-slate-500">Loading customer details...</p>}
       {/* Data Table */}
       {loading ? (
         <div className="py-12 text-center text-slate-400 text-xs">Loading customer portfolio...</div>
@@ -404,7 +443,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                   <tr 
                     key={cust.id} 
                     id={`customer-${cust.id}`}
-                    onClick={() => setStatementCustomer(cust)}
+                    onClick={() => handleOpenStatement(cust)}
                     className={`cursor-pointer transition-all duration-700 group border-l-4 ${
                       highlightedId === cust.id
                         ? "bg-[#fff3ea] border-l-[#ff6b12]"
@@ -482,12 +521,12 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
                       )}
 
                       <button
-                        onClick={() => setStatementCustomer(cust)}
+                        onClick={() => handleOpenStatement(cust)}
                         className="px-2.5 py-1 text-[11px] font-semibold text-orange-700 bg-orange-50 hover:bg-orange-100 rounded-md transition inline-flex items-center gap-1 border border-orange-100"
                         title="View Full Customer Statement & Excel Ledger"
                       >
                         <FileSpreadsheet className="w-3.5 h-3.5" />
-                        <span>Statement ({cust.payments?.length || 0})</span>
+                        <span>Statement ({cust._count?.payments ?? cust.payments?.length ?? 0})</span>
                       </button>
 
                       {canRecordPayment && cust.status === 'ACTIVE' && due > 0 && (
@@ -501,7 +540,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
 
                       {canRecordPayment && cust.status === 'CANCELLED' && cust.cancellationStatus === 'PENDING_SETTLEMENT' && (
                         <button
-                          onClick={() => setSettlementCustomer(cust)}
+                          onClick={() => openDetail(cust, setSettlementCustomer)}
                           className="px-3 py-1 text-[11px] font-bold text-white bg-orange-600 hover:bg-orange-700 rounded-md shadow-xs transition active:scale-95 inline-flex items-center gap-1"
                           title="Settle Customer Cancellation Refund & Costing"
                         >
@@ -517,11 +556,21 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
         </div>
       )}
 
+      {pagination && (
+        <nav aria-label="Customer pages" className="mt-4 flex items-center justify-between gap-3 text-xs text-slate-600">
+          <span>{pagination.total} customers · Page {page} of {Math.max(1, pagination.totalPages)}</span>
+          <div className="flex gap-2">
+            <button disabled={loading || page <= 1} onClick={() => setPage(p => p - 1)} className="rounded-lg border px-3 py-2 disabled:opacity-40">Previous</button>
+            <button disabled={loading || !pagination.hasNextPage} onClick={() => setPage(p => p + 1)} className="rounded-lg border px-3 py-2 disabled:opacity-40">Next</button>
+          </div>
+        </nav>
+      )}
+
       {/* Full Customer Statement Modal (Excel Sheet Layout) */}
       <CustomerStatementModal
         isOpen={!!statementCustomer}
         customer={statementCustomer}
-        onClose={() => setStatementCustomer(null)}
+        onClose={() => { detailRequest.current++; setDetailLoading(false); setStatementCustomer(null); }}
         onOpenPayment={handleOpenPayment}
         onOpenEdit={handleOpenEdit}
         onCustomerUpdated={handleCustomerUpdated}
@@ -551,6 +600,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
           onClose={() => setSettlementCustomer(null)}
           onSettled={(updatedCustomer) => {
             fetchCustomers();
+            refreshStatement();
             if (statementCustomer && statementCustomer.id === updatedCustomer.id) {
               setStatementCustomer(updatedCustomer);
             }
@@ -568,6 +618,7 @@ export default function CustomerPortfolioList({ mode = "sales", userRole = "SALE
         }}
         onPaymentRecorded={(paymentResult) => {
           fetchCustomers();
+          refreshStatement();
           if (statementCustomer && paymentResult?.customer && statementCustomer.id === paymentResult.customer.id) {
             setStatementCustomer(prev => ({
               ...prev,

@@ -31,6 +31,7 @@ async function requestJson(method, path, body, token, extraHeaders = {}) {
   }
 
   const response = await fetch(`${BASE_URL}${path}`, {
+    signal: AbortSignal.timeout(30000),
     method,
     headers,
     body: body === undefined ? undefined : JSON.stringify(body)

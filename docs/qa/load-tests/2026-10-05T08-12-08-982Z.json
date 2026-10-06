@@ -1,0 +1,727 @@
+{
+  "startedAt": "2026-10-05T08:12:08.982Z",
+  "finishedAt": "2026-10-05T08:12:17.455Z",
+  "concurrency": 1,
+  "dataset": {
+    "workloadRows": 10000,
+    "customers": 1000,
+    "journals": 1000,
+    "journalLines": 2000,
+    "notes": 2000,
+    "auditLogs": 4000,
+    "additionalFixtureRows": true,
+    "seedSeconds": 0.392,
+    "databaseBytes": "13713935"
+  },
+  "requestedRounds": 2,
+  "passed": true,
+  "workflowError": null,
+  "thresholds": {
+    "unexpectedFailures": 0,
+    "p95Ms": 2000
+  },
+  "summary": [
+    {
+      "route": "/auth/login",
+      "requests": 1,
+      "failures": 0,
+      "p95Ms": 252,
+      "maxBytes": 2627
+    },
+    {
+      "route": "/dashboard/admin",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 21,
+      "maxBytes": 646
+    },
+    {
+      "route": "/dashboard/accounting",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 21,
+      "maxBytes": 646
+    },
+    {
+      "route": "/dashboard/manager",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 17,
+      "maxBytes": 423
+    },
+    {
+      "route": "/dashboard/wallet",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 13,
+      "maxBytes": 313
+    },
+    {
+      "route": "/customers?page=1&limit=25",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 118,
+      "maxBytes": 976070
+    },
+    {
+      "route": "/customers/load-c-1",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 15,
+      "maxBytes": 991
+    },
+    {
+      "route": "/properties?page=1&limit=25",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 13,
+      "maxBytes": 1256
+    },
+    {
+      "route": "/accounts",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 32,
+      "maxBytes": 6924
+    },
+    {
+      "route": "/journals?page=1&limit=25",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 22,
+      "maxBytes": 80974
+    },
+    {
+      "route": "/audit?page=1&limit=25",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 15,
+      "maxBytes": 14727
+    },
+    {
+      "route": "/transactions/all?page=1&limit=25",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 13,
+      "maxBytes": 6506
+    },
+    {
+      "route": "/treasury/inflows",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 17,
+      "maxBytes": 1704
+    },
+    {
+      "route": "/treasury/cashflow",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 15,
+      "maxBytes": 5061
+    },
+    {
+      "route": "/expenses/categories",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 12,
+      "maxBytes": 679
+    },
+    {
+      "route": "/expenses/all",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 11,
+      "maxBytes": 2807
+    },
+    {
+      "route": "/fund-requests/all",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 11,
+      "maxBytes": 30
+    },
+    {
+      "route": "/users/all",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 12,
+      "maxBytes": 4749
+    },
+    {
+      "route": "/employees?page=1&limit=25",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 42,
+      "maxBytes": 91
+    },
+    {
+      "route": "/employees/salary/summary",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 25,
+      "maxBytes": 241
+    },
+    {
+      "route": "/accounting/periods",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 20,
+      "maxBytes": 14653
+    },
+    {
+      "route": "/billing/plans",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 14,
+      "maxBytes": 26
+    },
+    {
+      "route": "/billing/demands",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 18,
+      "maxBytes": 26
+    },
+    {
+      "route": "/billing/customers/load-c-1/statement",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 19,
+      "maxBytes": 367
+    },
+    {
+      "route": "/billing/aging",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 14,
+      "maxBytes": 190
+    },
+    {
+      "route": "/billing/reconciliation",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 26,
+      "maxBytes": 575
+    },
+    {
+      "route": "/notes?page=1&limit=25",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 18,
+      "maxBytes": 9021
+    },
+    {
+      "route": "/notes/stats",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 11,
+      "maxBytes": 160
+    },
+    {
+      "route": "/notifications",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 20,
+      "maxBytes": 2837
+    },
+    {
+      "route": "/search?q=load",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 150,
+      "maxBytes": 1132
+    },
+    {
+      "route": "/documents/summary",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 49,
+      "maxBytes": 98
+    },
+    {
+      "route": "/documents/review?page=1",
+      "requests": 2,
+      "failures": 0,
+      "p95Ms": 20,
+      "maxBytes": 7424
+    },
+    {
+      "route": "/auth/refresh",
+      "requests": 1,
+      "failures": 0,
+      "p95Ms": 16,
+      "maxBytes": 1754
+    },
+    {
+      "route": "/auth/logout",
+      "requests": 1,
+      "failures": 0,
+      "p95Ms": 9,
+      "maxBytes": 52
+    }
+  ],
+  "samples": [
+    {
+      "route": "/auth/login",
+      "status": 200,
+      "bytes": 2627,
+      "ms": 252.1193999999996,
+      "ok": true
+    },
+    {
+      "route": "/dashboard/admin",
+      "status": 200,
+      "bytes": 646,
+      "ms": 20.538300000000163,
+      "ok": true
+    },
+    {
+      "route": "/dashboard/accounting",
+      "status": 200,
+      "bytes": 646,
+      "ms": 20.903999999998632,
+      "ok": true
+    },
+    {
+      "route": "/dashboard/manager",
+      "status": 200,
+      "bytes": 423,
+      "ms": 15.852799999996932,
+      "ok": true
+    },
+    {
+      "route": "/dashboard/wallet",
+      "status": 200,
+      "bytes": 313,
+      "ms": 13.451000000000931,
+      "ok": true
+    },
+    {
+      "route": "/customers?page=1&limit=25",
+      "status": 200,
+      "bytes": 976070,
+      "ms": 118.08030000000144,
+      "ok": true
+    },
+    {
+      "route": "/customers/load-c-1",
+      "status": 200,
+      "bytes": 991,
+      "ms": 12.529399999999441,
+      "ok": true
+    },
+    {
+      "route": "/properties?page=1&limit=25",
+      "status": 200,
+      "bytes": 1256,
+      "ms": 12.96849999999904,
+      "ok": true
+    },
+    {
+      "route": "/accounts",
+      "status": 200,
+      "bytes": 6924,
+      "ms": 32.410900000002584,
+      "ok": true
+    },
+    {
+      "route": "/journals?page=1&limit=25",
+      "status": 200,
+      "bytes": 80974,
+      "ms": 20.00460000000021,
+      "ok": true
+    },
+    {
+      "route": "/audit?page=1&limit=25",
+      "status": 200,
+      "bytes": 14727,
+      "ms": 15.072100000001228,
+      "ok": true
+    },
+    {
+      "route": "/transactions/all?page=1&limit=25",
+      "status": 200,
+      "bytes": 6506,
+      "ms": 13.395199999999022,
+      "ok": true
+    },
+    {
+      "route": "/treasury/inflows",
+      "status": 200,
+      "bytes": 1704,
+      "ms": 16.630300000000716,
+      "ok": true
+    },
+    {
+      "route": "/treasury/cashflow",
+      "status": 200,
+      "bytes": 5061,
+      "ms": 15.448499999998603,
+      "ok": true
+    },
+    {
+      "route": "/expenses/categories",
+      "status": 200,
+      "bytes": 679,
+      "ms": 9.730200000001787,
+      "ok": true
+    },
+    {
+      "route": "/expenses/all",
+      "status": 200,
+      "bytes": 2807,
+      "ms": 11.078199999999924,
+      "ok": true
+    },
+    {
+      "route": "/fund-requests/all",
+      "status": 200,
+      "bytes": 30,
+      "ms": 11.125200000002224,
+      "ok": true
+    },
+    {
+      "route": "/users/all",
+      "status": 200,
+      "bytes": 4749,
+      "ms": 11.63799999999901,
+      "ok": true
+    },
+    {
+      "route": "/employees?page=1&limit=25",
+      "status": 200,
+      "bytes": 91,
+      "ms": 42.12319999999818,
+      "ok": true
+    },
+    {
+      "route": "/employees/salary/summary",
+      "status": 200,
+      "bytes": 241,
+      "ms": 23.810199999999895,
+      "ok": true
+    },
+    {
+      "route": "/accounting/periods",
+      "status": 200,
+      "bytes": 14653,
+      "ms": 20.392899999998917,
+      "ok": true
+    },
+    {
+      "route": "/billing/plans",
+      "status": 200,
+      "bytes": 26,
+      "ms": 14.115499999999884,
+      "ok": true
+    },
+    {
+      "route": "/billing/demands",
+      "status": 200,
+      "bytes": 26,
+      "ms": 13.768700000000536,
+      "ok": true
+    },
+    {
+      "route": "/billing/customers/load-c-1/statement",
+      "status": 200,
+      "bytes": 367,
+      "ms": 16.03780000000188,
+      "ok": true
+    },
+    {
+      "route": "/billing/aging",
+      "status": 200,
+      "bytes": 190,
+      "ms": 14.174900000001799,
+      "ok": true
+    },
+    {
+      "route": "/billing/reconciliation",
+      "status": 200,
+      "bytes": 575,
+      "ms": 26.300999999999476,
+      "ok": true
+    },
+    {
+      "route": "/notes?page=1&limit=25",
+      "status": 200,
+      "bytes": 9021,
+      "ms": 17.522499999999127,
+      "ok": true
+    },
+    {
+      "route": "/notes/stats",
+      "status": 200,
+      "bytes": 160,
+      "ms": 10.967699999997421,
+      "ok": true
+    },
+    {
+      "route": "/notifications",
+      "status": 200,
+      "bytes": 2837,
+      "ms": 18.03389999999854,
+      "ok": true
+    },
+    {
+      "route": "/search?q=load",
+      "status": 200,
+      "bytes": 1132,
+      "ms": 150.29639999999927,
+      "ok": true
+    },
+    {
+      "route": "/documents/summary",
+      "status": 200,
+      "bytes": 98,
+      "ms": 49.48639999999796,
+      "ok": true
+    },
+    {
+      "route": "/documents/review?page=1",
+      "status": 200,
+      "bytes": 7424,
+      "ms": 19.545099999999366,
+      "ok": true
+    },
+    {
+      "route": "/auth/refresh",
+      "status": 200,
+      "bytes": 1754,
+      "ms": 16.45720000000074,
+      "ok": true
+    },
+    {
+      "route": "/dashboard/admin",
+      "status": 200,
+      "bytes": 646,
+      "ms": 20.470100000002276,
+      "ok": true
+    },
+    {
+      "route": "/dashboard/accounting",
+      "status": 200,
+      "bytes": 646,
+      "ms": 17.449000000000524,
+      "ok": true
+    },
+    {
+      "route": "/dashboard/manager",
+      "status": 200,
+      "bytes": 423,
+      "ms": 16.858799999998155,
+      "ok": true
+    },
+    {
+      "route": "/dashboard/wallet",
+      "status": 200,
+      "bytes": 313,
+      "ms": 12.950699999997596,
+      "ok": true
+    },
+    {
+      "route": "/customers?page=1&limit=25",
+      "status": 200,
+      "bytes": 976070,
+      "ms": 92.14789999999994,
+      "ok": true
+    },
+    {
+      "route": "/customers/load-c-1",
+      "status": 200,
+      "bytes": 991,
+      "ms": 14.937900000000809,
+      "ok": true
+    },
+    {
+      "route": "/properties?page=1&limit=25",
+      "status": 200,
+      "bytes": 1256,
+      "ms": 9.959599999998318,
+      "ok": true
+    },
+    {
+      "route": "/accounts",
+      "status": 200,
+      "bytes": 6924,
+      "ms": 31.973399999998946,
+      "ok": true
+    },
+    {
+      "route": "/journals?page=1&limit=25",
+      "status": 200,
+      "bytes": 80974,
+      "ms": 22.136900000001333,
+      "ok": true
+    },
+    {
+      "route": "/audit?page=1&limit=25",
+      "status": 200,
+      "bytes": 14727,
+      "ms": 13.262699999999313,
+      "ok": true
+    },
+    {
+      "route": "/transactions/all?page=1&limit=25",
+      "status": 200,
+      "bytes": 6506,
+      "ms": 13.10570000000007,
+      "ok": true
+    },
+    {
+      "route": "/treasury/inflows",
+      "status": 200,
+      "bytes": 1704,
+      "ms": 11.97309999999925,
+      "ok": true
+    },
+    {
+      "route": "/treasury/cashflow",
+      "status": 200,
+      "bytes": 5061,
+      "ms": 12.305799999998271,
+      "ok": true
+    },
+    {
+      "route": "/expenses/categories",
+      "status": 200,
+      "bytes": 679,
+      "ms": 11.812699999998586,
+      "ok": true
+    },
+    {
+      "route": "/expenses/all",
+      "status": 200,
+      "bytes": 2807,
+      "ms": 11.480400000000373,
+      "ok": true
+    },
+    {
+      "route": "/fund-requests/all",
+      "status": 200,
+      "bytes": 30,
+      "ms": 9.522000000000844,
+      "ok": true
+    },
+    {
+      "route": "/users/all",
+      "status": 200,
+      "bytes": 4749,
+      "ms": 11.054400000000896,
+      "ok": true
+    },
+    {
+      "route": "/employees?page=1&limit=25",
+      "status": 200,
+      "bytes": 91,
+      "ms": 19.685099999998783,
+      "ok": true
+    },
+    {
+      "route": "/employees/salary/summary",
+      "status": 200,
+      "bytes": 241,
+      "ms": 25.079000000001543,
+      "ok": true
+    },
+    {
+      "route": "/accounting/periods",
+      "status": 200,
+      "bytes": 14653,
+      "ms": 18.017899999998917,
+      "ok": true
+    },
+    {
+      "route": "/billing/plans",
+      "status": 200,
+      "bytes": 26,
+      "ms": 12.678099999997357,
+      "ok": true
+    },
+    {
+      "route": "/billing/demands",
+      "status": 200,
+      "bytes": 26,
+      "ms": 17.55779999999868,
+      "ok": true
+    },
+    {
+      "route": "/billing/customers/load-c-1/statement",
+      "status": 200,
+      "bytes": 367,
+      "ms": 18.659100000000763,
+      "ok": true
+    },
+    {
+      "route": "/billing/aging",
+      "status": 200,
+      "bytes": 190,
+      "ms": 11.638899999998102,
+      "ok": true
+    },
+    {
+      "route": "/billing/reconciliation",
+      "status": 200,
+      "bytes": 575,
+      "ms": 25.753100000001723,
+      "ok": true
+    },
+    {
+      "route": "/notes?page=1&limit=25",
+      "status": 200,
+      "bytes": 9021,
+      "ms": 17.23910000000251,
+      "ok": true
+    },
+    {
+      "route": "/notes/stats",
+      "status": 200,
+      "bytes": 160,
+      "ms": 10.239600000000792,
+      "ok": true
+    },
+    {
+      "route": "/notifications",
+      "status": 200,
+      "bytes": 2837,
+      "ms": 20.105200000001787,
+      "ok": true
+    },
+    {
+      "route": "/search?q=load",
+      "status": 200,
+      "bytes": 1132,
+      "ms": 19.459999999999127,
+      "ok": true
+    },
+    {
+      "route": "/documents/summary",
+      "status": 200,
+      "bytes": 98,
+      "ms": 38.85520000000179,
+      "ok": true
+    },
+    {
+      "route": "/documents/review?page=1",
+      "status": 200,
+      "bytes": 7424,
+      "ms": 18.598799999999756,
+      "ok": true
+    },
+    {
+      "route": "/auth/logout",
+      "status": 200,
+      "bytes": 52,
+      "ms": 8.729699999999866,
+      "ok": true
+    }
+  ],
+  "limitations": [
+    "Local host capacity, not production hosting capacity.",
+    "Synthetic rows are not ten million complete business transactions.",
+    "Existing workflows cover several roles sequentially; reads use one admin session.",
+    "No exhaustive role matrix, browser rendering, external storage or payroll workflow coverage.",
+    "Large responses and timeouts are failures, not successful throughput."
+  ]
+}

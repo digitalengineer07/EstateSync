@@ -1,3 +1,4 @@
+const { replyIfDatabaseUnavailable } = require('../utils/databaseConnection');
 const prisma = require('../config/db');
 const { getPrimaryTreasuryWallet } = require('../utils/treasuryHelper');
 
@@ -51,6 +52,7 @@ exports.getWalletStats = async (req, res) => {
       }
     });
   } catch (error) {
+    if (replyIfDatabaseUnavailable(error, res)) return;
     console.error('Error fetching wallet stats:', error);
     res.status(500).json({ success: false, message: 'Server error fetching wallet stats' });
   }
@@ -159,20 +161,18 @@ exports.getManagerStats = async (req, res) => {
       }
     });
   } catch (error) {
+    if (replyIfDatabaseUnavailable(error, res)) return;
     console.error('Error fetching manager stats:', error);
     res.status(500).json({ success: false, message: 'Server error fetching manager stats' });
   }
 };
 
-exports.getAdminStats = async (req, res) => {
-  try {
-    // 1. Get Unified Single Source of Truth Corporate Treasury Wallet
-    const treasuryWallet = await getPrimaryTreasuryWallet();
-    const treasuryBalanceLiquid = parseFloat(treasuryWallet.availableBalanceLiquid || 0);
-    const treasuryBalanceCash = parseFloat(treasuryWallet.availableBalanceCash || 0);
-
-    // 2. Sum of operational funds allocated to staff & managers (excluding Admin)
-    const teamWallets = await prisma.wallet.aggregate({
+async function organizationSummary() {
+  // Independent reads share one refresh. Enqueue them together so a busy pool
+  // does not impose a separate queue wait for every sequential aggregate.
+  const [treasuryWallet, teamWallets, allExpenses, customerAgg, propertyAgg, pendingRequests, userCount] = await Promise.all([
+    getPrimaryTreasuryWallet(),
+    prisma.wallet.aggregate({
       where: {
         user: { role: { name: { not: 'ADMIN' } } }
       },
@@ -185,17 +185,15 @@ exports.getAdminStats = async (req, res) => {
         totalSpentCash: true
       },
       _count: { id: true }
-    });
-
-    const allExpenses = await prisma.expense.aggregate({
+    }),
+    prisma.expense.aggregate({
       where: { status: 'RECORDED' },
       _sum: {
         amount: true
       },
       _count: { id: true }
-    });
-
-    const customerAgg = await prisma.customer.aggregate({
+    }),
+    prisma.customer.aggregate({
       where: { status: { not: 'CANCELLED' } },
       _sum: {
         totalContractValue: true,
@@ -204,9 +202,8 @@ exports.getAdminStats = async (req, res) => {
         refundAmount: true
       },
       _count: { id: true }
-    });
-
-    const propertyAgg = await prisma.propertyAcquisition.aggregate({
+    }),
+    prisma.propertyAcquisition.aggregate({
       where: { status: { not: 'CANCELLED' } },
       _sum: {
         totalLandValue: true,
@@ -214,158 +211,63 @@ exports.getAdminStats = async (req, res) => {
         balanceRemaining: true
       },
       _count: { id: true }
-    });
-
-    const pendingRequests = await prisma.fundRequest.aggregate({
+    }),
+    prisma.fundRequest.aggregate({
       where: { status: 'PENDING' },
       _sum: { amount: true },
       _count: { id: true }
-    });
+    }),
+    prisma.user.count()
+  ]);
+  const treasuryBalanceLiquid = parseFloat(treasuryWallet.availableBalanceLiquid || 0);
+  const treasuryBalanceCash = parseFloat(treasuryWallet.availableBalanceCash || 0);
 
-    const userCount = await prisma.user.count();
-    const totalAllocatedLiquid = Number(teamWallets._sum.totalAllocatedLiquid || 0);
-    const totalAllocatedCash = Number(teamWallets._sum.totalAllocatedCash || 0);
-    const totalAllocated = totalAllocatedLiquid + totalAllocatedCash;
-    const totalSpentLiquid = Number(teamWallets._sum.totalSpentLiquid || 0);
-    const totalSpentCash = Number(teamWallets._sum.totalSpentCash || 0);
-    const totalSpent = totalSpentLiquid + totalSpentCash;
-    const utilizationRate = totalAllocated > 0 ? ((totalSpent / totalAllocated) * 100).toFixed(1) : '0.0';
+  const totalAllocatedLiquid = Number(teamWallets._sum.totalAllocatedLiquid || 0);
+  const totalAllocatedCash = Number(teamWallets._sum.totalAllocatedCash || 0);
+  const totalAllocated = totalAllocatedLiquid + totalAllocatedCash;
+  const totalSpentLiquid = Number(teamWallets._sum.totalSpentLiquid || 0);
+  const totalSpentCash = Number(teamWallets._sum.totalSpentCash || 0);
+  const totalSpent = totalSpentLiquid + totalSpentCash;
+  const utilizationRate = totalAllocated > 0 ? ((totalSpent / totalAllocated) * 100).toFixed(1) : '0.0';
 
-    res.json({
-      success: true,
-      stats: {
-        totalOrganizationalFundsLiquid: treasuryBalanceLiquid,
-        totalOrganizationalFundsCash: treasuryBalanceCash,
-        totalAllocatedLiquid,
-        totalAllocatedCash,
-        totalTeamBalanceLiquid: parseFloat(teamWallets._sum.availableBalanceLiquid || 0),
-        totalTeamBalanceCash: parseFloat(teamWallets._sum.availableBalanceCash || 0),
-        totalSpentLiquid,
-        totalSpentCash,
-        totalRecordedExpenses: Number(allExpenses._sum.amount || 0),
-        totalExpenses: Number(allExpenses._sum.amount || 0),
-        expenseCount: allExpenses._count.id || 0,
-        totalWallets: teamWallets._count.id || 0,
-        activeUsers: userCount,
-        pendingRequestsAmount: Number(pendingRequests._sum.amount || 0),
-        pendingRequestsCount: pendingRequests._count.id || 0,
-        budgetUtilization: `${utilizationRate}%`,
-        totalCustomers: customerAgg._count.id || 0,
-        totalCustomerContracts: Number(customerAgg._sum.totalContractValue || 0),
-        totalCustomerCollections: Number(customerAgg._sum.totalPaid || 0) - Number(customerAgg._sum.refundAmount || 0),
-        totalCustomerReceivables: Number(customerAgg._sum.balanceDue || 0),
-        totalProperties: propertyAgg._count.id || 0,
-        totalLandValuation: Number(propertyAgg._sum.totalLandValue || 0),
-        totalLandPayouts: Number(propertyAgg._sum.totalPaidToOwner || 0),
-        totalLandLiabilities: Number(propertyAgg._sum.balanceRemaining || 0)
-      }
-    });
-  } catch (error) {
-    console.error('Error fetching admin stats:', error);
-    res.status(500).json({ success: false, message: 'Server error fetching admin stats' });
-  }
-};
-
-exports.getAccountingStats = async (req, res) => {
+  return {
+    success: true,
+    stats: {
+      totalOrganizationalFundsLiquid: treasuryBalanceLiquid,
+      totalOrganizationalFundsCash: treasuryBalanceCash,
+      totalAllocatedLiquid,
+      totalAllocatedCash,
+      totalTeamBalanceLiquid: parseFloat(teamWallets._sum.availableBalanceLiquid || 0),
+      totalTeamBalanceCash: parseFloat(teamWallets._sum.availableBalanceCash || 0),
+      totalSpentLiquid,
+      totalSpentCash,
+      totalRecordedExpenses: Number(allExpenses._sum.amount || 0),
+      totalExpenses: Number(allExpenses._sum.amount || 0),
+      expenseCount: allExpenses._count.id || 0,
+      totalWallets: teamWallets._count.id || 0,
+      activeUsers: userCount,
+      pendingRequestsAmount: Number(pendingRequests._sum.amount || 0),
+      pendingRequestsCount: pendingRequests._count.id || 0,
+      budgetUtilization: `${utilizationRate}%`,
+      totalCustomers: customerAgg._count.id || 0,
+      totalCustomerContracts: Number(customerAgg._sum.totalContractValue || 0),
+      totalCustomerCollections: Number(customerAgg._sum.totalPaid || 0) - Number(customerAgg._sum.refundAmount || 0),
+      totalCustomerReceivables: Number(customerAgg._sum.balanceDue || 0),
+      totalProperties: propertyAgg._count.id || 0,
+      totalLandValuation: Number(propertyAgg._sum.totalLandValue || 0),
+      totalLandPayouts: Number(propertyAgg._sum.totalPaidToOwner || 0),
+      totalLandLiabilities: Number(propertyAgg._sum.balanceRemaining || 0)
+    }
+  };
+}
+async function getOrganizationStats(req, res) {
   try {
-    const treasuryWallet = await getPrimaryTreasuryWallet();
-    const treasuryBalanceLiquid = parseFloat(treasuryWallet.availableBalanceLiquid || 0);
-    const treasuryBalanceCash = parseFloat(treasuryWallet.availableBalanceCash || 0);
-
-    const teamWallets = await prisma.wallet.aggregate({
-      where: {
-        user: { role: { name: { not: 'ADMIN' } } }
-      },
-      _sum: {
-        totalAllocatedLiquid: true,
-        totalAllocatedCash: true,
-        availableBalanceLiquid: true,
-        availableBalanceCash: true,
-        totalSpentLiquid: true,
-        totalSpentCash: true
-      },
-      _count: {
-        id: true
-      }
-    });
-
-    const allExpenses = await prisma.expense.aggregate({
-      where: { status: 'RECORDED' },
-      _sum: {
-        amount: true
-      },
-      _count: {
-        id: true
-      }
-    });
-
-    const customerAgg = await prisma.customer.aggregate({
-      where: { status: { not: 'CANCELLED' } },
-      _sum: {
-        totalContractValue: true,
-        totalPaid: true,
-        balanceDue: true,
-        refundAmount: true
-      },
-      _count: { id: true }
-    });
-
-    const propertyAgg = await prisma.propertyAcquisition.aggregate({
-      where: { status: { not: 'CANCELLED' } },
-      _sum: {
-        totalLandValue: true,
-        totalPaidToOwner: true,
-        balanceRemaining: true
-      },
-      _count: { id: true }
-    });
-
-    const pendingRequests = await prisma.fundRequest.aggregate({
-      where: { status: 'PENDING' },
-      _sum: { amount: true },
-      _count: { id: true }
-    });
-
-    const userCount = await prisma.user.count();
-    const totalAllocatedLiquid = Number(teamWallets._sum.totalAllocatedLiquid || 0);
-    const totalAllocatedCash = Number(teamWallets._sum.totalAllocatedCash || 0);
-    const totalAllocated = totalAllocatedLiquid + totalAllocatedCash;
-    const totalSpentLiquid = Number(teamWallets._sum.totalSpentLiquid || 0);
-    const totalSpentCash = Number(teamWallets._sum.totalSpentCash || 0);
-    const totalSpent = totalSpentLiquid + totalSpentCash;
-    const utilizationRate = totalAllocated > 0 ? ((totalSpent / totalAllocated) * 100).toFixed(1) : '0.0';
-
-    res.json({
-      success: true,
-      stats: {
-        totalOrganizationalFundsLiquid: treasuryBalanceLiquid,
-        totalOrganizationalFundsCash: treasuryBalanceCash,
-        totalAllocatedLiquid,
-        totalAllocatedCash,
-        totalTeamBalanceLiquid: parseFloat(teamWallets._sum.availableBalanceLiquid || 0),
-        totalTeamBalanceCash: parseFloat(teamWallets._sum.availableBalanceCash || 0),
-        totalSpentLiquid,
-        totalSpentCash,
-        totalRecordedExpenses: Number(allExpenses._sum.amount || 0),
-        totalExpenses: Number(allExpenses._sum.amount || 0),
-        expenseCount: allExpenses._count.id || 0,
-        totalWallets: teamWallets._count.id || 0,
-        activeUsers: userCount,
-        pendingRequestsAmount: Number(pendingRequests._sum.amount || 0),
-        pendingRequestsCount: pendingRequests._count.id || 0,
-        budgetUtilization: `${utilizationRate}%`,
-        totalCustomers: customerAgg._count.id || 0,
-        totalCustomerContracts: Number(customerAgg._sum.totalContractValue || 0),
-        totalCustomerCollections: Number(customerAgg._sum.totalPaid || 0) - Number(customerAgg._sum.refundAmount || 0),
-        totalCustomerReceivables: Number(customerAgg._sum.balanceDue || 0),
-        totalProperties: propertyAgg._count.id || 0,
-        totalLandValuation: Number(propertyAgg._sum.totalLandValue || 0),
-        totalLandPayouts: Number(propertyAgg._sum.totalPaidToOwner || 0),
-        totalLandLiabilities: Number(propertyAgg._sum.balanceRemaining || 0)
-      }
-    });
+    res.json(await require('../utils/summaryCache').rememberSummary('dashboard:organization', organizationSummary));
   } catch (error) {
-    console.error('Error fetching accounting stats:', error);
-    res.status(500).json({ success: false, message: 'Server error fetching accounting stats' });
+    if (replyIfDatabaseUnavailable(error, res)) return;
+    console.error('Error fetching organization stats:', error);
+    res.status(500).json({ success: false, message: 'Server error fetching dashboard stats' });
   }
-};
+}
+exports.getAdminStats = getOrganizationStats;
+exports.getAccountingStats = getOrganizationStats;

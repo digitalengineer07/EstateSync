@@ -1,0 +1,505 @@
+Additive document migration applied to isolated PostgreSQL successfully.
+TAP version 13
+# Subtest: HTTP upload uses authenticated raw bytes, rejects missing auth and invalid MIME
+ok 1 - HTTP upload uses authenticated raw bytes, rejects missing auth and invalid MIME
+  ---
+  duration_ms: 810.393
+  ...
+# Subtest: upload-only user can read submission policy but not another transaction
+ok 2 - upload-only user can read submission policy but not another transaction
+  ---
+  duration_ms: 42.8838
+  ...
+# Subtest: upload replay is actor-scoped and content-bound including concurrent identical retries
+ok 3 - upload replay is actor-scoped and content-bound including concurrent identical retries
+  ---
+  duration_ms: 124.1494
+  ...
+# Subtest: source-specific access rejects another user expense and cross-module IDs
+ok 4 - source-specific access rejects another user expense and cross-module IDs
+  ---
+  duration_ms: 161.3834
+  ...
+# Subtest: invalid source and nonexistent identifiers fail safely
+ok 5 - invalid source and nonexistent identifiers fail safely
+  ---
+  duration_ms: 47.34
+  ...
+# Subtest: attaches receipts and rejects duplicate hashes without altering financial balances
+ok 6 - attaches receipts and rejects duplicate hashes without altering financial balances
+  ---
+  duration_ms: 157.9498
+  ...
+# Subtest: private preview and download reject foreign users; authorized bytes match SHA-256
+ok 7 - private preview and download reject foreign users; authorized bytes match SHA-256
+  ---
+  duration_ms: 148.1027
+  ...
+# Subtest: every non-financial role is denied verify/reject/review
+ok 8 - every non-financial role is denied verify/reject/review
+  ---
+  duration_ms: 197.9216
+  ...
+# Subtest: rejection requires reason; replacement preserves rejected fields, lineage and audit
+ok 9 - rejection requires reason; replacement preserves rejected fields, lineage and audit
+  ---
+  duration_ms: 190.1321
+  ...
+# Subtest: parallel verification has exactly one winner
+ok 10 - parallel verification has exactly one winner
+  ---
+  duration_ms: 72.4287
+  ...
+# Subtest: parallel replacement has one successor and keeps original evidence
+ok 11 - parallel replacement has one successor and keeps original evidence
+  ---
+  duration_ms: 142.5143
+  ...
+# Subtest: cannot steal, reuse, expire or cross-link staged uploads
+ok 12 - cannot steal, reuse, expire or cross-link staged uploads
+  ---
+  duration_ms: 62.0935
+  ...
+# Subtest: all existing financial source adapters link evidence
+ok 13 - all existing financial source adapters link evidence
+  ---
+  duration_ms: 309.8395
+  ...
+# Subtest: required receipt failure rolls back the existing expense wallet mutation
+ok 14 - required receipt failure rolls back the existing expense wallet mutation
+  ---
+  duration_ms: 36.3645
+  ...
+# Subtest: successful expense posts a balanced journal and links evidence atomically
+ok 15 - successful expense posts a balanced journal and links evidence atomically
+  ---
+  duration_ms: 300.3516
+  ...
+# Error creating expense: {
+#   status: 400,
+#   code: 'ACCOUNTING_PERIOD_CLOSED',
+#   message: 'Cannot post journal entry: Accounting Period "2026-10" is CLOSED. Postings to closed periods are strictly prohibited.'
+# }
+# Subtest: closed accounting periods roll back document claims, wallet changes and expenses
+ok 16 - closed accounting periods roll back document claims, wallet changes and expenses
+  ---
+  duration_ms: 83.8142
+  ...
+# Subtest: customer payment links proof and preserves the global duplicate UTR control
+ok 17 - customer payment links proof and preserves the global duplicate UTR control
+  ---
+  duration_ms: 151.3833
+  ...
+# Subtest: bank inflow commits evidence with the existing treasury posting
+ok 18 - bank inflow commits evidence with the existing treasury posting
+  ---
+  duration_ms: 149.3222
+  ...
+# Subtest: one staged upload cannot be consumed concurrently by two transactions
+ok 19 - one staged upload cannot be consumed concurrently by two transactions
+  ---
+  duration_ms: 62.6164
+  ...
+# Subtest: landowner payout and cancellation refund use their existing financial controllers
+ok 20 - landowner payout and cancellation refund use their existing financial controllers
+  ---
+  duration_ms: 349.975
+  ...
+# Audit Log Error: Error: Injected audit outage
+#     at Object.create (D:\\devoxa technologies\\EstateSync\\backend\\test\\documents.integration.test.js:239:82)
+#     at logAudit (D:\\devoxa technologies\\EstateSync\\backend\\src\\utils\\auditLogger.js:22:30)
+#     at audit (D:\\devoxa technologies\\EstateSync\\backend\\src\\services\\documents\\service.js:18:24)
+#     at Object.attach (D:\\devoxa technologies\\EstateSync\\backend\\src\\services\\documents\\service.js:98:11)
+#     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+#     at async Proxy._transactionWithCallback (D:\\devoxa technologies\\EstateSync\\backend\\node_modules\\@prisma\\client\\runtime\\binary.js:191:8009)
+#     at async waitForActual (node:assert:875:5)
+#     at async Function.rejects (node:assert:996:25)
+#     at async TestContext.<anonymous> (D:\\devoxa technologies\\EstateSync\\backend\\test\\documents.integration.test.js:238:3)
+#     at async Test.run (node:internal/test_runner/test:980:9)
+# Subtest: audit failure rolls back evidence and upload consumption
+ok 21 - audit failure rolls back evidence and upload consumption
+  ---
+  duration_ms: 110.9409
+  ...
+# Subtest: cheque evidence is visible only to financial staff and expired tokens fail
+ok 22 - cheque evidence is visible only to financial staff and expired tokens fail
+  ---
+  duration_ms: 269.7614
+  ...
+# Subtest: exceptions require a reason and financial review with an audit
+ok 23 - exceptions require a reason and financial review with an audit
+  ---
+  duration_ms: 184.4344
+  ...
+# Subtest: review queue filters, missing detection, paging, UTR and SQL injection safety
+ok 24 - review queue filters, missing detection, paging, UTR and SQL injection safety
+  ---
+  duration_ms: 154.9415
+  ...
+# Subtest: live permission revocation invalidates a previously issued token
+ok 25 - live permission revocation invalidates a previously issued token
+  ---
+  duration_ms: 23.3812
+  ...
+# Subtest: archival keeps evidence and historical access; integrity failure is closed
+ok 26 - archival keeps evidence and historical access; integrity failure is closed
+  ---
+  duration_ms: 198.1161
+  ...
+# Subtest: verification fails closed when pending evidence has been tampered with
+ok 27 - verification fails closed when pending evidence has been tampered with
+  ---
+  duration_ms: 126.1631
+  ...
+# Subtest: source lists paginate retained versions without losing policy coverage
+ok 28 - source lists paginate retained versions without losing policy coverage
+  ---
+  duration_ms: 3345.7912
+  ...
+# Subtest: summary cache invalidates on document changes and separates module/sensitive scopes
+ok 29 - summary cache invalidates on document changes and separates module/sensitive scopes
+  ---
+  duration_ms: 84.0292
+  ...
+# Subtest: accepts valid PNG and computes a deterministic SHA-256
+ok 30 - accepts valid PNG and computes a deterministic SHA-256
+  ---
+  duration_ms: 42.9069
+  ...
+# Subtest: accepts fully decoded jpeg evidence
+ok 31 - accepts fully decoded jpeg evidence
+  ---
+  duration_ms: 17.9357
+  ...
+# Subtest: accepts fully decoded webp evidence
+ok 32 - accepts fully decoded webp evidence
+  ---
+  duration_ms: 17.4543
+  ...
+# Subtest: mandatory scanner configuration fails closed when unavailable
+ok 33 - mandatory scanner configuration fails closed when unavailable
+  ---
+  duration_ms: 2.9162
+  ...
+# Subtest: Passenger production uploads fail closed without a scanner
+ok 34 - Passenger production uploads fail closed without a scanner
+  ---
+  duration_ms: 1.8214
+  ...
+# Subtest: ClamAV INSTREAM scans bytes and rejects malware or scanner errors
+ok 35 - ClamAV INSTREAM scans bytes and rejects malware or scanner errors
+  ---
+  duration_ms: 60.0923
+  ...
+# Subtest: rejects invalid filename/type "bill.exe"
+ok 36 - rejects invalid filename/type "bill.exe"
+  ---
+  duration_ms: 3.6119
+  ...
+# Subtest: rejects invalid filename/type "bill.svg"
+ok 37 - rejects invalid filename/type "bill.svg"
+  ---
+  duration_ms: 2.8526
+  ...
+# Subtest: rejects invalid filename/type "bill.png"
+ok 38 - rejects invalid filename/type "bill.png"
+  ---
+  duration_ms: 1.6211
+  ...
+# Subtest: rejects invalid filename/type "../bill.png"
+ok 39 - rejects invalid filename/type "../bill.png"
+  ---
+  duration_ms: 1.9079
+  ...
+# Subtest: rejects invalid filename/type "bill\\n.png"
+ok 40 - rejects invalid filename/type "bill\\n.png"
+  ---
+  duration_ms: 1.7031
+  ...
+# Subtest: rejects empty files
+ok 41 - rejects empty files
+  ---
+  duration_ms: 0.3405
+  ...
+# Subtest: rejects size overflow
+ok 42 - rejects size overflow
+  ---
+  duration_ms: 0.2473
+  ...
+# Subtest: rejects MIME spoofing
+ok 43 - rejects MIME spoofing
+  ---
+  duration_ms: 0.2142
+  ...
+# Subtest: rejects truncated image with valid magic bytes
+ok 44 - rejects truncated image with valid magic bytes
+  ---
+  duration_ms: 3.8329
+  ...
+# Subtest: accepts parsed PDF and rejects corrupt PDF
+ok 45 - accepts parsed PDF and rejects corrupt PDF
+  ---
+  duration_ms: 18.6148
+  ...
+# Subtest: rejects active actions inside nested PDF dictionaries
+ok 46 - rejects active actions inside nested PDF dictionaries
+  ---
+  duration_ms: 4.3902
+  ...
+# Subtest: source policy EXPENSE rejects unrelated document type
+ok 47 - source policy EXPENSE rejects unrelated document type
+  ---
+  duration_ms: 0.4159
+  ...
+# Subtest: source policy CUSTOMER_PAYMENT rejects unrelated document type
+ok 48 - source policy CUSTOMER_PAYMENT rejects unrelated document type
+  ---
+  duration_ms: 0.1555
+  ...
+# Subtest: source policy BANK_INFLOW rejects unrelated document type
+ok 49 - source policy BANK_INFLOW rejects unrelated document type
+  ---
+  duration_ms: 0.1329
+  ...
+# Subtest: source policy LAND_PAYOUT rejects unrelated document type
+ok 50 - source policy LAND_PAYOUT rejects unrelated document type
+  ---
+  duration_ms: 0.0856
+  ...
+# Subtest: source policy REFUND rejects unrelated document type
+ok 51 - source policy REFUND rejects unrelated document type
+  ---
+  duration_ms: 0.0884
+  ...
+# Subtest: source policy WALLET_ALLOCATION rejects unrelated document type
+ok 52 - source policy WALLET_ALLOCATION rejects unrelated document type
+  ---
+  duration_ms: 0.0754
+  ...
+# Subtest: source policy PROPERTY rejects unrelated document type
+ok 53 - source policy PROPERTY rejects unrelated document type
+  ---
+  duration_ms: 0.0776
+  ...
+# Subtest: rejects invalid source type, inherited keys and IDs
+ok 54 - rejects invalid source type, inherited keys and IDs
+  ---
+  duration_ms: 0.3176
+  ...
+# Subtest: expense policy requires receipt by default, is configurable, and payment policies share central rules
+ok 55 - expense policy requires receipt by default, is configurable, and payment policies share central rules
+  ---
+  duration_ms: 0.4546
+  ...
+# Subtest: missing, pending, verified, rejected, replacement and exception states
+ok 56 - missing, pending, verified, rejected, replacement and exception states
+  ---
+  duration_ms: 0.3308
+  ...
+# Subtest: receipt exceptions cannot waive separate bank proof requirements
+ok 57 - receipt exceptions cannot waive separate bank proof requirements
+  ---
+  duration_ms: 0.3569
+  ...
+# Subtest: SALES cannot review or access cheque documents even if granted a review permission
+ok 58 - SALES cannot review or access cheque documents even if granted a review permission
+  ---
+  duration_ms: 0.4602
+  ...
+# Subtest: MARKETING cannot review or access cheque documents even if granted a review permission
+ok 59 - MARKETING cannot review or access cheque documents even if granted a review permission
+  ---
+  duration_ms: 0.4672
+  ...
+# Subtest: MANAGER cannot review or access cheque documents even if granted a review permission
+ok 60 - MANAGER cannot review or access cheque documents even if granted a review permission
+  ---
+  duration_ms: 0.142
+  ...
+# Subtest: OTHER cannot review or access cheque documents even if granted a review permission
+ok 61 - OTHER cannot review or access cheque documents even if granted a review permission
+  ---
+  duration_ms: 0.1033
+  ...
+# Subtest: private provider rejects traversal, stores exact bytes with opaque keys
+ok 62 - private provider rejects traversal, stores exact bytes with opaque keys
+  ---
+  duration_ms: 16.5302
+  ...
+# Subtest: private S3 provider stores, retrieves, lists and removes exact bytes without public URLs
+ok 63 - private S3 provider stores, retrieves, lists and removes exact bytes without public URLs
+  ---
+  duration_ms: 7.1886
+  ...
+# Subtest: private S3 provider paginates and fails closed on storage errors
+ok 64 - private S3 provider paginates and fails closed on storage errors
+  ---
+  duration_ms: 1.9819
+  ...
+1..64
+# tests 64
+# suites 0
+# pass 64
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8706.8378
+Dataset: 50000/100000 rows
+Dataset: 100000/100000 rows
+◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+┌────────────────────────────┬──────────┬─────────┐
+│ (index)                    │ beforeMs │ afterMs │
+├────────────────────────────┼──────────┼─────────┤
+│ customerOld                │ 5.69     │ 2.47    │
+│ customerPage               │ 7.579    │ 0.049   │
+│ customerOwnerPage          │ 6.409    │ 0.04    │
+│ paymentCount               │ 6.74     │ 0.085   │
+│ paymentDetail              │ 7.659    │ 0.069   │
+│ dashboardCustomerAggregate │ 4.901    │ 3.898   │
+│ documentCounts             │ 168.534  │ 164.305 │
+│ documentMissing            │ 0.427    │ 0.156   │
+│ documentOldMissing         │ 9.071    │ 9.184   │
+│ actualCustomerQuery0       │ 0.039    │ 0.025   │
+│ actualCustomerQuery1       │ 3.937    │ 6.21    │
+│ actualCustomerQuery2       │ 1.532    │ 1.323   │
+│ actualCustomerQuery3       │ 6.836    │ 0.042   │
+│ actualCustomerQuery4       │ 0.168    │ 0.019   │
+│ actualCustomerQuery5       │ 6.884    │ 0.466   │
+└────────────────────────────┴──────────┴─────────┘
+PASS read optimization checks. Page bytes: 14103 Report: D:\devoxa technologies\EstateSync\docs\qa\load-tests\read-optimization-1791227192974.json
+EstateSync GitHub Actions validation suite: 48K4JG
+API base URL: http://127.0.0.1:52689
+PASS login admin@estatesync.local -> HTTP 200
+PASS login accounting@estatesync.local -> HTTP 200
+PASS login sales@estatesync.local -> HTTP 200
+PASS login manager@estatesync.local -> HTTP 200
+PASS seed treasury inflow for payment and allocation tests -> HTTP 201
+PASS block duplicate treasury inflow UTR -> HTTP 400
+
+Customer creation validation
+PASS reject customer with missing compulsory field -> HTTP 400
+PASS reject customer with alphabetic numeric field -> HTTP 400
+PASS reject customer with negative commercial value -> HTTP 400
+PASS reject customer with zero area -> HTTP 400
+PASS create valid customer -> HTTP 201
+PASS reject duplicate customer plot and khata -> HTTP 400
+PASS reject customer form entry with special characters in required numeric field -> HTTP 400
+
+Land acquisition validation
+PASS reject property with missing land owner contact -> HTTP 400
+PASS reject property with alphabetic total land value -> HTTP 400
+PASS reject property with negative total land value -> HTTP 400
+PASS reject property with special character numeric value -> HTTP 400
+PASS create valid property acquisition -> HTTP 201
+PASS reject duplicate land acquisition plot and khata -> HTTP 400
+
+Payment function validation
+PASS accept customer payment less than payable amount -> HTTP 201
+PASS reject customer negative payment amount -> HTTP 400
+PASS reject customer zero payment amount -> HTTP 400
+PASS reject customer alphabetic payment amount -> HTTP 400
+PASS reject customer special character payment amount -> HTTP 400
+PASS reject customer payment greater than payable amount -> HTTP 400
+PASS reject customer payment without payment mode -> HTTP 400
+PASS accept property payout less than payable amount -> HTTP 201
+PASS reject property negative payment amount -> HTTP 400
+PASS reject property zero payment amount -> HTTP 400
+PASS reject property alphabetic payment amount -> HTTP 400
+PASS reject property special character payment amount -> HTTP 400
+PASS reject property payment greater than payable amount -> HTTP 400
+PASS reject property payout without payment mode -> HTTP 400
+PASS reject property payout reusing customer UTR -> HTTP 400
+
+Expense validation
+PASS fetch expense categories -> HTTP 200
+PASS allocate funds for expense test -> HTTP 200
+PASS accept valid expense -> HTTP 201
+PASS reject expense missing description -> HTTP 400
+PASS reject expense negative amount -> HTTP 400
+PASS reject expense alphabetic amount -> HTTP 400
+PASS reject expense special character amount -> HTTP 400
+PASS reject expense over wallet balance -> HTTP 400
+PASS reject expense with invalid category id -> HTTP 400
+
+Fund request validation
+PASS reject fund request missing manager -> HTTP 400
+PASS reject fund request negative amount -> HTTP 400
+PASS reject fund request alphabetic amount -> HTTP 400
+PASS reject fund request special character amount -> HTTP 400
+PASS accept valid fund request -> HTTP 201
+
+ALL CI VALIDATION TESTS PASSED
+
+Cleaning up CI validation data
+Ramp to 50 users over 30s, hold 60s
+Active users 17/1000, in-flight 0, requests 49, failures 0, 429 0
+Active users 33/1000, in-flight 1, requests 157, failures 0, 429 0
+Active users 50/1000, in-flight 1, requests 321, failures 0, 429 0
+Active users 50/1000, in-flight 0, requests 478, failures 0, 429 0
+Active users 50/1000, in-flight 0, requests 644, failures 0, 429 0
+Active users 50/1000, in-flight 5, requests 804, failures 0, 429 0
+Active users 50/1000, in-flight 0, requests 976, failures 0, 429 0
+Active users 50/1000, in-flight 0, requests 1142, failures 0, 429 0
+Active users 50/1000, in-flight 0, requests 1309, failures 0, 429 0
+STAGE RESULT {"users":50,"passed":true,"requests":991,"failures":0,"worstP95Ms":400,"worstRoute":"/accounts"}
+Ramp to 100 users over 30s, hold 60s
+Active users 66/1000, in-flight 2, requests 1519, failures 0, 429 0
+Active users 82/1000, in-flight 5, requests 1770, failures 0, 429 0
+Active users 98/1000, in-flight 6, requests 2085, failures 0, 429 0
+Active users 100/1000, in-flight 5, requests 2409, failures 0, 429 0
+Active users 100/1000, in-flight 15, requests 2709, failures 0, 429 0
+Active users 100/1000, in-flight 0, requests 3051, failures 0, 429 0
+Active users 100/1000, in-flight 0, requests 3363, failures 0, 429 0
+Active users 100/1000, in-flight 4, requests 3692, failures 0, 429 0
+Active users 100/1000, in-flight 22, requests 3976, failures 0, 429 0
+STAGE RESULT {"users":100,"passed":true,"requests":1910,"failures":0,"worstP95Ms":915,"worstRoute":"/accounts"}
+Ramp to 250 users over 30s, hold 60s
+Active users 139/1000, in-flight 2, requests 4415, failures 0, 429 0
+Active users 187/1000, in-flight 14, requests 4968, failures 0, 429 0
+Active users 216/1000, in-flight 157, requests 5413, failures 0, 429 0
+Active users 250/1000, in-flight 25, requests 6061, failures 0, 429 0
+Active users 250/1000, in-flight 116, requests 6621, failures 0, 429 0
+Active users 250/1000, in-flight 52, requests 7266, failures 0, 429 0
+Active users 250/1000, in-flight 84, requests 7874, failures 0, 429 0
+Active users 250/1000, in-flight 30, requests 8550, failures 0, 429 0
+Active users 250/1000, in-flight 194, requests 9033, failures 0, 429 0
+STAGE RESULT {"users":250,"passed":false,"requests":3598,"failures":0,"worstP95Ms":8026,"worstRoute":"/dashboard/admin"}
+Ramp to 500 users over 30s, hold 60s
+Active users 262/1000, in-flight 71, requests 9597, failures 0, 429 0
+Active users 326/1000, in-flight 185, requests 10252, failures 0, 429 0
+Active users 381/1000, in-flight 247, requests 10800, failures 0, 429 0
+Active users 448/1000, in-flight 353, requests 11382, failures 0, 429 0
+Active users 500/1000, in-flight 248, requests 12221, failures 0, 429 0
+Active users 500/1000, in-flight 324, requests 12779, failures 0, 429 0
+Active users 500/1000, in-flight 377, requests 13347, failures 0, 429 0
+Active users 500/1000, in-flight 96, requests 14146, failures 0, 429 0
+Active users 500/1000, in-flight 286, requests 14819, failures 0, 429 0
+Active users 500/1000, in-flight 369, requests 15332, failures 0, 429 0
+Active users 500/1000, in-flight 75, requests 15917, failures 0, 429 0
+STAGE RESULT {"users":500,"passed":false,"requests":3950,"failures":0,"worstP95Ms":16079,"worstRoute":"/dashboard/admin"}
+Ramp to 1000 users over 30s, hold 60s
+Active users 562/1000, in-flight 294, requests 16848, failures 0, 429 0
+Active users 642/1000, in-flight 654, requests 17591, failures 0, 429 0
+Active users 683/1000, in-flight 793, requests 17990, failures 0, 429 0
+Active users 805/1000, in-flight 899, requests 18620, failures 0, 429 0
+Active users 876/1000, in-flight 867, requests 19148, failures 8, 429 0
+Active users 941/1000, in-flight 820, requests 19612, failures 106, 429 0
+STAGE RESULT {"users":1000,"passed":false,"requests":0,"failures":0}
+┌─────────┬──────────────────────────────┬──────────┬──────────┬─────────────┬──────────┬──────────┬────────────────────┬──────────────────────────────────┬─────────────────────────────────────┬────────┬───────┬───────┐
+│ (index) │ route                        │ requests │ failures │ rateLimited │ timeouts │ maxBytes │ totalMs            │ statusCounts                     │ errorCounts                         │ meanMs │ p95Ms │ p99Ms │
+├─────────┼──────────────────────────────┼──────────┼──────────┼─────────────┼──────────┼──────────┼────────────────────┼──────────────────────────────────┼─────────────────────────────────────┼────────┼───────┼───────┤
+│ 0       │ '/auth/login'                │ 1000     │ 42       │ 0           │ 42       │ 2645     │ 10206158.122200003 │ { '200': 966, NO_RESPONSE: 34 }  │ { TimeoutError: 42 }                │ 10206  │ 28582 │ 30001 │
+│ 1       │ '/customers?page=1&limit=25' │ 1858     │ 4        │ 0           │ 0        │ 14102    │ 6056740.9387       │ { '200': 1854, NO_RESPONSE: 4 }  │ { ECONNRESET: 4 }                   │ 3260   │ 11767 │ 19754 │
+│ 2       │ '/customers/load-c-1'        │ 1885     │ 3        │ 0           │ 0        │ 3124     │ 5216776.0372       │ { '200': 1882, NO_RESPONSE: 3 }  │ { ECONNRESET: 3 }                   │ 2768   │ 10936 │ 17659 │
+│ 3       │ '/accounts'                  │ 1931     │ 2        │ 0           │ 0        │ 6928     │ 8350172.911000004  │ { '200': 1929, NO_RESPONSE: 2 }  │ { ECONNRESET: 2 }                   │ 4324   │ 14625 │ 21190 │
+│ 4       │ '/journals?page=1&limit=25'  │ 1957     │ 8        │ 0           │ 0        │ 82222    │ 5974608.562700002  │ { '200': 1949, NO_RESPONSE: 8 }  │ { ECONNRESET: 8 }                   │ 3053   │ 11714 │ 14174 │
+│ 5       │ '/audit?limit=25'            │ 1955     │ 7        │ 0           │ 0        │ 10125    │ 5602281.201800002  │ { '200': 1948, NO_RESPONSE: 7 }  │ { ECONNRESET: 7 }                   │ 2866   │ 11179 │ 14398 │
+│ 6       │ '/notes?page=1&limit=25'     │ 1964     │ 11       │ 0           │ 0        │ 9113     │ 5438489.1165       │ { '200': 1953, NO_RESPONSE: 11 } │ { ECONNRESET: 11 }                  │ 2769   │ 11106 │ 14091 │
+│ 7       │ '/notes/stats'               │ 1957     │ 8        │ 0           │ 0        │ 162      │ 5396171.2127       │ { '200': 1949, NO_RESPONSE: 8 }  │ { ECONNRESET: 8 }                   │ 2757   │ 9962  │ 14395 │
+│ 8       │ '/search?q=load'             │ 1975     │ 2        │ 0           │ 0        │ 2319     │ 6363785.495599997  │ { '200': 1973, NO_RESPONSE: 2 }  │ { ECONNRESET: 2 }                   │ 3222   │ 11903 │ 15484 │
+│ 9       │ '/documents/summary'         │ 1989     │ 9        │ 0           │ 0        │ 98       │ 8538720.946099998  │ { '200': 1980, NO_RESPONSE: 9 }  │ { ECONNRESET: 9 }                   │ 4293   │ 16031 │ 21994 │
+│ 10      │ '/dashboard/admin'           │ 1961     │ 68       │ 0           │ 67       │ 650      │ 12899026.9386      │ { '200': 1893, NO_RESPONSE: 68 } │ { TimeoutError: 67, ECONNRESET: 1 } │ 6578   │ 27745 │ 30001 │
+└─────────┴──────────────────────────────┴──────────┴──────────┴─────────────┴──────────┴──────────┴────────────────────┴──────────────────────────────────┴─────────────────────────────────────┴────────┴───────┴───────┘
+Report: D:\devoxa technologies\EstateSync\docs\qa\load-tests\concurrent-2026-10-05T19-06-37-438Z.json
+Concurrent load criteria failed; inspect the JSON report

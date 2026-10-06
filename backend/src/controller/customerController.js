@@ -153,59 +153,45 @@ exports.createCustomer = async (req, res) => {
 // 2. Get list of customers (Sales sees own, Admin/Accounting sees all)
 exports.getCustomers = async (req, res) => {
   try {
-    const userRole = req.user.role;
-    const permissions = req.user.permissions || [];
-    const canViewAll = userRole === 'ADMIN' || permissions.includes('customer.view_all');
-
-    const where = canViewAll ? {} : { salesOwnerId: req.user.userId };
-
-    const customers = await prisma.customer.findMany({
-      where,
-      include: {
-        salesOwner: { select: { id: true, name: true, email: true } },
-        payments: {
-          select: {
-            id: true,
-            amount: true,
-            dateOfPayment: true,
-            paymentMode: true,
-            sourceAccount: true,
-            destinationAccount: true,
-            referenceNo: true,
-            status: true,
-            recordedBy: { select: { id: true, name: true, email: true } }
-          },
-          orderBy: { dateOfPayment: 'desc' }
-        }
-      },
-      orderBy: { createdAt: 'desc' }
-    });
-
-    // Summary calculations
-    let totalPortfolioValue = 0;
-    let totalCollected = 0;
-    let totalOutstanding = 0;
-    let activeCustomersCount = 0;
-
-    for (const c of customers) {
-      if (c.status !== 'CANCELLED') {
-        activeCustomersCount++;
-        totalPortfolioValue += parseFloat(c.totalContractValue || 0);
-        totalCollected += parseFloat(c.totalPaid || 0) - parseFloat(c.refundAmount || 0);
-        totalOutstanding += parseFloat(c.balanceDue || 0);
-      }
+    const page = Number(req.query.page || 1), limit = Number(req.query.limit || 25);
+    const search = String(req.query.search || '').trim();
+    const status = req.query.status || 'ALL';
+    if (!Number.isSafeInteger(page) || page < 1 || page > 1000000 ||
+        !Number.isSafeInteger(limit) || limit < 1 || limit > 100 || search.length > 150 ||
+        !['ALL', 'ACTIVE', 'CANCELLED'].includes(status)) {
+      return res.status(400).json({ success: false, message: 'Invalid customer pagination or filters' });
     }
-
-    res.json({
-      success: true,
-      customers,
-      summary: {
-        totalCustomers: activeCustomersCount,
-        totalPortfolioValue,
-        totalCollected,
-        totalOutstanding
-      }
-    });
+    const canViewAll = req.user.role === 'ADMIN' || (req.user.permissions || []).includes('customer.view_all');
+    const scope = canViewAll ? {} : { salesOwnerId: req.user.userId };
+    const literalSearch = search.replace(/[\\%_]/g, '\\$&');
+    const where = { ...scope, ...(status === 'ALL' ? {} : { status }),
+      ...(search ? { OR: ['customerName', 'plotNo', 'projectLocation', 'khataNo'].map(field => ({ [field]: { contains: literalSearch, mode: 'insensitive' } })) } : {}) };
+    const [customers, total, summary] = await Promise.all([
+      prisma.customer.findMany({ where, skip: (page - 1) * limit, take: limit,
+        orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+        select: { id: true, salesOwnerId: true, customerName: true, customerContact: true,
+          projectLocation: true, plotNo: true, khataNo: true, areaSqft: true, ratePerSqft: true,
+          identityType: true, identityNumber: true, status: true, cancellationStatus: true,
+          totalContractValue: true, totalPaid: true, balanceDue: true,
+          salesOwner: { select: { id: true, name: true, email: true } } }
+      }),
+      prisma.customer.count({ where }),
+      require('../utils/summaryCache').rememberSummary('customers:' + (canViewAll ? 'all' : req.user.userId), async () => {
+        const totals = await prisma.customer.aggregate({ where: { ...scope, status: { not: 'CANCELLED' } },
+          _count: { id: true }, _sum: { totalContractValue: true, totalPaid: true, refundAmount: true, balanceDue: true } });
+        return { totalCustomers: totals._count.id, totalPortfolioValue: Number(totals._sum.totalContractValue || 0),
+          totalCollected: Number(totals._sum.totalPaid || 0) - Number(totals._sum.refundAmount || 0),
+          totalOutstanding: Number(totals._sum.balanceDue || 0) };
+      })
+    ]);
+    // Count histories only for this page. A relation aggregate in the main list
+    // query can group the entire payment table before applying LIMIT.
+    const paymentCounts = customers.length ? await prisma.customerPayment.groupBy({
+      by: ['customerId'], where: { customerId: { in: customers.map(customer => customer.id) } }, _count: { id: true }
+    }) : [];
+    const counts = new Map(paymentCounts.map(row => [row.customerId, row._count.id]));
+    res.json({ success: true, customers: customers.map(customer => ({ ...customer, _count: { payments: counts.get(customer.id) || 0 } })), summary,
+      pagination: { page, limit, total, totalPages: Math.ceil(total / limit), hasNextPage: page * limit < total } });
   } catch (error) {
     console.error('Error fetching customers:', error);
     res.status(500).json({ success: false, message: 'Server error fetching customers' });

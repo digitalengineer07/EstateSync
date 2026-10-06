@@ -15,6 +15,13 @@ const run = (file, args, options = {}) => new Promise((resolve, reject) => {
   child.on('error', reject); child.on('exit', code => code === 0 ? resolve(output) : reject(new Error(output + diagnostics || `Command exited ${code}`)));
 });
 async function main() {
+  const performanceTest = process.argv.includes('--performance');
+  const loadTest = process.argv.includes('--load') || performanceTest;
+  if (loadTest) {
+    const count = Number(process.env.LOAD_RECORDS || 10000);
+    if (!Number.isSafeInteger(count) || count < 10 || count > 10000000 || count % 10) throw Error('LOAD_RECORDS must be a multiple of 10, between 10 and 10000000');
+    if (count >= 1000000 && process.env.LOAD_LARGE_DATASET !== 'YES') throw Error('Set LOAD_LARGE_DATASET=YES for large datasets');
+  }
   const bin = process.env.DOCUMENT_TEST_POSTGRES_BIN;
   if (!bin) throw Error('Set DOCUMENT_TEST_POSTGRES_BIN to a local PostgreSQL bin directory.');
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'estatesync-doc-pg-'));
@@ -34,15 +41,18 @@ async function main() {
     try {
       const sql = await run(process.execPath, [require.resolve('prisma/build/index.js'), 'migrate', 'diff', '--from-empty', '--to-schema-datamodel', 'prisma/schema.prisma', '--script'], { cwd: path.join(__dirname, '..'), env });
       // Establish the old financial schema, then apply the actual shipped upgrade.
-      const baseline = sql.split(';').filter(statement => !/"(TransactionDocument|DocumentUpload|DocumentException|AuthSession)"/.test(statement)).join(';');
+      const baseline = sql.split(';').filter(statement => !/"(TransactionDocument|DocumentUpload|DocumentException|AuthSession)"/.test(statement)).filter(statement => !performanceTest || !/CREATE INDEX "(Customer_createdAt_id_idx|Customer_salesOwnerId_createdAt_id_idx|CustomerPayment_customerId_dateOfPayment_idx)"/.test(statement)).join(';');
       await client.query(baseline);
       await client.query(await fs.readFile(path.join(__dirname, '../prisma/upgrades/20260930_transaction_documents.sql'), 'utf8'));
       console.log('Additive document migration applied to isolated PostgreSQL successfully.');
     } finally { await client.end(); }
     const suites = process.argv.includes('--security') ? ['test/security.integration.test.js'] : ['test/documents.unit.test.js', 'test/documents.integration.test.js'];
     await run(process.execPath, ['--test', '--test-timeout=120000', ...suites], { cwd: path.join(__dirname, '..'), env, live: true });
-    if (process.argv.includes('--regression')) {
+    if (process.argv.includes('--regression') || loadTest) {
       await run(process.execPath, ['prisma/seed.js'], { cwd: path.join(__dirname, '..'), env });
+      const dataset = loadTest ? await require('./load_dataset').seedLoadDataset(env) : null;
+      if (performanceTest) await run(process.execPath, ['scripts/profile_reads.js'], { cwd: path.join(__dirname, '..'), env, live: true });
+      if (performanceTest && process.argv.includes('--profile-only')) return;
       const apiPort = await new Promise(resolve => { const s = net.createServer(); s.listen(0, '127.0.0.1', () => { const n = s.address().port; s.close(() => resolve(n)); }); });
       const apiUrl = `http://127.0.0.1:${apiPort}`;
       const appEnv = { ...env, PORT: String(apiPort), API_BASE_URL: apiUrl, RENDER_EXTERNAL_URL: apiUrl, FRONTEND_URL: '', JWT_REFRESH_SECRET: crypto.randomBytes(32).toString('hex') };
@@ -56,7 +66,17 @@ async function main() {
           await new Promise(resolve => setTimeout(resolve, 250));
         }
         if (!ready) throw Error('Isolated regression API did not start.');
-        await run(process.execPath, ['scripts/github_action_validation_suite.js'], { cwd: path.join(__dirname, '..'), env: appEnv, live: true });
+        let workflowError = null;
+        try {
+          await run(process.execPath, ['scripts/github_action_validation_suite.js'], { cwd: path.join(__dirname, '..'), env: appEnv, live: true });
+        } catch (error) {
+          if (!loadTest) throw error;
+          workflowError = error.message;
+        }
+        if (loadTest) {
+          if (process.argv.includes('--concurrent')) await require('./load_concurrent').runConcurrentLoad(apiUrl, appEnv, dataset, workflowError);
+          else await require('./load_probe').runLoadProbe(apiUrl, appEnv, dataset, workflowError);
+        }
       } finally { app.kill(); }
     }
   } finally {

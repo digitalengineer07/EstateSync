@@ -1,0 +1,2064 @@
+{
+  "startedAt": "2026-10-05T19:29:00.855Z",
+  "finishedAt": "2026-10-05T19:37:12.733Z",
+  "dataset": {
+    "workloadRows": 10000,
+    "customers": 1000,
+    "journals": 1000,
+    "journalLines": 2000,
+    "notes": 2000,
+    "auditLogs": 4000,
+    "additionalFixtureRows": true,
+    "seedSeconds": 0.606,
+    "databaseBytes": "14049807"
+  },
+  "requestedUsers": 1000,
+  "authenticated": 1000,
+  "peakActive": 1000,
+  "peakInFlight": 819,
+  "total": 35281,
+  "failures": 23,
+  "rateLimited": 0,
+  "elapsedSeconds": 491.87666470000005,
+  "requestsPerSecond": 71.72733030854025,
+  "passed": false,
+  "stopReason": null,
+  "workflowError": null,
+  "stages": [
+    {
+      "target": 50,
+      "activeAtEnd": 50,
+      "passed": true,
+      "enoughSamples": true,
+      "requests": 977,
+      "failures": 0,
+      "measurementSeconds": 60.232070900000004,
+      "drainSeconds": 0.000009299999980783014,
+      "requestsPerSecond": 16.220592029295382,
+      "worstP95Ms": 202,
+      "worstRoute": "/accounts",
+      "ramp": {
+        "seconds": 30.3541178,
+        "summary": [
+          {
+            "route": "/auth/login",
+            "requests": 50,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 2638,
+            "totalMs": 13707.80969999999,
+            "statusCounts": {
+              "200": 50
+            },
+            "errorCounts": {},
+            "meanMs": 274,
+            "p95Ms": 326,
+            "p99Ms": 337
+          },
+          {
+            "route": "/customers?page=1&limit=25",
+            "requests": 26,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 13963,
+            "totalMs": 890.0632999999798,
+            "statusCounts": {
+              "200": 26
+            },
+            "errorCounts": {},
+            "meanMs": 34,
+            "p95Ms": 75,
+            "p99Ms": 217
+          },
+          {
+            "route": "/customers/load-c-1",
+            "requests": 29,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 991,
+            "totalMs": 605.3747000000003,
+            "statusCounts": {
+              "200": 29
+            },
+            "errorCounts": {},
+            "meanMs": 21,
+            "p95Ms": 43,
+            "p99Ms": 56
+          },
+          {
+            "route": "/accounts",
+            "requests": 28,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 6924,
+            "totalMs": 1525.6278000000239,
+            "statusCounts": {
+              "200": 28
+            },
+            "errorCounts": {},
+            "meanMs": 54,
+            "p95Ms": 94,
+            "p99Ms": 118
+          },
+          {
+            "route": "/journals?page=1&limit=25",
+            "requests": 27,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 80974,
+            "totalMs": 957.7992000000086,
+            "statusCounts": {
+              "200": 27
+            },
+            "errorCounts": {},
+            "meanMs": 35,
+            "p95Ms": 68,
+            "p99Ms": 95
+          },
+          {
+            "route": "/audit?limit=25",
+            "requests": 28,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 14174,
+            "totalMs": 580.531399999978,
+            "statusCounts": {
+              "200": 28
+            },
+            "errorCounts": {},
+            "meanMs": 21,
+            "p95Ms": 43,
+            "p99Ms": 53
+          },
+          {
+            "route": "/notes?page=1&limit=25",
+            "requests": 28,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 9021,
+            "totalMs": 510.4211000000141,
+            "statusCounts": {
+              "200": 28
+            },
+            "errorCounts": {},
+            "meanMs": 18,
+            "p95Ms": 30,
+            "p99Ms": 60
+          },
+          {
+            "route": "/notes/stats",
+            "requests": 28,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 160,
+            "totalMs": 573.1446999999898,
+            "statusCounts": {
+              "200": 28
+            },
+            "errorCounts": {},
+            "meanMs": 20,
+            "p95Ms": 50,
+            "p99Ms": 51
+          },
+          {
+            "route": "/search?q=load",
+            "requests": 28,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 1132,
+            "totalMs": 915.3600999999762,
+            "statusCounts": {
+              "200": 28
+            },
+            "errorCounts": {},
+            "meanMs": 33,
+            "p95Ms": 69,
+            "p99Ms": 83
+          },
+          {
+            "route": "/documents/summary",
+            "requests": 27,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 98,
+            "totalMs": 786.6519000000117,
+            "statusCounts": {
+              "200": 27
+            },
+            "errorCounts": {},
+            "meanMs": 29,
+            "p95Ms": 49,
+            "p99Ms": 68
+          },
+          {
+            "route": "/dashboard/admin",
+            "requests": 27,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 648,
+            "totalMs": 594.6986999999863,
+            "statusCounts": {
+              "200": 27
+            },
+            "errorCounts": {},
+            "meanMs": 22,
+            "p95Ms": 38,
+            "p99Ms": 59
+          }
+        ]
+      },
+      "steady": {
+        "summary": [
+          {
+            "route": "/journals?page=1&limit=25",
+            "requests": 98,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 80974,
+            "totalMs": 6559.154399999927,
+            "statusCounts": {
+              "200": 98
+            },
+            "errorCounts": {},
+            "meanMs": 67,
+            "p95Ms": 135,
+            "p99Ms": 238
+          },
+          {
+            "route": "/accounts",
+            "requests": 98,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 6924,
+            "totalMs": 9314.820300000007,
+            "statusCounts": {
+              "200": 98
+            },
+            "errorCounts": {},
+            "meanMs": 95,
+            "p95Ms": 202,
+            "p99Ms": 284
+          },
+          {
+            "route": "/documents/summary",
+            "requests": 97,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 98,
+            "totalMs": 4824.314599999983,
+            "statusCounts": {
+              "200": 97
+            },
+            "errorCounts": {},
+            "meanMs": 50,
+            "p95Ms": 114,
+            "p99Ms": 246
+          },
+          {
+            "route": "/dashboard/admin",
+            "requests": 98,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 648,
+            "totalMs": 3358.316000000006,
+            "statusCounts": {
+              "200": 98
+            },
+            "errorCounts": {},
+            "meanMs": 34,
+            "p95Ms": 103,
+            "p99Ms": 161
+          },
+          {
+            "route": "/customers?page=1&limit=25",
+            "requests": 99,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 13963,
+            "totalMs": 4817.025900000022,
+            "statusCounts": {
+              "200": 99
+            },
+            "errorCounts": {},
+            "meanMs": 49,
+            "p95Ms": 125,
+            "p99Ms": 233
+          },
+          {
+            "route": "/notes/stats",
+            "requests": 96,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 160,
+            "totalMs": 3938.7300000000687,
+            "statusCounts": {
+              "200": 96
+            },
+            "errorCounts": {},
+            "meanMs": 41,
+            "p95Ms": 104,
+            "p99Ms": 191
+          },
+          {
+            "route": "/search?q=load",
+            "requests": 97,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 1132,
+            "totalMs": 4632.155699999988,
+            "statusCounts": {
+              "200": 97
+            },
+            "errorCounts": {},
+            "meanMs": 48,
+            "p95Ms": 113,
+            "p99Ms": 206
+          },
+          {
+            "route": "/audit?limit=25",
+            "requests": 99,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 12091,
+            "totalMs": 4886.793799999898,
+            "statusCounts": {
+              "200": 99
+            },
+            "errorCounts": {},
+            "meanMs": 49,
+            "p95Ms": 119,
+            "p99Ms": 141
+          },
+          {
+            "route": "/notes?page=1&limit=25",
+            "requests": 97,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 9021,
+            "totalMs": 3492.0543000000325,
+            "statusCounts": {
+              "200": 97
+            },
+            "errorCounts": {},
+            "meanMs": 36,
+            "p95Ms": 98,
+            "p99Ms": 118
+          },
+          {
+            "route": "/customers/load-c-1",
+            "requests": 98,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 991,
+            "totalMs": 3690.008799999996,
+            "statusCounts": {
+              "200": 98
+            },
+            "errorCounts": {},
+            "meanMs": 38,
+            "p95Ms": 83,
+            "p99Ms": 214
+          }
+        ]
+      }
+    },
+    {
+      "target": 100,
+      "activeAtEnd": 100,
+      "passed": true,
+      "enoughSamples": true,
+      "requests": 1963,
+      "failures": 0,
+      "measurementSeconds": 60.03172659999999,
+      "drainSeconds": 0.062729499999989,
+      "requestsPerSecond": 32.66524280931134,
+      "worstP95Ms": 656,
+      "worstRoute": "/accounts",
+      "ramp": {
+        "seconds": 30.341060300000013,
+        "summary": [
+          {
+            "route": "/accounts",
+            "requests": 77,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 6924,
+            "totalMs": 6462.748500000074,
+            "statusCounts": {
+              "200": 77
+            },
+            "errorCounts": {},
+            "meanMs": 84,
+            "p95Ms": 178,
+            "p99Ms": 271
+          },
+          {
+            "route": "/audit?limit=25",
+            "requests": 77,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 12096,
+            "totalMs": 3003.2640000001993,
+            "statusCounts": {
+              "200": 77
+            },
+            "errorCounts": {},
+            "meanMs": 39,
+            "p95Ms": 78,
+            "p99Ms": 130
+          },
+          {
+            "route": "/documents/summary",
+            "requests": 79,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 98,
+            "totalMs": 3836.911299999949,
+            "statusCounts": {
+              "200": 79
+            },
+            "errorCounts": {},
+            "meanMs": 49,
+            "p95Ms": 121,
+            "p99Ms": 177
+          },
+          {
+            "route": "/search?q=load",
+            "requests": 76,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 1132,
+            "totalMs": 3062.2686000000394,
+            "statusCounts": {
+              "200": 76
+            },
+            "errorCounts": {},
+            "meanMs": 40,
+            "p95Ms": 92,
+            "p99Ms": 146
+          },
+          {
+            "route": "/notes/stats",
+            "requests": 76,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 160,
+            "totalMs": 2042.7120000000286,
+            "statusCounts": {
+              "200": 76
+            },
+            "errorCounts": {},
+            "meanMs": 27,
+            "p95Ms": 61,
+            "p99Ms": 128
+          },
+          {
+            "route": "/customers?page=1&limit=25",
+            "requests": 77,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 13963,
+            "totalMs": 3795.0259999999835,
+            "statusCounts": {
+              "200": 77
+            },
+            "errorCounts": {},
+            "meanMs": 49,
+            "p95Ms": 117,
+            "p99Ms": 224
+          },
+          {
+            "route": "/journals?page=1&limit=25",
+            "requests": 79,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 80974,
+            "totalMs": 4438.565700000036,
+            "statusCounts": {
+              "200": 79
+            },
+            "errorCounts": {},
+            "meanMs": 56,
+            "p95Ms": 111,
+            "p99Ms": 183
+          },
+          {
+            "route": "/auth/login",
+            "requests": 50,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 2642,
+            "totalMs": 17194.330700000166,
+            "statusCounts": {
+              "200": 50
+            },
+            "errorCounts": {},
+            "meanMs": 344,
+            "p95Ms": 486,
+            "p99Ms": 562
+          },
+          {
+            "route": "/customers/load-c-1",
+            "requests": 76,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 991,
+            "totalMs": 2933.9990000000107,
+            "statusCounts": {
+              "200": 76
+            },
+            "errorCounts": {},
+            "meanMs": 39,
+            "p95Ms": 138,
+            "p99Ms": 150
+          },
+          {
+            "route": "/notes?page=1&limit=25",
+            "requests": 76,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 9021,
+            "totalMs": 2920.5183999999426,
+            "statusCounts": {
+              "200": 76
+            },
+            "errorCounts": {},
+            "meanMs": 38,
+            "p95Ms": 91,
+            "p99Ms": 134
+          },
+          {
+            "route": "/dashboard/admin",
+            "requests": 76,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 648,
+            "totalMs": 2165.720199999836,
+            "statusCounts": {
+              "200": 76
+            },
+            "errorCounts": {},
+            "meanMs": 28,
+            "p95Ms": 71,
+            "p99Ms": 92
+          }
+        ]
+      },
+      "steady": {
+        "summary": [
+          {
+            "route": "/notes/stats",
+            "requests": 196,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 160,
+            "totalMs": 6440.093100000056,
+            "statusCounts": {
+              "200": 196
+            },
+            "errorCounts": {},
+            "meanMs": 33,
+            "p95Ms": 87,
+            "p99Ms": 434
+          },
+          {
+            "route": "/notes?page=1&limit=25",
+            "requests": 197,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 9021,
+            "totalMs": 7511.9916999998095,
+            "statusCounts": {
+              "200": 197
+            },
+            "errorCounts": {},
+            "meanMs": 38,
+            "p95Ms": 97,
+            "p99Ms": 516
+          },
+          {
+            "route": "/journals?page=1&limit=25",
+            "requests": 197,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 80974,
+            "totalMs": 11795.027300000133,
+            "statusCounts": {
+              "200": 197
+            },
+            "errorCounts": {},
+            "meanMs": 60,
+            "p95Ms": 208,
+            "p99Ms": 682
+          },
+          {
+            "route": "/customers?page=1&limit=25",
+            "requests": 198,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 13963,
+            "totalMs": 11958.80859999996,
+            "statusCounts": {
+              "200": 198
+            },
+            "errorCounts": {},
+            "meanMs": 60,
+            "p95Ms": 241,
+            "p99Ms": 754
+          },
+          {
+            "route": "/customers/load-c-1",
+            "requests": 200,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 991,
+            "totalMs": 10447.413499999995,
+            "statusCounts": {
+              "200": 200
+            },
+            "errorCounts": {},
+            "meanMs": 52,
+            "p95Ms": 217,
+            "p99Ms": 644
+          },
+          {
+            "route": "/audit?limit=25",
+            "requests": 198,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 12096,
+            "totalMs": 9970.727399999712,
+            "statusCounts": {
+              "200": 198
+            },
+            "errorCounts": {},
+            "meanMs": 50,
+            "p95Ms": 217,
+            "p99Ms": 707
+          },
+          {
+            "route": "/dashboard/admin",
+            "requests": 195,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 648,
+            "totalMs": 10085.695400000026,
+            "statusCounts": {
+              "200": 195
+            },
+            "errorCounts": {},
+            "meanMs": 52,
+            "p95Ms": 397,
+            "p99Ms": 638
+          },
+          {
+            "route": "/documents/summary",
+            "requests": 190,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 98,
+            "totalMs": 11084.619399999996,
+            "statusCounts": {
+              "200": 190
+            },
+            "errorCounts": {},
+            "meanMs": 58,
+            "p95Ms": 187,
+            "p99Ms": 949
+          },
+          {
+            "route": "/search?q=load",
+            "requests": 193,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 1132,
+            "totalMs": 9480.171299999813,
+            "statusCounts": {
+              "200": 193
+            },
+            "errorCounts": {},
+            "meanMs": 49,
+            "p95Ms": 187,
+            "p99Ms": 702
+          },
+          {
+            "route": "/accounts",
+            "requests": 199,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 6924,
+            "totalMs": 20299.384599999903,
+            "statusCounts": {
+              "200": 199
+            },
+            "errorCounts": {},
+            "meanMs": 102,
+            "p95Ms": 656,
+            "p99Ms": 842
+          }
+        ]
+      }
+    },
+    {
+      "target": 250,
+      "activeAtEnd": 250,
+      "passed": false,
+      "enoughSamples": true,
+      "requests": 3533,
+      "failures": 0,
+      "measurementSeconds": 60.028915199999986,
+      "drainSeconds": 0.4569209000000285,
+      "requestsPerSecond": 58.41036890287773,
+      "worstP95Ms": 3990,
+      "worstRoute": "/documents/summary",
+      "ramp": {
+        "seconds": 36.47813840000003,
+        "summary": [
+          {
+            "route": "/documents/summary",
+            "requests": 158,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 98,
+            "totalMs": 203758.15870000032,
+            "statusCounts": {
+              "200": 158
+            },
+            "errorCounts": {},
+            "meanMs": 1290,
+            "p95Ms": 3977,
+            "p99Ms": 4711
+          },
+          {
+            "route": "/search?q=load",
+            "requests": 153,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 1132,
+            "totalMs": 173329.2385999999,
+            "statusCounts": {
+              "200": 153
+            },
+            "errorCounts": {},
+            "meanMs": 1133,
+            "p95Ms": 3582,
+            "p99Ms": 3726
+          },
+          {
+            "route": "/audit?limit=25",
+            "requests": 152,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 12175,
+            "totalMs": 170315.87669999996,
+            "statusCounts": {
+              "200": 152
+            },
+            "errorCounts": {},
+            "meanMs": 1120,
+            "p95Ms": 3227,
+            "p99Ms": 3824
+          },
+          {
+            "route": "/customers?page=1&limit=25",
+            "requests": 152,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 13963,
+            "totalMs": 225642.24030000015,
+            "statusCounts": {
+              "200": 152
+            },
+            "errorCounts": {},
+            "meanMs": 1484,
+            "p95Ms": 4121,
+            "p99Ms": 4719
+          },
+          {
+            "route": "/accounts",
+            "requests": 148,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 6924,
+            "totalMs": 209091.35960000005,
+            "statusCounts": {
+              "200": 148
+            },
+            "errorCounts": {},
+            "meanMs": 1413,
+            "p95Ms": 3689,
+            "p99Ms": 4828
+          },
+          {
+            "route": "/customers/load-c-1",
+            "requests": 147,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 991,
+            "totalMs": 170726.59199999998,
+            "statusCounts": {
+              "200": 147
+            },
+            "errorCounts": {},
+            "meanMs": 1161,
+            "p95Ms": 3226,
+            "p99Ms": 3767
+          },
+          {
+            "route": "/dashboard/admin",
+            "requests": 159,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 648,
+            "totalMs": 182598.93410000013,
+            "statusCounts": {
+              "200": 159
+            },
+            "errorCounts": {},
+            "meanMs": 1148,
+            "p95Ms": 3493,
+            "p99Ms": 3735
+          },
+          {
+            "route": "/auth/login",
+            "requests": 150,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 2642,
+            "totalMs": 392741.7370000002,
+            "statusCounts": {
+              "200": 150
+            },
+            "errorCounts": {},
+            "meanMs": 2618,
+            "p95Ms": 5769,
+            "p99Ms": 6472
+          },
+          {
+            "route": "/notes?page=1&limit=25",
+            "requests": 153,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 9021,
+            "totalMs": 175308.14660000024,
+            "statusCounts": {
+              "200": 153
+            },
+            "errorCounts": {},
+            "meanMs": 1146,
+            "p95Ms": 3358,
+            "p99Ms": 3864
+          },
+          {
+            "route": "/notes/stats",
+            "requests": 153,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 160,
+            "totalMs": 176074.38080000004,
+            "statusCounts": {
+              "200": 153
+            },
+            "errorCounts": {},
+            "meanMs": 1151,
+            "p95Ms": 3545,
+            "p99Ms": 3780
+          },
+          {
+            "route": "/journals?page=1&limit=25",
+            "requests": 148,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 80974,
+            "totalMs": 176028.65570000003,
+            "statusCounts": {
+              "200": 148
+            },
+            "errorCounts": {},
+            "meanMs": 1189,
+            "p95Ms": 3279,
+            "p99Ms": 3807
+          }
+        ]
+      },
+      "steady": {
+        "summary": [
+          {
+            "route": "/notes/stats",
+            "requests": 357,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 160,
+            "totalMs": 404585.4076000004,
+            "statusCounts": {
+              "200": 357
+            },
+            "errorCounts": {},
+            "meanMs": 1133,
+            "p95Ms": 3010,
+            "p99Ms": 4339
+          },
+          {
+            "route": "/search?q=load",
+            "requests": 360,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 1132,
+            "totalMs": 435040.25909999997,
+            "statusCounts": {
+              "200": 360
+            },
+            "errorCounts": {},
+            "meanMs": 1208,
+            "p95Ms": 3125,
+            "p99Ms": 3768
+          },
+          {
+            "route": "/audit?limit=25",
+            "requests": 354,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 12173,
+            "totalMs": 389756.3260000003,
+            "statusCounts": {
+              "200": 354
+            },
+            "errorCounts": {},
+            "meanMs": 1101,
+            "p95Ms": 3044,
+            "p99Ms": 4365
+          },
+          {
+            "route": "/customers/load-c-1",
+            "requests": 345,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 991,
+            "totalMs": 371143.4438000001,
+            "statusCounts": {
+              "200": 345
+            },
+            "errorCounts": {},
+            "meanMs": 1076,
+            "p95Ms": 2924,
+            "p99Ms": 3714
+          },
+          {
+            "route": "/customers?page=1&limit=25",
+            "requests": 344,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 13963,
+            "totalMs": 478819.9341000001,
+            "statusCounts": {
+              "200": 344
+            },
+            "errorCounts": {},
+            "meanMs": 1392,
+            "p95Ms": 3690,
+            "p99Ms": 4303
+          },
+          {
+            "route": "/dashboard/admin",
+            "requests": 350,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 648,
+            "totalMs": 402654.4715000002,
+            "statusCounts": {
+              "200": 350
+            },
+            "errorCounts": {},
+            "meanMs": 1150,
+            "p95Ms": 3091,
+            "p99Ms": 4309
+          },
+          {
+            "route": "/journals?page=1&limit=25",
+            "requests": 359,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 80974,
+            "totalMs": 428106.15520000015,
+            "statusCounts": {
+              "200": 359
+            },
+            "errorCounts": {},
+            "meanMs": 1192,
+            "p95Ms": 3168,
+            "p99Ms": 4570
+          },
+          {
+            "route": "/notes?page=1&limit=25",
+            "requests": 353,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 9021,
+            "totalMs": 389411.77720000054,
+            "statusCounts": {
+              "200": 353
+            },
+            "errorCounts": {},
+            "meanMs": 1103,
+            "p95Ms": 3063,
+            "p99Ms": 4328
+          },
+          {
+            "route": "/accounts",
+            "requests": 350,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 6924,
+            "totalMs": 540919.8044999996,
+            "statusCounts": {
+              "200": 350
+            },
+            "errorCounts": {},
+            "meanMs": 1545,
+            "p95Ms": 3847,
+            "p99Ms": 4939
+          },
+          {
+            "route": "/documents/summary",
+            "requests": 361,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 98,
+            "totalMs": 593114.4100999999,
+            "statusCounts": {
+              "200": 361
+            },
+            "errorCounts": {},
+            "meanMs": 1643,
+            "p95Ms": 3990,
+            "p99Ms": 4885
+          }
+        ]
+      }
+    },
+    {
+      "target": 500,
+      "activeAtEnd": 500,
+      "passed": false,
+      "enoughSamples": true,
+      "requests": 7116,
+      "failures": 0,
+      "measurementSeconds": 60.21009970000002,
+      "drainSeconds": 1.9131021999999618,
+      "requestsPerSecond": 114.54657490859307,
+      "worstP95Ms": 6028,
+      "worstRoute": "/documents/summary",
+      "ramp": {
+        "seconds": 40.18582529999997,
+        "summary": [
+          {
+            "route": "/audit?limit=25",
+            "requests": 316,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 12175,
+            "totalMs": 547093.2073000001,
+            "statusCounts": {
+              "200": 316
+            },
+            "errorCounts": {},
+            "meanMs": 1731,
+            "p95Ms": 3558,
+            "p99Ms": 4642
+          },
+          {
+            "route": "/dashboard/admin",
+            "requests": 316,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 648,
+            "totalMs": 537860.2366000008,
+            "statusCounts": {
+              "200": 316
+            },
+            "errorCounts": {},
+            "meanMs": 1702,
+            "p95Ms": 3546,
+            "p99Ms": 5426
+          },
+          {
+            "route": "/customers/load-c-1",
+            "requests": 325,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 991,
+            "totalMs": 518277.4131999997,
+            "statusCounts": {
+              "200": 325
+            },
+            "errorCounts": {},
+            "meanMs": 1595,
+            "p95Ms": 3419,
+            "p99Ms": 4423
+          },
+          {
+            "route": "/notes/stats",
+            "requests": 328,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 160,
+            "totalMs": 545976.0417000006,
+            "statusCounts": {
+              "200": 328
+            },
+            "errorCounts": {},
+            "meanMs": 1665,
+            "p95Ms": 3506,
+            "p99Ms": 4932
+          },
+          {
+            "route": "/notes?page=1&limit=25",
+            "requests": 320,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 9021,
+            "totalMs": 509158.8162000002,
+            "statusCounts": {
+              "200": 320
+            },
+            "errorCounts": {},
+            "meanMs": 1591,
+            "p95Ms": 3395,
+            "p99Ms": 4321
+          },
+          {
+            "route": "/journals?page=1&limit=25",
+            "requests": 319,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 80974,
+            "totalMs": 574835.3444999997,
+            "statusCounts": {
+              "200": 319
+            },
+            "errorCounts": {},
+            "meanMs": 1802,
+            "p95Ms": 4248,
+            "p99Ms": 4657
+          },
+          {
+            "route": "/customers?page=1&limit=25",
+            "requests": 322,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 13963,
+            "totalMs": 670124.9532999999,
+            "statusCounts": {
+              "200": 322
+            },
+            "errorCounts": {},
+            "meanMs": 2081,
+            "p95Ms": 4459,
+            "p99Ms": 4951
+          },
+          {
+            "route": "/search?q=load",
+            "requests": 317,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 1132,
+            "totalMs": 521903.9900999992,
+            "statusCounts": {
+              "200": 317
+            },
+            "errorCounts": {},
+            "meanMs": 1646,
+            "p95Ms": 3452,
+            "p99Ms": 5092
+          },
+          {
+            "route": "/accounts",
+            "requests": 326,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 6924,
+            "totalMs": 690646.6279000009,
+            "statusCounts": {
+              "200": 326
+            },
+            "errorCounts": {},
+            "meanMs": 2119,
+            "p95Ms": 4311,
+            "p99Ms": 5390
+          },
+          {
+            "route": "/documents/summary",
+            "requests": 318,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 98,
+            "totalMs": 708207.3618000001,
+            "statusCounts": {
+              "200": 318
+            },
+            "errorCounts": {},
+            "meanMs": 2227,
+            "p95Ms": 4369,
+            "p99Ms": 5166
+          },
+          {
+            "route": "/auth/login",
+            "requests": 250,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 2642,
+            "totalMs": 800039.9256999999,
+            "statusCounts": {
+              "200": 250
+            },
+            "errorCounts": {},
+            "meanMs": 3200,
+            "p95Ms": 5276,
+            "p99Ms": 5667
+          }
+        ]
+      },
+      "steady": {
+        "summary": [
+          {
+            "route": "/journals?page=1&limit=25",
+            "requests": 706,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 80974,
+            "totalMs": 892794.078000001,
+            "statusCounts": {
+              "200": 706
+            },
+            "errorCounts": {},
+            "meanMs": 1265,
+            "p95Ms": 4162,
+            "p99Ms": 8218
+          },
+          {
+            "route": "/notes?page=1&limit=25",
+            "requests": 723,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 9021,
+            "totalMs": 891180.1847000004,
+            "statusCounts": {
+              "200": 723
+            },
+            "errorCounts": {},
+            "meanMs": 1233,
+            "p95Ms": 4090,
+            "p99Ms": 6432
+          },
+          {
+            "route": "/search?q=load",
+            "requests": 716,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 1132,
+            "totalMs": 830308.0606000004,
+            "statusCounts": {
+              "200": 716
+            },
+            "errorCounts": {},
+            "meanMs": 1160,
+            "p95Ms": 3816,
+            "p99Ms": 7789
+          },
+          {
+            "route": "/customers/load-c-1",
+            "requests": 710,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 991,
+            "totalMs": 842128.0720000004,
+            "statusCounts": {
+              "200": 710
+            },
+            "errorCounts": {},
+            "meanMs": 1186,
+            "p95Ms": 4130,
+            "p99Ms": 8247
+          },
+          {
+            "route": "/dashboard/admin",
+            "requests": 716,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 648,
+            "totalMs": 901481.4071000007,
+            "statusCounts": {
+              "200": 716
+            },
+            "errorCounts": {},
+            "meanMs": 1259,
+            "p95Ms": 4013,
+            "p99Ms": 8243
+          },
+          {
+            "route": "/notes/stats",
+            "requests": 703,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 160,
+            "totalMs": 919623.0901999997,
+            "statusCounts": {
+              "200": 703
+            },
+            "errorCounts": {},
+            "meanMs": 1308,
+            "p95Ms": 4000,
+            "p99Ms": 7784
+          },
+          {
+            "route": "/audit?limit=25",
+            "requests": 714,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 12173,
+            "totalMs": 827797.5351000017,
+            "statusCounts": {
+              "200": 714
+            },
+            "errorCounts": {},
+            "meanMs": 1159,
+            "p95Ms": 3770,
+            "p99Ms": 7658
+          },
+          {
+            "route": "/documents/summary",
+            "requests": 705,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 98,
+            "totalMs": 1195869.292099998,
+            "statusCounts": {
+              "200": 705
+            },
+            "errorCounts": {},
+            "meanMs": 1696,
+            "p95Ms": 6028,
+            "p99Ms": 9775
+          },
+          {
+            "route": "/customers?page=1&limit=25",
+            "requests": 710,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 13963,
+            "totalMs": 1109131.9442000017,
+            "statusCounts": {
+              "200": 710
+            },
+            "errorCounts": {},
+            "meanMs": 1562,
+            "p95Ms": 5405,
+            "p99Ms": 8679
+          },
+          {
+            "route": "/accounts",
+            "requests": 713,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 6924,
+            "totalMs": 1127403.4135999992,
+            "statusCounts": {
+              "200": 713
+            },
+            "errorCounts": {},
+            "meanMs": 1581,
+            "p95Ms": 5192,
+            "p99Ms": 8905
+          }
+        ]
+      }
+    },
+    {
+      "target": 1000,
+      "activeAtEnd": 1000,
+      "passed": false,
+      "enoughSamples": true,
+      "requests": 9128,
+      "failures": 23,
+      "measurementSeconds": 60.118724099999994,
+      "drainSeconds": 5.014157200000014,
+      "requestsPerSecond": 140.14426842191608,
+      "worstP95Ms": 9294,
+      "worstRoute": "/customers?page=1&limit=25",
+      "ramp": {
+        "seconds": 42.05153279999999,
+        "summary": [
+          {
+            "route": "/journals?page=1&limit=25",
+            "requests": 572,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 80974,
+            "totalMs": 1228529.7935000006,
+            "statusCounts": {
+              "200": 572
+            },
+            "errorCounts": {},
+            "meanMs": 2148,
+            "p95Ms": 3148,
+            "p99Ms": 3711
+          },
+          {
+            "route": "/notes?page=1&limit=25",
+            "requests": 576,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 9021,
+            "totalMs": 1262810.2656000007,
+            "statusCounts": {
+              "200": 576
+            },
+            "errorCounts": {},
+            "meanMs": 2192,
+            "p95Ms": 3234,
+            "p99Ms": 3536
+          },
+          {
+            "route": "/audit?limit=25",
+            "requests": 576,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 12176,
+            "totalMs": 1222922.7711,
+            "statusCounts": {
+              "200": 576
+            },
+            "errorCounts": {},
+            "meanMs": 2123,
+            "p95Ms": 3049,
+            "p99Ms": 3475
+          },
+          {
+            "route": "/customers/load-c-1",
+            "requests": 581,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 991,
+            "totalMs": 1258450.909199999,
+            "statusCounts": {
+              "200": 581
+            },
+            "errorCounts": {},
+            "meanMs": 2166,
+            "p95Ms": 3176,
+            "p99Ms": 3543
+          },
+          {
+            "route": "/dashboard/admin",
+            "requests": 579,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 648,
+            "totalMs": 1265006.2912000008,
+            "statusCounts": {
+              "200": 579
+            },
+            "errorCounts": {},
+            "meanMs": 2185,
+            "p95Ms": 3218,
+            "p99Ms": 3857
+          },
+          {
+            "route": "/search?q=load",
+            "requests": 578,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 1132,
+            "totalMs": 1256207.6667,
+            "statusCounts": {
+              "200": 578
+            },
+            "errorCounts": {},
+            "meanMs": 2173,
+            "p95Ms": 3234,
+            "p99Ms": 3693
+          },
+          {
+            "route": "/notes/stats",
+            "requests": 574,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 160,
+            "totalMs": 1221087.1762999992,
+            "statusCounts": {
+              "200": 574
+            },
+            "errorCounts": {},
+            "meanMs": 2127,
+            "p95Ms": 3148,
+            "p99Ms": 3648
+          },
+          {
+            "route": "/documents/summary",
+            "requests": 581,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 98,
+            "totalMs": 1665599.2273000022,
+            "statusCounts": {
+              "200": 581
+            },
+            "errorCounts": {},
+            "meanMs": 2867,
+            "p95Ms": 4069,
+            "p99Ms": 4805
+          },
+          {
+            "route": "/customers?page=1&limit=25",
+            "requests": 596,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 13963,
+            "totalMs": 1709954.8975000007,
+            "statusCounts": {
+              "200": 596
+            },
+            "errorCounts": {},
+            "meanMs": 2869,
+            "p95Ms": 4034,
+            "p99Ms": 4689
+          },
+          {
+            "route": "/accounts",
+            "requests": 576,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 6924,
+            "totalMs": 1631063.5709999995,
+            "statusCounts": {
+              "200": 576
+            },
+            "errorCounts": {},
+            "meanMs": 2832,
+            "p95Ms": 3818,
+            "p99Ms": 4375
+          },
+          {
+            "route": "/auth/login",
+            "requests": 500,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 2645,
+            "totalMs": 2987551.6766000018,
+            "statusCounts": {
+              "200": 500
+            },
+            "errorCounts": {},
+            "meanMs": 5975,
+            "p95Ms": 7210,
+            "p99Ms": 7852
+          }
+        ]
+      },
+      "steady": {
+        "summary": [
+          {
+            "route": "/notes?page=1&limit=25",
+            "requests": 892,
+            "failures": 1,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 9021,
+            "totalMs": 3156362.479599999,
+            "statusCounts": {
+              "200": 891,
+              "NO_RESPONSE": 1
+            },
+            "errorCounts": {
+              "ECONNREFUSED": 1
+            },
+            "meanMs": 3539,
+            "p95Ms": 7223,
+            "p99Ms": 8746
+          },
+          {
+            "route": "/customers/load-c-1",
+            "requests": 910,
+            "failures": 0,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 991,
+            "totalMs": 3269677.2379999966,
+            "statusCounts": {
+              "200": 910
+            },
+            "errorCounts": {},
+            "meanMs": 3593,
+            "p95Ms": 7195,
+            "p99Ms": 8806
+          },
+          {
+            "route": "/journals?page=1&limit=25",
+            "requests": 914,
+            "failures": 1,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 80974,
+            "totalMs": 3312343.0318000005,
+            "statusCounts": {
+              "200": 913,
+              "NO_RESPONSE": 1
+            },
+            "errorCounts": {
+              "ECONNREFUSED": 1
+            },
+            "meanMs": 3624,
+            "p95Ms": 7505,
+            "p99Ms": 8959
+          },
+          {
+            "route": "/search?q=load",
+            "requests": 927,
+            "failures": 1,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 1132,
+            "totalMs": 3375174.392000004,
+            "statusCounts": {
+              "200": 926,
+              "NO_RESPONSE": 1
+            },
+            "errorCounts": {
+              "ECONNREFUSED": 1
+            },
+            "meanMs": 3641,
+            "p95Ms": 7543,
+            "p99Ms": 8727
+          },
+          {
+            "route": "/dashboard/admin",
+            "requests": 912,
+            "failures": 4,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 648,
+            "totalMs": 3492015.4485000027,
+            "statusCounts": {
+              "200": 908,
+              "NO_RESPONSE": 4
+            },
+            "errorCounts": {
+              "ECONNREFUSED": 4
+            },
+            "meanMs": 3829,
+            "p95Ms": 7626,
+            "p99Ms": 9489
+          },
+          {
+            "route": "/notes/stats",
+            "requests": 918,
+            "failures": 3,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 160,
+            "totalMs": 3236042.7761000004,
+            "statusCounts": {
+              "200": 915,
+              "NO_RESPONSE": 3
+            },
+            "errorCounts": {
+              "ECONNREFUSED": 3
+            },
+            "meanMs": 3525,
+            "p95Ms": 7245,
+            "p99Ms": 8635
+          },
+          {
+            "route": "/audit?limit=25",
+            "requests": 913,
+            "failures": 6,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 12176,
+            "totalMs": 3305701.901299998,
+            "statusCounts": {
+              "200": 907,
+              "NO_RESPONSE": 6
+            },
+            "errorCounts": {
+              "ECONNREFUSED": 6
+            },
+            "meanMs": 3621,
+            "p95Ms": 7346,
+            "p99Ms": 8886
+          },
+          {
+            "route": "/customers?page=1&limit=25",
+            "requests": 901,
+            "failures": 3,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 13963,
+            "totalMs": 4382811.637599995,
+            "statusCounts": {
+              "200": 898,
+              "NO_RESPONSE": 3
+            },
+            "errorCounts": {
+              "ECONNREFUSED": 3
+            },
+            "meanMs": 4864,
+            "p95Ms": 9294,
+            "p99Ms": 10404
+          },
+          {
+            "route": "/accounts",
+            "requests": 913,
+            "failures": 2,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 6924,
+            "totalMs": 4365679.029699998,
+            "statusCounts": {
+              "200": 911,
+              "NO_RESPONSE": 2
+            },
+            "errorCounts": {
+              "ECONNREFUSED": 2
+            },
+            "meanMs": 4782,
+            "p95Ms": 9130,
+            "p99Ms": 10635
+          },
+          {
+            "route": "/documents/summary",
+            "requests": 928,
+            "failures": 2,
+            "rateLimited": 0,
+            "timeouts": 0,
+            "maxBytes": 98,
+            "totalMs": 4488784.389399993,
+            "statusCounts": {
+              "200": 926,
+              "NO_RESPONSE": 2
+            },
+            "errorCounts": {
+              "ECONNREFUSED": 2
+            },
+            "meanMs": 4837,
+            "p95Ms": 9283,
+            "p99Ms": 10808
+          }
+        ]
+      }
+    }
+  ],
+  "summary": [
+    {
+      "route": "/auth/login",
+      "requests": 1000,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 2645,
+      "totalMs": 4211235.479699999,
+      "statusCounts": {
+        "200": 1000
+      },
+      "errorCounts": {},
+      "meanMs": 4211,
+      "p95Ms": 6983,
+      "p99Ms": 7390
+    },
+    {
+      "route": "/customers?page=1&limit=25",
+      "requests": 3425,
+      "failures": 3,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 13963,
+      "totalMs": 8597946.530800005,
+      "statusCounts": {
+        "200": 3422,
+        "NO_RESPONSE": 3
+      },
+      "errorCounts": {
+        "ECONNREFUSED": 3
+      },
+      "meanMs": 2510,
+      "p95Ms": 7029,
+      "p99Ms": 9542
+    },
+    {
+      "route": "/customers/load-c-1",
+      "requests": 3421,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 991,
+      "totalMs": 6448080.464200007,
+      "statusCounts": {
+        "200": 3421
+      },
+      "errorCounts": {},
+      "meanMs": 1885,
+      "p95Ms": 4881,
+      "p99Ms": 7695
+    },
+    {
+      "route": "/accounts",
+      "requests": 3428,
+      "failures": 2,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 6924,
+      "totalMs": 8602406.387500001,
+      "statusCounts": {
+        "200": 3426,
+        "NO_RESPONSE": 2
+      },
+      "errorCounts": {
+        "ECONNREFUSED": 2
+      },
+      "meanMs": 2509,
+      "p95Ms": 6320,
+      "p99Ms": 9349
+    },
+    {
+      "route": "/journals?page=1&limit=25",
+      "requests": 3419,
+      "failures": 1,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 80974,
+      "totalMs": 6636387.605299996,
+      "statusCounts": {
+        "200": 3418,
+        "NO_RESPONSE": 1
+      },
+      "errorCounts": {
+        "ECONNREFUSED": 1
+      },
+      "meanMs": 1941,
+      "p95Ms": 4925,
+      "p99Ms": 8220
+    },
+    {
+      "route": "/audit?limit=25",
+      "requests": 3427,
+      "failures": 6,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 14174,
+      "totalMs": 6482028.934100017,
+      "statusCounts": {
+        "200": 3421,
+        "NO_RESPONSE": 6
+      },
+      "errorCounts": {
+        "ECONNREFUSED": 6
+      },
+      "meanMs": 1891,
+      "p95Ms": 4908,
+      "p99Ms": 7661
+    },
+    {
+      "route": "/notes?page=1&limit=25",
+      "requests": 3415,
+      "failures": 1,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 9021,
+      "totalMs": 6398666.655399998,
+      "statusCounts": {
+        "200": 3414,
+        "NO_RESPONSE": 1
+      },
+      "errorCounts": {
+        "ECONNREFUSED": 1
+      },
+      "meanMs": 1874,
+      "p95Ms": 4691,
+      "p99Ms": 7689
+    },
+    {
+      "route": "/notes/stats",
+      "requests": 3429,
+      "failures": 3,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 160,
+      "totalMs": 6516383.5525,
+      "statusCounts": {
+        "200": 3426,
+        "NO_RESPONSE": 3
+      },
+      "errorCounts": {
+        "ECONNREFUSED": 3
+      },
+      "meanMs": 1900,
+      "p95Ms": 4780,
+      "p99Ms": 7709
+    },
+    {
+      "route": "/search?q=load",
+      "requests": 3445,
+      "failures": 1,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 1132,
+      "totalMs": 6610053.562800006,
+      "statusCounts": {
+        "200": 3444,
+        "NO_RESPONSE": 1
+      },
+      "errorCounts": {
+        "ECONNREFUSED": 1
+      },
+      "meanMs": 1919,
+      "p95Ms": 4883,
+      "p99Ms": 7789
+    },
+    {
+      "route": "/documents/summary",
+      "requests": 3444,
+      "failures": 2,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 98,
+      "totalMs": 8875865.33659999,
+      "statusCounts": {
+        "200": 3442,
+        "NO_RESPONSE": 2
+      },
+      "errorCounts": {
+        "ECONNREFUSED": 2
+      },
+      "meanMs": 2577,
+      "p95Ms": 6766,
+      "p99Ms": 9811
+    },
+    {
+      "route": "/dashboard/admin",
+      "requests": 3428,
+      "failures": 4,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 648,
+      "totalMs": 6797821.2193000065,
+      "statusCounts": {
+        "200": 3424,
+        "NO_RESPONSE": 4
+      },
+      "errorCounts": {
+        "ECONNREFUSED": 4
+      },
+      "meanMs": 1983,
+      "p95Ms": 5423,
+      "p99Ms": 8195
+    }
+  ],
+  "highestPassingStage": 100,
+  "thresholds": {
+    "steadyRouteP95Ms": 2000,
+    "failureRate": 0.01,
+    "minSamplesPerRoute": 20
+  },
+  "limitations": [
+    "Local client/server/database share hardware. Not production capacity.",
+    "Read-heavy ADMIN workload only. Distinct accounts and sessions; synthetic proxy client IPs.",
+    "Reads validate status/content type/size, not JSON semantics; functional suite runs first.",
+    "Rate limits stay enabled. Timeouts may leave server-side queries running.",
+    "No 1000-user financial-write or browser-rendering test."
+  ]
+}
