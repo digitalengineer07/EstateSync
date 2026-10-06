@@ -11,12 +11,16 @@
     "test": "node scripts/github_action_validation_suite.js",
     "postinstall": "prisma generate",
     "test:documents": "node --test test/documents.unit.test.js",
-    "test:security": "node --test test/security.auth.test.js test/security.cors.test.js test/security.idempotency.test.js",
+    "test:security": "node --test test/security.auth.test.js test/security.cors.test.js test/security.idempotency.test.js test/databaseConnection.test.js",
     "test:documents:integration": "node --test test/documents.integration.test.js",
     "test:documents:local": "node scripts/test_documents_local.js",
+    "test:load": "node scripts/test_documents_local.js --load",
+    "test:load:1000": "node scripts/test_documents_local.js --load --concurrent",
     "documents:reconcile": "node scripts/reconcile_document_storage.js",
     "documents:check": "node scripts/check_document_infrastructure.js",
-    "documents:backup": "node scripts/backup_document_database.js"
+    "documents:backup": "node scripts/backup_document_database.js",
+    "test:performance": "node --test test/summaryCache.test.js && node scripts/test_documents_local.js --performance",
+    "db:read-indexes": "node scripts/upgrade_read_indexes.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1146.0",

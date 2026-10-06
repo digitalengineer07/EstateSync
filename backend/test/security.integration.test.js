@@ -117,3 +117,27 @@ test('schema upgrade is repeatable and retention preserves active sessions', asy
   assert.deepEqual((await db.authSession.findUnique({ where: { id: activeId } })).data, { marker: 'preserve' });
   assert.equal(await db.authSession.findUnique({ where: { id: expiredId } }), null);
 });
+
+test('business requests ignore session cookies; auth session outages fail closed and recover', async () => {
+  const login = await request('/auth/login', 'POST', { email: users.ADMIN.email, password: 'Testing!Secure42' }, null);
+  assert.equal(login.status, 200);
+  const cookie = login.cookie.split(';')[0];
+  const { DatabaseSessionStore } = require('../src/utils/sessionStore');
+  const originalGet = DatabaseSessionStore.prototype.get, originalTouch = DatabaseSessionStore.prototype.touch;
+  let reads = 0, touches = 0;
+  DatabaseSessionStore.prototype.get = function(sid, callback) { reads++; callback(Object.assign(Error('Test connection outage'), { code: 'P1001' })); };
+  DatabaseSessionStore.prototype.touch = function(sid, data, callback) { touches++; callback(Object.assign(Error('Test connection outage'), { code: 'P1001' })); };
+  try {
+    const business = await fetch(base + '/api/v1/users/managers', { headers: { Cookie: cookie, Authorization: `Bearer ${login.body.accessToken}` } });
+    assert.equal(business.status, 200);
+    assert.equal(reads, 0); assert.equal(touches, 0);
+    const anonymous = await fetch(base + '/api/v1/users/managers', { headers: { Cookie: cookie } });
+    assert.equal(anonymous.status, 401); // A cookie never replaces bearer authentication.
+    const refresh = await fetch(base + '/api/v1/auth/refresh', { method: 'POST', headers: { Cookie: cookie, 'Content-Type': 'application/json' }, body: JSON.stringify({ token: login.body.refreshToken }) });
+    assert.equal(refresh.status, 503);
+    assert.equal((await refresh.json()).code, 'DATABASE_UNAVAILABLE');
+    assert.equal(reads, 1);
+  } finally { DatabaseSessionStore.prototype.get = originalGet; DatabaseSessionStore.prototype.touch = originalTouch; }
+  const logout = await fetch(base + '/api/v1/auth/logout', { method: 'POST', headers: { Cookie: cookie } });
+  assert.equal(logout.status, 200);
+});

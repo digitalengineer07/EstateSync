@@ -1,0 +1,91 @@
+Additive document migration applied to isolated PostgreSQL successfully.
+TAP version 13
+# ◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+# Server running on 0
+# Subtest: anonymous business routes reject before any mutation
+ok 1 - anonymous business routes reject before any mutation
+  ---
+  duration_ms: 811.0232
+  ...
+# Subtest: invalid financial and note values return 400
+ok 2 - invalid financial and note values return 400
+  ---
+  duration_ms: 68.4879
+  ...
+# Subtest: sales cannot edit another customer, read statement, or book payments
+ok 3 - sales cannot edit another customer, read statement, or book payments
+  ---
+  duration_ms: 61.1058
+  ...
+# Subtest: wallet fields remain available for finance but not sales
+ok 4 - wallet fields remain available for finance but not sales
+  ---
+  duration_ms: 24.1084
+  ...
+# Subtest: concurrent expenses cannot overdraw a wallet
+ok 5 - concurrent expenses cannot overdraw a wallet
+  ---
+  duration_ms: 261.1004
+  ...
+# Subtest: same-key concurrent requests commit once and changed payload conflicts
+ok 6 - same-key concurrent requests commit once and changed payload conflicts
+  ---
+  duration_ms: 157.1127
+  ...
+# Subtest: concurrent reversal restores the balance only once
+ok 7 - concurrent reversal restores the balance only once
+  ---
+  duration_ms: 84.0679
+  ...
+# Subtest: password changes revoke preexisting access tokens
+ok 8 - password changes revoke preexisting access tokens
+  ---
+  duration_ms: 15.4989
+  ...
+# [Login Route] Querying Prisma for user...
+# [Login Route] Prisma query finished. User found: true
+# [Login Route] Comparing passwords with bcrypt...
+# [Login Route] Bcrypt compare finished: true
+# Subtest: login session persists in the database and refresh works with cookie
+ok 9 - login session persists in the database and refresh works with cookie
+  ---
+  duration_ms: 59.4736
+  ...
+# Subtest: unknown APIs and bodyless login return JSON without crashing
+ok 10 - unknown APIs and bodyless login return JSON without crashing
+  ---
+  duration_ms: 17.8665
+  ...
+# [Login Route] Querying Prisma for user...
+# [Login Route] Prisma query finished. User found: true
+# [Login Route] Comparing passwords with bcrypt...
+# [Login Route] Bcrypt compare finished: true
+# Subtest: concurrent refresh requests cannot reuse the same refresh token
+ok 11 - concurrent refresh requests cannot reuse the same refresh token
+  ---
+  duration_ms: 39.0229
+  ...
+# Subtest: schema upgrade is repeatable and retention preserves active sessions
+ok 12 - schema upgrade is repeatable and retention preserves active sessions
+  ---
+  duration_ms: 24.4983
+  ...
+# [Login Route] Querying Prisma for user...
+# [Login Route] Prisma query finished. User found: true
+# [Login Route] Comparing passwords with bcrypt...
+# [Login Route] Bcrypt compare finished: true
+# [Database unavailable]: { code: 'P1001', path: '/api/v1/auth/refresh' }
+# Subtest: business requests ignore session cookies; auth session outages fail closed and recover
+ok 13 - business requests ignore session cookies; auth session outages fail closed and recover
+  ---
+  duration_ms: 36.7846
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1878.9639

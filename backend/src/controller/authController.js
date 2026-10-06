@@ -1,3 +1,4 @@
+const { replyIfDatabaseUnavailable } = require('../utils/databaseConnection');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const prisma = require('../config/db');
@@ -185,6 +186,7 @@ exports.login = async (req, res) => {
     });
 
   } catch (error) {
+    if (replyIfDatabaseUnavailable(error, res)) return;
     console.error(error);
     res.status(500).json({ success: false, message: 'Login failed' });
   }
@@ -255,6 +257,7 @@ exports.refreshToken = async (req, res) => {
       refreshToken: newRefreshToken
     });
   } catch (error) {
+    if (replyIfDatabaseUnavailable(error, res)) return;
     console.error(error);
     res.status(403).json({ success: false, message: 'Invalid refresh token' });
   }
@@ -275,6 +278,7 @@ exports.logout = async (req, res) => {
 
     // Destroy the session
     req.session.destroy((err) => {
+        if (replyIfDatabaseUnavailable(err, res)) return;
       if (err) {
         console.error(err);
         return res.status(500).json({ success: false, message: 'Logout failed' });
@@ -283,6 +287,7 @@ exports.logout = async (req, res) => {
       return res.json({ success: true, message: 'Logged out successfully' });
     });
   } catch (error) {
+    if (replyIfDatabaseUnavailable(error, res)) return;
     console.error(error);
     res.status(500).json({ success: false, message: 'Logout failed' });
   }
@@ -378,6 +383,7 @@ exports.changePassword = async (req, res) => {
       message: 'Password changed successfully',
     });
   } catch (error) {
+    if (replyIfDatabaseUnavailable(error, res)) return;
     console.error('Change password error:', error);
     return res.status(500).json({
       success: false,

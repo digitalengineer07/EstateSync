@@ -1,0 +1,177 @@
+{
+  "startedAt": "2026-10-05T10:05:26.570Z",
+  "finishedAt": "2026-10-05T10:05:31.840Z",
+  "dataset": {
+    "workloadRows": 100,
+    "customers": 10,
+    "journals": 10,
+    "journalLines": 20,
+    "notes": 20,
+    "auditLogs": 40,
+    "additionalFixtureRows": true,
+    "seedSeconds": 0.455,
+    "databaseBytes": "11600399"
+  },
+  "requestedUsers": 5,
+  "authenticated": 5,
+  "peakActive": 5,
+  "peakInFlight": 5,
+  "total": 163,
+  "failures": 0,
+  "rateLimited": 0,
+  "elapsedSeconds": 5.267976799999997,
+  "requestsPerSecond": 30.94167005443154,
+  "passed": true,
+  "stopReason": null,
+  "workflowError": null,
+  "stages": [
+    {
+      "target": 5,
+      "activeAtEnd": 5,
+      "requests": 163,
+      "failures": 0,
+      "seconds": 5.141684900000004
+    }
+  ],
+  "summary": [
+    {
+      "route": "/auth/login",
+      "requests": 5,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 2635,
+      "totalMs": 1530.614300000001,
+      "meanMs": 306,
+      "p95Ms": 371,
+      "p99Ms": 371
+    },
+    {
+      "route": "/customers?page=1&limit=25",
+      "requests": 15,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 12244,
+      "totalMs": 223.5400000000118,
+      "meanMs": 15,
+      "p95Ms": 21,
+      "p99Ms": 21
+    },
+    {
+      "route": "/customers/load-c-1",
+      "requests": 15,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 991,
+      "totalMs": 222.21680000001288,
+      "meanMs": 15,
+      "p95Ms": 36,
+      "p99Ms": 36
+    },
+    {
+      "route": "/accounts",
+      "requests": 16,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 6916,
+      "totalMs": 285.2083999999959,
+      "meanMs": 18,
+      "p95Ms": 35,
+      "p99Ms": 35
+    },
+    {
+      "route": "/journals?page=1&limit=25",
+      "requests": 17,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 15567,
+      "totalMs": 277.63120000000345,
+      "meanMs": 16,
+      "p95Ms": 30,
+      "p99Ms": 30
+    },
+    {
+      "route": "/audit?limit=25",
+      "requests": 18,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 15430,
+      "totalMs": 296.8633000000009,
+      "meanMs": 16,
+      "p95Ms": 25,
+      "p99Ms": 25
+    },
+    {
+      "route": "/notes?page=1&limit=25",
+      "requests": 17,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 7191,
+      "totalMs": 254.39180000000488,
+      "meanMs": 15,
+      "p95Ms": 26,
+      "p99Ms": 26
+    },
+    {
+      "route": "/notes/stats",
+      "requests": 16,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 156,
+      "totalMs": 195.90060000000813,
+      "meanMs": 12,
+      "p95Ms": 21,
+      "p99Ms": 21
+    },
+    {
+      "route": "/search?q=load",
+      "requests": 15,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 1107,
+      "totalMs": 377.6783000000032,
+      "meanMs": 25,
+      "p95Ms": 68,
+      "p99Ms": 68
+    },
+    {
+      "route": "/documents/summary",
+      "requests": 15,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 98,
+      "totalMs": 504.56119999999646,
+      "meanMs": 34,
+      "p95Ms": 73,
+      "p99Ms": 73
+    },
+    {
+      "route": "/dashboard/admin",
+      "requests": 14,
+      "failures": 0,
+      "rateLimited": 0,
+      "timeouts": 0,
+      "maxBytes": 640,
+      "totalMs": 407.36879999999655,
+      "meanMs": 29,
+      "p95Ms": 46,
+      "p99Ms": 46
+    }
+  ],
+  "limitations": [
+    "Local client/server/database share hardware. Not production capacity.",
+    "Read-heavy ADMIN workload only. Distinct accounts and sessions; synthetic proxy client IPs.",
+    "Reads validate status/content type/size, not JSON semantics; functional suite runs first.",
+    "Rate limits stay enabled. Timeouts may leave server-side queries running.",
+    "No 1000-user financial-write or browser-rendering test."
+  ]
+}
