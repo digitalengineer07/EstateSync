@@ -110,23 +110,27 @@ export default function EditPropertyPaymentModal({
       const token = sessionStorage.getItem("accessToken");
       const idempotencyKey = `prop-pay-edit-${payment.id}-${Date.now()}`;
 
-      const res = await fetchWithTimeout(`${API_URL}/api/v1/properties/payments/${payment.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-          "Idempotency-Key": idempotencyKey
-        },
-        body: JSON.stringify({
+        const payload = {
           amount: newAmountNum,
           dateOfPayment: createSafePaymentDateISO(dateOfPayment),
           paymentMode,
           paidFromAccount: paymentMode === "CASH" ? "Cash In Hand" : (paidFromAccount.trim() || null),
           referenceNo: paymentMode === "CASH" ? null : (referenceNo.trim() || null),
-          notes: notes.trim() || null,
-          reason: reason.trim() || null
-        })
-      });
+          notes: notes.trim() || null
+        };
+        if (reason && reason.trim()) {
+          payload.reason = reason.trim();
+        }
+
+        const res = await fetchWithTimeout(`${API_URL}/api/v1/properties/payments/${payment.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "Idempotency-Key": idempotencyKey
+          },
+          body: JSON.stringify(payload)
+        });
 
       const data = await res.json();
       if (!res.ok || !data.success) {

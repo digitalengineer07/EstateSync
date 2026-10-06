@@ -16,8 +16,8 @@ function validateObject(value, depth = 0) {
     return;
   }
   for (const [key, v] of Object.entries(value)) {
-    if (['__proto__','prototype','constructor'].includes(key)) throw Error('Invalid request field');
-    if (['title','reason','fullName','customerName'].includes(key) && (typeof v !== 'string' || !v.trim())) throw Error(`${key} cannot be blank`);
+    if (['title','fullName','customerName'].includes(key) && (typeof v !== 'string' || !v.trim())) throw Error(`${key} cannot be blank`);
+    if (key === 'reason' && v !== null && v !== undefined && (typeof v !== 'string' || !v.trim())) throw Error('reason cannot be blank');
     if (v === null || v === undefined || v === '') continue;
     if (text.has(key) && typeof v !== 'string') throw Error(`${key} must be text`);
     if (numeric.has(key)) {
